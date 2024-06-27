@@ -278,6 +278,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1ef336d3_70f39770",
+        "filename": "rtc_tools/video_encoder/video_encoder.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 9741
+      },
+      "writtenOn": "2024-06-27T09:57:28Z",
+      "side": 1,
+      "message": "Thanks Mirko and Sergey for the review!",
+      "parentUuid": "4ac627fb_aafa187d",
+      "range": {
+        "startLine": 193,
+        "startChar": 0,
+        "endLine": 213,
+        "endChar": 64
+      },
+      "revId": "a3c691d4b8321883328f2e5439f465401a05181e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3692b378_332505c1",

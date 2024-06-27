@@ -232,6 +232,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "55df005f_55f92751",
+        "filename": "rtc_tools/video_encoder/video_encoder.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 9741
+      },
+      "writtenOn": "2024-06-27T09:20:02Z",
+      "side": 1,
+      "message": "Hi Mirko, sorry I don\u0027t fully understand it either, I just copied it from the HW encoder test tool. The bitrate calculation logic is defined in https://docs.google.com/document/d/1Mlu-2mMOqswWaaivIWhn00dYkoTwKcjLrxxBXcWycug/edit :)",
+      "parentUuid": "91c427bf_613837c0",
+      "range": {
+        "startLine": 193,
+        "startChar": 0,
+        "endLine": 213,
+        "endChar": 64
+      },
+      "revId": "a3c691d4b8321883328f2e5439f465401a05181e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3692b378_332505c1",
         "filename": "rtc_tools/video_encoder/video_encoder.cc",
         "patchSetId": 2

@@ -87,7 +87,8 @@ VoiceActivityDetectorWrapper::VoiceActivityDetectorWrapper(
 
 VoiceActivityDetectorWrapper::~VoiceActivityDetectorWrapper() = default;
 
-float VoiceActivityDetectorWrapper::Analyze(AudioFrameView<const float> frame) {
+float VoiceActivityDetectorWrapper::Analyze(
+    DeinterleavedView<const float> frame) {
   // Periodically reset the VAD.
   time_to_vad_reset_--;
   if (time_to_vad_reset_ <= 0) {
@@ -98,7 +99,7 @@ float VoiceActivityDetectorWrapper::Analyze(AudioFrameView<const float> frame) {
   // Resample the first channel of `frame`.
   RTC_DCHECK_EQ(frame.samples_per_channel(), frame_size_);
   MonoView<float> dst(resampled_buffer_.data(), resampled_buffer_.size());
-  resampler_.Resample(frame.channel(0), dst);
+  resampler_.Resample(frame[0], dst);
 
   return vad_->Analyze(resampled_buffer_);
 }

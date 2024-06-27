@@ -46,7 +46,8 @@ class AdaptiveDigitalGainController {
 
   // Analyzes `info`, updates the digital gain and applies it to a 10 ms
   // `frame`. Supports any sample rate supported by APM.
-  void Process(const FrameInfo& info, AudioFrameView<float> frame);
+  void Process(const FrameInfo& info, DeinterleavedView<float> frame);
+  // void Process(const FrameInfo& info, AudioFrameView<float> frame);
 
  private:
   ApmDataDumper* const apm_data_dumper_;

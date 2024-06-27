@@ -37,7 +37,7 @@ class VoiceActivityDetectorWrapper {
     // Resets the internal state.
     virtual void Reset() = 0;
     // Analyzes an audio frame and returns the speech probability.
-    virtual float Analyze(rtc::ArrayView<const float> frame) = 0;
+    virtual float Analyze(MonoView<const float> frame) = 0;
   };
 
   // Ctor. Uses `cpu_features` to instantiate the default VAD.
@@ -63,7 +63,7 @@ class VoiceActivityDetectorWrapper {
   // Analyzes the first channel of `frame` and returns the speech probability.
   // `frame` must be a 10 ms frame with the sample rate specified in the last
   // `Initialize()` call.
-  float Analyze(AudioFrameView<const float> frame);
+  float Analyze(DeinterleavedView<const float> frame);
 
  private:
   const int vad_reset_period_frames_;

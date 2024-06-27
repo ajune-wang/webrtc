@@ -58,6 +58,30 @@ class AudioBuffer {
   // reset at each call to CopyFrom or InterleaveFrom.
   void set_num_channels(size_t num_channels);
 
+  DeinterleavedView<float> view() {
+    return DeinterleavedView<float>(
+        num_channels_ && buffer_num_frames_ ? channels()[0] : nullptr,
+        buffer_num_frames_, num_channels_);
+  }
+  /*
+    // `num_channels` and `channel_size` describe the T**
+    // `audio_samples`. `audio_samples` is assumed to point to a
+    // two-dimensional |num_channels * channel_size| array of floats.
+    //
+    // Note: The implementation now only requires the first channel pointer.
+    // The previous implementation retained a pointer to externally owned array
+    // of channel pointers, but since the channel size and count are provided
+    // and the array is assumed to be a single two-dimensional array, the other
+    // channel pointers can be calculated based on that (which is what the class
+    // now uses `DeinterleavedView<>` internally for).
+    AudioFrameView(T* const* audio_samples, int num_channels, int channel_size)
+        : view_(num_channels && channel_size ? audio_samples[0] : nullptr,
+                channel_size,
+                num_channels) {
+      RTC_DCHECK_GE(view_.num_channels(), 0);
+      RTC_DCHECK_GE(view_.samples_per_channel(), 0);
+    }*/
+
   size_t num_channels() const { return num_channels_; }
   size_t num_frames() const { return buffer_num_frames_; }
   size_t num_frames_per_band() const { return num_split_frames_; }

@@ -182,6 +182,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0b04e203_39ff2df9",
+        "filename": "rtc_tools/video_encoder/video_encoder.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2024-06-27T08:46:19Z",
+      "side": 1,
+      "message": "I do no completely understand what\u0027s happening here. But, given that this is a test tool we do not rely on in prod, i\u0027m fine having this logic.",
+      "parentUuid": "3613cfe2_881844c9",
+      "range": {
+        "startLine": 193,
+        "startChar": 0,
+        "endLine": 213,
+        "endChar": 64
+      },
+      "revId": "a3c691d4b8321883328f2e5439f465401a05181e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3692b378_332505c1",

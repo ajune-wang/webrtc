@@ -134,7 +134,8 @@ bool SetAv1SvcConfig(VideoCodec& video_codec,
     SpatialLayer& spatial_layer = video_codec.spatialLayers[sl_idx];
     const int num_pixels = spatial_layer.width * spatial_layer.height;
     int min_bitrate_kbps = (480.0 * std::sqrt(num_pixels) - 95'000.0) / 1000.0;
-    spatial_layer.minBitrate = std::max(min_bitrate_kbps, 20);
+    spatial_layer.minBitrate =
+        (sl_idx == 0) ? 20 : std::max(min_bitrate_kbps, 20);
     spatial_layer.maxBitrate = 50 + static_cast<int>(1.6 * num_pixels / 1000.0);
     spatial_layer.targetBitrate =
         (spatial_layer.minBitrate + spatial_layer.maxBitrate) / 2;

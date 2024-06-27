@@ -39,6 +39,30 @@
       },
       "revId": "4aae5804c8ef09001de5dc33022376b41f03451b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "da9a295e_d757ea67",
+        "filename": "rtc_tools/video_encoder/video_encoder.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 9741
+      },
+      "writtenOn": "2024-06-27T02:54:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "145145a8_1e3ed02a",
+      "range": {
+        "startLine": 78,
+        "startChar": 16,
+        "endLine": 78,
+        "endChar": 29
+      },
+      "revId": "4aae5804c8ef09001de5dc33022376b41f03451b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

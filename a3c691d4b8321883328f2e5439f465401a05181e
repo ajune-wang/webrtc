@@ -41,6 +41,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f24277fa_6dc2eb19",
+        "filename": "rtc_tools/video_encoder/video_encoder.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 9741
+      },
+      "writtenOn": "2024-06-27T02:54:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "170d9b9a_c2abb375",
+      "range": {
+        "startLine": 49,
+        "startChar": 0,
+        "endLine": 62,
+        "endChar": 62
+      },
+      "revId": "a3c691d4b8321883328f2e5439f465401a05181e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "933531f4_fc2cce23",
@@ -195,6 +219,30 @@
       "side": 1,
       "message": "Thanks Mirko, please take another look.",
       "parentUuid": "3692b378_332505c1",
+      "range": {
+        "startLine": 249,
+        "startChar": 0,
+        "endLine": 275,
+        "endChar": 3
+      },
+      "revId": "a3c691d4b8321883328f2e5439f465401a05181e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "97800eb8_fd50f86a",
+        "filename": "rtc_tools/video_encoder/video_encoder.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 9741
+      },
+      "writtenOn": "2024-06-27T02:54:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "29cb9c10_a8ff88f6",
       "range": {
         "startLine": 249,
         "startChar": 0,

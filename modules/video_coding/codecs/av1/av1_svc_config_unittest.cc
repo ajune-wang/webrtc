@@ -158,6 +158,20 @@ TEST(Av1SvcConfigTest, SetsBitratesForMultipleSpatialLayers) {
   EXPECT_EQ(video_codec.spatialLayers[1].maxBitrate, 418u);
 }
 
+TEST(Av1SvcConfigTest, MinBitrateNotBasedOnNumPixelsOnLowestSpatialLayer) {
+  VideoCodec video_codec;
+  video_codec.codecType = kVideoCodecAV1;
+  video_codec.width = 320;
+  video_codec.height = 240;
+  video_codec.SetScalabilityMode(ScalabilityMode::kL2T2);
+
+  EXPECT_TRUE(SetAv1SvcConfig(video_codec, /*num_temporal_layers=*/kDontCare,
+                              /*num_spatial_layers=*/kDontCare));
+
+  EXPECT_EQ(video_codec.spatialLayers[0].minBitrate, 20u);
+  EXPECT_EQ(video_codec.spatialLayers[0].maxBitrate, 172u);
+}
+
 TEST(Av1SvcConfigTest, ReduceSpatialLayersOnInsufficentInputResolution) {
   VideoCodec video_codec = GetDefaultVideoCodec();
   video_codec.width = 640;

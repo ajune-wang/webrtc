@@ -16,6 +16,24 @@
       "message": "Talked about this offline: Not a good solution, but the `EncodedImage` class requires refactoring anyway.",
       "revId": "543de3d67a4eac28fb3f7474fc82c8d48deb6c09",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f617dd40_085ec446",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2024-06-27T11:15:48Z",
+      "side": 1,
+      "message": "Thanks for the review and discussion.",
+      "parentUuid": "eca80709_1ad91c3f",
+      "revId": "543de3d67a4eac28fb3f7474fc82c8d48deb6c09",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

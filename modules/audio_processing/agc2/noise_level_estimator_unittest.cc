@@ -36,13 +36,13 @@ float RunEstimator(rtc::FunctionView<float()> sample_generator,
       rtc::CheckedDivExact(sample_rate_hz, kFramesPerSecond);
   VectorFloatFrame signal(1, samples_per_channel, 0.0f);
   for (int i = 0; i < kNumIterations; ++i) {
-    AudioFrameView<float> frame_view = signal.float_frame_view();
+    DeinterleavedView<float> frame_view = signal.view();
     for (int j = 0; j < samples_per_channel; ++j) {
-      frame_view.channel(0)[j] = sample_generator();
+      frame_view[0][j] = sample_generator();
     }
     estimator.Analyze(frame_view);
   }
-  return estimator.Analyze(signal.float_frame_view());
+  return estimator.Analyze(signal.view());
 }
 
 class NoiseEstimatorParametrization : public ::testing::TestWithParam<int> {

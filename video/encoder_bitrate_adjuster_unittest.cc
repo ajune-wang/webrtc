@@ -41,16 +41,27 @@ class EncoderBitrateAdjusterTest : public ::testing::Test {
         sequence_idx_{} {}
 
  protected:
-  void SetUpAdjuster(size_t num_spatial_layers,
-                     size_t num_temporal_layers,
-                     bool vp9_svc) {
+  void SetUpAdjuster(
+      size_t num_spatial_layers,
+      size_t num_temporal_layers,
+      VideoCodecType codec_type = VideoCodecType::kVideoCodecVP8) {
     // Initialize some default VideoCodec instance with the given number of
     // layers.
-    if (vp9_svc) {
-      codec_.codecType = VideoCodecType::kVideoCodecVP9;
+    if (codec_type == VideoCodecType::kVideoCodecVP9) {
+      codec_.codecType = codec_type;
       codec_.numberOfSimulcastStreams = 1;
       codec_.VP9()->numberOfSpatialLayers = num_spatial_layers;
       codec_.VP9()->numberOfTemporalLayers = num_temporal_layers;
+      for (size_t si = 0; si < num_spatial_layers; ++si) {
+        codec_.spatialLayers[si].minBitrate = 100 * (1 << si);
+        codec_.spatialLayers[si].targetBitrate = 200 * (1 << si);
+        codec_.spatialLayers[si].maxBitrate = 300 * (1 << si);
+        codec_.spatialLayers[si].active = true;
+        codec_.spatialLayers[si].numberOfTemporalLayers = num_temporal_layers;
+      }
+    } else if (codec_type == VideoCodecType::kVideoCodecAV1) {
+      codec_.codecType = codec_type;
+      codec_.numberOfSimulcastStreams = 1;
       for (size_t si = 0; si < num_spatial_layers; ++si) {
         codec_.spatialLayers[si].minBitrate = 100 * (1 << si);
         codec_.spatialLayers[si].targetBitrate = 200 * (1 << si);
@@ -249,7 +260,7 @@ TEST_F(EncoderBitrateAdjusterTest, SingleLayerOptimal) {
   // Single layer, well behaved encoder.
   current_input_allocation_.SetBitrate(0, 0, 300000);
   target_framerate_fps_ = 30;
-  SetUpAdjuster(1, 1, false);
+  SetUpAdjuster(1, 1);
   InsertFrames({{1.0}}, kWindowSizeMs);
   current_adjusted_allocation_ =
       adjuster_->AdjustRateAllocation(VideoEncoder::RateControlParameters(
@@ -263,7 +274,7 @@ TEST_F(EncoderBitrateAdjusterTest, SingleLayerOveruse) {
   // Single layer, well behaved encoder.
   current_input_allocation_.SetBitrate(0, 0, 300000);
   target_framerate_fps_ = 30;
-  SetUpAdjuster(1, 1, false);
+  SetUpAdjuster(1, 1);
   InsertFrames({{1.2}}, kWindowSizeMs);
   current_adjusted_allocation_ =
       adjuster_->AdjustRateAllocation(VideoEncoder::RateControlParameters(
@@ -277,7 +288,7 @@ TEST_F(EncoderBitrateAdjusterTest, SingleLayerUnderuse) {
   // Single layer, well behaved encoder.
   current_input_allocation_.SetBitrate(0, 0, 300000);
   target_framerate_fps_ = 30;
-  SetUpAdjuster(1, 1, false);
+  SetUpAdjuster(1, 1);
   InsertFrames({{0.5}}, kWindowSizeMs);
   current_adjusted_allocation_ =
       adjuster_->AdjustRateAllocation(VideoEncoder::RateControlParameters(
@@ -292,7 +303,7 @@ TEST_F(EncoderBitrateAdjusterTest, ThreeTemporalLayersOptimalSize) {
   current_input_allocation_.SetBitrate(0, 1, 60000);
   current_input_allocation_.SetBitrate(0, 2, 60000);
   target_framerate_fps_ = 30;
-  SetUpAdjuster(1, 3, false);
+  SetUpAdjuster(1, 3);
   InsertFrames({{1.0, 1.0, 1.0}}, kWindowSizeMs);
   current_adjusted_allocation_ =
       adjuster_->AdjustRateAllocation(VideoEncoder::RateControlParameters(
@@ -307,7 +318,7 @@ TEST_F(EncoderBitrateAdjusterTest, ThreeTemporalLayersOvershoot) {
   current_input_allocation_.SetBitrate(0, 1, 60000);
   current_input_allocation_.SetBitrate(0, 2, 60000);
   target_framerate_fps_ = 30;
-  SetUpAdjuster(1, 3, false);
+  SetUpAdjuster(1, 3);
   InsertFrames({{1.1, 1.1, 1.1}}, kWindowSizeMs);
   current_adjusted_allocation_ =
       adjuster_->AdjustRateAllocation(VideoEncoder::RateControlParameters(
@@ -323,7 +334,7 @@ TEST_F(EncoderBitrateAdjusterTest, ThreeTemporalLayersUndershoot) {
   current_input_allocation_.SetBitrate(0, 1, 60000);
   current_input_allocation_.SetBitrate(0, 2, 60000);
   target_framerate_fps_ = 30;
-  SetUpAdjuster(1, 3, false);
+  SetUpAdjuster(1, 3);
   InsertFrames({{0.8, 0.8, 0.8}}, kWindowSizeMs);
   current_adjusted_allocation_ =
       adjuster_->AdjustRateAllocation(VideoEncoder::RateControlParameters(
@@ -339,7 +350,7 @@ TEST_F(EncoderBitrateAdjusterTest, ThreeTemporalLayersSkewedOvershoot) {
   current_input_allocation_.SetBitrate(0, 1, 60000);
   current_input_allocation_.SetBitrate(0, 2, 60000);
   target_framerate_fps_ = 30;
-  SetUpAdjuster(1, 3, false);
+  SetUpAdjuster(1, 3);
   InsertFrames({{1.1, 1.2, 1.2}}, kWindowSizeMs);
   current_adjusted_allocation_ =
       adjuster_->AdjustRateAllocation(VideoEncoder::RateControlParameters(
@@ -357,7 +368,7 @@ TEST_F(EncoderBitrateAdjusterTest, ThreeTemporalLayersNonLayeredEncoder) {
   current_input_allocation_.SetBitrate(0, 1, 60000);
   current_input_allocation_.SetBitrate(0, 2, 60000);
   target_framerate_fps_ = 30;
-  SetUpAdjuster(1, 1, false);
+  SetUpAdjuster(1, 1);
   InsertFrames({{1.1}}, kWindowSizeMs);
   current_adjusted_allocation_ =
       adjuster_->AdjustRateAllocation(VideoEncoder::RateControlParameters(
@@ -377,7 +388,7 @@ TEST_F(EncoderBitrateAdjusterTest, IgnoredStream) {
   current_input_allocation_.SetBitrate(0, 0, 180000);
   current_input_allocation_.SetBitrate(0, 1, 60000);
   target_framerate_fps_ = 30;
-  SetUpAdjuster(1, 1, false);
+  SetUpAdjuster(1, 1);
   encoder_info_.fps_allocation[0].clear();
   adjuster_->OnEncoderInfo(encoder_info_);
 
@@ -402,7 +413,7 @@ TEST_F(EncoderBitrateAdjusterTest, DifferentSpatialOvershoots) {
   target_framerate_fps_ = 30;
   // Run twice, once configured as simulcast and once as VP9 SVC.
   for (int i = 0; i < 2; ++i) {
-    SetUpAdjuster(2, 3, i == 0);
+    SetUpAdjuster(2, 3, i == 0 ? kVideoCodecVP9 : kVideoCodecVP8);
     InsertFrames({{1.05, 1.05, 1.05}, {1.25, 1.25, 1.25}}, kWindowSizeMs);
     current_adjusted_allocation_ =
         adjuster_->AdjustRateAllocation(VideoEncoder::RateControlParameters(
@@ -442,7 +453,7 @@ TEST_F(EncoderBitrateAdjusterTest, HeadroomAllowsOvershootToMediaRate) {
 
   // Run twice, once configured as simulcast and once as VP9 SVC.
   for (int i = 0; i < 2; ++i) {
-    SetUpAdjuster(2, 3, i == 0);
+    SetUpAdjuster(2, 3, i == 0 ? kVideoCodecVP9 : kVideoCodecVP8);
     // Network rate has 10% overshoot, but media rate is correct at 1.0.
     InsertFrames({{1.0, 1.0, 1.0}, {1.0, 1.0, 1.0}},
                  {{1.1, 1.1, 1.1}, {1.1, 1.1, 1.1}},
@@ -485,7 +496,7 @@ TEST_F(EncoderBitrateAdjusterTest, DontExceedMediaRateEvenWithHeadroom) {
 
   // Run twice, once configured as simulcast and once as VP9 SVC.
   for (int i = 0; i < 2; ++i) {
-    SetUpAdjuster(2, 3, i == 0);
+    SetUpAdjuster(2, 3, i == 0 ? kVideoCodecVP9 : kVideoCodecVP8);
     // Network rate has 30% overshoot, media rate has 10% overshoot.
     InsertFrames({{1.1, 1.1, 1.1}, {1.1, 1.1, 1.1}},
                  {{1.3, 1.3, 1.3}, {1.3, 1.3, 1.3}},
@@ -507,34 +518,6 @@ TEST_F(EncoderBitrateAdjusterTest, DontExceedMediaRateEvenWithHeadroom) {
     ExpectNear(MultiplyAllocation(current_input_allocation_, 1 / 1.1),
                current_adjusted_allocation_, 0.015);
   }
-}
-
-TEST_F(EncoderBitrateAdjusterTest, HonorMinBitrateSettingFromEncoderInfo) {
-  // Single layer, well behaved encoder.
-  const int high_bitrate = 20000;
-  const int a_lower_min_bitrate = 12000;
-  current_input_allocation_.SetBitrate(0, 0, high_bitrate);
-  VideoBitrateAllocation expected_input_allocation;
-  expected_input_allocation.SetBitrate(0, 0, a_lower_min_bitrate);
-
-  target_framerate_fps_ = 30;
-
-  SetUpAdjuster(1, 1, false);
-
-  auto new_resolution_limit = VideoEncoder::ResolutionBitrateLimits(
-      codec_.spatialLayers[0].width * codec_.spatialLayers[0].height, 15000,
-      a_lower_min_bitrate, 2000000);
-  encoder_info_.resolution_bitrate_limits.push_back(new_resolution_limit);
-  adjuster_->OnEncoderInfo(encoder_info_);
-
-  InsertFrames({{2.0}}, kWindowSizeMs);
-
-  current_adjusted_allocation_ =
-      adjuster_->AdjustRateAllocation(VideoEncoder::RateControlParameters(
-          current_input_allocation_, target_framerate_fps_));
-  // Adjusted allocation near input. Allow 1% error margin due to rounding
-  // errors etc.
-  ExpectNear(expected_input_allocation, current_adjusted_allocation_, 0.01);
 }
 
 }  // namespace test

@@ -34,10 +34,10 @@ struct {
     {SPA_VIDEO_FORMAT_YUY2, VideoType::kYUY2},
     {SPA_VIDEO_FORMAT_UYVY, VideoType::kUYVY},
     // PipeWire is big-endian for the formats, while libyuv is little-endian
-    // This means that BGRA == ARGB and RGBA == ABGR
+    // This means that BGRA == ARGB, RGBA == ABGR and BGR == RGB
     {SPA_VIDEO_FORMAT_BGRA, VideoType::kARGB},
     {SPA_VIDEO_FORMAT_RGBA, VideoType::kABGR},
-    {SPA_VIDEO_FORMAT_RGB, VideoType::kRGB24},
+    {SPA_VIDEO_FORMAT_BGR, VideoType::kRGB24},
 };
 
 VideoType VideoCaptureModulePipeWire::PipeWireRawFormatToVideoType(

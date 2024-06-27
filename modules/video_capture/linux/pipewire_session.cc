@@ -35,7 +35,7 @@ VideoType PipeWireRawFormatToVideoType(uint32_t id) {
       return VideoType::kYUY2;
     case SPA_VIDEO_FORMAT_UYVY:
       return VideoType::kUYVY;
-    case SPA_VIDEO_FORMAT_RGB:
+    case SPA_VIDEO_FORMAT_BGR:
       return VideoType::kRGB24;
     case SPA_VIDEO_FORMAT_BGRA:
       return VideoType::kARGB;

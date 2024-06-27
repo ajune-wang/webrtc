@@ -34,10 +34,11 @@ struct {
     {SPA_VIDEO_FORMAT_YUY2, VideoType::kYUY2},
     {SPA_VIDEO_FORMAT_UYVY, VideoType::kUYVY},
     // PipeWire is big-endian for the formats, while libyuv is little-endian
-    // This means that BGRA == ARGB and RGBA == ABGR
+    // This means that BGRA == ARGB, RGBA == ABGR, RGB == BGR and BGR == RGB
     {SPA_VIDEO_FORMAT_BGRA, VideoType::kARGB},
     {SPA_VIDEO_FORMAT_RGBA, VideoType::kABGR},
-    {SPA_VIDEO_FORMAT_RGB, VideoType::kRGB24},
+    {SPA_VIDEO_FORMAT_RGB, VideoType::kBGR24},
+    {SPA_VIDEO_FORMAT_BGR, VideoType::kRGB24},
 };
 
 VideoType VideoCaptureModulePipeWire::PipeWireRawFormatToVideoType(
@@ -305,6 +306,7 @@ void VideoCaptureModulePipeWire::OnFormatChanged(const struct spa_pod* format) {
         stride = configured_capability_.width * 2;
         break;
       case VideoType::kRGB24:
+      case VideoType::kBGR24:
         stride = configured_capability_.width * 3;
         break;
       case VideoType::kARGB:

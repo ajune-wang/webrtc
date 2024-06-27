@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eca80709_1ad91c3f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2024-06-27T09:15:31Z",
+      "side": 1,
+      "message": "Talked about this offline: Not a good solution, but the `EncodedImage` class requires refactoring anyway.",
+      "revId": "543de3d67a4eac28fb3f7474fc82c8d48deb6c09",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

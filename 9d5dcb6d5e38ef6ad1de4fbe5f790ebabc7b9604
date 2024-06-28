@@ -1,0 +1,68 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a85a36c2_105640b3",
+        "filename": "video/quality_convergence_monitor.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 10557
+      },
+      "writtenOn": "2024-06-28T11:49:38Z",
+      "side": 1,
+      "message": "What is a steady-state refresh frame? Is there a simpler term to use?",
+      "range": {
+        "startLine": 29,
+        "startChar": 62,
+        "endLine": 30,
+        "endChar": 21
+      },
+      "revId": "9d5dcb6d5e38ef6ad1de4fbe5f790ebabc7b9604",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "42633360_cb32c6ed",
+        "filename": "video/quality_convergence_monitor.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 10557
+      },
+      "writtenOn": "2024-06-28T11:49:38Z",
+      "side": 1,
+      "message": "Should this read \"the average of QP_x\"?",
+      "range": {
+        "startLine": 38,
+        "startChar": 18,
+        "endLine": 38,
+        "endChar": 41
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "2ace31b3_cb0cd813",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "video/quality_convergence_monitor.h",
+              "range": {
+                "startLine": 38,
+                "startChar": 0,
+                "endLine": 40,
+                "endChar": 0
+              },
+              "replacement": "    // `QP_tail`. The average of `QP_head` must be equal to or less than\n    // `QP_tail` to determine that target quality is reached. See the\n    // implementation in `AddSample()`.\n"
+            }
+          ]
+        }
+      ],
+      "revId": "9d5dcb6d5e38ef6ad1de4fbe5f790ebabc7b9604",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "700616f1_7c57d7f6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2024-06-28T14:01:42Z",
+      "side": 1,
+      "message": "Would you mind approving Diep as the cl author is a new contributor?",
+      "revId": "9e5cefd2ec0e810c91d17f154990d9c2bec7f8d1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

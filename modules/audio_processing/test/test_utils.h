@@ -13,6 +13,7 @@
 
 #include <math.h>
 
+#include <algorithm>
 #include <iterator>
 #include <limits>
 #include <memory>
@@ -21,6 +22,7 @@
 #include <vector>
 
 #include "absl/strings/string_view.h"
+#include "api/audio/audio_frame.h"
 #include "api/audio/audio_processing.h"
 #include "common_audio/channel_buffer.h"
 #include "common_audio/wav_file.h"
@@ -34,28 +36,37 @@ static const AudioProcessing::Error kNoErr = AudioProcessing::kNoError;
 struct Int16FrameData {
   // Max data size that matches the data size of the AudioFrame class, providing
   // storage for 8 channels of 96 kHz data.
-  static const int kMaxDataSizeSamples = 7680;
+  static const int kMaxDataSizeSamples = AudioFrame::kMaxDataSizeSamples;
 
-  Int16FrameData() {
-    sample_rate_hz = 0;
-    num_channels = 0;
-    samples_per_channel = 0;
-    data.fill(0);
-  }
+  Int16FrameData() = default;
 
   void CopyFrom(const Int16FrameData& src) {
     samples_per_channel = src.samples_per_channel;
     sample_rate_hz = src.sample_rate_hz;
-    num_channels = src.num_channels;
+    num_channels_ = src.num_channels();
 
-    const size_t length = samples_per_channel * num_channels;
+    const size_t length = samples_per_channel * num_channels_;
     RTC_CHECK_LE(length, kMaxDataSizeSamples);
     memcpy(data.data(), src.data.data(), sizeof(int16_t) * length);
   }
-  std::array<int16_t, kMaxDataSizeSamples> data;
-  int32_t sample_rate_hz;
-  size_t num_channels;
-  size_t samples_per_channel;
+
+  // size_t samples_per_channel() { return samples_per_channel; }
+  size_t num_channels() const { return num_channels_; }
+  void set_num_channels(size_t num_channels) { num_channels_ = num_channels; }
+
+  void FillData(int16_t value) {
+    RTC_DCHECK_LE(samples_per_channel * num_channels_, kMaxDataSizeSamples);
+    std::fill(&data[0], &data[samples_per_channel * num_channels_], value);
+  }
+
+  std::array<int16_t, kMaxDataSizeSamples> data = {};
+  int32_t sample_rate_hz = 0;
+
+  // TODO(tommi): Use InterleavedView instead.
+  size_t samples_per_channel = 0u;
+
+ private:
+  size_t num_channels_ = 0u;
 };
 
 // Reads ChannelBuffers from a provided WavReader.
@@ -123,7 +134,7 @@ void SetContainerFormat(int sample_rate_hz,
                         Int16FrameData* frame,
                         std::unique_ptr<ChannelBuffer<T> >* cb) {
   SetFrameSampleRate(frame, sample_rate_hz);
-  frame->num_channels = num_channels;
+  frame->set_num_channels(num_channels);
   cb->reset(new ChannelBuffer<T>(frame->samples_per_channel, num_channels));
 }
 

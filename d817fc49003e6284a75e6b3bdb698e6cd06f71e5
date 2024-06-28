@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "08de925f_ded9b8d3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2024-06-28T07:52:01Z",
+      "side": 1,
+      "message": "Hi Sam and Gustaf, could you please take a look? Thanks!",
+      "revId": "d817fc49003e6284a75e6b3bdb698e6cd06f71e5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

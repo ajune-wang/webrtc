@@ -13,8 +13,73 @@
 #include <numeric>
 
 #include "rtc_base/checks.h"
+#include "rtc_base/experiments/struct_parameters_parser.h"
 
 namespace webrtc {
+namespace {
+constexpr size_t kDefaultWindowLength = 12;
+constexpr size_t kDefaultTailLength = 6;
+constexpr float kDefaultAlpha = 0.06;
+
+struct DynamicDetectionConfig {
+  bool enabled = false;
+  double alpha = kDefaultAlpha;
+  int window_length = kDefaultWindowLength;
+  int tail_length = kDefaultTailLength;
+  std::unique_ptr<StructParametersParser> Parser();
+};
+
+std::unique_ptr<StructParametersParser> DynamicDetectionConfig::Parser() {
+  // The empty comments ensures that each pair is on a separate line.
+  return StructParametersParser::Create("enabled", &enabled,              //
+                                        "alpha", &alpha,                  //
+                                        "window_length", &window_length,  //
+                                        "tail_length", &tail_length);
+}
+
+QualityConvergenceMonitor::Parameters GetParameters(
+    int static_qp_threshold,
+    VideoCodecType codec,
+    const FieldTrialsView& trials) {
+  QualityConvergenceMonitor::Parameters params;
+  params.static_qp_threshold = static_qp_threshold;
+
+  DynamicDetectionConfig dynamic_config;
+  // Apply codec specific settings.
+  int max_qp = 0;
+  switch (codec) {
+    case kVideoCodecVP8:
+      dynamic_config.Parser()->Parse(trials.Lookup("WebRTC-QCM-Dynamic-VP8"));
+      max_qp = 127;
+      break;
+    case kVideoCodecVP9:
+      // Change to enabled by default for VP9.
+      dynamic_config.enabled = true;
+      dynamic_config.Parser()->Parse(trials.Lookup("WebRTC-QCM-Dynamic-VP9"));
+      max_qp = 255;
+      break;
+    case kVideoCodecAV1:
+      // Change to enabled by default for AV1.
+      dynamic_config.enabled = true;
+      dynamic_config.Parser()->Parse(trials.Lookup("WebRTC-QCM-Dynamic-AV1"));
+      max_qp = 255;
+      break;
+    case kVideoCodecGeneric:
+    case kVideoCodecH264:
+    case kVideoCodecH265:
+      break;
+  }
+
+  if (dynamic_config.enabled) {
+    params.dynamic_detection_enabled = dynamic_config.enabled;
+    params.dynamic_qp_threshold =
+        params.static_qp_threshold + max_qp * dynamic_config.alpha;
+    params.window_length = dynamic_config.window_length;
+    params.tail_length = dynamic_config.tail_length;
+  }
+  return params;
+}
+}  // namespace
 
 QualityConvergenceMonitor::QualityConvergenceMonitor(const Parameters& params)
     : params_(params) {
@@ -81,6 +146,16 @@ void QualityConvergenceMonitor::AddSample(int qp,
 
 bool QualityConvergenceMonitor::AtTargetQuality() const {
   return at_target_quality_;
+}
+
+// Static
+std::unique_ptr<QualityConvergenceMonitor> QualityConvergenceMonitor::Create(
+    int static_qp_threshold,
+    VideoCodecType codec,
+    const FieldTrialsView& trials) {
+  Parameters params = GetParameters(static_qp_threshold, codec, trials);
+  return std::unique_ptr<QualityConvergenceMonitor>(
+      new QualityConvergenceMonitor(params));
 }
 
 }  // namespace webrtc

@@ -13,6 +13,7 @@
 
 #include <math.h>
 
+#include <algorithm>
 #include <iterator>
 #include <limits>
 #include <memory>
@@ -21,6 +22,7 @@
 #include <vector>
 
 #include "absl/strings/string_view.h"
+#include "api/audio/audio_frame.h"
 #include "api/audio/audio_processing.h"
 #include "common_audio/channel_buffer.h"
 #include "common_audio/wav_file.h"
@@ -34,28 +36,62 @@ static const AudioProcessing::Error kNoErr = AudioProcessing::kNoError;
 struct Int16FrameData {
   // Max data size that matches the data size of the AudioFrame class, providing
   // storage for 8 channels of 96 kHz data.
-  static const int kMaxDataSizeSamples = 7680;
+  static const int kMaxDataSizeSamples = AudioFrame::kMaxDataSizeSamples;
 
-  Int16FrameData() {
-    sample_rate_hz = 0;
-    num_channels = 0;
-    samples_per_channel = 0;
-    data.fill(0);
-  }
+  Int16FrameData() = default;
 
   void CopyFrom(const Int16FrameData& src) {
-    samples_per_channel = src.samples_per_channel;
+    samples_per_channel_ = src.samples_per_channel();
     sample_rate_hz = src.sample_rate_hz;
-    num_channels = src.num_channels;
+    num_channels_ = src.num_channels();
 
-    const size_t length = samples_per_channel * num_channels;
+    const size_t length = samples_per_channel_ * num_channels_;
     RTC_CHECK_LE(length, kMaxDataSizeSamples);
+    // TODO(tommi): Use copy method from audio_views.
     memcpy(data.data(), src.data.data(), sizeof(int16_t) * length);
   }
-  std::array<int16_t, kMaxDataSizeSamples> data;
-  int32_t sample_rate_hz;
-  size_t num_channels;
-  size_t samples_per_channel;
+
+  bool IsEqual(const Int16FrameData& frame) const {
+    return samples_per_channel() == frame.samples_per_channel() &&
+           num_channels() == num_channels() &&
+           memcmp(data.data(), frame.data.data(),
+                  samples_per_channel() * num_channels() * sizeof(int16_t)) ==
+               0;
+  }
+
+  // Sets `samples_per_channel`, `num_channels` and the sample rate.
+  // The sample rate is set to 100x that of samples per channel
+  // I.e. if samples_per_channel is 320, the sample rate will be set to 32000.
+  void SetProperties(size_t samples_per_channel, size_t num_channels) {
+    samples_per_channel_ = samples_per_channel;
+    num_channels_ = num_channels;
+    sample_rate_hz = samples_per_channel * 100;
+    RTC_DCHECK_EQ(samples_per_channel_,
+                  AudioProcessing::kChunkSizeMs * sample_rate_hz / 1000);
+    RTC_DCHECK_LE(size(), kMaxDataSizeSamples);
+  }
+
+  size_t size() const { return samples_per_channel_ * num_channels_; }
+  size_t samples_per_channel() const { return samples_per_channel_; }
+  size_t num_channels() const { return num_channels_; }
+  void set_num_channels(size_t num_channels) { num_channels_ = num_channels; }
+
+  void FillData(int16_t value) { std::fill(&data[0], &data[size()], value); }
+  void FillStereoData(int16_t left, int16_t right) {
+    RTC_DCHECK_EQ(num_channels(), 2u);
+    for (size_t i = 0; i < samples_per_channel() * 2u; i += 2u) {
+      data[i] = left;
+      data[i + 1] = right;
+    }
+  }
+
+  std::array<int16_t, kMaxDataSizeSamples> data = {};
+  int32_t sample_rate_hz = 0;
+
+ private:
+  // TODO(tommi): Use InterleavedView instead.
+  size_t samples_per_channel_ = 0u;
+  size_t num_channels_ = 0u;
 };
 
 // Reads ChannelBuffers from a provided WavReader.
@@ -115,16 +151,13 @@ class ChannelBufferVectorWriter final {
 // Exits on failure; do not use in unit tests.
 FILE* OpenFile(absl::string_view filename, absl::string_view mode);
 
-void SetFrameSampleRate(Int16FrameData* frame, int sample_rate_hz);
-
 template <typename T>
 void SetContainerFormat(int sample_rate_hz,
                         size_t num_channels,
                         Int16FrameData* frame,
                         std::unique_ptr<ChannelBuffer<T> >* cb) {
-  SetFrameSampleRate(frame, sample_rate_hz);
-  frame->num_channels = num_channels;
-  cb->reset(new ChannelBuffer<T>(frame->samples_per_channel, num_channels));
+  frame->SetProperties(sample_rate_hz / 100, num_channels);
+  cb->reset(new ChannelBuffer<T>(frame->samples_per_channel(), num_channels));
 }
 
 template <typename T>

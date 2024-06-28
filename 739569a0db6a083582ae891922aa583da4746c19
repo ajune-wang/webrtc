@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b48446c4_79743b23",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 550,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2024-06-28T12:31:12Z",
+      "side": 1,
+      "message": "Can you change this to return absl::nullopt ? (we dont use std::optional yet)",
+      "range": {
+        "startLine": 550,
+        "startChar": 11,
+        "endLine": 550,
+        "endChar": 17
+      },
+      "revId": "739569a0db6a083582ae891922aa583da4746c19",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0f4d81f2_c9baa323",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 552,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2024-06-28T12:31:12Z",
+      "side": 1,
+      "message": "And define \nConfig config;\nconfig.,...\nreturn config;",
+      "range": {
+        "startLine": 552,
+        "startChar": 2,
+        "endLine": 552,
+        "endChar": 8
+      },
+      "revId": "739569a0db6a083582ae891922aa583da4746c19",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

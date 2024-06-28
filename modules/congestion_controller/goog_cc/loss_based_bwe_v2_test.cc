@@ -1812,5 +1812,61 @@ TEST_F(LossBasedBweV2Test, PaceAtLossBasedEstimate) {
   EXPECT_TRUE(loss_based_bandwidth_estimator.PaceAtLossBasedEstimate());
 }
 
+TEST_F(LossBasedBweV2Test,
+       EstimateDoesNotBackOffDueToPacketReorderingBetweenFeedback) {
+  ExplicitKeyValueConfig key_value_config(ShortObservationConfig(""));
+  LossBasedBweV2 loss_based_bandwidth_estimator(&key_value_config);
+  const DataRate kStartBitrate = DataRate::KilobitsPerSec(2500);
+  loss_based_bandwidth_estimator.SetBandwidthEstimate(kStartBitrate);
+
+  std::vector<PacketResult> feedback_1(3);
+  feedback_1[0].sent_packet.sequence_number = 1;
+  feedback_1[0].sent_packet.size = DataSize::Bytes(kPacketSize);
+  feedback_1[0].sent_packet.send_time = Timestamp::Zero();
+  feedback_1[0].receive_time =
+      feedback_1[0].sent_packet.send_time + TimeDelta::Millis(10);
+  feedback_1[1].sent_packet.sequence_number = 2;
+  feedback_1[1].sent_packet.size = DataSize::Bytes(kPacketSize);
+  feedback_1[1].sent_packet.send_time = Timestamp::Zero();
+  // Lost or reordered
+  feedback_1[1].receive_time = Timestamp::PlusInfinity();
+
+  feedback_1[2].sent_packet.sequence_number = 3;
+  feedback_1[2].sent_packet.size = DataSize::Bytes(kPacketSize);
+  feedback_1[2].sent_packet.send_time = Timestamp::Zero();
+  feedback_1[2].receive_time =
+      feedback_1[2].sent_packet.send_time + TimeDelta::Millis(10);
+
+  std::vector<PacketResult> feedback_2(3);
+  feedback_2[0].sent_packet.sequence_number = 2;
+  feedback_2[0].sent_packet.size = DataSize::Bytes(kPacketSize);
+  feedback_2[0].sent_packet.send_time = Timestamp::Zero();
+  feedback_2[0].receive_time =
+      feedback_1[0].sent_packet.send_time + TimeDelta::Millis(10);
+  feedback_2[1].sent_packet.sequence_number = 4;
+  feedback_2[1].sent_packet.size = DataSize::Bytes(kPacketSize);
+  feedback_2[1].sent_packet.send_time =
+      Timestamp::Zero() + kObservationDurationLowerBound;
+  feedback_2[1].receive_time =
+      feedback_2[1].sent_packet.send_time + TimeDelta::Millis(10);
+  feedback_2[2].sent_packet.sequence_number = 5;
+  feedback_2[2].sent_packet.size = DataSize::Bytes(kPacketSize);
+  feedback_2[2].sent_packet.send_time = Timestamp::Zero();
+  feedback_2[2].receive_time =
+      feedback_2[2].sent_packet.send_time + TimeDelta::Millis(10);
+
+  loss_based_bandwidth_estimator.UpdateBandwidthEstimate(
+      feedback_1,
+      /*delay_based_estimate=*/kStartBitrate,
+      /*in_alr=*/false);
+  loss_based_bandwidth_estimator.UpdateBandwidthEstimate(
+      feedback_2,
+      /*delay_based_estimate=*/kStartBitrate,
+      /*in_alr=*/false);
+  EXPECT_EQ(
+      loss_based_bandwidth_estimator.GetLossBasedResult().bandwidth_estimate,
+      kStartBitrate);
+}
+
 }  // namespace
 }  // namespace webrtc

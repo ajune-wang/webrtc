@@ -20,6 +20,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "bd213ba8_f5b83ed0",
+        "filename": "video/quality_convergence_monitor.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2024-06-28T12:48:37Z",
+      "side": 1,
+      "message": "Why allow bogus window_length if the config happens to be disabled?\n\nJust alwasy check that lengths are correct.\n\nAlso, it maybe clearer to insted of window/tail keep configure older_window_length and recent_window_length.\n\nThis way it\u0027s impossible to put in bogus lengths at all (except maybe check for them not being zero).",
+      "range": {
+        "startLine": 21,
+        "startChar": 12,
+        "endLine": 22,
+        "endChar": 55
+      },
+      "revId": "9d5dcb6d5e38ef6ad1de4fbe5f790ebabc7b9604",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0eb1729d_889e6b5d",
         "filename": "video/quality_convergence_monitor.cc",
         "patchSetId": 2

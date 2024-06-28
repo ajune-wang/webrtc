@@ -1,6 +1,63 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7903aa40_ef36cb89",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2024-06-28T12:31:34Z",
+      "side": 1,
+      "message": "I\u0027m fine with it being a follow-up, if it\u0027s too much of a change, but it looks like there\u0027s already class in webrtc to compute this kind of averatge in a window:\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/rtc_base/numerics/moving_average.h;l\u003d26;drc\u003d96e3b991daeb058859324105635d29f56092e79a\n\nYou can make it work very nicely in your case if you adjust MovingAverage::AddSample() to return the value, which was pushed out of the window (or 0 if there\u0027s no such value). Or add a new method to peek at such an element.\n\nThen you need a counter of elements in your data structure and two MovingAverage classes for older and recent elements. You insert your element into the \u0027recent\u0027 and then insert the pushed out value into the \u0027older\u0027. Don\u0027t increase the amount of elements beyond the combined windows length.\n\nIt would be more efficient and, I would even argue, clearer.",
+      "revId": "9d5dcb6d5e38ef6ad1de4fbe5f790ebabc7b9604",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0eb1729d_889e6b5d",
+        "filename": "video/quality_convergence_monitor.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2024-06-28T12:31:34Z",
+      "side": 1,
+      "message": "Add an explanation of the logic in a semi-formal way here. Copy some text and formulas fro mthe doc. You can use this for inspiration: https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/rtc_base/timestamp_aligner.cc;l\u003d48;drc\u003d3ca732d12d33372aa4c1327aca7ed94c196b37ea\n\nI think having it before the function is clearer than inline.",
+      "revId": "9d5dcb6d5e38ef6ad1de4fbe5f790ebabc7b9604",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1292826e_6247db89",
+        "filename": "video/quality_convergence_monitor.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2024-06-28T12:31:34Z",
+      "side": 1,
+      "message": "Head and tail are a little confusing: one would have to doublecheck what\u0027s the order of the elements to understand the logic.\n\n Maybe use \"older\" and \"recent\"? So it\u0027s clear which is for the more recent values.\n\nSince you do push_back() and pop_front(), you have more recent values at the beginning, so head \u003d\u003e recent, tail \u003d\u003e older.\n\nPlease do the same change to the documentation you will add.",
+      "range": {
+        "startLine": 67,
+        "startChar": 8,
+        "endLine": 67,
+        "endChar": 24
+      },
+      "revId": "9d5dcb6d5e38ef6ad1de4fbe5f790ebabc7b9604",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a85a36c2_105640b3",

@@ -16,6 +16,69 @@
       "message": "Hi Sam and Gustaf, could you please take a look? Thanks!",
       "revId": "d817fc49003e6284a75e6b3bdb698e6cd06f71e5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4ba460b0_bf15fea9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2024-06-28T08:44:18Z",
+      "side": 1,
+      "message": "happy to see AudioProcessingImpl become simpler, we usually move it in the other direction :)",
+      "revId": "d817fc49003e6284a75e6b3bdb698e6cd06f71e5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "79e410ba_32f63b33",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 474,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2024-06-28T08:44:18Z",
+      "side": 1,
+      "message": "nit: we talked about filing a bug specifically for tracking changes to remove the transient suppression - may want to update these TODOs at the same time",
+      "range": {
+        "startLine": 474,
+        "startChar": 26,
+        "endLine": 474,
+        "endChar": 30
+      },
+      "revId": "d817fc49003e6284a75e6b3bdb698e6cd06f71e5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fcd6afd3_3130a7bb",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1459,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2024-06-28T08:44:18Z",
+      "side": 1,
+      "message": "nit: `voice_probability` on line 1448 can be removed now and this replaced with:\n`/*voice_probability\u003d*/std::nullopt`\n\n.. to be more explicit that it\u0027s never populated or used outside AGC2.\n\n\nI guess the use of it inside AGC2 will be removed at some later point? Since it seems unused here",
+      "range": {
+        "startLine": 1459,
+        "startChar": 10,
+        "endLine": 1459,
+        "endChar": 27
+      },
+      "revId": "d817fc49003e6284a75e6b3bdb698e6cd06f71e5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

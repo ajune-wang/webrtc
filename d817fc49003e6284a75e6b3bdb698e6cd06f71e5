@@ -58,6 +58,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7fdbe29f_8e9d2c37",
+        "filename": "BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 374,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2024-06-28T12:57:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "662f0536_475e2ff9",
+      "range": {
+        "startLine": 374,
+        "startChar": 6,
+        "endLine": 374,
+        "endChar": 38
+      },
+      "revId": "d817fc49003e6284a75e6b3bdb698e6cd06f71e5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "79e410ba_32f63b33",

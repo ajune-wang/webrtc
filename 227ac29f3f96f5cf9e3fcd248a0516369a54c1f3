@@ -16,6 +16,23 @@
       "message": "Thanks Sam for the comments!",
       "revId": "227ac29f3f96f5cf9e3fcd248a0516369a54c1f3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f4255ac2_4ade815e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2024-06-28T11:16:12Z",
+      "side": 1,
+      "message": "LGTM! % webrtc.gni",
+      "revId": "227ac29f3f96f5cf9e3fcd248a0516369a54c1f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

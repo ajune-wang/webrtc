@@ -36,7 +36,6 @@ class FieldTrial:
             return ''
         return f'https://issues.webrtc.org/issues/{self.bug_id}'
 
-
 # As per the policy in `g3doc/field-trials.md`, all field trials should be
 # registered in the container below.
 ACTIVE_FIELD_TRIALS: FrozenSet[FieldTrial] = frozenset([
@@ -107,6 +106,15 @@ ACTIVE_FIELD_TRIALS: FrozenSet[FieldTrial] = frozenset([
     FieldTrial('WebRTC-PermuteTlsClientHello',
                42225803,
                date(2024, 7, 1)),
+    FieldTrial('WebRTC-QCM-Dynamic-AV1',
+               349860657,
+               date(2025, 7, 1)),
+    FieldTrial('WebRTC-QCM-Dynamic-VP8',
+               349860657,
+               date(2025, 7, 1)),
+    FieldTrial('WebRTC-QCM-Dynamic-VP9',
+               349860657,
+               date(2025, 7, 1)),
     FieldTrial('WebRTC-ReceiveBufferSize',
                42225927,
                date(2024, 4, 1)),

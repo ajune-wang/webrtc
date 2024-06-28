@@ -120,6 +120,213 @@
       ],
       "revId": "9d5dcb6d5e38ef6ad1de4fbe5f790ebabc7b9604",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bb138aa6_2e88eaa2",
+        "filename": "video/quality_convergence_monitor_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2024-06-28T12:43:32Z",
+      "side": 1,
+      "message": "This wouold be clearer\n```suggestion\n    for (int qp \u003d 100; qp \u003e p.static_qp_threshold; --qp) {\n      monitor-\u003eAddSample(qp, steady_state_fresh_frame);\n      EXPECT_FALSE(monitor-\u003eAtTargetQuality());\n    }\n```",
+      "range": {
+        "startLine": 40,
+        "startChar": 3,
+        "endLine": 44,
+        "endChar": 5
+      },
+      "revId": "9d5dcb6d5e38ef6ad1de4fbe5f790ebabc7b9604",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e0451f9f_83dbf222",
+        "filename": "video/quality_convergence_monitor_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2024-06-28T12:43:32Z",
+      "side": 1,
+      "message": "p.static_qp_threshold",
+      "range": {
+        "startLine": 46,
+        "startChar": 23,
+        "endLine": 46,
+        "endChar": 25
+      },
+      "revId": "9d5dcb6d5e38ef6ad1de4fbe5f790ebabc7b9604",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "78f882e7_d121201c",
+        "filename": "video/quality_convergence_monitor_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2024-06-28T12:43:32Z",
+      "side": 1,
+      "message": "{false, true} directly.",
+      "range": {
+        "startLine": 64,
+        "startChar": 39,
+        "endLine": 64,
+        "endChar": 52
+      },
+      "revId": "9d5dcb6d5e38ef6ad1de4fbe5f790ebabc7b9604",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8347d6df_2a101fd1",
+        "filename": "video/quality_convergence_monitor_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2024-06-28T12:43:32Z",
+      "side": 1,
+      "message": "Here too. The explicit for loop is more readable.",
+      "range": {
+        "startLine": 71,
+        "startChar": 3,
+        "endLine": 71,
+        "endChar": 40
+      },
+      "revId": "9d5dcb6d5e38ef6ad1de4fbe5f790ebabc7b9604",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c4056cb7_f30a2635",
+        "filename": "video/quality_convergence_monitor_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2024-06-28T12:43:32Z",
+      "side": 1,
+      "message": "This will fail when `steady_state_fresh_frame \u003d\u003d false`.\n\nAlso, it\u0027s unclear how it will ever be true with just one element below the `p.static_qp_threshold`. Add a more detailed comment here, that static threshold is so low that any such frame should be considered converged.",
+      "range": {
+        "startLine": 78,
+        "startChar": 4,
+        "endLine": 78,
+        "endChar": 44
+      },
+      "revId": "9d5dcb6d5e38ef6ad1de4fbe5f790ebabc7b9604",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "62de5e92_146eb620",
+        "filename": "video/quality_convergence_monitor_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2024-06-28T12:43:32Z",
+      "side": 1,
+      "message": "Replace all head/tail to recent/older",
+      "range": {
+        "startLine": 166,
+        "startChar": 17,
+        "endLine": 166,
+        "endChar": 21
+      },
+      "revId": "9d5dcb6d5e38ef6ad1de4fbe5f790ebabc7b9604",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6e869b49_a9b6b9b3",
+        "filename": "video/quality_convergence_monitor_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2024-06-28T12:43:32Z",
+      "side": 1,
+      "message": "```suggestion\n  for (int qp : {23, 21, 21, 21, 21, 22}) {\n```",
+      "range": {
+        "startLine": 173,
+        "startChar": 1,
+        "endLine": 174,
+        "endChar": 34
+      },
+      "revId": "9d5dcb6d5e38ef6ad1de4fbe5f790ebabc7b9604",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b490c3b1_d0d3c4dc",
+        "filename": "video/quality_convergence_monitor_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2024-06-28T12:43:32Z",
+      "side": 1,
+      "message": "```suggestion\n  for (int qp: {22, 21, 21, 21, 21, 22}) {\n```",
+      "range": {
+        "startLine": 187,
+        "startChar": 2,
+        "endLine": 187,
+        "endChar": 67
+      },
+      "revId": "9d5dcb6d5e38ef6ad1de4fbe5f790ebabc7b9604",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bbecda3c_afa4169d",
+        "filename": "video/quality_convergence_monitor_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2024-06-28T12:43:32Z",
+      "side": 1,
+      "message": "Here too. \"For each\" loop is more clear.",
+      "range": {
+        "startLine": 202,
+        "startChar": 2,
+        "endLine": 203,
+        "endChar": 66
+      },
+      "revId": "9d5dcb6d5e38ef6ad1de4fbe5f790ebabc7b9604",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

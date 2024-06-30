@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "072f925c_383eca8b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2024-06-30T23:46:13Z",
+      "side": 1,
+      "message": "That\u0027s a great idea. I was looking at the MovingAverage class but didn\u0027t think of the small change that would make it work here.\n\nI will fix this in a follow-up CL.",
+      "parentUuid": "7903aa40_ef36cb89",
+      "revId": "9d5dcb6d5e38ef6ad1de4fbe5f790ebabc7b9604",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bd213ba8_f5b83ed0",
@@ -43,6 +61,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a0610fa7_a4593a59",
+        "filename": "video/quality_convergence_monitor.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2024-06-30T23:46:13Z",
+      "side": 1,
+      "message": "That\u0027s because the default values for these parameters if dynamic detection is disabled is zero. I could add a check that they are zero in this case.\n\nYes, I\u0027ve changed to `recent_window_length` and `past_window_length`.",
+      "parentUuid": "bd213ba8_f5b83ed0",
+      "range": {
+        "startLine": 21,
+        "startChar": 12,
+        "endLine": 22,
+        "endChar": 55
+      },
+      "revId": "9d5dcb6d5e38ef6ad1de4fbe5f790ebabc7b9604",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0eb1729d_889e6b5d",
         "filename": "video/quality_convergence_monitor.cc",
         "patchSetId": 2
@@ -54,6 +96,24 @@
       "writtenOn": "2024-06-28T12:31:34Z",
       "side": 1,
       "message": "Add an explanation of the logic in a semi-formal way here. Copy some text and formulas fro mthe doc. You can use this for inspiration: https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/rtc_base/timestamp_aligner.cc;l\u003d48;drc\u003d3ca732d12d33372aa4c1327aca7ed94c196b37ea\n\nI think having it before the function is clearer than inline.",
+      "revId": "9d5dcb6d5e38ef6ad1de4fbe5f790ebabc7b9604",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "806e296b_9b4316bf",
+        "filename": "video/quality_convergence_monitor.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2024-06-30T23:46:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0eb1729d_889e6b5d",
       "revId": "9d5dcb6d5e38ef6ad1de4fbe5f790ebabc7b9604",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -105,6 +165,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f35ef55a_304119e5",
+        "filename": "video/quality_convergence_monitor.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2024-06-30T23:46:13Z",
+      "side": 1,
+      "message": "Thanks, I agree that it\u0027s confusing. I\u0027ve changed to `recent` and `past`.",
+      "parentUuid": "1292826e_6247db89",
+      "range": {
+        "startLine": 67,
+        "startChar": 8,
+        "endLine": 67,
+        "endChar": 24
+      },
+      "revId": "9d5dcb6d5e38ef6ad1de4fbe5f790ebabc7b9604",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a85a36c2_105640b3",
@@ -118,6 +202,30 @@
       "writtenOn": "2024-06-28T11:49:38Z",
       "side": 1,
       "message": "What is a steady-state refresh frame? Is there a simpler term to use?",
+      "range": {
+        "startLine": 29,
+        "startChar": 62,
+        "endLine": 30,
+        "endChar": 21
+      },
+      "revId": "9d5dcb6d5e38ef6ad1de4fbe5f790ebabc7b9604",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c3b44fa1_0bdceac7",
+        "filename": "video/quality_convergence_monitor.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2024-06-30T23:46:13Z",
+      "side": 1,
+      "message": "How about dropping steady-state and using refresh frame?\nI\u0027ve added a definition to the AddSample() implementation.",
+      "parentUuid": "a85a36c2_105640b3",
       "range": {
         "startLine": 29,
         "startChar": 62,
@@ -169,6 +277,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1958eb6f_d4e18048",
+        "filename": "video/quality_convergence_monitor.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2024-06-30T23:46:13Z",
+      "side": 1,
+      "message": "Yes, thanks!",
+      "parentUuid": "42633360_cb32c6ed",
+      "range": {
+        "startLine": 38,
+        "startChar": 18,
+        "endLine": 38,
+        "endChar": 41
+      },
+      "revId": "9d5dcb6d5e38ef6ad1de4fbe5f790ebabc7b9604",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bb138aa6_2e88eaa2",
@@ -182,6 +314,30 @@
       "writtenOn": "2024-06-28T12:43:32Z",
       "side": 1,
       "message": "This wouold be clearer\n```suggestion\n    for (int qp \u003d 100; qp \u003e p.static_qp_threshold; --qp) {\n      monitor-\u003eAddSample(qp, steady_state_fresh_frame);\n      EXPECT_FALSE(monitor-\u003eAtTargetQuality());\n    }\n```",
+      "range": {
+        "startLine": 40,
+        "startChar": 3,
+        "endLine": 44,
+        "endChar": 5
+      },
+      "revId": "9d5dcb6d5e38ef6ad1de4fbe5f790ebabc7b9604",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "965db74a_9c9261c4",
+        "filename": "video/quality_convergence_monitor_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2024-06-30T23:46:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bb138aa6_2e88eaa2",
       "range": {
         "startLine": 40,
         "startChar": 3,
@@ -215,6 +371,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d4de7dce_176fa0a4",
+        "filename": "video/quality_convergence_monitor_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2024-06-30T23:46:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e0451f9f_83dbf222",
+      "range": {
+        "startLine": 46,
+        "startChar": 23,
+        "endLine": 46,
+        "endChar": 25
+      },
+      "revId": "9d5dcb6d5e38ef6ad1de4fbe5f790ebabc7b9604",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "78f882e7_d121201c",
@@ -228,6 +408,30 @@
       "writtenOn": "2024-06-28T12:43:32Z",
       "side": 1,
       "message": "{false, true} directly.",
+      "range": {
+        "startLine": 64,
+        "startChar": 39,
+        "endLine": 64,
+        "endChar": 52
+      },
+      "revId": "9d5dcb6d5e38ef6ad1de4fbe5f790ebabc7b9604",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bf7c320e_38c78fad",
+        "filename": "video/quality_convergence_monitor_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2024-06-30T23:46:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "78f882e7_d121201c",
       "range": {
         "startLine": 64,
         "startChar": 39,
@@ -261,6 +465,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7a81c1e5_6544a407",
+        "filename": "video/quality_convergence_monitor_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2024-06-30T23:46:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8347d6df_2a101fd1",
+      "range": {
+        "startLine": 71,
+        "startChar": 3,
+        "endLine": 71,
+        "endChar": 40
+      },
+      "revId": "9d5dcb6d5e38ef6ad1de4fbe5f790ebabc7b9604",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c4056cb7_f30a2635",
@@ -274,6 +502,30 @@
       "writtenOn": "2024-06-28T12:43:32Z",
       "side": 1,
       "message": "This will fail when `steady_state_fresh_frame \u003d\u003d false`.\n\nAlso, it\u0027s unclear how it will ever be true with just one element below the `p.static_qp_threshold`. Add a more detailed comment here, that static threshold is so low that any such frame should be considered converged.",
+      "range": {
+        "startLine": 78,
+        "startChar": 4,
+        "endLine": 78,
+        "endChar": 44
+      },
+      "revId": "9d5dcb6d5e38ef6ad1de4fbe5f790ebabc7b9604",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eb842fbf_79e31598",
+        "filename": "video/quality_convergence_monitor_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2024-06-30T23:46:13Z",
+      "side": 1,
+      "message": "I\u0027ve added a comment.\n\nFor frames at the static threshold, they are considered \"at target\" regardless of the type of frame, so even frames with `steady_state_refresh_frame\u003d\u003dfalse` are considered. This is similar to the current implementation for VP8,\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/video/video_stream_encoder.cc;l\u003d2097",
+      "parentUuid": "c4056cb7_f30a2635",
       "range": {
         "startLine": 78,
         "startChar": 4,
@@ -307,6 +559,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "302482ef_c9b00af5",
+        "filename": "video/quality_convergence_monitor_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2024-06-30T23:46:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "62de5e92_146eb620",
+      "range": {
+        "startLine": 166,
+        "startChar": 17,
+        "endLine": 166,
+        "endChar": 21
+      },
+      "revId": "9d5dcb6d5e38ef6ad1de4fbe5f790ebabc7b9604",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6e869b49_a9b6b9b3",
@@ -320,6 +596,30 @@
       "writtenOn": "2024-06-28T12:43:32Z",
       "side": 1,
       "message": "```suggestion\n  for (int qp : {23, 21, 21, 21, 21, 22}) {\n```",
+      "range": {
+        "startLine": 173,
+        "startChar": 1,
+        "endLine": 174,
+        "endChar": 34
+      },
+      "revId": "9d5dcb6d5e38ef6ad1de4fbe5f790ebabc7b9604",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "96297ca9_b9d74d7b",
+        "filename": "video/quality_convergence_monitor_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2024-06-30T23:46:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6e869b49_a9b6b9b3",
       "range": {
         "startLine": 173,
         "startChar": 1,
@@ -353,6 +653,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0a34882c_fad14072",
+        "filename": "video/quality_convergence_monitor_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2024-06-30T23:46:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b490c3b1_d0d3c4dc",
+      "range": {
+        "startLine": 187,
+        "startChar": 2,
+        "endLine": 187,
+        "endChar": 67
+      },
+      "revId": "9d5dcb6d5e38ef6ad1de4fbe5f790ebabc7b9604",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bbecda3c_afa4169d",
@@ -366,6 +690,30 @@
       "writtenOn": "2024-06-28T12:43:32Z",
       "side": 1,
       "message": "Here too. \"For each\" loop is more clear.",
+      "range": {
+        "startLine": 202,
+        "startChar": 2,
+        "endLine": 203,
+        "endChar": 66
+      },
+      "revId": "9d5dcb6d5e38ef6ad1de4fbe5f790ebabc7b9604",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "297ea9b6_e63f5c20",
+        "filename": "video/quality_convergence_monitor_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2024-06-30T23:46:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bbecda3c_afa4169d",
       "range": {
         "startLine": 202,
         "startChar": 2,

@@ -107,7 +107,6 @@ bool SetAv1SvcConfig(VideoCodec& video_codec,
   }
 
   video_codec.SetScalabilityMode(*scalability_mode);
-
   ScalableVideoController::StreamLayersConfig info = structure->StreamConfig();
   for (int sl_idx = 0; sl_idx < info.num_spatial_layers; ++sl_idx) {
     SpatialLayer& spatial_layer = video_codec.spatialLayers[sl_idx];

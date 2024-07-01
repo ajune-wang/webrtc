@@ -148,6 +148,12 @@ class LossBasedBweV2 {
   };
 
   struct PartialObservation {
+    TimeDelta ObservationWindow() const {
+      return last_send_time.IsFinite() ? last_send_time - first_send_time
+                                       : TimeDelta::Zero();
+    }
+    Timestamp first_send_time = Timestamp::PlusInfinity();
+    Timestamp last_send_time = Timestamp::MinusInfinity();
     int num_packets = 0;
     std::unordered_map<int64_t, DataSize> lost_packets;
     DataSize size = DataSize::Zero();
@@ -192,6 +198,7 @@ class LossBasedBweV2 {
 
   // Returns false if no observation was created.
   bool PushBackObservation(rtc::ArrayView<const PacketResult> packet_results);
+  void CompleteObservation();
   bool IsEstimateIncreasingWhenLossLimited(DataRate old_estimate,
                                            DataRate new_estimate);
   bool IsInLossLimitedState() const;
@@ -205,6 +212,8 @@ class LossBasedBweV2 {
   PartialObservation partial_observation_;
   Timestamp last_send_time_most_recent_observation_ = Timestamp::PlusInfinity();
   Timestamp last_time_estimate_reduced_ = Timestamp::MinusInfinity();
+  bool has_seen_reordered_packets_ = false;
+  Timestamp last_receive_time_ = Timestamp::MinusInfinity();
   absl::optional<DataRate> cached_instant_upper_bound_;
   absl::optional<DataRate> cached_instant_lower_bound_;
   std::vector<double> instant_upper_bound_temporal_weights_;

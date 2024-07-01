@@ -46,10 +46,6 @@ bool IsValid(absl::optional<DataRate> datarate) {
   return datarate.has_value() && IsValid(datarate.value());
 }
 
-bool IsValid(Timestamp timestamp) {
-  return timestamp.IsFinite();
-}
-
 double ToKiloBytes(DataSize datasize) { return datasize.bytes() / 1000.0; }
 
 double GetLossProbability(double inherent_loss,
@@ -1108,44 +1104,68 @@ bool LossBasedBweV2::PushBackObservation(
     return false;
   }
 
+  bool has_completed_observation = false;
+  if (partial_observation_.ObservationWindow() >=
+      config_->observation_duration_lower_bound) {
+    // Update the partial observation with possible reordered packets.
+    for (const PacketResult& packet : packet_results) {
+      if (packet.IsReceived()) {
+        partial_observation_.lost_packets.erase(
+            packet.sent_packet.sequence_number);
+      }
+    }
+    // Partial observation window is now ready.
+    CompleteObservation();
+    has_completed_observation = true;
+  }
+
   partial_observation_.num_packets += packet_results.size();
-  Timestamp last_send_time = Timestamp::MinusInfinity();
-  Timestamp first_send_time = Timestamp::PlusInfinity();
   for (const PacketResult& packet : packet_results) {
     if (packet.IsReceived()) {
       partial_observation_.lost_packets.erase(
           packet.sent_packet.sequence_number);
+      if (!has_seen_reordered_packets_ &&
+          packet.receive_time < last_receive_time_) {
+        has_seen_reordered_packets_ = true;
+        RTC_LOG(LS_INFO) << "A packet has been received reordered, seq: "
+                         << packet.sent_packet.sequence_number;
+      }
+      last_receive_time_ = packet.receive_time;
+      has_seen_reordered_packets_ = packet.receive_time > last_receive_time_;
     } else {
       partial_observation_.lost_packets.emplace(
           packet.sent_packet.sequence_number, packet.sent_packet.size);
     }
     partial_observation_.size += packet.sent_packet.size;
-    last_send_time = std::max(last_send_time, packet.sent_packet.send_time);
-    first_send_time = std::min(first_send_time, packet.sent_packet.send_time);
+    partial_observation_.last_send_time = std::max(
+        partial_observation_.last_send_time, packet.sent_packet.send_time);
+    partial_observation_.first_send_time = std::min(
+        partial_observation_.first_send_time, packet.sent_packet.send_time);
   }
 
-  // This is the first packet report we have received.
-  if (!IsValid(last_send_time_most_recent_observation_)) {
-    last_send_time_most_recent_observation_ = first_send_time;
+  if (partial_observation_.ObservationWindow() >=
+          config_->observation_duration_lower_bound &&
+      (!has_seen_reordered_packets_ ||
+       partial_observation_.lost_packets.empty())) {
+    CompleteObservation();
+    has_completed_observation = true;
   }
 
-  const TimeDelta observation_duration =
-      last_send_time - last_send_time_most_recent_observation_;
-  // Too small to be meaningful.
-  if (observation_duration <= TimeDelta::Zero() ||
-      observation_duration < config_->observation_duration_lower_bound) {
-    return false;
-  }
+  return has_completed_observation;
+}
 
-  last_send_time_most_recent_observation_ = last_send_time;
+void LossBasedBweV2::CompleteObservation() {
+  RTC_LOG_F(LS_INFO) << " partial_observation_.ObservationWindow()"
+                     << partial_observation_.ObservationWindow().ms();
+  last_send_time_most_recent_observation_ = partial_observation_.last_send_time;
 
   Observation observation;
   observation.num_packets = partial_observation_.num_packets;
   observation.num_lost_packets = partial_observation_.lost_packets.size();
   observation.num_received_packets =
       observation.num_packets - observation.num_lost_packets;
-  observation.sending_rate =
-      GetSendingRate(partial_observation_.size / observation_duration);
+  observation.sending_rate = GetSendingRate(
+      partial_observation_.size / (partial_observation_.ObservationWindow()));
   for (auto const& [key, packet_size] : partial_observation_.lost_packets) {
     observation.lost_size += packet_size;
   }
@@ -1157,7 +1177,6 @@ bool LossBasedBweV2::PushBackObservation(
   partial_observation_ = PartialObservation();
 
   CalculateInstantUpperBound();
-  return true;
 }
 
 bool LossBasedBweV2::IsInLossLimitedState() const {

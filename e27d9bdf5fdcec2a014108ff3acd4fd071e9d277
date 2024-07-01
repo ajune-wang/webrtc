@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "71fa24c2_b2bee2aa",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2024-07-01T09:26:33Z",
+      "side": 1,
+      "message": "LGTM. Only one small suggestion for slightly clearer code.",
+      "revId": "e27d9bdf5fdcec2a014108ff3acd4fd071e9d277",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d9ee7470_d2eca412",
+        "filename": "video/quality_convergence_monitor.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2024-07-01T09:26:33Z",
+      "side": 1,
+      "message": "```suggestion\n                      qp_window_.begin() + params_.past_window_length, 0.0) /\n```",
+      "range": {
+        "startLine": 107,
+        "startChar": 22,
+        "endLine": 107,
+        "endChar": 70
+      },
+      "revId": "e27d9bdf5fdcec2a014108ff3acd4fd071e9d277",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9adef29a_70e671ff",
+        "filename": "video/quality_convergence_monitor.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2024-07-01T09:26:33Z",
+      "side": 1,
+      "message": "```suggestion\n      (params_.past_window_length);\n```",
+      "range": {
+        "startLine": 108,
+        "startChar": 7,
+        "endLine": 108,
+        "endChar": 56
+      },
+      "revId": "e27d9bdf5fdcec2a014108ff3acd4fd071e9d277",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

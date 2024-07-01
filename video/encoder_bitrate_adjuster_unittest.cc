@@ -15,10 +15,10 @@
 
 #include "api/field_trials_view.h"
 #include "api/units/data_rate.h"
-#include "rtc_base/fake_clock.h"
 #include "rtc_base/numerics/safe_conversions.h"
 #include "test/gtest.h"
 #include "test/scoped_key_value_config.h"
+#include "test/time_controller/simulated_time_controller.h"
 
 namespace webrtc {
 namespace test {
@@ -35,7 +35,8 @@ class EncoderBitrateAdjusterTest : public ::testing::Test {
   static_assert(kSequenceLength % 2 == 0, "Sequence length must be even.");
 
   EncoderBitrateAdjusterTest()
-      : target_bitrate_(DataRate::BitsPerSec(kDefaultBitrateBps)),
+      : time_controller_(/*start_time=*/Timestamp::Millis(123)),
+        target_bitrate_(DataRate::BitsPerSec(kDefaultBitrateBps)),
         target_framerate_fps_(kDefaultFrameRateFps),
         tl_pattern_idx_{},
         sequence_idx_{} {}
@@ -83,8 +84,8 @@ class EncoderBitrateAdjusterTest : public ::testing::Test {
       }
     }
 
-    adjuster_ =
-        std::make_unique<EncoderBitrateAdjuster>(codec_, scoped_field_trial_);
+    adjuster_ = std::make_unique<EncoderBitrateAdjuster>(
+        codec_, scoped_field_trial_, *time_controller_.GetClock());
     adjuster_->OnEncoderInfo(encoder_info_);
     current_adjusted_allocation_ =
         adjuster_->AdjustRateAllocation(VideoEncoder::RateControlParameters(
@@ -103,11 +104,11 @@ class EncoderBitrateAdjusterTest : public ::testing::Test {
       int64_t duration_ms) {
     RTC_DCHECK_EQ(media_utilization_factors.size(),
                   network_utilization_factors.size());
-
     const int64_t start_us = rtc::TimeMicros();
     while (rtc::TimeMicros() <
            start_us + (duration_ms * rtc::kNumMicrosecsPerMillisec)) {
-      clock_.AdvanceTime(TimeDelta::Seconds(1) / target_framerate_fps_);
+      time_controller_.AdvanceTime(TimeDelta::Seconds(1) /
+                                   target_framerate_fps_);
       for (size_t si = 0; si < NumSpatialLayers(); ++si) {
         const std::vector<int>& tl_pattern =
             kTlPatterns[NumTemporalLayers(si) - 1];
@@ -226,12 +227,14 @@ class EncoderBitrateAdjusterTest : public ::testing::Test {
     return multiplied_allocation;
   }
 
+  GlobalSimulatedTimeController time_controller_;
+
   VideoCodec codec_;
   VideoEncoder::EncoderInfo encoder_info_;
   std::unique_ptr<EncoderBitrateAdjuster> adjuster_;
   VideoBitrateAllocation current_input_allocation_;
   VideoBitrateAllocation current_adjusted_allocation_;
-  rtc::ScopedFakeClock clock_;
+
   DataRate target_bitrate_;
   double target_framerate_fps_;
   int tl_pattern_idx_[kMaxSpatialLayers];

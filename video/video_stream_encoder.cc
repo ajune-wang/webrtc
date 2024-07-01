@@ -1345,8 +1345,8 @@ void VideoStreamEncoder::ReconfigureEncoder() {
 
   const VideoEncoder::EncoderInfo info = encoder_->GetEncoderInfo();
   if (rate_control_settings_.UseEncoderBitrateAdjuster()) {
-    bitrate_adjuster_ =
-        std::make_unique<EncoderBitrateAdjuster>(codec, env_.field_trials());
+    bitrate_adjuster_ = std::make_unique<EncoderBitrateAdjuster>(
+        codec, env_.field_trials(), env_.clock());
     bitrate_adjuster_->OnEncoderInfo(info);
   }
 
@@ -1625,7 +1625,7 @@ VideoStreamEncoder::UpdateBitrateAllocation(
   if (bitrate_adjuster_) {
     VideoBitrateAllocation adjusted_allocation =
         bitrate_adjuster_->AdjustRateAllocation(new_rate_settings.rate_control);
-    RTC_LOG(LS_VERBOSE) << "Adjusting allocation, fps = "
+    RTC_LOG(LS_WARNING) << "Adjusting allocation, fps = "
                         << rate_settings.rate_control.framerate_fps << ", from "
                         << new_allocation.ToString() << ", to "
                         << adjusted_allocation.ToString();
@@ -2168,7 +2168,10 @@ EncodedImageCallback::Result VideoStreamEncoder::OnEncodedImage(
   image_copy.ClearEncodedData();
 
   int temporal_index = 0;
-  if (codec_specific_info) {
+  if (encoded_image.TemporalIndex()) {
+    // Give precedence to the metadata on EncodedImage, if available.
+    temporal_index = *encoded_image.TemporalIndex();
+  } else if (codec_specific_info) {
     if (codec_specific_info->codecType == kVideoCodecVP9) {
       temporal_index = codec_specific_info->codecSpecific.VP9.temporal_idx;
     } else if (codec_specific_info->codecType == kVideoCodecVP8) {
@@ -2412,8 +2415,17 @@ void VideoStreamEncoder::RunPostEncode(const EncodedImage& encoded_image,
     // TODO(https://crbug.com/webrtc/14891): If we want to support a mix of
     // simulcast and SVC we'll also need to consider the case where we have both
     // simulcast and spatial indices.
-    int stream_index = encoded_image.SpatialIndex().value_or(
-        encoded_image.SimulcastIndex().value_or(0));
+    /*
+        RTC_LOG(LS_WARNING) << "OnEncodedFrame, Spatial ID = "
+                            << encoded_image.SpatialIndex().value_or(-1)
+                            << ", simulcast id = "
+                            << encoded_image.SimulcastIndex().value_or(-1)
+                            << ", temporal id = "
+                            << encoded_image.TemporalIndex().value_or(-1)
+                            << " (or maybe " << temporal_index << ")";
+    */
+    int stream_index = encoded_image.SimulcastIndex().value_or(
+        encoded_image.SpatialIndex().value_or(0));
     bitrate_adjuster_->OnEncodedFrame(frame_size, stream_index, temporal_index);
   }
 }

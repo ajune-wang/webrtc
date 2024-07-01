@@ -469,6 +469,7 @@
           'isolated_scripts': 'linux_tests',
         },
       },
+      'linux_iwyu': {},
       'linux_libfuzzer_rel': {},
       'linux_more_configs': {
         'os_type': 'linux',

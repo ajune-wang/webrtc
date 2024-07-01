@@ -175,6 +175,7 @@
       'linux_compile_x86_rel': 'pure_release_bot_x86',
       'linux_coverage': 'code_coverage_bot_x64',
       'linux_dbg': 'debug_bot_x64',
+      'linux_iwyu': 'release_bot_x64',
       'linux_libfuzzer_rel': 'libfuzzer_asan_release_bot_x64',
       'linux_more_configs': {
         'dummy_audio_file_devices_no_protobuf':

@@ -418,11 +418,11 @@ deps = {
     'dep_type': 'cipd',
   },
 
-  'src/third_party/androidx': {
+  'src/third_party/androidx/cipd': {
     'packages': [
       {
           'package': 'chromium/third_party/androidx',
-          'version': '-zomVY2T8V3NRjAUbZNAZpFp8dAPuNdu3oQsnmhhIHEC',
+          'version': 'lknlH-AxH-bvZoQqNqg5rGUNyn3sxuSdg7xDty3mKfoC',
       },
     ],
     'condition': 'checkout_android',

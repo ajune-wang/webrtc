@@ -301,8 +301,17 @@ VideoCodec VideoCodecInitializer::SetupCodec(
                           streams.back().num_temporal_layers.value_or(1),
                           /*num_spatial_layers=*/
                           std::max<int>(config.spatial_layers.size(), 1))) {
+        // Apply encoding min bitrate on lowest spatial layer if configured.
+        std::optional<int> min_bitrate_bps;
+        if (!config.simulcast_layers.empty() &&
+            config.simulcast_layers[0].min_bitrate_bps > 0) {
+          min_bitrate_bps = config.simulcast_layers[0].min_bitrate_bps;
+        }
         for (size_t i = 0; i < config.spatial_layers.size(); ++i) {
           video_codec.spatialLayers[i].active = config.spatial_layers[i].active;
+          if (min_bitrate_bps.has_value() && i == 0) {
+            video_codec.spatialLayers[i].minBitrate = *min_bitrate_bps / 1000;
+          }
         }
       } else {
         RTC_LOG(LS_WARNING) << "Failed to configure svc bitrates for av1.";

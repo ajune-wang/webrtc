@@ -18,6 +18,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "122e010e_80f7e3ac",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2024-07-01T22:02:52Z",
+      "side": 1,
+      "message": "Thanks for the review and feedback!",
+      "revId": "e27d9bdf5fdcec2a014108ff3acd4fd071e9d277",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d9ee7470_d2eca412",
@@ -41,6 +58,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "56b60803_db935264",
+        "filename": "video/quality_convergence_monitor.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2024-07-01T22:02:52Z",
+      "side": 1,
+      "message": "There\u0027s an edge case when `qp_window_.size()` is less than `recent_window_length + past_window_length`. I don\u0027t think it makes that much difference, but the way I\u0027ve tested this is that `qp_recent` is filled up first and once more than `recent_window_length` samples have been collected, `qp_past` is filled up.\n\nThat\u0027s why I need to have it like this.",
+      "parentUuid": "d9ee7470_d2eca412",
+      "range": {
+        "startLine": 107,
+        "startChar": 22,
+        "endLine": 107,
+        "endChar": 70
+      },
+      "revId": "e27d9bdf5fdcec2a014108ff3acd4fd071e9d277",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9adef29a_70e671ff",
@@ -54,6 +95,30 @@
       "writtenOn": "2024-07-01T09:26:33Z",
       "side": 1,
       "message": "```suggestion\n      (params_.past_window_length);\n```",
+      "range": {
+        "startLine": 108,
+        "startChar": 7,
+        "endLine": 108,
+        "endChar": 56
+      },
+      "revId": "e27d9bdf5fdcec2a014108ff3acd4fd071e9d277",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "57c1d314_2a8f1aa9",
+        "filename": "video/quality_convergence_monitor.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2024-07-01T22:02:52Z",
+      "side": 1,
+      "message": "See above.",
+      "parentUuid": "9adef29a_70e671ff",
       "range": {
         "startLine": 108,
         "startChar": 7,

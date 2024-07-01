@@ -260,6 +260,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1926fd55_ee0839ee",
+        "filename": "video/quality_convergence_monitor.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2024-07-01T22:02:52Z",
+      "side": 1,
+      "message": "I have no strong opinion about the name, but it\u0027s the term I used in the design document without anyone asking about it 😊. It comes from libvpx_vp8_encoder.cc where steady-state frame is used. \n\nI\u0027ll keep this as is for now just because I used that term in other CLs I landed. I make a note to follow-up with a discussion and CL to make the naming consistent.",
+      "parentUuid": "ba97fff9_26796b89",
+      "range": {
+        "startLine": 29,
+        "startChar": 62,
+        "endLine": 30,
+        "endChar": 21
+      },
+      "revId": "9d5dcb6d5e38ef6ad1de4fbe5f790ebabc7b9604",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "42633360_cb32c6ed",

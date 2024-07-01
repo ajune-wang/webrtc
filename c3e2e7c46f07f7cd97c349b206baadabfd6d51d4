@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "375155f3_fef07c3c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2024-07-01T08:26:04Z",
+      "side": 1,
+      "message": "Thank you, Hanna! LGTM.",
+      "revId": "c3e2e7c46f07f7cd97c349b206baadabfd6d51d4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

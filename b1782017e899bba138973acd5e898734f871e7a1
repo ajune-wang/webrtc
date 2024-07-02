@@ -16,6 +16,24 @@
       "message": "Erik, Sergey, please RS LGTM.\n\nThere was absolutely no change to this CL",
       "revId": "b1782017e899bba138973acd5e898734f871e7a1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c9003204_4b60e1d9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2024-07-02T13:18:38Z",
+      "side": 1,
+      "message": "Oh, sorry for the noise. The rubber stamper works here for once! Maybe because I\u0027m the owner of all the files.",
+      "parentUuid": "6a43a653_7b276fd5",
+      "revId": "b1782017e899bba138973acd5e898734f871e7a1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

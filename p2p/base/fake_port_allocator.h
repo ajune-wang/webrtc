@@ -47,6 +47,18 @@ class TestUDPPort : public UDPPort {
     return port;
   }
 
+  static TestUDPPort* Create(const PortParametersRef& args,
+                             rtc::AsyncPacketSocket* socket,
+                             bool emit_localhost_for_anyaddress) {
+    TestUDPPort* port =
+        new TestUDPPort(args, socket, emit_localhost_for_anyaddress);
+    if (!port->Init()) {
+      delete port;
+      port = nullptr;
+    }
+    return port;
+  }
+
  protected:
   TestUDPPort(const PortParametersRef& args,
               uint16_t min_port,
@@ -56,6 +68,11 @@ class TestUDPPort : public UDPPort {
                 webrtc::IceCandidateType::kHost,
                 min_port,
                 max_port,
+                emit_localhost_for_anyaddress) {}
+
+  TestUDPPort(const PortParametersRef& args, rtc::AsyncPacketSocket* socket,
+              bool emit_localhost_for_anyaddress)
+      : UDPPort(args, webrtc::IceCandidateType::kHost, socket,
                 emit_localhost_for_anyaddress) {}
 };
 

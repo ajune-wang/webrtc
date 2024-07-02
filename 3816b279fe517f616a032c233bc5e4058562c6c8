@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9cea4d62_16a0f0f3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-07-02T16:57:23Z",
+      "side": 1,
+      "message": "Turns out this is easier than counting packets and going back three seconds ;-)\n\nThreading-wise this should be fine since a uint32_t is atomic?",
+      "revId": "3816b279fe517f616a032c233bc5e4058562c6c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

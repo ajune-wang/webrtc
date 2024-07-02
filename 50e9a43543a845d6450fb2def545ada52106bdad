@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9abac9be_86038a04",
+        "filename": "p2p/base/fake_port_allocator.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2024-07-02T11:06:34Z",
+      "side": 1,
+      "message": "unique_ptr ?",
+      "range": {
+        "startLine": 50,
+        "startChar": 9,
+        "endLine": 50,
+        "endChar": 20
+      },
+      "revId": "50e9a43543a845d6450fb2def545ada52106bdad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

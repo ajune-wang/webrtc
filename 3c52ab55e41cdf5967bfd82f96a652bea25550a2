@@ -69,6 +69,24 @@
       "parentUuid": "52d5def1_7dbde35b",
       "revId": "3c52ab55e41cdf5967bfd82f96a652bea25550a2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8ebe7e9f_9e60f0f4",
+        "filename": "modules/video_coding/video_codec_initializer.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 307,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2024-07-02T12:13:50Z",
+      "side": 1,
+      "message": "Update comment and description.",
+      "parentUuid": "b61a1b4b_d410a604",
+      "revId": "3c52ab55e41cdf5967bfd82f96a652bea25550a2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

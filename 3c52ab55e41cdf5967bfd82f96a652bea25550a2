@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5d79eb0c_72c2b7b9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2024-07-02T10:03:21Z",
+      "side": 1,
+      "message": "lgtm % explanatory update",
+      "revId": "3c52ab55e41cdf5967bfd82f96a652bea25550a2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c930c72e_8f13ede6",
@@ -32,6 +49,24 @@
       "side": 1,
       "message": "If min bitrate is configured via RtpEncodingParameters (https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/media/engine/webrtc_video_engine.cc;l\u003d2210), then maybe this value should be used?\nNote there is similar change where encoding min bitrate is used (instead of max): https://webrtc-review.googlesource.com/c/src/+/355840",
       "parentUuid": "c930c72e_8f13ede6",
+      "revId": "3c52ab55e41cdf5967bfd82f96a652bea25550a2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b61a1b4b_d410a604",
+        "filename": "modules/video_coding/video_codec_initializer.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 307,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2024-07-02T10:03:21Z",
+      "side": 1,
+      "message": "Ok, the suggest commenting on that - and updating the description of the CL because it\u0027s not very evident at the moment 😊\n\nIs there a bug you could link to too?",
+      "parentUuid": "52d5def1_7dbde35b",
       "revId": "3c52ab55e41cdf5967bfd82f96a652bea25550a2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

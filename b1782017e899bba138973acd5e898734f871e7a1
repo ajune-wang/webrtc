@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6a43a653_7b276fd5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2024-07-02T13:17:07Z",
+      "side": 1,
+      "message": "Erik, Sergey, please RS LGTM.\n\nThere was absolutely no change to this CL",
+      "revId": "b1782017e899bba138973acd5e898734f871e7a1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

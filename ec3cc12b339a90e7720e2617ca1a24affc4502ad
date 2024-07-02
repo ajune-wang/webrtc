@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8ad76509_1cdb508d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 23
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2024-07-02T13:39:28Z",
+      "side": 1,
+      "message": "nice, lgtm but please check the comments",
+      "revId": "ec3cc12b339a90e7720e2617ca1a24affc4502ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a138daf9_61e35407",
+        "filename": "modules/audio_processing/agc2/fixed_digital_level_estimator.h",
+        "patchSetId": 23
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2024-07-02T13:39:28Z",
+      "side": 1,
+      "message": "same question as in `modules/audio_processing/agc2/limiter.h`: can we delete?",
+      "range": {
+        "startLine": 51,
+        "startChar": 0,
+        "endLine": 56,
+        "endChar": 0
+      },
+      "revId": "ec3cc12b339a90e7720e2617ca1a24affc4502ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "139c74f4_392c7cdb",
+        "filename": "modules/audio_processing/agc2/limiter.h",
+        "patchSetId": 23
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2024-07-02T13:39:28Z",
+      "side": 1,
+      "message": "Can this be deleted instead of marked deprecated? Unless I\u0027m mistaken, this CL moves all usage to the new `Process(DeinterleavedView)` API.",
+      "range": {
+        "startLine": 44,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 3
+      },
+      "revId": "ec3cc12b339a90e7720e2617ca1a24affc4502ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "587b8745_96d2f7d7",
+        "filename": "modules/audio_processing/agc2/limiter_unittest.cc",
+        "patchSetId": 23
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2024-07-02T13:39:28Z",
+      "side": 1,
+      "message": "Is this `#include` still used?",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 34
+      },
+      "revId": "ec3cc12b339a90e7720e2617ca1a24affc4502ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f380d950_2d322be4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2024-07-02T11:47:31Z",
+      "side": 1,
+      "message": "thanks!",
+      "revId": "50e9a43543a845d6450fb2def545ada52106bdad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9abac9be_86038a04",
@@ -37,6 +54,30 @@
       "writtenOn": "2024-07-02T11:37:10Z",
       "side": 1,
       "message": "Yes, +1 on using a unique_ptr here. Everything else LGTM.",
+      "parentUuid": "9abac9be_86038a04",
+      "range": {
+        "startLine": 50,
+        "startChar": 9,
+        "endLine": 50,
+        "endChar": 20
+      },
+      "revId": "50e9a43543a845d6450fb2def545ada52106bdad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "26bc7403_7fe9b37a",
+        "filename": "p2p/base/fake_port_allocator.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2024-07-02T11:47:31Z",
+      "side": 1,
+      "message": "Done",
       "parentUuid": "9abac9be_86038a04",
       "range": {
         "startLine": 50,

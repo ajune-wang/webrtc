@@ -16,6 +16,24 @@
       "message": "Could it happen that `video_codec.spatialLayers[0].minBitrate` is already populated with a correct value? Should we take the min of the two in that case?\n\nHow do we even end up in this situation?",
       "revId": "3c52ab55e41cdf5967bfd82f96a652bea25550a2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "52d5def1_7dbde35b",
+        "filename": "modules/video_coding/video_codec_initializer.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 307,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2024-07-02T08:00:02Z",
+      "side": 1,
+      "message": "If min bitrate is configured via RtpEncodingParameters (https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/media/engine/webrtc_video_engine.cc;l\u003d2210), then maybe this value should be used?\nNote there is similar change where encoding min bitrate is used (instead of max): https://webrtc-review.googlesource.com/c/src/+/355840",
+      "parentUuid": "c930c72e_8f13ede6",
+      "revId": "3c52ab55e41cdf5967bfd82f96a652bea25550a2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -41,6 +41,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "14e60c03_3129db26",
+        "filename": "modules/audio_processing/agc2/fixed_digital_level_estimator.h",
+        "patchSetId": 23
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2024-07-02T15:18:37Z",
+      "side": 1,
+      "message": "We can\u0027t delete this one yet. Downstream dependencies need to be moved over to the other method first. (follow-up to this change)",
+      "parentUuid": "a138daf9_61e35407",
+      "range": {
+        "startLine": 51,
+        "startChar": 0,
+        "endLine": 56,
+        "endChar": 0
+      },
+      "revId": "ec3cc12b339a90e7720e2617ca1a24affc4502ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "139c74f4_392c7cdb",
@@ -64,6 +88,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1edb582e_7f9bc890",
+        "filename": "modules/audio_processing/agc2/limiter.h",
+        "patchSetId": 23
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2024-07-02T15:18:37Z",
+      "side": 1,
+      "message": "All usage in webrtc has been removed, but downstream dependencies exist which I\u0027ll need to take care of before eventually removing this method.",
+      "parentUuid": "139c74f4_392c7cdb",
+      "range": {
+        "startLine": 44,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 3
+      },
+      "revId": "ec3cc12b339a90e7720e2617ca1a24affc4502ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "587b8745_96d2f7d7",
@@ -77,6 +125,30 @@
       "writtenOn": "2024-07-02T13:39:28Z",
       "side": 1,
       "message": "Is this `#include` still used?",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 34
+      },
+      "revId": "ec3cc12b339a90e7720e2617ca1a24affc4502ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bb9e9a96_2a4841ce",
+        "filename": "modules/audio_processing/agc2/limiter_unittest.cc",
+        "patchSetId": 23
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2024-07-02T15:18:37Z",
+      "side": 1,
+      "message": "nope - not needed anymore. removed. thanks for spotting.",
+      "parentUuid": "587b8745_96d2f7d7",
       "range": {
         "startLine": 15,
         "startChar": 0,

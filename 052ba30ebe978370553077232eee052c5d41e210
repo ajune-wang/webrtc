@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6c4e0bf3_75ed540d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 20
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2024-07-03T07:39:03Z",
+      "side": 1,
+      "message": "Gustaf - can you take over the review from Per?\nPer already had some comments that we\u0027ve been discussing.",
+      "revId": "052ba30ebe978370553077232eee052c5d41e210",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

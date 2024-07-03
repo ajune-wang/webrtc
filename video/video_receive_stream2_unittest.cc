@@ -68,6 +68,10 @@ void PrintTo(const RecordableEncodedFrame::EncodedResolution& value,
   *os << value.width << "x" << value.height;
 }
 
+inline std::ostream& operator<<(std::ostream& stream, Timestamp value) {
+  return stream << ToString(value);
+}
+
 void PrintTo(const RecordableEncodedFrame& value, std::ostream* os) {
   *os << "RecordableEncodedFrame(render_time=" << value.render_time()
       << " resolution=" << ::testing::PrintToString(value.resolution()) << ")";

@@ -56,6 +56,30 @@
       },
       "revId": "052ba30ebe978370553077232eee052c5d41e210",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c4b26345_1b382fd1",
+        "filename": "modules/audio_processing/audio_buffer.h",
+        "patchSetId": 20
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2024-07-03T17:58:16Z",
+      "side": 1,
+      "message": "Yes - we\u0027re going to remove this constant. This is really a noop change in this CL but serves the purpose of pointing out that there\u0027s another constant that should be used. Current usage of `AudioBuffer::kMaxSampleRate` needs to be updated first outside of webrtc and then I\u0027ll follow up by removing this.",
+      "parentUuid": "59c0a9ac_bc50c3ab",
+      "range": {
+        "startLine": 37,
+        "startChar": 19,
+        "endLine": 37,
+        "endChar": 33
+      },
+      "revId": "052ba30ebe978370553077232eee052c5d41e210",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

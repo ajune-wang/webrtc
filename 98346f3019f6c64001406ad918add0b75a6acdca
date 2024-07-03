@@ -41,6 +41,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9510c355_d4e145b8",
+        "filename": "rtc_tools/rtc_event_log_visualizer/analyzer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1564,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2024-07-03T06:33:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6f6ee3e7_e15c3703",
+      "range": {
+        "startLine": 1564,
+        "startChar": 9,
+        "endLine": 1564,
+        "endChar": 32
+      },
+      "revId": "98346f3019f6c64001406ad918add0b75a6acdca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "05568cd5_0b577410",
@@ -64,6 +88,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3fc0a088_298f08a2",
+        "filename": "rtc_tools/rtc_event_log_visualizer/analyzer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1593,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2024-07-03T06:33:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "05568cd5_0b577410",
+      "range": {
+        "startLine": 1593,
+        "startChar": 0,
+        "endLine": 1593,
+        "endChar": 20
+      },
+      "revId": "98346f3019f6c64001406ad918add0b75a6acdca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "519f1934_a3031a03",
@@ -77,6 +125,30 @@
       "writtenOn": "2024-07-02T15:54:39Z",
       "side": 1,
       "message": "I think an explicit type would be clearer.",
+      "range": {
+        "startLine": 1599,
+        "startChar": 4,
+        "endLine": 1599,
+        "endChar": 8
+      },
+      "revId": "98346f3019f6c64001406ad918add0b75a6acdca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "81c9b01d_a5c90b70",
+        "filename": "rtc_tools/rtc_event_log_visualizer/analyzer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1599,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2024-07-03T06:33:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "519f1934_a3031a03",
       "range": {
         "startLine": 1599,
         "startChar": 4,

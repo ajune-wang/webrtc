@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b3ed597f_71db1b86",
+        "filename": "video/rate_utilization_tracker.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2024-07-03T13:00:34Z",
+      "side": 1,
+      "message": "nit: \u003d\u003d",
+      "range": {
+        "startLine": 85,
+        "startChar": 34,
+        "endLine": 85,
+        "endChar": 36
+      },
+      "revId": "0672b9b3b06dc58791a1c7f4841b621d5d0bc46f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ae9d3e19_cc250a6b",
+        "filename": "video/rate_utilization_tracker.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2024-07-03T13:00:34Z",
+      "side": 1,
+      "message": "I think you can store these as `expected_frame_duration` and then simply calculate the utilization as `sum(expected_frame_duration) / window_duration`.",
+      "range": {
+        "startLine": 53,
+        "startChar": 0,
+        "endLine": 54,
+        "endChar": 19
+      },
+      "revId": "0672b9b3b06dc58791a1c7f4841b621d5d0bc46f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "edcb2265_1d37bfe0",
+        "filename": "video/rate_utilization_tracker.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2024-07-03T13:00:34Z",
+      "side": 1,
+      "message": "I would think merging these into one struct and using one deque could make the utilization calculation simpler.",
+      "range": {
+        "startLine": 52,
+        "startChar": 0,
+        "endLine": 59,
+        "endChar": 4
+      },
+      "revId": "0672b9b3b06dc58791a1c7f4841b621d5d0bc46f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

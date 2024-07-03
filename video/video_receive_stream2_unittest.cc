@@ -16,6 +16,7 @@
 #include <limits>
 #include <memory>
 #include <ostream>
+#include <ostream>  // no-presubmit-check TODO(webrtc:8982)
 #include <queue>
 #include <tuple>
 #include <utility>
@@ -66,6 +67,12 @@ void PrintTo(const SdpVideoFormat& value, std::ostream* os) {
 void PrintTo(const RecordableEncodedFrame::EncodedResolution& value,
              std::ostream* os) {
   *os << value.width << "x" << value.height;
+}
+
+inline std::ostream& operator<<(  // no-presubmit-check TODO(webrtc:8982)
+    std::ostream& stream,         // no-presubmit-check TODO(webrtc:8982)
+    Timestamp value) {
+  return stream << ToString(value);
 }
 
 void PrintTo(const RecordableEncodedFrame& value, std::ostream* os) {

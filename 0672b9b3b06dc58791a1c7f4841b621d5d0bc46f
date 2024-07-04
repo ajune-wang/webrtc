@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d6e9246b_023cb110",
+        "filename": "video/rate_utilization_tracker.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2024-07-04T12:09:39Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "b3ed597f_71db1b86",
+      "range": {
+        "startLine": 85,
+        "startChar": 34,
+        "endLine": 85,
+        "endChar": 36
+      },
+      "revId": "0672b9b3b06dc58791a1c7f4841b621d5d0bc46f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ae9d3e19_cc250a6b",
@@ -47,6 +71,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dd202c6b_14cb4470",
+        "filename": "video/rate_utilization_tracker.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2024-07-04T12:09:39Z",
+      "side": 1,
+      "message": "That doesn\u0027t take rate change mid frame into account.",
+      "parentUuid": "ae9d3e19_cc250a6b",
+      "range": {
+        "startLine": 53,
+        "startChar": 0,
+        "endLine": 54,
+        "endChar": 19
+      },
+      "revId": "0672b9b3b06dc58791a1c7f4841b621d5d0bc46f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "edcb2265_1d37bfe0",
@@ -60,6 +108,30 @@
       "writtenOn": "2024-07-03T13:00:34Z",
       "side": 1,
       "message": "I would think merging these into one struct and using one deque could make the utilization calculation simpler.",
+      "range": {
+        "startLine": 52,
+        "startChar": 0,
+        "endLine": 59,
+        "endChar": 4
+      },
+      "revId": "0672b9b3b06dc58791a1c7f4841b621d5d0bc46f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "698b3ac7_613372bd",
+        "filename": "video/rate_utilization_tracker.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2024-07-04T12:09:39Z",
+      "side": 1,
+      "message": "Done, it did turn out much nicer!",
+      "parentUuid": "edcb2265_1d37bfe0",
       "range": {
         "startLine": 52,
         "startChar": 0,

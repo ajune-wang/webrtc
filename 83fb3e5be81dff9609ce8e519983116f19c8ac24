@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4b7b2a21_df64c096",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2024-07-04T11:08:34Z",
+      "side": 1,
+      "message": "LGTM % comments",
+      "revId": "83fb3e5be81dff9609ce8e519983116f19c8ac24",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e0c4fad2_576961a7",
+        "filename": "modules/audio_processing/agc2/limiter.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2024-07-04T11:08:34Z",
+      "side": 1,
+      "message": "This one, too?",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 47
+      },
+      "revId": "83fb3e5be81dff9609ce8e519983116f19c8ac24",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f4688775_a821912f",
+        "filename": "modules/audio_processing/agc2/limiter.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2024-07-04T11:08:34Z",
+      "side": 1,
+      "message": "This one, too?",
+      "range": {
+        "startLine": 51,
+        "startChar": 0,
+        "endLine": 55,
+        "endChar": 3
+      },
+      "revId": "83fb3e5be81dff9609ce8e519983116f19c8ac24",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -13,7 +13,6 @@
 
 #include <iostream>
 #include <memory>
-#include <sstream>  // no-presubmit-check TODO(webrtc:8982):
 #include <string>
 #include <vector>
 
@@ -84,6 +83,7 @@ absl::optional<uint32_t> ParseSsrc(absl::string_view str) {
     read_mode = std::hex;
     str = str.substr(2);
   }
+  RTC_CHECK(false);
   std::stringstream ss(std::string{str});
   ss >> read_mode >> ssrc;
   if (str.empty() || (!ss.fail() && ss.eof()))

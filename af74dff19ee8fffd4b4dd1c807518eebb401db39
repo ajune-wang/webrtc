@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a9a455fc_e8e86339",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6305
+      },
+      "writtenOn": "2024-07-04T15:52:57Z",
+      "side": 1,
+      "message": "This change broke behavior of iOS and Android SDK. With this change recording via `AudioDeviceModule` is started as soon as peer connection is connected. It even started when there is no active outgoing audio track in rtp sender.\nE.g:\n```swift\nlet microphoneAndCameraStreamName \u003d UUID().uuidString\nlet microphoneTransceiverInit \u003d RTCRtpTransceiverInit().then { obj in\n  obj.direction \u003d .sendOnly\n  obj.streamIds \u003d [microphoneAndCameraStreamName]\n  obj.sendEncodings \u003d [\n    RTCRtpEncodingParameters().then { params in\n      params.adaptiveAudioPacketTime \u003d true\n    }\n  ]\n}\n// Previously presence of audio transceiver without audio track didn\u0027t cause audio being captured and sent.\n// Sending was controlled by adding/removing audio track to transceiver. \n// But with this change audio capture started and audio is actually sent without audio track at all. \nlet outgoingMicrophoneTransceiver \u003d peerConnection.addTransceiver(of: .audio, init: microphoneTransceiverInit)!\n```\nPalak@, Harald@ could you please confirm that this is was not intentional behavior change and it could be fixed/re-considred?",
+      "revId": "af74dff19ee8fffd4b4dd1c807518eebb401db39",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

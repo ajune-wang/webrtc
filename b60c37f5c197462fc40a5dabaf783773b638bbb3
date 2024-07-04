@@ -41,6 +41,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d5438342_6f1f0e3b",
+        "filename": "video/rate_utilization_tracker.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2024-07-04T15:32:09Z",
+      "side": 1,
+      "message": "Sure, we still need to subtract the rate already accumulated for the last data point though. We can also actually remove this if-statement, it\u0027s fine to multiply by a zero-duration.",
+      "parentUuid": "b605f3c8_c32df91f",
+      "range": {
+        "startLine": 105,
+        "startChar": 0,
+        "endLine": 105,
+        "endChar": 68
+      },
+      "revId": "b60c37f5c197462fc40a5dabaf783773b638bbb3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3bb6d054_dee0dd22",
@@ -54,6 +78,30 @@
       "writtenOn": "2024-07-04T15:03:40Z",
       "side": 1,
       "message": "Should be 0.02?",
+      "range": {
+        "startLine": 28,
+        "startChar": 33,
+        "endLine": 28,
+        "endChar": 38
+      },
+      "revId": "b60c37f5c197462fc40a5dabaf783773b638bbb3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ddd308c6_d7632d52",
+        "filename": "video/rate_utilization_tracker_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2024-07-04T15:32:09Z",
+      "side": 1,
+      "message": "Ah, comment is wrong - code is correct.",
+      "parentUuid": "3bb6d054_dee0dd22",
       "range": {
         "startLine": 28,
         "startChar": 33,

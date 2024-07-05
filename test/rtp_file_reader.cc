@@ -10,8 +10,6 @@
 
 #include "test/rtp_file_reader.h"
 
-#include <stdio.h>
-
 #include <map>
 #include <string>
 #include <vector>
@@ -139,7 +137,8 @@ class RtpDumpReader : public RtpFileReaderImpl {
         return false;
       }
     } else {
-      RTC_LOG(LS_INFO) << "Wrong file format of input file";
+      RTC_LOG(LS_INFO)
+          << "Input file is neither in rtpplay nor RTPencode format";
       return false;
     }
 
@@ -216,6 +215,8 @@ enum {
 
 const uint32_t kPcapBOMSwapOrder = 0xd4c3b2a1UL;
 const uint32_t kPcapBOMNoSwapOrder = 0xa1b2c3d4UL;
+const uint32_t kPcapNgMagicBytes = 0x0a0d0d0aUL;
+const uint32_t kPcapNgBOMLittleEndian = 0x4d3c2b1aUL;
 
 #define TRY_PCAP(expr)                                               \
   do {                                                               \
@@ -230,6 +231,8 @@ const uint32_t kPcapBOMNoSwapOrder = 0xa1b2c3d4UL;
 
 // Read RTP packets from file in tcpdump/libpcap format, as documented at:
 // http://wiki.wireshark.org/Development/LibpcapFileFormat
+// Transparently supports PCAPNG as described at
+// https://pcapng.com/
 class PcapReader : public RtpFileReaderImpl {
  public:
   PcapReader()
@@ -240,6 +243,7 @@ class PcapReader : public RtpFileReaderImpl {
 #else
         swap_network_byte_order_(true),
 #endif
+        pcapng_(false),
         read_buffer_(),
         packets_by_ssrc_(),
         packets_(),
@@ -263,42 +267,25 @@ class PcapReader : public RtpFileReaderImpl {
   int Initialize(FILE* file, const std::set<uint32_t>& ssrc_filter) {
     file_ = file;
 
+    size_t total_packet_count = 0;
     if (ReadGlobalHeader() < 0) {
       return kResultFail;
     }
-
-    int total_packet_count = 0;
-    uint32_t stream_start_ms = 0;
-    int32_t next_packet_pos = ftell(file_);
-    for (;;) {
-      TRY_PCAP(fseek(file_, next_packet_pos, SEEK_SET));
-      int result = ReadPacket(&next_packet_pos, stream_start_ms,
-                              ++total_packet_count, ssrc_filter);
-      if (result == kResultFail) {
-        break;
-      } else if (result == kResultSuccess && packets_.size() == 1) {
-        RTC_DCHECK_EQ(stream_start_ms, 0);
-        PacketIterator it = packets_.begin();
-        stream_start_ms = it->time_offset_ms;
-        it->time_offset_ms = 0;
-      }
+    if (!pcapng_) {
+      ReadPcap(ssrc_filter, total_packet_count);
+    } else {
+      ReadPcapNg(ssrc_filter, total_packet_count);
     }
-
-    if (feof(file_) == 0) {
-      printf("Failed reading file!\n");
-      return kResultFail;
-    }
-
-    printf("Total packets in file: %d\n", total_packet_count);
-    printf("Total RTP/RTCP packets: %zu\n", packets_.size());
+    RTC_LOG(LS_INFO) << "Total packets in file: " << total_packet_count;
+    RTC_LOG(LS_INFO) << "Total RTP/RTCP packets: " << packets_.size();
 
     for (SsrcMapIterator mit = packets_by_ssrc_.begin();
          mit != packets_by_ssrc_.end(); ++mit) {
       uint32_t ssrc = mit->first;
       const std::vector<uint32_t>& packet_indices = mit->second;
       int pt = packets_[packet_indices[0]].payload_type;
-      printf("SSRC: %08x, %zu packets, pt=%d\n", ssrc, packet_indices.size(),
-             pt);
+      RTC_LOG(LS_INFO) << "SSRC: " << ssrc << ", " << packet_indices.size()
+                       << " packets, pt=" << pt << ".";
     }
 
     // TODO(solenberg): Better validation of identified SSRC streams.
@@ -318,6 +305,56 @@ class PcapReader : public RtpFileReaderImpl {
     //   for up/down streams.
 
     next_packet_it_ = packets_.begin();
+    return kResultSuccess;
+  }
+
+  int ReadPcap(const std::set<uint32_t>& ssrc_filter,
+               size_t& total_packet_count) {
+    uint32_t stream_start_ms = 0;
+    int32_t next_packet_pos = ftell(file_);
+    for (;;) {
+      TRY_PCAP(fseek(file_, next_packet_pos, SEEK_SET));
+      int result = ReadPacket(&next_packet_pos, stream_start_ms,
+                              ++total_packet_count, ssrc_filter);
+      if (result == kResultFail) {
+        break;
+      } else if (result == kResultSuccess && packets_.size() == 1) {
+        RTC_DCHECK_EQ(stream_start_ms, 0);
+        PacketIterator it = packets_.begin();
+        stream_start_ms = it->time_offset_ms;
+        it->time_offset_ms = 0;
+      }
+    }
+
+    if (feof(file_) == 0) {
+      RTC_LOG(LS_ERROR) << "Failed reading file!";
+      return kResultFail;
+    }
+    return kResultSuccess;
+  }
+
+  int ReadPcapNg(const std::set<uint32_t>& ssrc_filter,
+                 size_t& total_packet_count) {
+    uint32_t stream_start_ms = 0;
+    int next_packet_pos = 0;
+    for (;;) {
+      TRY_PCAP(fseek(file_, next_packet_pos, SEEK_SET));
+      int result = ReadPacketNg(&next_packet_pos, stream_start_ms,
+                                ++total_packet_count, ssrc_filter);
+
+      if (result == kResultFail) {
+        break;
+      } else if (result == kResultSuccess && packets_.size() == 1) {
+        RTC_DCHECK_EQ(stream_start_ms, 0);
+        PacketIterator it = packets_.begin();
+        stream_start_ms = it->time_offset_ms;
+        it->time_offset_ms = 0;
+      }
+    }
+    if (feof(file_) == 0) {
+      RTC_LOG(LS_ERROR) << "Failed reading file!";
+      return kResultFail;
+    }
     return kResultSuccess;
   }
 
@@ -377,6 +414,10 @@ class PcapReader : public RtpFileReaderImpl {
       swap_pcap_byte_order_ = true;
     } else if (magic == kPcapBOMNoSwapOrder) {
       swap_pcap_byte_order_ = false;
+    } else if (magic == kPcapNgMagicBytes) {
+      pcapng_ = true;
+      RTC_LOG(LS_INFO) << "PCAPNG detected, support is experimental";
+      return kResultSuccess;
     } else {
       return kResultFail;
     }
@@ -408,6 +449,30 @@ class PcapReader : public RtpFileReaderImpl {
     return kResultSuccess;
   }
 
+  int ProcessPacket(RtpPacketMarker& marker,
+                    const std::set<uint32_t>& ssrc_filter,
+                    rtc::ArrayView<const uint8_t> packet) {
+    if (IsRtcpPacket(packet)) {
+      marker.payload_type = packet[1];
+      packets_.push_back(marker);
+    } else if (IsRtpPacket(packet)) {
+      uint32_t ssrc = ParseRtpSsrc(packet);
+      marker.payload_type = ParseRtpPayloadType(packet);
+      if (ssrc_filter.empty() || ssrc_filter.find(ssrc) != ssrc_filter.end()) {
+        packets_by_ssrc_[ssrc].push_back(
+            static_cast<uint32_t>(packets_.size()));
+        packets_.push_back(marker);
+      } else {
+        return kResultSkip;
+      }
+    } else {
+      RTC_LOG(LS_INFO) << "Not recognized as RTP/RTCP";
+      return kResultSkip;
+    }
+
+    return kResultSuccess;
+  }
+
   int ReadPacket(int32_t* next_packet_pos,
                  uint32_t stream_start_ms,
                  uint32_t number,
@@ -432,31 +497,82 @@ class PcapReader : public RtpFileReaderImpl {
     marker.pos_in_file = ftell(file_);
 
     if (marker.payload_length > sizeof(read_buffer_)) {
-      printf("Packet too large!\n");
+      RTC_LOG(LS_ERROR) << "Packet too large!";
       return kResultFail;
     }
     TRY_PCAP(Read(read_buffer_, marker.payload_length));
+    return ProcessPacket(marker, ssrc_filter,
+                         {read_buffer_, marker.payload_length});
+  }
 
-    rtc::ArrayView<const uint8_t> packet(read_buffer_, marker.payload_length);
-    if (IsRtcpPacket(packet)) {
-      marker.payload_type = packet[1];
-      packets_.push_back(marker);
-    } else if (IsRtpPacket(packet)) {
-      uint32_t ssrc = ParseRtpSsrc(packet);
-      marker.payload_type = ParseRtpPayloadType(packet);
-      if (ssrc_filter.empty() || ssrc_filter.find(ssrc) != ssrc_filter.end()) {
-        packets_by_ssrc_[ssrc].push_back(
-            static_cast<uint32_t>(packets_.size()));
-        packets_.push_back(marker);
-      } else {
-        return kResultSkip;
-      }
-    } else {
-      RTC_LOG(LS_INFO) << "Not recognized as RTP/RTCP";
-      return kResultSkip;
+  int ReadPacketNg(int32_t* next_packet_pos,
+                   uint32_t stream_start_ms,
+                   uint32_t number,
+                   const std::set<uint32_t>& ssrc_filter) {
+    uint32_t block_type;
+    uint32_t block_length;
+    TRY_PCAP(Read(&block_type, false));
+    TRY_PCAP(Read(&block_length, false));
+    /*
+    RTC_LOG(LS_ERROR) << "BLOCK TYPE " << block_type << " LEN "
+                      << block_length;
+                      */
+    if (block_length == 0) {
+      RTC_LOG(LS_ERROR) << "Empty PCAPNG block";
+      return kResultFail;
     }
 
-    return kResultSuccess;
+    *next_packet_pos += block_length;
+    switch (block_type) {
+      case kPcapNgMagicBytes: {
+        // Section header block.
+        // TODO: https://issues.webrtc.org/issues/351327754 - interpret more of
+        // this block, in particular the if_tsresol option.
+        uint32_t byte_order_magic;
+        TRY_PCAP(Read(&byte_order_magic, false));
+        swap_pcap_byte_order_ = (byte_order_magic == kPcapNgBOMLittleEndian);
+      } break;
+      case 0x00000001LU:
+        // Interface description block.
+        break;
+      case 0x00000006LU: {
+        // Packet block.
+        uint32_t interface;  // Interface ID. Unused.
+        uint32_t ts_upper;   // Upper 32 bits of timestamp.
+        uint32_t ts_lower;   // Lower 32 bits of timestamp.
+        uint32_t incl_len;   // Number of octets of packet saved in file.
+        uint32_t orig_len;   // Actual length of packet.
+        TRY_PCAP(Read(&interface, false));
+        TRY_PCAP(Read(&ts_upper, false));
+        TRY_PCAP(Read(&ts_lower, false));
+        TRY_PCAP(Read(&incl_len, false));
+        TRY_PCAP(Read(&orig_len, false));
+
+        RtpPacketMarker marker = {0};
+        marker.packet_number = number;
+        // Note: Wireshark writes nanoseconds most of the time, see comments in
+        // it's pcapio.c. We are only interesting in the time difference so
+        // truncating to uint32_t is ok.
+        uint64_t timestamp_ms =
+            ((static_cast<uint64_t>(ts_upper) << 32) | ts_lower) / 1000000;
+        marker.time_offset_ms =
+            static_cast<uint32_t>(timestamp_ms) - stream_start_ms;
+        TRY_PCAP(ReadPacketHeader(&marker));
+        marker.pos_in_file = ftell(file_);
+        if (marker.payload_length > sizeof(read_buffer_)) {
+          RTC_LOG(LS_ERROR) << "Packet too large!";
+          return kResultFail;
+        }
+        TRY_PCAP(Read(read_buffer_, marker.payload_length));
+        if (ProcessPacket(marker, ssrc_filter,
+                          {read_buffer_, marker.payload_length}) !=
+            kResultSuccess) {
+          return kResultFail;
+        }
+        return kResultSuccess;
+      } break;
+    }
+    return kResultSkip;
   }
 
   int ReadPacketHeader(RtpPacketMarker* marker) {
@@ -470,7 +586,6 @@ class PcapReader : public RtpFileReaderImpl {
     TRY_PCAP(Read(&protocol, true));
     if (protocol == kBsdNullLoopback1 || protocol == kBsdNullLoopback2) {
       int result = ReadXxpIpHeader(marker);
-      RTC_LOG(LS_INFO) << "Recognized loopback frame";
       if (result != kResultSkip) {
         return result;
       }
@@ -484,7 +599,6 @@ class PcapReader : public RtpFileReaderImpl {
     TRY_PCAP(Read(&type, true));
     if (type == kEthertypeIp) {
       int result = ReadXxpIpHeader(marker);
-      RTC_LOG(LS_INFO) << "Recognized ethernet 2 frame";
       if (result != kResultSkip) {
         return result;
       }
@@ -617,6 +731,7 @@ class PcapReader : public RtpFileReaderImpl {
   FILE* file_;
   bool swap_pcap_byte_order_;
   const bool swap_network_byte_order_;
+  bool pcapng_;
   uint8_t read_buffer_[kMaxReadBufferSize];
 
   SsrcMap packets_by_ssrc_;
@@ -648,7 +763,7 @@ RtpFileReader* RtpFileReader::Create(FileFormat format,
 
   FILE* file = tmpfile();
   if (file == nullptr) {
-    printf("ERROR: Can't open file from memory buffer\n");
+    RTC_LOG(LS_ERROR) << "ERROR: Can't open file from memory buffer.";
     return nullptr;
   }
 
@@ -671,7 +786,7 @@ RtpFileReader* RtpFileReader::Create(FileFormat format,
   std::string filename_str = std::string(filename);
   FILE* file = fopen(filename_str.c_str(), "rb");
   if (file == nullptr) {
-    printf("ERROR: Can't open file: %s\n", filename_str.c_str());
+    RTC_LOG(LS_ERROR) << "ERROR: Can't open file: '" << filename_str << "'.";
     return nullptr;
   }
 

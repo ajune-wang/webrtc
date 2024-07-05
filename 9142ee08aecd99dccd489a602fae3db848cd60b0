@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ff7da1cf_fd6f3f2d",
+        "filename": "rtc_tools/video_replay.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 616,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-07-05T15:23:25Z",
+      "side": 1,
+      "message": "I originally thought RtpPacket.Parse would reject RTCP but... it does not.\nChecking the return value here still provides some robustness.",
+      "revId": "9142ee08aecd99dccd489a602fae3db848cd60b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

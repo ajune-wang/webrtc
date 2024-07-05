@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "487f34fe_a205acbb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-07-05T18:20:35Z",
+      "side": 1,
+      "message": "Stefan, you seem to be the last person who touched this file :-p",
+      "revId": "5f69ff8208071265c7c831c8ba8d11cf80c13a29",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

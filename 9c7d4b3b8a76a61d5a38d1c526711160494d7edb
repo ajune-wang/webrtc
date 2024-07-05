@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0a4c8590_a5ddd444",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 21076
+      },
+      "writtenOn": "2024-07-05T08:45:21Z",
+      "side": 1,
+      "message": "Erik, I think this is correct as far as I looked VideoStreamEncoder. But correct me if I am wrong.",
+      "revId": "9c7d4b3b8a76a61d5a38d1c526711160494d7edb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

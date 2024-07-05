@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f69fd267_05a5a3c8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18005
+      },
+      "writtenOn": "2024-07-05T06:50:14Z",
+      "side": 1,
+      "message": "Hi sprang@, could PTAL?",
+      "revId": "c7b1b89bbd28362f5489c0fb5930fa6e39fbb929",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

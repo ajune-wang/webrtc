@@ -24,6 +24,7 @@
 #include "api/environment/environment.h"
 #include "api/field_trials_view.h"
 #include "api/scoped_refptr.h"
+#include "api/units/frequency.h"
 #include "api/video/encoded_image.h"
 #include "api/video/i420_buffer.h"
 #include "api/video/video_frame.h"
@@ -131,6 +132,7 @@ class LibaomAv1Encoder final : public VideoEncoder {
   aom_codec_ctx_t ctx_;
   aom_codec_enc_cfg_t cfg_;
   EncodedImageCallback* encoded_image_callback_;
+  Frequency framerate_;  // Current target frame rate.
   int64_t timestamp_;
   const LibaomAv1EncoderInfoSettings encoder_info_override_;
   int max_consec_frame_drop_;
@@ -179,6 +181,7 @@ LibaomAv1Encoder::LibaomAv1Encoder(const Environment& env,
       settings_(std::move(settings)),
       frame_for_encode_(nullptr),
       encoded_image_callback_(nullptr),
+      framerate_(Frequency::Zero()),
       timestamp_(0),
       encoder_info_override_(env.field_trials()),
       max_consec_frame_drop_(GetMaxConsecutiveFrameDrop(env.field_trials())) {}
@@ -658,8 +661,7 @@ int32_t LibaomAv1Encoder::Encode(
       return WEBRTC_VIDEO_CODEC_ENCODER_FAILURE;
   }
 
-  const uint32_t duration =
-      kRtpTicksPerSecond / static_cast<float>(encoder_settings_.maxFramerate);
+  const uint32_t duration = kRtpTicksPerSecond / framerate_.hertz<double>();
   timestamp_ += duration;
 
   const size_t num_spatial_layers =
@@ -836,11 +838,9 @@ void LibaomAv1Encoder::SetRates(const RateControlParameters& parameters) {
     SetEncoderControlParameters(AV1E_SET_SVC_PARAMS, &*svc_params_);
   }
 
-  rates_configured_ = true;
+  framerate_ = Frequency::Hertz<double>(parameters.framerate_fps);
 
-  // Set frame rate to closest integer value.
-  encoder_settings_.maxFramerate =
-      static_cast<uint32_t>(parameters.framerate_fps + 0.5);
+  rates_configured_ = true;
 }
 
 VideoEncoder::EncoderInfo LibaomAv1Encoder::GetEncoderInfo() const {

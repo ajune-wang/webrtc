@@ -1214,5 +1214,39 @@ TEST_F(VideoSendStreamImplTest, ConfiguresBitratesForSvc) {
     vss_impl->Stop();
   }
 }
+
+TEST_F(VideoSendStreamImplTest, TestElasticityForRealtimeVideo) {
+  auto vss_impl = CreateVideoSendStreamImpl(
+      TestVideoEncoderConfig(VideoEncoderConfig::ContentType::kRealtimeVideo));
+  vss_impl->Start();
+
+  EXPECT_CALL(bitrate_allocator_, AddObserver(vss_impl.get(), _))
+      .WillRepeatedly(Invoke(
+          [&](BitrateAllocatorObserver*, MediaStreamAllocationConfig config) {
+            EXPECT_EQ(config.rate_elasticity_.has_value(), true);
+            EXPECT_EQ(config.rate_elasticity_.value(), kCanExploitExtraRate);
+          }));
+
+  time_controller_.AdvanceTime(TimeDelta::Seconds(2));
+  testing::Mock::VerifyAndClearExpectations(&bitrate_allocator_);
+  vss_impl->Stop();
+}
+
+TEST_F(VideoSendStreamImplTest, TestElasticityForScreenshare) {
+  auto vss_impl = CreateVideoSendStreamImpl(
+      TestVideoEncoderConfig(VideoEncoderConfig::ContentType::kScreen));
+  vss_impl->Start();
+
+  EXPECT_CALL(bitrate_allocator_, AddObserver(vss_impl.get(), _))
+      .WillRepeatedly(Invoke(
+          [&](BitrateAllocatorObserver*, MediaStreamAllocationConfig config) {
+            EXPECT_EQ(config.rate_elasticity_.has_value(), false);
+          }));
+
+  time_controller_.AdvanceTime(TimeDelta::Seconds(2));
+  testing::Mock::VerifyAndClearExpectations(&bitrate_allocator_);
+  vss_impl->Stop();
+}
+
 }  // namespace internal
 }  // namespace webrtc

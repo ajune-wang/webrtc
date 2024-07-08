@@ -780,7 +780,10 @@ MediaStreamAllocationConfig VideoSendStreamImpl::GetAllocationConfig() const {
       static_cast<uint32_t>(disable_padding_ ? 0 : max_padding_bitrate_),
       encoder_av1_priority_bitrate_override_bps_,
       !config_.suspend_below_min_bitrate,
-      encoder_bitrate_priority_};
+      encoder_bitrate_priority_,
+      (content_type_ == VideoEncoderConfig::ContentType::kRealtimeVideo)
+          ? absl::optional(kCanExploitExtraRate)
+          : absl::nullopt};
 }
 
 void VideoSendStreamImpl::OnEncoderConfigurationChanged(

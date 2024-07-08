@@ -807,7 +807,8 @@ void AudioSendStream::ConfigureBitrateObserver() {
           constraints->min.bps<uint32_t>(), constraints->max.bps<uint32_t>(), 0,
           priority_bitrate.bps(), true,
           allocation_settings_.bitrate_priority.value_or(
-              config_.bitrate_priority)});
+              config_.bitrate_priority),
+          kCanContributeUnusedRate});
 
   registered_with_allocator_ = true;
 }

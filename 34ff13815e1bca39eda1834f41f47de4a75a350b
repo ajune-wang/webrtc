@@ -22,6 +22,30 @@
       },
       "revId": "34ff13815e1bca39eda1834f41f47de4a75a350b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3de54bb6_c59d67f4",
+        "filename": "modules/audio_processing/test/aec_dump_based_simulator.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2024-07-08T14:02:47Z",
+      "side": 1,
+      "message": "yes - but I think that\u0027s what the behavior has been so far.\n\nPreviously `aec_dump_input_string.has_value()` has always been false, which meant that `use_dump_file` was set to `true`. That in turn meant that we\u0027d always call `OpenFile()`.",
+      "parentUuid": "3ee206fd_c033e715",
+      "range": {
+        "startLine": 235,
+        "startChar": 2,
+        "endLine": 235,
+        "endChar": 80
+      },
+      "revId": "34ff13815e1bca39eda1834f41f47de4a75a350b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

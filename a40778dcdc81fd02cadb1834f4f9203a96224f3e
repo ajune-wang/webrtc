@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "138396d7_ea2649b0",
+        "filename": "modules/desktop_capture/screen_capturer_fuchsia.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2024-07-08T16:36:52Z",
+      "side": 1,
+      "message": "Should this be deleted?",
+      "revId": "a40778dcdc81fd02cadb1834f4f9203a96224f3e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

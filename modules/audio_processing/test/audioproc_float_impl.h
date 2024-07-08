@@ -42,7 +42,6 @@ int AudioprocFloatImpl(rtc::scoped_refptr<AudioProcessing> audio_processing,
 int AudioprocFloatImpl(std::unique_ptr<AudioProcessingBuilder> ap_builder,
                        int argc,
                        char* argv[],
-                       absl::string_view input_aecdump,
                        std::vector<float>* processed_capture_samples);
 
 }  // namespace test

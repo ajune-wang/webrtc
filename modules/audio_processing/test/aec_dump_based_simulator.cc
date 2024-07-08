@@ -70,6 +70,7 @@ bool ReadNextMessage(bool use_dump_file,
                      FILE* dump_input_file,
                      std::stringstream& input,
                      webrtc::audioproc::Event& event_msg) {
+  RTC_CHECK(use_dump_file);
   if (use_dump_file) {
     return ReadMessageFromFile(dump_input_file, &event_msg);
   }
@@ -244,13 +245,11 @@ void AecDumpBasedSimulator::Process() {
         rtc::CheckedDivExact(sample_rate_hz, kChunksPerSecond), 1));
   }
 
-  const bool use_dump_file = !settings_.aec_dump_input_string.has_value();
+  const bool use_dump_file = true;
   std::stringstream input;
   if (use_dump_file) {
     dump_input_file_ =
         OpenFile(settings_.aec_dump_input_filename->c_str(), "rb");
-  } else {
-    input << settings_.aec_dump_input_string.value();
   }
 
   webrtc::audioproc::Event event_msg;
@@ -277,13 +276,11 @@ void AecDumpBasedSimulator::Process() {
 }
 
 void AecDumpBasedSimulator::Analyze() {
-  const bool use_dump_file = !settings_.aec_dump_input_string.has_value();
+  const bool use_dump_file = true;
   std::stringstream input;
   if (use_dump_file) {
     dump_input_file_ =
         OpenFile(settings_.aec_dump_input_filename->c_str(), "rb");
-  } else {
-    input << settings_.aec_dump_input_string.value();
   }
 
   webrtc::audioproc::Event event_msg;

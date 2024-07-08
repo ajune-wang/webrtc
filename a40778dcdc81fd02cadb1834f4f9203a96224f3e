@@ -16,6 +16,24 @@
       "message": "Should this be deleted?",
       "revId": "a40778dcdc81fd02cadb1834f4f9203a96224f3e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b95dbe04_17ec4828",
+        "filename": "modules/desktop_capture/screen_capturer_fuchsia.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 3452268
+      },
+      "writtenOn": "2024-07-08T19:35:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "138396d7_ea2649b0",
+      "revId": "a40778dcdc81fd02cadb1834f4f9203a96224f3e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

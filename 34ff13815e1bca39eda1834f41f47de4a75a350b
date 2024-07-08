@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3ee206fd_c033e715",
+        "filename": "modules/audio_processing/test/aec_dump_based_simulator.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2024-07-08T13:51:11Z",
+      "side": 1,
+      "message": "I might be bit confused. Won\u0027t this try to open an aec-dump even if the file is not specified?\naudioproc_f can be run with either an aecdump or wav-files.",
+      "range": {
+        "startLine": 235,
+        "startChar": 2,
+        "endLine": 235,
+        "endChar": 80
+      },
+      "revId": "34ff13815e1bca39eda1834f41f47de4a75a350b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

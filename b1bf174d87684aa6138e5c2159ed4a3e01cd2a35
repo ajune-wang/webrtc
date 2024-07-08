@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cf755af2_a42deb69",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2024-07-08T21:43:25Z",
+      "side": 1,
+      "message": "Hi Ilya,\nCan you take a look at this CL that activates the new logic.\n\nIt should be a no-op for VP8 since the adaptive convergence detection is disabled by default for VP8.",
+      "revId": "b1bf174d87684aa6138e5c2159ed4a3e01cd2a35",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

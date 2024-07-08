@@ -16,6 +16,24 @@
       "message": "This is a public API surface so probably a good idea to do a PSA before landing this.",
       "revId": "8274b6efc50eee1fce049305829020abc3501e2f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8d649dfc_ba96c9a7",
+        "filename": "api/video_codecs/video_encoder.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2024-07-08T14:04:17Z",
+      "side": 1,
+      "message": "This field was added 1.5 weeks ago: https://webrtc-review.googlesource.com/c/src/+/355701. I think we can skip PSA.",
+      "parentUuid": "1c46eb49_7a0c2738",
+      "revId": "8274b6efc50eee1fce049305829020abc3501e2f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

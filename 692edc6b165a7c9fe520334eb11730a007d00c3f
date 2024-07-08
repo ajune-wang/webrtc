@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0953ce1e_56afff20",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2024-07-08T13:34:58Z",
+      "side": 1,
+      "message": "I moved changes in simulcast_utility from https://webrtc-review.googlesource.com/c/src/+/355320, which I\u0027m planning to drop based on discussion with @sprang@webrtc.org, to this CL.",
+      "revId": "692edc6b165a7c9fe520334eb11730a007d00c3f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

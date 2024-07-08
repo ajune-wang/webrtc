@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9d1fb975_3c23fefa",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2024-07-08T12:48:20Z",
+      "side": 1,
+      "message": "This is now ready to be reviewed. I tested this with https://www.kernel.org/doc/html/v4.14/media/v4l-drivers/vivid.html and it produces correct image.",
+      "revId": "b887f6caeb1d68ce8c9889d80de935c3e22ef4ee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

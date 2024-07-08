@@ -543,11 +543,6 @@ void PerformBasicParameterSanityChecks(
         "Error: The aec dump file cannot be specified "
         "together with input wav files!\n");
 
-    ReportConditionalErrorAndExit(
-        !!settings.aec_dump_input_string,
-        "Error: The aec dump input string cannot be specified "
-        "together with input wav files!\n");
-
     ReportConditionalErrorAndExit(!!settings.artificial_nearend_filename,
                                   "Error: The artificial nearend cannot be "
                                   "specified together with input wav files!\n");
@@ -563,11 +558,11 @@ void PerformBasicParameterSanityChecks(
         "must be specified if the reverse output wav filename is specified!\n");
   } else {
     ReportConditionalErrorAndExit(
-        !settings.aec_dump_input_filename && !settings.aec_dump_input_string,
+        !settings.aec_dump_input_filename && true,
         "Error: Either the aec dump input file, the wav "
         "input file or the aec dump input string must be specified!\n");
     ReportConditionalErrorAndExit(
-        settings.aec_dump_input_filename && settings.aec_dump_input_string,
+        settings.aec_dump_input_filename && false,
         "Error: The aec dump input file cannot be specified together with the "
         "aec dump input string!\n");
   }
@@ -748,9 +743,7 @@ void PerformBasicParameterSanityChecks(
 int RunSimulation(rtc::scoped_refptr<AudioProcessing> audio_processing,
                   std::unique_ptr<AudioProcessingBuilder> ap_builder,
                   int argc,
-                  char* argv[],
-                  absl::string_view input_aecdump,
-                  std::vector<float>* processed_capture_samples) {
+                  char* argv[]) {
   std::vector<char*> args = absl::ParseCommandLine(argc, argv);
   if (args.size() != 1) {
     printf("%s", kUsageDescription);
@@ -762,15 +755,10 @@ int RunSimulation(rtc::scoped_refptr<AudioProcessing> audio_processing,
   webrtc::field_trial::InitFieldTrialsFromString(field_trials.c_str());
 
   SimulationSettings settings = CreateSettings();
-  if (!input_aecdump.empty()) {
-    settings.aec_dump_input_string = input_aecdump;
-    settings.processed_capture_samples = processed_capture_samples;
-    RTC_CHECK(settings.processed_capture_samples);
-  }
   PerformBasicParameterSanityChecks(settings, !!audio_processing, !!ap_builder);
   std::unique_ptr<AudioProcessingSimulator> processor;
 
-  if (settings.aec_dump_input_filename || settings.aec_dump_input_string) {
+  if (settings.aec_dump_input_filename) {
     processor.reset(new AecDumpBasedSimulator(
         settings, std::move(audio_processing), std::move(ap_builder)));
   } else {
@@ -808,18 +796,15 @@ int RunSimulation(rtc::scoped_refptr<AudioProcessing> audio_processing,
 int AudioprocFloatImpl(rtc::scoped_refptr<AudioProcessing> audio_processing,
                        int argc,
                        char* argv[]) {
-  return RunSimulation(
-      std::move(audio_processing), /*ap_builder=*/nullptr, argc, argv,
-      /*input_aecdump=*/"", /*processed_capture_samples=*/nullptr);
+  return RunSimulation(std::move(audio_processing), /*ap_builder=*/nullptr,
+                       argc, argv);
 }
 
 int AudioprocFloatImpl(std::unique_ptr<AudioProcessingBuilder> ap_builder,
                        int argc,
-                       char* argv[],
-                       absl::string_view input_aecdump,
-                       std::vector<float>* processed_capture_samples) {
+                       char* argv[]) {
   return RunSimulation(/*audio_processing=*/nullptr, std::move(ap_builder),
-                       argc, argv, input_aecdump, processed_capture_samples);
+                       argc, argv);
 }
 
 }  // namespace test

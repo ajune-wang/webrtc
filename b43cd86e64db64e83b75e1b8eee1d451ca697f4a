@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "512302d7_3a10801c",
+        "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 664,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-07-08T22:52:29Z",
+      "side": 1,
+      "message": "so we saw your change, I asked my encoding gurus whether we should cherry-pick it and then we stumbled over this line. We found\n  https://webrtc-review.googlesource.com/c/src/+/294740\nwhich stops using the unwrapped frame timestamp (forwarding a question about that we just sent to aom folks) and\n  https://webrtc-review.googlesource.com/c/src/+/307500\nwhich enables frame dropping.\nWill incrementing the timestamp by 90k/fps not yield wrong results when there is framedrop?",
+      "revId": "b43cd86e64db64e83b75e1b8eee1d451ca697f4a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -749,7 +749,6 @@ int RunSimulation(rtc::scoped_refptr<AudioProcessing> audio_processing,
                   std::unique_ptr<AudioProcessingBuilder> ap_builder,
                   int argc,
                   char* argv[],
-                  absl::string_view input_aecdump,
                   std::vector<float>* processed_capture_samples) {
   std::vector<char*> args = absl::ParseCommandLine(argc, argv);
   if (args.size() != 1) {
@@ -762,11 +761,6 @@ int RunSimulation(rtc::scoped_refptr<AudioProcessing> audio_processing,
   webrtc::field_trial::InitFieldTrialsFromString(field_trials.c_str());
 
   SimulationSettings settings = CreateSettings();
-  if (!input_aecdump.empty()) {
-    settings.aec_dump_input_string = input_aecdump;
-    settings.processed_capture_samples = processed_capture_samples;
-    RTC_CHECK(settings.processed_capture_samples);
-  }
   PerformBasicParameterSanityChecks(settings, !!audio_processing, !!ap_builder);
   std::unique_ptr<AudioProcessingSimulator> processor;
 
@@ -808,18 +802,17 @@ int RunSimulation(rtc::scoped_refptr<AudioProcessing> audio_processing,
 int AudioprocFloatImpl(rtc::scoped_refptr<AudioProcessing> audio_processing,
                        int argc,
                        char* argv[]) {
-  return RunSimulation(
-      std::move(audio_processing), /*ap_builder=*/nullptr, argc, argv,
-      /*input_aecdump=*/"", /*processed_capture_samples=*/nullptr);
+  return RunSimulation(std::move(audio_processing), /*ap_builder=*/nullptr,
+                       argc, argv,
+                       /*processed_capture_samples=*/nullptr);
 }
 
 int AudioprocFloatImpl(std::unique_ptr<AudioProcessingBuilder> ap_builder,
                        int argc,
                        char* argv[],
-                       absl::string_view input_aecdump,
                        std::vector<float>* processed_capture_samples) {
   return RunSimulation(/*audio_processing=*/nullptr, std::move(ap_builder),
-                       argc, argv, input_aecdump, processed_capture_samples);
+                       argc, argv, processed_capture_samples);
 }
 
 }  // namespace test

@@ -27,7 +27,6 @@ int AudioprocFloat(std::unique_ptr<AudioProcessingBuilder> ap_builder,
                    int argc,
                    char* argv[]) {
   return AudioprocFloatImpl(std::move(ap_builder), argc, argv,
-                            /*input_aecdump=*/"",
                             /*processed_capture_samples=*/nullptr);
 }
 

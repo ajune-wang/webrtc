@@ -147,6 +147,7 @@ struct SimulationSettings {
   absl::optional<std::string> call_order_input_filename;
   absl::optional<std::string> call_order_output_filename;
   absl::optional<std::string> aec_settings_filename;
+  // TODO(tommi): Remove `aec_dump_input_string`.
   absl::optional<absl::string_view> aec_dump_input_string;
   std::vector<float>* processed_capture_samples = nullptr;
   bool analysis_only = false;

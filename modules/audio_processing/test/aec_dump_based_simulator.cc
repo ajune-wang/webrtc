@@ -64,18 +64,6 @@ bool VerifyFloatBitExactness(const webrtc::audioproc::Stream& msg,
   return true;
 }
 
-// Selectively reads the next proto-buf message from dump-file or string input.
-// Returns a bool indicating whether a new message was available.
-bool ReadNextMessage(bool use_dump_file,
-                     FILE* dump_input_file,
-                     std::stringstream& input,
-                     webrtc::audioproc::Event& event_msg) {
-  if (use_dump_file) {
-    return ReadMessageFromFile(dump_input_file, &event_msg);
-  }
-  return ReadMessageFromString(&input, &event_msg);
-}
-
 }  // namespace
 
 AecDumpBasedSimulator::AecDumpBasedSimulator(
@@ -244,19 +232,17 @@ void AecDumpBasedSimulator::Process() {
         rtc::CheckedDivExact(sample_rate_hz, kChunksPerSecond), 1));
   }
 
-  const bool use_dump_file = !settings_.aec_dump_input_string.has_value();
+  const bool use_dump_file = true;
   std::stringstream input;
   if (use_dump_file) {
     dump_input_file_ =
         OpenFile(settings_.aec_dump_input_filename->c_str(), "rb");
-  } else {
-    input << settings_.aec_dump_input_string.value();
   }
 
   webrtc::audioproc::Event event_msg;
   int capture_frames_since_init = 0;
   int init_index = 0;
-  while (ReadNextMessage(use_dump_file, dump_input_file_, input, event_msg)) {
+  while (ReadMessageFromFile(dump_input_file_, &event_msg)) {
     SelectivelyToggleDataDumping(init_index, capture_frames_since_init);
     HandleEvent(event_msg, capture_frames_since_init, init_index);
 
@@ -277,20 +263,18 @@ void AecDumpBasedSimulator::Process() {
 }
 
 void AecDumpBasedSimulator::Analyze() {
-  const bool use_dump_file = !settings_.aec_dump_input_string.has_value();
+  const bool use_dump_file = true;
   std::stringstream input;
   if (use_dump_file) {
     dump_input_file_ =
         OpenFile(settings_.aec_dump_input_filename->c_str(), "rb");
-  } else {
-    input << settings_.aec_dump_input_string.value();
   }
 
   webrtc::audioproc::Event event_msg;
   int num_capture_frames = 0;
   int num_render_frames = 0;
   int init_index = 0;
-  while (ReadNextMessage(use_dump_file, dump_input_file_, input, event_msg)) {
+  while (ReadMessageFromFile(dump_input_file_, &event_msg)) {
     if (event_msg.type() == webrtc::audioproc::Event::INIT) {
       ++init_index;
       constexpr float kNumFramesPerSecond = 100.f;

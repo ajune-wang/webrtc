@@ -147,7 +147,7 @@ struct SimulationSettings {
   absl::optional<std::string> call_order_input_filename;
   absl::optional<std::string> call_order_output_filename;
   absl::optional<std::string> aec_settings_filename;
-  absl::optional<absl::string_view> aec_dump_input_string;
+  // TODO(tommi): Remove. `processed_capture_samples` is unused.
   std::vector<float>* processed_capture_samples = nullptr;
   bool analysis_only = false;
   absl::optional<int> dump_start_frame;

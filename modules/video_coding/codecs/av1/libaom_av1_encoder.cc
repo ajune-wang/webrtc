@@ -30,6 +30,7 @@
 #include "api/video_codecs/scalability_mode.h"
 #include "api/video_codecs/video_codec.h"
 #include "api/video_codecs/video_encoder.h"
+#include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
 #include "modules/video_coding/include/video_codec_interface.h"
 #include "modules/video_coding/include/video_error_codes.h"
 #include "modules/video_coding/svc/create_scalability_structure.h"
@@ -66,7 +67,6 @@ constexpr int kMinQindex = 145;  // Min qindex threshold for QP scaling.
 constexpr int kMaxQindex = 205;  // Max qindex threshold for QP scaling.
 constexpr int kBitDepth = 8;
 constexpr int kLagInFrames = 0;  // No look ahead.
-constexpr int kRtpTicksPerSecond = 90000;
 constexpr double kMinimumFrameRate = 1.0;
 
 aom_superblock_size_t GetSuperblockSize(int width, int height, int threads) {
@@ -131,9 +131,12 @@ class LibaomAv1Encoder final : public VideoEncoder {
   aom_codec_ctx_t ctx_;
   aom_codec_enc_cfg_t cfg_;
   EncodedImageCallback* encoded_image_callback_;
+  double framerate_fps_;  // Current target frame rate.
   int64_t timestamp_;
   const LibaomAv1EncoderInfoSettings encoder_info_override_;
-  int max_consec_frame_drop_;
+  // TODO(webrtc:351644568): Remove this kill-switch after the feature is fully
+  // deployed.
+  bool adaptive_max_consec_drops_;
 };
 
 int32_t VerifyCodecSettings(const VideoCodec& codec_settings) {
@@ -164,12 +167,12 @@ int32_t VerifyCodecSettings(const VideoCodec& codec_settings) {
   return WEBRTC_VIDEO_CODEC_OK;
 }
 
-int GetMaxConsecutiveFrameDrop(const FieldTrialsView& field_trials) {
-  webrtc::FieldTrialParameter<int> maxdrop("maxdrop", 0);
-  webrtc::ParseFieldTrial(
-      {&maxdrop},
-      field_trials.Lookup("WebRTC-LibaomAv1Encoder-MaxConsecFrameDrop"));
-  return maxdrop;
+int GetMaxConsecDrops(double framerate_fps) {
+  // Consecutive frame drops result in a video freeze. We want to minimize the
+  // max number of consecutive drops and, at the same time, keep the value high
+  // enough to let encoder drain the buffer at overshoot.
+  constexpr double kMaxFreezeSeconds = 0.25;
+  return std::ceil(kMaxFreezeSeconds * framerate_fps);
 }
 
 LibaomAv1Encoder::LibaomAv1Encoder(const Environment& env,
@@ -179,9 +182,11 @@ LibaomAv1Encoder::LibaomAv1Encoder(const Environment& env,
       settings_(std::move(settings)),
       frame_for_encode_(nullptr),
       encoded_image_callback_(nullptr),
+      framerate_fps_(0),
       timestamp_(0),
       encoder_info_override_(env.field_trials()),
-      max_consec_frame_drop_(GetMaxConsecutiveFrameDrop(env.field_trials())) {}
+      adaptive_max_consec_drops_(!env.field_trials().IsDisabled(
+          "WebRTC-LibaomAv1Encoder-AdaptiveMaxConsecDrops")) {}
 
 LibaomAv1Encoder::~LibaomAv1Encoder() {
   Release();
@@ -241,7 +246,7 @@ int LibaomAv1Encoder::InitEncode(const VideoCodec* codec_settings,
   cfg_.g_threads =
       NumberOfThreads(cfg_.g_w, cfg_.g_h, settings.number_of_cores);
   cfg_.g_timebase.num = 1;
-  cfg_.g_timebase.den = kRtpTicksPerSecond;
+  cfg_.g_timebase.den = kVideoPayloadTypeFrequency;
   cfg_.rc_target_bitrate = encoder_settings_.startBitrate;  // kilobits/sec.
   cfg_.rc_dropframe_thresh = encoder_settings_.GetFrameDropEnabled() ? 30 : 0;
   cfg_.g_input_bit_depth = kBitDepth;
@@ -301,12 +306,6 @@ int LibaomAv1Encoder::InitEncode(const VideoCodec* codec_settings,
     SET_ENCODER_PARAM_OR_RETURN_ERROR(AV1E_SET_ENABLE_PALETTE, 1);
   } else {
     SET_ENCODER_PARAM_OR_RETURN_ERROR(AV1E_SET_ENABLE_PALETTE, 0);
-  }
-
-  if (codec_settings->mode == VideoCodecMode::kRealtimeVideo &&
-      encoder_settings_.GetFrameDropEnabled() && max_consec_frame_drop_ > 0) {
-    SET_ENCODER_PARAM_OR_RETURN_ERROR(AV1E_SET_MAX_CONSEC_FRAME_DROP_CBR,
-                                      max_consec_frame_drop_);
   }
 
   if (cfg_.g_threads == 8) {
@@ -658,8 +657,7 @@ int32_t LibaomAv1Encoder::Encode(
       return WEBRTC_VIDEO_CODEC_ENCODER_FAILURE;
   }
 
-  const uint32_t duration =
-      kRtpTicksPerSecond / static_cast<float>(encoder_settings_.maxFramerate);
+  const uint32_t duration = kVideoPayloadTypeFrequency / framerate_fps_;
   timestamp_ += duration;
 
   const size_t num_spatial_layers =
@@ -836,11 +834,20 @@ void LibaomAv1Encoder::SetRates(const RateControlParameters& parameters) {
     SetEncoderControlParameters(AV1E_SET_SVC_PARAMS, &*svc_params_);
   }
 
-  rates_configured_ = true;
+  if (adaptive_max_consec_drops_ &&
+      (!rates_configured_ || framerate_fps_ != parameters.framerate_fps)) {
+    int max_consec_drops = GetMaxConsecDrops(parameters.framerate_fps);
+    if (!SetEncoderControlParameters(AV1E_SET_MAX_CONSEC_FRAME_DROP_CBR,
+                                     max_consec_drops)) {
+      RTC_LOG(LS_WARNING)
+          << "Failed to set AV1E_SET_MAX_CONSEC_FRAME_DROP_CBR to "
+          << max_consec_drops;
+    }
+  }
 
-  // Set frame rate to closest integer value.
-  encoder_settings_.maxFramerate =
-      static_cast<uint32_t>(parameters.framerate_fps + 0.5);
+  framerate_fps_ = parameters.framerate_fps;
+
+  rates_configured_ = true;
 }
 
 VideoEncoder::EncoderInfo LibaomAv1Encoder::GetEncoderInfo() const {

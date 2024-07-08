@@ -136,11 +136,11 @@ class ChannelBuffer {
     const ChannelBuffer<T>* t = this;
     return const_cast<T* const*>(t->channels(band));
   }
-  rtc::ArrayView<const rtc::ArrayView<T>> channels_view(size_t band = 0) {
-    return channels_view_[band];
+  rtc::ArrayView<const rtc::ArrayView<T>> channels_view() {
+    return channels_view_[0];
   }
-  rtc::ArrayView<const rtc::ArrayView<T>> channels_view(size_t band = 0) const {
-    return channels_view_[band];
+  rtc::ArrayView<const rtc::ArrayView<T>> channels_view() const {
+    return channels_view_[0];
   }
 
   // Returns a pointer array to the bands for a specific channel.

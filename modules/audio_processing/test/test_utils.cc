@@ -86,10 +86,4 @@ FILE* OpenFile(absl::string_view filename, absl::string_view mode) {
   return file;
 }
 
-void SetFrameSampleRate(Int16FrameData* frame, int sample_rate_hz) {
-  frame->sample_rate_hz = sample_rate_hz;
-  frame->samples_per_channel =
-      AudioProcessing::kChunkSizeMs * sample_rate_hz / 1000;
-}
-
 }  // namespace webrtc

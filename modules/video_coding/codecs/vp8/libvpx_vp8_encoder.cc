@@ -1351,7 +1351,7 @@ VideoEncoder::EncoderInfo LibvpxVp8Encoder::GetEncoderInfo() const {
     }
 
     if (codec_.mode == VideoCodecMode::kScreensharing) {
-      info.minimum_qp = kVp8ScreenshareMinimumQp;
+      info.min_qp = kVp8ScreenshareMinimumQp;
     }
   }
 

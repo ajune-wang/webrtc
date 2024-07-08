@@ -173,6 +173,11 @@ int GetMaxConsecutiveFrameDrop(const FieldTrialsView& field_trials) {
   return maxdrop;
 }
 
+int GetMaxConsecDrops(double framerate_fps) {
+  constexpr double kMaxFreezeSeconds = 0.25;
+  return std::ceil(kMaxFreezeSeconds * framerate_fps);
+}
+
 LibaomAv1Encoder::LibaomAv1Encoder(const Environment& env,
                                    LibaomAv1EncoderSettings settings)
     : inited_(false),
@@ -835,6 +840,16 @@ void LibaomAv1Encoder::SetRates(const RateControlParameters& parameters) {
       }
     }
     SetEncoderControlParameters(AV1E_SET_SVC_PARAMS, &*svc_params_);
+  }
+
+  if (!rates_configured_ || framerate_fps_ != parameters.framerate_fps) {
+    int max_consec_drops = GetMaxConsecDrops(parameters.framerate_fps);
+    if (!SetEncoderControlParameters(AV1E_SET_MAX_CONSEC_FRAME_DROP_CBR,
+                                     max_consec_drops)) {
+      RTC_LOG(LS_WARNING)
+          << "Failed to set AV1E_SET_MAX_CONSEC_FRAME_DROP_CBR to "
+          << max_consec_drops;
+    }
   }
 
   framerate_fps_ = parameters.framerate_fps;

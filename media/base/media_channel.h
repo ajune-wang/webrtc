@@ -256,6 +256,10 @@ class MediaSendChannelInterface {
   // TODO(bugs.webrtc.org/13931): Remove when configuration is more sensible
   virtual void SetSendCodecChangedCallback(
       absl::AnyInvocable<void()> callback) = 0;
+  // TODO - rtc::scoped_refptr
+  virtual void SetCustomPacketSender(
+    uint32_t ssrc,
+    webrtc::RtpPacketSender* packet_sender) = 0;
 };
 
 class MediaReceiveChannelInterface {

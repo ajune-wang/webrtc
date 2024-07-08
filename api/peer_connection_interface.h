@@ -395,6 +395,10 @@ class RTC_EXPORT PeerConnectionInterface : public webrtc::RefCountInterface {
           video_rtcp_report_interval_ms;
     }
 
+    void set_custom_packet_sender(RtpPacketSender* custom_packet_sender) {
+      media_config.video.custom_packet_sender = custom_packet_sender;
+    }
+
     // Settings for the port allcoator. Applied only if the port allocator is
     // created by PeerConnectionFactory, not if it is injected with
     // PeerConnectionDependencies

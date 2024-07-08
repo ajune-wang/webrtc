@@ -67,7 +67,11 @@ ModuleRtpRtcpImpl2::RtpSenderContext::RtpSenderContext(
       packet_generator(
           config,
           &packet_history,
-          config.paced_sender ? config.paced_sender : &non_paced_sender) {}
+          config.paced_sender ? config.paced_sender : &non_paced_sender) {
+  if (config.paced_sender) {
+    config.paced_sender->SetPacketSender(worker_queue, [&](std::unique_ptr<RtpPacketToSend> packet) {packet_sender.SendPacket(std::move(packet), {});});
+  }
+}
 
 ModuleRtpRtcpImpl2::ModuleRtpRtcpImpl2(const Configuration& configuration)
     : worker_queue_(TaskQueueBase::Current()),

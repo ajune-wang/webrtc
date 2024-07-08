@@ -20,6 +20,7 @@
 #include "absl/types/optional.h"
 #include "api/rtp_headers.h"
 #include "api/rtp_parameters.h"
+#include "modules/rtp_rtcp/include/rtp_packet_sender.h"
 
 namespace webrtc {
 // Currently only VP8/VP9 specific.
@@ -171,6 +172,8 @@ struct RtpConfig {
   uint32_t GetMediaSsrcAssociatedWithRtxSsrc(uint32_t rtx_ssrc) const;
   uint32_t GetMediaSsrcAssociatedWithFlexfecSsrc(uint32_t flexfec_ssrc) const;
   absl::optional<std::string> GetRidForSsrc(uint32_t ssrc) const;
+
+  absl::optional<RtpPacketSender*> custom_packet_sender;
 };
 }  // namespace webrtc
 #endif  // CALL_RTP_CONFIG_H_

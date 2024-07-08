@@ -11,6 +11,8 @@
 #ifndef MEDIA_BASE_MEDIA_CONFIG_H_
 #define MEDIA_BASE_MEDIA_CONFIG_H_
 
+#include "modules/rtp_rtcp/include/rtp_packet_sender.h"
+
 namespace cricket {
 
 // Construction-time settings, passed on when creating
@@ -65,6 +67,8 @@ struct MediaConfig {
 
     // Enables send packet batching from the egress RTP sender.
     bool enable_send_packet_batching = false;
+
+    absl::optional<webrtc::RtpPacketSender*> custom_packet_sender;
   } video;
 
   // Audio-specific config.

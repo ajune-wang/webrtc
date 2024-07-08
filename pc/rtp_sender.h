@@ -224,6 +224,10 @@ class RtpSenderBase : public RtpSenderInternal, public ObserverInterface {
     send_codecs_ = send_codecs;
   }
 
+  // TODO - rtc::scoped_refptr
+  void SetCustomPacketSender(
+    RtpPacketSender* packet_sender) override;
+
  protected:
   // If `set_streams_observer` is not null, it is invoked when SetStreams()
   // is called. `set_streams_observer` is not owned by this object. If not
@@ -286,6 +290,9 @@ class RtpSenderBase : public RtpSenderInternal, public ObserverInterface {
       encoder_selector_;
 
   virtual RTCError GenerateKeyFrame(const std::vector<std::string>& rids) = 0;
+
+  // TODO - rtc::scoped_refptr
+  RtpPacketSender* packet_sender_ = nullptr;
 };
 
 // LocalAudioSinkAdapter receives data callback as a sink to the local

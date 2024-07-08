@@ -32,6 +32,7 @@
 #include "api/rtp_parameters.h"
 #include "api/scoped_refptr.h"
 #include "api/video_codecs/video_encoder_factory.h"
+#include "modules/rtp_rtcp/include/rtp_packet_sender.h"
 #include "rtc_base/system/rtc_export.h"
 
 namespace webrtc {
@@ -120,6 +121,10 @@ class RTC_EXPORT RtpSenderInterface : public webrtc::RefCountInterface,
   // TODO: bugs.webrtc.org/15929 - remove when all implementations are good
   void SetFrameTransformer(rtc::scoped_refptr<FrameTransformerInterface>
                                frame_transformer) override {}
+
+  // TODO - rtc::scoped_refptr
+  virtual void SetCustomPacketSender(
+    RtpPacketSender* packet_sender) = 0;
 
  protected:
   ~RtpSenderInterface() override = default;

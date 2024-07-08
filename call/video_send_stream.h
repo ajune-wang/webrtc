@@ -206,6 +206,9 @@ class VideoSendStream {
 
     rtc::scoped_refptr<webrtc::FrameTransformerInterface> frame_transformer;
 
+    // TODO - rtc::scoped_refptr<
+    webrtc::RtpPacketSender* packet_sender = nullptr;
+
    private:
     // Access to the copy constructor is private to force use of the Copy()
     // method for those exceptional cases where we do use it.

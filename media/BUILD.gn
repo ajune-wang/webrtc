@@ -27,6 +27,9 @@ config("rtc_media_defines_config") {
 rtc_source_set("rtc_media_config") {
   visibility = [ "*" ]
   sources = [ "base/media_config.h" ]
+  deps = [
+    "../modules/rtp_rtcp:rtp_rtcp_format",
+  ]
 }
 
 rtc_library("rtc_sdp_video_format_utils") {

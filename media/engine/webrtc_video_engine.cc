@@ -1494,6 +1494,7 @@ bool WebRtcVideoSendChannel::AddSendStream(const StreamParams& sp) {
   config.rtcp_report_interval_ms = video_config_.rtcp_report_interval_ms;
   config.rtp.enable_send_packet_batching =
       video_config_.enable_send_packet_batching;
+  config.rtp.custom_packet_sender = video_config_.custom_packet_sender;
 
   WebRtcVideoSendStream* stream = new WebRtcVideoSendStream(
       call_, sp, std::move(config), default_send_options_,
@@ -2514,6 +2515,17 @@ void WebRtcVideoSendChannel::WebRtcVideoSendStream::
     RecreateWebRtcStream();
 }
 
+void WebRtcVideoSendChannel::WebRtcVideoSendStream::
+    SetCustomPacketSender(
+  // TODO - rtc::scoped_refptr
+        webrtc::RtpPacketSender*
+            packet_sender) {
+  RTC_DCHECK_RUN_ON(&thread_checker_);
+  parameters_.config.packet_sender = std::move(packet_sender);
+  if (stream_)
+    RecreateWebRtcStream();
+}
+
 void WebRtcVideoSendChannel::WebRtcVideoSendStream::RecreateWebRtcStream() {
   RTC_DCHECK_RUN_ON(&thread_checker_);
   if (stream_ != NULL) {
@@ -2592,6 +2604,19 @@ void WebRtcVideoSendChannel::SetEncoderToPacketizerFrameTransformer(
   if (matching_stream != send_streams_.end()) {
     matching_stream->second->SetEncoderToPacketizerFrameTransformer(
         std::move(frame_transformer));
+  }
+}
+
+void WebRtcVideoSendChannel::SetCustomPacketSender(
+    uint32_t ssrc,
+  // TODO - rtc::scoped_refptr
+    webrtc::RtpPacketSender* packet_sender) {
+  RTC_DCHECK_RUN_ON(&thread_checker_);
+  auto matching_stream = send_streams_.find(ssrc);
+  RTC_LOG(LS_ERROR) << "WebRtcVideoSendChannel::SetCustomPacketSender, found send stream? " << (matching_stream != send_streams_.end());
+  if (matching_stream != send_streams_.end()) {
+    matching_stream->second->SetCustomPacketSender(
+        std::move(packet_sender));
   }
 }
 

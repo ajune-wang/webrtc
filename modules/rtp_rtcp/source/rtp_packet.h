@@ -22,7 +22,7 @@
 
 namespace webrtc {
 
-class RtpPacket {
+class RTC_EXPORT RtpPacket {
  public:
   using ExtensionType = RTPExtensionType;
   using ExtensionManager = RtpHeaderExtensionMap;

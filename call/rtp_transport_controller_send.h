@@ -67,7 +67,9 @@ class RtpTransportControllerSend final
       const RtpSenderObservers& observers,
       std::unique_ptr<FecController> fec_controller,
       const RtpSenderFrameEncryptionConfig& frame_encryption_config,
-      rtc::scoped_refptr<FrameTransformerInterface> frame_transformer) override;
+      rtc::scoped_refptr<FrameTransformerInterface> frame_transformer,
+  // TODO - rtc::scoped_refptr
+      RtpPacketSender* packet_sender) override;
   void DestroyRtpVideoSender(
       RtpVideoSenderInterface* rtp_video_sender) override;
 

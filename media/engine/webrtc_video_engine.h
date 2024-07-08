@@ -258,6 +258,11 @@ class WebRtcVideoSendChannel : public MediaChannelUtil,
       uint32_t ssrc,
       rtc::scoped_refptr<webrtc::FrameTransformerInterface> frame_transformer)
       override;
+  void SetCustomPacketSender(
+    uint32_t ssrc,
+  // TODO - rtc::scoped_refptr
+    webrtc::RtpPacketSender* packet_sender) override;
+
   // Information queries to support SetReceiverFeedbackParameters
   webrtc::RtcpMode SendCodecRtcpMode() const override {
     RTC_DCHECK_RUN_ON(&thread_checker_);
@@ -363,6 +368,8 @@ class WebRtcVideoSendChannel : public MediaChannelUtil,
         rtc::scoped_refptr<webrtc::FrameTransformerInterface>
             frame_transformer);
     void GenerateKeyFrame(const std::vector<std::string>& rids);
+
+    void SetCustomPacketSender(webrtc::RtpPacketSender* packet_sender);
 
    private:
     // Parameters needed to reconstruct the underlying stream.

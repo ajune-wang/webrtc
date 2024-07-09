@@ -22,6 +22,30 @@
       },
       "revId": "41ffc51e4504e02ed12f9e0f655617e3931af63c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "67366a56_c67c366c",
+        "filename": "rtc_tools/rtp_generator/rtp_generator.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2024-07-09T08:59:38Z",
+      "side": 0,
+      "message": "That will happen in VideoStreamEncoder - https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/video/video_stream_encoder.cc;l\u003d998-1003\n\nWhich is a prod code path. It is better to exercise prod instead of test-specific code paths.",
+      "parentUuid": "36c7452f_c9f38362",
+      "range": {
+        "startLine": 240,
+        "startChar": 4,
+        "endLine": 243,
+        "endChar": 57
+      },
+      "revId": "41ffc51e4504e02ed12f9e0f655617e3931af63c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

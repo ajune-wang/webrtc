@@ -22,8 +22,10 @@ namespace webrtc {
 // Warning: Setting `bypass_voice_processing` will have unpredictable
 // consequences for the audio path in the device. It is not advisable to use in
 // most scenarios.
+// `muted_speech_event_handler` is used for a user speak during muted.
 rtc::scoped_refptr<AudioDeviceModule> CreateAudioDeviceModule(
-    bool bypass_voice_processing = false);
+    bool bypass_voice_processing = false,
+    AudioDeviceModule::MutedSpeechEventHandler muted_speech_event_handler = 0);
 
 }  // namespace webrtc
 

@@ -60,6 +60,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fb841737_de71622d",
+        "filename": "video/quality_convergence_monitor.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2024-07-09T21:07:09Z",
+      "side": 1,
+      "message": "That won\u0027t happen, since 4. is not fulfilled.",
+      "parentUuid": "ff2f40b1_519f1183",
+      "range": {
+        "startLine": 98,
+        "startChar": 6,
+        "endLine": 98,
+        "endChar": 56
+      },
+      "revId": "e27d9bdf5fdcec2a014108ff3acd4fd071e9d277",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d9ee7470_d2eca412",
         "filename": "video/quality_convergence_monitor.cc",
         "patchSetId": 3
@@ -119,6 +143,30 @@
       "side": 1,
       "message": "But why won\u0027t you just require that the window is full?",
       "parentUuid": "56b60803_db935264",
+      "range": {
+        "startLine": 107,
+        "startChar": 22,
+        "endLine": 107,
+        "endChar": 70
+      },
+      "revId": "e27d9bdf5fdcec2a014108ff3acd4fd071e9d277",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "398f5a7f_21b0b610",
+        "filename": "video/quality_convergence_monitor.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2024-07-09T21:07:09Z",
+      "side": 1,
+      "message": "The reason why I did it like this was to get quicker convergence detection.\nI don\u0027t think it makes that big difference in practice, but it\u0027s the way all simulations have been done so I prefer to keep it this way.",
+      "parentUuid": "9f920bbb_e4780741",
       "range": {
         "startLine": 107,
         "startChar": 22,

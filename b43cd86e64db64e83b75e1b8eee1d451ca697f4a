@@ -16,6 +16,24 @@
       "message": "so we saw your change, I asked my encoding gurus whether we should cherry-pick it and then we stumbled over this line. We found\n  https://webrtc-review.googlesource.com/c/src/+/294740\nwhich stops using the unwrapped frame timestamp (forwarding a question about that we just sent to aom folks) and\n  https://webrtc-review.googlesource.com/c/src/+/307500\nwhich enables frame dropping.\nWill incrementing the timestamp by 90k/fps not yield wrong results when there is framedrop?",
       "revId": "b43cd86e64db64e83b75e1b8eee1d451ca697f4a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "665a8996_4fef1144",
+        "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 664,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2024-07-09T16:03:08Z",
+      "side": 1,
+      "message": "Frame dropping done by encoder itself (enabled in https://webrtc-review.googlesource.com/c/src/+/307500) should not cause any harm.\n\nFrame dropping before encoding is not visible to encoder\u0027s RC after https://webrtc-review.googlesource.com/c/src/+/294740. That\u0027s not ideal (encoder doesn\u0027t have a chance to drain RC buffer). But using monotonically increasing timestamps helps to avoid issues caused by broken timestamps which may come from capture. ~All Chrome/WebRTC encoder wrappers use artificial monotonically increasing timestamps:\n\nlibvpx VP8: https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/modules/video_coding/codecs/vp8/libvpx_vp8_encoder.cc;l\u003d1109\n\nlibvpx VP9: https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/modules/video_coding/codecs/vp9/libvpx_vp9_encoder.cc;l\u003d1207\n\nChrome Android MediaCodec: https://source.chromium.org/chromium/chromium/src/+/main:media/gpu/android/ndk_video_encode_accelerator.cc;l\u003d820",
+      "parentUuid": "512302d7_3a10801c",
+      "revId": "b43cd86e64db64e83b75e1b8eee1d451ca697f4a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

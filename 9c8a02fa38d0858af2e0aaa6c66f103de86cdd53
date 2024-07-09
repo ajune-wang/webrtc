@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cddd7b41_303ca8fa",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6092
+      },
+      "writtenOn": "2024-07-09T22:22:14Z",
+      "side": 1,
+      "message": "Avi, please take a look?\nAlex, please provide OWNERS approval?",
+      "revId": "9c8a02fa38d0858af2e0aaa6c66f103de86cdd53",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

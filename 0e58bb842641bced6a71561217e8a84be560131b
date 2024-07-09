@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "218ef15c_b6ba653a",
+        "filename": "audio/audio_send_stream_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 950,
+      "author": {
+        "id": 19269
+      },
+      "writtenOn": "2024-07-09T21:06:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e97c723e_6d88e681",
+      "range": {
+        "startLine": 945,
+        "startChar": 0,
+        "endLine": 950,
+        "endChar": 10
+      },
+      "revId": "0e58bb842641bced6a71561217e8a84be560131b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9346abcf_b7d82b96",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-07-09T12:28:33Z",
       "side": 1,
       "message": "Looks like there are only three implementations of this interface. Can these be made pure virtual from the get-go? Afaict this isn\u0027t a public interface so shouldn\u0027t need to do a migration either.",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 44,
+        "endChar": 3
+      },
+      "revId": "0e58bb842641bced6a71561217e8a84be560131b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d4c39b60_c0f4f656",
+        "filename": "call/bitrate_allocator.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 19269
+      },
+      "writtenOn": "2024-07-09T21:06:07Z",
+      "side": 1,
+      "message": "Modified to be purely virtual as suggested. Audio-send-stream now adopts this dummy implementation, to be replaced in a later CL. Also propagated these to TestBitrateObserver in bitrate_allocator_unittest.",
+      "parentUuid": "9346abcf_b7d82b96",
       "range": {
         "startLine": 41,
         "startChar": 0,
@@ -70,6 +118,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4e69973f_d6b0aca0",
+        "filename": "call/bitrate_allocator.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 19269
+      },
+      "writtenOn": "2024-07-09T21:06:07Z",
+      "side": 1,
+      "message": "Good point. Probably because these are XOR\u0027ed in a previous life. Removed the casting and value specification.",
+      "parentUuid": "e1617e9f_81be4907",
+      "range": {
+        "startLine": 54,
+        "startChar": 29,
+        "endLine": 54,
+        "endChar": 32
+      },
+      "revId": "0e58bb842641bced6a71561217e8a84be560131b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8e91f81e_dcebbe31",
@@ -83,6 +155,30 @@
       "writtenOn": "2024-07-09T12:28:33Z",
       "side": 1,
       "message": "nit: \"consume\" might be a better word than \"exploit\"?",
+      "range": {
+        "startLine": 56,
+        "startChar": 19,
+        "endLine": 56,
+        "endChar": 26
+      },
+      "revId": "0e58bb842641bced6a71561217e8a84be560131b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2134b4d6_853062ac",
+        "filename": "call/bitrate_allocator.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 19269
+      },
+      "writtenOn": "2024-07-09T21:06:07Z",
+      "side": 1,
+      "message": "kCanxploitExtraRate is now kCanConsumeExtraRate, and kCanContributeAndExploit is now kCanContributeAndConsume.",
+      "parentUuid": "8e91f81e_dcebbe31",
       "range": {
         "startLine": 56,
         "startChar": 19,
@@ -116,6 +212,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "24dbc3c1_bcc657b6",
+        "filename": "video/video_send_stream_impl_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1223,
+      "author": {
+        "id": 19269
+      },
+      "writtenOn": "2024-07-09T21:06:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f08b3654_d8a14993",
+      "range": {
+        "startLine": 1223,
+        "startChar": 62,
+        "endLine": 1223,
+        "endChar": 63
+      },
+      "revId": "0e58bb842641bced6a71561217e8a84be560131b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2d25d9a7_7d8c3f6e",
@@ -139,6 +259,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "120fd162_b1f77c25",
+        "filename": "video/video_send_stream_impl_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1227,
+      "author": {
+        "id": 19269
+      },
+      "writtenOn": "2024-07-09T21:06:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2d25d9a7_7d8c3f6e",
+      "range": {
+        "startLine": 1226,
+        "startChar": 12,
+        "endLine": 1227,
+        "endChar": 77
+      },
+      "revId": "0e58bb842641bced6a71561217e8a84be560131b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "11b39fc2_d3606336",
@@ -152,6 +296,30 @@
       "writtenOn": "2024-07-09T12:28:33Z",
       "side": 1,
       "message": "nit: add `using ::testing::Mock;` above so you don\u0027t need to reference the namespace here.\n...based on the test above that might already be the case even",
+      "range": {
+        "startLine": 1231,
+        "startChar": 2,
+        "endLine": 1231,
+        "endChar": 15
+      },
+      "revId": "0e58bb842641bced6a71561217e8a84be560131b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c508cc1b_de70783d",
+        "filename": "video/video_send_stream_impl_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1231,
+      "author": {
+        "id": 19269
+      },
+      "writtenOn": "2024-07-09T21:06:07Z",
+      "side": 1,
+      "message": "Turns out I no longer need VerifyAndClearExpectations after I moved to the new match logic, as I no longer call \"WillRepeatedly\".",
+      "parentUuid": "11b39fc2_d3606336",
       "range": {
         "startLine": 1231,
         "startChar": 2,

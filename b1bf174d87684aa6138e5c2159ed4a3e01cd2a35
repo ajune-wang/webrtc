@@ -16,6 +16,23 @@
       "message": "Hi Ilya,\nCan you take a look at this CL that activates the new logic.\n\nIt should be a no-op for VP8 since the adaptive convergence detection is disabled by default for VP8.",
       "revId": "b1bf174d87684aa6138e5c2159ed4a3e01cd2a35",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "34f19e58_edd5cbcf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2024-07-10T12:14:37Z",
+      "side": 1,
+      "message": "It seems that you\u0027ve forgotten to include changes to EncoderInfo, hence it doesn\u0027t compile.",
+      "revId": "b1bf174d87684aa6138e5c2159ed4a3e01cd2a35",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

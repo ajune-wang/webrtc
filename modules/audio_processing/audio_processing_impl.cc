@@ -120,8 +120,8 @@ static const size_t kMaxNumFramesToBuffer = 100;
 void PackRenderAudioBufferForEchoDetector(const AudioBuffer& audio,
                                           std::vector<float>& packed_buffer) {
   packed_buffer.clear();
-  packed_buffer.insert(packed_buffer.end(), audio.channels_const()[0],
-                       audio.channels_const()[0] + audio.num_frames());
+  MonoView<const float> view = audio.channels_const()[0];
+  packed_buffer.insert(packed_buffer.end(), view.begin(), view.end());
 }
 
 // Options for gracefully handling processing errors.
@@ -1304,9 +1304,10 @@ int AudioProcessingImpl::ProcessCaptureStreamLocked() {
         *capture_buffer);
   }
 
-  capture_input_rms_.Analyze(rtc::ArrayView<const float>(
-      capture_buffer->channels_const()[0],
-      capture_nonlocked_.capture_processing_format.num_frames()));
+  MonoView<const float> ch = capture_buffer->channels_const()[0];
+  RTC_DCHECK_EQ(capture_nonlocked_.capture_processing_format.num_frames(),
+                SamplesPerChannel(ch));
+  capture_input_rms_.Analyze(ch);
   const bool log_rms = ++capture_rms_interval_counter_ >= 1000;
   if (log_rms) {
     capture_rms_interval_counter_ = 0;
@@ -1524,9 +1525,10 @@ int AudioProcessingImpl::ProcessCaptureStreamLocked() {
       submodules_.capture_post_processor->Process(capture_buffer);
     }
 
-    capture_output_rms_.Analyze(rtc::ArrayView<const float>(
-        capture_buffer->channels_const()[0],
-        capture_nonlocked_.capture_processing_format.num_frames()));
+    MonoView<const float> ch = capture_buffer->channels_const()[0];
+    RTC_DCHECK_EQ(capture_nonlocked_.capture_processing_format.num_frames(),
+                  SamplesPerChannel(ch));
+    capture_output_rms_.Analyze(ch);
     if (log_rms) {
       RmsLevel::Levels levels = capture_output_rms_.AverageAndPeak();
       RTC_HISTOGRAM_COUNTS_LINEAR(
@@ -1759,9 +1761,8 @@ bool AudioProcessingImpl::GetLinearAecOutput(
 
     for (size_t ch = 0; ch < linear_aec_buffer->num_channels(); ++ch) {
       RTC_DCHECK_EQ(linear_output[ch].size(), linear_aec_buffer->num_frames());
-      rtc::ArrayView<const float> channel_view =
-          rtc::ArrayView<const float>(linear_aec_buffer->channels_const()[ch],
-                                      linear_aec_buffer->num_frames());
+      MonoView<const float> channel_view =
+          linear_aec_buffer->channels_const()[ch];
       FloatS16ToFloat(channel_view.data(), channel_view.size(),
                       linear_output[ch].data());
     }

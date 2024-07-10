@@ -833,13 +833,12 @@ void EchoCanceller3::AnalyzeRender(const AudioBuffer& render) {
 
 void EchoCanceller3::AnalyzeCapture(const AudioBuffer& capture) {
   RTC_DCHECK_RUNS_SERIALIZED(&capture_race_checker_);
-  data_dumper_->DumpWav("aec3_capture_analyze_input", capture.num_frames(),
-                        capture.channels_const()[0], sample_rate_hz_, 1);
+  DeinterleavedView<const float> channels = capture.channels_const();
+  data_dumper_->DumpWav("aec3_capture_analyze_input", channels[0],
+                        sample_rate_hz_, 1);
   saturated_microphone_signal_ = false;
-  for (size_t channel = 0; channel < capture.num_channels(); ++channel) {
-    saturated_microphone_signal_ |=
-        DetectSaturation(rtc::ArrayView<const float>(
-            capture.channels_const()[channel], capture.num_frames()));
+  for (size_t channel = 0; channel < channels.num_channels(); ++channel) {
+    saturated_microphone_signal_ |= DetectSaturation(channels[channel]);
     if (saturated_microphone_signal_) {
       break;
     }

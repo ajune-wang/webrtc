@@ -16,6 +16,23 @@
       "message": "Avi, please take a look?\nAlex, please provide OWNERS approval?",
       "revId": "9c8a02fa38d0858af2e0aaa6c66f103de86cdd53",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "85bed713_b8f92681",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6116
+      },
+      "writtenOn": "2024-07-10T03:11:23Z",
+      "side": 1,
+      "message": "LGTM but I don’t have voting permissions.",
+      "revId": "9c8a02fa38d0858af2e0aaa6c66f103de86cdd53",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

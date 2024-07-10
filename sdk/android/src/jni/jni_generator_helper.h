@@ -18,7 +18,7 @@
 
 #include <atomic>
 
-#include "third_party/jni_zero/jni_zero_internal.h"
+#include "third_party/jni_zero/jni_zero.h"
 
 #define JNI_REGISTRATION_EXPORT __attribute__((visibility("default")))
 
@@ -43,7 +43,9 @@ using jni_zero::ScopedJavaLocalRef;
 // TODO(b/319078685): Remove once all uses of the jni_generator has been
 // updated.
 namespace jni_generator {
-using jni_zero::internal::kJniStackMarkerValue;
+// A 32 bit number could be an address on stack. Random 64 bit marker on the
+// stack is much less likely to be present on stack.
+inline constexpr uint64_t kJniStackMarkerValue = 0xbdbdef1bebcade1b;
 
 // TODO(b/319078685): Remove JniJavaCallContextUnchecked once all uses of the
 // jni_generator has been updated.

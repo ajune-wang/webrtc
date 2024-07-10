@@ -18,7 +18,7 @@
 
 #include <atomic>
 
-#include "third_party/jni_zero/jni_zero_internal.h"
+#include "third_party/jni_zero/jni_zero.h"
 
 #define JNI_REGISTRATION_EXPORT __attribute__((visibility("default")))
 

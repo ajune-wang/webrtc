@@ -52,7 +52,10 @@ ABSL_FLAG(std::string,
           "dav1d",
           "Decoder: dav1d, libvpx-vp9, libvpx-vp8, ffmpeg-h264, hw-vp8, "
           "hw-vp9, hw-av1, hw-h264, hw-h265");
-ABSL_FLAG(std::string, scalability_mode, "L1T1", "Scalability mode.");
+ABSL_FLAG(std::vector<std::string>,
+          scalability_mode,
+          {"L1T1"},
+          "Scalability mode.");
 ABSL_FLAG(absl::optional<int>, width, absl::nullopt, "Encode width.");
 ABSL_FLAG(absl::optional<int>, height, absl::nullopt, "Encode height.");
 ABSL_FLAG(std::vector<std::string>,

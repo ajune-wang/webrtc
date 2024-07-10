@@ -21,9 +21,14 @@ namespace webrtc {
 // audio processing on iOS.
 // Warning: Setting `bypass_voice_processing` will have unpredictable
 // consequences for the audio path in the device. It is not advisable to use in
-// most scenarios.
+// most scenarios..
 rtc::scoped_refptr<AudioDeviceModule> CreateAudioDeviceModule(
     bool bypass_voice_processing = false);
+
+// If `muted_speech_event_handler` is exist, audio unit will catch speech activity while muted.
+rtc::scoped_refptr<AudioDeviceModule> CreateMutedDetectAudioDeviceModule(
+    bool bypass_voice_processing = false,
+    AudioDeviceModule::MutedSpeechEventHandler muted_speech_event_handler = nullptr);
 
 }  // namespace webrtc
 

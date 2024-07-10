@@ -132,10 +132,24 @@ class ChannelBuffer {
     RTC_DCHECK_LT(band, num_bands_);
     return &channels_[band * num_allocated_channels_];
   }
+
   T* const* channels(size_t band = 0) {
-    const ChannelBuffer<T>* t = this;
-    return const_cast<T* const*>(t->channels(band));
+    RTC_DCHECK_LT(band, num_bands_);
+    return &channels_[band * num_allocated_channels_];
   }
+
+  /* DeinterleavedView<float> channels_v(size_t band = 0) {
+    RTC_CHECK_LT(band, num_bands_);
+    return DeinterleavedView<float>(&channels_[band * num_allocated_channels_],
+                                    num_frames(), num_channels());
+  }*/
+
+  DeinterleavedView<const float> channels_v(size_t band = 0) const {
+    RTC_CHECK_LT(band, num_bands_);
+    return DeinterleavedView<const float>(channels(band)[0], num_frames(),
+                                          num_channels());
+  }
+
   rtc::ArrayView<const rtc::ArrayView<T>> channels_view(size_t band = 0) {
     return channels_view_[band];
   }

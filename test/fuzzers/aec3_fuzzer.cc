@@ -21,10 +21,11 @@ using SampleRate = ::webrtc::AudioProcessing::NativeRate;
 void PrepareAudioBuffer(int sample_rate_hz,
                         test::FuzzDataHelper* fuzz_data,
                         AudioBuffer* buffer) {
-  float* const* channels = buffer->channels_f();
+  auto channels = buffer->channels();
   for (size_t i = 0; i < buffer->num_channels(); ++i) {
+    auto channel = channels[i];
     for (size_t j = 0; j < buffer->num_frames(); ++j) {
-      channels[i][j] =
+      channel[j] =
           static_cast<float>(fuzz_data->ReadOrDefaultValue<int16_t>(0));
     }
   }

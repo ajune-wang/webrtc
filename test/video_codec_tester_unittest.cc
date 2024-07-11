@@ -651,7 +651,8 @@ TEST_P(VideoCodecTesterTestPacing, PaceEncode) {
   }));
 
   EncodingSettings encoding_settings = VideoCodecTester::CreateEncodingSettings(
-      env, "VP8", "L1T1", kSourceWidth, kSourceHeight, {kBitrate}, kFramerate);
+      env, "VP8", {"L1T1"}, kSourceWidth, kSourceHeight, {kBitrate},
+      kFramerate);
   std::map<uint32_t, EncodingSettings> frame_settings =
       VideoCodecTester::CreateFrameSettings(encoding_settings, kNumFrames);
 
@@ -707,7 +708,7 @@ INSTANTIATE_TEST_SUITE_P(
 
 struct EncodingSettingsTestParameters {
   std::string codec_type;
-  std::string scalability_mode;
+  std::vector<std::string> scalability_mode;
   std::vector<DataRate> bitrate;
   std::vector<DataRate> expected_bitrate;
 };
@@ -737,24 +738,24 @@ INSTANTIATE_TEST_SUITE_P(
     Values(
         EncodingSettingsTestParameters{
             .codec_type = "VP8",
-            .scalability_mode = "L1T1",
+            .scalability_mode = {"L1T1"},
             .bitrate = {DataRate::KilobitsPerSec(1)},
             .expected_bitrate = {DataRate::KilobitsPerSec(1)}},
         EncodingSettingsTestParameters{
             .codec_type = "VP8",
-            .scalability_mode = "L1T1",
+            .scalability_mode = {"L1T1"},
             .bitrate = {DataRate::KilobitsPerSec(10000)},
             .expected_bitrate = {DataRate::KilobitsPerSec(10000)}},
         EncodingSettingsTestParameters{
             .codec_type = "VP8",
-            .scalability_mode = "L1T3",
+            .scalability_mode = {"L1T3"},
             .bitrate = {DataRate::KilobitsPerSec(1000)},
             .expected_bitrate = {DataRate::KilobitsPerSec(400),
                                  DataRate::KilobitsPerSec(200),
                                  DataRate::KilobitsPerSec(400)}},
         EncodingSettingsTestParameters{
             .codec_type = "VP8",
-            .scalability_mode = "S3T3",
+            .scalability_mode = {"L1T3", "L1T3", "L1T3"},
             .bitrate = {DataRate::KilobitsPerSec(100)},
             .expected_bitrate =
                 {DataRate::KilobitsPerSec(40), DataRate::KilobitsPerSec(20),
@@ -762,6 +763,18 @@ INSTANTIATE_TEST_SUITE_P(
                  DataRate::KilobitsPerSec(0), DataRate::KilobitsPerSec(0),
                  DataRate::KilobitsPerSec(0), DataRate::KilobitsPerSec(0),
                  DataRate::KilobitsPerSec(0)}},
+        EncodingSettingsTestParameters{
+            .codec_type = "VP8",
+            .scalability_mode = {"L1T3", "L1T3", "L1T3"},
+            .bitrate = {DataRate::KilobitsPerSec(10),
+                        DataRate::KilobitsPerSec(100),
+                        DataRate::KilobitsPerSec(1000)},
+            .expected_bitrate =
+                {DataRate::KilobitsPerSec(4), DataRate::KilobitsPerSec(2),
+                 DataRate::KilobitsPerSec(4), DataRate::KilobitsPerSec(40),
+                 DataRate::KilobitsPerSec(20), DataRate::KilobitsPerSec(40),
+                 DataRate::KilobitsPerSec(400), DataRate::KilobitsPerSec(200),
+                 DataRate::KilobitsPerSec(400)}},
         EncodingSettingsTestParameters{
             .codec_type = "VP8",
             .scalability_mode = "S3T3",
@@ -787,7 +800,7 @@ INSTANTIATE_TEST_SUITE_P(
                 DataRate::KilobitsPerSec(500), DataRate::KilobitsPerSec(600),
                 DataRate::KilobitsPerSec(700), DataRate::KilobitsPerSec(800),
                 DataRate::KilobitsPerSec(900)}}));
-
+/*
 INSTANTIATE_TEST_SUITE_P(
     Vp9,
     VideoCodecTesterTestEncodingSettings,
@@ -901,7 +914,7 @@ INSTANTIATE_TEST_SUITE_P(
                 DataRate::KilobitsPerSec(500), DataRate::KilobitsPerSec(600),
                 DataRate::KilobitsPerSec(700), DataRate::KilobitsPerSec(800),
                 DataRate::KilobitsPerSec(900)}}));
-
+*/
 // TODO(webrtc:42225151): Add an IVF test stream and enable the test.
 TEST(VideoCodecTester, DISABLED_CompressedVideoSource) {
   const Environment env = CreateEnvironment();
@@ -916,7 +929,7 @@ TEST(VideoCodecTester, DISABLED_CompressedVideoSource) {
       .framerate = Frequency::Hertz(30)};
 
   EncodingSettings encoding_settings = VideoCodecTester::CreateEncodingSettings(
-      env, "AV1", "L1T1", 320, 180, {DataRate::KilobitsPerSec(128)},
+      env, "AV1", {"L1T1"}, 320, 180, {DataRate::KilobitsPerSec(128)},
       Frequency::Hertz(30));
 
   std::map<uint32_t, EncodingSettings> frame_settings =

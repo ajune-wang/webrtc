@@ -19,6 +19,7 @@
 #include "absl/container/inlined_vector.h"
 #include "modules/video_coding/svc/create_scalability_structure.h"
 #include "rtc_base/checks.h"
+#include "system_wrappers/include/field_trial.h"
 
 namespace webrtc {
 namespace {

@@ -36,6 +36,7 @@
 #include "api/video_codecs/video_encoder.h"
 #include "modules/video_coding/include/video_codec_interface.h"
 #include "modules/video_coding/svc/scalability_mode_util.h"
+#include "rtc_base/logging.h"
 #include "test/gmock.h"
 #include "test/gtest.h"
 #include "test/testsupport/file_utils.h"
@@ -651,7 +652,8 @@ TEST_P(VideoCodecTesterTestPacing, PaceEncode) {
   }));
 
   EncodingSettings encoding_settings = VideoCodecTester::CreateEncodingSettings(
-      env, "VP8", "L1T1", kSourceWidth, kSourceHeight, {kBitrate}, kFramerate);
+      env, "VP8", {"L1T1"}, kSourceWidth, kSourceHeight, {kBitrate},
+      {kFramerate});
   std::map<uint32_t, EncodingSettings> frame_settings =
       VideoCodecTester::CreateFrameSettings(encoding_settings, kNumFrames);
 
@@ -707,8 +709,10 @@ INSTANTIATE_TEST_SUITE_P(
 
 struct EncodingSettingsTestParameters {
   std::string codec_type;
-  std::string scalability_mode;
-  std::vector<DataRate> bitrate;
+  std::vector<std::string> scalability_mode;
+  bool screencast = false;
+  std::vector<Frequency> requested_framerate = {kFramerate};
+  std::vector<DataRate> requested_bitrate;
   std::vector<DataRate> expected_bitrate;
 };
 
@@ -717,18 +721,38 @@ class VideoCodecTesterTestEncodingSettings
 
 TEST_P(VideoCodecTesterTestEncodingSettings, CreateEncodingSettings) {
   EncodingSettingsTestParameters test_params = GetParam();
+
   EncodingSettings encoding_settings = VideoCodecTester::CreateEncodingSettings(
       CreateEnvironment(), test_params.codec_type, test_params.scalability_mode,
       /*width=*/1280,
-      /*height=*/720, test_params.bitrate, kFramerate);
+      /*height=*/720, test_params.requested_bitrate,
+      test_params.requested_framerate, test_params.screencast);
   const std::map<LayerId, LayerSettings>& layers_settings =
       encoding_settings.layers_settings;
-  std::vector<DataRate> configured_bitrate;
+  std::vector<DataRate> actual_bitrate;
   std::transform(
       layers_settings.begin(), layers_settings.end(),
-      std::back_inserter(configured_bitrate),
-      [](const auto& layer_settings) { return layer_settings.second.bitrate; });
-  EXPECT_EQ(configured_bitrate, test_params.expected_bitrate);
+      std::back_inserter(actual_bitrate), [](const auto& layer_settings) {
+        RTC_LOG(LS_INFO) << layer_settings.second.bitrate.kbps();
+        return DataRate::KilobitsPerSec(layer_settings.second.bitrate.kbps());
+      });
+  std::vector<Frequency> actual_framerate;
+  // TODO: should take only top temporal layers
+  std::transform(layers_settings.begin(), layers_settings.end(),
+                 std::back_inserter(actual_framerate),
+                 [](const auto& layer_settings) {
+                   return layer_settings.second.framerate;
+                 });
+  EXPECT_EQ(actual_bitrate, test_params.expected_bitrate);
+  // EXPECT_EQ(actual_framerate, test_params.requested_framerate);
+}
+
+std::vector<DataRate> ToDataRate(std::vector<int> bitrate_kbps) {
+  std::vector<DataRate> datarate;
+  std::transform(bitrate_kbps.begin(), bitrate_kbps.end(),
+                 std::inserter(datarate, datarate.end()),
+                 [](auto x) { return DataRate::KilobitsPerSec(x); });
+  return datarate;
 }
 
 INSTANTIATE_TEST_SUITE_P(
@@ -737,56 +761,44 @@ INSTANTIATE_TEST_SUITE_P(
     Values(
         EncodingSettingsTestParameters{
             .codec_type = "VP8",
-            .scalability_mode = "L1T1",
-            .bitrate = {DataRate::KilobitsPerSec(1)},
-            .expected_bitrate = {DataRate::KilobitsPerSec(1)}},
+            .scalability_mode = {"L1T1"},
+            .requested_bitrate = ToDataRate(/*bitrate_kbps=*/{1}),
+            .expected_bitrate = ToDataRate(/*bitrate_kbps=*/{1})},
         EncodingSettingsTestParameters{
             .codec_type = "VP8",
-            .scalability_mode = "L1T1",
-            .bitrate = {DataRate::KilobitsPerSec(10000)},
-            .expected_bitrate = {DataRate::KilobitsPerSec(10000)}},
+            .scalability_mode = {"L1T1"},
+            .requested_bitrate = ToDataRate(/*bitrate_kbps=*/{10000}),
+            .expected_bitrate = ToDataRate(/*bitrate_kbps=*/{10000})},
         EncodingSettingsTestParameters{
             .codec_type = "VP8",
-            .scalability_mode = "L1T3",
-            .bitrate = {DataRate::KilobitsPerSec(1000)},
-            .expected_bitrate = {DataRate::KilobitsPerSec(400),
-                                 DataRate::KilobitsPerSec(200),
-                                 DataRate::KilobitsPerSec(400)}},
+            .scalability_mode = {"L1T3"},
+            .requested_bitrate = ToDataRate(/*bitrate_kbps=*/{1000}),
+            .expected_bitrate = ToDataRate(/*bitrate_kbps=*/{400, 200, 400})},
         EncodingSettingsTestParameters{
             .codec_type = "VP8",
-            .scalability_mode = "S3T3",
-            .bitrate = {DataRate::KilobitsPerSec(100)},
-            .expected_bitrate =
-                {DataRate::KilobitsPerSec(40), DataRate::KilobitsPerSec(20),
-                 DataRate::KilobitsPerSec(40), DataRate::KilobitsPerSec(0),
-                 DataRate::KilobitsPerSec(0), DataRate::KilobitsPerSec(0),
-                 DataRate::KilobitsPerSec(0), DataRate::KilobitsPerSec(0),
-                 DataRate::KilobitsPerSec(0)}},
+            .scalability_mode = {"L1T3", "L1T3", "L1T3"},
+            .requested_bitrate = ToDataRate(/*bitrate_kbps=*/{100}),
+            .expected_bitrate = ToDataRate(/*bitrate_kbps=*/{40, 20, 40, 0, 0,
+                                                             0, 0, 0, 0})},
         EncodingSettingsTestParameters{
             .codec_type = "VP8",
-            .scalability_mode = "S3T3",
-            .bitrate = {DataRate::KilobitsPerSec(10000)},
-            .expected_bitrate =
-                {DataRate::KilobitsPerSec(60), DataRate::KilobitsPerSec(30),
-                 DataRate::KilobitsPerSec(60), DataRate::KilobitsPerSec(200),
-                 DataRate::KilobitsPerSec(100), DataRate::KilobitsPerSec(200),
-                 DataRate::KilobitsPerSec(1000), DataRate::KilobitsPerSec(500),
-                 DataRate::KilobitsPerSec(1000)}},
+            .scalability_mode = {"L1T3", "L1T3", "L1T3"},
+            .requested_bitrate = ToDataRate(/*bitrate_kbps=*/{10, 100, 1000}),
+            .expected_bitrate = ToDataRate(/*bitrate_kbps=*/{
+                4, 2, 4, 40, 20, 40, 400, 200, 400})},
         EncodingSettingsTestParameters{
             .codec_type = "VP8",
-            .scalability_mode = "S3T3",
-            .bitrate =
-                {DataRate::KilobitsPerSec(100), DataRate::KilobitsPerSec(200),
-                 DataRate::KilobitsPerSec(300), DataRate::KilobitsPerSec(400),
-                 DataRate::KilobitsPerSec(500), DataRate::KilobitsPerSec(600),
-                 DataRate::KilobitsPerSec(700), DataRate::KilobitsPerSec(800),
-                 DataRate::KilobitsPerSec(900)},
-            .expected_bitrate = {
-                DataRate::KilobitsPerSec(100), DataRate::KilobitsPerSec(200),
-                DataRate::KilobitsPerSec(300), DataRate::KilobitsPerSec(400),
-                DataRate::KilobitsPerSec(500), DataRate::KilobitsPerSec(600),
-                DataRate::KilobitsPerSec(700), DataRate::KilobitsPerSec(800),
-                DataRate::KilobitsPerSec(900)}}));
+            .scalability_mode = {"L1T3", "L1T3", "L1T3"},
+            .requested_bitrate = ToDataRate(/*bitrate_kbps=*/{10000}),
+            .expected_bitrate = ToDataRate(/*bitrate_kbps=*/{
+                60, 30, 60, 200, 100, 200, 1000, 500, 1000})},
+        EncodingSettingsTestParameters{
+            .codec_type = "VP8",
+            .scalability_mode = {"L1T3", "L1T3", "L1T3"},
+            .requested_bitrate = ToDataRate(/*bitrate_kbps=*/{
+                100, 200, 300, 400, 500, 600, 700, 800, 900}),
+            .expected_bitrate = ToDataRate(/*bitrate_kbps=*/{
+                100, 200, 300, 400, 500, 600, 700, 800, 900})}));
 
 INSTANTIATE_TEST_SUITE_P(
     Vp9,
@@ -794,56 +806,38 @@ INSTANTIATE_TEST_SUITE_P(
     Values(
         EncodingSettingsTestParameters{
             .codec_type = "VP9",
-            .scalability_mode = "L1T1",
-            .bitrate = {DataRate::KilobitsPerSec(1)},
-            .expected_bitrate = {DataRate::KilobitsPerSec(1)}},
+            .scalability_mode = {"L1T1"},
+            .requested_bitrate = ToDataRate(/*bitrate_kbps=*/{1}),
+            .expected_bitrate = ToDataRate(/*bitrate_kbps=*/{1})},
         EncodingSettingsTestParameters{
             .codec_type = "VP9",
-            .scalability_mode = "L1T1",
-            .bitrate = {DataRate::KilobitsPerSec(10000)},
-            .expected_bitrate = {DataRate::KilobitsPerSec(10000)}},
+            .scalability_mode = {"L1T1"},
+            .requested_bitrate = ToDataRate(/*bitrate_kbps=*/{10000}),
+            .expected_bitrate = ToDataRate(/*bitrate_kbps=*/{10000})},
         EncodingSettingsTestParameters{
             .codec_type = "VP9",
-            .scalability_mode = "L1T3",
-            .bitrate = {DataRate::KilobitsPerSec(1000)},
-            .expected_bitrate = {DataRate::BitsPerSec(539811),
-                                 DataRate::BitsPerSec(163293),
-                                 DataRate::BitsPerSec(296896)}},
+            .scalability_mode = {"L1T3"},
+            .requested_bitrate = ToDataRate(/*bitrate_kbps=*/{1000}),
+            .expected_bitrate = ToDataRate(/*bitrate_kbps=*/{540, 163, 297})},
         EncodingSettingsTestParameters{
             .codec_type = "VP9",
-            .scalability_mode = "L3T3",
-            .bitrate = {DataRate::KilobitsPerSec(100)},
-            .expected_bitrate =
-                {DataRate::BitsPerSec(53981), DataRate::BitsPerSec(16329),
-                 DataRate::BitsPerSec(29690), DataRate::BitsPerSec(0),
-                 DataRate::BitsPerSec(0), DataRate::BitsPerSec(0),
-                 DataRate::BitsPerSec(0), DataRate::BitsPerSec(0),
-                 DataRate::BitsPerSec(0)}},
+            .scalability_mode = {"L3T3"},
+            .requested_bitrate = ToDataRate(/*bitrate_kbps=*/{100}),
+            .expected_bitrate = ToDataRate(/*bitrate_kbps=*/{54, 16, 30, 0, 0,
+                                                             0, 0, 0, 0})},
         EncodingSettingsTestParameters{
             .codec_type = "VP9",
-            .scalability_mode = "L3T3",
-            .bitrate = {DataRate::KilobitsPerSec(10000)},
-            .expected_bitrate =
-                {DataRate::BitsPerSec(76653), DataRate::BitsPerSec(23188),
-                 DataRate::BitsPerSec(42159), DataRate::BitsPerSec(225641),
-                 DataRate::BitsPerSec(68256), DataRate::BitsPerSec(124103),
-                 DataRate::BitsPerSec(822672), DataRate::BitsPerSec(248858),
-                 DataRate::BitsPerSec(452470)}},
+            .scalability_mode = {"L3T3"},
+            .requested_bitrate = ToDataRate(/*bitrate_kbps=*/{10000}),
+            .expected_bitrate = ToDataRate(/*bitrate_kbps=*/{
+                77, 23, 42, 226, 68, 124, 823, 249, 452})},
         EncodingSettingsTestParameters{
             .codec_type = "VP9",
-            .scalability_mode = "L3T3",
-            .bitrate =
-                {DataRate::KilobitsPerSec(100), DataRate::KilobitsPerSec(200),
-                 DataRate::KilobitsPerSec(300), DataRate::KilobitsPerSec(400),
-                 DataRate::KilobitsPerSec(500), DataRate::KilobitsPerSec(600),
-                 DataRate::KilobitsPerSec(700), DataRate::KilobitsPerSec(800),
-                 DataRate::KilobitsPerSec(900)},
-            .expected_bitrate = {
-                DataRate::KilobitsPerSec(100), DataRate::KilobitsPerSec(200),
-                DataRate::KilobitsPerSec(300), DataRate::KilobitsPerSec(400),
-                DataRate::KilobitsPerSec(500), DataRate::KilobitsPerSec(600),
-                DataRate::KilobitsPerSec(700), DataRate::KilobitsPerSec(800),
-                DataRate::KilobitsPerSec(900)}}));
+            .scalability_mode = {"L3T3"},
+            .requested_bitrate = ToDataRate(/*bitrate_kbps=*/{
+                100, 200, 300, 400, 500, 600, 700, 800, 900}),
+            .expected_bitrate = ToDataRate(/*bitrate_kbps=*/{
+                100, 200, 300, 400, 500, 600, 700, 800, 900})}));
 
 INSTANTIATE_TEST_SUITE_P(
     Av1,
@@ -851,56 +845,45 @@ INSTANTIATE_TEST_SUITE_P(
     Values(
         EncodingSettingsTestParameters{
             .codec_type = "AV1",
-            .scalability_mode = "L1T1",
-            .bitrate = {DataRate::KilobitsPerSec(1)},
-            .expected_bitrate = {DataRate::KilobitsPerSec(1)}},
+            .scalability_mode = {"L1T1"},
+            .requested_bitrate = ToDataRate(/*bitrate_kbps=*/{1}),
+            .expected_bitrate = ToDataRate(/*bitrate_kbps=*/{1})},
         EncodingSettingsTestParameters{
             .codec_type = "AV1",
-            .scalability_mode = "L1T1",
-            .bitrate = {DataRate::KilobitsPerSec(10000)},
-            .expected_bitrate = {DataRate::KilobitsPerSec(10000)}},
+            .scalability_mode = {"L1T1"},
+            .requested_bitrate = ToDataRate(/*bitrate_kbps=*/{10000}),
+            .expected_bitrate = ToDataRate(/*bitrate_kbps=*/{10000})},
         EncodingSettingsTestParameters{
             .codec_type = "AV1",
-            .scalability_mode = "L1T3",
-            .bitrate = {DataRate::KilobitsPerSec(1000)},
-            .expected_bitrate = {DataRate::BitsPerSec(539811),
-                                 DataRate::BitsPerSec(163293),
-                                 DataRate::BitsPerSec(296896)}},
+            .scalability_mode = {"L3T3"},
+            .requested_bitrate = ToDataRate(/*bitrate_kbps=*/{100}),
+            .expected_bitrate = ToDataRate(/*bitrate_kbps=*/{54, 16, 30, 0, 0,
+                                                             0, 0, 0, 0})},
         EncodingSettingsTestParameters{
             .codec_type = "AV1",
-            .scalability_mode = "L3T3",
-            .bitrate = {DataRate::KilobitsPerSec(100)},
-            .expected_bitrate =
-                {DataRate::BitsPerSec(53981), DataRate::BitsPerSec(16329),
-                 DataRate::BitsPerSec(29690), DataRate::BitsPerSec(0),
-                 DataRate::BitsPerSec(0), DataRate::BitsPerSec(0),
-                 DataRate::BitsPerSec(0), DataRate::BitsPerSec(0),
-                 DataRate::BitsPerSec(0)}},
+            .scalability_mode = {"L1T3"},
+            .requested_bitrate = ToDataRate(/*bitrate_kbps=*/{1000}),
+            .expected_bitrate = ToDataRate(/*bitrate_kbps=*/{540, 163, 297})},
         EncodingSettingsTestParameters{
             .codec_type = "AV1",
-            .scalability_mode = "L3T3",
-            .bitrate = {DataRate::KilobitsPerSec(10000)},
-            .expected_bitrate =
-                {DataRate::BitsPerSec(76653), DataRate::BitsPerSec(23188),
-                 DataRate::BitsPerSec(42159), DataRate::BitsPerSec(225641),
-                 DataRate::BitsPerSec(68256), DataRate::BitsPerSec(124103),
-                 DataRate::BitsPerSec(822672), DataRate::BitsPerSec(248858),
-                 DataRate::BitsPerSec(452470)}},
+            .scalability_mode = {"L3T3"},
+            .requested_bitrate = ToDataRate(/*bitrate_kbps=*/{10000}),
+            .expected_bitrate = ToDataRate(/*bitrate_kbps=*/{
+                77, 23, 42, 226, 68, 124, 823, 249, 452})},
         EncodingSettingsTestParameters{
             .codec_type = "AV1",
-            .scalability_mode = "L3T3",
-            .bitrate =
-                {DataRate::KilobitsPerSec(100), DataRate::KilobitsPerSec(200),
-                 DataRate::KilobitsPerSec(300), DataRate::KilobitsPerSec(400),
-                 DataRate::KilobitsPerSec(500), DataRate::KilobitsPerSec(600),
-                 DataRate::KilobitsPerSec(700), DataRate::KilobitsPerSec(800),
-                 DataRate::KilobitsPerSec(900)},
-            .expected_bitrate = {
-                DataRate::KilobitsPerSec(100), DataRate::KilobitsPerSec(200),
-                DataRate::KilobitsPerSec(300), DataRate::KilobitsPerSec(400),
-                DataRate::KilobitsPerSec(500), DataRate::KilobitsPerSec(600),
-                DataRate::KilobitsPerSec(700), DataRate::KilobitsPerSec(800),
-                DataRate::KilobitsPerSec(900)}}));
+            .scalability_mode = {"L3T3"},
+            .requested_bitrate = ToDataRate(/*bitrate_kbps=*/{
+                100, 200, 300, 400, 500, 600, 700, 800, 900}),
+            .expected_bitrate = ToDataRate(/*bitrate_kbps=*/{
+                100, 200, 300, 400, 500, 600, 700, 800, 900})},
+        EncodingSettingsTestParameters{
+            .codec_type = "AV1",
+            .scalability_mode = {"L1T2", "L1T2"},
+            .screencast = true,
+            .requested_bitrate = ToDataRate(/*bitrate_kbps=*/{420, 2500}),
+            .expected_bitrate = ToDataRate(/*bitrate_kbps=*/{252, 168, 1500,
+                                                             1000})}));
 
 // TODO(webrtc:42225151): Add an IVF test stream and enable the test.
 TEST(VideoCodecTester, DISABLED_CompressedVideoSource) {
@@ -916,8 +899,8 @@ TEST(VideoCodecTester, DISABLED_CompressedVideoSource) {
       .framerate = Frequency::Hertz(30)};
 
   EncodingSettings encoding_settings = VideoCodecTester::CreateEncodingSettings(
-      env, "AV1", "L1T1", 320, 180, {DataRate::KilobitsPerSec(128)},
-      Frequency::Hertz(30));
+      env, "AV1", {"L1T1"}, 320, 180, {DataRate::KilobitsPerSec(128)},
+      {Frequency::Hertz(30)});
 
   std::map<uint32_t, EncodingSettings> frame_settings =
       VideoCodecTester::CreateFrameSettings(encoding_settings, 3);

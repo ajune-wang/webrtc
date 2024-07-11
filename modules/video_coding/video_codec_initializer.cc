@@ -150,6 +150,8 @@ VideoCodec VideoCodecInitializer::SetupCodec(
     video_codec.maxBitrate = kEncoderMinBitrateKbps;
 
   video_codec.maxFramerate = max_framerate;
+
+  // Why is this needed?
   video_codec.spatialLayers[0] = {0};
   video_codec.spatialLayers[0].width = video_codec.width;
   video_codec.spatialLayers[0].height = video_codec.height;

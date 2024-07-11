@@ -52,7 +52,10 @@ ABSL_FLAG(std::string,
           "dav1d",
           "Decoder: dav1d, libvpx-vp9, libvpx-vp8, ffmpeg-h264, hw-vp8, "
           "hw-vp9, hw-av1, hw-h264, hw-h265");
-ABSL_FLAG(std::string, scalability_mode, "L1T1", "Scalability mode.");
+ABSL_FLAG(std::vector<std::string>,
+          scalability_mode,
+          {"L1T1"},
+          "Scalability mode.");
 ABSL_FLAG(absl::optional<int>, width, absl::nullopt, "Encode width.");
 ABSL_FLAG(absl::optional<int>, height, absl::nullopt, "Encode height.");
 ABSL_FLAG(std::vector<std::string>,
@@ -350,6 +353,46 @@ INSTANTIATE_TEST_SUITE_P(
     All,
     SpatialQualityTest,
     Combine(Values("AV1", "VP9", "VP8", "H264", "H265"),
+#if defined(WEBRTC_ANDROID)
+            Values("builtin", "mediacodec"),
+#else
+            Values("builtin"),
+#endif
+            Values(kFourPeople_1280x720_30),
+            Values(std::make_tuple(320, 180, 30, 32, 26),
+                   std::make_tuple(320, 180, 30, 64, 29),
+                   std::make_tuple(320, 180, 30, 128, 32),
+                   std::make_tuple(320, 180, 30, 256, 36),
+                   std::make_tuple(640, 360, 30, 128, 29),
+                   std::make_tuple(640, 360, 30, 256, 33),
+                   std::make_tuple(640, 360, 30, 384, 35),
+                   std::make_tuple(640, 360, 30, 512, 36),
+                   std::make_tuple(1280, 720, 30, 256, 30),
+                   std::make_tuple(1280, 720, 30, 512, 34),
+                   std::make_tuple(1280, 720, 30, 1024, 37),
+                   std::make_tuple(1280, 720, 30, 2048, 39))),
+    SpatialQualityTest::TestParamsToString);
+
+class BitrateAdaptationTest
+    : public ::testing::TestWithParam<
+          std::tuple</*codec_type=*/std::string,
+                     /*codec_impl=*/std::string,
+                     VideoInfo,
+                     std::pair</*bitrate_kbps=*/int, /*bitrate_kbps=*/int>>> {
+ public:
+  static std::string TestParamsToString(
+      const ::testing::TestParamInfo<BitrateAdaptationTest::ParamType>& info) {
+    auto [codec_type, codec_impl, video_info, bitrate_kbps] = info.param;
+    return std::string(codec_type + codec_impl + video_info.name +
+                       std::to_string(bitrate_kbps.first) + "kbps" +
+                       std::to_string(bitrate_kbps.second) + "kbps");
+  }
+};
+
+INSTANTIATE_TEST_SUITE_P(
+    Screencast,
+    SpatialQualityTest,
+    Combine(Values("VP8", "AV1"),
 #if defined(WEBRTC_ANDROID)
             Values("builtin", "mediacodec"),
 #else

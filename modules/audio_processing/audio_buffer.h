@@ -78,7 +78,9 @@ class AudioBuffer {
   // 0 <= channel < `buffer_num_channels_`
   // 0 <= sample < `buffer_num_frames_`
   float* const* channels() { return data_->channels(); }
-  const float* const* channels_const() const { return data_->channels(); }
+  DeinterleavedView<const float> channels_const() const {
+    return data_->channels_v();
+  }
 
   // Returns pointer arrays to the bands for a specific channel.
   // Usage:
@@ -142,8 +144,14 @@ class AudioBuffer {
   static const size_t kMaxNumBands = 3;
 
   // Deprecated methods, will be removed soon.
-  float* const* channels_f() { return channels(); }
-  const float* const* channels_const_f() const { return channels_const(); }
+  [[deprecated("Use DeinterleavedView<> based versions")]] float* const*
+  channels_f() {
+    return channels();
+  }
+  [[deprecated("Use DeinterleavedView<> based versions")]] const float* const*
+  channels_const_f() const {
+    return data_->channels();
+  }
   const float* const* split_bands_const_f(size_t channel) const {
     return split_bands_const(channel);
   }

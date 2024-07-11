@@ -54,6 +54,7 @@ struct Int16Frame {
   }
 
   void CopyFrom(const ChannelBuffer<float>& src) {
+    RTC_CHECK_NOTREACHED();
     RTC_CHECK_EQ(src.num_channels(), num_channels);
     RTC_CHECK_EQ(src.num_frames(), samples_per_channel);
     data.resize(num_channels * samples_per_channel);

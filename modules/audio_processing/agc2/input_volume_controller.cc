@@ -79,22 +79,20 @@ int ComputeVolumeUpdate(int gain_error_db,
 
 // Returns the proportion of samples in the buffer which are at full-scale
 // (and presumably clipped).
-float ComputeClippedRatio(const float* const* audio,
-                          size_t num_channels,
-                          size_t samples_per_channel) {
-  RTC_DCHECK_GT(samples_per_channel, 0);
+float ComputeClippedRatio(DeinterleavedView<const float> audio) {
+  RTC_DCHECK_GT(audio.samples_per_channel(), 0);
   int num_clipped = 0;
-  for (size_t ch = 0; ch < num_channels; ++ch) {
+  for (size_t ch = 0; ch < audio.num_channels(); ++ch) {
     int num_clipped_in_ch = 0;
-    for (size_t i = 0; i < samples_per_channel; ++i) {
-      RTC_DCHECK(audio[ch]);
-      if (audio[ch][i] >= 32767.0f || audio[ch][i] <= -32768.0f) {
+    MonoView<const float> channel = audio[ch];
+    for (float s : channel) {
+      if (s >= 32767.0f || s <= -32768.0f) {
         ++num_clipped_in_ch;
       }
     }
     num_clipped = std::max(num_clipped, num_clipped_in_ch);
   }
-  return static_cast<float>(num_clipped) / (samples_per_channel);
+  return static_cast<float>(num_clipped) / audio.samples_per_channel();
 }
 
 void LogClippingMetrics(int clipping_rate) {
@@ -415,9 +413,13 @@ void InputVolumeController::AnalyzeInputAudio(int applied_input_volume,
   SetAppliedInputVolume(applied_input_volume);
 
   RTC_DCHECK_EQ(audio_buffer.num_channels(), channel_controllers_.size());
-  const float* const* audio = audio_buffer.channels_const();
-  size_t samples_per_channel = audio_buffer.num_frames();
-  RTC_DCHECK(audio);
+  DeinterleavedView<const float> audio = audio_buffer.channels_const();
+  // TODO(tommi): Pin `audio` to `num_capture_channels_` instead? (in case
+  // num_capture_channels_ is smaller than NumChannels(audio)).
+  // Or, potentially `channel_controllers_.size()` and num_capture_channels_ are
+  // always the same? (as per the RTC_DCHECK_EQ above)?
+  RTC_DCHECK_EQ(num_capture_channels_, NumChannels(audio));
+  RTC_DCHECK(audio.size());
 
   AggregateChannelLevels();
   if (!capture_output_used_) {
@@ -425,9 +427,7 @@ void InputVolumeController::AnalyzeInputAudio(int applied_input_volume,
   }
 
   if (!!clipping_predictor_) {
-    AudioFrameView<const float> frame = AudioFrameView<const float>(
-        audio, num_capture_channels_, static_cast<int>(samples_per_channel));
-    clipping_predictor_->Analyze(frame);
+    clipping_predictor_->Analyze(AudioFrameView<const float>(audio));
   }
 
   // Check for clipped samples. We do this in the preprocessing phase in order
@@ -437,8 +437,7 @@ void InputVolumeController::AnalyzeInputAudio(int applied_input_volume,
   // input volume and enforce a new maximum input volume, dropped the same
   // amount from the current maximum. This harsh treatment is an effort to avoid
   // repeated clipped echo events.
-  float clipped_ratio =
-      ComputeClippedRatio(audio, num_capture_channels_, samples_per_channel);
+  float clipped_ratio = ComputeClippedRatio(audio);
   clipping_rate_log_ = std::max(clipped_ratio, clipping_rate_log_);
   clipping_rate_log_counter_++;
   constexpr int kNumFramesIn30Seconds = 3000;

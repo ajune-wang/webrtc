@@ -627,7 +627,7 @@ class EchoCanceller3Tester {
     EchoCanceller3 aec3(EchoCanceller3Config(),
                         /*multichannel_config=*/absl::nullopt,
                         aec3_sample_rate_hz, 1, 1);
-    PopulateInputFrame(frame_length_, 0, &render_buffer_.channels_f()[0][0], 0);
+    PopulateInputFrame(frame_length_, 0, &render_buffer_.channels()[0][0], 0);
 
     EXPECT_DEATH(aec3.AnalyzeRender(&render_buffer_), "");
   }

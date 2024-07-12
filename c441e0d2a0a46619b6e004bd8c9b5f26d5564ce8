@@ -16,6 +16,24 @@
       "message": "Can we add a constant that explains 31 or do you think it\u0027s clear from the code that it\u0027s about bits? (the variable name doesn\u0027t suggest it explictly)\nWould it be better to do this check where num_ref_idx_l0_active_minus1 is set?",
       "revId": "c441e0d2a0a46619b6e004bd8c9b5f26d5564ce8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2d3b2590_a4e8b743",
+        "filename": "common_video/h264/h264_bitstream_parser.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-07-12T11:52:43Z",
+      "side": 1,
+      "message": "Added the constant, it is no longer about bits, but a verification of the limit per H264 specficiation.\n\n(and moved to where it is set, skipping where it is copied from default, because default values are verified when parsed in PPS)",
+      "parentUuid": "403e6ce7_80caa3f9",
+      "revId": "c441e0d2a0a46619b6e004bd8c9b5f26d5564ce8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

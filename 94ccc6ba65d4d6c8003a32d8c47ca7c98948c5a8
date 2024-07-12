@@ -22,6 +22,30 @@
       },
       "revId": "94ccc6ba65d4d6c8003a32d8c47ca7c98948c5a8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8d2793ad_5b047c5f",
+        "filename": "common_video/h264/h264_bitstream_parser.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-07-12T11:10:39Z",
+      "side": 1,
+      "message": "Thank you, comparing to a small constant is simpler (and address the issue as well)",
+      "parentUuid": "0bd54c78_de8c9299",
+      "range": {
+        "startLine": 207,
+        "startChar": 20,
+        "endLine": 207,
+        "endChar": 48
+      },
+      "revId": "94ccc6ba65d4d6c8003a32d8c47ca7c98948c5a8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

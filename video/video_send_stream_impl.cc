@@ -438,7 +438,8 @@ VideoSendStreamImpl::VideoSendStreamImpl(
                           &send_packet_observer_),
           std::move(fec_controller),
           CreateFrameEncryptionConfig(&config_),
-          config_.frame_transformer)),
+          config_.frame_transformer,
+          config_.packet_sender)),
       has_alr_probing_(
           config_.periodic_alr_bandwidth_probing ||
           GetAlrSettings(env_.field_trials(), encoder_config.content_type)),

@@ -1102,6 +1102,15 @@ class WebRtcVoiceSendChannel::WebRtcAudioSendStream : public AudioSource::Sink {
     ReconfigureAudioSendStream(nullptr);
   }
 
+  void SetCustomPacketSender(
+      // TODO - rtc::scoped_refptr<
+      webrtc::RtpPacketSender* packet_sender) {
+    RTC_DCHECK_RUN_ON(&worker_thread_checker_);
+    // TODO: Add for audio
+    // config_.packet_sender = std::move(packet_sender);
+    ReconfigureAudioSendStream(nullptr);
+  }
+
  private:
   void UpdateSendState() {
     RTC_DCHECK_RUN_ON(&worker_thread_checker_);
@@ -1812,6 +1821,20 @@ void WebRtcVoiceSendChannel::SetEncoderToPacketizerFrameTransformer(
   }
   matching_stream->second->SetEncoderToPacketizerFrameTransformer(
       std::move(frame_transformer));
+}
+
+void WebRtcVoiceSendChannel::SetCustomPacketSender(
+    uint32_t ssrc,
+    // TODO - rtc::scoped_refptr
+    webrtc::RtpPacketSender* packet_sender) {
+  RTC_DCHECK_RUN_ON(worker_thread_);
+  auto matching_stream = send_streams_.find(ssrc);
+  if (matching_stream == send_streams_.end()) {
+    RTC_LOG(LS_INFO) << "Attempting to set packet sender for SSRC:" << ssrc
+                     << " which doesn't exist.";
+    return;
+  }
+  matching_stream->second->SetCustomPacketSender(std::move(packet_sender));
 }
 
 webrtc::RtpParameters WebRtcVoiceSendChannel::GetRtpSendParameters(

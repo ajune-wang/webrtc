@@ -140,7 +140,9 @@ RtpVideoSenderInterface* RtpTransportControllerSend::CreateRtpVideoSender(
     const RtpSenderObservers& observers,
     std::unique_ptr<FecController> fec_controller,
     const RtpSenderFrameEncryptionConfig& frame_encryption_config,
-    rtc::scoped_refptr<FrameTransformerInterface> frame_transformer) {
+    rtc::scoped_refptr<FrameTransformerInterface> frame_transformer,
+    // TODO - rtc::scoped_refptr
+    RtpPacketSender* packet_sender) {
   RTC_DCHECK_RUN_ON(&sequence_checker_);
   video_rtp_senders_.push_back(std::make_unique<RtpVideoSender>(
       &env_.clock(), suspended_ssrcs, states, rtp_config,
@@ -150,7 +152,8 @@ RtpVideoSenderInterface* RtpTransportControllerSend::CreateRtpVideoSender(
       this, &env_.event_log(), &retransmission_rate_limiter_,
       std::move(fec_controller), frame_encryption_config.frame_encryptor,
       frame_encryption_config.crypto_options, std::move(frame_transformer),
-      env_.field_trials(), &env_.task_queue_factory()));
+      std::move(packet_sender), env_.field_trials(),
+      &env_.task_queue_factory()));
   return video_rtp_senders_.back().get();
 }
 

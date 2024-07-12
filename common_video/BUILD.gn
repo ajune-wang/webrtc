@@ -80,6 +80,7 @@ rtc_library("common_video") {
     "../rtc_base:race_checker",
     "../rtc_base:rate_statistics",
     "../rtc_base:refcount",
+    "../rtc_base:safe_compare",
     "../rtc_base:safe_minmax",
     "../rtc_base:timeutils",
     "../rtc_base/synchronization:mutex",

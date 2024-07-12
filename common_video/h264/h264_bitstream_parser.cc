@@ -17,6 +17,7 @@
 #include "common_video/h264/h264_common.h"
 #include "rtc_base/bitstream_reader.h"
 #include "rtc_base/logging.h"
+#include "rtc_base/numerics/safe_compare.h"
 
 namespace webrtc {
 namespace {
@@ -203,6 +204,11 @@ H264BitstreamParser::Result H264BitstreamParser::ParseNonParameterSetNalu(
       slice_reader.ReadExponentialGolomb();
     }
 
+    if (rtc::SafeGe(num_ref_idx_l0_active_minus1,
+                    slice_reader.RemainingBitCount())) {
+      // Fail early if `num_ref_idx_l0_active_minus1` is too large.
+      return kInvalidStream;
+    }
     for (uint32_t i = 0; i <= num_ref_idx_l0_active_minus1; i++) {
       //    luma_weight_l0_flag 2 u(1)
       if (slice_reader.Read<bool>()) {
@@ -224,6 +230,11 @@ H264BitstreamParser::Result H264BitstreamParser::ParseNonParameterSetNalu(
       }
     }
     if (slice_type % 5 == 1) {
+      if (rtc::SafeGe(num_ref_idx_l1_active_minus1,
+                      slice_reader.RemainingBitCount())) {
+        // Fail early if `num_ref_idx_l1_active_minus1` is too large.
+        return kInvalidStream;
+      }
       for (uint32_t i = 0; i <= num_ref_idx_l1_active_minus1; i++) {
         // luma_weight_l1_flag: u(1)
         if (slice_reader.Read<bool>()) {

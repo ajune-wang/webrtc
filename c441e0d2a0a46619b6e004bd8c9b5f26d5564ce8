@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "403e6ce7_80caa3f9",
+        "filename": "common_video/h264/h264_bitstream_parser.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2024-07-12T11:37:22Z",
+      "side": 1,
+      "message": "Can we add a constant that explains 31 or do you think it\u0027s clear from the code that it\u0027s about bits? (the variable name doesn\u0027t suggest it explictly)\nWould it be better to do this check where num_ref_idx_l0_active_minus1 is set?",
+      "revId": "c441e0d2a0a46619b6e004bd8c9b5f26d5564ce8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0bd54c78_de8c9299",
+        "filename": "common_video/h264/h264_bitstream_parser.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2024-07-12T10:58:05Z",
+      "side": 1,
+      "message": "https://screenshot.googleplex.com/3UjDKr8nCxZzksu\n\nIt is expected to be in [0,31] range. Anything above 31 can be treated as an error. Maybe change condition to num_ref_idx_l0_active_minus1 \u003e 31 -\u003e return kInvalidStream?\n\nAnd add similar check to PPS parser?: https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/common_video/h264/pps_parser.cc;l\u003d134-136",
+      "range": {
+        "startLine": 207,
+        "startChar": 20,
+        "endLine": 207,
+        "endChar": 48
+      },
+      "revId": "94ccc6ba65d4d6c8003a32d8c47ca7c98948c5a8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

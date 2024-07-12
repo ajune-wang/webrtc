@@ -1291,11 +1291,6 @@ void ConfigureSimulcast(VideoCodec* vc) {
     return;
   }
 
-  ScopedKeyValueConfig field_trials((rtc::StringBuilder()
-                                     << "WebRTC-VP8ConferenceTemporalLayers/"
-                                     << num_temporal_layers << "/")
-                                        .str());
-
   const std::vector<webrtc::VideoStream> streams = cricket::GetSimulcastConfig(
       /*min_layer=*/1, num_spatial_layers, vc->width, vc->height,
       /*is_screenshare=*/false, /*temporal_layers_supported=*/true,

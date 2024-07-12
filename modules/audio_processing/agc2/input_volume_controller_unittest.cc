@@ -172,7 +172,8 @@ class SpeechSamplesReader {
       }
       // Apply gain and copy samples into `audio_buffer_`.
       std::transform(buffer_.begin(), buffer_.end(),
-                     audio_buffer_.channels()[0], [gain](int16_t v) -> float {
+                     audio_buffer_.channels()[0].begin(),
+                     [gain](int16_t v) -> float {
                        return rtc::SafeClamp(static_cast<float>(v) * gain,
                                              kMinSample, kMaxSample);
                      });

@@ -61,8 +61,10 @@ class AudioBuffer {
 
   // Returns a DeinterleavedView<> over the channel data.
   DeinterleavedView<float> view() {
+    // TODO(tommi): Use data_->channels_v() instead? Eventually remove the
+    // `view()` method once `channel()` returns `DeinterleavedView<>`.
     return DeinterleavedView<float>(
-        num_channels_ && buffer_num_frames_ ? channels()[0] : nullptr,
+        num_channels_ && buffer_num_frames_ ? data_->channels()[0] : nullptr,
         buffer_num_frames_, num_channels_);
   }
 
@@ -77,8 +79,10 @@ class AudioBuffer {
   // Where:
   // 0 <= channel < `buffer_num_channels_`
   // 0 <= sample < `buffer_num_frames_`
-  float* const* channels() { return data_->channels(); }
-  const float* const* channels_const() const { return data_->channels(); }
+  DeinterleavedView<float> channels() { return data_->channels_v(); }
+  DeinterleavedView<const float> channels_const() const {
+    return data_->channels_v();
+  }
 
   // Returns pointer arrays to the bands for a specific channel.
   // Usage:
@@ -142,8 +146,14 @@ class AudioBuffer {
   static const size_t kMaxNumBands = 3;
 
   // Deprecated methods, will be removed soon.
-  float* const* channels_f() { return channels(); }
-  const float* const* channels_const_f() const { return channels_const(); }
+  [[deprecated("Use DeinterleavedView<> based versions")]] float* const*
+  channels_f() {
+    return data_->channels();
+  }
+  [[deprecated("Use DeinterleavedView<> based versions")]] const float* const*
+  channels_const_f() const {
+    return data_->channels();
+  }
   const float* const* split_bands_const_f(size_t channel) const {
     return split_bands_const(channel);
   }

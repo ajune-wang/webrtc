@@ -112,22 +112,20 @@ int LevelFromGainError(int gain_error, int level, int min_mic_level) {
 
 // Returns the proportion of samples in the buffer which are at full-scale
 // (and presumably clipped).
-float ComputeClippedRatio(const float* const* audio,
-                          size_t num_channels,
-                          size_t samples_per_channel) {
-  RTC_DCHECK_GT(samples_per_channel, 0);
+float ComputeClippedRatio(DeinterleavedView<const float> audio) {
+  RTC_DCHECK_GT(audio.samples_per_channel(), 0);
   int num_clipped = 0;
-  for (size_t ch = 0; ch < num_channels; ++ch) {
+  for (size_t ch = 0; ch < audio.num_channels(); ++ch) {
     int num_clipped_in_ch = 0;
-    for (size_t i = 0; i < samples_per_channel; ++i) {
-      RTC_DCHECK(audio[ch]);
-      if (audio[ch][i] >= 32767.0f || audio[ch][i] <= -32768.0f) {
+    MonoView<const float> channel = audio[ch];
+    for (float s : channel) {
+      if (s >= 32767.0f || s <= -32768.0f) {
         ++num_clipped_in_ch;
       }
     }
     num_clipped = std::max(num_clipped, num_clipped_in_ch);
   }
-  return static_cast<float>(num_clipped) / (samples_per_channel);
+  return static_cast<float>(num_clipped) / audio.samples_per_channel();
 }
 
 void LogClippingMetrics(int clipping_rate) {
@@ -537,19 +535,24 @@ void AgcManagerDirect::SetupDigitalGainControl(
 }
 
 void AgcManagerDirect::AnalyzePreProcess(const AudioBuffer& audio_buffer) {
-  const float* const* audio = audio_buffer.channels_const();
-  size_t samples_per_channel = audio_buffer.num_frames();
-  RTC_DCHECK(audio);
-
   AggregateChannelLevels();
   if (!capture_output_used_) {
     return;
   }
 
+  DeinterleavedView<const float> audio = audio_buffer.channels_const();
+  RTC_DCHECK(audio.size());
+  RTC_CHECK_LE(num_capture_channels_, NumChannels(audio));
+  if (static_cast<size_t>(num_capture_channels_) != NumChannels(audio)) {
+    // In case the `audio_buffer` represents more channels than
+    // `num_capture_channels_`, clamp it down to match.
+    audio = DeinterleavedView<const float>(audio.data().data(),
+                                           audio.samples_per_channel(),
+                                           num_capture_channels_);
+  }
+
   if (!!clipping_predictor_) {
-    AudioFrameView<const float> frame = AudioFrameView<const float>(
-        audio, num_capture_channels_, static_cast<int>(samples_per_channel));
-    clipping_predictor_->Analyze(frame);
+    clipping_predictor_->Analyze(AudioFrameView<const float>(audio));
   }
 
   // Check for clipped samples, as the AGC has difficulty detecting pitch
@@ -561,8 +564,7 @@ void AgcManagerDirect::AnalyzePreProcess(const AudioBuffer& audio_buffer) {
   // maximum. This harsh treatment is an effort to avoid repeated clipped echo
   // events. As compensation for this restriction, the maximum compression
   // gain is increased, through SetMaxLevel().
-  float clipped_ratio =
-      ComputeClippedRatio(audio, num_capture_channels_, samples_per_channel);
+  float clipped_ratio = ComputeClippedRatio(audio);
   clipping_rate_log_ = std::max(clipped_ratio, clipping_rate_log_);
   clipping_rate_log_counter_++;
   constexpr int kNumFramesIn30Seconds = 3000;

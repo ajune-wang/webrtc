@@ -37,7 +37,8 @@ using InputVolumeControllerConfig = InputVolumeController::Config;
 // Sets all the samples in `ab` to `value`.
 void SetAudioBufferSamples(float value, AudioBuffer& ab) {
   for (size_t k = 0; k < ab.num_channels(); ++k) {
-    std::fill(ab.channels()[k], ab.channels()[k] + ab.num_frames(), value);
+    auto channel = ab.channels()[k];
+    std::fill(channel.begin(), channel.end(), value);
   }
 }
 

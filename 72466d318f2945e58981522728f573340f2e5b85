@@ -58,6 +58,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a71a39cf_9f1b20e0",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 495,
+      "author": {
+        "id": 19269
+      },
+      "writtenOn": "2024-07-12T21:22:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0fc25044_3c8d28b6",
+      "range": {
+        "startLine": 495,
+        "startChar": 2,
+        "endLine": 495,
+        "endChar": 27
+      },
+      "revId": "72466d318f2945e58981522728f573340f2e5b85",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "60d65e37_f3804860",
@@ -75,6 +99,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ca9c9921_ba236b91",
+        "filename": "call/bitrate_allocator.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 19269
+      },
+      "writtenOn": "2024-07-12T21:22:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "60d65e37_f3804860",
+      "revId": "72466d318f2945e58981522728f573340f2e5b85",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f143cdb6_150074bc",
@@ -88,6 +130,30 @@
       "writtenOn": "2024-07-12T13:14:58Z",
       "side": 1,
       "message": "nit: `.Times(1)` is implicit if not specified so can be omitted.",
+      "range": {
+        "startLine": 1238,
+        "startChar": 65,
+        "endLine": 1238,
+        "endChar": 74
+      },
+      "revId": "72466d318f2945e58981522728f573340f2e5b85",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c8757318_f6c71dd5",
+        "filename": "video/video_send_stream_impl_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1238,
+      "author": {
+        "id": 19269
+      },
+      "writtenOn": "2024-07-12T21:22:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f143cdb6_150074bc",
       "range": {
         "startLine": 1238,
         "startChar": 65,

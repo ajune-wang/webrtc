@@ -70,7 +70,7 @@ absl::optional<VideoRtpDepacketizer::ParsedRtpPayload> ProcessStapAOrSingleNalu(
   parsed_payload->video_header.height = 0;
   parsed_payload->video_header.codec = kVideoCodecH264;
   parsed_payload->video_header.simulcastIdx = 0;
-  parsed_payload->video_header.is_first_packet_in_frame = true;
+  parsed_payload->video_header.is_first_packet_in_frame = false;
   auto& h264_header = parsed_payload->video_header.video_type_header
                           .emplace<RTPVideoHeaderH264>();
 
@@ -120,8 +120,7 @@ absl::optional<VideoRtpDepacketizer::ParsedRtpPayload> ProcessStapAOrSingleNalu(
     switch (nalu.type) {
       case H264::NaluType::kSps: {
         // Check if VUI is present in SPS and if it needs to be modified to
-        // avoid
-        // excessive decoder latency.
+        // avoid excessive decoder latency.
 
         // Copy any previous data first (likely just the first header).
         rtc::Buffer output_buffer;
@@ -174,6 +173,7 @@ absl::optional<VideoRtpDepacketizer::ParsedRtpPayload> ProcessStapAOrSingleNalu(
                 VideoFrameType::kVideoFrameKey;
             break;
         }
+        parsed_payload->video_header.is_first_packet_in_frame |= true;
         break;
       }
       case H264::NaluType::kPps: {
@@ -194,6 +194,7 @@ absl::optional<VideoRtpDepacketizer::ParsedRtpPayload> ProcessStapAOrSingleNalu(
       case H264::NaluType::kIdr:
         parsed_payload->video_header.frame_type =
             VideoFrameType::kVideoFrameKey;
+        parsed_payload->video_header.is_first_packet_in_frame |= true;
         [[fallthrough]];
       case H264::NaluType::kSlice: {
         absl::optional<PpsParser::SliceHeader> slice_header =
@@ -201,7 +202,7 @@ absl::optional<VideoRtpDepacketizer::ParsedRtpPayload> ProcessStapAOrSingleNalu(
                                         end_offset - start_offset);
         if (slice_header) {
           nalu.pps_id = slice_header->pic_parameter_set_id;
-          parsed_payload->video_header.is_first_packet_in_frame &=
+          parsed_payload->video_header.is_first_packet_in_frame |=
               slice_header->first_mb_in_slice == 0;
         } else {
           RTC_LOG(LS_WARNING) << "Failed to parse PPS id from slice of type: "

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b6a453b3_c4e303ae",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7529
+      },
+      "writtenOn": "2024-07-14T14:54:43Z",
+      "side": 1,
+      "message": "@ssilkin@webrtc.org Not sure if this was intentional, but this seems to cause `gclient sync` to throw errors when attempting to check out/compile older libwebrtc branches previous to this commit. It looks like the file was completely removed from the bucket, breaking backward compatibility.\n\nRepro steps (make sure you don\u0027t already have these files cached locally in the repo):\n- `git checkout branch-heads/6422`\n- `gclient sync --rev 8505a9838ea91c66c96c173d30cd66f9dbcc7548`\n\nproduces\n\n```\nError: Command \u0027download_from_google_storage --directory --recursive --num_threads\u003d10 --no_auth --quiet --bucket chromium-webrtc-resources src/resources\u0027 returned non-zero exit status 1 in /Users/joachimr/local/webrtc\n```\n\nCan work around it by cherry-picking this CL prior to compiling those older versions, just thought you should know.",
+      "revId": "3d20dce85f8d47057b9366a4126ad21683a26569",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

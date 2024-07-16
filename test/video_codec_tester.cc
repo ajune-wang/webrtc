@@ -1293,10 +1293,15 @@ void ConfigureSimulcast(VideoCodec* vc) {
     return;
   }
 
+  std::vector<webrtc::Resolution> resolutions(num_spatial_layers);
+  for (int i = 0; i < num_spatial_layers; ++i) {
+    resolutions[i].width = vc->width >> (num_spatial_layers - i - 1);
+    resolutions[i].height = vc->height >> (num_spatial_layers - i - 1);
+  }
+
   ExplicitKeyValueConfig field_trials(field_trial::GetFieldTrialString());
   const std::vector<webrtc::VideoStream> streams = cricket::GetSimulcastConfig(
-      /*min_layer=*/1, num_spatial_layers, vc->width, vc->height,
-      /*is_screenshare=*/false, /*temporal_layers_supported=*/true,
+      resolutions, /*is_screenshare=*/false, /*temporal_layers_supported=*/true,
       field_trials, webrtc::kVideoCodecVP8);
 
   vc->numberOfSimulcastStreams = streams.size();

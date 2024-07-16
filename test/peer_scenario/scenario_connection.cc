@@ -62,6 +62,8 @@ class ScenarioIceConnectionImpl : public ScenarioIceConnection,
       RTC_GUARDED_BY(network_thread_);
   cricket::TransportDescription const transport_description_
       RTC_GUARDED_BY(signaling_thread_);
+  const std::unique_ptr<rtc::NetworkManager> network_manager_;
+  const std::unique_ptr<rtc::PacketSocketFactory> packet_socket_factory_;
   std::unique_ptr<cricket::BasicPortAllocator> port_allocator_
       RTC_GUARDED_BY(network_thread_);
   std::unique_ptr<JsepTransportController> jsep_controller_;
@@ -99,9 +101,11 @@ ScenarioIceConnectionImpl::ScenarioIceConnectionImpl(
           cricket::ConnectionRole::CONNECTIONROLE_PASSIVE,
           rtc::SSLFingerprint::CreateFromCertificate(*certificate_.get())
               .get()),
-      port_allocator_(
-          new cricket::BasicPortAllocator(manager_->network_manager(),
-                                          manager_->packet_socket_factory())),
+      network_manager_(manager_->FetchNetworkManager()),
+      packet_socket_factory_(manager_->FetchPacketSocketFactory()),
+      port_allocator_(std::make_unique<cricket::BasicPortAllocator>(
+          network_manager_.get(),
+          packet_socket_factory_.get())),
       jsep_controller_(
           new JsepTransportController(env,
                                       network_thread_,

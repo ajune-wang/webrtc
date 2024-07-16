@@ -278,6 +278,8 @@ PeerScenarioClient::PeerScenarioClient(
   pcf_deps.fec_controller_factory = nullptr;
   pcf_deps.network_controller_factory = nullptr;
   pcf_deps.network_state_predictor_factory = nullptr;
+  pcf_deps.network_manager = manager->FetchNetworkManager();
+  pcf_deps.packet_socket_factory = manager->FetchPacketSocketFactory();
 
   pc_factory_ = CreateModularPeerConnectionFactory(std::move(pcf_deps));
   PeerConnectionFactoryInterface::Options pc_options;
@@ -285,10 +287,8 @@ PeerScenarioClient::PeerScenarioClient(
   pc_factory_->SetOptions(pc_options);
 
   PeerConnectionDependencies pc_deps(observer_.get());
-  pc_deps.allocator = std::make_unique<cricket::BasicPortAllocator>(
-      manager->network_manager(), manager->packet_socket_factory());
-  pc_deps.allocator->set_flags(pc_deps.allocator->flags() |
-                               cricket::PORTALLOCATOR_DISABLE_TCP);
+  config.rtc_config.set_port_allocator_flags(
+      cricket::PORTALLOCATOR_DISABLE_TCP);
   peer_connection_ =
       pc_factory_
           ->CreatePeerConnectionOrError(config.rtc_config, std::move(pc_deps))

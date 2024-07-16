@@ -15,6 +15,7 @@
 #include <string>
 #include <vector>
 
+#include "absl/base/nullability.h"
 #include "absl/strings/string_view.h"
 #include "absl/types/variant.h"
 #include "api/async_dns_resolver.h"
@@ -30,6 +31,7 @@
 #include "api/rtc_event_log/rtc_event_log_factory_interface.h"
 #include "api/scoped_refptr.h"
 #include "api/test/frame_generator_interface.h"
+#include "api/test/network_emulation_manager.h"
 #include "api/test/pclf/media_configuration.h"
 #include "api/test/pclf/media_quality_test_params.h"
 #include "api/test/peer_network_dependencies.h"
@@ -50,7 +52,9 @@ class PeerConfigurer {
       absl::variant<std::unique_ptr<test::FrameGeneratorInterface>,
                     CapturingDeviceIndex>;
 
-  explicit PeerConfigurer(const PeerNetworkDependencies& network_dependencies);
+  // `network` should outlive peer configured by this PeerConfigurer.
+  explicit PeerConfigurer(
+      absl::Nonnull<EmulatedNetworkManagerInterface*> network);
 
   // Sets peer name that will be used to report metrics related to this peer.
   // If not set, some default name will be assigned. All names have to be

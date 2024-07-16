@@ -22,14 +22,42 @@
 namespace webrtc {
 namespace test {
 
+class EmulatedNetworkManager::RtcNetworkManager
+    : public rtc::NetworkManagerBase,
+      public sigslot::has_slots<> {
+ public:
+  RtcNetworkManager(absl::Nonnull<EmulatedNetworkManager*> owner,
+                    absl::Nonnull<rtc::Thread*> network_thread)
+      : owner_(*owner), network_thread_(network_thread) {}
+
+  ~RtcNetworkManager() { owner_.network_manager_ptr_ = nullptr; }
+
+  // NetworkManager interface. All these methods are supposed to be called from
+  // the same thread.
+  void StartUpdating() override;
+  void StopUpdating() override;
+
+  // We don't support any address interfaces in the network emulation framework.
+  std::vector<const rtc::Network*> GetAnyAddressNetworks() override {
+    return {};
+  }
+
+ private:
+  friend EmulatedNetworkManager;
+  void UpdateNetworksOnce(std::vector<std::unique_ptr<rtc::Network>> networks);
+  void MaybeSignalNetworksChanged();
+
+  EmulatedNetworkManager& owner_;
+  const absl::Nonnull<rtc::Thread*> network_thread_;
+  bool sent_first_update_ RTC_GUARDED_BY(network_thread_) = false;
+  int start_count_ RTC_GUARDED_BY(network_thread_) = 0;
+};
+
 EmulatedNetworkManager::EmulatedNetworkManager(
     TimeController* time_controller,
     TaskQueueForTest* task_queue,
     EndpointsContainer* endpoints_container)
-    : task_queue_(task_queue),
-      endpoints_container_(endpoints_container),
-      sent_first_update_(false),
-      start_count_(0) {
+    : task_queue_(task_queue), endpoints_container_(endpoints_container) {
   auto socket_server =
       std::make_unique<FakeNetworkSocketServer>(endpoints_container);
   packet_socket_factory_ =
@@ -38,6 +66,17 @@ EmulatedNetworkManager::EmulatedNetworkManager(
   // arrange that it outlives `packet_socket_factory_` which refers to it.
   network_thread_ =
       time_controller->CreateThread("net_thread", std::move(socket_server));
+  auto network_manager =
+      std::make_unique<RtcNetworkManager>(this, network_thread_.get());
+  network_manager_ptr_ = network_manager.get();
+  network_manager_ = std::move(network_manager);
+}
+
+EmulatedNetworkManager::~EmulatedNetworkManager() {
+  network_manager_ = nullptr;
+  // `network_manager_` has to be deleted before this, even if an external
+  // component fetch it with an ownership.
+  RTC_CHECK(network_manager_ptr_ == nullptr);
 }
 
 void EmulatedNetworkManager::EnableEndpoint(EmulatedEndpointImpl* endpoint) {
@@ -60,8 +99,8 @@ void EmulatedNetworkManager::DisableEndpoint(EmulatedEndpointImpl* endpoint) {
 
 // Network manager interface. All these methods are supposed to be called from
 // the same thread.
-void EmulatedNetworkManager::StartUpdating() {
-  RTC_DCHECK_RUN_ON(network_thread_.get());
+void EmulatedNetworkManager::RtcNetworkManager::StartUpdating() {
+  RTC_DCHECK_RUN_ON(network_thread_);
 
   if (start_count_) {
     // If network interfaces are already discovered and signal is sent,
@@ -70,13 +109,13 @@ void EmulatedNetworkManager::StartUpdating() {
     if (sent_first_update_)
       network_thread_->PostTask([this]() { MaybeSignalNetworksChanged(); });
   } else {
-    network_thread_->PostTask([this]() { UpdateNetworksOnce(); });
+    network_thread_->PostTask([this]() { owner_.UpdateNetworksOnce(); });
   }
   ++start_count_;
 }
 
-void EmulatedNetworkManager::StopUpdating() {
-  RTC_DCHECK_RUN_ON(network_thread_.get());
+void EmulatedNetworkManager::RtcNetworkManager::StopUpdating() {
+  RTC_DCHECK_RUN_ON(network_thread_);
   if (!start_count_)
     return;
 
@@ -94,13 +133,17 @@ void EmulatedNetworkManager::GetStats(
 }
 
 void EmulatedNetworkManager::UpdateNetworksOnce() {
-  RTC_DCHECK_RUN_ON(network_thread_.get());
+  RTC_DCHECK(network_manager_ptr_);
+  network_manager_ptr_->UpdateNetworksOnce(
+      endpoints_container_->GetEnabledNetworks());
+}
 
-  std::vector<std::unique_ptr<rtc::Network>> networks;
-  for (std::unique_ptr<rtc::Network>& net :
-       endpoints_container_->GetEnabledNetworks()) {
+void EmulatedNetworkManager::RtcNetworkManager::UpdateNetworksOnce(
+    std::vector<std::unique_ptr<rtc::Network>> networks) {
+  RTC_DCHECK_RUN_ON(network_thread_);
+
+  for (std::unique_ptr<rtc::Network>& net : networks) {
     net->set_default_local_address_provider(this);
-    networks.push_back(std::move(net));
   }
 
   bool changed;
@@ -111,8 +154,8 @@ void EmulatedNetworkManager::UpdateNetworksOnce() {
   }
 }
 
-void EmulatedNetworkManager::MaybeSignalNetworksChanged() {
-  RTC_DCHECK_RUN_ON(network_thread_.get());
+void EmulatedNetworkManager::RtcNetworkManager::MaybeSignalNetworksChanged() {
+  RTC_DCHECK_RUN_ON(network_thread_);
   // If manager is stopped we don't need to signal anything.
   if (start_count_ == 0) {
     return;

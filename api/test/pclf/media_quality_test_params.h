@@ -21,6 +21,7 @@
 #include "api/fec_controller.h"
 #include "api/field_trials_view.h"
 #include "api/rtc_event_log/rtc_event_log_factory_interface.h"
+#include "api/test/network_emulation_manager.h"
 #include "api/test/pclf/media_configuration.h"
 #include "api/transport/network_control.h"
 #include "api/video_codecs/video_decoder_factory.h"
@@ -44,6 +45,9 @@ namespace webrtc_pc_e2e {
 // can override only some parts of media engine like video encoder/decoder
 // factories.
 struct PeerConnectionFactoryComponents {
+  std::unique_ptr<rtc::NetworkManager> network_manager;
+  std::unique_ptr<rtc::PacketSocketFactory> packet_socket_factory;
+
   std::unique_ptr<RtcEventLogFactoryInterface> event_log_factory;
   std::unique_ptr<FecControllerFactoryInterface> fec_controller_factory;
   std::unique_ptr<NetworkControllerFactoryInterface> network_controller_factory;
@@ -67,18 +71,8 @@ struct PeerConnectionFactoryComponents {
 // Separate class was introduced to clarify which components can be
 // overridden. For example observer, which is required to
 // PeerConnectionDependencies, will be provided by fixture implementation,
-// so client can't inject its own. Also only network manager can be overridden
-// inside port allocator.
+// so client can't inject its own.
 struct PeerConnectionComponents {
-  PeerConnectionComponents(rtc::NetworkManager* network_manager,
-                           rtc::PacketSocketFactory* packet_socket_factory)
-      : network_manager(network_manager),
-        packet_socket_factory(packet_socket_factory) {
-    RTC_CHECK(network_manager);
-  }
-
-  rtc::NetworkManager* const network_manager;
-  rtc::PacketSocketFactory* const packet_socket_factory;
   std::unique_ptr<webrtc::AsyncDnsResolverFactoryInterface>
       async_dns_resolver_factory;
   std::unique_ptr<rtc::RTCCertificateGeneratorInterface> cert_generator;
@@ -89,20 +83,17 @@ struct PeerConnectionComponents {
 // Contains all components, that can be overridden in peer connection. Also
 // has a network thread, that will be used to communicate with another peers.
 struct InjectableComponents {
-  InjectableComponents(rtc::Thread* network_thread,
-                       rtc::NetworkManager* network_manager,
-                       rtc::PacketSocketFactory* packet_socket_factory)
-      : network_thread(network_thread),
-        worker_thread(nullptr),
+  explicit InjectableComponents(EmulatedNetworkManagerInterface& network)
+      : network_thread(network.network_thread()),
         pcf_dependencies(std::make_unique<PeerConnectionFactoryComponents>()),
-        pc_dependencies(
-            std::make_unique<PeerConnectionComponents>(network_manager,
-                                                       packet_socket_factory)) {
-    RTC_CHECK(network_thread);
+        pc_dependencies(std::make_unique<PeerConnectionComponents>()) {
+    pcf_dependencies->network_manager = network.FetchNetworkManager();
+    pcf_dependencies->packet_socket_factory =
+        network.FetchPacketSocketFactory();
   }
 
-  rtc::Thread* const network_thread;
-  rtc::Thread* worker_thread;
+  const absl::Nonnull<rtc::Thread*> network_thread;
+  absl::Nullable<rtc::Thread*> worker_thread = nullptr;
 
   std::unique_ptr<PeerConnectionFactoryComponents> pcf_dependencies;
   std::unique_ptr<PeerConnectionComponents> pc_dependencies;

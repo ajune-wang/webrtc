@@ -33,6 +33,24 @@
       "message": "It seems that you\u0027ve forgotten to include changes to EncoderInfo, hence it doesn\u0027t compile.",
       "revId": "b1bf174d87684aa6138e5c2159ed4a3e01cd2a35",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2539f09e_78d43bcc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2024-07-16T08:42:07Z",
+      "side": 1,
+      "message": "Yes, there was a recent change to a member variable name. Patchset 4 is rebased on top of that change.",
+      "parentUuid": "34f19e58_edd5cbcf",
+      "revId": "b1bf174d87684aa6138e5c2159ed4a3e01cd2a35",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

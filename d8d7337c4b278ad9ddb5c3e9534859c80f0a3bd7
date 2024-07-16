@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "40d5b73a_015e823c",
+        "filename": "modules/desktop_capture/win/window_capture_utils.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 17664
+      },
+      "writtenOn": "2024-07-16T11:34:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7911fc48_bf211ef6",
+      "revId": "d8d7337c4b278ad9ddb5c3e9534859c80f0a3bd7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "83f1482e_9852cc67",
@@ -31,6 +49,24 @@
       "writtenOn": "2024-01-15T09:22:42Z",
       "side": 1,
       "message": "possible null deref here",
+      "revId": "d8d7337c4b278ad9ddb5c3e9534859c80f0a3bd7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7fd29b60_ccfcc34a",
+        "filename": "modules/desktop_capture/win/window_capture_utils.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 17664
+      },
+      "writtenOn": "2024-07-16T11:34:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "83f1482e_9852cc67",
       "revId": "d8d7337c4b278ad9ddb5c3e9534859c80f0a3bd7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

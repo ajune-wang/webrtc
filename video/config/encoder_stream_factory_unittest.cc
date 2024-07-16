@@ -96,4 +96,5 @@ TEST(EncoderStreamFactory, BitratePriority) {
   EXPECT_EQ(streams[0].bitrate_priority, kBitratePriority);
   EXPECT_FALSE(streams[1].bitrate_priority);
 }
+
 }  // namespace webrtc

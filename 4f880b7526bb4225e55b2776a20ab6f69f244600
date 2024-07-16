@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eddcae9c_5fbbef4d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-07-16T12:07:06Z",
+      "side": 1,
+      "message": "can you hint why is it unnecessary?",
+      "range": {
+        "startLine": 9,
+        "startChar": 99,
+        "endLine": 9,
+        "endChar": 113
+      },
+      "revId": "4f880b7526bb4225e55b2776a20ab6f69f244600",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

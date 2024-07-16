@@ -59,8 +59,6 @@ class ScenarioIceConnection {
   virtual EmulatedEndpoint* endpoint() = 0;
   virtual const cricket::TransportDescription& transport_description()
       const = 0;
-
-  webrtc::test::ScopedKeyValueConfig field_trials;
 };
 
 }  // namespace webrtc

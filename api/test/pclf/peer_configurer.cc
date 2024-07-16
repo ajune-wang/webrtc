@@ -46,12 +46,8 @@
 namespace webrtc {
 namespace webrtc_pc_e2e {
 
-PeerConfigurer::PeerConfigurer(
-    const PeerNetworkDependencies& network_dependencies)
-    : components_(std::make_unique<InjectableComponents>(
-          network_dependencies.network_thread,
-          network_dependencies.network_manager,
-          network_dependencies.packet_socket_factory)),
+PeerConfigurer::PeerConfigurer(EmulatedNetworkManagerInterface& network)
+    : components_(std::make_unique<InjectableComponents>(network)),
       params_(std::make_unique<Params>()),
       configurable_params_(std::make_unique<ConfigurableParams>()) {}
 

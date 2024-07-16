@@ -192,6 +192,9 @@ PeerConnectionFactoryDependencies CreatePCFDependencies(
 
   pcf_deps.event_log_factory = std::move(pcf_dependencies->event_log_factory);
   pcf_deps.task_queue_factory = time_controller.CreateTaskQueueFactory();
+  pcf_deps.network_manager = std::move(pcf_dependencies->network_manager);
+  pcf_deps.packet_socket_factory =
+      std::move(pcf_dependencies->packet_socket_factory);
 
   if (pcf_dependencies->fec_controller_factory != nullptr) {
     pcf_deps.fec_controller_factory =
@@ -227,18 +230,8 @@ PeerConnectionFactoryDependencies CreatePCFDependencies(
 // from InjectableComponents::PeerConnectionComponents.
 PeerConnectionDependencies CreatePCDependencies(
     MockPeerConnectionObserver* observer,
-    uint32_t port_allocator_extra_flags,
     std::unique_ptr<PeerConnectionComponents> pc_dependencies) {
   PeerConnectionDependencies pc_deps(observer);
-
-  auto port_allocator = std::make_unique<cricket::BasicPortAllocator>(
-      pc_dependencies->network_manager, pc_dependencies->packet_socket_factory);
-
-  // This test does not support TCP
-  int flags = port_allocator_extra_flags | cricket::PORTALLOCATOR_DISABLE_TCP;
-  port_allocator->set_flags(port_allocator->flags() | flags);
-
-  pc_deps.allocator = std::move(port_allocator);
 
   if (pc_dependencies->async_dns_resolver_factory != nullptr) {
     pc_deps.async_dns_resolver_factory =
@@ -325,14 +318,17 @@ std::unique_ptr<TestPeer> TestPeerFactory::CreateTestPeer(
       std::move(components->pcf_dependencies), time_controller_,
       std::move(audio_device_module), signaling_thread_,
       components->worker_thread, components->network_thread);
+
   rtc::scoped_refptr<PeerConnectionFactoryInterface> peer_connection_factory =
       CreateModularPeerConnectionFactory(std::move(pcf_deps));
   peer_connection_factory->SetOptions(params->peer_connection_factory_options);
 
   // Create peer connection.
-  PeerConnectionDependencies pc_deps =
-      CreatePCDependencies(observer.get(), params->port_allocator_extra_flags,
-                           std::move(components->pc_dependencies));
+  PeerConnectionDependencies pc_deps = CreatePCDependencies(
+      observer.get(), std::move(components->pc_dependencies));
+  params->rtc_configuration.set_port_allocator_flags(
+      params->port_allocator_extra_flags | cricket::PORTALLOCATOR_DISABLE_TCP);
+
   rtc::scoped_refptr<PeerConnectionInterface> peer_connection =
       peer_connection_factory
           ->CreatePeerConnectionOrError(params->rtc_configuration,

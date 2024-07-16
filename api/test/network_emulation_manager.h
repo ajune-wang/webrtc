@@ -127,17 +127,32 @@ class EmulatedNetworkManagerInterface {
   // for WebRTC to properly setup network emulation. Returned thread is owned
   // by EmulatedNetworkManagerInterface implementation.
   virtual rtc::Thread* network_thread() = 0;
+
   // Returns non-null pointer to network manager that have to be injected into
   // WebRTC to properly setup network emulation. Returned manager is owned by
   // EmulatedNetworkManagerInterface implementation.
-  virtual rtc::NetworkManager* network_manager() = 0;
+  [[deprecated]] virtual rtc::NetworkManager* network_manager() = 0;
   // Returns non-null pointer to packet socket factory that have to be injected
   // into WebRTC to properly setup network emulation. Returned factory is owned
   // by EmulatedNetworkManagerInterface implementation.
-  virtual rtc::PacketSocketFactory* packet_socket_factory() = 0;
-  webrtc::webrtc_pc_e2e::PeerNetworkDependencies network_dependencies() {
+  [[deprecated]] virtual rtc::PacketSocketFactory* packet_socket_factory() = 0;
+  [[deprecated]] webrtc::webrtc_pc_e2e::PeerNetworkDependencies
+  network_dependencies() {
     return {network_thread(), network_manager(), packet_socket_factory()};
   }
+
+  // Returns network manager that have to be injected into WebRTC to properly
+  // setup network emulation. Returned manager has to be deleted before
+  // EmulatedNetworkManager. Can be called at most once.
+  virtual absl::Nonnull<std::unique_ptr<rtc::NetworkManager>>
+  FetchNetworkManager() = 0;
+
+  // Returns packet socket factory that have to be injected into WebRTC to
+  // properly setup network emulation. Returned factory has to be deleted before
+  // EmulatedNetworkManager. Can be called at most once.
+  virtual absl::Nonnull<std::unique_ptr<rtc::PacketSocketFactory>>
+  FetchPacketSocketFactory() = 0;
+
   // Returns list of endpoints that are associated with this instance. Pointers
   // are guaranteed to be non-null and are owned by NetworkEmulationManager.
   virtual std::vector<EmulatedEndpoint*> endpoints() const = 0;

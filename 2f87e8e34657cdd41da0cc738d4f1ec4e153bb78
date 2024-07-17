@@ -102,6 +102,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "b2d6d9c0_93447160",
+        "filename": "modules/rtp_rtcp/source/video_rtp_depacketizer_h264.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-07-17T17:52:14Z",
+      "side": 1,
+      "message": "Ok, then change in logic here (all first_mb_in_slice should be 0 to at least one first_mb_in_slice should be 0) is intentional as \u0027at least one \u003d\u003d 0\u0027 is identical to \u0027first \u003d\u003d 0\u0027",
+      "parentUuid": "c3a2351f_4d5c188f",
+      "revId": "2f87e8e34657cdd41da0cc738d4f1ec4e153bb78",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "6bbdf7bd_a5d3903a",
         "filename": "modules/rtp_rtcp/source/video_rtp_depacketizer_h264.cc",
         "patchSetId": 1

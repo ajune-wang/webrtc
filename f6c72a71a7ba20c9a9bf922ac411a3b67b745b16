@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "898584ad_e0597e08",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2024-07-17T18:22:44Z",
+      "side": 1,
+      "message": "just rebased the CL, should be ready to submit",
+      "revId": "f6c72a71a7ba20c9a9bf922ac411a3b67b745b16",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

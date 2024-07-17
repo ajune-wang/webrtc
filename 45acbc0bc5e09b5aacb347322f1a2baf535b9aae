@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ade68784_83796e0d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-07-17T06:06:23Z",
+      "side": 1,
+      "message": "That\u0027s confusing naming. Is it the \"truth before the change\", or the \"truth after the change\"?\n\nWDYT about changing the name of one of them (or both), keeping the old names as deprecated aliases?\n\nWould prefer TlsAdapter and DtlsAdapter; \"SSL\" is so previous century....",
+      "revId": "45acbc0bc5e09b5aacb347322f1a2baf535b9aae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ec71a4eb_3a5fc6a4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-07-17T06:06:23Z",
+      "side": 1,
+      "message": "Hmmm....",
+      "revId": "45acbc0bc5e09b5aacb347322f1a2baf535b9aae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "70afcda1_7e218bf4",
+        "filename": "video/config/simulcast.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 464,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-07-17T16:15:50Z",
+      "side": 0,
+      "message": "why this block is gone?",
+      "range": {
+        "startLine": 460,
+        "startChar": 0,
+        "endLine": 464,
+        "endChar": 57
+      },
+      "revId": "9e1460f9a3132fb8ef913313fc75ba25cfde73b9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

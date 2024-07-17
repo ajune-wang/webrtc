@@ -1,0 +1,251 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b7cf34df_5ebe51c9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-07-17T16:15:50Z",
+      "side": 1,
+      "message": "this word in a cl description usually indicates CL better be split into multiple changes.\nhttps://google.github.io/eng-practices/review/developer/small-cls.html\n\n(and jumping across different files I think it should be multiple changes)",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 5
+      },
+      "revId": "4961e7af5f79463f1f9f0929ce2c47420b1faf12",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "93281371_3bcece70",
+        "filename": "modules/video_coding/codecs/test/videocodec_test_fixture_impl.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-07-17T16:15:50Z",
+      "side": 1,
+      "message": "skip webrtc - this code is already in webrtc (sub)namespace",
+      "range": {
+        "startLine": 80,
+        "startChar": 2,
+        "endLine": 80,
+        "endChar": 8
+      },
+      "revId": "4961e7af5f79463f1f9f0929ce2c47420b1faf12",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "15e7b3f2_fed49bc2",
+        "filename": "video/config/encoder_stream_factory.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 329,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-07-17T16:15:50Z",
+      "side": 1,
+      "message": "Is there need to call this function from outside this file? if not - prefer to move it into unnamed namespace to avoid potential ODR collisions.",
+      "range": {
+        "startLine": 329,
+        "startChar": 5,
+        "endLine": 329,
+        "endChar": 27
+      },
+      "revId": "4961e7af5f79463f1f9f0929ce2c47420b1faf12",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "066008a8_3a99ce9e",
+        "filename": "video/config/encoder_stream_factory.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 329,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-07-17T16:15:50Z",
+      "side": 1,
+      "message": "I guess layers can\u0027t be nullptr - prefer to pass by reference to indicate that",
+      "range": {
+        "startLine": 329,
+        "startChar": 60,
+        "endLine": 329,
+        "endChar": 61
+      },
+      "revId": "4961e7af5f79463f1f9f0929ce2c47420b1faf12",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a9df0d99_86a0003b",
+        "filename": "video/config/encoder_stream_factory.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 330,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-07-17T16:15:50Z",
+      "side": 1,
+      "message": "https://google.github.io/styleguide/cppguide.html#Inputs_and_Outputs\n\n“When ordering function parameters, put all input-only parameters before any output parameters”",
+      "range": {
+        "startLine": 329,
+        "startChar": 28,
+        "endLine": 330,
+        "endChar": 76
+      },
+      "revId": "4961e7af5f79463f1f9f0929ce2c47420b1faf12",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "338602d3_9cacf506",
+        "filename": "video/config/encoder_stream_factory.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 336,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-07-17T16:15:50Z",
+      "side": 1,
+      "message": "https://abseil.io/tips/224\n\n“Avoid vector.at()”\n\n(With layers passed by reference this should be simply layers[i])",
+      "range": {
+        "startLine": 336,
+        "startChar": 39,
+        "endLine": 336,
+        "endChar": 46
+      },
+      "revId": "4961e7af5f79463f1f9f0929ce2c47420b1faf12",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "94a80550_789b141f",
+        "filename": "video/config/encoder_stream_factory.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 341,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-07-17T16:15:50Z",
+      "side": 1,
+      "message": "prefer to be explicit when comparing to 0:\nif (overrides.num_template_layers \u003e 0 \u0026\u0026 ...",
+      "range": {
+        "startLine": 341,
+        "startChar": 18,
+        "endLine": 341,
+        "endChar": 37
+      },
+      "revId": "4961e7af5f79463f1f9f0929ce2c47420b1faf12",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6ef4c688_4abd555a",
+        "filename": "video/config/simulcast.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-07-17T16:15:50Z",
+      "side": 1,
+      "message": "as I can see you do not read resolutions, thus there is no need to pass vector by value,\ninstead you can pass\n`rtc::ArrayView\u003cconst webrtc::Resolution\u003e`\n\n(and thus user can easily pick a different container to keep resolutions while this function would remain exactly the same)",
+      "range": {
+        "startLine": 232,
+        "startChar": 4,
+        "endLine": 232,
+        "endChar": 47
+      },
+      "revId": "4961e7af5f79463f1f9f0929ce2c47420b1faf12",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ce18553d_789411b2",
+        "filename": "video/config/simulcast.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 419,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-07-17T16:15:50Z",
+      "side": 1,
+      "message": "RTC_DCHECK(!resolutions.empty());\n\nhttps://releases.llvm.org/5.0.0/tools/clang/tools/extra/docs/clang-tidy/checks/readability-container-size-empty.html",
+      "revId": "4961e7af5f79463f1f9f0929ce2c47420b1faf12",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "51d54196_c29cf7e3",
+        "filename": "video/config/simulcast.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-07-17T16:15:50Z",
+      "side": 1,
+      "message": "Returns?\n(there are no output parameters to adjust)",
+      "range": {
+        "startLine": 34,
+        "startChar": 3,
+        "endLine": 34,
+        "endChar": 10
+      },
+      "revId": "4961e7af5f79463f1f9f0929ce2c47420b1faf12",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "45ba424d_82b7aabf",
+        "filename": "video/config/simulcast.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-07-17T16:15:50Z",
+      "side": 1,
+      "message": "https://testing.googleblog.com/2024/05/avoid-long-parameter-list.html\nAvoid the Long Parameter List (aka go/tott/709)\n\nmay be merge width\u0026height into webrtc::Resolution\n\n(or webrtc::RenderResolution - personally I disagree with TODO next to it\nhttps://webrtc.googlesource.com/src/+/refs/heads/main/api/video/render_resolution.h#16 because it counters style guide recommendation\nhttps://webrtc.googlesource.com/src/+/refs/heads/main/api/README.md\n“Avoid defining api with structs”)",
+      "range": {
+        "startLine": 35,
+        "startChar": 32,
+        "endLine": 40,
+        "endChar": 60
+      },
+      "revId": "4961e7af5f79463f1f9f0929ce2c47420b1faf12",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

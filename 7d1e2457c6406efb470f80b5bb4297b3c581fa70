@@ -16,6 +16,184 @@
       "message": "Realized that I forgot to update the latest patch. Updated now.",
       "revId": "7d1e2457c6406efb470f80b5bb4297b3c581fa70",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "30596b52_9f69e380",
+        "filename": "video/config/encoder_stream_factory_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-07-17T16:15:50Z",
+      "side": 1,
+      "message": "prefer to have single block of aliases, i.e. remove this empty line.",
+      "revId": "7d1e2457c6406efb470f80b5bb4297b3c581fa70",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f27f65fe_20584b01",
+        "filename": "video/config/encoder_stream_factory_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-07-17T16:15:50Z",
+      "side": 1,
+      "message": "Tempting pattern I used myself in some test, but I think it is antipattern.\nMay be it is not too bad for a local helper.\n\nhttp://go/totw/201\n“Builder objects (classes implementing the Builder pattern) are not “the same as” the object being constructed. Do the conversion with a .Build(). A builder is a (partial) configuration for an object, but isn\u0027t logically equivalent to the object itself.”",
+      "range": {
+        "startLine": 28,
+        "startChar": 6,
+        "endLine": 28,
+        "endChar": 42
+      },
+      "revId": "7d1e2457c6406efb470f80b5bb4297b3c581fa70",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "27a0d9c6_7d6b2a9f",
+        "filename": "video/config/encoder_stream_factory_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-07-17T16:15:50Z",
+      "side": 1,
+      "message": "drop webrtc:: here",
+      "range": {
+        "startLine": 84,
+        "startChar": 10,
+        "endLine": 84,
+        "endChar": 18
+      },
+      "revId": "7d1e2457c6406efb470f80b5bb4297b3c581fa70",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6f2e89d2_f55bcd72",
+        "filename": "video/config/encoder_stream_factory_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-07-17T16:15:50Z",
+      "side": 1,
+      "message": "here I wouldn\u0027t worry about document the parameter - type that has .width and .height is expected to be resolution, and parameter name doesn\u0027t clarify it further.",
+      "range": {
+        "startLine": 102,
+        "startChar": 20,
+        "endLine": 102,
+        "endChar": 35
+      },
+      "revId": "7d1e2457c6406efb470f80b5bb4297b3c581fa70",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0a17421b_a364ad84",
+        "filename": "video/config/encoder_stream_factory_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-07-17T16:15:50Z",
+      "side": 1,
+      "message": "This kind of parameter test I think is not right:\n\nThe point of parameterized tests is to have X variants of inputs (or kind of inputs), Y scenarios and desire to create X*Y tests.\n\nbut here you have one sceanrio. In such case I think it would be cleaner to have a helper function instead of the parametrized test.\nLooking at values I think various test can really benefit from customizing test name to describe scenario they are testing.\n\ne.g.\n\n```\nstruct ResolutionAlignmentTestParams {\n  absl::string_view field_trials;\n  size_t number_of_streams \u003d 1;\n  Resolution resolution \u003d {.width \u003d 640, .height \u003d 480};\n};\n\nstd::vector\u003cResolution\u003e CreateAlignedResolution(const ResolutionAlignmentTestParams\u0026 test_params) {\n  VideoEncoderConfig encoder_config;\n  encoder_config.codec_type \u003d VideoCodecType::kVideoCodecVP8;\n  encoder_config.number_of_streams \u003d test_params.number_of_streams;\n  encoder_config.simulcast_layers.resize(test_params.number_of_streams);\n  return GetStreamResolutions(CreateEncoderStreams(ExplicitKeyValueConfig(test_params.field_trials),\n                              test_params.resolution, encoder_config));\n  \n}\n\nTEST(EncoderStreamFactory, KeepsTopResolutionWhenAligned) {\n  std::vector\u003cResolution\u003e streams \u003d CreateAlignedResolution({\n    .number_of_streams \u003d 2,\n    .resolution \u003d {.width \u003d 516, .height \u003d 526}});\n  ASSERT_THAT(streams, SizeIs(2));\n  EXPECT_EQ(streams.back().width, 516);\n  EXPECT_EQ(streams.back().height, 516);\n}\n\nTEST(EncoderStreamFactory, RoundsTopResolutionDown) {\n  EXPECT_THAT(CreateAlignedResolution({\n    .number_of_streams \u003d 2,\n    .resolution \u003d {.width \u003d 515, .height \u003d 517}}), \n    ElementsAre(\n       Resolution{.width \u003d 514 / 2, .height \u003d 516 / 2},\n       Resolution{.width \u003d 514, .height \u003d 516}));\n  // or\n  streams \u003d ...;\n  ASSERT_THAT(streams, SizeIs(2));\n  EXPECT_EQ(streams[0].width, 514 / 2);\n  EXPECT_EQ(streams[1].width, 514);\n  ...\n}\n\nTEST(...., AlignsWhenRequestDivisibilityBy2) {\n ... .number_of_stream \u003d 1\n}\n...\n```",
+      "range": {
+        "startLine": 149,
+        "startChar": 13,
+        "endLine": 149,
+        "endChar": 32
+      },
+      "revId": "7d1e2457c6406efb470f80b5bb4297b3c581fa70",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "196282bd_d93fbc50",
+        "filename": "video/config/encoder_stream_factory_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-07-17T16:15:50Z",
+      "side": 1,
+      "message": "with 2 streams this test may pass by accident - it has same expectation as previos tests where field trial is not set.",
+      "range": {
+        "startLine": 187,
+        "startChar": 33,
+        "endLine": 187,
+        "endChar": 34
+      },
+      "revId": "7d1e2457c6406efb470f80b5bb4297b3c581fa70",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "740b8150_200b4701",
+        "filename": "video/config/encoder_stream_factory_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-07-17T16:15:50Z",
+      "side": 1,
+      "message": "same here - including expectation in the params imply you have single scenario, and then helper function looks more appropriate than a parametrized test.",
+      "range": {
+        "startLine": 206,
+        "startChar": 6,
+        "endLine": 206,
+        "endChar": 46
+      },
+      "revId": "7d1e2457c6406efb470f80b5bb4297b3c581fa70",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7479f021_d25feaec",
+        "filename": "video/config/simulcast_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-07-17T16:15:50Z",
+      "side": 1,
+      "message": "this code is already in webrtc namespace",
+      "range": {
+        "startLine": 42,
+        "startChar": 12,
+        "endLine": 42,
+        "endChar": 20
+      },
+      "revId": "7d1e2457c6406efb470f80b5bb4297b3c581fa70",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

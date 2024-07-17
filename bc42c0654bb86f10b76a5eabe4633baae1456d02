@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b4437344_285d6a5a",
+        "filename": "modules/rtp_rtcp/source/video_rtp_depacketizer_h264.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2024-07-17T19:00:27Z",
+      "side": 1,
+      "message": "@phancke@meta.com wouldn\u0027t this fail if we receive a single NAL unit RTP packet from the second slice?\n\ncould you add the following tests?\n\n\nTEST(VideoRtpDepacketizerH264Test, SecondSliceIdrNalu) {\n  //Second slice of an IDR nalu (only first bytes)\n  //Slice header has first_mb_in_slice  \u003d  480\n  const uint8_t kPayload[] \u003d {\n      // clang-format off\n      0x65, 0x00, 0xf0, 0x88, 0x82, 0x01, 0x3b, 0xff, 0xdf, 0xfe, 0x0b, 0xbb, 0xfc, 0xb4, 0x30, 0xd1, \n      0x00, 0xef, 0xfd, 0xef, 0x0e, 0x79, 0x8b, 0x74, 0x9b, 0x44, 0xf3, 0xb8, 0x65, 0x8f, 0xa1, 0x92, \n      0x30, 0xf9, 0x40, 0x06, 0xb0, 0x00, 0x00, 0x03, 0x00, 0x00, 0x03, 0x00, 0x00, 0x03, 0x00, 0x00, \n      0x03, 0x00, 0x18, 0x87, 0x4f, 0x6a, 0xfe, 0x60, 0x03, 0x9f, 0xfe, 0xd8, 0x8b, 0xa6, 0x67, 0x31 \n      // clang-format on\n  };\n\n  VideoRtpDepacketizerH264 depacketizer;\n  absl::optional\u003cVideoRtpDepacketizer::ParsedRtpPayload\u003e parsed \u003d\n      depacketizer.Parse(rtc::CopyOnWriteBuffer(kPayload));\n  ASSERT_TRUE(parsed);\n  EXPECT_FALSE(parsed-\u003evideo_header.is_first_packet_in_frame);\n}",
+      "revId": "bc42c0654bb86f10b76a5eabe4633baae1456d02",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

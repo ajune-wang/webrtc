@@ -36,6 +36,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "e67f9238_bf425afe",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-07-17T18:42:56Z",
+      "side": 1,
+      "message": "Can you file a new bug for laying out this plan and link this CL to it? Seems to me that this is not \"breaking up the target\", and it is easier to accept the confusing naming here if there is a documented plan to fix it.",
+      "parentUuid": "66cf5cda_ccdf9e5b",
+      "revId": "45acbc0bc5e09b5aacb347322f1a2baf535b9aae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "ec71a4eb_3a5fc6a4",

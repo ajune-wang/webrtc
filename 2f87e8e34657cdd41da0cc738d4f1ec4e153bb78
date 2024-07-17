@@ -41,6 +41,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1efdb987_3ebdd2bd",
+        "filename": "modules/rtp_rtcp/source/video_rtp_depacketizer_h264.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-07-17T17:47:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b26b5058_300db578",
+      "range": {
+        "startLine": 176,
+        "startChar": 62,
+        "endLine": 176,
+        "endChar": 64
+      },
+      "revId": "2f87e8e34657cdd41da0cc738d4f1ec4e153bb78",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7c14a90a_a3b5e935",
@@ -58,6 +82,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "c3a2351f_4d5c188f",
+        "filename": "modules/rtp_rtcp/source/video_rtp_depacketizer_h264.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-07-17T17:47:41Z",
+      "side": 1,
+      "message": "last MB of current slicen and 1st mb of next slice can not happen since we are only dealing with STAP (single timestamp aggregation) units in WebRTC. MTAP (multiple timestamp...) might do that but they are not supported.\n\nH264 packetization in general can not combine aggregation and fragmentation, i.e. a STAP can\u0027t contain a FU and a FU can\u0027t contain a STAP (see https://datatracker.ietf.org/doc/html/rfc6184#section-5.8)",
+      "parentUuid": "7c14a90a_a3b5e935",
+      "revId": "2f87e8e34657cdd41da0cc738d4f1ec4e153bb78",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "6bbdf7bd_a5d3903a",
@@ -71,6 +113,30 @@
       "writtenOn": "2024-07-17T09:19:19Z",
       "side": 1,
       "message": "I see a reason for \u0027|\u003d\u0027 here, but I suspect that \n```\nif (slice_header-\u003efirst_mb_in_slice \u003d\u003d 0) {\n  parsed_payload-\u003evideo_header.is_first_packet_in_frame \u003d true;\n}\n```\n\nwould be easier to read\n(or may be it is just me who doesn\u0027t like to use bitwise or for logical or)\n\nit would be easier then to add additional conditions if needed, e.g.\n```\nif (i \u003d\u003d 0 \u0026\u0026 \n    slice_header-\u003efirst_mb_in_slice \u003d\u003d 0) {\n  parsed_payload-\u003evideo_header.is_first_packet_in_frame \u003d true;\n}\n```",
+      "range": {
+        "startLine": 205,
+        "startChar": 64,
+        "endLine": 205,
+        "endChar": 66
+      },
+      "revId": "2f87e8e34657cdd41da0cc738d4f1ec4e153bb78",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2e23a2f1_ebc2d454",
+        "filename": "modules/rtp_rtcp/source/video_rtp_depacketizer_h264.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-07-17T17:47:41Z",
+      "side": 1,
+      "message": "i \u003d\u003d 0 can\u0027t work since the first slice might be preceeded by SPS, PPS or an AUD. But the first suggestion is more readable!\n\nNote that we have the existing issue that is_first_packet_in_frame is set to true on both the SPS/PPS and an IDR if those come as separate packets (which is fairly common).",
+      "parentUuid": "6bbdf7bd_a5d3903a",
       "range": {
         "startLine": 205,
         "startChar": 64,

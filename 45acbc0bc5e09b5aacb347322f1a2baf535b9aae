@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "66cf5cda_ccdf9e5b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-07-17T15:43:18Z",
+      "side": 1,
+      "message": "It is particularly confusing since DTLS is not a stream...\nThe confusing naming is and making a change in the wrong adapter is what got me started untangling this mess. Discovering that both of them do two modes of operation (for the unit test) just made things worse.\n\nWith this change we can actually do the rename you suggest since the responsibilities will be reduced and more specific. Happy to drive this, possibly together with the merge of the OpenSSL*Adapter to SSL*Adapter.",
+      "parentUuid": "ade68784_83796e0d",
+      "revId": "45acbc0bc5e09b5aacb347322f1a2baf535b9aae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "ec71a4eb_3a5fc6a4",

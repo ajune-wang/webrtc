@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "64316c25_c619cff9",
+        "filename": "sdk/objc/native/api/audio_device_module.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2024-07-17T12:12:55Z",
+      "side": 1,
+      "message": "Will we ever want to call this without an event handler? In that case what\u0027s the point?",
+      "range": {
+        "startLine": 31,
+        "startChar": 73,
+        "endLine": 31,
+        "endChar": 83
+      },
+      "revId": "fc34fb41eaa173d1bdd82aff34edebfa20afe7e3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f44f6250_2542e6b6",
+        "filename": "sdk/objc/native/src/audio/audio_device_ios.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2024-07-17T12:12:55Z",
+      "side": 1,
+      "message": "nit: this bit of state seems extraneous, we can just check if the muted_speech_event_handler exists.",
+      "range": {
+        "startLine": 217,
+        "startChar": 2,
+        "endLine": 218,
+        "endChar": 27
+      },
+      "revId": "fc34fb41eaa173d1bdd82aff34edebfa20afe7e3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f31008d1_8687e1c9",
+        "filename": "sdk/objc/unittests/RTCAudioDevice_xctest.mm",
+        "patchSetId": 8
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2024-07-17T12:12:55Z",
+      "side": 1,
+      "message": "can we add actual tests that excercise the new code?",
+      "range": {
+        "startLine": 49,
+        "startChar": 2,
+        "endLine": 50,
+        "endChar": 80
+      },
+      "revId": "fc34fb41eaa173d1bdd82aff34edebfa20afe7e3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

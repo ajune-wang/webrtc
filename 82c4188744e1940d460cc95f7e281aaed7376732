@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "db192182_7f21739c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-07-17T06:40:36Z",
+      "side": 1,
+      "message": "Seems to make sense and \"not hurt\". But...",
+      "revId": "82c4188744e1940d460cc95f7e281aaed7376732",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ea5bd126_00e22602",
+        "filename": "test/rtp_file_reader.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 535,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-07-17T06:40:36Z",
+      "side": 1,
+      "message": "/me looks desperately for the pcapng_magic_numbers.h file or const definition block...",
+      "revId": "82c4188744e1940d460cc95f7e281aaed7376732",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

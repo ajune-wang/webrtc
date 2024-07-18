@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d5bfd7a9_a41bdfb8",
+        "filename": "video/config/encoder_stream_factory_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-07-18T12:15:04Z",
+      "side": 1,
+      "message": "`ASSERT_THAT(streams, SizeIs(2));`\nor, for the purpose of this test relax it:\n`ASSERT_THAT(streams, Not(IsEmpty()));`\n\ngo/c-readability-advice#expect-that-vs-other-expect-\n\"Use the most specific matcher that expresses your intent. \n...\nEXPECT_EQ(foo.size(), 2);  // Could use more specific matcher SizeIs(2)\"",
+      "range": {
+        "startLine": 109,
+        "startChar": 1,
+        "endLine": 109,
+        "endChar": 32
+      },
+      "revId": "d79c402f57dda5aa48a432ee03ea0faab75424b9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

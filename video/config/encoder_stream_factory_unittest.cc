@@ -11,6 +11,7 @@
 #include "video/config/encoder_stream_factory.h"
 
 #include "call/adaptation/video_source_restrictions.h"
+#include "rtc_base/experiments/min_video_bitrate_experiment.h"
 #include "test/explicit_key_value_config.h"
 #include "test/gtest.h"
 
@@ -95,5 +96,27 @@ TEST(EncoderStreamFactory, BitratePriority) {
   ASSERT_EQ(streams.size(), 2u);
   EXPECT_EQ(streams[0].bitrate_priority, kBitratePriority);
   EXPECT_FALSE(streams[1].bitrate_priority);
+}
+
+TEST(EncoderStreamFactory, StreamMinBitrate) {
+  VideoEncoder::EncoderInfo encoder_info;
+  auto factory = rtc::make_ref_counted<EncoderStreamFactory>(encoder_info);
+  VideoEncoderConfig encoder_config;
+  encoder_config.number_of_streams = 2;
+  encoder_config.simulcast_layers.resize(encoder_config.number_of_streams);
+
+  // Default min bitrate is used.
+  auto streams = factory->CreateEncoderStreams(ExplicitKeyValueConfig(""), 1920,
+                                               1080, encoder_config);
+  ASSERT_EQ(streams.size(), 2u);
+  EXPECT_EQ(streams[0].min_bitrate_bps, kDefaultMinVideoBitrateBps);
+
+  // An experimental value overrides the default one.
+  streams = factory->CreateEncoderStreams(
+      ExplicitKeyValueConfig("WebRTC-Video-MinVideoBitrate/Enabled,br:1kbps/"),
+      1920, 1080, encoder_config);
+  ASSERT_EQ(streams.size(), 2u);
+  EXPECT_NE(streams[0].min_bitrate_bps, kDefaultMinVideoBitrateBps);
+  EXPECT_EQ(streams[0].min_bitrate_bps, 1000);
 }
 }  // namespace webrtc

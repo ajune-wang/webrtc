@@ -568,17 +568,14 @@ StreamResult OpenSSLStreamAdapter::Write(rtc::ArrayView<const uint8_t> data,
     case SSL_NONE:
       // pass-through in clear text
       return stream_->Write(data, written, error);
-
     case SSL_WAIT:
     case SSL_CONNECTING:
       return SR_BLOCK;
-
     case SSL_CONNECTED:
       if (WaitingToVerifyPeerCertificate()) {
         return SR_BLOCK;
       }
       break;
-
     case SSL_ERROR:
     case SSL_CLOSED:
     default:
@@ -610,7 +607,6 @@ StreamResult OpenSSLStreamAdapter::Write(rtc::ArrayView<const uint8_t> data,
     case SSL_ERROR_WANT_WRITE:
       RTC_DLOG(LS_VERBOSE) << " -- error want write";
       return SR_BLOCK;
-
     case SSL_ERROR_ZERO_RETURN:
     default:
       Error("SSL_write", (ssl_error ? ssl_error : -1), 0, false);
@@ -913,7 +909,6 @@ int OpenSSLStreamAdapter::ContinueSSL() {
         FireEvent(SE_OPEN | SE_READ | SE_WRITE, 0);
       }
       break;
-
     case SSL_ERROR_WANT_READ: {
       RTC_DLOG(LS_VERBOSE) << " -- error want read";
       struct timeval timeout;
@@ -921,14 +916,13 @@ int OpenSSLStreamAdapter::ContinueSSL() {
         int delay = timeout.tv_sec * 1000 + timeout.tv_usec / 1000;
         SetTimeout(delay);
       }
-    } break;
-
+      break;
+    }
     case SSL_ERROR_WANT_WRITE:
       RTC_DLOG(LS_VERBOSE) << " -- error want write";
       break;
-
     case SSL_ERROR_ZERO_RETURN:
-    default:
+    default: {
       SSLHandshakeError ssl_handshake_err = SSLHandshakeError::UNKNOWN;
       int err_code = ERR_peek_last_error();
       if (err_code != 0 && ERR_GET_REASON(err_code) == SSL_R_NO_SHARED_CIPHER) {
@@ -940,6 +934,7 @@ int OpenSSLStreamAdapter::ContinueSSL() {
         handshake_error_(ssl_handshake_err);
       }
       return (ssl_error != 0) ? ssl_error : -1;
+    }
   }
 
   return 0;

@@ -34,6 +34,24 @@
       "parentUuid": "cab64da8_b3dbfd22",
       "revId": "4286f39b75129f068b2c861be50d59f202b42f01",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "62126713_26a18445",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-07-18T17:35:50Z",
+      "side": 1,
+      "message": "reverted that break. Not that I like it visually but your rationale is good!",
+      "parentUuid": "0d40dcfb_54c7567f",
+      "revId": "4286f39b75129f068b2c861be50d59f202b42f01",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

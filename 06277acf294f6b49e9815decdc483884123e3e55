@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "8279e077_a3591e0a",
+        "filename": "video/config/encoder_stream_factory.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2024-07-18T15:23:07Z",
+      "side": 1,
+      "message": "ok. good to know that nullopt is smaller than anything. removed value_or",
+      "parentUuid": "8430f5e7_ec2ebe1c",
+      "range": {
+        "startLine": 155,
+        "startChar": 37,
+        "endLine": 155,
+        "endChar": 49
+      },
+      "revId": "06277acf294f6b49e9815decdc483884123e3e55",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "2e9ef7b3_4e7673c9",
         "filename": "video/config/encoder_stream_factory.cc",
         "patchSetId": 2
@@ -49,6 +73,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "5b10dc22_e5060e3a",
+        "filename": "video/config/encoder_stream_factory.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2024-07-18T15:23:07Z",
+      "side": 1,
+      "message": "changed to std::clamp",
+      "parentUuid": "2e9ef7b3_4e7673c9",
+      "range": {
+        "startLine": 197,
+        "startChar": 10,
+        "endLine": 198,
+        "endChar": 41
+      },
+      "revId": "06277acf294f6b49e9815decdc483884123e3e55",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "9c7df34f_4765a9d2",
         "filename": "video/config/encoder_stream_factory.cc",
         "patchSetId": 2
@@ -60,6 +108,30 @@
       "writtenOn": "2024-07-18T13:52:26Z",
       "side": 1,
       "message": "may be update to\n`absl::c_stable_sort(index, [\u0026](...`\n\n(right header for that is already included)",
+      "range": {
+        "startLine": 226,
+        "startChar": 2,
+        "endLine": 226,
+        "endChar": 46
+      },
+      "revId": "06277acf294f6b49e9815decdc483884123e3e55",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "172d403f_5d40f0e8",
+        "filename": "video/config/encoder_stream_factory.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2024-07-18T15:23:07Z",
+      "side": 1,
+      "message": "changed to absl::c_stable_sort",
+      "parentUuid": "9c7df34f_4765a9d2",
       "range": {
         "startLine": 226,
         "startChar": 2,

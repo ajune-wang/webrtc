@@ -1,6 +1,29 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a35a9020_7e208259",
+        "filename": "video/config/encoder_stream_factory.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 339,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-07-18T12:21:54Z",
+      "side": 1,
+      "message": "using this value without the field trial suggests that may be the constant should be moved somewhere else.\nNot sure what is a good place for a constant like that though.\n\nor may be the experiment should never return nullopt, but instead defaults to the min value.\n\nin particular to be consistent with the GetDefaultMinVideoBitrateBps in the video/video_send_stream_impl.cc",
+      "range": {
+        "startLine": 339,
+        "startChar": 38,
+        "endLine": 339,
+        "endChar": 72
+      },
+      "revId": "d79c402f57dda5aa48a432ee03ea0faab75424b9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d5bfd7a9_a41bdfb8",

@@ -16,6 +16,24 @@
       "message": "Danil, you know a lot about style and hopefully agree \"} break;\" is not the way :-)",
       "revId": "4286f39b75129f068b2c861be50d59f202b42f01",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0d40dcfb_54c7567f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-07-18T17:14:21Z",
+      "side": 1,
+      "message": "I\u0027m not aware of any rule that disallows or even discourages \"} break;\"\nso I would recommend not to change existent way break is written either way.\n\nhttps://google.github.io/styleguide/cppguide.html#Switch_Statements\nand\nhttps://google.github.io/styleguide/cppguide.html#Formatting_Looping_Branching\nexample switch with break inside {}, but do not mandate that.\n\nPersonally I like such style - this way switch always ends with a break regardless presence of the {}, and it it saves a line which is in spirit of the guidance \nhttps://google.github.io/styleguide/cppguide.html#Vertical_Whitespace\n\"Minimize use of vertical whitespace.\nThe basic principle is: The more code that fits on one screen, the easier it is to follow and understand the control flow of the program.\"\n[but that is just my personal opinion, not an authoritative recommendation]",
+      "parentUuid": "cab64da8_b3dbfd22",
+      "revId": "4286f39b75129f068b2c861be50d59f202b42f01",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

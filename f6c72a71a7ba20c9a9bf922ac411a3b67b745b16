@@ -16,6 +16,23 @@
       "message": "just rebased the CL, should be ready to submit",
       "revId": "f6c72a71a7ba20c9a9bf922ac411a3b67b745b16",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0f4455e5_97cfff5f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2024-07-18T09:24:36Z",
+      "side": 1,
+      "message": "The bot failed due to infra issues. I\u0027ll trigger CQ again later.",
+      "revId": "f6c72a71a7ba20c9a9bf922ac411a3b67b745b16",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

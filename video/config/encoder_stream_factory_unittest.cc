@@ -10,16 +10,64 @@
 
 #include "video/config/encoder_stream_factory.h"
 
+#include <tuple>
+
+#include "api/video_codecs/scalability_mode.h"
 #include "call/adaptation/video_source_restrictions.h"
 #include "rtc_base/experiments/min_video_bitrate_experiment.h"
 #include "test/explicit_key_value_config.h"
+#include "test/gmock.h"
 #include "test/gtest.h"
 
 namespace webrtc {
 namespace {
-
 using ::cricket::EncoderStreamFactory;
 using test::ExplicitKeyValueConfig;
+using ::testing::Combine;
+using ::testing::ElementsAre;
+using ::testing::SizeIs;
+using ::testing::Values;
+
+class TestVideoStream : public VideoStream {
+ public:
+  TestVideoStream& WithWidth(int width) {
+    this->width = width;
+    return *this;
+  }
+  TestVideoStream& WithHeight(int height) {
+    this->height = height;
+    return *this;
+  }
+  TestVideoStream& WithMaxFramerateFps(int max_framerate_fps) {
+    this->max_framerate = max_framerate_fps;
+    return *this;
+  }
+  TestVideoStream& WithMinBitrateBps(int min_bitrate_bps) {
+    this->min_bitrate_bps = min_bitrate_bps;
+    return *this;
+  }
+  TestVideoStream& WithTargetBitrateBps(int target_bitrate_bps) {
+    this->target_bitrate_bps = target_bitrate_bps;
+    return *this;
+  }
+  TestVideoStream& WithMaxBitrateBps(int max_bitrate_bps) {
+    this->max_bitrate_bps = max_bitrate_bps;
+    return *this;
+  }
+  TestVideoStream& WithScaleResolutionDownBy(double scale_resolution_down_by) {
+    this->scale_resolution_down_by = scale_resolution_down_by;
+    return *this;
+  }
+  TestVideoStream& WithScalabilityMode(
+      std::optional<ScalabilityMode> scalability_mode) {
+    this->scalability_mode = scalability_mode;
+    return *this;
+  }
+  TestVideoStream& WithRequestedResolution(Resolution requested_resolution) {
+    this->requested_resolution = requested_resolution;
+    return *this;
+  }
+};
 
 std::vector<Resolution> GetStreamResolutions(
     const std::vector<VideoStream>& streams) {
@@ -33,24 +81,28 @@ std::vector<Resolution> GetStreamResolutions(
   return res;
 }
 
-VideoStream LayerWithRequestedResolution(Resolution res) {
-  VideoStream s;
-  s.requested_resolution = res;
-  return s;
+std::vector<VideoStream> CreateEncoderStreams(
+    const FieldTrialsView& field_trials,
+    const Resolution& resolution,
+    const VideoEncoderConfig& encoder_config,
+    absl::optional<VideoSourceRestrictions> restrictions = absl::nullopt) {
+  VideoEncoder::EncoderInfo encoder_info;
+  auto factory =
+      rtc::make_ref_counted<EncoderStreamFactory>(encoder_info, restrictions);
+  return factory->CreateEncoderStreams(field_trials, resolution.width,
+                                       resolution.height, encoder_config);
 }
 
 }  // namespace
 
 TEST(EncoderStreamFactory, SinglecastRequestedResolution) {
   ExplicitKeyValueConfig field_trials("");
-  VideoEncoder::EncoderInfo encoder_info;
-  auto factory = rtc::make_ref_counted<EncoderStreamFactory>(encoder_info);
   VideoEncoderConfig encoder_config;
   encoder_config.number_of_streams = 1;
   encoder_config.simulcast_layers.push_back(
-      LayerWithRequestedResolution({.width = 640, .height = 360}));
-  auto streams =
-      factory->CreateEncoderStreams(field_trials, 1280, 720, encoder_config);
+      TestVideoStream().WithRequestedResolution({.width = 640, .height = 360}));
+  auto streams = CreateEncoderStreams(
+      field_trials, {.width = 1280, .height = 720}, encoder_config);
   EXPECT_EQ(streams[0].requested_resolution,
             (Resolution{.width = 640, .height = 360}));
   EXPECT_EQ(GetStreamResolutions(streams), (std::vector<Resolution>{
@@ -64,15 +116,13 @@ TEST(EncoderStreamFactory, SinglecastRequestedResolutionWithAdaptation) {
       /* max_pixels_per_frame= */ (320 * 320),
       /* target_pixels_per_frame= */ absl::nullopt,
       /* max_frame_rate= */ absl::nullopt);
-  VideoEncoder::EncoderInfo encoder_info;
-  auto factory =
-      rtc::make_ref_counted<EncoderStreamFactory>(encoder_info, restrictions);
   VideoEncoderConfig encoder_config;
   encoder_config.number_of_streams = 1;
   encoder_config.simulcast_layers.push_back(
-      LayerWithRequestedResolution({.width = 640, .height = 360}));
+      TestVideoStream().WithRequestedResolution({.width = 640, .height = 360}));
   auto streams =
-      factory->CreateEncoderStreams(field_trials, 1280, 720, encoder_config);
+      CreateEncoderStreams(field_trials, {.width = 1280, .height = 720},
+                           encoder_config, restrictions);
   EXPECT_EQ(streams[0].requested_resolution,
             (Resolution{.width = 640, .height = 360}));
   EXPECT_EQ(GetStreamResolutions(streams), (std::vector<Resolution>{
@@ -82,17 +132,13 @@ TEST(EncoderStreamFactory, SinglecastRequestedResolutionWithAdaptation) {
 
 TEST(EncoderStreamFactory, BitratePriority) {
   constexpr double kBitratePriority = 0.123;
-  ExplicitKeyValueConfig field_trials("");
-  VideoEncoder::EncoderInfo encoder_info;
-  auto factory = rtc::make_ref_counted<EncoderStreamFactory>(encoder_info);
   VideoEncoderConfig encoder_config;
   encoder_config.number_of_streams = 2;
+  encoder_config.simulcast_layers.resize(encoder_config.number_of_streams);
   encoder_config.bitrate_priority = kBitratePriority;
-  encoder_config.simulcast_layers = {
-      LayerWithRequestedResolution({.width = 320, .height = 180}),
-      LayerWithRequestedResolution({.width = 640, .height = 360})};
-  auto streams =
-      factory->CreateEncoderStreams(field_trials, 640, 360, encoder_config);
+  auto streams = CreateEncoderStreams(
+      /*field_trials=*/ExplicitKeyValueConfig(""),
+      {.width = 640, .height = 360}, encoder_config);
   ASSERT_EQ(streams.size(), 2u);
   EXPECT_EQ(streams[0].bitrate_priority, kBitratePriority);
   EXPECT_FALSE(streams[1].bitrate_priority);
@@ -123,4 +169,199 @@ TEST(EncoderStreamFactory, SetsMinBitrateToExperimentalValue) {
   EXPECT_NE(streams[0].min_bitrate_bps, kDefaultMinVideoBitrateBps);
   EXPECT_EQ(streams[0].min_bitrate_bps, 1000);
 }
+
+struct ResolutionAlignmentTestParams {
+  absl::string_view field_trials;
+  size_t number_of_streams = 1;
+  Resolution resolution = {.width = 640, .height = 480};
+};
+
+std::vector<Resolution> CreateAlignedResolution(
+    const ResolutionAlignmentTestParams& test_params) {
+  VideoEncoderConfig encoder_config;
+  encoder_config.codec_type = VideoCodecType::kVideoCodecVP8;
+  encoder_config.number_of_streams = test_params.number_of_streams;
+  encoder_config.simulcast_layers.resize(test_params.number_of_streams);
+  return GetStreamResolutions(
+      CreateEncoderStreams(ExplicitKeyValueConfig(test_params.field_trials),
+                           test_params.resolution, encoder_config));
+}
+
+TEST(EncoderStreamFactory, KeepsResolutionUnchangedWhenAligned) {
+  EXPECT_THAT(
+      CreateAlignedResolution({.number_of_streams = 2,
+                               .resolution = {.width = 516, .height = 526}}),
+      ElementsAre(Resolution{.width = 516 / 2, .height = 526 / 2},
+                  Resolution{.width = 516, .height = 526}));
+}
+
+TEST(EncoderStreamFactory, AdjustsResolutionWhenUnaligned) {
+  // By default both width and height of the smallest simulcast stream is
+  // required to be whole numbers. To achieve that, the resolution of the
+  // highest simulcast stream is adjusted to be multiple of (2 ^
+  // (number_of_streams - 1)) by rounding down.
+  EXPECT_THAT(
+      CreateAlignedResolution({.number_of_streams = 2,
+                               .resolution = {.width = 515, .height = 517}}),
+      ElementsAre(Resolution{.width = 514 / 2, .height = 516 / 2},
+                  Resolution{.width = 514, .height = 516}));
+}
+
+TEST(EncoderStreamFactory, MakesResolutionDivisibleBy4) {
+  EXPECT_THAT(
+      CreateAlignedResolution(
+          {.field_trials = "WebRTC-NormalizeSimulcastResolution/Enabled-2/",
+           .number_of_streams = 2,
+           .resolution = {.width = 515, .height = 517}}),
+      ElementsAre(Resolution{.width = 512 / 2, .height = 516 / 2},
+                  Resolution{.width = 512, .height = 516}));
+}
+
+struct StreamCountTestParams {
+  std::string field_trials;
+  Resolution input_resolution;
+  bool is_legacy_screencast = false;
+  size_t first_active_layer_idx = 0;
+  size_t number_of_streams = 0;
+};
+
+size_t GetStreamCount(const StreamCountTestParams& test_params) {
+  VideoEncoderConfig encoder_config;
+  encoder_config.codec_type = VideoCodecType::kVideoCodecVP8;
+  encoder_config.number_of_streams = test_params.number_of_streams;
+  encoder_config.simulcast_layers.resize(test_params.number_of_streams);
+  for (size_t i = 0; i < encoder_config.number_of_streams; ++i) {
+    encoder_config.simulcast_layers[i].active =
+        (i >= test_params.first_active_layer_idx);
+  }
+  if (test_params.is_legacy_screencast) {
+    encoder_config.content_type = VideoEncoderConfig::ContentType::kScreen;
+    encoder_config.legacy_conference_mode = true;
+  }
+  return CreateEncoderStreams(ExplicitKeyValueConfig(test_params.field_trials),
+                              test_params.input_resolution, encoder_config)
+      .size();
+}
+
+TEST(EncoderStreamFactory, KeepsStreamCountUnchangedWhenResolutionIsHigh) {
+  EXPECT_EQ(GetStreamCount({.input_resolution = {.width = 1000, .height = 1000},
+                            .number_of_streams = 3}),
+            3u);
+}
+
+TEST(EncoderStreamFactory, ReducesStreamCountWhenResolutionIsLow) {
+  EXPECT_EQ(GetStreamCount({.input_resolution = {.width = 100, .height = 100},
+                            .number_of_streams = 3}),
+            1u);
+}
+
+TEST(EncoderStreamFactory, ReducesStreamCountDownToFirstActiveStream) {
+  EXPECT_EQ(GetStreamCount({.input_resolution = {.width = 100, .height = 100},
+                            .first_active_layer_idx = 1,
+                            .number_of_streams = 3}),
+            2u);
+}
+
+TEST(EncoderStreamFactory,
+     ReducesLegacyScreencastStreamCountWhenResolutionIsLow) {
+  // At least 2 streams are expected to be configured in legacy screencast mode.
+  EXPECT_EQ(GetStreamCount({.input_resolution = {.width = 100, .height = 100},
+                            .is_legacy_screencast = true,
+                            .number_of_streams = 3}),
+            2u);
+}
+
+TEST(EncoderStreamFactory, KeepsStreamCountUnchangedWhenLegacyLimitIsDisabled) {
+  EXPECT_EQ(GetStreamCount(
+                {.field_trials = "WebRTC-LegacySimulcastLayerLimit/Disabled/",
+                 .input_resolution = {.width = 100, .height = 100},
+                 .number_of_streams = 3}),
+            3u);
+}
+
+struct OverrideStreamSettingsTestParams {
+  std::string field_trials;
+  Resolution input_resolution;
+  VideoEncoderConfig::ContentType content_type;
+  std::vector<VideoStream> requested_streams;
+  std::vector<VideoStream> expected_streams;
+};
+
+class EncoderStreamFactoryOverrideStreamSettinsTest
+    : public ::testing::TestWithParam<
+          std::tuple<OverrideStreamSettingsTestParams, VideoCodecType>> {};
+
+TEST_P(EncoderStreamFactoryOverrideStreamSettinsTest, OverrideStreamSettings) {
+  OverrideStreamSettingsTestParams test_params = std::get<0>(GetParam());
+  VideoEncoderConfig encoder_config;
+  encoder_config.codec_type = std::get<1>(GetParam());
+  encoder_config.number_of_streams = test_params.requested_streams.size();
+  encoder_config.simulcast_layers.resize(encoder_config.number_of_streams);
+  for (size_t i = 0; i < encoder_config.number_of_streams; ++i) {
+    const VideoStream& src = test_params.requested_streams[i];
+    VideoStream& dst = encoder_config.simulcast_layers[i];
+    if (src.max_framerate > 0) {
+      dst.max_framerate = src.max_framerate;
+    }
+    if (src.max_bitrate_bps > 0) {
+      dst.max_bitrate_bps = src.max_bitrate_bps;
+    }
+    if (src.scale_resolution_down_by > 0) {
+      dst.scale_resolution_down_by = src.scale_resolution_down_by;
+    }
+    dst.scalability_mode = src.scalability_mode;
+  }
+  encoder_config.content_type = test_params.content_type;
+  auto streams =
+      CreateEncoderStreams(ExplicitKeyValueConfig(test_params.field_trials),
+                           test_params.input_resolution, encoder_config);
+  ASSERT_EQ(streams.size(), test_params.expected_streams.size());
+  for (size_t i = 0; i < streams.size(); ++i) {
+    const VideoStream& expected = test_params.expected_streams[i];
+    EXPECT_EQ(streams[i].width, expected.width);
+    EXPECT_EQ(streams[i].height, expected.height);
+    EXPECT_EQ(streams[i].max_framerate, expected.max_framerate);
+    EXPECT_EQ(streams[i].min_bitrate_bps, expected.min_bitrate_bps);
+    EXPECT_EQ(streams[i].target_bitrate_bps, expected.target_bitrate_bps);
+    EXPECT_EQ(streams[i].max_bitrate_bps, expected.max_bitrate_bps);
+    EXPECT_EQ(streams[i].scalability_mode, expected.scalability_mode);
+  }
+}
+
+INSTANTIATE_TEST_SUITE_P(
+    Screencast,
+    EncoderStreamFactoryOverrideStreamSettinsTest,
+    Combine(Values(OverrideStreamSettingsTestParams{
+                .input_resolution = {.width = 1920, .height = 1080},
+                .content_type = VideoEncoderConfig::ContentType::kScreen,
+                .requested_streams =
+                    {TestVideoStream()
+                         .WithMaxFramerateFps(5)
+                         .WithMaxBitrateBps(420'000)
+                         .WithScaleResolutionDownBy(1)
+                         .WithScalabilityMode(ScalabilityMode::kL1T2),
+                     TestVideoStream()
+                         .WithMaxFramerateFps(30)
+                         .WithMaxBitrateBps(2500'000)
+                         .WithScaleResolutionDownBy(1)
+                         .WithScalabilityMode(ScalabilityMode::kL1T2)},
+                .expected_streams =
+                    {TestVideoStream()
+                         .WithWidth(1920)
+                         .WithHeight(1080)
+                         .WithMaxFramerateFps(5)
+                         .WithMinBitrateBps(30'000)
+                         .WithTargetBitrateBps(420'000)
+                         .WithMaxBitrateBps(420'000)
+                         .WithScalabilityMode(ScalabilityMode::kL1T2),
+                     TestVideoStream()
+                         .WithWidth(1920)
+                         .WithHeight(1080)
+                         .WithMaxFramerateFps(30)
+                         .WithMinBitrateBps(800'000)
+                         .WithTargetBitrateBps(2500'000)
+                         .WithMaxBitrateBps(2500'000)
+                         .WithScalabilityMode(ScalabilityMode::kL1T2)}}),
+            Values(VideoCodecType::kVideoCodecVP8,
+                   VideoCodecType::kVideoCodecAV1)));
 }  // namespace webrtc

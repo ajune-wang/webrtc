@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5c82d0ea_b9894625",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2024-07-18T12:06:27Z",
+      "side": 1,
+      "message": "moved to https://webrtc-review.googlesource.com/c/src/+/357400",
+      "parentUuid": "b7cf34df_5ebe51c9",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 5
+      },
+      "revId": "4961e7af5f79463f1f9f0929ce2c47420b1faf12",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "93281371_3bcece70",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-07-17T16:15:50Z",
       "side": 1,
       "message": "skip webrtc - this code is already in webrtc (sub)namespace",
+      "range": {
+        "startLine": 80,
+        "startChar": 2,
+        "endLine": 80,
+        "endChar": 8
+      },
+      "revId": "4961e7af5f79463f1f9f0929ce2c47420b1faf12",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "357ecbc1_67e679ba",
+        "filename": "modules/video_coding/codecs/test/videocodec_test_fixture_impl.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2024-07-18T12:06:27Z",
+      "side": 1,
+      "message": "moved to https://webrtc-review.googlesource.com/c/src/+/357400 and fixed there.",
+      "parentUuid": "93281371_3bcece70",
       "range": {
         "startLine": 80,
         "startChar": 2,
@@ -93,6 +141,54 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f8e6f375_c640d146",
+        "filename": "video/config/encoder_stream_factory.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 329,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2024-07-18T12:06:27Z",
+      "side": 1,
+      "message": "moved to https://webrtc-review.googlesource.com/c/src/+/357440 and fixed there",
+      "parentUuid": "066008a8_3a99ce9e",
+      "range": {
+        "startLine": 329,
+        "startChar": 60,
+        "endLine": 329,
+        "endChar": 61
+      },
+      "revId": "4961e7af5f79463f1f9f0929ce2c47420b1faf12",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7e53c0e4_f72d4df4",
+        "filename": "video/config/encoder_stream_factory.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 329,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2024-07-18T12:06:27Z",
+      "side": 1,
+      "message": "moved to https://webrtc-review.googlesource.com/c/src/+/357440 and fixed there.",
+      "parentUuid": "15e7b3f2_fed49bc2",
+      "range": {
+        "startLine": 329,
+        "startChar": 5,
+        "endLine": 329,
+        "endChar": 27
+      },
+      "revId": "4961e7af5f79463f1f9f0929ce2c47420b1faf12",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a9df0d99_86a0003b",
@@ -106,6 +202,30 @@
       "writtenOn": "2024-07-17T16:15:50Z",
       "side": 1,
       "message": "https://google.github.io/styleguide/cppguide.html#Inputs_and_Outputs\n\n“When ordering function parameters, put all input-only parameters before any output parameters”",
+      "range": {
+        "startLine": 329,
+        "startChar": 28,
+        "endLine": 330,
+        "endChar": 76
+      },
+      "revId": "4961e7af5f79463f1f9f0929ce2c47420b1faf12",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3ee85c74_7e8fec4c",
+        "filename": "video/config/encoder_stream_factory.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 330,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2024-07-18T12:06:27Z",
+      "side": 1,
+      "message": "moved to https://webrtc-review.googlesource.com/c/src/+/357440 and fixed there",
+      "parentUuid": "a9df0d99_86a0003b",
       "range": {
         "startLine": 329,
         "startChar": 28,
@@ -141,6 +261,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "0e485d86_62027d3a",
+        "filename": "video/config/encoder_stream_factory.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 336,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2024-07-18T12:06:27Z",
+      "side": 1,
+      "message": "moved to https://webrtc-review.googlesource.com/c/src/+/357440 and fixed there",
+      "parentUuid": "338602d3_9cacf506",
+      "range": {
+        "startLine": 336,
+        "startChar": 39,
+        "endLine": 336,
+        "endChar": 46
+      },
+      "revId": "4961e7af5f79463f1f9f0929ce2c47420b1faf12",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "94a80550_789b141f",
         "filename": "video/config/encoder_stream_factory.cc",
         "patchSetId": 8
@@ -152,6 +296,30 @@
       "writtenOn": "2024-07-17T16:15:50Z",
       "side": 1,
       "message": "prefer to be explicit when comparing to 0:\nif (overrides.num_template_layers \u003e 0 \u0026\u0026 ...",
+      "range": {
+        "startLine": 341,
+        "startChar": 18,
+        "endLine": 341,
+        "endChar": 37
+      },
+      "revId": "4961e7af5f79463f1f9f0929ce2c47420b1faf12",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eace20b6_938552cc",
+        "filename": "video/config/encoder_stream_factory.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 341,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2024-07-18T12:06:27Z",
+      "side": 1,
+      "message": "moved to https://webrtc-review.googlesource.com/c/src/+/357440 and changed to:\n\nif (overrides.num_temporal_layers.value_or(0) \u003e 0 \u0026\u0026 ...",
+      "parentUuid": "94a80550_789b141f",
       "range": {
         "startLine": 341,
         "startChar": 18,
@@ -185,6 +353,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ea29efd3_964d6293",
+        "filename": "video/config/simulcast.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2024-07-18T12:06:27Z",
+      "side": 1,
+      "message": "Changed to rtc::ArrayView\u003cconst webrtc::Resolution\u003e",
+      "parentUuid": "6ef4c688_4abd555a",
+      "range": {
+        "startLine": 232,
+        "startChar": 4,
+        "endLine": 232,
+        "endChar": 47
+      },
+      "revId": "4961e7af5f79463f1f9f0929ce2c47420b1faf12",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ce18553d_789411b2",
@@ -202,6 +394,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a32d67a3_a7e39882",
+        "filename": "video/config/simulcast.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 419,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2024-07-18T12:06:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ce18553d_789411b2",
+      "revId": "4961e7af5f79463f1f9f0929ce2c47420b1faf12",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "51d54196_c29cf7e3",
@@ -215,6 +425,30 @@
       "writtenOn": "2024-07-17T16:15:50Z",
       "side": 1,
       "message": "Returns?\n(there are no output parameters to adjust)",
+      "range": {
+        "startLine": 34,
+        "startChar": 3,
+        "endLine": 34,
+        "endChar": 10
+      },
+      "revId": "4961e7af5f79463f1f9f0929ce2c47420b1faf12",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a8b03f4c_86b61c75",
+        "filename": "video/config/simulcast.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2024-07-18T12:06:27Z",
+      "side": 1,
+      "message": "// Returns number of simulcast streams. The value depends on the resolution and\n// is restricted to the range from `min_num_layers` to `max_num_layers`,\n// inclusive.",
+      "parentUuid": "51d54196_c29cf7e3",
       "range": {
         "startLine": 34,
         "startChar": 3,

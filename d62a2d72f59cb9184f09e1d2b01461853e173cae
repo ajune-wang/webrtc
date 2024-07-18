@@ -50,6 +50,23 @@
       "message": "Thanks. Martin: please give it a try once it lands in Canary (unless you already did ;-))",
       "revId": "d62a2d72f59cb9184f09e1d2b01461853e173cae",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b7135e54_a1a68be5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-07-18T19:44:01Z",
+      "side": 1,
+      "message": "if you could help kicking the ios dbg bot and then submit that would be great!",
+      "revId": "d62a2d72f59cb9184f09e1d2b01461853e173cae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "54c74e57_319d334e",
+        "filename": "sdk/objc/native/api/audio_device_module.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 16914
+      },
+      "writtenOn": "2024-07-18T21:18:12Z",
+      "side": 1,
+      "message": "No, I fixed it. Thank you!",
+      "parentUuid": "64316c25_c619cff9",
+      "range": {
+        "startLine": 31,
+        "startChar": 73,
+        "endLine": 31,
+        "endChar": 83
+      },
+      "revId": "fc34fb41eaa173d1bdd82aff34edebfa20afe7e3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f44f6250_2542e6b6",
@@ -47,6 +71,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "70e76090_424f6665",
+        "filename": "sdk/objc/native/src/audio/audio_device_ios.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 16914
+      },
+      "writtenOn": "2024-07-18T21:18:12Z",
+      "side": 1,
+      "message": "yes, fixed.",
+      "parentUuid": "f44f6250_2542e6b6",
+      "range": {
+        "startLine": 217,
+        "startChar": 2,
+        "endLine": 218,
+        "endChar": 27
+      },
+      "revId": "fc34fb41eaa173d1bdd82aff34edebfa20afe7e3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f31008d1_8687e1c9",
@@ -60,6 +108,30 @@
       "writtenOn": "2024-07-17T12:12:55Z",
       "side": 1,
       "message": "can we add actual tests that excercise the new code?",
+      "range": {
+        "startLine": 49,
+        "startChar": 2,
+        "endLine": 50,
+        "endChar": 80
+      },
+      "revId": "fc34fb41eaa173d1bdd82aff34edebfa20afe7e3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ee3031ab_4061c53d",
+        "filename": "sdk/objc/unittests/RTCAudioDevice_xctest.mm",
+        "patchSetId": 8
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 16914
+      },
+      "writtenOn": "2024-07-18T21:18:12Z",
+      "side": 1,
+      "message": "yes, I added tests.",
+      "parentUuid": "f31008d1_8687e1c9",
       "range": {
         "startLine": 49,
         "startChar": 2,

@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ee60056e_58d2c264",
+        "filename": "video/config/encoder_stream_factory_unittest.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 294,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-07-18T15:33:40Z",
+      "side": 1,
+      "message": "may be add `SCOPED_TRACE(i)`\n\nhttps://github.com/google/googletest/blob/main/docs/advanced.md#adding-traces-to-assertions",
+      "revId": "2d901cd706253790acc76c1cae5791ad96ca46bb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e713e7cc_c70f69ce",
+        "filename": "video/config/encoder_stream_factory_unittest.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 319,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-07-18T15:33:40Z",
+      "side": 1,
+      "message": "2\u0027500\u0027000",
+      "range": {
+        "startLine": 319,
+        "startChar": 45,
+        "endLine": 319,
+        "endChar": 53
+      },
+      "revId": "2d901cd706253790acc76c1cae5791ad96ca46bb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bfa2c39b_cc273c11",
+        "filename": "video/config/simulcast_unittest.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 311,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-07-18T15:33:40Z",
+      "side": 1,
+      "message": "please do not change order of parameters here from the preferred one\nhttp://go/c-readability-advice#avoid-yoda-style-comparisons\n\nit is recommended to put value under test 1st (`streams.size()`, constant to test it with - 2nd.\n\nbetter yet - migrate to even more recommended form\n`ASSERT_THAT(streams, SizeIs(kMaxLayers));`",
+      "revId": "2d901cd706253790acc76c1cae5791ad96ca46bb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

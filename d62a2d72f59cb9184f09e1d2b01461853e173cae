@@ -16,6 +16,23 @@
       "message": "bump. Apparently breaks Teams so I would like to land this before branch cut: https://issues.webrtc.org/issues/352379280#comment2",
       "revId": "d62a2d72f59cb9184f09e1d2b01461853e173cae",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ba5147af_b691f8c3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-07-18T15:01:52Z",
+      "side": 1,
+      "message": "(refreshing my +1 for the new patchset as I have no more comments)",
+      "revId": "d62a2d72f59cb9184f09e1d2b01461853e173cae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -33,6 +33,23 @@
       "message": "(refreshing my +1 for the new patchset as I have no more comments)",
       "revId": "d62a2d72f59cb9184f09e1d2b01461853e173cae",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fceb1041_6648979e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-07-18T15:31:23Z",
+      "side": 1,
+      "message": "Thanks. Martin: please give it a try once it lands in Canary (unless you already did ;-))",
+      "revId": "d62a2d72f59cb9184f09e1d2b01461853e173cae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

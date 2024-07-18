@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cab64da8_b3dbfd22",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-07-18T17:00:41Z",
+      "side": 1,
+      "message": "Danil, you know a lot about style and hopefully agree \"} break;\" is not the way :-)",
+      "revId": "4286f39b75129f068b2c861be50d59f202b42f01",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

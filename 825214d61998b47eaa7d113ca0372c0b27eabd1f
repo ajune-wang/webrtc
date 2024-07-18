@@ -33,6 +33,24 @@
       "message": "This is a pure syntactic-sugar cleanup, the only effect should be limiting the lifeetime of the ssl_handshake_err and err_code variables. There are 4 different styles in this case statement; if touching at all, can you make them consistent?\n\n(Unfortunately https://google.github.io/styleguide/cppguide.html#Switch_Statements gives no guidance on brackets usage, but instead shows 2 different styles...)",
       "revId": "825214d61998b47eaa7d113ca0372c0b27eabd1f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4f21fb61_af6c151d",
+        "filename": "rtc_base/openssl_stream_adapter.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 946,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-07-18T17:00:41Z",
+      "side": 1,
+      "message": "went for moving the break before the } and removing some annoying blank lines while checking :-)",
+      "parentUuid": "4188b720_4a06afce",
+      "revId": "825214d61998b47eaa7d113ca0372c0b27eabd1f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

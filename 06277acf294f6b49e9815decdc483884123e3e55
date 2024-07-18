@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8430f5e7_ec2ebe1c",
+        "filename": "video/config/encoder_stream_factory.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-07-18T13:52:26Z",
+      "side": 1,
+      "message": "value_or can be skipped - nullopt is smaller than any value.\n\nin theory here is change in logic - previously condition checked only for the presence of the num_temporal_layers and override it even if it is 0,\nBut I guess 0 value is not really valid, so it is fine to treat it as \u0027unset\u0027",
+      "range": {
+        "startLine": 155,
+        "startChar": 37,
+        "endLine": 155,
+        "endChar": 49
+      },
+      "revId": "06277acf294f6b49e9815decdc483884123e3e55",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2e9ef7b3_4e7673c9",
+        "filename": "video/config/encoder_stream_factory.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-07-18T13:52:26Z",
+      "side": 1,
+      "message": "or migrate to c++17 std::clamp:\n`\u003d std::clamp(layer.target_bitrate_bps, layer_min_bitate_bps, layer.max_bitrate_bps)`\n\nhttps://en.cppreference.com/w/cpp/algorithm/clamp",
+      "range": {
+        "startLine": 197,
+        "startChar": 10,
+        "endLine": 198,
+        "endChar": 41
+      },
+      "revId": "06277acf294f6b49e9815decdc483884123e3e55",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9c7df34f_4765a9d2",
+        "filename": "video/config/encoder_stream_factory.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-07-18T13:52:26Z",
+      "side": 1,
+      "message": "may be update to\n`absl::c_stable_sort(index, [\u0026](...`\n\n(right header for that is already included)",
+      "range": {
+        "startLine": 226,
+        "startChar": 2,
+        "endLine": 226,
+        "endChar": 46
+      },
+      "revId": "06277acf294f6b49e9815decdc483884123e3e55",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

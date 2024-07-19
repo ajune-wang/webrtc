@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "12ae4068_b40787ed",
+        "filename": "rtc_base/ssl_stream_adapter_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1421,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-07-19T09:44:57Z",
+      "side": 1,
+      "message": "some tests you declare this variable const, others - you don\u0027t\nEither way is acceptable, but it would be nice to be consistent within the same change\n\nhttps://google.github.io/styleguide/cppguide.html#Use_of_const\n“Using const on local variables is neither encouraged nor discouraged.”",
+      "range": {
+        "startLine": 1421,
+        "startChar": 2,
+        "endLine": 1421,
+        "endChar": 7
+      },
+      "revId": "4a0e7ec4d276b54d891458fe343b7ba525d31be0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e49f257b_e65999f8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2024-07-19T08:15:38Z",
+      "side": 1,
+      "message": "The ios_dbg_simulator bot is really broken. Landing with no-try flag, since other iOS bots pass, and the change isn\u0027t iOS specific.",
+      "revId": "160bf7edc4fec6f17587c8b65227a0a63a750001",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

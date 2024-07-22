@@ -16,6 +16,23 @@
       "message": "Fixed.",
       "revId": "4dfd1bb6724ac0bd9ab7436cf78247b8b5527027",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e5187de4_dc8bf4a7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2024-07-22T17:00:44Z",
+      "side": 1,
+      "message": "Moving Tommi to be a second reviewer since he had previously left comments. Per new policy, all non-committers need two committer +1\u0027s before merging.",
+      "revId": "4dfd1bb6724ac0bd9ab7436cf78247b8b5527027",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

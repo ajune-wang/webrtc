@@ -13,7 +13,6 @@ lucicfg.check_version("1.30.9")
 WEBRTC_GIT = "https://webrtc.googlesource.com/src"
 WEBRTC_GERRIT = "https://webrtc-review.googlesource.com/src"
 WEBRTC_TROOPER_EMAIL = "webrtc-troopers-robots@google.com"
-WEBRTC_XCODE14 = "14c18"
 DEFAULT_CPU = "x86-64"
 
 # Helpers:
@@ -693,27 +692,6 @@ def chromium_try_builder(name, **kwargs):
         **kwargs
     )
 
-def normal_builder_factory(**common_kwargs):
-    def builder(*args, **kwargs):
-        kwargs.update(common_kwargs)
-        return ci_builder(*args, **kwargs)
-
-    def try_job(name, **kwargs):
-        kwargs.update(common_kwargs)
-        return try_builder(name, **kwargs)
-
-    return builder, try_job
-
-# Mixins:
-
-ios_builder, ios_try_job = normal_builder_factory(
-    properties = {"xcode_build_version": WEBRTC_XCODE14},
-    caches = [swarming.cache(
-        name = "xcode_ios_" + WEBRTC_XCODE14,
-        path = "xcode_ios_" + WEBRTC_XCODE14 + ".app",
-    )],
-)
-
 # Actual builder configuration:
 
 ci_builder("Android32 (dbg)", "Android|arm|dbg")
@@ -742,14 +720,14 @@ ci_builder("Android32 (more configs)", "Android|arm|more")
 try_builder("android_arm_more_configs")
 chromium_try_builder("android_chromium_compile")
 
-ios_builder("iOS64 Debug", "iOS|arm64|dbg")
-ios_try_job("ios_compile_arm64_dbg")
-ios_builder("iOS64 Release", "iOS|arm64|rel")
-ios_try_job("ios_compile_arm64_rel")
-ios_builder("iOS Debug (simulator)", "iOS|x64|sim")
-ios_try_job("ios_dbg_simulator")
-ios_builder("iOS API Framework Builder", "iOS|fat|size", recipe = "ios_api_framework", prioritized = True)
-ios_try_job("ios_api_framework", recipe = "ios_api_framework")
+ci_builder("iOS64 Debug", "iOS|arm64|dbg")
+try_builder("ios_compile_arm64_dbg")
+ci_builder("iOS64 Release", "iOS|arm64|rel")
+try_builder("ios_compile_arm64_rel")
+ci_builder("iOS Debug (simulator)", "iOS|x64|sim")
+try_builder("ios_dbg_simulator")
+ci_builder("iOS API Framework Builder", "iOS|fat|size", recipe = "ios_api_framework", prioritized = True)
+try_builder("ios_api_framework", recipe = "ios_api_framework")
 
 ci_builder("Linux32 Debug", "Linux|x86|dbg")
 try_builder("linux_x86_dbg")

@@ -97,7 +97,7 @@ class H264Packet {
   bool first_fragment_ = false;
   bool marker_bit_ = false;
   uint32_t rtp_timestamp_ = 0;
-  uint16_t rtp_seq_num_ = 0;
+  int64_t rtp_seq_num_ = 0;
   std::vector<std::vector<uint8_t>> nalu_payloads_;
 };
 
@@ -209,7 +209,7 @@ std::unique_ptr<H26xPacketBuffer::Packet> H264Packet::Build() {
   res->marker_bit = marker_bit_;
   res->video_header = video_header_;
   res->timestamp = rtp_timestamp_;
-  res->seq_num = rtp_seq_num_;
+  res->sequence_number = rtp_seq_num_;
   res->video_header.codec = kVideoCodecH264;
 
   return res;
@@ -263,7 +263,7 @@ class H265Packet {
   H265Packet& Marker();
   H265Packet& AsFirstFragment();
   H265Packet& Time(uint32_t rtp_timestamp);
-  H265Packet& SeqNum(uint16_t rtp_seq_num);
+  H265Packet& SeqNum(int64_t rtp_seq_num);
 
   std::unique_ptr<H26xPacketBuffer::Packet> Build();
 
@@ -329,7 +329,7 @@ std::unique_ptr<H26xPacketBuffer::Packet> H265Packet::Build() {
   res->marker_bit = marker_bit_;
   res->video_header = video_header_;
   res->timestamp = rtp_timestamp_;
-  res->seq_num = rtp_seq_num_;
+  res->sequence_number = rtp_seq_num_;
   res->video_header.codec = kVideoCodecH265;
   res->video_payload = rtc::CopyOnWriteBuffer();
   for (const auto& payload : nalu_payloads_) {
@@ -349,7 +349,7 @@ H265Packet& H265Packet::Time(uint32_t rtp_timestamp) {
   return *this;
 }
 
-H265Packet& H265Packet::SeqNum(uint16_t rtp_seq_num) {
+H265Packet& H265Packet::SeqNum(int64_t rtp_seq_num) {
   rtp_seq_num_ = rtp_seq_num;
   return *this;
 }

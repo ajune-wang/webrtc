@@ -39,6 +39,30 @@
       },
       "revId": "3bbfea54ee0f1aef58f732c84d26739ed8b93911",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "26fba4b7_1474716a",
+        "filename": "modules/video_coding/h26x_packet_buffer.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-07-22T13:25:46Z",
+      "side": 1,
+      "message": "Right, this class indeed doesn\u0027t use wrapped sequence numbers anywhere else,\nso shouldn\u0027t be too risky to tighten this check.",
+      "parentUuid": "676919cc_965e9b23",
+      "range": {
+        "startLine": 177,
+        "startChar": 4,
+        "endLine": 177,
+        "endChar": 62
+      },
+      "revId": "3bbfea54ee0f1aef58f732c84d26739ed8b93911",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

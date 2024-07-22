@@ -465,6 +465,7 @@ bool RTPSenderVideo::SendVideo(int payload_type,
                                TimeDelta expected_retransmission_time,
                                std::vector<uint32_t> csrcs) {
   RTC_CHECK_RUNS_SERIALIZED(&send_checker_);
+  //RTC_LOG(LS_ERROR) << "SendVideo: keyframe " << (video_header.frame_type == VideoFrameType::kVideoFrameKey);
 
   if (video_header.frame_type == VideoFrameType::kEmptyFrame)
     return true;

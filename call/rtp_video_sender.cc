@@ -198,6 +198,8 @@ std::vector<RtpStreamSender> CreateRtpStreamSenders(
     FrameEncryptorInterface* frame_encryptor,
     const CryptoOptions& crypto_options,
     rtc::scoped_refptr<FrameTransformerInterface> frame_transformer,
+    // TODO - rtc::scoped_refptr
+    RtpPacketSender* packet_sender,
     const FieldTrialsView& trials,
     TaskQueueFactory* task_queue_factory) {
   RTC_DCHECK_GT(rtp_config.ssrcs.size(), 0);
@@ -219,7 +221,8 @@ std::vector<RtpStreamSender> CreateRtpStreamSenders(
       observers.rtcp_type_observer;
   configuration.report_block_data_observer =
       observers.report_block_data_observer;
-  configuration.paced_sender = transport->packet_sender();
+  configuration.paced_sender =
+      packet_sender ? packet_sender : transport->packet_sender();
   configuration.send_bitrate_observer = observers.bitrate_observer;
   configuration.send_packet_observer = observers.send_packet_observer;
   configuration.event_log = event_log;
@@ -373,6 +376,8 @@ RtpVideoSender::RtpVideoSender(
     FrameEncryptorInterface* frame_encryptor,
     const CryptoOptions& crypto_options,
     rtc::scoped_refptr<FrameTransformerInterface> frame_transformer,
+    // TODO - rtc::scoped_refptr<
+    RtpPacketSender* packet_sender,
     const FieldTrialsView& field_trials,
     TaskQueueFactory* task_queue_factory)
     : field_trials_(field_trials),
@@ -395,6 +400,7 @@ RtpVideoSender::RtpVideoSender(
                                           frame_encryptor,
                                           crypto_options,
                                           std::move(frame_transformer),
+                                          std::move(packet_sender),
                                           field_trials_,
                                           task_queue_factory)),
       rtp_config_(rtp_config),

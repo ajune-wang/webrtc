@@ -51,6 +51,7 @@ EncoderRtcpFeedback::EncoderRtcpFeedback(
 
 // Called via Call::DeliverRtcp.
 void EncoderRtcpFeedback::OnReceivedIntraFrameRequest(uint32_t ssrc) {
+  RTC_LOG(LS_ERROR) << __func__ << "SSRC " << ssrc;
   RTC_DCHECK_RUN_ON(&packet_delivery_queue_);
   RTC_DCHECK(std::find(ssrcs_.begin(), ssrcs_.end(), ssrc) != ssrcs_.end());
 
@@ -65,8 +66,10 @@ void EncoderRtcpFeedback::OnReceivedIntraFrameRequest(uint32_t ssrc) {
   const Timestamp now = env_.clock().CurrentTime();
   if (time_last_packet_delivery_queue_[ssrc_index] +
           min_keyframe_send_interval_ >
-      now)
+      now) {
+  RTC_LOG(LS_ERROR) << __func__ << "time_last_packet_delivery_queue_ + internval > now";
     return;
+  }
 
   time_last_packet_delivery_queue_[ssrc_index] = now;
 
@@ -74,10 +77,12 @@ void EncoderRtcpFeedback::OnReceivedIntraFrameRequest(uint32_t ssrc) {
                                      VideoFrameType::kVideoFrameDelta);
   if (!per_layer_keyframes_) {
     // Always produce key frame for all streams.
+  RTC_LOG(LS_ERROR) << __func__ << "video_stream_encoder_->SendKeyFrame()";
     video_stream_encoder_->SendKeyFrame();
   } else {
     // Determine on which layer we ask for key frames.
     layers[ssrc_index] = VideoFrameType::kVideoFrameKey;
+  RTC_LOG(LS_ERROR) << __func__ << "video_stream_encoder_->SendKeyFrame(layers)";
     video_stream_encoder_->SendKeyFrame(layers);
   }
 }

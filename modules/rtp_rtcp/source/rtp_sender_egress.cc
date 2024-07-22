@@ -138,13 +138,14 @@ void RtpSenderEgress::SendPacket(std::unique_ptr<RtpPacketToSend> packet,
                                  const PacedPacketInfo& pacing_info) {
   RTC_DCHECK_RUN_ON(worker_queue_);
   RTC_DCHECK(packet);
+  RTC_LOG(LS_ERROR) << __func__;
 
   if (packet->Ssrc() == ssrc_ &&
       packet->packet_type() != RtpPacketMediaType::kRetransmission) {
-    if (last_sent_seq_.has_value()) {
-      RTC_DCHECK_EQ(static_cast<uint16_t>(*last_sent_seq_ + 1),
-                    packet->SequenceNumber());
-    }
+    //if (last_sent_seq_.has_value()) {
+    //  RTC_DCHECK_EQ(static_cast<uint16_t>(*last_sent_seq_ + 1),
+    //                packet->SequenceNumber());
+    //  }
     last_sent_seq_ = packet->SequenceNumber();
   } else if (packet->Ssrc() == rtx_ssrc_) {
     if (last_sent_rtx_seq_.has_value()) {
@@ -430,6 +431,7 @@ bool RtpSenderEgress::HasCorrectSsrc(const RtpPacketToSend& packet) const {
 bool RtpSenderEgress::SendPacketToNetwork(const RtpPacketToSend& packet,
                                           const PacketOptions& options,
                                           const PacedPacketInfo& pacing_info) {
+  RTC_LOG(LS_ERROR) << __func__;
   RTC_DCHECK_RUN_ON(worker_queue_);
   int bytes_sent = -1;
   if (transport_) {

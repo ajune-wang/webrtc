@@ -573,8 +573,10 @@ bool RtpVideoStreamReceiver2::OnReceivedPayloadData(
       ParseGenericDependenciesExtension(rtp_packet, &video_header);
 
   if (generic_descriptor_state == kStashPacket) {
+    RTC_LOG(LS_ERROR) << "generic_descriptor_state == kStashPacket";
     return true;
   } else if (generic_descriptor_state == kDropPacket) {
+    RTC_LOG(LS_ERROR) << "generic_descriptor_state == kDropPacket";
     Timestamp now = clock_->CurrentTime();
     if (now - last_logged_failed_to_parse_dd_ > TimeDelta::Seconds(1)) {
       last_logged_failed_to_parse_dd_ = now;
@@ -795,6 +797,7 @@ void RtpVideoStreamReceiver2::OnInsertedPacket(
       rtc::scoped_refptr<EncodedImageBuffer> bitstream =
           depacketizer_it->second->AssembleFrame(payloads);
       if (!bitstream) {
+        RTC_LOG(LS_ERROR) << __func__ << " !bitstream";
         // Failed to assemble a frame. Discard and continue.
         continue;
       }
@@ -877,6 +880,7 @@ void RtpVideoStreamReceiver2::OnAssembledFrame(
             last_completed_picture_id_ + std::numeric_limits<uint16_t>::max());
         current_codec_ = frame->codec_type();
       } else {
+        RTC_LOG(LS_ERROR) << __func__ << " Old frame from before the codec switch, discard it";
         // Old frame from before the codec switch, discard it.
         return;
       }

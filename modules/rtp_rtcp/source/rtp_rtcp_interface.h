@@ -31,6 +31,8 @@
 #include "modules/rtp_rtcp/source/video_fec_generator.h"
 #include "system_wrappers/include/ntp_time.h"
 
+#include "rtc_base/logging.h"
+
 namespace webrtc {
 
 // Forward declarations.
@@ -450,9 +452,15 @@ class RtpRtcpInterface : public RtcpFeedbackSenderInterface {
 
   // Requests new key frame.
   // using PLI, https://tools.ietf.org/html/rfc4585#section-6.3.1.1
-  void SendPictureLossIndication() { SendRTCP(kRtcpPli); }
+  void SendPictureLossIndication() {
+    RTC_LOG(LS_ERROR) << __func__;
+    SendRTCP(kRtcpPli);
+  }
   // using FIR, https://tools.ietf.org/html/rfc5104#section-4.3.1.2
-  void SendFullIntraRequest() { SendRTCP(kRtcpFir); }
+  void SendFullIntraRequest() {
+    RTC_LOG(LS_ERROR) << __func__;
+    SendRTCP(kRtcpFir);
+  }
 
   // Sends a LossNotification RTCP message.
   // Returns -1 on failure else 0.

@@ -69,6 +69,7 @@ FrameBuffer::FrameBuffer(int max_size,
 
 bool FrameBuffer::InsertFrame(std::unique_ptr<EncodedFrame> frame) {
   if (!ValidReferences(*frame)) {
+  RTC_LOG(LS_ERROR) << __func__ << "Invalid references";
     RTC_DLOG(LS_WARNING) << "Frame " << frame->Id()
                          << " has invalid references, dropping frame.";
     return false;
@@ -78,11 +79,12 @@ bool FrameBuffer::InsertFrame(std::unique_ptr<EncodedFrame> frame) {
     if (legacy_frame_id_jump_behavior_ && frame->is_keyframe() &&
         AheadOf(frame->RtpTimestamp(),
                 *decoded_frame_history_.GetLastDecodedFrameTimestamp())) {
-      RTC_DLOG(LS_WARNING)
+      RTC_DLOG(LS_ERROR)
           << "Keyframe " << frame->Id()
           << " has newer timestamp but older picture id, clearing buffer.";
       Clear();
     } else {
+  RTC_LOG(LS_ERROR) << __func__ << "Already decoded past this frame.";
       // Already decoded past this frame.
       return false;
     }
@@ -94,6 +96,7 @@ bool FrameBuffer::InsertFrame(std::unique_ptr<EncodedFrame> frame) {
                            << " inserted into full buffer, clearing buffer.";
       Clear();
     } else {
+  RTC_LOG(LS_ERROR) << __func__ << "No space for this frame.";
       // No space for this frame.
       return false;
     }
@@ -102,6 +105,7 @@ bool FrameBuffer::InsertFrame(std::unique_ptr<EncodedFrame> frame) {
   const int64_t frame_id = frame->Id();
   auto insert_res = frames_.emplace(frame_id, FrameInfo{std::move(frame)});
   if (!insert_res.second) {
+  RTC_LOG(LS_ERROR) << __func__ << "Frame has already been inserted.";
     // Frame has already been inserted.
     return false;
   }

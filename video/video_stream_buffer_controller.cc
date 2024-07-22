@@ -392,6 +392,7 @@ void VideoStreamBufferController::MaybeScheduleFrameForRelease()
   }
 
   if (keyframe_required_) {
+  RTC_LOG(LS_ERROR) << __func__ << "keyframe_required_";
     return ForceKeyFrameReleaseImmediately();
   }
 
@@ -420,10 +421,13 @@ void VideoStreamBufferController::MaybeScheduleFrameForRelease()
             decodable_tu_info->next_rtp_timestamp, *schedule,
             absl::bind_front(&VideoStreamBufferController::FrameReadyForDecode,
                              this));
+      } else {
+        RTC_LOG(LS_ERROR) << __func__ << "Don't schedule if already waiting for the same frame";
       }
       return;
     }
     // If no schedule for current rtp, drop and try again.
+        RTC_LOG(LS_ERROR) << __func__ << "If no schedule for current rtp, drop and try again.";
     buffer_->DropNextDecodableTemporalUnit();
     decodable_tu_info = buffer_->DecodableTemporalUnitsInfo();
   }

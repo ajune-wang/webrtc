@@ -310,7 +310,7 @@ class ColorSpaceExtension {
 
 // Base extension class for RTP header extensions which are strings.
 // Subclasses must defined kId and kUri static constexpr members.
-class BaseRtpStringExtension {
+class RTC_EXPORT BaseRtpStringExtension {
  public:
   using value_type = std::string;
   // String RTP header extensions are limited to 16 bytes because it is the

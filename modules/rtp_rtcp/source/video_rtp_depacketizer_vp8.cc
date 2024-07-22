@@ -150,7 +150,7 @@ int VideoRtpDepacketizerVp8::ParseRtpPayload(
     RTPVideoHeader* video_header) {
   RTC_DCHECK(video_header);
   if (rtp_payload.empty()) {
-    RTC_LOG(LS_ERROR) << "Empty rtp payload.";
+    RTC_LOG(LS_ERROR) << __func__ << " Empty rtp payload.";
     return kFailedToParse;
   }
 
@@ -162,8 +162,10 @@ int VideoRtpDepacketizerVp8::ParseRtpPayload(
 
   const int descriptor_size =
       ParseVP8Descriptor(&vp8_header, rtp_payload.data(), rtp_payload.size());
-  if (descriptor_size == kFailedToParse)
+  if (descriptor_size == kFailedToParse) {
+    RTC_LOG(LS_ERROR) << __func__ <<  " descriptor_size == kFailedToParse.";
     return kFailedToParse;
+  }
 
   RTC_DCHECK_LT(vp8_header.partitionId, 8);
 
@@ -172,7 +174,7 @@ int VideoRtpDepacketizerVp8::ParseRtpPayload(
 
   int vp8_payload_size = rtp_payload.size() - descriptor_size;
   if (vp8_payload_size == 0) {
-    RTC_LOG(LS_WARNING) << "Empty vp8 payload.";
+    RTC_LOG(LS_ERROR) << __func__ <<  " Empty vp8 payload.";
     return kFailedToParse;
   }
   const uint8_t* vp8_payload = rtp_payload.data() + descriptor_size;

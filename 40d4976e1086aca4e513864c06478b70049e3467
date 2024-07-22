@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "26755818_0ea602db",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-07-22T14:38:04Z",
+      "side": 1,
+      "message": "I do not remember the details what didn\u0027t work there, but tests do pass now with no extra changes. So just cleaning up TODOs attached to the bug.",
+      "revId": "40d4976e1086aca4e513864c06478b70049e3467",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -150,6 +150,30 @@
       },
       "revId": "226cf3ed4f6dd6d44ea529c1e55f8a20ac2f53ab",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6533684b_3c904b38",
+        "filename": "modules/video_coding/codecs/h264/h264.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2024-07-23T14:26:02Z",
+      "side": 1,
+      "message": "That could add like 12 more payload types, how about only adding 3.1 for CBP instead?",
+      "parentUuid": "53c594fe_447b98d4",
+      "range": {
+        "startLine": 98,
+        "startChar": 38,
+        "endLine": 98,
+        "endChar": 47
+      },
+      "revId": "226cf3ed4f6dd6d44ea529c1e55f8a20ac2f53ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

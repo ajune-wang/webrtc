@@ -72,7 +72,7 @@ ReceiveStatisticsProxy::ReceiveStatisticsProxy(uint32_t remote_ssrc,
       start_ms_(clock->TimeInMilliseconds()),
       remote_ssrc_(remote_ssrc),
       // 1000ms window, scale 1000 for ms to s.
-      decode_fps_estimator_(1000, 1000),
+      decode_fps_estimator_(1500, 1000),
       renders_fps_estimator_(1000, 1000),
       render_fps_tracker_(100, 10u),
       render_pixel_tracker_(100, 10u),

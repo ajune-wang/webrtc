@@ -315,4 +315,40 @@ TEST_F(RateStatisticsTest, HandlesSomewhatLargeNumbers) {
   EXPECT_FALSE(stats_.Rate(now_ms));
 }
 
+// for https://issues.webrtc.org/issues/354625675
+TEST_F(RateStatisticsTest, HandleDecodeFpsZeroIssue) {
+  webrtc::RateStatistics stats_1000(1000, 1000);
+  int64_t now_ms = 1000;
+  stats_1000.Reset();
+  stats_1000.Update(1, now_ms);
+  now_ms += 990;
+  stats_1000.Update(1, now_ms);
+  now_ms += 900;
+  absl::optional<uint32_t> framerate = stats_1000.Rate(now_ms);
+  EXPECT_TRUE(static_cast<bool>(framerate));
+  EXPECT_EQ(1u, *framerate);
+
+  stats_1000.Update(1, now_ms);
+  now_ms += 1100;
+  framerate = stats_1000.Rate(now_ms);
+  EXPECT_FALSE(static_cast<bool>(framerate));  // the framerate is 0
+
+  webrtc::RateStatistics stats_1500(1500, 1000);
+  now_ms = 1000;
+  stats_1500.Reset();
+  stats_1500.Update(1, now_ms);
+  now_ms += 990;
+  stats_1500.Update(1, now_ms);
+  now_ms += 900;
+  framerate = stats_1500.Rate(now_ms);
+  EXPECT_TRUE(static_cast<bool>(framerate));
+  EXPECT_EQ(1u, *framerate);
+
+  stats_1500.Update(1, now_ms);
+  now_ms += 1100;
+  framerate = stats_1500.Rate(now_ms);
+  EXPECT_TRUE(static_cast<bool>(framerate));
+  EXPECT_EQ(1u, *framerate);  // Use 1500ms windows size, the framerate is 1
+}
+
 }  // namespace

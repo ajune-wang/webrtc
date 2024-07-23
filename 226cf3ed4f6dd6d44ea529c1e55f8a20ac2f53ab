@@ -126,6 +126,30 @@
       },
       "revId": "226cf3ed4f6dd6d44ea529c1e55f8a20ac2f53ab",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "53c594fe_447b98d4",
+        "filename": "modules/video_coding/codecs/h264/h264.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2024-07-23T12:05:14Z",
+      "side": 1,
+      "message": "still, i think it would be better to advertise both 4.2 and 3.1 levels for all profiles.",
+      "parentUuid": "be9601fe_2f76e136",
+      "range": {
+        "startLine": 98,
+        "startChar": 38,
+        "endLine": 98,
+        "endChar": 47
+      },
+      "revId": "226cf3ed4f6dd6d44ea529c1e55f8a20ac2f53ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

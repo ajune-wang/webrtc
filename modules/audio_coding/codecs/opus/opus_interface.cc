@@ -38,9 +38,6 @@ enum {
 constexpr char kPlcUsePrevDecodedSamplesFieldTrial[] =
     "WebRTC-Audio-OpusPlcUsePrevDecodedSamples";
 
-constexpr char kAvoidNoisePumpingDuringDtxFieldTrial[] =
-    "WebRTC-Audio-OpusAvoidNoisePumpingDuringDtx";
-
 static int FrameSizePerChannel(int frame_size_ms, int sample_rate_hz) {
   RTC_DCHECK_GT(frame_size_ms, 0);
   RTC_DCHECK_EQ(frame_size_ms % 10, 0);
@@ -135,8 +132,6 @@ int16_t WebRtcOpus_EncoderCreate(OpusEncInst** inst,
   state->channels = channels;
   state->sample_rate_hz = sample_rate_hz;
   state->smooth_energy_non_active_frames = 0.0f;
-  state->avoid_noise_pumping_during_dtx =
-      webrtc::field_trial::IsEnabled(kAvoidNoisePumpingDuringDtxFieldTrial);
 
   *inst = state;
   return 0;

@@ -64,6 +64,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "999419bf_48682bc9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2024-07-23T11:58:54Z",
+      "side": 1,
+      "message": "+1 assuming the notes will be addressed",
+      "revId": "226cf3ed4f6dd6d44ea529c1e55f8a20ac2f53ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "12843fe2_20d9f519",
@@ -77,6 +94,30 @@
       "writtenOn": "2024-07-23T11:11:11Z",
       "side": 1,
       "message": "I wonder if we can advertise both kLevel4_2 and kLevel3_1 for now?",
+      "range": {
+        "startLine": 98,
+        "startChar": 38,
+        "endLine": 98,
+        "endChar": 47
+      },
+      "revId": "226cf3ed4f6dd6d44ea529c1e55f8a20ac2f53ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "be9601fe_2f76e136",
+        "filename": "modules/video_coding/codecs/h264/h264.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2024-07-23T11:58:54Z",
+      "side": 1,
+      "message": "Tested using instructions from https://issues.chromium.org/u/1/issues/354143228 and confirmed that it fixes their case.",
+      "parentUuid": "12843fe2_20d9f519",
       "range": {
         "startLine": 98,
         "startChar": 38,

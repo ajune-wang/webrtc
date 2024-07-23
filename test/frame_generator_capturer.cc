@@ -94,7 +94,7 @@ void FrameGeneratorCapturer::InsertFrame() {
   if (sending_) {
     FrameGeneratorInterface::VideoFrameData frame_data =
         frame_generator_->NextFrame();
-    // TODO(srte): Use more advanced frame rate control to allow arbritrary
+    // TODO(srte): Use more advanced frame rate control to allow arbitrary
     // fractions.
     int decimation =
         std::round(static_cast<double>(source_fps_) / target_capture_fps_);
@@ -189,6 +189,7 @@ void FrameGeneratorCapturer::AddOrUpdateSink(
     rtc::VideoSinkInterface<VideoFrame>* sink,
     const rtc::VideoSinkWants& wants) {
   TestVideoCapturer::AddOrUpdateSink(sink, wants);
+  ChangeFramerate(GetSinkWants().max_framerate_fps);
   MutexLock lock(&lock_);
   if (sink_wants_observer_) {
     // Tests need to observe unmodified sink wants.
@@ -201,6 +202,7 @@ void FrameGeneratorCapturer::RemoveSink(
     rtc::VideoSinkInterface<VideoFrame>* sink) {
   TestVideoCapturer::RemoveSink(sink);
 
+  ChangeFramerate(GetSinkWants().max_framerate_fps);
   MutexLock lock(&lock_);
   UpdateFps(GetSinkWants().max_framerate_fps);
 }

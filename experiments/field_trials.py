@@ -757,9 +757,6 @@ POLICY_EXEMPT_FIELD_TRIALS: FrozenSet[FieldTrial] = frozenset([
     FieldTrial('WebRTC-SpsPpsIdrIsH264Keyframe',
                42233557,
                INDEFINITE),
-    FieldTrial('WebRTC-StableTargetRate',
-               42220156,
-               date(2024, 4, 1)),
     FieldTrial('WebRTC-StrictPacingAndProbing',
                42233198,
                date(2024, 4, 1)),
@@ -881,7 +878,7 @@ POLICY_EXEMPT_FIELD_TRIALS: FrozenSet[FieldTrial] = frozenset([
 ])  # yapf: disable
 
 POLICY_EXEMPT_FIELD_TRIALS_DIGEST: str = \
-    'a3a5347c082f66bf6c338b8fed783ebff5a50561'
+    '81b7705b3a59b9aef7f0770ec5b7ee53d934fc8b'
 
 REGISTERED_FIELD_TRIALS: FrozenSet[FieldTrial] = ACTIVE_FIELD_TRIALS.union(
     POLICY_EXEMPT_FIELD_TRIALS)

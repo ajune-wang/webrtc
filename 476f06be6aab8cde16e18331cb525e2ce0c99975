@@ -63,6 +63,30 @@
       },
       "revId": "476f06be6aab8cde16e18331cb525e2ce0c99975",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "069b0aa5_d3f4c9eb",
+        "filename": "modules/audio_processing/audio_buffer.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2024-07-24T12:44:26Z",
+      "side": 1,
+      "message": "Wdyt if we change the name from `view()` to `channels_view()` or e.g. `channels_v()`, with the intent to eventually remove/replace the current `channels()` accessor?\n\nThere are a few problems with `channels()` as is. One is, as you point out that it returns a raw pointer that assumes a particular layout/implementation. With having `view()` (or equivalent), we\u0027d at least move that assumption into the class implementation, away from the current places where `channels()` is currently called. That also allows us to add more verification that the state is correct before returning a DeinterleavedView instance.\n\nBtw, getter methods that retrieve each channel separately, is exactly what I wanted to use DeinterleavedView for, but as you point out, there\u0027s an issue with the split bands. The same issue exists in the `ChannelBuffer` class I think. Do you remember when we discussed having a `stride` property in the DeinterleavedView class. Should we bring that back?",
+      "parentUuid": "c0d0bff4_ab7a147d",
+      "range": {
+        "startLine": 69,
+        "startChar": 2,
+        "endLine": 69,
+        "endChar": 19
+      },
+      "revId": "476f06be6aab8cde16e18331cb525e2ce0c99975",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

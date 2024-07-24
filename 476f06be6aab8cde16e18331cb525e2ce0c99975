@@ -111,6 +111,30 @@
       },
       "revId": "476f06be6aab8cde16e18331cb525e2ce0c99975",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5a12f1b0_2201a3d8",
+        "filename": "modules/audio_processing/audio_buffer.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2024-07-24T16:41:48Z",
+      "side": 1,
+      "message": "Re: `channels() output does not actually assume that there is a certain layout of the data`\n- I think we must be talking about different things. The way I think about that method is that it does require the caller to know how AudioBuffer is implemented before accessing that raw data and today there are no checks around it and the returned value doesn\u0027t have any dimension properties or ways to guard against incorrect access. It\u0027s also possible for a caller to incorrectly fill in the buffer which would alter AudioBuffer\u0027s internal state (e.g. write across channels).\n\nIn any case, `view()` today, returns the same data as `channel()`, but describes the dimensions of the arrays and guards how that data is accessed.\n\nRegarding the Block class - do you mean that the Block class causes a rigid implementation (due to no more than one band/channel at a time) or is there something else that\u0027s reducing flexibility? I\u0027m a bit confused as how it applies to the return type of `channel()`.",
+      "parentUuid": "981c45d9_1e41d52b",
+      "range": {
+        "startLine": 69,
+        "startChar": 2,
+        "endLine": 69,
+        "endChar": 19
+      },
+      "revId": "476f06be6aab8cde16e18331cb525e2ce0c99975",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

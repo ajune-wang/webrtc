@@ -29,14 +29,12 @@ TEST(AudioFrameTest, ConstructFromAudioBuffer) {
       stream_config.sample_rate_hz(), stream_config.num_channels(),
       stream_config.sample_rate_hz(), stream_config.num_channels());
 
-  AudioFrameView<float> non_const_view(buffer.channels(), buffer.num_channels(),
-                                       buffer.num_frames());
+  AudioFrameView<float> non_const_view(buffer.channels());
   // Modification is allowed.
   non_const_view.channel(0)[0] = kFloatConstant;
   EXPECT_EQ(buffer.channels()[0][0], kFloatConstant);
 
-  AudioFrameView<const float> const_view(
-      buffer.channels(), buffer.num_channels(), buffer.num_frames());
+  AudioFrameView<const float> const_view(buffer.channels_const());
   // Modification is not allowed.
   // const_view.channel(0)[0] = kFloatConstant;
 
@@ -47,8 +45,7 @@ TEST(AudioFrameTest, ConstructFromAudioBuffer) {
   // But not the other way. The following will fail:
   // non_const_view = other_const_view;
 
-  AudioFrameView<float> non_const_float_view(
-      buffer.channels(), buffer.num_channels(), buffer.num_frames());
+  AudioFrameView<float> non_const_float_view(buffer.channels());
   non_const_float_view.channel(0)[0] = kIntConstant;
   EXPECT_EQ(buffer.channels()[0][0], kIntConstant);
 }

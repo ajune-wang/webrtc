@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a6b6edec_af6d0fca",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2024-07-24T11:49:56Z",
+      "side": 1,
+      "message": "Thanks for this CL!",
+      "revId": "476f06be6aab8cde16e18331cb525e2ce0c99975",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6ac55d0a_6acd0d7a",
+        "filename": "modules/audio_processing/audio_buffer.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2024-07-24T11:49:56Z",
+      "side": 1,
+      "message": "I was not part of the review of the initial addition of the view function, but I\u0027m not convinced that the view approach works that well here without modifications. \n\nOne thing I\u0027m concerned with here is that the implementation is based on assumptions on the underlying data. \nE.g., by doing it like this it is required that the underlying data is linearly stacked in the underlying data. I think that is the case\n(https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/common_audio/channel_buffer.h) but it is not immediately obvious and it is a fragile setup to rely on that without somehow enforcing it.\n\nAnother aspect is that the code opens up for nullptr (empty buffer) being a valid construct, which I think it isn\u0027t. E.g., https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/modules/audio_processing/audio_buffer.cc;drc\u003dd6ef33e59b81a2d85e91aa7a4367c36320eefc81;l\u003d57\nThat means that the using code would have to start checking for that, instead of relying on that.\n\nA third concern I have is that this concept does not work on the split_bands functions, where the underlying data is not continously stored.\n\nI think it would be good to see if there is some other/adjusted construct that could be used here that can remove all the raw pointer instances?",
+      "range": {
+        "startLine": 69,
+        "startChar": 2,
+        "endLine": 69,
+        "endChar": 19
+      },
+      "revId": "476f06be6aab8cde16e18331cb525e2ce0c99975",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

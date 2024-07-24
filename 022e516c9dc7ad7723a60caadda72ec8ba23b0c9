@@ -70,6 +70,24 @@
       "parentUuid": "fad41f9d_80043a63",
       "revId": "022e516c9dc7ad7723a60caadda72ec8ba23b0c9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b144e343_afa2dca3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2024-07-24T14:56:54Z",
+      "side": 1,
+      "message": "ok, adding 3.1 to CBP should be enough.",
+      "parentUuid": "65422976_51604c94",
+      "revId": "022e516c9dc7ad7723a60caadda72ec8ba23b0c9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

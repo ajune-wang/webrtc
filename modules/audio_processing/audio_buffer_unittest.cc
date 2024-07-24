@@ -113,6 +113,12 @@ TEST(AudioBufferTest, DeinterleavedView) {
       ASSERT_EQ(channel[s], channels[c][s]);
     }
   }
+
+  DeinterleavedView<const float> const_view =
+      static_cast<const AudioBuffer&>(ab).view();
+  EXPECT_EQ(NumChannels(const_view), NumChannels(view));
+  EXPECT_EQ(SamplesPerChannel(const_view), SamplesPerChannel(view));
+  EXPECT_EQ(&const_view.data()[0], &view.data()[0]);
 }
 
 }  // namespace webrtc

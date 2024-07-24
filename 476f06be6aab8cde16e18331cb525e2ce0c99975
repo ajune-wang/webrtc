@@ -39,6 +39,30 @@
       },
       "revId": "476f06be6aab8cde16e18331cb525e2ce0c99975",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c0d0bff4_ab7a147d",
+        "filename": "modules/audio_processing/audio_buffer.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2024-07-24T12:03:49Z",
+      "side": 1,
+      "message": "I think I would rather prefer an approach that does not tightly couple the API to the implementation.\n\nE.g., such as something along getter-methods that retrieve each channel or band separately, rather than provides a view into the underlying data structure.",
+      "parentUuid": "6ac55d0a_6acd0d7a",
+      "range": {
+        "startLine": 69,
+        "startChar": 2,
+        "endLine": 69,
+        "endChar": 19
+      },
+      "revId": "476f06be6aab8cde16e18331cb525e2ce0c99975",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

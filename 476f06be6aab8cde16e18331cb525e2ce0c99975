@@ -87,6 +87,30 @@
       },
       "revId": "476f06be6aab8cde16e18331cb525e2ce0c99975",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "981c45d9_1e41d52b",
+        "filename": "modules/audio_processing/audio_buffer.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2024-07-24T12:57:54Z",
+      "side": 1,
+      "message": "The channels() output does not actually assume that there is a certain layout of the data in that it is ok for each channel to be located at any point in the memory (e.g., the data of channel 1 does not have to be located immediately after the data of channel 0).\n\nI\u0027d suggest to use something similar to what the Block class does\nthird_party/webrtc/modules/audio_processing/aec3/block.h\nI.e., never access more than one channel/band at a time.\n\nWhile access into the bundled channel/band data is powerful, it is also risky and causes a rigid implementation. And there is very little code that today benefits from the bundled access.",
+      "parentUuid": "069b0aa5_d3f4c9eb",
+      "range": {
+        "startLine": 69,
+        "startChar": 2,
+        "endLine": 69,
+        "endChar": 19
+      },
+      "revId": "476f06be6aab8cde16e18331cb525e2ce0c99975",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

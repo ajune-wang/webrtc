@@ -52,6 +52,24 @@
       "parentUuid": "d55d9e0e_a841497b",
       "revId": "022e516c9dc7ad7723a60caadda72ec8ba23b0c9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "65422976_51604c94",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2024-07-24T12:59:04Z",
+      "side": 1,
+      "message": "I have added the 3.1 profile for CBP. I think it is the best compromise between adding a ton of payload types and ensure the compatibility.\n\nI can add 3.1 to the other profiles of you want.",
+      "parentUuid": "fad41f9d_80043a63",
+      "revId": "022e516c9dc7ad7723a60caadda72ec8ba23b0c9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

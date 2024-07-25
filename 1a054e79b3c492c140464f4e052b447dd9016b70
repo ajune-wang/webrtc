@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6e4da0a2_b164e3c6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-07-25T18:40:11Z",
+      "side": 1,
+      "message": "I\u0027ll do a separate CL for SSLAdapter... TLS for TURN/TLS, should be low risk since Chromium permutes that already?",
+      "revId": "1a054e79b3c492c140464f4e052b447dd9016b70",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

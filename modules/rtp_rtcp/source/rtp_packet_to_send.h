@@ -30,7 +30,7 @@ namespace webrtc {
 // Class to hold rtp packet with metadata for sender side.
 // The metadata is not send over the wire, but packet sender may use it to
 // create rtp header extensions or other data that is sent over the wire.
-class RtpPacketToSend : public RtpPacket {
+class RTC_EXPORT RtpPacketToSend : public RtpPacket {
  public:
   // RtpPacketToSend::Type is deprecated. Use RtpPacketMediaType directly.
   using Type = RtpPacketMediaType;

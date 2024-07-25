@@ -88,6 +88,8 @@ class RtpVideoSender : public RtpVideoSenderInterface,
       FrameEncryptorInterface* frame_encryptor,
       const CryptoOptions& crypto_options,  // move inside RtpTransport
       rtc::scoped_refptr<FrameTransformerInterface> frame_transformer,
+      // TODO - rtc::scoped_refptr
+      RtpPacketSender* packet_sender,
       const FieldTrialsView& field_trials,
       TaskQueueFactory* task_queue_factory);
   ~RtpVideoSender() override;

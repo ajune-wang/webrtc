@@ -23,7 +23,7 @@
 
 namespace webrtc {
 
-class RtpHeaderExtensionMap {
+class RTC_EXPORT RtpHeaderExtensionMap {
  public:
   static constexpr RTPExtensionType kInvalidType = kRtpExtensionNone;
   static constexpr int kInvalidId = 0;

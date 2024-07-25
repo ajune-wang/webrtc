@@ -282,6 +282,10 @@ class WebRtcVoiceSendChannel final : public MediaChannelUtil,
     send_codec_changed_callback_ = std::move(callback);
   }
 
+  void SetCustomPacketSender(uint32_t ssrc,
+                             // TODO - rtc::scoped_refptr
+                             webrtc::RtpPacketSender* packet_sender) override;
+
  private:
   bool SetOptions(const AudioOptions& options);
   bool SetSendCodecs(const std::vector<Codec>& codecs,

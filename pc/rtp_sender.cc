@@ -511,6 +511,9 @@ void RtpSenderBase::SetSsrc(uint32_t ssrc) {
   if (encoder_selector_) {
     SetEncoderSelectorOnChannel();
   }
+  if (packet_sender_) {
+    SetCustomPacketSender(packet_sender_);
+  }
 }
 
 void RtpSenderBase::Stop() {
@@ -589,6 +592,16 @@ void RtpSenderBase::SetFrameTransformer(
       media_channel_->SetEncoderToPacketizerFrameTransformer(
           ssrc_, frame_transformer_);
     });
+  }
+}
+
+// TODO - rtc::scoped_refptr
+void RtpSenderBase::SetCustomPacketSender(RtpPacketSender* packet_sender) {
+  RTC_DCHECK_RUN_ON(signaling_thread_);
+  packet_sender_ = std::move(packet_sender);
+  if (media_channel_ && ssrc_ && !stopped_) {
+    worker_thread_->BlockingCall(
+        [&] { media_channel_->SetCustomPacketSender(ssrc_, packet_sender_); });
   }
 }
 

@@ -38,6 +38,8 @@ namespace webrtc {
 
 using SetParametersCallback = absl::AnyInvocable<void(RTCError) &&>;
 
+class RtpPacketSender;
+
 class RTC_EXPORT RtpSenderInterface : public webrtc::RefCountInterface,
                                       public FrameTransformerHost {
  public:
@@ -120,6 +122,9 @@ class RTC_EXPORT RtpSenderInterface : public webrtc::RefCountInterface,
   // TODO: bugs.webrtc.org/15929 - remove when all implementations are good
   void SetFrameTransformer(rtc::scoped_refptr<FrameTransformerInterface>
                                frame_transformer) override {}
+
+  // TODO - rtc::scoped_refptr
+  virtual void SetCustomPacketSender(RtpPacketSender* packet_sender) = 0;
 
  protected:
   ~RtpSenderInterface() override = default;

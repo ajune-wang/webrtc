@@ -14,6 +14,7 @@
 #include <memory>
 #include <vector>
 
+#include "api/task_queue/task_queue_base.h"
 #include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
 #include "modules/rtp_rtcp/source/rtp_packet_to_send.h"
 
@@ -22,6 +23,19 @@ namespace webrtc {
 class RtpPacketSender {
  public:
   virtual ~RtpPacketSender() = default;
+
+  virtual void SetPacketSender(
+      webrtc::TaskQueueBase& worker_queue,
+      std::function<void(std::unique_ptr<webrtc::RtpPacketToSend>)>
+          sender_callback) {}
+  virtual void SetHeaderExtensionMap(RtpHeaderExtensionMap map) {}
+  virtual void SetSsrcMidRid(uint32_t ssrc,
+                             std::string mid,
+                             std::optional<std::string> rid) {}
+
+  virtual void RegisterNotifyBweCallback(
+      absl::AnyInvocable<void(const RtpPacketToSend& packet,
+                              const PacedPacketInfo& pacing_info)> callback) {}
 
   // Insert a set of packets into queue, for eventual transmission. Based on the
   // type of packets, they will be prioritized and scheduled relative to other

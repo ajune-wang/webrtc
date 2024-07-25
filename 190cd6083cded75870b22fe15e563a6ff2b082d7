@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0f2fd144_554ebc54",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2024-07-25T17:14:14Z",
+      "side": 1,
+      "message": "I know it\u0027s mentioned in the bug, but could you briefly describe the race condition in the CL description?",
+      "revId": "190cd6083cded75870b22fe15e563a6ff2b082d7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

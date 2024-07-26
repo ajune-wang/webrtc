@@ -105,6 +105,24 @@
       "message": "the test failure kinda proves why I thought it would cause more trouble to do this change. We are wasting too many payload types on H264 so the upper range is exhausted...\n\nYou should be able to avoid it by putting the new PT/profile into the lower range by adding them to webrtc_video_engine\ns IsCodecValidForLowerRange while keeping the 42e01f in the upper range.\n\nWhile you are at it it looks like Intel did not get the memo about H265 ;-)",
       "revId": "022e516c9dc7ad7723a60caadda72ec8ba23b0c9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "db3c051e_59cb3efa",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2024-07-26T06:56:40Z",
+      "side": 1,
+      "message": "I am already on PTO and I won\u0027t be able to do this change on time. \n\nMaybe it is easier to rollback the latest commit and don\u0027t add two pt for CBP?",
+      "parentUuid": "aa55e184_91a97f0d",
+      "revId": "022e516c9dc7ad7723a60caadda72ec8ba23b0c9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

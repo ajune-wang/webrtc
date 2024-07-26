@@ -11,14 +11,16 @@
 #ifndef API_PRIORITY_H_
 #define API_PRIORITY_H_
 
+#include <stdint.h>
+
 namespace webrtc {
 
 // GENERATED_JAVA_ENUM_PACKAGE: org.webrtc
-enum class Priority {
-  kVeryLow,
-  kLow,
-  kMedium,
-  kHigh,
+enum class Priority : uint16_t {
+  kVeryLow = 128,
+  kLow = 256,
+  kMedium = 512,
+  kHigh = 1024,
 };
 
 }  // namespace webrtc

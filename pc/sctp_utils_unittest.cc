@@ -154,7 +154,7 @@ TEST_F(SctpUtilsTest, WriteParseOpenMessageWithPriority) {
   webrtc::DataChannelInit config;
   std::string label = "abc";
   config.protocol = "y";
-  config.priority = webrtc::Priority::kVeryLow;
+  config.priority = static_cast<uint16_t>(webrtc::Priority::kVeryLow);
 
   rtc::CopyOnWriteBuffer packet;
   ASSERT_TRUE(webrtc::WriteDataChannelOpenMessage(label, config, &packet));

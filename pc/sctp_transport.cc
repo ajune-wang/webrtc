@@ -75,10 +75,10 @@ void SctpTransport::UnregisterObserver() {
   observer_ = nullptr;
 }
 
-RTCError SctpTransport::OpenChannel(int channel_id) {
+RTCError SctpTransport::OpenChannel(int channel_id, uint16_t priority) {
   RTC_DCHECK_RUN_ON(owner_thread_);
   RTC_DCHECK(internal_sctp_transport_);
-  internal_sctp_transport_->OpenStream(channel_id);
+  internal_sctp_transport_->OpenStream(channel_id, priority);
   return RTCError::OK();
 }
 

@@ -31,7 +31,10 @@ class MockDataChannelTransport : public DataChannelTransportInterface {
  public:
   ~MockDataChannelTransport() override {}
 
-  MOCK_METHOD(RTCError, OpenChannel, (int channel_id), (override));
+  MOCK_METHOD(RTCError,
+              OpenChannel,
+              (int channel_id, uint16_t priority),
+              (override));
   MOCK_METHOD(RTCError,
               SendData,
               (int channel_id,

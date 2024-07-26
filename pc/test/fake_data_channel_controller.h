@@ -60,7 +60,7 @@ class FakeDataChannelController
                   transport_available_, init, signaling_thread_,
                   network_thread_);
           if (transport_available_ && channel->sid_n().has_value()) {
-            AddSctpDataStream(*channel->sid_n());
+            AddSctpDataStream(*channel->sid_n(), channel->priority());
           }
           if (ready_to_send_) {
             network_thread_->PostTask([channel = channel] {
@@ -95,7 +95,7 @@ class FakeDataChannelController
     return webrtc::RTCError::OK();
   }
 
-  void AddSctpDataStream(webrtc::StreamId sid) override {
+  void AddSctpDataStream(webrtc::StreamId sid, uint16_t priority) override {
     RTC_DCHECK_RUN_ON(network_thread_);
     if (!transport_available_) {
       return;

@@ -113,7 +113,7 @@ class SctpTransportInternal {
   // TODO(deadbeef): Actually implement the "returns false if `sid` can't be
   // used" part. See:
   // https://bugs.chromium.org/p/chromium/issues/detail?id=619849
-  virtual bool OpenStream(int sid) = 0;
+  virtual bool OpenStream(int sid, uint16_t priority) = 0;
   // The inverse of OpenStream. Begins the closing procedure, which will
   // eventually result in SignalClosingProcedureComplete on the side that
   // initiates it, and both SignalClosingProcedureStartedRemotely and

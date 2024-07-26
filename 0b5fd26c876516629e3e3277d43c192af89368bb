@@ -16,6 +16,23 @@
       "message": "danil: saves you a cleanup cl ;-)",
       "revId": "0b5fd26c876516629e3e3277d43c192af89368bb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e0d2e1c0_f980abe7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-07-26T07:08:51Z",
+      "side": 1,
+      "message": "Rs lgtm",
+      "revId": "0b5fd26c876516629e3e3277d43c192af89368bb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

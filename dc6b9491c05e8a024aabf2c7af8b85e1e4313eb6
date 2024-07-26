@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "24f7c7ed_ba472db8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2024-07-26T10:28:37Z",
+      "side": 1,
+      "message": "Hej Per - this is a minor alignment of the Block class to other container classes. Lots of files touched but the key changes are in block.h and echo_canceller3.cc.\n(also one bug fix for a test)",
+      "revId": "dc6b9491c05e8a024aabf2c7af8b85e1e4313eb6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

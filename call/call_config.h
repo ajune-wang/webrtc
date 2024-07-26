@@ -10,6 +10,8 @@
 #ifndef CALL_CALL_CONFIG_H_
 #define CALL_CALL_CONFIG_H_
 
+#include <memory>
+
 #include "api/environment/environment.h"
 #include "api/fec_controller.h"
 #include "api/metronome/metronome.h"
@@ -32,7 +34,9 @@ struct CallConfig {
   explicit CallConfig(const Environment& env,
                       TaskQueueBase* network_task_queue = nullptr);
 
-  CallConfig(const CallConfig&);
+  // Move-only.
+  CallConfig(CallConfig&&) = default;
+  CallConfig& operator=(CallConfig&& other) = default;
 
   ~CallConfig();
 
@@ -57,7 +61,12 @@ struct CallConfig {
   NetworkStatePredictorFactoryInterface* network_state_predictor_factory =
       nullptr;
 
-  // Network controller factory to use for this call.
+  // Call-specific Network controller factory to use. If this is set, it
+  // takes precedence over network_controller_factory.
+  std::unique_ptr<NetworkControllerFactoryInterface>
+      per_call_network_controller_factory;
+  // Network controller factory to use for this call if
+  // per_call_network_controller_factory is null.
   NetworkControllerFactoryInterface* network_controller_factory = nullptr;
 
   // NetEq factory to use for this call.

@@ -1395,6 +1395,8 @@ struct RTC_EXPORT PeerConnectionDependencies final {
   // Optional field trials to use.
   // Overrides those from PeerConnectionFactoryDependencies.
   std::unique_ptr<FieldTrialsView> trials;
+
+  std::unique_ptr<NetworkControllerFactoryInterface> network_controller_factory;
 };
 
 // PeerConnectionFactoryDependencies holds all of the PeerConnectionFactory

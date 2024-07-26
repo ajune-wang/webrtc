@@ -138,7 +138,7 @@ void SuppressionFilter::ApplyGain(
               std::begin(e_output_old_[0][ch]));
 
     // Apply suppression gain to upper bands.
-    for (int b = 1; b < e->NumBands(); ++b) {
+    for (size_t b = 1; b < e->NumBands(); ++b) {
       auto e_band = e->View(b, ch);
       for (size_t i = 0; i < kFftLengthBy2; ++i) {
         e_band[i] *= high_bands_gain;
@@ -159,7 +159,7 @@ void SuppressionFilter::ApplyGain(
     }
 
     // Delay upper bands to match the delay of the filter bank.
-    for (int b = 1; b < e->NumBands(); ++b) {
+    for (size_t b = 1; b < e->NumBands(); ++b) {
       auto e_band = e->View(b, ch);
       float* e_band_old = e_output_old_[b][ch].data();
       for (size_t i = 0; i < kFftLengthBy2; ++i) {
@@ -168,7 +168,7 @@ void SuppressionFilter::ApplyGain(
     }
 
     // Clamp output of all bands.
-    for (int b = 0; b < e->NumBands(); ++b) {
+    for (size_t b = 0; b < e->NumBands(); ++b) {
       auto e_band = e->View(b, ch);
       for (size_t i = 0; i < kFftLengthBy2; ++i) {
         e_band[i] = rtc::SafeClamp(e_band[i], -32768.f, 32767.f);

@@ -39,8 +39,9 @@ namespace webrtc {
 // MonoView<> represents a view over a single contiguous, audio buffer. This
 // can be either an single channel (mono) interleaved buffer (e.g. AudioFrame),
 // or a de-interleaved channel (e.g. from AudioBuffer).
-template <typename T>
-using MonoView = rtc::ArrayView<T>;
+template <typename T,
+          std::ptrdiff_t Size = rtc::array_view_internal::kArrayViewVarSize>
+using MonoView = rtc::ArrayView<T, Size>;
 
 // InterleavedView<> is a view over an interleaved audio buffer (e.g. from
 // AudioFrame).

@@ -34,8 +34,8 @@ void GetActiveFrame(Block* x) {
       11405,   15031.4, 14541.6, 19765.5, 18346.3, 19350.2, 3157.47, 18095.8,
       1743.68, 21328.2, 19727.5, 7295.16, 10332.4, 11055.5, 20107.4, 14708.4,
       12416.2, 16434,   2454.69, 9840.8,  6867.23, 1615.75, 6059.9,  8394.19};
-  for (int band = 0; band < x->NumBands(); ++band) {
-    for (int channel = 0; channel < x->NumChannels(); ++channel) {
+  for (size_t band = 0; band < x->NumBands(); ++band) {
+    for (size_t channel = 0; channel < x->NumChannels(); ++channel) {
       RTC_DCHECK_GE(kBlockSize, frame.size());
       std::copy(frame.begin(), frame.end(), x->begin(band, channel));
     }

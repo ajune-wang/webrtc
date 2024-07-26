@@ -33,6 +33,9 @@ using ::testing::ReturnPointee;
 namespace webrtc {
 
 namespace {
+
+const uint16_t kDefaultPriority = 128;
+
 class MockDataChannelSink : public DataChannelSink {
  public:
   MOCK_METHOD(void, OnConnected, ());
@@ -121,8 +124,8 @@ TEST(DcSctpTransportTest, CloseSequence) {
 
   peer_a.sctp_transport_->Start(5000, 5000, 256 * 1024);
   peer_b.sctp_transport_->Start(5000, 5000, 256 * 1024);
-  peer_a.sctp_transport_->OpenStream(1);
-  peer_b.sctp_transport_->OpenStream(1);
+  peer_a.sctp_transport_->OpenStream(1, kDefaultPriority);
+  peer_b.sctp_transport_->OpenStream(1, kDefaultPriority);
   peer_a.sctp_transport_->ResetStream(1);
 
   // Simulate the callbacks from the stream resets
@@ -163,8 +166,8 @@ TEST(DcSctpTransportTest, CloseSequenceSimultaneous) {
 
   peer_a.sctp_transport_->Start(5000, 5000, 256 * 1024);
   peer_b.sctp_transport_->Start(5000, 5000, 256 * 1024);
-  peer_a.sctp_transport_->OpenStream(1);
-  peer_b.sctp_transport_->OpenStream(1);
+  peer_a.sctp_transport_->OpenStream(1, kDefaultPriority);
+  peer_b.sctp_transport_->OpenStream(1, kDefaultPriority);
   peer_a.sctp_transport_->ResetStream(1);
   peer_b.sctp_transport_->ResetStream(1);
 
@@ -200,7 +203,7 @@ TEST(DcSctpTransportTest, DiscardMessageClosingChannel) {
 
   EXPECT_CALL(*peer_a.socket_, Send(_, _)).Times(0);
 
-  peer_a.sctp_transport_->OpenStream(1);
+  peer_a.sctp_transport_->OpenStream(1, kDefaultPriority);
   peer_a.sctp_transport_->Start(5000, 5000, 256 * 1024);
   peer_a.sctp_transport_->ResetStream(1);
 
@@ -218,7 +221,7 @@ TEST(DcSctpTransportTest, SendDataOpenChannel) {
   EXPECT_CALL(*peer_a.socket_, Send(_, _)).Times(1);
   EXPECT_CALL(*peer_a.socket_, options()).WillOnce(ReturnPointee(&options));
 
-  peer_a.sctp_transport_->OpenStream(1);
+  peer_a.sctp_transport_->OpenStream(1, kDefaultPriority);
   peer_a.sctp_transport_->Start(5000, 5000, 256 * 1024);
 
   SendDataParams params;
@@ -234,7 +237,7 @@ TEST(DcSctpTransportTest, DeliversMessage) {
               OnDataReceived(1, webrtc::DataMessageType::kBinary, _))
       .Times(1);
 
-  peer_a.sctp_transport_->OpenStream(1);
+  peer_a.sctp_transport_->OpenStream(1, kDefaultPriority);
   peer_a.sctp_transport_->Start(5000, 5000, 256 * 1024);
 
   static_cast<dcsctp::DcSctpSocketCallbacks*>(peer_a.sctp_transport_.get())
@@ -248,7 +251,7 @@ TEST(DcSctpTransportTest, DropMessageWithUnknownPpid) {
 
   EXPECT_CALL(peer_a.sink_, OnDataReceived(_, _, _)).Times(0);
 
-  peer_a.sctp_transport_->OpenStream(1);
+  peer_a.sctp_transport_->OpenStream(1, kDefaultPriority);
   peer_a.sctp_transport_->Start(5000, 5000, 256 * 1024);
 
   static_cast<dcsctp::DcSctpSocketCallbacks*>(peer_a.sctp_transport_.get())

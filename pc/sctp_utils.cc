@@ -88,17 +88,7 @@ bool ParseDataChannelOpenMessage(const rtc::CopyOnWriteBuffer& payload,
         << "Could not read OPEN message reliabilility prioirty.";
     return false;
   }
-  // Parse priority as defined in
-  // https://w3c.github.io/webrtc-priority/#rtcdatachannel-processing-steps
-  if (priority <= DCO_PRIORITY_VERY_LOW) {
-    config->priority = Priority::kVeryLow;
-  } else if (priority <= DCO_PRIORITY_LOW) {
-    config->priority = Priority::kLow;
-  } else if (priority <= DCO_PRIORITY_MEDIUM) {
-    config->priority = Priority::kMedium;
-  } else {
-    config->priority = Priority::kHigh;
-  }
+  config->priority = priority;
 
   uint32_t reliability_param;
   if (!buffer.ReadUInt32(&reliability_param)) {
@@ -172,7 +162,7 @@ bool WriteDataChannelOpenMessage(const std::string& label,
 
 bool WriteDataChannelOpenMessage(const std::string& label,
                                  const std::string& protocol,
-                                 absl::optional<Priority> opt_priority,
+                                 absl::optional<uint16_t> opt_priority,
                                  bool ordered,
                                  absl::optional<int> max_retransmits,
                                  absl::optional<int> max_retransmit_time,
@@ -181,25 +171,10 @@ bool WriteDataChannelOpenMessage(const std::string& label,
   // http://tools.ietf.org/html/draft-ietf-rtcweb-data-protocol-09#section-5.1
   uint8_t channel_type = 0;
   uint32_t reliability_param = 0;
-  uint16_t priority = 0;
   // Set priority according to
   // https://tools.ietf.org/html/draft-ietf-rtcweb-data-channel-12#section-6.4
-  if (opt_priority) {
-    switch (*opt_priority) {
-      case Priority::kVeryLow:
-        priority = DCO_PRIORITY_VERY_LOW;
-        break;
-      case Priority::kLow:
-        priority = DCO_PRIORITY_LOW;
-        break;
-      case Priority::kMedium:
-        priority = DCO_PRIORITY_MEDIUM;
-        break;
-      case Priority::kHigh:
-        priority = DCO_PRIORITY_HIGH;
-        break;
-    }
-  }
+  uint16_t priority =
+      opt_priority.value_or(static_cast<uint16_t>(Priority::kLow));
   if (ordered) {
     if (max_retransmits) {
       channel_type = DCOMCT_ORDERED_PARTIAL_RTXS;

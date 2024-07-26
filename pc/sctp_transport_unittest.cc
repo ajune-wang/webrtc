@@ -47,7 +47,7 @@ class FakeCricketSctpTransport : public cricket::SctpTransportInternal {
   bool Start(int local_port, int remote_port, int max_message_size) override {
     return true;
   }
-  bool OpenStream(int sid) override { return true; }
+  bool OpenStream(int sid, uint16_t priority) override { return true; }
   bool ResetStream(int sid) override { return true; }
   RTCError SendData(int sid,
                     const SendDataParams& params,

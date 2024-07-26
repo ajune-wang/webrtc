@@ -57,7 +57,7 @@ class DcSctpTransport : public cricket::SctpTransportInternal,
   bool Start(int local_sctp_port,
              int remote_sctp_port,
              int max_message_size) override;
-  bool OpenStream(int sid) override;
+  bool OpenStream(int sid, uint16_t priority) override;
   bool ResetStream(int sid) override;
   RTCError SendData(int sid,
                     const SendDataParams& params,

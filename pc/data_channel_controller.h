@@ -50,7 +50,7 @@ class DataChannelController : public SctpDataChannelControllerInterface,
   RTCError SendData(StreamId sid,
                     const SendDataParams& params,
                     const rtc::CopyOnWriteBuffer& payload) override;
-  void AddSctpDataStream(StreamId sid) override;
+  void AddSctpDataStream(StreamId sid, uint16_t priority) override;
   void RemoveSctpDataStream(StreamId sid) override;
   void OnChannelStateChanged(SctpDataChannel* channel,
                              DataChannelInterface::DataState state) override;

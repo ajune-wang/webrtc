@@ -225,13 +225,16 @@ bool DcSctpTransport::Start(int local_sctp_port,
   return true;
 }
 
-bool DcSctpTransport::OpenStream(int sid) {
+bool DcSctpTransport::OpenStream(int sid, uint16_t priority) {
   RTC_DCHECK_RUN_ON(network_thread_);
   RTC_DLOG(LS_INFO) << debug_name_ << "->OpenStream(" << sid << ").";
 
   StreamState stream_state;
   stream_states_.insert_or_assign(dcsctp::StreamID(static_cast<uint16_t>(sid)),
                                   stream_state);
+  socket_->SetStreamPriority(dcsctp::StreamID(sid),
+                             dcsctp::StreamPriority(priority));
+
   return true;
 }
 

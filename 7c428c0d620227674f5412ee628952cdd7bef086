@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c8fd0489_e7c4d8d7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 17824
+      },
+      "writtenOn": "2024-07-26T19:51:53Z",
+      "side": 1,
+      "message": "example output:\n```\nDiff found after running \"yapf -i\" on modified .pyl files:\n\n--- infra/specs/test_suites.pyl\n+++ infra/specs/test_suites.pyl\n@@ -17,13 +17,7 @@\n         ]\n       },\n       \u0027android_sdk_junit_tests\u0027: {}\n-      \n-    },\n-\n-\n-\n-\n-\n+    },\n     \u0027android_tests\u0027: {\n       \u0027AppRTCMobile_test_apk\u0027: {},\n       \u0027android_instrumentation_test_apk\u0027: {},\n\nPlease commit or discard the new changes.\n```",
+      "revId": "7c428c0d620227674f5412ee628952cdd7bef086",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

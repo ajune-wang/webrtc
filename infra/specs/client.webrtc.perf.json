@@ -376,7 +376,7 @@
           "dimensions": {
             "cpu": "arm64-64-Apple_M1",
             "gce": "0",
-            "os": "Mac-12",
+            "os": "Mac-14",
             "pool": "WebRTC-perf"
           },
           "expiration": 10800,
@@ -410,7 +410,7 @@
           "dimensions": {
             "cpu": "arm64-64-Apple_M1",
             "gce": "0",
-            "os": "Mac-12",
+            "os": "Mac-14",
             "pool": "WebRTC-perf"
           },
           "expiration": 10800,

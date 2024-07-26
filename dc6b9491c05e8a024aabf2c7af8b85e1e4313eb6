@@ -18,6 +18,92 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6bc1d3d0_c1f46619",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2024-07-26T13:20:42Z",
+      "side": 1,
+      "message": "Thanks for this CL!\nI have some initial comments.",
+      "revId": "dc6b9491c05e8a024aabf2c7af8b85e1e4313eb6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2324e6c2_8984c86f",
+        "filename": "modules/audio_processing/aec3/aec_state.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2024-07-26T13:20:42Z",
+      "side": 1,
+      "message": "Here, and elsewhere\n\nI\u0027m not sure how true this is in general, but one reason why we use ints instead of size_t for the loop variables",
+      "range": {
+        "startLine": 212,
+        "startChar": 7,
+        "endLine": 212,
+        "endChar": 13
+      },
+      "revId": "dc6b9491c05e8a024aabf2c7af8b85e1e4313eb6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d24a5117_265fdc2b",
+        "filename": "modules/audio_processing/aec3/block.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2024-07-26T13:20:42Z",
+      "side": 1,
+      "message": "Since everything in this part of the codebase is mono, I\u0027m not convinced whether it is the right thing to do to convert all buffers that contain audio into MonoView instead of using the name ArrayView.\n\nThis will for instance cause problems when passing those to signal processing functions that take an ArrayView as input (which sometimes can be fine as generic signal processing functions do not always operate on audio). One example of that is this function\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/modules/audio_processing/aec3/aec3_fft.h;drc\u003d604fd2f1ab24a229b8b75fae6ac4fac433156acf;l\u003d51",
+      "range": {
+        "startLine": 62,
+        "startChar": 2,
+        "endLine": 62,
+        "endChar": 10
+      },
+      "revId": "dc6b9491c05e8a024aabf2c7af8b85e1e4313eb6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c28eaa6c_8d32c98e",
+        "filename": "modules/audio_processing/aec3/block.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2024-07-26T13:20:42Z",
+      "side": 1,
+      "message": "The reasons why these were set to int instead of size_t were\n-To avoid issues with unsigned variables\n-To improve speed (depends a bit but some studies shows that looping over int instead of size_t is faster)\n-Since it is not needed. Ints are sufficient to cover all the lengths involved.\n\nI think this is ok since it also follows the style guide suggestion in https://google.github.io/styleguide/cppguide.html#Integer_Types: E.g., Do not use an unsigned type merely to assert that a variable is non-negative.",
+      "range": {
+        "startLine": 82,
+        "startChar": 2,
+        "endLine": 83,
+        "endChar": 23
+      },
+      "revId": "dc6b9491c05e8a024aabf2c7af8b85e1e4313eb6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dd28f104_09098685",
@@ -31,6 +117,47 @@
       "writtenOn": "2024-07-26T10:29:31Z",
       "side": 1,
       "message": "oh and I also added these two tests. Is this an OK place to have them?",
+      "revId": "dc6b9491c05e8a024aabf2c7af8b85e1e4313eb6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fe9d22b0_0575588d",
+        "filename": "modules/audio_processing/aec3/block_processor_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2024-07-26T13:20:42Z",
+      "side": 1,
+      "message": "lgtm",
+      "parentUuid": "dd28f104_09098685",
+      "revId": "dc6b9491c05e8a024aabf2c7af8b85e1e4313eb6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b6e5c74e_e8af5ab5",
+        "filename": "modules/audio_processing/aec3/echo_canceller3.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 812,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2024-07-26T13:20:42Z",
+      "side": 1,
+      "message": "Since there are efforts to minimize the reallocations in this code, I think the former construct would be preferrable.",
+      "range": {
+        "startLine": 811,
+        "startChar": 3,
+        "endLine": 812,
+        "endChar": 69
+      },
       "revId": "dc6b9491c05e8a024aabf2c7af8b85e1e4313eb6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

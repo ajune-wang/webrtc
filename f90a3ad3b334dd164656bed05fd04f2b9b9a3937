@@ -3,6 +3,52 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7be2ae39_92c0fd0a",
+        "filename": "modules/audio_processing/aec3/block.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2024-07-26T13:20:42Z",
+      "side": 0,
+      "message": "From what I can see, the need for this is now replaced by moving a newly created object, is that correct?\n\nFrom what I can tell, the effects of \nSetNumChannels:\n -resize of an existing vector (which might be already of the correct size so thereby not causing heap-allocations)\n -filling of that vector to zeros\n\nis now replaced with\n-Creation of a new Block object\n-In that object creation, there will always be a heap-allocation of the vector member.\n-a deallocation of the vector in the Block before stored in render_block_\n\n \nThat means that the change from using SetNumChannels to using a move would introduce heap allocations during runtime in the realtime code which we know can/will cause audio glitches.\nEven though the impact is not that bad in its current usage, there is a long-term effort to allow reallocations without doing heap-allocations so it is a bit of a step in the wrong direction for that.",
+      "range": {
+        "startLine": 38,
+        "startChar": 1,
+        "endLine": 43,
+        "endChar": 3
+      },
+      "revId": "f90a3ad3b334dd164656bed05fd04f2b9b9a3937",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1e1e8b23_56dac76b",
+        "filename": "modules/audio_processing/aec3/block.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2024-07-26T13:20:42Z",
+      "side": 0,
+      "message": "Was this not needed anymore?",
+      "range": {
+        "startLine": 71,
+        "startChar": 2,
+        "endLine": 76,
+        "endChar": 3
+      },
+      "revId": "f90a3ad3b334dd164656bed05fd04f2b9b9a3937",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2c069a04_9dc33923",
         "filename": "modules/audio_processing/aec3/refined_filter_update_gain_unittest.cc",
         "patchSetId": 3

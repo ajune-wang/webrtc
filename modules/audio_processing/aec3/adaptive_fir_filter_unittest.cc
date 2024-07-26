@@ -200,8 +200,8 @@ TEST_P(AdaptiveFirFilterOneTwoFourEightRenderChannels,
       }
 
       for (size_t k = 0; k < 500; ++k) {
-        for (int band = 0; band < x.NumBands(); ++band) {
-          for (int ch = 0; ch < x.NumChannels(); ++ch) {
+        for (size_t band = 0; band < x.NumBands(); ++band) {
+          for (size_t ch = 0; ch < x.NumChannels(); ++ch) {
             RandomizeSampleVector(&random_generator, x.View(band, ch));
           }
         }
@@ -272,8 +272,8 @@ TEST_P(AdaptiveFirFilterOneTwoFourEightRenderChannels,
       }
 
       for (size_t k = 0; k < 500; ++k) {
-        for (int band = 0; band < x.NumBands(); ++band) {
-          for (int ch = 0; ch < x.NumChannels(); ++ch) {
+        for (size_t band = 0; band < x.NumBands(); ++band) {
+          for (size_t ch = 0; ch < x.NumChannels(); ++ch) {
             RandomizeSampleVector(&random_generator, x.View(band, ch));
           }
         }

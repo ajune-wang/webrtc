@@ -141,7 +141,7 @@ float SuppressionGain::UpperBandsGain(
     low_band_energy = std::max(low_band_energy, channel_energy);
   }
   float high_band_energy = 0.f;
-  for (int k = 1; k < render.NumBands(); ++k) {
+  for (size_t k = 1; k < render.NumBands(); ++k) {
     for (int ch = 0; ch < num_render_channels; ++ch) {
       const float energy = std::accumulate(
           render.begin(k, ch), render.end(k, ch), 0.f, sum_of_squares);
@@ -419,7 +419,7 @@ void SuppressionGain::SetInitialState(bool state) {
 bool SuppressionGain::LowNoiseRenderDetector::Detect(const Block& render) {
   float x2_sum = 0.f;
   float x2_max = 0.f;
-  for (int ch = 0; ch < render.NumChannels(); ++ch) {
+  for (size_t ch = 0; ch < render.NumChannels(); ++ch) {
     for (float x_k : render.View(/*band=*/0, ch)) {
       const float x2 = x_k * x_k;
       x2_sum += x2;

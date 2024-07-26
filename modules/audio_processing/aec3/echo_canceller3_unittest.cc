@@ -151,9 +151,8 @@ class RenderTransportVerificationProcessor : public BlockProcessor {
                       bool saturated_microphone_signal,
                       Block* linear_output,
                       Block* capture_block) override {
-    Block render_block = received_render_blocks_.front();
+    *capture_block = std::move(received_render_blocks_.front());
     received_render_blocks_.pop_front();
-    capture_block->Swap(render_block);
   }
 
   void BufferRender(const Block& block) override {

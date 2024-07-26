@@ -78,8 +78,8 @@ void RunFilterUpdateTest(int num_blocks_to_process,
                   k) != blocks_with_saturation.end();
 
     // Create the render signal.
-    for (int band = 0; band < x.NumBands(); ++band) {
-      for (int channel = 0; channel < x.NumChannels(); ++channel) {
+    for (size_t band = 0; band < x.NumBands(); ++band) {
+      for (size_t channel = 0; channel < x.NumChannels(); ++channel) {
         RandomizeSampleVector(&random_generator, x.View(band, channel));
       }
     }

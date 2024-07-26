@@ -222,7 +222,31 @@ TEST(BlockProcessor, TestLongerCall) {
   RunBasicSetupAndApiCallTest(16000, 20 * kNumBlocksPerSecond);
 }
 
+TEST(BlockProcessor, BlockMoveBehavesAsSwap) {
+  // Construct a regular Block object.
+  Block block(NumBandsForRate(48000), /*num_channels=*/1);
+  auto view = block.View(0, 0);
+  // Move the contents from `block` to `block2`.
+  Block block2(std::move(block));
+  auto view2 = block2.View(0, 0);
+  // Make sure that `block2.View()` returns the same data as the original
+  // block held.
+  EXPECT_EQ(view.begin(), view2.begin());
+  EXPECT_EQ(view.size(), view2.size());
+}
+
 #if RTC_DCHECK_IS_ON && GTEST_HAS_DEATH_TEST && !defined(WEBRTC_ANDROID)
+
+TEST(BlockProcessor, BlockCrashAfterMove) {
+  // Construct a regular Block object.
+  Block block(NumBandsForRate(48000), /*num_channels=*/1);
+  block.View(0, 0);  // Fine since `block` is valid.
+  // Move the contents from `block` to `block2`.
+  Block block2(std::move(block));
+  block2.View(0, 0);  // Fine since `block2` is now valid.
+  EXPECT_DEATH(block.View(0, 0), "out of bounds");
+}
+
 // TODO(gustaf): Re-enable the test once the issue with memory leaks during
 // DEATH tests on test bots has been fixed.
 TEST(BlockProcessorDeathTest, DISABLED_VerifyRenderBlockSizeCheck) {

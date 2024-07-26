@@ -34,7 +34,7 @@ def CheckPatchFormatted(input_api, output_api):
           output_api.PresubmitError('Error calling "' + shlex.join(cmd) + '"')
       )
 
-    new_content = f.NewContents()
+    new_content = f.NewContents(flush_cache=True)
     if new_content != prev_content:
       path = f.LocalPath()
       diff = difflib.unified_diff(prev_content, new_content, path, path)

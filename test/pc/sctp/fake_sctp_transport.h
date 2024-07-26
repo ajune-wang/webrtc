@@ -31,7 +31,7 @@ class FakeSctpTransport : public cricket::SctpTransportInternal {
     max_message_size_ = max_message_size;
     return true;
   }
-  bool OpenStream(int sid) override { return true; }
+  bool OpenStream(int sid, uint16_t priority) override { return true; }
   bool ResetStream(int sid) override { return true; }
   webrtc::RTCError SendData(int sid,
                             const webrtc::SendDataParams& params,

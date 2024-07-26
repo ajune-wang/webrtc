@@ -16,6 +16,24 @@
       "message": "I know it\u0027s mentioned in the bug, but could you briefly describe the race condition in the CL description?",
       "revId": "190cd6083cded75870b22fe15e563a6ff2b082d7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f3acba32_b2e509a5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3540903
+      },
+      "writtenOn": "2024-07-26T07:53:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0f2fd144_554ebc54",
+      "revId": "190cd6083cded75870b22fe15e563a6ff2b082d7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

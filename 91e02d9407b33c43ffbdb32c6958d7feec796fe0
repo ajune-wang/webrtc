@@ -18,6 +18,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "df0da998_0b10294c",
+        "filename": "call/call_config.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-07-26T11:11:11Z",
+      "side": 1,
+      "message": "while at it, may be also explicitly declare move assignment operator.\nhttps://google.github.io/styleguide/cppguide.html#Copy_Constructors\n\n(explicitly deleting copy constructor and copy assignment operator is optional:\n“Explicitly declaring or deleting all four copy/move operations is permitted, but not required.”)",
+      "revId": "91e02d9407b33c43ffbdb32c6958d7feec796fe0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9850953a_f0cd6830",

@@ -123,6 +123,24 @@
       "parentUuid": "aa55e184_91a97f0d",
       "revId": "022e516c9dc7ad7723a60caadda72ec8ba23b0c9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ebc8c5a8_1901d0ae",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2024-07-26T08:08:51Z",
+      "side": 1,
+      "message": "I\u0027ve reopened https://g-issues.webrtc.org/issues/347724928. Planning to revert https://webrtc-review.googlesource.com/c/src/+/355001 and merge the revert to M128.",
+      "parentUuid": "db3c051e_59cb3efa",
+      "revId": "022e516c9dc7ad7723a60caadda72ec8ba23b0c9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

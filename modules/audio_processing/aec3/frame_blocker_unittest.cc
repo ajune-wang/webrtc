@@ -87,8 +87,8 @@ bool VerifySubFrame(
 }
 
 bool VerifyBlock(size_t block_counter, int offset, const Block& block) {
-  for (int band = 0; band < block.NumBands(); ++band) {
-    for (int channel = 0; channel < block.NumChannels(); ++channel) {
+  for (size_t band = 0; band < block.NumBands(); ++band) {
+    for (size_t channel = 0; channel < block.NumChannels(); ++channel) {
       for (size_t sample = 0; sample < kBlockSize; ++sample) {
         auto it = block.begin(band, channel) + sample;
         const float reference_value = ComputeSampleValue(

@@ -129,14 +129,14 @@ void RunFilterUpdateTest(int num_blocks_to_process,
 
     // Create the render signal.
     if (use_silent_render_in_second_half && k > num_blocks_to_process / 2) {
-      for (int band = 0; band < x.NumBands(); ++band) {
-        for (int channel = 0; channel < x.NumChannels(); ++channel) {
+      for (size_t band = 0; band < x.NumBands(); ++band) {
+        for (size_t channel = 0; channel < x.NumChannels(); ++channel) {
           std::fill(x.begin(band, channel), x.end(band, channel), 0.f);
         }
       }
     } else {
-      for (int band = 0; band < x.NumChannels(); ++band) {
-        for (int channel = 0; channel < x.NumChannels(); ++channel) {
+      for (size_t band = 0; band < x.NumBands(); ++band) {
+        for (size_t channel = 0; channel < x.NumChannels(); ++channel) {
           RandomizeSampleVector(&random_generator, x.View(band, channel));
         }
       }

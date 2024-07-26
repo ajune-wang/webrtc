@@ -263,7 +263,7 @@ bool FilterAnalyzer::ConsistentFilterDetector::Detect(
 
   if (significant_peak_) {
     bool active_render_block = false;
-    for (int ch = 0; ch < x_block.NumChannels(); ++ch) {
+    for (size_t ch = 0; ch < x_block.NumChannels(); ++ch) {
       rtc::ArrayView<const float, kBlockSize> x_channel =
           x_block.View(/*band=*/0, ch);
       const float x_energy = std::inner_product(

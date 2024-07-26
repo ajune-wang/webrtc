@@ -30,7 +30,7 @@ void ProduceSinusoid(int sample_rate_hz,
   // Produce a sinusoid of the specified frequency.
   for (size_t k = *sample_counter, j = 0; k < (*sample_counter + kBlockSize);
        ++k, ++j) {
-    for (int channel = 0; channel < x->NumChannels(); ++channel) {
+    for (size_t channel = 0; channel < x->NumChannels(); ++channel) {
       x->View(/*band=*/0, channel)[j] =
           32767.f *
           std::sin(2.f * kPi * sinusoidal_frequency_hz * k / sample_rate_hz);
@@ -38,8 +38,8 @@ void ProduceSinusoid(int sample_rate_hz,
   }
   *sample_counter = *sample_counter + kBlockSize;
 
-  for (int band = 1; band < x->NumBands(); ++band) {
-    for (int channel = 0; channel < x->NumChannels(); ++channel) {
+  for (size_t band = 1; band < x->NumBands(); ++band) {
+    for (size_t channel = 0; channel < x->NumChannels(); ++channel) {
       std::fill(x->begin(band, channel), x->end(band, channel), 0.f);
     }
   }
@@ -95,8 +95,8 @@ TEST(SuppressionFilter, ComfortNoiseInUnityGain) {
 
   filter.ApplyGain(cn, cn_high_bands, gain, 1.f, E, &e);
 
-  for (int band = 0; band < e.NumBands(); ++band) {
-    for (int channel = 0; channel < e.NumChannels(); ++channel) {
+  for (size_t band = 0; band < e.NumBands(); ++band) {
+    for (size_t channel = 0; channel < e.NumChannels(); ++channel) {
       const auto e_view = e.View(band, channel);
       const auto e_ref_view = e_ref.View(band, channel);
       for (size_t sample = 0; sample < e_view.size(); ++sample) {

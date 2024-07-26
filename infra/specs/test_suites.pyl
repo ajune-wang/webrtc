@@ -16,7 +16,13 @@
           '--shards=1',
         ]
       },
+
+
+
+      
       'android_sdk_junit_tests': {},
+
+
     },
     'android_tests': {
       'AppRTCMobile_test_apk': {},

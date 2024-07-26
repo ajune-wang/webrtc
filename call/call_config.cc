@@ -20,8 +20,6 @@ CallConfig::CallConfig(const Environment& env,
     : env(env),
       network_task_queue_(network_task_queue) {}
 
-CallConfig::CallConfig(const CallConfig& config) = default;
-
 RtpTransportConfig CallConfig::ExtractTransportConfig() const {
   RtpTransportConfig transport_config = {.env = env};
   transport_config.bitrate_config = bitrate_config;

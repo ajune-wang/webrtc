@@ -32,7 +32,8 @@ struct CallConfig {
   explicit CallConfig(const Environment& env,
                       TaskQueueBase* network_task_queue = nullptr);
 
-  CallConfig(const CallConfig&);
+  CallConfig(const CallConfig&) = delete;
+  CallConfig(CallConfig&&) = default;
 
   ~CallConfig();
 
@@ -59,6 +60,9 @@ struct CallConfig {
 
   // Network controller factory to use for this call.
   NetworkControllerFactoryInterface* network_controller_factory = nullptr;
+
+  std::unique_ptr<NetworkControllerFactoryInterface>
+      per_call_network_controller_factory = nullptr;
 
   // NetEq factory to use for this call.
   NetEqFactory* neteq_factory = nullptr;

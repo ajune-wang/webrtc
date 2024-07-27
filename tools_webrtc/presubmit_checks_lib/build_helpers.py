@@ -19,6 +19,10 @@ import sys
 import tempfile
 
 
+<<<<<<< PATCH SET (227c39 Replace FindSrcDirPath)
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+SRC_DIR = os.path.realpath(os.path.join(SCRIPT_DIR, os.pardir, os.pardir))
+=======
 def find_src_dir_path():
     """Returns the abs path to the src/ dir of the project."""
     src_dir = os.path.dirname(os.path.abspath(__file__))
@@ -28,6 +32,7 @@ def find_src_dir_path():
 
 
 SRC_DIR = find_src_dir_path()
+>>>>>>> BASE      (66be1f Make update_version.py and build_helpers(_test).py pylint co)
 sys.path.append(os.path.join(SRC_DIR, 'build'))
 import find_depot_tools
 

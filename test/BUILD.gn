@@ -1378,6 +1378,7 @@ rtc_library("video_codec_tester") {
     "../api/video_codecs:video_codecs_api",
     "../media:media_constants",
     "../modules/video_coding:video_codec_interface",
+    "../modules/video_coding:video_coding",
     "../modules/video_coding:video_coding_utility",
     "../modules/video_coding:webrtc_h264",
     "../modules/video_coding:webrtc_vp9_helpers",

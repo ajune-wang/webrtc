@@ -203,6 +203,9 @@ bool Conductor::CreatePeerConnection() {
   config.sdp_semantics = webrtc::SdpSemantics::kUnifiedPlan;
   webrtc::PeerConnectionInterface::IceServer server;
   server.uri = GetPeerConnectionString();
+  server.uri = "turns:global.turn.twilio.com:3478?transport=tcp";
+  server.username = "boo";
+  server.password = "boo";
   config.servers.push_back(server);
 
   webrtc::PeerConnectionDependencies pc_dependencies(this);

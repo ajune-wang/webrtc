@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2b4dc075_2a81db0d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-07-27T16:35:32Z",
+      "side": 1,
+      "message": "PS1 shows the hacky way I tested this with manual observation in Wireshark.\nI was quite surprised we do not have a basic C++ variant of the trickle-ice sample...",
+      "revId": "dbd2d1a3557f846fa9bb6f4c8a27ee08c6dbe145",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

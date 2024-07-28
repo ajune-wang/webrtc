@@ -50,11 +50,10 @@ class VideoCodecTester {
 
   struct EncodingSettings {
     SdpVideoFormat sdp_video_format = SdpVideoFormat::VP8();
-    ScalabilityMode scalability_mode = ScalabilityMode::kL1T1;
+    ScalabilityMode scalability_mode;
     VideoCodecMode content_type = VideoCodecMode::kRealtimeVideo;
     bool frame_drop = true;
     bool keyframe = false;
-
     struct LayerSettings {
       Resolution resolution;
       Frequency framerate;
@@ -194,15 +193,16 @@ class VideoCodecTester {
   // and per-temporal layer. If layer bitrates are not explicitly specified,
   // then the codec-specific rate allocators used to distribute the total
   // bitrate across spatial or/and temporal layers.
-  static EncodingSettings CreateEncodingSettings(const Environment& env,
-                                                 std::string codec_type,
-                                                 std::string scalability_name,
-                                                 int width,
-                                                 int height,
-                                                 std::vector<DataRate> bitrate,
-                                                 Frequency framerate,
-                                                 bool screencast = false,
-                                                 bool frame_drop = true);
+  static EncodingSettings CreateEncodingSettings(
+      const Environment& env,
+      std::string codec_name,
+      std::vector<ScalabilityMode> scalability_mode,
+      std::vector<Resolution> resolution,
+      std::vector<DataRate>
+          bitrate,  // non culumative. then std::accumulate() can be used.
+      std::vector<Frequency> framerate,
+      bool screencast,
+      bool frame_drop);
 
   // A helper function that creates a map of RTP timestamps to
   // `EncodingSettings` for the given number of frames.

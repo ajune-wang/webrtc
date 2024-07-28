@@ -701,6 +701,10 @@ class SimpleVideoStreamEncoderFactory {
                 (EncodedImage & encoded_image,
                  rtc::scoped_refptr<EncodedImageBuffer> buffer),
                 (override));
+    MOCK_METHOD(VideoEncoder::EncoderInfo,
+                GetEncoderInfo,
+                (),
+                (const, override));
   };
 
   SimpleVideoStreamEncoderFactory() {
@@ -2662,9 +2666,11 @@ TEST_P(ResolutionAlignmentTest, SinkWantsAlignmentApplied) {
   config.video_stream_factory = nullptr;
   video_stream_encoder_->ConfigureEncoder(std::move(config), kMaxPayloadLength);
 
+  // We can get up to 3 streams of 1280x720 resolution each in this test. Make
+  // available bitrate large enough to get all streams encoded.
+  const DataRate kAvailableBitrate = 3 * kSimulcastTargetBitrate;
   video_stream_encoder_->OnBitrateUpdatedAndWaitForManagedResources(
-      kSimulcastTargetBitrate, kSimulcastTargetBitrate, kSimulcastTargetBitrate,
-      0, 0, 0);
+      kAvailableBitrate, kAvailableBitrate, kAvailableBitrate, 0, 0, 0);
   // Wait for all layers before triggering event.
   sink_.SetNumExpectedLayers(num_streams);
 
@@ -9474,6 +9480,12 @@ TEST(VideoStreamEncoderFrameCadenceTest, UpdatesQualityConvergence) {
   TaskQueueBase* encoder_queue = nullptr;
   auto video_stream_encoder =
       factory.Create(std::move(adapter), &encoder_queue);
+
+  // Set minimum QP.
+  VideoEncoder::EncoderInfo info;
+  info.min_qp = kVp8SteadyStateQpThreshold;
+  EXPECT_CALL(factory.GetMockFakeEncoder(), GetEncoderInfo)
+      .WillRepeatedly(Return(info));
 
   // Configure 2 simulcast layers and setup 1 MBit/s to unpause the encoder.
   VideoEncoderConfig video_encoder_config;

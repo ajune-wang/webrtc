@@ -16,6 +16,23 @@
       "message": "need a second RS",
       "revId": "1d40f3949d3b0469ba558a09034ad07f2fa1f02e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3e675ecb_5a0b7fe8",
+        "filename": "rtc_base/ssl_adapter.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-07-29T08:08:33Z",
+      "side": 1,
+      "message": "https://google.github.io/styleguide/cppguide.html#Default_Arguments\nDefault arguments are banned on virtual functions",
+      "revId": "1d40f3949d3b0469ba558a09034ad07f2fa1f02e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

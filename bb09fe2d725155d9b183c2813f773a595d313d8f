@@ -16,6 +16,52 @@
       "message": "Thanks for the good suggestions.",
       "revId": "bb09fe2d725155d9b183c2813f773a595d313d8f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dc89c88c_99f278ae",
+        "filename": "call/bitrate_allocator.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2024-07-29T14:40:56Z",
+      "side": 1,
+      "message": "Is there a need for this API or can it be internal to AudioSendStream?\nFor example, the bitrate allocator could trigger if GetUsedRate changes more than a certain % threshold.\n\nRight now, it is unclear what this function is supposed to do. Should it return true if there was a change between silence and speech, and then reset itself when called?",
+      "range": {
+        "startLine": 42,
+        "startChar": 31,
+        "endLine": 42,
+        "endChar": 62
+      },
+      "revId": "bb09fe2d725155d9b183c2813f773a595d313d8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "49038935_13d98cc5",
+        "filename": "call/bitrate_allocator.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2024-07-29T14:40:56Z",
+      "side": 1,
+      "message": "remove trailing underscore in struct",
+      "range": {
+        "startLine": 73,
+        "startChar": 53,
+        "endLine": 73,
+        "endChar": 54
+      },
+      "revId": "bb09fe2d725155d9b183c2813f773a595d313d8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

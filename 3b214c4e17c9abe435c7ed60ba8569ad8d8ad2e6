@@ -33,6 +33,24 @@
       "message": "can you add this header to google3/third_party/webrtc/files/stable/webrtc/api/test/compile_all_headers.cc ?",
       "revId": "3b214c4e17c9abe435c7ed60ba8569ad8d8ad2e6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2dfd098c_9d7dabc7",
+        "filename": "api/BUILD.gn",
+        "patchSetId": 5
+      },
+      "lineNbr": 564,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2024-07-29T09:59:55Z",
+      "side": 1,
+      "message": "That file is meant to check only api/test files, it\u0027d be odd to add it there.\nThere is a chained change that will use it just fine in WebRTC, though it relies on fixing downstream projects first to be merged.",
+      "parentUuid": "b6f80167_3160ecc4",
+      "revId": "3b214c4e17c9abe435c7ed60ba8569ad8d8ad2e6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

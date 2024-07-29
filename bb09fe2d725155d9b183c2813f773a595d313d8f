@@ -41,6 +41,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3ae19d14_ba57e14a",
+        "filename": "call/bitrate_allocator.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 19269
+      },
+      "writtenOn": "2024-07-29T20:41:59Z",
+      "side": 1,
+      "message": "Yes, the intention is that this call would report a silence to speech transition has occurred and resets itself when called.\n\nThe original thought is that GetUsedRate() does not have access to information such as actual silence state (e.g., Opus actually coded a frame as DTX). However, given we may borrow audio bandwidth whenever there is under-use, regardless of whether that is actually caused by DTX, it seems appropriate that we detect a rise in audio bitrate usage, rather than detecting silence to speech transition. In this case, having GetUsedRate() and an additional field in AllocatableTrack for last_used_bitrate_bps suffices. Changing code to reflect this.",
+      "parentUuid": "dc89c88c_99f278ae",
+      "range": {
+        "startLine": 42,
+        "startChar": 31,
+        "endLine": 42,
+        "endChar": 62
+      },
+      "revId": "bb09fe2d725155d9b183c2813f773a595d313d8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "49038935_13d98cc5",
@@ -54,6 +78,30 @@
       "writtenOn": "2024-07-29T14:40:56Z",
       "side": 1,
       "message": "remove trailing underscore in struct",
+      "range": {
+        "startLine": 73,
+        "startChar": 53,
+        "endLine": 73,
+        "endChar": 54
+      },
+      "revId": "bb09fe2d725155d9b183c2813f773a595d313d8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cd69a71b_a4a7ecf4",
+        "filename": "call/bitrate_allocator.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 19269
+      },
+      "writtenOn": "2024-07-29T20:41:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "49038935_13d98cc5",
       "range": {
         "startLine": 73,
         "startChar": 53,

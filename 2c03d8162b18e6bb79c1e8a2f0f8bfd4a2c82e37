@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c4eef6c5_d2a4f199",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-07-29T03:35:10Z",
+      "side": 1,
+      "message": "Danil, can you please take a look and if it looks good get the second +1?\nI will submit after that, need to remember the magic chant for the CCLA",
+      "revId": "2c03d8162b18e6bb79c1e8a2f0f8bfd4a2c82e37",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -33,6 +33,24 @@
       "message": "https://google.github.io/styleguide/cppguide.html#Default_Arguments\nDefault arguments are banned on virtual functions",
       "revId": "1d40f3949d3b0469ba558a09034ad07f2fa1f02e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9b5d64ac_15586194",
+        "filename": "rtc_base/ssl_adapter.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-07-29T17:50:50Z",
+      "side": 1,
+      "message": "In particular when that is actually unnecessary. Thank you for catching it!\n(but shouldn\u0027t there be a lint rule?)",
+      "parentUuid": "3e675ecb_5a0b7fe8",
+      "revId": "1d40f3949d3b0469ba558a09034ad07f2fa1f02e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

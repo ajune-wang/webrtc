@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d54936f6_92791416",
+        "filename": "modules/audio_coding/codecs/opus/opus_interface.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2024-07-29T14:51:21Z",
+      "side": 0,
+      "message": "Could you please also remove WebRtcOpusEncInst.avoid_noise_pumping_during_dtx and its usage?",
+      "range": {
+        "startLine": 138,
+        "startChar": 9,
+        "endLine": 138,
+        "endChar": 39
+      },
+      "revId": "f065ff85e2bbd90286ce4346f6da959eb0705fbf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

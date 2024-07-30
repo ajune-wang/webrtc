@@ -23,7 +23,7 @@ class GnCheckTest(unittest.TestCase):
   def testCircularDependencyError(self):
     test_dir = os.path.join(TESTDATA_DIR, 'circular_dependency')
     expected_error = re.compile('ERROR Dependency cycle')
-    gn_output = build_helpers.RunGnCheck(test_dir)
+    gn_output = build_helpers.run_gn_check(test_dir)
     self.assertEqual(1, len(gn_output))
     self.assertRegex(gn_output[0], expected_error)
 

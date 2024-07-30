@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0ca7711e_3cb9c198",
+        "filename": "modules/audio_coding/codecs/opus/audio_encoder_opus.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 365,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-07-30T10:38:51Z",
+      "side": 1,
+      "message": "I choose not to store `env` for now because that is currently not needed.\nEarlier I thought I need to store `env` to query \u0027Audio-OpusAvoidNoisePumpingDuringDtx\u0027 field trial, but choose to cleanup that field trial instead.\n\nHowever there are two possible followups, each would require to store env_:\n\nOne is to switch from using rtc::TimeMillis() to injected env.clock()\nAnother one is to simplify signature of the \u0027EnableAudioNetworkAdaptor\u0027 - remove RtcEventLog parameter and instead use the one that is passed as env.event_log()\n\nHowever both of these improvements are out of scope of my current effort (reduce usage of the global field trial string), i.e., I do not plan to do such improvements myself any time soon.",
+      "revId": "f2d74b60282ce2696cfe34aa18af717e9be64fd4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

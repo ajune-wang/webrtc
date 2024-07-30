@@ -16,6 +16,75 @@
       "message": "Approving on general principles.",
       "revId": "cb80800277a4cf68eac0884bdc43e6c767be6266",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fae02357_7e7f219c",
+        "filename": "test/rtp_file_reader.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2024-07-30T08:17:34Z",
+      "side": 1,
+      "message": "Since you are moving this. Is it easy to switch this to an enum class?\nIf too much work, no need to do it.",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 4
+      },
+      "revId": "cb80800277a4cf68eac0884bdc43e6c767be6266",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "65446032_48d94a91",
+        "filename": "test/rtp_file_reader.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2024-07-30T08:17:34Z",
+      "side": 1,
+      "message": "I think it is better to check if the return value is kResultSuccess and log/act accordingly.",
+      "range": {
+        "startLine": 282,
+        "startChar": 0,
+        "endLine": 284,
+        "endChar": 50
+      },
+      "revId": "cb80800277a4cf68eac0884bdc43e6c767be6266",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "128cb0ad_eb29b47f",
+        "filename": "test/rtp_file_reader.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2024-07-30T08:17:34Z",
+      "side": 1,
+      "message": "Should this be incremented only if ReadPacket succeeded?\n\n(same below)",
+      "range": {
+        "startLine": 325,
+        "startChar": 32,
+        "endLine": 325,
+        "endChar": 50
+      },
+      "revId": "cb80800277a4cf68eac0884bdc43e6c767be6266",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

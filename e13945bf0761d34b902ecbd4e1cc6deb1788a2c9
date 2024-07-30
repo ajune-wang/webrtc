@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b0c8f5de_55c3dacd",
+        "filename": "rtc_base/openssl_adapter.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2024-07-30T07:57:30Z",
+      "side": 1,
+      "message": "This is a breaking change.\n\nFor the reland, can you add a second version of CreateAdapter or add a default value?",
+      "range": {
+        "startLine": 215,
+        "startChar": 37,
+        "endLine": 215,
+        "endChar": 55
+      },
+      "revId": "e13945bf0761d34b902ecbd4e1cc6deb1788a2c9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

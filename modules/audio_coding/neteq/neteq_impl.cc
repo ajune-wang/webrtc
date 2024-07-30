@@ -1976,7 +1976,7 @@ int NetEqImpl::ExtractPackets(size_t required_samples,
     extracted_samples = packet->timestamp - first_timestamp + packet_duration;
 
     RTC_DCHECK(controller_);
-    TimeDelta processing_time = TimeDelta::Zero();
+    TimeDelta processing_time = TimeDelta::MinusInfinity();
 
     if (packet->packet_info.has_value() &&
         !packet->packet_info->receive_time().IsMinusInfinity()) {

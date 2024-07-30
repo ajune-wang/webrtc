@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c7e8ba47_7dc1acd8",
+        "filename": "call/bitrate_allocator.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2024-07-30T07:20:48Z",
+      "side": 1,
+      "message": "add a small comment describing what the function should do",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 59
+      },
+      "revId": "9b429af854bc0f35520cb919af44a650b8f802b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

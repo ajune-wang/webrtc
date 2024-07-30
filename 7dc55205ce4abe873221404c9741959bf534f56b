@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "756455f9_635faf9f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-07-30T07:05:21Z",
+      "side": 1,
+      "message": "Suggest body of text: \"Change DataChannelInit::priority to be a 16-bit unsigned integer instead of an enum\".\n\nThis description doesn\u0027t tell people what the change is.",
+      "revId": "7dc55205ce4abe873221404c9741959bf534f56b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2a40d55d_ec0a2fd9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-07-30T07:05:21Z",
+      "side": 1,
+      "message": "No problems with code, suggest a couple of comment / description changes.",
+      "revId": "7dc55205ce4abe873221404c9741959bf534f56b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5f9af7d0_f754f004",
+        "filename": "api/priority.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-07-30T07:05:21Z",
+      "side": 1,
+      "message": "If you intend to add explicit later, add \"TODO(bug): Add explicit when downstream projects have updated\".",
+      "revId": "7dc55205ce4abe873221404c9741959bf534f56b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c0a9a88b_44c37c51",
+        "filename": "media/sctp/dcsctp_transport.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-07-30T07:05:21Z",
+      "side": 1,
+      "message": "add \"according to RFC 8xxx\"",
+      "revId": "7dc55205ce4abe873221404c9741959bf534f56b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

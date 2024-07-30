@@ -58,6 +58,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "744351fb_41738bd6",
+        "filename": "modules/audio_processing/aec3/aec_state.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2024-07-30T09:19:03Z",
+      "side": 1,
+      "message": "See reply in other comment thread",
+      "parentUuid": "2324e6c2_8984c86f",
+      "range": {
+        "startLine": 212,
+        "startChar": 7,
+        "endLine": 212,
+        "endChar": 13
+      },
+      "revId": "dc6b9491c05e8a024aabf2c7af8b85e1e4313eb6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d24a5117_265fdc2b",
@@ -83,6 +107,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "142ff94f_7df60936",
+        "filename": "modules/audio_processing/aec3/block.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2024-07-30T09:19:03Z",
+      "side": 1,
+      "message": "MonoView is ArrayView. (there are no problems with passing a MonoView to methods that accept ArrayView).\n\nThe difference for code that deals with audio, is semantics. It makes it clear from a readability pov that the container represents a group of audio samples. MonoView also is compatible with things like `SamplesPerChannel()`, `NumChannels()`, which also aid with readability (rather than using `.size()` which can be ambiguous) and is easily used from generic templates that work on views regardless of exact type.",
+      "parentUuid": "d24a5117_265fdc2b",
+      "range": {
+        "startLine": 62,
+        "startChar": 2,
+        "endLine": 62,
+        "endChar": 10
+      },
+      "revId": "dc6b9491c05e8a024aabf2c7af8b85e1e4313eb6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c28eaa6c_8d32c98e",
         "filename": "modules/audio_processing/aec3/block.h",
         "patchSetId": 4
@@ -94,6 +142,30 @@
       "writtenOn": "2024-07-26T13:20:42Z",
       "side": 1,
       "message": "The reasons why these were set to int instead of size_t were\n-To avoid issues with unsigned variables\n-To improve speed (depends a bit but some studies shows that looping over int instead of size_t is faster)\n-Since it is not needed. Ints are sufficient to cover all the lengths involved.\n\nI think this is ok since it also follows the style guide suggestion in https://google.github.io/styleguide/cppguide.html#Integer_Types: E.g., Do not use an unsigned type merely to assert that a variable is non-negative.",
+      "range": {
+        "startLine": 82,
+        "startChar": 2,
+        "endLine": 83,
+        "endChar": 23
+      },
+      "revId": "dc6b9491c05e8a024aabf2c7af8b85e1e4313eb6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f73f0232_5a36af9f",
+        "filename": "modules/audio_processing/aec3/block.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2024-07-30T09:19:03Z",
+      "side": 1,
+      "message": "Since you mention the style guide, I\u0027ll quote it here:\n```\nUse size_t for object and allocation sizes, object counts, array\nand pointer offsets, vector indices, and so on. This prevents\n|casts when dealing with STL APIs, and if followed consistently\nacross the codebase, minimizes casts elsewhere.\n```\n\nThis is also why container classes such as `rtc::ArrayView` use size_t and other container/view classes in webrtc (Block is a container class and should do the same).\n\nI don\u0027t disagree with the points you mention about looping over ints vs unsigned or any other issues with unsigned variables - you\u0027re not wrong. However cases like this have been debated at google for decades (I guess I can use plural now) because of the ambiguous google guideline you linked to.\n\nTo stop those debates in code reviews which have been more costly themselves in terms of productivity, incompatibility with other libraries than the argued performance  benefits, the above clause I quoted, was made explicit many years ago in the Chromium style guide - which takes precedence over the google style guide for webrtc.",
+      "parentUuid": "c28eaa6c_8d32c98e",
       "range": {
         "startLine": 82,
         "startChar": 2,
@@ -139,6 +211,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "67c6db0f_b0b12eb2",
+        "filename": "modules/audio_processing/aec3/block_processor_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2024-07-30T09:19:03Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "fe9d22b0_0575588d",
+      "revId": "dc6b9491c05e8a024aabf2c7af8b85e1e4313eb6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b6e5c74e_e8af5ab5",
@@ -152,6 +242,30 @@
       "writtenOn": "2024-07-26T13:20:42Z",
       "side": 1,
       "message": "Since there are efforts to minimize the reallocations in this code, I think the former construct would be preferrable.",
+      "range": {
+        "startLine": 811,
+        "startChar": 3,
+        "endLine": 812,
+        "endChar": 69
+      },
+      "revId": "dc6b9491c05e8a024aabf2c7af8b85e1e4313eb6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7e0e2cc7_46f4a476",
+        "filename": "modules/audio_processing/aec3/echo_canceller3.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 812,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2024-07-30T09:19:03Z",
+      "side": 1,
+      "message": "The point about reallocations is incorrect. Reallocations were being doing before this change - notably _always_. This change reduces the number of reallocations since we don\u0027t reallocate if the number of channels has changed.\n\nRegardless of that, optimizing this part of `EchoCanceller3::Initialize()` for that reason, would be a case of premature optimization. Initialize() is not on the hot path. Before this change, SetNumChannels() was only called from here. That method on the Block class, forces the class interface to be mutable whereas this cl moves it into the direction of const.",
+      "parentUuid": "b6e5c74e_e8af5ab5",
       "range": {
         "startLine": 811,
         "startChar": 3,

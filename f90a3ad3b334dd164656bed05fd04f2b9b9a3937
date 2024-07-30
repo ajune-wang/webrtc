@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e2722d7d_6986e735",
+        "filename": "modules/audio_processing/aec3/block.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2024-07-30T09:19:03Z",
+      "side": 0,
+      "message": "1) Yes, moving the state to another object is how to achieve the same thing in the `Initialize()` method. In practice (from a performance pov including filling the vector), it\u0027s similar to the previous code but has the benefit of not having support for mutable methods in the class\u0027 interface.\n\nRe \"resize of an existing vector\": that doesn\u0027t happen actually.\n\nAs far as the performance argument for SetNumChannels() though, even if the change was meaningful, the method is never called from a path that\u0027s performance sensitive. Unless you\u0027re convinced we\u0027re frequently flipping between mono and stereo and therefore SetNumChannels() needs to be optimized (that\u0027s the only case where SetNumChannels() was being called).\n\nSo, there\u0027s really no benefit to adding a non-const method that changes the internal layout of the class. Instead, it allows us to adopt a more const interface on the class by removing those re-configuration methods and instead force uses of the class to reconstruct the object instead. That makes it clear that the operation essentially changes the entire state of the class and does essentially the same thing that the ctor does (now less code).\n\nRemoving the method moves the design of the class more into the RAII direction (and the state of the object is established at construction and remains the same throughout its lifetime).\n\nOn the subject of optimizing performance of the class, or memory overhead, we could now, with changes in this CL, use `std::array\u003c\u003e` instead of `std::vector\u003c\u003e` which would save a few bytes of overhead and also reduce the number of heap allocations.",
+      "parentUuid": "7be2ae39_92c0fd0a",
+      "range": {
+        "startLine": 38,
+        "startChar": 1,
+        "endLine": 43,
+        "endChar": 3
+      },
+      "revId": "f90a3ad3b334dd164656bed05fd04f2b9b9a3937",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1e1e8b23_56dac76b",
         "filename": "modules/audio_processing/aec3/block.h",
         "patchSetId": 4
@@ -37,6 +61,30 @@
       "writtenOn": "2024-07-26T13:20:42Z",
       "side": 0,
       "message": "Was this not needed anymore?",
+      "range": {
+        "startLine": 71,
+        "startChar": 2,
+        "endLine": 76,
+        "endChar": 3
+      },
+      "revId": "f90a3ad3b334dd164656bed05fd04f2b9b9a3937",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f8d10e7e_6f72e818",
+        "filename": "modules/audio_processing/aec3/block.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2024-07-30T09:19:03Z",
+      "side": 0,
+      "message": "Not needed anymore. It was used in one location where an instance was being popped from a list, and a previous instance discarded. Instead, we can now just use std::move() for the instance being moved from the list.",
+      "parentUuid": "1e1e8b23_56dac76b",
       "range": {
         "startLine": 71,
         "startChar": 2,

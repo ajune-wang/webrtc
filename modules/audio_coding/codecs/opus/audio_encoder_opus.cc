@@ -345,7 +345,7 @@ std::unique_ptr<AudioEncoderOpusImpl> AudioEncoderOpusImpl::CreateForTesting(
     std::unique_ptr<SmoothingFilter> bitrate_smoother) {
   // Using `new` to access a non-public constructor.
   return absl::WrapUnique(new AudioEncoderOpusImpl(
-      env.field_trials(), config, payload_type, audio_network_adaptor_creator,
+      env, config, payload_type, audio_network_adaptor_creator,
       std::move(bitrate_smoother)));
 }
 
@@ -353,7 +353,7 @@ AudioEncoderOpusImpl::AudioEncoderOpusImpl(const Environment& env,
                                            const AudioEncoderOpusConfig& config,
                                            int payload_type)
     : AudioEncoderOpusImpl(
-          env.field_trials(),
+          env,
           config,
           payload_type,
           [this](absl::string_view config_string, RtcEventLog* event_log) {
@@ -362,30 +362,19 @@ AudioEncoderOpusImpl::AudioEncoderOpusImpl(const Environment& env,
           // We choose 5sec as initial time constant due to empirical data.
           std::make_unique<SmoothingFilterImpl>(5'000)) {}
 
-AudioEncoderOpusImpl::AudioEncoderOpusImpl(const AudioEncoderOpusConfig& config,
-                                           int payload_type)
-    : AudioEncoderOpusImpl(
-          FieldTrialBasedConfig(),
-          config,
-          payload_type,
-          [this](absl::string_view config_string, RtcEventLog* event_log) {
-            return DefaultAudioNetworkAdaptorCreator(config_string, event_log);
-          },
-          // We choose 5sec as initial time constant due to empirical data.
-          std::make_unique<SmoothingFilterImpl>(5000)) {}
-
 AudioEncoderOpusImpl::AudioEncoderOpusImpl(
-    const FieldTrialsView& field_trials,
+    const Environment& env,
     const AudioEncoderOpusConfig& config,
     int payload_type,
     const AudioNetworkAdaptorCreator& audio_network_adaptor_creator,
     std::unique_ptr<SmoothingFilter> bitrate_smoother)
     : payload_type_(payload_type),
-      use_stable_target_for_adaptation_(
-          !field_trials.IsDisabled("WebRTC-Audio-StableTargetAdaptation")),
-      adjust_bandwidth_(field_trials.IsEnabled("WebRTC-AdjustOpusBandwidth")),
+      use_stable_target_for_adaptation_(!env.field_trials().IsDisabled(
+          "WebRTC-Audio-StableTargetAdaptation")),
+      adjust_bandwidth_(
+          env.field_trials().IsEnabled("WebRTC-AdjustOpusBandwidth")),
       bitrate_changed_(true),
-      bitrate_multipliers_(GetBitrateMultipliers(field_trials)),
+      bitrate_multipliers_(GetBitrateMultipliers(env.field_trials())),
       packet_loss_rate_(0.0),
       inst_(nullptr),
       packet_loss_fraction_smoother_(new PacketLossFractionSmoother()),

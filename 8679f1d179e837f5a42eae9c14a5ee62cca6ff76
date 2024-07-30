@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1b0ff76f_f9c4ce05",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2024-07-30T10:45:46Z",
+      "side": 1,
+      "message": "Adding \"No-Try: True\" to bypass iOS bots which fail due to an infra problem.",
+      "revId": "8679f1d179e837f5a42eae9c14a5ee62cca6ff76",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

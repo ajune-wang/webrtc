@@ -65,6 +65,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "33b30465_64c772a9",
+        "filename": "test/rtp_file_reader.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2024-07-30T18:48:32Z",
+      "side": 1,
+      "message": "Thanks.",
+      "parentUuid": "85a81c07_6569fcd5",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 4
+      },
+      "revId": "cb80800277a4cf68eac0884bdc43e6c767be6266",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "65446032_48d94a91",

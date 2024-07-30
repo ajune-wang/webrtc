@@ -22,6 +22,7 @@
 #include "api/scoped_refptr.h"
 #include "api/sequence_checker.h"
 #include "api/task_queue/task_queue_base.h"
+#include "api/units/timestamp.h"
 #include "rtc_base/buffer.h"
 
 namespace webrtc {
@@ -32,12 +33,14 @@ class TransformableIncomingAudioFrame
   TransformableIncomingAudioFrame(rtc::ArrayView<const uint8_t> payload,
                                   const RTPHeader& header,
                                   uint32_t ssrc,
-                                  const std::string& codec_mime_type)
+                                  const std::string& codec_mime_type,
+                                  Timestamp receive_time)
       : TransformableAudioFrameInterface(Passkey()),
         payload_(payload.data(), payload.size()),
         header_(header),
         ssrc_(ssrc),
-        codec_mime_type_(codec_mime_type) {}
+        codec_mime_type_(codec_mime_type),
+        receive_time_(receive_time) {}
   ~TransformableIncomingAudioFrame() override = default;
   rtc::ArrayView<const uint8_t> GetData() const override { return payload_; }
 
@@ -86,11 +89,14 @@ class TransformableIncomingAudioFrame
     return absl::nullopt;
   }
 
+  Timestamp GetReceiveTime() const { return receive_time_; }
+
  private:
   rtc::Buffer payload_;
   RTPHeader header_;
   uint32_t ssrc_;
   std::string codec_mime_type_;
+  Timestamp receive_time_;
 };
 
 ChannelReceiveFrameTransformerDelegate::ChannelReceiveFrameTransformerDelegate(
@@ -118,14 +124,15 @@ void ChannelReceiveFrameTransformerDelegate::Transform(
     rtc::ArrayView<const uint8_t> packet,
     const RTPHeader& header,
     uint32_t ssrc,
-    const std::string& codec_mime_type) {
+    const std::string& codec_mime_type,
+    Timestamp receive_time) {
   RTC_DCHECK_RUN_ON(&sequence_checker_);
   if (short_circuit_) {
-    receive_frame_callback_(packet, header);
+    receive_frame_callback_(packet, header, receive_time);
   } else {
     frame_transformer_->Transform(
-        std::make_unique<TransformableIncomingAudioFrame>(packet, header, ssrc,
-                                                          codec_mime_type));
+        std::make_unique<TransformableIncomingAudioFrame>(
+            packet, header, ssrc, codec_mime_type, receive_time));
   }
 }
 
@@ -152,6 +159,7 @@ void ChannelReceiveFrameTransformerDelegate::ReceiveFrame(
   if (!receive_frame_callback_)
     return;
 
+  Timestamp receive_time = Timestamp::MinusInfinity();
   RTPHeader header;
   if (frame->GetDirection() ==
       TransformableFrameInterface::Direction::kSender) {
@@ -165,6 +173,12 @@ void ChannelReceiveFrameTransformerDelegate::ReceiveFrame(
       header.extension.absolute_capture_time->absolute_capture_timestamp =
           transformed_frame->AbsoluteCaptureTimestamp().value();
     }
+  } else if (frame->GetDirection() ==
+             TransformableFrameInterface::Direction::kReceiver) {
+    auto* transformed_frame =
+        static_cast<TransformableIncomingAudioFrame*>(frame.get());
+    header = transformed_frame->Header();
+    receive_time = transformed_frame->GetReceiveTime();
   } else {
     auto* transformed_frame =
         static_cast<TransformableIncomingAudioFrame*>(frame.get());
@@ -175,13 +189,23 @@ void ChannelReceiveFrameTransformerDelegate::ReceiveFrame(
   // information rather than the RTPHeader to make it easier to
   // construct the required information when injecting transformed frames not
   // originally from this receiver.
-  receive_frame_callback_(frame->GetData(), header);
+  receive_frame_callback_(frame->GetData(), header, receive_time);
 }
 
 rtc::scoped_refptr<FrameTransformerInterface>
 ChannelReceiveFrameTransformerDelegate::FrameTransformer() {
   RTC_DCHECK_RUN_ON(&sequence_checker_);
   return frame_transformer_;
+}
+
+std::unique_ptr<TransformableAudioFrameInterface> CloneReceiverAudioFrame(
+    TransformableAudioFrameInterface* original) {
+  RTC_CHECK(original->GetDirection() ==
+            TransformableFrameInterface::Direction::kReceiver);
+  auto* orig = static_cast<TransformableIncomingAudioFrame*>(original);
+  return std::make_unique<TransformableIncomingAudioFrame>(
+      orig->GetData(), orig->Header(), orig->GetSsrc(), orig->GetMimeType(),
+      orig->GetReceiveTime());
 }
 
 }  // namespace webrtc

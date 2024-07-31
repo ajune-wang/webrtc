@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "23b46466_04d6c84c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 3485001
+      },
+      "writtenOn": "2024-07-31T09:19:06Z",
+      "side": 1,
+      "message": "Updated. No I have no bug for this change. Do we need to have a bug for each change? Is it OK to just remove the \"Bug\" field?",
+      "parentUuid": "fc563f15_173acc8c",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 385
+      },
+      "revId": "2770b2e8f40d2e0c0a2c11682f561733f081480b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "740d8f2e_565136bd",
@@ -78,6 +102,30 @@
       "side": 1,
       "message": "IIUC from code history it evolved from being SamplesStatsCounter for all QP values for all spatial layers to SamplesStatsCounter per layer. So most likely I didn\u0027t put a lot of thoughts when converted single SamplesStatsCounter into a map spatial layer -\u003e SamplesStatsCounter. So then I suppose there should be 1 QP value per counter... So let\u0027s add a check and see. If it will work out, then we can replace counter with just int probably...\n\nIn theory frame stats are created per frame and on OnFrameEncoded called for each spatial layer being encoded. We may have multiple QP values here only if OnFrameEncoded was called twice for the same spatial layer for the same frame. In theory it shouldn\u0027t happen, IIUC.",
       "parentUuid": "d00a94dd_880b2377",
+      "range": {
+        "startLine": 507,
+        "startChar": 28,
+        "endLine": 507,
+        "endChar": 43
+      },
+      "revId": "2770b2e8f40d2e0c0a2c11682f561733f081480b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "31b679f1_afdca8f0",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer_frames_comparator.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 507,
+      "author": {
+        "id": 3485001
+      },
+      "writtenOn": "2024-07-31T09:19:06Z",
+      "side": 1,
+      "message": "Yes, I also suspected that. Yes, if it works, IMO it would even be better to convert it to an int per spatial layer.",
+      "parentUuid": "2b9f948a_9d3edce1",
       "range": {
         "startLine": 507,
         "startChar": 28,

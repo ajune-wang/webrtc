@@ -34,6 +34,23 @@
       "parentUuid": "c4eef6c5_d2a4f199",
       "revId": "2c03d8162b18e6bb79c1e8a2f0f8bfd4a2c82e37",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3efd6a0e_8d1fbde8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-07-31T15:38:07Z",
+      "side": 1,
+      "message": "CCLA work done!",
+      "revId": "2c03d8162b18e6bb79c1e8a2f0f8bfd4a2c82e37",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

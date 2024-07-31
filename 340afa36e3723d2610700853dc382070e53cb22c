@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "653dab8b_1db33fce",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-07-31T20:02:52Z",
+      "side": 1,
+      "message": "Think there are points to be addressed before submitting.\nConcept seems good.",
+      "revId": "340afa36e3723d2610700853dc382070e53cb22c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ed31305b_c79315f4",
@@ -14,6 +31,30 @@
       "writtenOn": "2024-07-31T15:50:21Z",
       "side": 1,
       "message": "Nit, typo:\n```suggestion\n  // Only define for received audio packets.\n```",
+      "range": {
+        "startLine": 110,
+        "startChar": 5,
+        "endLine": 110,
+        "endChar": 42
+      },
+      "revId": "340afa36e3723d2610700853dc382070e53cb22c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0e85ce16_eb762487",
+        "filename": "api/frame_transformer_interface.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-07-31T20:02:52Z",
+      "side": 1,
+      "message": "should be \"only defined\".\n\n\n```suggestion\n  // Only defined for received audio packet.\n```",
+      "parentUuid": "ed31305b_c79315f4",
       "range": {
         "startLine": 110,
         "startChar": 5,
@@ -100,6 +141,58 @@
           ]
         }
       ],
+      "revId": "340afa36e3723d2610700853dc382070e53cb22c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cdd2c68e_e11f632b",
+        "filename": "audio/channel_receive_frame_transformer_delegate.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-07-31T20:02:52Z",
+      "side": 1,
+      "message": "Please resolve this. Metadata changes frequently; cloning a frame should be done in a change-resistant way.",
+      "parentUuid": "d2d4fe08_befb1109",
+      "revId": "340afa36e3723d2610700853dc382070e53cb22c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "adba075f_9272cf0c",
+        "filename": "audio/channel_receive_frame_transformer_delegate_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-07-31T20:02:52Z",
+      "side": 1,
+      "message": "I don\u0027t like the addition of extra argument here. Isn\u0027t the receive time already present in the packet or header, if it is known at all?\n(If it isn\u0027t, may be acceptable, but why shouldn\u0027t it be?)",
+      "revId": "340afa36e3723d2610700853dc382070e53cb22c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "318034da_6212c595",
+        "filename": "audio/channel_receive_frame_transformer_delegate_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-07-31T20:02:52Z",
+      "side": 1,
+      "message": "When you use the same number multiple times in a test, make a constant for it (kFakeTimestamp?)",
       "revId": "340afa36e3723d2610700853dc382070e53cb22c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

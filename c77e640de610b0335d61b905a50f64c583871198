@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c6f87bdd_dbf3c2f6",
+        "filename": "rtc_base/DEPS",
+        "patchSetId": 3
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-07-31T14:30:30Z",
+      "side": 1,
+      "message": "does this need to be boringssl or does it not matter?",
+      "revId": "c77e640de610b0335d61b905a50f64c583871198",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

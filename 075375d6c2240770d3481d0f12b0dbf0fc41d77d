@@ -89,6 +89,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "706ed6c5_706d75fc",
+        "filename": "api/frame_transformer_factory.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 17470
+      },
+      "writtenOn": "2024-07-31T15:50:21Z",
+      "side": 1,
+      "message": "Should be fine to do this these days I think. After the work in crbug.com/40791999, we can take a received frame and pass it to a sender for retransmission (in eg eCDN) without issue, so it should be fine for cloning to preserve the direction.\n\nI have tried to combine the two classes in the past, and succeeded at the blink level, but come up with too many things like what you\u0027re seeing where we want to make sure that we preserve direction-specific data across transforms.",
+      "parentUuid": "6dda3946_cdff38b8",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 0
+      },
+      "revId": "075375d6c2240770d3481d0f12b0dbf0fc41d77d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "623a5893_30bcc127",

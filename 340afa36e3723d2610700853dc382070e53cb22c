@@ -1,0 +1,107 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ed31305b_c79315f4",
+        "filename": "api/frame_transformer_interface.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 17470
+      },
+      "writtenOn": "2024-07-31T15:50:21Z",
+      "side": 1,
+      "message": "Nit, typo:\n```suggestion\n  // Only define for received audio packets.\n```",
+      "range": {
+        "startLine": 110,
+        "startChar": 5,
+        "endLine": 110,
+        "endChar": 42
+      },
+      "revId": "340afa36e3723d2610700853dc382070e53cb22c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3d32ecac_bfef3fba",
+        "filename": "audio/channel_receive_frame_transformer_delegate.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 17470
+      },
+      "writtenOn": "2024-07-31T15:50:21Z",
+      "side": 1,
+      "message": "Should negative infinity be represented as a nullopt?",
+      "fixSuggestions": [
+        {
+          "fixId": "32a74d7f_471df5a2",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "audio/channel_receive_frame_transformer_delegate.cc",
+              "range": {
+                "startLine": 94,
+                "startChar": 0,
+                "endLine": 95,
+                "endChar": 0
+              },
+              "replacement": "    return receive_time_ \u003d\u003d Timestamp::MinusInfinity()\n               ? absl::nullopt\n               : absl::optional\u003cTimestamp\u003e(receive_time_);\n"
+            }
+          ]
+        }
+      ],
+      "revId": "340afa36e3723d2610700853dc382070e53cb22c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d2d4fe08_befb1109",
+        "filename": "audio/channel_receive_frame_transformer_delegate.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 17470
+      },
+      "writtenOn": "2024-07-31T15:50:21Z",
+      "side": 1,
+      "message": "Why not cast to TransformableIncomingAudioFrame and use `original-\u003eHeader()` and the copy constructor? That would preserve eg other header extensions that might be there. Some issues about shallow copies?",
+      "fixSuggestions": [
+        {
+          "fixId": "6ce78162_40f46e0f",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "audio/channel_receive_frame_transformer_delegate.cc",
+              "range": {
+                "startLine": 203,
+                "startChar": 0,
+                "endLine": 226,
+                "endChar": 0
+              },
+              "replacement": "  auto* original_incoming_frame \u003d\n      static_cast\u003cTransformableIncomingAudioFrame*\u003e(original);\n"
+            },
+            {
+              "path": "audio/channel_receive_frame_transformer_delegate.cc",
+              "range": {
+                "startLine": 227,
+                "startChar": 0,
+                "endLine": 228,
+                "endChar": 0
+              },
+              "replacement": "      original-\u003eGetData(), original_incoming_frame-\u003eHeader(),\n      original-\u003eGetSsrc(), original-\u003eGetMimeType(),\n"
+            }
+          ]
+        }
+      ],
+      "revId": "340afa36e3723d2610700853dc382070e53cb22c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -16,6 +16,23 @@
       "message": "doubled checked our downstream projects can still compile with this change",
       "revId": "289df4efac4b6ff151dcb7349c90781cc63c3595",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ddf935de_e7c9ac96",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-07-31T04:12:47Z",
+      "side": 1,
+      "message": "I *think* this is not going to cause a merge conflict with my other CL. You may want to update downstream to have the killswitch just in case.",
+      "revId": "289df4efac4b6ff151dcb7349c90781cc63c3595",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

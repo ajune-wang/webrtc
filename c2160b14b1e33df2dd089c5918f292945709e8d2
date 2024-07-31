@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "416fefcb_e9ddebf1",
+        "filename": "modules/video_coding/utility/quality_scaler.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2024-07-31T10:01:10Z",
+      "side": 0,
+      "message": "Thanks! Done",
+      "parentUuid": "4b377f36_56dda469",
+      "range": {
+        "startLine": 263,
+        "startChar": 5,
+        "endLine": 263,
+        "endChar": 43
+      },
+      "revId": "c2160b14b1e33df2dd089c5918f292945709e8d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "323eec8c_7529508c",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-07-30T12:45:52Z",
       "side": 0,
       "message": "ditto",
+      "range": {
+        "startLine": 64,
+        "startChar": 0,
+        "endLine": 64,
+        "endChar": 45
+      },
+      "revId": "c2160b14b1e33df2dd089c5918f292945709e8d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1118c03a_0d87d877",
+        "filename": "video/adaptation/quality_scaler_resource.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2024-07-31T10:01:10Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "323eec8c_7529508c",
       "range": {
         "startLine": 64,
         "startChar": 0,

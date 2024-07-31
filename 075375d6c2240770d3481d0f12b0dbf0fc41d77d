@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2948389c_ca8d40cc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19084
+      },
+      "writtenOn": "2024-07-31T12:19:27Z",
+      "side": 1,
+      "message": "I tested in a chromium built with this change that https://webrtc.github.io/samples/src/content/peerconnection/audio/ shows increasing `totalProcessingDelay` in chrome://webrtc-internals.",
+      "revId": "075375d6c2240770d3481d0f12b0dbf0fc41d77d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

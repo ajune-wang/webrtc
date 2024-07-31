@@ -1,6 +1,29 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "fc563f15_173acc8c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2024-07-31T08:36:16Z",
+      "side": 1,
+      "message": "You need one empty line before Change-Id.\n\nAlso, do you have a bug? I think the format you want is:\n\n\"\"\"\nAs the core is now, ....\n\nBug: b/\u003cBUG_ID\u003e\nChange-Id: ...\n\"\"\"",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 385
+      },
+      "revId": "2770b2e8f40d2e0c0a2c11682f561733f081480b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "740d8f2e_565136bd",
@@ -14,6 +37,29 @@
       "writtenOn": "2024-07-31T08:00:09Z",
       "side": 1,
       "message": "Hi! Please have a look on this change. It does not do anything functionally but IMO makes the readability of the code easier.\n\nAlso I wanted to test to make a change to webRTC through Gerrit.",
+      "revId": "2770b2e8f40d2e0c0a2c11682f561733f081480b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d00a94dd_880b2377",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer_frames_comparator.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 507,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2024-07-31T08:36:16Z",
+      "side": 1,
+      "message": "If I understand correctly, here the idea is that there can be more than 1 QP in case it has been sampled multiple times (there is 1 logical QP, but with multiple values from different moments in time).\n\nArtem, WDYT?",
+      "range": {
+        "startLine": 507,
+        "startChar": 28,
+        "endLine": 507,
+        "endChar": 43
+      },
       "revId": "2770b2e8f40d2e0c0a2c11682f561733f081480b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

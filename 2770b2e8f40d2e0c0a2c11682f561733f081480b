@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "740d8f2e_565136bd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3485001
+      },
+      "writtenOn": "2024-07-31T08:00:09Z",
+      "side": 1,
+      "message": "Hi! Please have a look on this change. It does not do anything functionally but IMO makes the readability of the code easier.\n\nAlso I wanted to test to make a change to webRTC through Gerrit.",
+      "revId": "2770b2e8f40d2e0c0a2c11682f561733f081480b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

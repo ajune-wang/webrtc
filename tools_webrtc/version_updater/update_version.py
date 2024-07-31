@@ -22,7 +22,7 @@ import sys
 UPDATE_BRANCH_NAME = 'webrtc_version_update'
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 CHECKOUT_SRC_DIR = os.path.realpath(
-  os.path.join(SCRIPT_DIR, os.pardir, os.pardir))
+    os.path.join(SCRIPT_DIR, os.pardir, os.pardir))
 
 NOTIFY_EMAIL = 'webrtc-trooper@webrtc.org'
 

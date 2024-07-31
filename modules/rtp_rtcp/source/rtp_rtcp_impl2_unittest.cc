@@ -17,6 +17,8 @@
 #include <utility>
 
 #include "absl/types/optional.h"
+#include "api/environment/environment.h"
+#include "api/environment/environment_factory.h"
 #include "api/field_trials_registry.h"
 #include "api/units/time_delta.h"
 #include "modules/rtp_rtcp/include/rtp_header_extension_map.h"
@@ -274,6 +276,9 @@ class RtpRtcpImpl2Test : public ::testing::Test {
   RtpRtcpImpl2Test()
       : time_controller_(Timestamp::Micros(133590000000000)),
         field_trials_(""),
+        env_(CreateEnvironment(&field_trials_,
+                               time_controller_.GetClock(),
+                               time_controller_.CreateTaskQueueFactory())),
         sender_(&time_controller_,
                 /*is_sender=*/true,
                 field_trials_),
@@ -327,6 +332,7 @@ class RtpRtcpImpl2Test : public ::testing::Test {
 
   GlobalSimulatedTimeController time_controller_;
   test::ExplicitKeyValueConfig field_trials_;
+  const Environment env_;
   RtpRtcpModule sender_;
   std::unique_ptr<RTPSenderVideo> sender_video_;
   RtpRtcpModule receiver_;
@@ -1008,9 +1014,9 @@ TEST_F(RtpRtcpImpl2Test, GeneratesFlexfec) {
   const uint16_t fec_start_seq = sender_.impl_->SequenceNumber() + 100;
   RtpState start_state;
   start_state.sequence_number = fec_start_seq;
-  FlexfecSender flexfec_sender(kFlexfecPayloadType, kFlexfecSsrc, kSenderSsrc,
-                               kNoMid, kNoRtpExtensions, kNoRtpExtensionSizes,
-                               &start_state, time_controller_.GetClock());
+  FlexfecSender flexfec_sender(env_, kFlexfecPayloadType, kFlexfecSsrc,
+                               kSenderSsrc, kNoMid, kNoRtpExtensions,
+                               kNoRtpExtensionSizes, &start_state);
   ReinitWithFec(&flexfec_sender, /*red_payload_type=*/absl::nullopt);
 
   // Parameters selected to generate a single FEC packet per media packet.

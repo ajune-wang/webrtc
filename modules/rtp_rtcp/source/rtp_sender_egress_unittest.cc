@@ -16,6 +16,8 @@
 #include "absl/types/optional.h"
 #include "api/array_view.h"
 #include "api/call/transport.h"
+#include "api/environment/environment.h"
+#include "api/environment/environment_factory.h"
 #include "api/field_trials_registry.h"
 #include "api/units/data_size.h"
 #include "api/units/timestamp.h"
@@ -115,11 +117,14 @@ class RtpSenderEgressTest : public ::testing::Test {
  protected:
   RtpSenderEgressTest()
       : time_controller_(kStartTime),
+        trials_(""),
+        env_(CreateEnvironment(&trials_,
+                               time_controller_.GetClock(),
+                               time_controller_.CreateTaskQueueFactory())),
         clock_(time_controller_.GetClock()),
         transport_(&header_extensions_),
         packet_history_(clock_,
                         RtpPacketHistory::PaddingMode::kRecentLargePacket),
-        trials_(""),
         sequence_number_(kStartSequenceNumber) {}
 
   std::unique_ptr<RtpSenderEgress> CreateRtpSenderEgress() {
@@ -164,6 +169,8 @@ class RtpSenderEgressTest : public ::testing::Test {
   }
 
   GlobalSimulatedTimeController time_controller_;
+  test::ExplicitKeyValueConfig trials_;
+  const Environment env_;
   Clock* const clock_;
   NiceMock<MockRtcEventLog> mock_rtc_event_log_;
   NiceMock<MockStreamDataCountersCallback> mock_rtp_stats_callback_;
@@ -171,7 +178,6 @@ class RtpSenderEgressTest : public ::testing::Test {
   RtpHeaderExtensionMap header_extensions_;
   NiceMock<TestTransport> transport_;
   RtpPacketHistory packet_history_;
-  test::ExplicitKeyValueConfig trials_;
   uint16_t sequence_number_;
 };
 
@@ -837,9 +843,10 @@ TEST_F(RtpSenderEgressTest, SendPacketUpdatesStats) {
   const size_t kPayloadSize = 1000;
 
   const rtc::ArrayView<const RtpExtensionSize> kNoRtpHeaderExtensionSizes;
-  FlexfecSender flexfec(kFlexfectPayloadType, kFlexFecSsrc, kSsrc, /*mid=*/"",
+  FlexfecSender flexfec(env_, kFlexfectPayloadType, kFlexFecSsrc, kSsrc,
+                        /*mid=*/"",
                         /*header_extensions=*/{}, kNoRtpHeaderExtensionSizes,
-                        /*rtp_state=*/nullptr, time_controller_.GetClock());
+                        /*rtp_state=*/nullptr);
   RtpRtcpInterface::Configuration config = DefaultConfig();
   config.fec_generator = &flexfec;
   auto sender = std::make_unique<RtpSenderEgress>(config, &packet_history_);

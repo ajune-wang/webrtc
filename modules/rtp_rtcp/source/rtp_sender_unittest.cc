@@ -14,6 +14,8 @@
 #include <vector>
 
 #include "absl/strings/string_view.h"
+#include "api/environment/environment.h"
+#include "api/environment/environment_factory.h"
 #include "api/rtc_event_log/rtc_event.h"
 #include "api/rtp_packet_sender.h"
 #include "api/units/frequency.h"
@@ -116,16 +118,18 @@ class RtpSenderTest : public ::testing::Test {
  protected:
   RtpSenderTest()
       : time_controller_(Timestamp::Millis(kStartTime)),
+        env_(CreateEnvironment(time_controller_.GetClock(),
+                               time_controller_.CreateTaskQueueFactory())),
         clock_(time_controller_.GetClock()),
         retransmission_rate_limiter_(clock_, 1000),
-        flexfec_sender_(0,
+        flexfec_sender_(env_,
+                        0,
                         kFlexFecSsrc,
                         kSsrc,
                         "",
                         std::vector<RtpExtension>(),
                         std::vector<RtpExtensionSize>(),
-                        nullptr,
-                        clock_) {}
+                        nullptr) {}
 
   void SetUp() override { SetUpRtpSender(true, false, nullptr); }
 
@@ -167,6 +171,7 @@ class RtpSenderTest : public ::testing::Test {
   }
 
   GlobalSimulatedTimeController time_controller_;
+  const Environment env_;
   Clock* const clock_;
   NiceMock<MockRtcEventLog> mock_rtc_event_log_;
   MockRtpPacketPacer mock_paced_sender_;

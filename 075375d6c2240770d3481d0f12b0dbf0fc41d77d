@@ -16,6 +16,52 @@
       "message": "I tested in a chromium built with this change that https://webrtc.github.io/samples/src/content/peerconnection/audio/ shows increasing `totalProcessingDelay` in chrome://webrtc-internals.",
       "revId": "075375d6c2240770d3481d0f12b0dbf0fc41d77d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7fb1d59f_f6e0a935",
+        "filename": "api/frame_transformer_factory.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2024-07-31T12:30:55Z",
+      "side": 1,
+      "message": "Hm...I don\u0027t understand why this change is needed. Can you explain?",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 0
+      },
+      "revId": "075375d6c2240770d3481d0f12b0dbf0fc41d77d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "623a5893_30bcc127",
+        "filename": "audio/channel_receive_frame_transformer_delegate.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2024-07-31T12:30:55Z",
+      "side": 1,
+      "message": "Move this outside of the if/else blocks (same statement is used in both if and else)",
+      "range": {
+        "startLine": 179,
+        "startChar": 0,
+        "endLine": 181,
+        "endChar": 0
+      },
+      "revId": "075375d6c2240770d3481d0f12b0dbf0fc41d77d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

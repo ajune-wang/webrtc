@@ -67,6 +67,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6dda3946_cdff38b8",
+        "filename": "api/frame_transformer_factory.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2024-07-31T14:00:29Z",
+      "side": 1,
+      "message": "\"when an audio frame is cloned it will always be a sender frame\": that part seems intentional? I\u0027ll let herre@ or hta@ comment on this.",
+      "parentUuid": "e025d6e6_025f5d4e",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 0
+      },
+      "revId": "075375d6c2240770d3481d0f12b0dbf0fc41d77d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "623a5893_30bcc127",
         "filename": "audio/channel_receive_frame_transformer_delegate.cc",
         "patchSetId": 4

@@ -116,11 +116,13 @@ void FrameInFlight::OnFramePreDecode(size_t peer,
                                      webrtc::Timestamp received_time,
                                      webrtc::Timestamp decode_start_time,
                                      VideoFrameType frame_type,
-                                     DataSize encoded_image_size) {
+                                     DataSize encoded_image_size,
+                                     absl::optional<int> spatial_layer) {
   receiver_stats_[peer].received_time = received_time;
   receiver_stats_[peer].decode_start_time = decode_start_time;
   receiver_stats_[peer].frame_type = frame_type;
   receiver_stats_[peer].encoded_image_size = encoded_image_size;
+  receiver_stats_[peer].spatial_layer_index = spatial_layer;
 }
 
 bool FrameInFlight::HasReceivedTime(size_t peer) const {
@@ -202,6 +204,7 @@ FrameStats FrameInFlight::GetStatsForPeer(size_t peer) const {
     stats.prev_frame_rendered_time = receiver_stats->prev_frame_rendered_time;
     stats.time_between_rendered_frames =
         receiver_stats->time_between_rendered_frames;
+    stats.frame_spatial_layer_index = receiver_stats->spatial_layer_index;
     stats.decoded_frame_width = receiver_stats->decoded_frame_width;
     stats.decoded_frame_height = receiver_stats->decoded_frame_height;
     stats.used_decoder = receiver_stats->used_decoder;

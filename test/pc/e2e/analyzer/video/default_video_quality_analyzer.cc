@@ -425,11 +425,13 @@ void DefaultVideoQualityAnalyzer::OnFramePreDecode(
                          return a.receive_time() < b.receive_time();
                        })
           ->receive_time();
-  it->second.OnFramePreDecode(peer_index,
-                              /*received_time=*/last_receive_time,
-                              /*decode_start_time=*/Now(),
-                              input_image._frameType,
-                              DataSize::Bytes(input_image.size()));
+  it->second.OnFramePreDecode(
+      peer_index,
+      /*received_time=*/last_receive_time,
+      /*decode_start_time=*/Now(), input_image._frameType,
+      DataSize::Bytes(input_image.size()),
+      input_image.SpatialIndex().has_value() ? input_image.SpatialIndex()
+                                             : input_image.SimulcastIndex());
 
   if (options_.report_infra_metrics) {
     analyzer_stats_.on_frame_pre_decode_processing_time_ms.AddSample(
@@ -1258,6 +1260,9 @@ void DefaultVideoQualityAnalyzer::ReportResults(
                                ImprovementDirection::kSmallerIsBetter,
                                std::move(qp_metadata));
   }
+  metrics_logger_->LogMetric(
+      "spatial_layer_index", test_case_name, stats.spatial_layer_index,
+      Unit::kUnitless, ImprovementDirection::kBiggerIsBetter, metric_metadata);
   metrics_logger_->LogSingleValueMetric(
       "actual_encode_bitrate", test_case_name,
       static_cast<double>(stats.total_encoded_images_payload) /

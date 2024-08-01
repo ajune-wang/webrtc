@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f092edc1_0aa8e7d0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-08-01T13:21:05Z",
+      "side": 1,
+      "message": "Would be nice to have tested the link step too, but you take what you can.",
+      "revId": "1cc80b4dfda6b2e52022b3aa40b1e236195616d5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

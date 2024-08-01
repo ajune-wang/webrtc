@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8c2bf363_9e8e2409",
+        "filename": "modules/rtp_rtcp/include/flexfec_sender.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-08-01T17:11:54Z",
+      "side": 1,
+      "message": "Technically a breaking change but not affecting Chromium.\nDanil: can you please check internal usage (not expecting any).",
+      "revId": "e0280b989eddee7042ff6c9284dad53761d22fc2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

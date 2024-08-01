@@ -57,6 +57,43 @@ constexpr int64_t kMinRetransmissionWindowMs = 30;
 class RtpPacketSenderProxy;
 class TransportSequenceNumberProxy;
 
+class AudioBitrateUsageAccountant {
+ public:
+  void RegisterPacketOverhead(int packet_byte_overhead) {
+    packet_byte_overhead_ = packet_byte_overhead;
+  }
+
+  void Reset() {
+    last_frame_bps_ = 0;
+    next_frame_duration_ms_ = 0;
+  }
+
+  AudioBitrateUsageAccountant() : packet_byte_overhead_(72) { Reset(); }
+
+  // A new frame is formed when bytesize is nonzero.
+  int GetBpsEstimate(int bytesize, int duration) {
+    next_frame_duration_ms_ += duration;
+    // Do not have a full frame yet.
+    if (bytesize == 0)
+      return 0;
+
+    // We report the larger of the rates computed using the last frame, and
+    // second last frame. Under DTX, frame sizes sometimes alternate, it is
+    // preferable to report the upper envelop.
+    int cur_bps =
+        (bytesize + packet_byte_overhead_) * 8000 / next_frame_duration_ms_;
+    int reported_bps = std::max(cur_bps, last_frame_bps_);
+    last_frame_bps_ = cur_bps;
+    next_frame_duration_ms_ = 0;
+    return reported_bps;
+  }
+
+ private:
+  int next_frame_duration_ms_;
+  int packet_byte_overhead_;
+  int last_frame_bps_;
+};
+
 class ChannelSend : public ChannelSendInterface,
                     public AudioPacketizationCallback,  // receive encoded
                                                         // packets from the ACM
@@ -152,6 +189,17 @@ class ChannelSend : public ChannelSendInterface,
   // ReportBlockDataObserver.
   void OnReportBlockDataUpdated(ReportBlockData report_block) override;
 
+  // Reports actual bitrate used (vs allocated).
+  absl::optional<DataRate> GetUsedRate() const override {
+    return (used_bps_ == 0)
+               ? absl::nullopt
+               : absl::optional<DataRate>(DataRate::BitsPerSec(used_bps_));
+  }
+
+  void RegisterPacketOverhead(int packet_byte_overhead) override {
+    bitrate_accountant_.RegisterPacketOverhead(packet_byte_overhead);
+  }
+
  private:
   // From AudioPacketizationCallback in the ACM
   int32_t SendData(AudioFrameType frameType,
@@ -240,6 +288,9 @@ class ChannelSend : public ChannelSendInterface,
   RTC_NO_UNIQUE_ADDRESS SequenceChecker encoder_queue_checker_;
 
   SdpAudioFormat encoder_format_;
+
+  AudioBitrateUsageAccountant bitrate_accountant_;
+  int used_bps_ = 0;
 };
 
 const int kTelephoneEventAttenuationdB = 10;
@@ -800,9 +851,16 @@ void ChannelSend::ProcessAndEncodeAudio(
         // encoding is done and payload is ready for packetization and
         // transmission. Otherwise, it will return without invoking the
         // callback.
-        if (audio_coding_->Add10MsData(*audio_frame) < 0) {
+        int32_t encoded_bytes = audio_coding_->Add10MsData(*audio_frame);
+        if (encoded_bytes < 0) {
           RTC_DLOG(LS_ERROR) << "ACM::Add10MsData() failed.";
+          bitrate_accountant_.Reset();
+          used_bps_ = 0;
           return;
+        }
+        int bps = bitrate_accountant_.GetBpsEstimate(encoded_bytes, 10);
+        if (bps > 0) {
+          used_bps_ = bps;
         }
       });
 }

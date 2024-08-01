@@ -16,6 +16,24 @@
       "message": "Would be nice to have tested the link step too, but you take what you can.",
       "revId": "1cc80b4dfda6b2e52022b3aa40b1e236195616d5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c9dc57fc_63d58253",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-08-01T16:34:49Z",
+      "side": 1,
+      "message": "This is missing -lssl for OpenSSL I think. Which is intentional (if you build with OpenSSL you probably do so because you link it already) but we need to add it for the unit tests. I\u0027ll take that one",
+      "parentUuid": "f092edc1_0aa8e7d0",
+      "revId": "1cc80b4dfda6b2e52022b3aa40b1e236195616d5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

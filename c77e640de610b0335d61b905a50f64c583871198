@@ -16,6 +16,24 @@
       "message": "does this need to be boringssl or does it not matter?",
       "revId": "c77e640de610b0335d61b905a50f64c583871198",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a41c3c5e_e528f3c3",
+        "filename": "rtc_base/DEPS",
+        "patchSetId": 3
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2024-08-01T08:21:52Z",
+      "side": 1,
+      "message": "I think checkdeps doesn\u0027t know that, unless the boringssl path is mentioned in the #include line.",
+      "parentUuid": "c6f87bdd_dbf3c2f6",
+      "revId": "c77e640de610b0335d61b905a50f64c583871198",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f0fe73ea_d2c4b926",
+        "filename": "rtc_base/openssl_adapter.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2024-08-01T08:21:52Z",
+      "side": 1,
+      "message": "Overall, the CL is OK.\n\nSince we are here, I wonder if we want to make it more explicit that this is BoringSSL unless https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/webrtc.gni;l\u003d121;drc\u003d9ebf0921ea93d37a7c7709d52e8d249b70ecbd4b is used.\n\nMy concern is that this is somehow left to the compiler -I flag to figure out, maybe we want to be more specific?",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 24
+      },
+      "revId": "53d9bda0978884cb2e0b5d69613270d2c408aab9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

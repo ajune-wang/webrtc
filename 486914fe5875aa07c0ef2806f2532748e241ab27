@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f290462a_3b010152",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2024-08-01T07:37:37Z",
+      "side": 1,
+      "message": "Could consider breaking this out to a separate file to simplify testing.",
+      "range": {
+        "startLine": 60,
+        "startChar": 6,
+        "endLine": 60,
+        "endChar": 33
+      },
+      "revId": "486914fe5875aa07c0ef2806f2532748e241ab27",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "00f0921f_79a0fc7f",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2024-08-01T07:37:37Z",
+      "side": 1,
+      "message": "IMO, it\u0027s a bit easier to work with DataSize and TimeDelta instead of integers.",
+      "range": {
+        "startLine": 74,
+        "startChar": 21,
+        "endLine": 74,
+        "endChar": 47
+      },
+      "revId": "486914fe5875aa07c0ef2806f2532748e241ab27",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "28c1bf0e_08ccbaa9",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2024-08-01T07:37:37Z",
+      "side": 1,
+      "message": "Won\u0027t this significantly overcount the bitrate during DTX? Even if the DTX packets are 1-2 byte payload, the headers are usually 50-60 bytes, so the bitrate calculated here would be \u003e20kbps while the actual bitrate is \u003c5kbps.",
+      "range": {
+        "startLine": 85,
+        "startChar": 0,
+        "endLine": 85,
+        "endChar": 58
+      },
+      "revId": "486914fe5875aa07c0ef2806f2532748e241ab27",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fe9c484b_b6f965ce",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2024-08-01T07:37:37Z",
+      "side": 1,
+      "message": "How about storing this in AudioBitrateUsageAccountant instead? :)\n\n(Call GetBpsEstimate UpdateBpsEstimate or something and then have a separate const getter.)",
+      "range": {
+        "startLine": 293,
+        "startChar": 2,
+        "endLine": 293,
+        "endChar": 20
+      },
+      "revId": "486914fe5875aa07c0ef2806f2532748e241ab27",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

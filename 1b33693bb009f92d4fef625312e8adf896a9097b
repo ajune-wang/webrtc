@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3855e609_bfb6b374",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-08-01T17:26:25Z",
+      "side": 1,
+      "message": "I scratched my head quite a bit why adding ldflags to the config did not work but it needs to be linked against the final rtc_unittests executable!",
+      "revId": "1b33693bb009f92d4fef625312e8adf896a9097b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

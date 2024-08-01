@@ -22,6 +22,30 @@
       },
       "revId": "53d9bda0978884cb2e0b5d69613270d2c408aab9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2c3513fd_2cf215b1",
+        "filename": "rtc_base/openssl_adapter.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-08-01T08:42:02Z",
+      "side": 1,
+      "message": "Isn\u0027t the relevant -l flag controlled by the rtc_ssl_root flag?\n\nThe BoringSSL vs OpenSSL thing probably belongs in a file comment, but not sure which file - it\u0027s pretty extensively mentioned in places like https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/rtc_base/BUILD.gn;l\u003d1499?q\u003drtc_build_ssl\u0026ss\u003dchromium%2Fchromium%2Fsrc",
+      "parentUuid": "f0fe73ea_d2c4b926",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 24
+      },
+      "revId": "53d9bda0978884cb2e0b5d69613270d2c408aab9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

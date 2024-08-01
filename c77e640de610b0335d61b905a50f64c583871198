@@ -34,6 +34,24 @@
       "parentUuid": "c6f87bdd_dbf3c2f6",
       "revId": "c77e640de610b0335d61b905a50f64c583871198",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3ecc465e_044efb3e",
+        "filename": "rtc_base/DEPS",
+        "patchSetId": 3
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-08-01T08:42:02Z",
+      "side": 1,
+      "message": "I think the reference resolves to third_party/boringssl/include/openssl...",
+      "parentUuid": "c6f87bdd_dbf3c2f6",
+      "revId": "c77e640de610b0335d61b905a50f64c583871198",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

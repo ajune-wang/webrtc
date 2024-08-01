@@ -65,6 +65,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "eab41fc0_39bb1aa1",
+        "filename": "api/frame_transformer_interface.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 19084
+      },
+      "writtenOn": "2024-08-01T08:35:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0e85ce16_eb762487",
+      "range": {
+        "startLine": 110,
+        "startChar": 5,
+        "endLine": 110,
+        "endChar": 42
+      },
+      "revId": "340afa36e3723d2610700853dc382070e53cb22c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3d32ecac_bfef3fba",
@@ -96,6 +120,24 @@
           ]
         }
       ],
+      "revId": "340afa36e3723d2610700853dc382070e53cb22c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9f87e1b9_8390cbb6",
+        "filename": "audio/channel_receive_frame_transformer_delegate.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 19084
+      },
+      "writtenOn": "2024-08-01T08:35:21Z",
+      "side": 1,
+      "message": "Good idea !",
+      "parentUuid": "3d32ecac_bfef3fba",
       "revId": "340afa36e3723d2610700853dc382070e53cb22c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -163,6 +205,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2886123f_57d85428",
+        "filename": "audio/channel_receive_frame_transformer_delegate.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 19084
+      },
+      "writtenOn": "2024-08-01T08:35:21Z",
+      "side": 1,
+      "message": "I had it like that at first and then I felt uneasy about the cast.\nI\u0027ll get to my original implementation with the cast.",
+      "parentUuid": "cdd2c68e_e11f632b",
+      "revId": "340afa36e3723d2610700853dc382070e53cb22c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "adba075f_9272cf0c",
@@ -180,6 +240,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c3c41f5b_dc5fd32b",
+        "filename": "audio/channel_receive_frame_transformer_delegate_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 19084
+      },
+      "writtenOn": "2024-08-01T08:35:21Z",
+      "side": 1,
+      "message": "The header is the RTP header. It does not contain the time it hase been seen first on the network card. This is why this should be an extra argument.",
+      "parentUuid": "adba075f_9272cf0c",
+      "revId": "340afa36e3723d2610700853dc382070e53cb22c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "318034da_6212c595",
@@ -193,6 +271,24 @@
       "writtenOn": "2024-07-31T20:02:52Z",
       "side": 1,
       "message": "When you use the same number multiple times in a test, make a constant for it (kFakeTimestamp?)",
+      "revId": "340afa36e3723d2610700853dc382070e53cb22c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cba348d9_54d2bf72",
+        "filename": "audio/channel_receive_frame_transformer_delegate_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 19084
+      },
+      "writtenOn": "2024-08-01T08:35:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "318034da_6212c595",
       "revId": "340afa36e3723d2610700853dc382070e53cb22c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

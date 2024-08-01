@@ -33,6 +33,23 @@
       "message": "I suppose there\u0027s nothing else you can do with it...",
       "revId": "6518cf3f67799adc56252ea211f610e214618b6f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aa52b31d_f1d60400",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-08-01T06:25:27Z",
+      "side": 1,
+      "message": "I would have liked a test, and wonder why a fuzzer didn\u0027t catch this - index 0 of an empty ArrayView should be a (D)CHECK.",
+      "revId": "6518cf3f67799adc56252ea211f610e214618b6f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

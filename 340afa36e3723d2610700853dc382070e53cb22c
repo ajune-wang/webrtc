@@ -223,6 +223,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "31314bb2_e873620b",
+        "filename": "audio/channel_receive_frame_transformer_delegate.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 17470
+      },
+      "writtenOn": "2024-08-01T08:43:59Z",
+      "side": 1,
+      "message": "We\u0027re doing the cast in ReceiveFrame anyway, and https://webrtc-review.googlesource.com/c/src/+/350361 added a PassKey to try to lock down unknown impls. This LGTM.",
+      "parentUuid": "2886123f_57d85428",
+      "revId": "340afa36e3723d2610700853dc382070e53cb22c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "adba075f_9272cf0c",

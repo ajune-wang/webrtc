@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "75e6f43f_2a47be60",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-08-01T17:50:10Z",
+      "side": 1,
+      "message": "Generally LG, some nits about tests, and still would need to check if changing the constructor can be done in one step or has to be split in several.",
+      "revId": "e0280b989eddee7042ff6c9284dad53761d22fc2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8c2bf363_9e8e2409",
@@ -14,6 +31,109 @@
       "writtenOn": "2024-08-01T17:11:54Z",
       "side": 1,
       "message": "Technically a breaking change but not affecting Chromium.\nDanil: can you please check internal usage (not expecting any).",
+      "revId": "e0280b989eddee7042ff6c9284dad53761d22fc2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "db655f38_ea0f5d16",
+        "filename": "modules/rtp_rtcp/include/flexfec_sender.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-08-01T17:50:10Z",
+      "side": 1,
+      "message": "Will do, will come back asking to make it backwards compatible, would change internal code to support either constructor signature (and then tell it is ok to submit as is)",
+      "parentUuid": "8c2bf363_9e8e2409",
+      "revId": "e0280b989eddee7042ff6c9284dad53761d22fc2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "000ca914_58d3c0d1",
+        "filename": "modules/rtp_rtcp/source/flexfec_sender_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-08-01T17:50:10Z",
+      "side": 1,
+      "message": "Are you planing to use task queue factory in the flexfec sender?\nIf not prefer to keep simpler SimulatedClock and silently rely on the default tqf.",
+      "revId": "e0280b989eddee7042ff6c9284dad53761d22fc2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7c50cf5a_e0160d06",
+        "filename": "modules/rtp_rtcp/source/flexfec_sender_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-08-01T17:50:10Z",
+      "side": 1,
+      "message": "Creating env in the fixture would likely make it harder to inject custom field trials later.\nConsider keeping no fixture, or keeping just the clock there and creat env inline in tests:\n\u0027FlexfecSender sender(CreateEnvironment(\u0026clock), ...\u0027",
+      "revId": "e0280b989eddee7042ff6c9284dad53761d22fc2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2ccac473_1ef4e8da",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl2_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-08-01T17:50:10Z",
+      "side": 1,
+      "message": "The point of empty field trials was to have a non null pointer to them,\nBut now you can use \u0027\u0026env.field_trials()\u0027 instead.\nI.e., consider removing ExplicitKeyValueConfig from these tests altogether.",
+      "revId": "e0280b989eddee7042ff6c9284dad53761d22fc2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0c753a8d_26cb3e85",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_egress_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-08-01T17:50:10Z",
+      "side": 1,
+      "message": "Ditto, consider removing trials_ member and use env_.field_trials() instead.",
+      "revId": "e0280b989eddee7042ff6c9284dad53761d22fc2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6e20d54e_01219253",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-08-01T17:50:10Z",
+      "side": 1,
+      "message": "Can you remove clock_? Or would that increase change too much for your taste?\nFeel free to keep it.",
       "revId": "e0280b989eddee7042ff6c9284dad53761d22fc2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

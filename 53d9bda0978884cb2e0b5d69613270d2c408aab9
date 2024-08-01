@@ -46,6 +46,30 @@
       },
       "revId": "53d9bda0978884cb2e0b5d69613270d2c408aab9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "67ae9fb9_fa32d09e",
+        "filename": "rtc_base/openssl_adapter.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2024-08-01T09:27:14Z",
+      "side": 1,
+      "message": "Yes, the -I flag is managed inside //third_party/boringssl.\n\nApproving the CL, because it just improves things. Making the BoringSLL vs OpenSSL thing more explicit can be done separately.",
+      "parentUuid": "2c3513fd_2cf215b1",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 24
+      },
+      "revId": "53d9bda0978884cb2e0b5d69613270d2c408aab9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -39,6 +39,30 @@
       },
       "revId": "8a28ad719623f219907a8968147263c206f3f725",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "44d1e619_e4adef3f",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer_internal_shared_objects.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 3485001
+      },
+      "writtenOn": "2024-08-02T13:44:40Z",
+      "side": 1,
+      "message": "I think this is a good idea. But probably safer to leave it to a second CL. It requires a couple of changes and perhaps before doing all of that it would be good to test that everything works by assuming 1 QP per spatial layer by having a `SamplesStatsCounter`. However, an old CL also seems to be interested in the timestamp of the QP value. I dont know if that is still relevant but will need to have a look on that.\n\nHence, added a TODO here. Just need to create a new bug for this.",
+      "parentUuid": "cff37763_5cab838f",
+      "range": {
+        "startLine": 77,
+        "startChar": 16,
+        "endLine": 77,
+        "endChar": 35
+      },
+      "revId": "8a28ad719623f219907a8968147263c206f3f725",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

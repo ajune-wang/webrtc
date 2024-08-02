@@ -1,0 +1,62 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3a9245cd_202b7bd9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3485001
+      },
+      "writtenOn": "2024-08-02T13:44:40Z",
+      "side": 1,
+      "message": "Thank you Sergey for the feedback.",
+      "revId": "837717fa02464a87dec8c1893832c665bb546248",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3f15affc_4589c6b8",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer_internal_shared_objects.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 3485001
+      },
+      "writtenOn": "2024-08-02T13:44:40Z",
+      "side": 1,
+      "message": "Note: Update with bug-number when bug created!",
+      "range": {
+        "startLine": 77,
+        "startChar": 10,
+        "endLine": 77,
+        "endChar": 19
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "b435af6e_a75c76f4",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "test/pc/e2e/analyzer/video/default_video_quality_analyzer_internal_shared_objects.h",
+              "range": {
+                "startLine": 77,
+                "startChar": 0,
+                "endLine": 78,
+                "endChar": 0
+              },
+              "replacement": "  // TODO(b/191125111): Replace `SamplesStatsCounter` with optional\u003cint\u003e\n"
+            }
+          ]
+        }
+      ],
+      "revId": "837717fa02464a87dec8c1893832c665bb546248",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

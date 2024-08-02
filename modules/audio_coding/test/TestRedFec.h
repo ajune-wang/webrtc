@@ -45,7 +45,7 @@ class TestRedFec final {
   const rtc::scoped_refptr<AudioEncoderFactory> encoder_factory_;
   const rtc::scoped_refptr<AudioDecoderFactory> decoder_factory_;
   std::unique_ptr<AudioCodingModule> _acmA;
-  std::unique_ptr<acm2::AcmReceiver> _acm_receiver;
+  acm2::AcmReceiver acm_receiver_;
 
   Channel* _channelA2B;
 

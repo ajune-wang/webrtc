@@ -73,15 +73,14 @@ TestVadDtx::TestVadDtx()
       decoder_factory_(
           CreateAudioDecoderFactory<AudioDecoderIlbc, AudioDecoderOpus>()),
       acm_send_(AudioCodingModule::Create()),
-      acm_receive_(std::make_unique<acm2::AcmReceiver>(
-          acm2::AcmReceiver::Config(decoder_factory_))),
+      acm_receive_(env_, {.decoder_factory = decoder_factory_}),
       channel_(std::make_unique<Channel>()),
       packetization_callback_(
           std::make_unique<MonitoringAudioPacketizationCallback>(
               channel_.get())) {
   EXPECT_EQ(
       0, acm_send_->RegisterTransportCallback(packetization_callback_.get()));
-  channel_->RegisterReceiverACM(acm_receive_.get());
+  channel_->RegisterReceiverACM(&acm_receive_);
 }
 
 bool TestVadDtx::RegisterCodec(const SdpAudioFormat& codec_format,
@@ -105,7 +104,7 @@ bool TestVadDtx::RegisterCodec(const SdpAudioFormat& codec_format,
   acm_send_->SetEncoder(std::move(encoder));
 
   std::map<int, SdpAudioFormat> receive_codecs = {{payload_type, codec_format}};
-  acm_receive_->SetCodecs(receive_codecs);
+  acm_receive_.SetCodecs(receive_codecs);
 
   return added_comfort_noise;
 }
@@ -144,7 +143,7 @@ void TestVadDtx::Run(absl::string_view in_filename,
     time_stamp_ += frame_size_samples;
     EXPECT_GE(acm_send_->Add10MsData(audio_frame), 0);
     bool muted;
-    acm_receive_->GetAudio(kOutputFreqHz, &audio_frame, &muted);
+    acm_receive_.GetAudio(kOutputFreqHz, &audio_frame, &muted);
     ASSERT_FALSE(muted);
     out_file.Write10MsData(audio_frame);
   }

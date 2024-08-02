@@ -63,7 +63,7 @@ class AcmReceiveTestOldApi {
   virtual void AfterGetAudio() {}
 
   SimulatedClock clock_;
-  std::unique_ptr<acm2::AcmReceiver> acm_receiver_;
+  acm2::AcmReceiver acm_receiver_;
   PacketSource* packet_source_;
   AudioSink* audio_sink_;
   int output_freq_hz_;

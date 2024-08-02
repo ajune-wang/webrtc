@@ -87,7 +87,7 @@ class TestVadDtx {
   const rtc::scoped_refptr<AudioEncoderFactory> encoder_factory_;
   const rtc::scoped_refptr<AudioDecoderFactory> decoder_factory_;
   std::unique_ptr<AudioCodingModule> acm_send_;
-  std::unique_ptr<acm2::AcmReceiver> acm_receive_;
+  acm2::AcmReceiver acm_receive_;
   std::unique_ptr<Channel> channel_;
   std::unique_ptr<MonitoringAudioPacketizationCallback> packetization_callback_;
   uint32_t time_stamp_ = 0x12345678;

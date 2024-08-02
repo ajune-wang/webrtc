@@ -36,35 +36,24 @@ namespace acm2 {
 
 namespace {
 
-std::unique_ptr<NetEq> CreateNetEq(
-    NetEqFactory* neteq_factory,
-    const NetEq::Config& config,
-    Clock* clock,
-    const rtc::scoped_refptr<AudioDecoderFactory>& decoder_factory) {
-  if (neteq_factory) {
-    return neteq_factory->CreateNetEq(config, decoder_factory, clock);
+std::unique_ptr<NetEq> CreateNetEq(Clock* clock,
+                                   const AcmReceiver::Config& config) {
+  if (config.neteq_factory != nullptr) {
+    return config.neteq_factory->CreateNetEq(config.neteq_config,
+                                             config.decoder_factory, clock);
   }
-  return DefaultNetEqFactory().CreateNetEq(config, decoder_factory, clock);
+  return DefaultNetEqFactory().CreateNetEq(config.neteq_config,
+                                           config.decoder_factory, clock);
 }
 
 }  // namespace
 
-AcmReceiver::Config::Config(
-    rtc::scoped_refptr<AudioDecoderFactory> decoder_factory)
-    : clock(*Clock::GetRealTimeClock()), decoder_factory(decoder_factory) {}
-
-AcmReceiver::Config::Config(const Config&) = default;
-AcmReceiver::Config::~Config() = default;
+AcmReceiver::AcmReceiver(const Environment& env, Config config)
+    : clock_(env.clock()), neteq_(CreateNetEq(&clock_, config)) {}
 
 AcmReceiver::AcmReceiver(const Config& config)
-    : neteq_(CreateNetEq(config.neteq_factory,
-                         config.neteq_config,
-                         &config.clock,
-                         config.decoder_factory)),
-      clock_(config.clock),
-      resampled_last_output_frame_(true) {
-  ClearSamples(last_audio_buffer_);
-}
+    : clock_(*Clock::GetRealTimeClock()),
+      neteq_(CreateNetEq(&clock_, config)) {}
 
 AcmReceiver::~AcmReceiver() = default;
 

@@ -71,7 +71,7 @@ class TestAllCodecs {
 
   const Environment env_;
   std::unique_ptr<AudioCodingModule> acm_a_;
-  std::unique_ptr<acm2::AcmReceiver> acm_b_;
+  acm2::AcmReceiver acm_b_;
   TestPack* channel_a_to_b_;
   PCMFile infile_a_;
   PCMFile outfile_b_;

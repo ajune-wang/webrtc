@@ -45,8 +45,7 @@ TestRedFec::TestRedFec()
                                                  AudioDecoderL16,
                                                  AudioDecoderOpus>()),
       _acmA(AudioCodingModule::Create()),
-      _acm_receiver(std::make_unique<acm2::AcmReceiver>(
-          acm2::AcmReceiver::Config(decoder_factory_))),
+      acm_receiver_(env_, {.decoder_factory = decoder_factory_}),
       _channelA2B(NULL),
       _testCntr(0) {}
 
@@ -65,7 +64,7 @@ void TestRedFec::Perform() {
   // Create and connect the channel
   _channelA2B = new Channel;
   _acmA->RegisterTransportCallback(_channelA2B);
-  _channelA2B->RegisterReceiverACM(_acm_receiver.get());
+  _channelA2B->RegisterReceiverACM(&acm_receiver_);
 
   RegisterSendCodec(_acmA, {"L16", 8000, 1}, Vad::kVadAggressive, true);
 
@@ -165,7 +164,7 @@ void TestRedFec::RegisterSendCodec(
     }
   }
   acm->SetEncoder(std::move(encoder));
-  _acm_receiver->SetCodecs(receive_codecs);
+  acm_receiver_.SetCodecs(receive_codecs);
 }
 
 void TestRedFec::Run() {
@@ -180,7 +179,7 @@ void TestRedFec::Run() {
     EXPECT_GT(_inFileA.Read10MsData(audioFrame), 0);
     EXPECT_GE(_acmA->Add10MsData(audioFrame), 0);
     bool muted;
-    EXPECT_EQ(0, _acm_receiver->GetAudio(outFreqHzB, &audioFrame, &muted));
+    EXPECT_EQ(0, acm_receiver_.GetAudio(outFreqHzB, &audioFrame, &muted));
     ASSERT_FALSE(muted);
     _outFileB.Write10MsData(audioFrame.data(), audioFrame.samples_per_channel_);
   }

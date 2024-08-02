@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1e4cecfb_9d5e9730",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-08-02T06:12:04Z",
+      "side": 1,
+      "message": "Add a warning in case libsrtp is patched....",
+      "revId": "0cc0e3f86deb8fd9df8ff28e5eb81e28b6b30276",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d0f9da2c_b4902f95",
+        "filename": "pc/srtp_session_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 332,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-08-02T06:12:04Z",
+      "side": 1,
+      "message": "```suggestion\n  // does not know this is a rollover so will attempt with a ROC of 0.\n  // Note: If libsrtp is modified to attempt to decrypt with ROC\u003d1 for this case,\n  // this test will fail and needs to be modified accordingly.\n  // See https://issues.webrtc.org/353565743 for details.\n```",
+      "revId": "0cc0e3f86deb8fd9df8ff28e5eb81e28b6b30276",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -365,8 +365,8 @@ void DefaultVideoQualityAnalyzer::OnFrameEncoded(
   // TODO(https://crbug.com/webrtc/14891): If we want to support a mix of
   // simulcast and SVC we'll also need to consider the case where we have both
   // simulcast and spatial indices.
-  size_t stream_index = encoded_image.SpatialIndex().value_or(
-      encoded_image.SimulcastIndex().value_or(0));
+  int stream_index = encoded_image.SpatialIndex().value_or(
+      encoded_image.SimulcastIndex().value_or(-1));
   frame_in_flight.OnFrameEncoded(
       now, time_between_encoded_frames, encoded_image._frameType,
       DataSize::Bytes(encoded_image.size()), stats.target_encode_bitrate,

@@ -98,7 +98,10 @@ void PassFramesThroughAnalyzer(DefaultVideoQualityAnalyzer& analyzer,
         analyzer.OnFrameCaptured(sender, std::string(stream_label), frame);
     frame.set_id(frame_id);
     analyzer.OnFramePreEncode(sender, frame);
-    analyzer.OnFrameEncoded(sender, frame.id(), FakeEncode(frame),
+    // Set an arbitrary spatial layer for the fake encoded image.
+    EncodedImage fake_encoded = FakeEncode(frame);
+    fake_encoded.SetSpatialIndex(0);
+    analyzer.OnFrameEncoded(sender, frame.id(), fake_encoded,
                             VideoQualityAnalyzerInterface::EncoderStats(),
                             false);
     for (absl::string_view receiver : receivers) {

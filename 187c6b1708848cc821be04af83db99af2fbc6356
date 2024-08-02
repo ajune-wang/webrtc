@@ -16,6 +16,29 @@
       "message": "which kind of makes the point that we should have a bot?",
       "revId": "187c6b1708848cc821be04af83db99af2fbc6356",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "24ca915f_d2de6fa5",
+        "filename": "rtc_base/openssl_adapter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2024-08-02T13:59:31Z",
+      "side": 1,
+      "message": "since we are here, can you do:\n\nssl_ctx_ \u003d CreateContext(ssl_mode_, /*enable_cache\u003d*/false, permute_extension_);\n\nand below:\n\nssl_ctx_ \u003d CreateContext(ssl_mode_, /*enable_cache\u003d*/false, /* permute_extension\u003d*/false);",
+      "range": {
+        "startLine": 292,
+        "startChar": 40,
+        "endLine": 292,
+        "endChar": 45
+      },
+      "revId": "187c6b1708848cc821be04af83db99af2fbc6356",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

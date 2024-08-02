@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f4ced58a_02e94166",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-08-02T16:15:58Z",
+      "side": 1,
+      "message": "easier than sprinkling more boringssl defines, this flag is transitional",
+      "revId": "5bdea026ccebe15098d90a158e7db7a87c9ce8ac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

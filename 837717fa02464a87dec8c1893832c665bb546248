@@ -109,6 +109,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a30d386d_1b0590a5",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer_frame_in_flight.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 3485001
+      },
+      "writtenOn": "2024-08-02T16:04:53Z",
+      "side": 1,
+      "message": "Yes, IMO we should keep it. I don\u0027t know if singlecast is ever used in real-word RTC. Nevertheless, I guess someone sometime could be interested in a singlecast scenario. It could also be important in some tests perhaps.\n\nThe question then is more: \"What shall we do in simulcast stream if the stream index is not set?\" I don\u0027t know if this is even a realistic situation. However, the ideal would be \"not\" to sum the QP values as it is currently. IMO it is misleading to sum them and place the mean on the 0:th layer.\n\nSo my suggestion is: we can have a check such as: `if (stream_layers_qp_.count(stream_index) !\u003d 0` --\u003e `stream_layers_qp_.clear()` in default_video_quality_analyzer_frame_in_flight.cc in `OnFrameEncoded` where I did something similar in patch 8. Wdyt?\n\nIn singlecast this if check would never result in true to my best knowledge.",
+      "parentUuid": "de0afd1e_606b01cf",
+      "range": {
+        "startLine": 98,
+        "startChar": 2,
+        "endLine": 101,
+        "endChar": 3
+      },
+      "revId": "837717fa02464a87dec8c1893832c665bb546248",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3f15affc_4589c6b8",
         "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer_internal_shared_objects.h",
         "patchSetId": 7

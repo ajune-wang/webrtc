@@ -39,7 +39,7 @@ class OpusTest {
 
   void OpenOutFile(int test_number);
 
-  std::unique_ptr<acm2::AcmReceiver> acm_receiver_;
+  acm2::AcmReceiver acm_receiver_;
   TestPackStereo* channel_a2b_;
   PCMFile in_file_stereo_;
   PCMFile in_file_mono_;

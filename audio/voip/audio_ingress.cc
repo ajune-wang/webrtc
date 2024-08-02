@@ -30,12 +30,10 @@ namespace webrtc {
 
 namespace {
 
-acm2::AcmReceiver::Config CreateAcmConfig(
-    rtc::scoped_refptr<AudioDecoderFactory> decoder_factory) {
-  acm2::AcmReceiver::Config acm_config;
-  acm_config.neteq_config.enable_muted_state = true;
-  acm_config.decoder_factory = decoder_factory;
-  return acm_config;
+NetEq::Config NetEqConfig() {
+  NetEq::Config config;
+  config.enable_muted_state = true;
+  return config;
 }
 
 }  // namespace
@@ -51,7 +49,9 @@ AudioIngress::AudioIngress(
       first_rtp_timestamp_(-1),
       rtp_receive_statistics_(receive_statistics),
       rtp_rtcp_(rtp_rtcp),
-      acm_receiver_(CreateAcmConfig(decoder_factory)),
+      acm_receiver_(env_,
+                    {.neteq_config = NetEqConfig(),
+                     .decoder_factory = std::move(decoder_factory)}),
       ntp_estimator_(&env_.clock()) {}
 
 AudioIngress::~AudioIngress() = default;

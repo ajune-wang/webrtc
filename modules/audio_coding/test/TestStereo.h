@@ -84,7 +84,7 @@ class TestStereo {
 
   const Environment env_;
   std::unique_ptr<AudioCodingModule> acm_a_;
-  std::unique_ptr<acm2::AcmReceiver> acm_b_;
+  acm2::AcmReceiver acm_b_;
 
   TestPackStereo* channel_a2b_;
 

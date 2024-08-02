@@ -110,8 +110,7 @@ void TestPack::reset_payload_size() {
 TestAllCodecs::TestAllCodecs()
     : env_(CreateEnvironment()),
       acm_a_(AudioCodingModule::Create()),
-      acm_b_(std::make_unique<acm2::AcmReceiver>(
-          acm2::AcmReceiver::Config(CreateBuiltinAudioDecoderFactory()))),
+      acm_b_(env_, {.decoder_factory = CreateBuiltinAudioDecoderFactory()}),
       channel_a_to_b_(NULL),
       test_count_(0),
       packet_size_samples_(0),
@@ -129,28 +128,28 @@ void TestAllCodecs::Perform() {
       webrtc::test::ResourcePath("audio_coding/testfile32kHz", "pcm");
   infile_a_.Open(file_name, 32000, "rb");
 
-  acm_b_->SetCodecs({{107, {"L16", 8000, 1}},
-                     {108, {"L16", 16000, 1}},
-                     {109, {"L16", 32000, 1}},
-                     {111, {"L16", 8000, 2}},
-                     {112, {"L16", 16000, 2}},
-                     {113, {"L16", 32000, 2}},
-                     {0, {"PCMU", 8000, 1}},
-                     {110, {"PCMU", 8000, 2}},
-                     {8, {"PCMA", 8000, 1}},
-                     {118, {"PCMA", 8000, 2}},
-                     {102, {"ILBC", 8000, 1}},
-                     {9, {"G722", 8000, 1}},
-                     {119, {"G722", 8000, 2}},
-                     {120, {"OPUS", 48000, 2, {{"stereo", "1"}}}},
-                     {13, {"CN", 8000, 1}},
-                     {98, {"CN", 16000, 1}},
-                     {99, {"CN", 32000, 1}}});
+  acm_b_.SetCodecs({{107, {"L16", 8000, 1}},
+                    {108, {"L16", 16000, 1}},
+                    {109, {"L16", 32000, 1}},
+                    {111, {"L16", 8000, 2}},
+                    {112, {"L16", 16000, 2}},
+                    {113, {"L16", 32000, 2}},
+                    {0, {"PCMU", 8000, 1}},
+                    {110, {"PCMU", 8000, 2}},
+                    {8, {"PCMA", 8000, 1}},
+                    {118, {"PCMA", 8000, 2}},
+                    {102, {"ILBC", 8000, 1}},
+                    {9, {"G722", 8000, 1}},
+                    {119, {"G722", 8000, 2}},
+                    {120, {"OPUS", 48000, 2, {{"stereo", "1"}}}},
+                    {13, {"CN", 8000, 1}},
+                    {98, {"CN", 16000, 1}},
+                    {99, {"CN", 32000, 1}}});
 
   // Create and connect the channel
   channel_a_to_b_ = new TestPack;
   acm_a_->RegisterTransportCallback(channel_a_to_b_);
-  channel_a_to_b_->RegisterReceiverACM(acm_b_.get());
+  channel_a_to_b_->RegisterReceiverACM(&acm_b_);
 
   // All codecs are tested for all allowed sampling frequencies, rates and
   // packet sizes.
@@ -366,7 +365,7 @@ void TestAllCodecs::Run(TestPack* channel) {
 
     // Run received side of ACM.
     bool muted;
-    CHECK_ERROR(acm_b_->GetAudio(out_freq_hz, &audio_frame, &muted));
+    CHECK_ERROR(acm_b_.GetAudio(out_freq_hz, &audio_frame, &muted));
     ASSERT_FALSE(muted);
 
     // Write output speech to file.

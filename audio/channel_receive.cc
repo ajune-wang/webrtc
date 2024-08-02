@@ -67,23 +67,17 @@ constexpr double kAudioSampleDurationSeconds = 0.01;
 constexpr int kVoiceEngineMinMinPlayoutDelayMs = 0;
 constexpr int kVoiceEngineMaxMinPlayoutDelayMs = 10000;
 
-acm2::AcmReceiver::Config AcmConfig(
-    NetEqFactory* neteq_factory,
-    rtc::scoped_refptr<AudioDecoderFactory> decoder_factory,
-    absl::optional<AudioCodecPairId> codec_pair_id,
-    size_t jitter_buffer_max_packets,
-    bool jitter_buffer_fast_playout,
-    int jitter_buffer_min_delay_ms) {
-  acm2::AcmReceiver::Config acm_config;
-  acm_config.neteq_factory = neteq_factory;
-  acm_config.decoder_factory = decoder_factory;
-  acm_config.neteq_config.codec_pair_id = codec_pair_id;
-  acm_config.neteq_config.max_packets_in_buffer = jitter_buffer_max_packets;
-  acm_config.neteq_config.enable_fast_accelerate = jitter_buffer_fast_playout;
-  acm_config.neteq_config.enable_muted_state = true;
-  acm_config.neteq_config.min_delay_ms = jitter_buffer_min_delay_ms;
-
-  return acm_config;
+NetEq::Config NeteqConfig(absl::optional<AudioCodecPairId> codec_pair_id,
+                          size_t jitter_buffer_max_packets,
+                          bool jitter_buffer_fast_playout,
+                          int jitter_buffer_min_delay_ms) {
+  NetEq::Config config;
+  config.codec_pair_id = codec_pair_id;
+  config.max_packets_in_buffer = jitter_buffer_max_packets;
+  config.enable_fast_accelerate = jitter_buffer_fast_playout;
+  config.enable_muted_state = true;
+  config.min_delay_ms = jitter_buffer_min_delay_ms;
+  return config;
 }
 
 class ChannelReceive : public ChannelReceiveInterface,
@@ -538,12 +532,13 @@ ChannelReceive::ChannelReceive(
       worker_thread_(TaskQueueBase::Current()),
       rtp_receive_statistics_(ReceiveStatistics::Create(&env_.clock())),
       remote_ssrc_(remote_ssrc),
-      acm_receiver_(AcmConfig(neteq_factory,
-                              decoder_factory,
-                              codec_pair_id,
-                              jitter_buffer_max_packets,
-                              jitter_buffer_fast_playout,
-                              jitter_buffer_min_delay_ms)),
+      acm_receiver_(env,
+                    {.neteq_config = NeteqConfig(codec_pair_id,
+                                                 jitter_buffer_max_packets,
+                                                 jitter_buffer_fast_playout,
+                                                 jitter_buffer_min_delay_ms),
+                     .decoder_factory = std::move(decoder_factory),
+                     .neteq_factory = neteq_factory}),
       _outputAudioLevel(),
       ntp_estimator_(&env_.clock()),
       playout_timestamp_rtp_(0),

@@ -174,10 +174,9 @@ class AudioCodingModuleTestOldApi : public ::testing::Test {
 
   void SetUp() {
     acm_ = AudioCodingModule::Create();
-    acm2::AcmReceiver::Config config;
-    config.clock = env_.clock();
-    config.decoder_factory = CreateBuiltinAudioDecoderFactory();
-    acm_receiver_ = std::make_unique<acm2::AcmReceiver>(config);
+    acm_receiver_.emplace(
+        env_, acm2::AcmReceiver::Config{
+                  .decoder_factory = CreateBuiltinAudioDecoderFactory()});
 
     rtp_utility_->Populate(&rtp_header_);
 
@@ -245,7 +244,7 @@ class AudioCodingModuleTestOldApi : public ::testing::Test {
   Environment env_;
   std::unique_ptr<RtpData> rtp_utility_;
   std::unique_ptr<AudioCodingModule> acm_;
-  std::unique_ptr<acm2::AcmReceiver> acm_receiver_;
+  absl::optional<acm2::AcmReceiver> acm_receiver_;
   PacketizationCallbackStubOldApi packet_cb_;
   RTPHeader rtp_header_;
   AudioFrame input_frame_;

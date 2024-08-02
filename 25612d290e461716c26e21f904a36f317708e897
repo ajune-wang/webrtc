@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2824ce28_18b501f9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-08-02T09:25:04Z",
+      "side": 1,
+      "message": "starting next chunk for propagating field trials:\nlooking at 3 usages for opus decoder,\nand 3 usages for neteq\n\nAnd finalizing consistency of propagating environment through \"(Audio|Video)(Encoder|Decoder)Factory.",
+      "revId": "25612d290e461716c26e21f904a36f317708e897",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

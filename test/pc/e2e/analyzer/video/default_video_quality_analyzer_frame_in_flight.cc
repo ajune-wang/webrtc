@@ -95,8 +95,10 @@ void FrameInFlight::OnFrameEncoded(
   frame_type_ = frame_type;
   encoded_image_size_ += encoded_image_size;
   target_encode_bitrate_ += target_encode_bitrate;
-  stream_layers_qp_[stream_index].AddSample(SamplesStatsCounter::StatsSample{
-      .value = static_cast<double>(qp), .time = time});
+  if (stream_index >= 0) {
+    stream_layers_qp_[stream_index].AddSample(SamplesStatsCounter::StatsSample{
+        .value = static_cast<double>(qp), .time = time});
+  }
   // Update used encoder info. If simulcast/SVC is used, this method can
   // be called multiple times, in such case we should preserve the value
   // of `used_encoder_.switched_on_at` from the first invocation as the

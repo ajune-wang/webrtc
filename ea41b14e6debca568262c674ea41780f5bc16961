@@ -16,6 +16,23 @@
       "message": "Resolved in the latest patchset.",
       "revId": "ea41b14e6debca568262c674ea41780f5bc16961",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "92c0c219_114b7f4d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-08-02T10:00:17Z",
+      "side": 1,
+      "message": "bot noticed fuzzer also needs an update.\nThere is a small caveat  - for another fuzzer I\u0027ve discovered that Environment construction is not cheap enough to call it on each input, so I suggest to create an Environment once. See audio_encoder_opus_fuzzer.cc for that example.",
+      "revId": "ea41b14e6debca568262c674ea41780f5bc16961",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

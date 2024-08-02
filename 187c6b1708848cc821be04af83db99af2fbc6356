@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "746eddb1_125ea00f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-08-02T13:54:50Z",
+      "side": 1,
+      "message": "which kind of makes the point that we should have a bot?",
+      "revId": "187c6b1708848cc821be04af83db99af2fbc6356",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

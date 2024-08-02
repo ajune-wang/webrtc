@@ -172,9 +172,8 @@ class OpenSSLAdapter final : public SSLAdapter {
   std::vector<std::string> alpn_protocols_;
   // List of elliptic curves to be used in the TLS elliptic curves extension.
   std::vector<std::string> elliptic_curves_;
-#ifdef OPENSSL_IS_BORINGSSL
+  // Whether to permute client hello extensions when using BoringSSL.
   const bool permute_extension_;
-#endif
   // Holds the result of the call to run of the ssl_cert_verify_->Verify()
   bool custom_cert_verifier_status_;
   // Flag to cancel pending timeout task.

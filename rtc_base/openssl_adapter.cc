@@ -197,10 +197,13 @@ OpenSSLAdapter::OpenSSLAdapter(Socket* socket,
       ssl_ctx_(nullptr),
       ssl_mode_(SSL_MODE_TLS),
       ignore_bad_cert_(false),
-#ifdef OPENSSL_IS_BORINGSSL
       permute_extension_(
-          !webrtc::field_trial::IsDisabled("WebRTC-PermuteTlsClientHello")),
+#ifdef OPENSSL_IS_BORINGSSL
+          !webrtc::field_trial::IsDisabled("WebRTC-PermuteTlsClientHello")
+#else
+          false
 #endif
+              ),
       custom_cert_verifier_status_(false) {
   // If a factory is used, take a reference on the factory's SSL_CTX.
   // Otherwise, we'll create our own later.

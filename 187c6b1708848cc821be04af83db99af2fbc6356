@@ -39,6 +39,30 @@
       },
       "revId": "187c6b1708848cc821be04af83db99af2fbc6356",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "20b387d4_44cbc3ed",
+        "filename": "rtc_base/openssl_adapter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-08-03T16:03:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "24ca915f_d2de6fa5",
+      "range": {
+        "startLine": 292,
+        "startChar": 40,
+        "endLine": 292,
+        "endChar": 45
+      },
+      "revId": "187c6b1708848cc821be04af83db99af2fbc6356",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

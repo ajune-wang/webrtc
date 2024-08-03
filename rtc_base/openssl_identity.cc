@@ -79,8 +79,11 @@ std::unique_ptr<OpenSSLIdentity> OpenSSLIdentity::CreateWithExpiration(
   time_t now = time(nullptr);
   params.not_before = now + kCertificateWindowInSeconds;
   params.not_after = now + certificate_lifetime;
-  if (params.not_before > params.not_after)
+  if (params.not_before > params.not_after) {
+    RTC_LOG(LS_ERROR)
+        << "Іdentity generated failed, not_before is after not_after.";
     return nullptr;
+  }
   return CreateInternal(params);
 }
 
@@ -118,7 +121,7 @@ std::unique_ptr<SSLIdentity> OpenSSLIdentity::CreateFromPEMChainStrings(
     return nullptr;
   BIO_set_mem_eof_return(bio, 0);
   std::vector<std::unique_ptr<SSLCertificate>> certs;
-  while (true) {
+  while (!BIO_eof(bio)) {
     X509* x509 =
         PEM_read_bio_X509(bio, nullptr, nullptr, const_cast<char*>("\0"));
     if (x509 == nullptr) {

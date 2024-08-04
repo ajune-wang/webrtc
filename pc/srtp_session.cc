@@ -237,6 +237,16 @@ bool SrtpSession::ProtectRtcp(void* p, int in_len, int max_len, int* out_len) {
   return true;
 }
 
+bool SrtpSession::UnprotectRtp(rtc::CopyOnWriteBuffer& buffer) {
+  int output_length = buffer.size();
+  bool success =
+      UnprotectRtp(buffer.MutableData<char>(), buffer.size(), &output_length);
+  if (success) {
+    buffer.SetSize(output_length);
+  }
+  return success;
+}
+
 bool SrtpSession::UnprotectRtp(void* p, int in_len, int* out_len) {
   RTC_DCHECK(thread_checker_.IsCurrent());
   if (!session_) {

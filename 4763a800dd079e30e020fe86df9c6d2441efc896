@@ -3,6 +3,23 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "cf3ba3ce_994298a8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-08-04T06:55:04Z",
+      "side": 1,
+      "message": "Looks uncontroversial. Do wonder what the underlying cause for that UTF-8 thing was....",
+      "revId": "4763a800dd079e30e020fe86df9c6d2441efc896",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "8ce198f9_b77105f7",
         "filename": "rtc_base/openssl_certificate.cc",
         "patchSetId": 7
@@ -37,6 +54,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "fa7a5562_52e547b2",
+        "filename": "rtc_base/openssl_identity.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-08-04T06:55:04Z",
+      "side": 1,
+      "message": "Let\u0027s not introduce new DCHECKs at this time....",
+      "parentUuid": "da204262_33514f99",
+      "revId": "4763a800dd079e30e020fe86df9c6d2441efc896",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "423fc991_453bc343",
         "filename": "rtc_base/openssl_identity.cc",
         "patchSetId": 7
@@ -48,6 +83,24 @@
       "writtenOn": "2024-08-03T15:01:39Z",
       "side": 1,
       "message": "This is something where I wonder how the old stuff even worked.",
+      "revId": "4763a800dd079e30e020fe86df9c6d2441efc896",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e14c33f4_a094cc33",
+        "filename": "rtc_base/openssl_identity.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-08-04T06:55:04Z",
+      "side": 1,
+      "message": "Seems to have depended on getting a quite specific error when hitting BIO_eof....",
+      "parentUuid": "423fc991_453bc343",
       "revId": "4763a800dd079e30e020fe86df9c6d2441efc896",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

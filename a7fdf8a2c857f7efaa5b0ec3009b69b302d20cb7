@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "42762c53_99bfdfe7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-08-05T22:44:47Z",
+      "side": 1,
+      "message": "Two meta questions:\n1/ should I file a separate bug for spanification of SRTP and make it blocked on the other one? The whole key managment is also using pointers... and while I am at it the unit tests are missing GCM128/GCM256 support and should be parametric enough which seems related enough.\n2/ is there a good way to ensure that this does not copy?\n\nMight be easier to review patchset-by-patchset but there is some churn in the unit tests wrt migrating them from a char[] to a buffer.",
+      "revId": "a7fdf8a2c857f7efaa5b0ec3009b69b302d20cb7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

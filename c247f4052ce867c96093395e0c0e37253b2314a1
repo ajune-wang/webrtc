@@ -101,6 +101,23 @@
       "message": "Thanks @danilchap@webrtc.org and @orphis@webrtc.org for review and merge the change.",
       "revId": "c247f4052ce867c96093395e0c0e37253b2314a1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3ec168d6_084dc0b6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 20334
+      },
+      "writtenOn": "2024-08-05T23:22:24Z",
+      "side": 1,
+      "message": "I think the cause of the build failure is from the outside of this patch. \nRetriggering made the build issue got fixed.",
+      "revId": "c247f4052ce867c96093395e0c0e37253b2314a1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

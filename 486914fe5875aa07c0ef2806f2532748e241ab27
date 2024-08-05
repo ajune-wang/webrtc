@@ -192,6 +192,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "aeee7ad8_9b0af87a",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 19269
+      },
+      "writtenOn": "2024-08-05T22:20:59Z",
+      "side": 1,
+      "message": "Your test is probably using 20ms frames, in which case 72 bytes overhead @50Hz is above 20kbps. At lower bitrates, like 50/70 kbps bottleneck, Add10MsData would produce payload-size and duration sequence that looks like: 1 byte (120ms), 60 bytes (240ms), 1 byte (120ms), 66 bytes (360ms), 1 byte (120ms), 58 bytes (240ms)...\n\nWith 72 bytes of overhead, this equates to instantaneous rates of 4.86k, 4.4k, 4.86k, 3.07k, 4.86k, 4.33k. And the \"larger of two rates\" logic essentially puts it flat at 4.86k (besides filtering spurious silence frames during speech).",
+      "parentUuid": "8812c50c_246934d4",
+      "range": {
+        "startLine": 85,
+        "startChar": 0,
+        "endLine": 85,
+        "endChar": 58
+      },
+      "revId": "486914fe5875aa07c0ef2806f2532748e241ab27",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fe9c484b_b6f965ce",
         "filename": "audio/channel_send.cc",
         "patchSetId": 2

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ecbcbc00_545d6cbe",
+        "filename": "api/transport/stun.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 19769
+      },
+      "writtenOn": "2024-08-05T11:57:01Z",
+      "side": 0,
+      "message": "This deletion triggers cpp lint because we have a method in this filed named `copy` which is also called here and it confuses iwyu with `std::copy` 😞",
+      "revId": "53c424eba79013dc993208cdd33aaa16a11189eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

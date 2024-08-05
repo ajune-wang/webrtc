@@ -237,15 +237,15 @@ bool SrtpSession::ProtectRtcp(void* p, int in_len, int max_len, int* out_len) {
   return true;
 }
 
-bool SrtpSession::UnprotectRtp(void* p, int in_len, int* out_len) {
+bool SrtpSession::UnprotectRtp(rtc::CopyOnWriteBuffer& buffer) {
   RTC_DCHECK(thread_checker_.IsCurrent());
   if (!session_) {
     RTC_LOG(LS_WARNING) << "Failed to unprotect SRTP packet: no SRTP Session";
     return false;
   }
+  int out_len = buffer.size();
 
-  *out_len = in_len;
-  int err = srtp_unprotect(session_, p, out_len);
+  int err = srtp_unprotect(session_, buffer.MutableData<char>(), &out_len);
   if (err != srtp_err_status_ok) {
     // Limit the error logging to avoid excessive logs when there are lots of
     // bad packets.
@@ -260,8 +260,9 @@ bool SrtpSession::UnprotectRtp(void* p, int in_len, int* out_len) {
                               static_cast<int>(err), kSrtpErrorCodeBoundary);
     return false;
   }
+  buffer.SetSize(out_len);
   if (dump_plain_rtp_) {
-    DumpPacket(p, *out_len, /*outbound=*/false);
+    DumpPacket(buffer.data(), buffer.size(), /*outbound=*/false);
   }
   return true;
 }

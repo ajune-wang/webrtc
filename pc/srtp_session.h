@@ -19,6 +19,7 @@
 #include "api/field_trials_view.h"
 #include "api/scoped_refptr.h"
 #include "api/sequence_checker.h"
+#include "rtc_base/copy_on_write_buffer.h"
 #include "rtc_base/synchronization/mutex.h"
 
 // Forward declaration to avoid pulling in libsrtp headers here
@@ -76,7 +77,9 @@ class SrtpSession {
   bool ProtectRtcp(void* data, int in_len, int max_len, int* out_len);
   // Decrypts/verifies an invidiual RTP/RTCP packet.
   // If an HMAC is used, this will decrease the packet size.
-  bool UnprotectRtp(void* data, int in_len, int* out_len);
+  [[deprecated("Use variant with CopyOnWriteBuffer")]] bool
+  UnprotectRtp(void* data, int in_len, int* out_len);
+  bool UnprotectRtp(rtc::CopyOnWriteBuffer& buffer);
   bool UnprotectRtcp(void* data, int in_len, int* out_len);
 
   // Helper method to get authentication params.

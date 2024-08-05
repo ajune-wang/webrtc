@@ -34,6 +34,24 @@
       "parentUuid": "ecbcbc00_545d6cbe",
       "revId": "53c424eba79013dc993208cdd33aaa16a11189eb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "402f09fc_13563aa5",
+        "filename": "api/transport/stun.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 19769
+      },
+      "writtenOn": "2024-08-05T12:53:08Z",
+      "side": 0,
+      "message": "Why though? algorithm isn\u0027t required here, its the confusion from iwyu that thinks that the `copy` usage in this file refers to std::copy where its not",
+      "parentUuid": "34f120cf_469adb71",
+      "revId": "53c424eba79013dc993208cdd33aaa16a11189eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

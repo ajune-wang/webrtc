@@ -32,6 +32,10 @@
 
     @implementation RTC_OBJC_TYPE (RTCVideoEncoderVP9)
 
+    + (bool)isScalabilityModeSupported:(nonnull RTCVideoScalabilityMode*)mode {
+      return webrtc::VP9Encoder::SupportsScalabilityMode([mode value]);
+    }
+
     + (id<RTC_OBJC_TYPE(RTCVideoEncoder)>)vp9Encoder {
 #if defined(RTC_ENABLE_VP9)
       return [[RTC_OBJC_TYPE(RTCVideoEncoderVP9Builder) alloc] init];

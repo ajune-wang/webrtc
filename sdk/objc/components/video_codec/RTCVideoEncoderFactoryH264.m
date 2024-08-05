@@ -42,6 +42,21 @@
   return [codecs copy];
 }
 
+- (nonnull RTC_OBJC_TYPE(RTCVideoEncoderCodecSupport) *)
+    queryCodecSupport:(nonnull RTC_OBJC_TYPE(RTCVideoCodecInfo) *)info
+      scalabilityMode:(nullable NSString *)scalabilityMode {
+  if (scalabilityMode != nil && ![scalabilityMode isEqualToString:@"L1T1"]) {
+    // Only nonscalable video is supported.
+    return [[RTC_OBJC_TYPE(RTCVideoEncoderCodecSupport) alloc] initIsSupported:false];
+  }
+  for (RTC_OBJC_TYPE(RTCVideoCodecInfo) * supportedCodec in [self supportedCodecs]) {
+    if ([supportedCodec isEqualToCodecInfo:info]) {
+      return [[RTC_OBJC_TYPE(RTCVideoEncoderCodecSupport) alloc] initIsSupported:true];
+    }
+  }
+  return [[RTC_OBJC_TYPE(RTCVideoEncoderCodecSupport) alloc] initIsSupported:false];
+}
+
 - (id<RTC_OBJC_TYPE(RTCVideoEncoder)>)createEncoder:(RTC_OBJC_TYPE(RTCVideoCodecInfo) *)info {
   return [[RTC_OBJC_TYPE(RTCVideoEncoderH264) alloc] initWithCodecInfo:info];
 }

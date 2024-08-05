@@ -63,3 +63,26 @@
 }
 
 @end
+
+@implementation RTC_OBJC_TYPE (RTCVideoEncoderCodecSupport)
+
+@synthesize isSupported = _isSupported;
+@synthesize isPowerEfficient = _isPowerEfficient;
+
+- (instancetype)initIsSupported:(bool)isSupported {
+  if (self = [super init]) {
+    _isSupported = isSupported;
+    _isPowerEfficient = false;
+  }
+  return self;
+}
+
+- (instancetype)initIsSupported:(bool)isSupported isPowerEfficient:(bool)isPowerEfficient {
+  if (self = [super init]) {
+    _isSupported = isSupported;
+    _isPowerEfficient = isPowerEfficient;
+  }
+  return self;
+}
+
+@end

@@ -33,4 +33,19 @@ RTC_OBJC_EXPORT
 
 @end
 
+/** Holds details about support for a codec. Corresponds to
+ * webrtc::VideoEncoderFactory::CodecSupport. */
+RTC_OBJC_EXPORT
+@interface RTC_OBJC_TYPE (RTCVideoEncoderCodecSupport) : NSObject
+
+- (instancetype)init NS_UNAVAILABLE;
+
+- (instancetype)initIsSupported:(bool)isSupported;
+- (instancetype)initIsSupported:(bool)isSupported isPowerEfficient:(bool)isPowerEfficient;
+
+@property(readonly) bool isSupported;
+@property(readonly) bool isPowerEfficient;
+
+@end
+
 NS_ASSUME_NONNULL_END

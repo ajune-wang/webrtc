@@ -12,6 +12,7 @@
 
 #import "RTCMacros.h"
 #import "RTCVideoEncoder.h"
+#import "RTCVideoScalabilityMode.h"
 
 RTC_OBJC_EXPORT
 @interface RTC_OBJC_TYPE (RTCVideoEncoderAV1) : NSObject
@@ -20,7 +21,9 @@ RTC_OBJC_EXPORT
  * RTCPeerConnectionFactory. Even though it implements the RTCVideoEncoder protocol, it can not be
  * used independently from the RTCPeerConnectionFactory.
  */
-+ (id<RTC_OBJC_TYPE(RTCVideoEncoder)>)av1Encoder;
++ (nullable id<RTC_OBJC_TYPE(RTCVideoEncoder)>)av1Encoder;
+
++ (bool)isScalabilityModeSupported:(nonnull RTCVideoScalabilityMode*)mode;
 
 + (bool)isSupported;
 

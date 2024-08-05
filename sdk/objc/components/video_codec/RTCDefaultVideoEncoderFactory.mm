@@ -12,6 +12,7 @@
 
 #import "RTCH264ProfileLevelId.h"
 #import "RTCVideoEncoderH264.h"
+#import "RTCVideoScalabilityMode.h"
 #import "api/video_codec/RTCVideoCodecConstants.h"
 #import "api/video_codec/RTCVideoEncoderVP8.h"
 #import "api/video_codec/RTCVideoEncoderVP9.h"
@@ -63,6 +64,47 @@
 #endif
 
   return result;
+}
+
+- (nonnull RTC_OBJC_TYPE(RTCVideoEncoderCodecSupport) *)
+    queryCodecSupport:(nonnull RTC_OBJC_TYPE(RTCVideoCodecInfo) *)info
+      scalabilityMode:(nullable NSString *)scalabilityMode {
+  bool hasMatchingInfo = false;
+  for (RTC_OBJC_TYPE(RTCVideoCodecInfo)* format in [self supportedCodecs]) {
+    if ([format isEqualToCodecInfo:info]) {
+      hasMatchingInfo = true;
+      break;
+    }
+  }
+  if (!hasMatchingInfo) {
+    return [[RTC_OBJC_TYPE(RTCVideoEncoderCodecSupport) alloc] initIsSupported:false];
+  }
+
+  if (scalabilityMode == nil || [scalabilityMode isEqual:@"L1T1"]) {
+    // Non scalable video should be supported by all codecs.
+    return [[RTC_OBJC_TYPE(RTCVideoEncoderCodecSupport) alloc] initIsSupported:true];
+  }
+  RTC_OBJC_TYPE(RTCVideoScalabilityMode)* mode =
+    [[RTCVideoScalabilityMode alloc] initWithName:scalabilityMode];
+  if (mode == nil) {
+    // Unknown scalability is not supported.
+    return [[RTC_OBJC_TYPE(RTCVideoEncoderCodecSupport) alloc] initIsSupported:false];
+  }
+
+  bool supported = false;
+
+  if ([info.name isEqualToString:kRTCVideoCodecVp8Name]) {
+    supported = [RTC_OBJC_TYPE(RTCVideoEncoderVP8) isScalabilityModeSupported:mode];
+  } else if ([info.name isEqualToString:kRTCVideoCodecVp9Name]) {
+    supported = [RTC_OBJC_TYPE(RTCVideoEncoderVP9) isScalabilityModeSupported:mode];
+  }
+#if defined(RTC_USE_LIBAOM_AV1_ENCODER)
+  if ([info.name isEqualToString:kRTCVideoCodecAv1Name]) {
+    supported = [RTC_OBJC_TYPE(RTCVideoEncoderAV1) isScalabilityModeSupported:mode];
+  }
+#endif
+
+  return [[RTC_OBJC_TYPE(RTCVideoEncoderCodecSupport) alloc] initIsSupported:supported];
 }
 
 - (id<RTC_OBJC_TYPE(RTCVideoEncoder)>)createEncoder:(RTC_OBJC_TYPE(RTCVideoCodecInfo) *)info {

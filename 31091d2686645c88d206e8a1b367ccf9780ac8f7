@@ -57,6 +57,24 @@
       "parentUuid": "d3eb877d_1a25ce8d",
       "revId": "31091d2686645c88d206e8a1b367ccf9780ac8f7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a22e9eae_9a46476c",
+        "filename": "test/fuzzers/flexfec_sender_fuzzer.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-08-05T15:30:52Z",
+      "side": 1,
+      "message": "Good find, in such case indeed there is no need to worry about multi-threaded runs.\n\n(I think chromium fuzzers are moving from libFuzzer to another engine that does support multi-threading, but lets worry about it if it would report an issue. I guess it would still prefer not to use multiple threads)",
+      "parentUuid": "98a37a75_45a2c16b",
+      "revId": "31091d2686645c88d206e8a1b367ccf9780ac8f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

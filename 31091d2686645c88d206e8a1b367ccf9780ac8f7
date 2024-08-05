@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6a78730b_bf87bf7a",
+        "filename": "test/fuzzers/flexfec_sender_fuzzer.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-08-05T09:12:49Z",
+      "side": 1,
+      "message": "or `std::make_unique\u003cSimulatedClock\u003e(1)`\nThen you won\u0027t need an extra `clock` variable\n\n(effect should be the same though)",
+      "range": {
+        "startLine": 39,
+        "startChar": 40,
+        "endLine": 39,
+        "endChar": 45
+      },
+      "revId": "31091d2686645c88d206e8a1b367ccf9780ac8f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d3eb877d_1a25ce8d",
+        "filename": "test/fuzzers/flexfec_sender_fuzzer.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-08-05T09:12:49Z",
+      "side": 1,
+      "message": "I\u0027m worried about this line - that would prevent running multiple fuzzer inputs in parallel threads.\n\n(Not too sure fuzzers do that.)\n\nIf you wish to keep setting initial time, there is another approach: have base Environment the same, but for each input override clock.\n\n```\nstatic const Environment* const env \u003d new Environment(CreateEnvironment());\n\nSimulatedClock clock(...);\nEnvironmentFactory env_factory(*env);\nenv_factory.Set(\u0026clock)\nFlexfecSender(f.Create(), ...)\n```\n\nBut to decide if such complexity is needed it would help to understand\na) how important custom time for this fuzzer\nb) how slow each solution is.\n\nIf unsure, I would recommend to just remove this line.",
+      "revId": "31091d2686645c88d206e8a1b367ccf9780ac8f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

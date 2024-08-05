@@ -17,9 +17,8 @@
 
     - (instancetype)initWithNativeSdpVideoFormat : (webrtc::SdpVideoFormat)format {
   NSMutableDictionary *params = [NSMutableDictionary dictionary];
-  for (auto it = format.parameters.begin(); it != format.parameters.end(); ++it) {
-    [params setObject:[NSString stringForStdString:it->second]
-               forKey:[NSString stringForStdString:it->first]];
+  for (const auto &[key, value] : format.parameters) {
+    [params setObject:[NSString stringForStdString:key] forKey:[NSString stringForStdString:value]];
   }
   return [self initWithName:[NSString stringForStdString:format.name] parameters:params];
 }

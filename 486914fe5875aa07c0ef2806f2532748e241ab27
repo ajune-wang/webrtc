@@ -48,6 +48,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "940fe786_00f49120",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2024-08-05T08:41:32Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "22445409_2a4e26fb",
+      "range": {
+        "startLine": 60,
+        "startChar": 6,
+        "endLine": 60,
+        "endChar": 33
+      },
+      "revId": "486914fe5875aa07c0ef2806f2532748e241ab27",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "00f0921f_79a0fc7f",
@@ -132,6 +156,30 @@
       "side": 1,
       "message": "With frame size \u003e\u003e 20 ms at low-bitrate, reported used bitrate during silence is actually 5kbps (per logcat print). Eventually in bitrate_allocator, the used bitrate is going to be compared to the allocated audio bitrate. The per-packet-overhead is subtracted from allocated audio bitrate to become payload bitrate, so we should add it back. Otherwise, allocated audio bitrate will always be higher than reported media bitrate (verified in logcat).\n\nAlso, it appears that redundancy would be accounted in the per-packet-overhead as well?",
       "parentUuid": "28c1bf0e_08ccbaa9",
+      "range": {
+        "startLine": 85,
+        "startChar": 0,
+        "endLine": 85,
+        "endChar": 58
+      },
+      "revId": "486914fe5875aa07c0ef2806f2532748e241ab27",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8812c50c_246934d4",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2024-08-05T08:41:32Z",
+      "side": 1,
+      "message": "I agree that the overhead should be included here.\nWhen I test this with DTX, the estimated bitrate is \u003e20kbps (not 5kbps)?",
+      "parentUuid": "600c37f3_b44620e7",
       "range": {
         "startLine": 85,
         "startChar": 0,

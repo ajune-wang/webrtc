@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a1ae9610_7cfea3ab",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2024-08-05T08:41:32Z",
+      "side": 1,
+      "message": "nit: `AudioBitrateAccountant` (usage seems redundant)",
+      "range": {
+        "startLine": 60,
+        "startChar": 6,
+        "endLine": 60,
+        "endChar": 33
+      },
+      "revId": "3a7da76ce90ebda888c81fc617febfb6074f72d0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "76f8f7ba_b785cc0d",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2024-08-05T08:41:32Z",
+      "side": 1,
+      "message": "nit: IMO frame_size is a bit ambiguous, I tend to use `payload_size` instead (to differentiate with header/overhead size).",
+      "range": {
+        "startLine": 73,
+        "startChar": 34,
+        "endLine": 73,
+        "endChar": 44
+      },
+      "revId": "3a7da76ce90ebda888c81fc617febfb6074f72d0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "615438e0_21d7e01c",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 294,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2024-08-05T08:41:32Z",
+      "side": 1,
+      "message": "This is currently accessed on two different threads (worker thread and encoder queue) so we must put it behind a mutex or something (mutex should be fine in this case IMO).",
+      "range": {
+        "startLine": 294,
+        "startChar": 30,
+        "endLine": 294,
+        "endChar": 49
+      },
+      "revId": "3a7da76ce90ebda888c81fc617febfb6074f72d0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -36,6 +36,29 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "001eeb5a_4b3daa64",
+        "filename": "rtc_base/openssl_certificate.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 5602
+      },
+      "writtenOn": "2024-08-05T18:06:54Z",
+      "side": 1,
+      "message": "Optional nitpick: Although C++11 guarantees that `c_str()` is the same thing as `data()`, I generally prefer to use `data()` when paired with `size()` and `c_str()` when paired with an implicit `strlen`.\n\n\n\n```suggestion\n                                  (unsigned char*)params.common_name.data(),\n```",
+      "range": {
+        "startLine": 99,
+        "startChar": 69,
+        "endLine": 99,
+        "endChar": 74
+      },
+      "revId": "4763a800dd079e30e020fe86df9c6d2441efc896",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "8ce198f9_b77105f7",
@@ -49,6 +72,24 @@
       "writtenOn": "2024-08-03T15:01:39Z",
       "side": 1,
       "message": "-1 was \"figure out yourself\" which led to UTF8 decode failures. For the CN \"client\"?!",
+      "revId": "4763a800dd079e30e020fe86df9c6d2441efc896",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1169e382_0df9ec34",
+        "filename": "rtc_base/openssl_certificate.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5602
+      },
+      "writtenOn": "2024-08-05T18:06:54Z",
+      "side": 1,
+      "message": "Hmm, that\u0027s a bit surprising. I mean, the change is a good one, but `-1` should only get it wrong if `params.common_name` had an embedded NUL, in which case the string would truncate.\n\nIs it possible something else was going on here?",
+      "parentUuid": "8ce198f9_b77105f7",
       "revId": "4763a800dd079e30e020fe86df9c6d2441efc896",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -119,6 +160,24 @@
       "side": 1,
       "message": "Seems to have depended on getting a quite specific error when hitting BIO_eof....",
       "parentUuid": "423fc991_453bc343",
+      "revId": "4763a800dd079e30e020fe86df9c6d2441efc896",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f72b381_3c174d94",
+        "filename": "rtc_base/openssl_identity.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 5602
+      },
+      "writtenOn": "2024-08-05T18:06:54Z",
+      "side": 1,
+      "message": "I believe the old version was correct. `BIO_eof` won\u0027t do the right thing if there is trailing data after the last PEM blob.\n\nPEM is a kind of horrible format, that comes out of email. It\u0027s intended to be embedded inside other text, so PEM parsers will just skip over non-PEM data, and also PEM data of an unexpected type. This means that you might have a bunch of whitespace, whole paragraphs of text, or even a private key, all of which you\u0027re meant to skip over. If that bit to skip over is at the bottom, `BIO_eof` will be false (we\u0027re not yet at the end of the buffer), but `PEM_read_bio_X509` will read data and \"successfully\" return nothing.\n\nThe way to distinguish between the two cases (fatal error vs got to the end) in this API is to check for `PEM_R_NO_START_LINE`.\n\n(This API is kind of terrible. I still need to go document pem.h in BoringSSL...)\n\nWhat was the motivation for this change? Was the old one not working?",
+      "parentUuid": "e14c33f4_a094cc33",
       "revId": "4763a800dd079e30e020fe86df9c6d2441efc896",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

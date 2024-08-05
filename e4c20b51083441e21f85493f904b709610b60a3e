@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cc6045dc_e6b6dcf2",
+        "filename": "api/task_queue/task_queue_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 19769
+      },
+      "writtenOn": "2024-08-05T08:25:04Z",
+      "side": 1,
+      "message": "include-cleaner always attempts to do \"gtest/gtest.h\" here.\nSince we don\u0027t have a similar mechanism to iwyu mappings I don\u0027t think it\u0027s currently possible to do this automatically with clangd\u0027s include cleaner...",
+      "revId": "e4c20b51083441e21f85493f904b709610b60a3e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

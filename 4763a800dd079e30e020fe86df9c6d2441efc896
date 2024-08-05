@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "e7da546a_88208d9c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-08-05T15:56:57Z",
+      "side": 1,
+      "message": "Yeah. I wonder if MBSTRING_ASC would be more correct since then strlen would be equal to size. But in practice OpenSSL is not used in Chrome and we only pass \"webrtc\" as common name outside of unit tests which use fancy cnames like \"client\" and \"server\" ;-)\n\nMaybe davidben@ knows (and I need a second +1 anyway) but it seems boringssl just considers this field a bytestring...",
+      "parentUuid": "cf3ba3ce_994298a8",
+      "revId": "4763a800dd079e30e020fe86df9c6d2441efc896",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "8ce198f9_b77105f7",
         "filename": "rtc_base/openssl_certificate.cc",
         "patchSetId": 7

@@ -119,10 +119,14 @@ if (is_ios || is_mac) {
       "objc/base/RTCVideoFrame.mm",
       "objc/base/RTCVideoFrameBuffer.h",
       "objc/base/RTCVideoRenderer.h",
+      "objc/base/RTCVideoScalabilityMode.h",
+      "objc/base/RTCVideoScalabilityMode.mm",
       "objc/base/RTCYUVPlanarBuffer.h",
     ]
 
     deps = [
+      "../api/video_codecs:scalability_mode",
+      "../api/video_codecs:scalability_mode_helper",
       "../rtc_base:checks",
       "../rtc_base:logging",
     ]
@@ -713,7 +717,7 @@ if (is_ios || is_mac) {
         "objc/components/video_codec/RTCDefaultVideoDecoderFactory.h",
         "objc/components/video_codec/RTCDefaultVideoDecoderFactory.m",
         "objc/components/video_codec/RTCDefaultVideoEncoderFactory.h",
-        "objc/components/video_codec/RTCDefaultVideoEncoderFactory.m",
+        "objc/components/video_codec/RTCDefaultVideoEncoderFactory.mm",
       ]
 
       deps = [
@@ -812,6 +816,9 @@ if (is_ios || is_mac) {
       deps = [
         ":base_objc",
         ":wrapped_native_codec_objc",
+        "../api/video_codecs:scalability_mode",
+        "../api/video_codecs:scalability_mode_helper",
+        "../modules/video_coding/codecs/av1:av1_svc_config",
         "../modules/video_coding/codecs/av1:libaom_av1_encoder",
       ]
     }
@@ -1270,6 +1277,7 @@ if (is_ios || is_mac) {
           "objc/base/RTCSSLCertificateVerifier.h",
           "objc/base/RTCVideoCapturer.h",
           "objc/base/RTCVideoCodecInfo.h",
+          "objc/base/RTCVideoScalabilityMode.h",
           "objc/base/RTCVideoDecoder.h",
           "objc/base/RTCVideoDecoderFactory.h",
           "objc/base/RTCVideoEncoder.h",
@@ -1483,6 +1491,7 @@ if (is_ios || is_mac) {
           "objc/base/RTCVideoFrame.h",
           "objc/base/RTCVideoFrameBuffer.h",
           "objc/base/RTCVideoRenderer.h",
+          "objc/base/RTCVideoScalabilityMode.h",
           "objc/base/RTCYUVPlanarBuffer.h",
           "objc/components/capturer/RTCCameraVideoCapturer.h",
           "objc/components/capturer/RTCFileVideoCapturer.h",

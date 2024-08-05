@@ -17,6 +17,7 @@
 #import "RTCVideoEncoderVP8.h"
 
 #include "modules/video_coding/codecs/vp8/include/vp8.h"
+#include "modules/video_coding/codecs/vp8/vp8_scalability.h"
 
 @interface RTC_OBJC_TYPE (RTCVideoEncoderVP8Builder)
     : RTC_OBJC_TYPE(RTCNativeVideoEncoder) <RTC_OBJC_TYPE (RTCNativeVideoEncoderBuilder)>
@@ -31,6 +32,10 @@
     @end
 
     @implementation RTC_OBJC_TYPE (RTCVideoEncoderVP8)
+
+    + (bool)isScalabilityModeSupported:(nonnull RTCVideoScalabilityMode*)mode {
+      return webrtc::VP8SupportsScalabilityMode([mode value]);
+    }
 
     + (id<RTC_OBJC_TYPE(RTCVideoEncoder)>)vp8Encoder {
       return [[RTC_OBJC_TYPE(RTCVideoEncoderVP8Builder) alloc] init];

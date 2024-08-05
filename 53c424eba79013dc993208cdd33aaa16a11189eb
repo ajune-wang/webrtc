@@ -52,6 +52,24 @@
       "parentUuid": "34f120cf_469adb71",
       "revId": "53c424eba79013dc993208cdd33aaa16a11189eb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "98d93189_4498844a",
+        "filename": "api/transport/stun.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-08-05T13:55:13Z",
+      "side": 0,
+      "message": "This seems to call for a bug in https://github.com/clangd/clangd/issues\nOur include-cleaner is 19.0.0git.",
+      "parentUuid": "402f09fc_13563aa5",
+      "revId": "53c424eba79013dc993208cdd33aaa16a11189eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -111,6 +111,7 @@ if (is_ios || is_mac) {
       "objc/base/RTCVideoDecoderFactory.h",
       "objc/base/RTCVideoEncoder.h",
       "objc/base/RTCVideoEncoderFactory.h",
+      "objc/base/RTCVideoEncoderFactory.mm",
       "objc/base/RTCVideoEncoderQpThresholds.h",
       "objc/base/RTCVideoEncoderQpThresholds.m",
       "objc/base/RTCVideoEncoderSettings.h",
@@ -119,12 +120,17 @@ if (is_ios || is_mac) {
       "objc/base/RTCVideoFrame.mm",
       "objc/base/RTCVideoFrameBuffer.h",
       "objc/base/RTCVideoRenderer.h",
+      "objc/base/RTCVideoScalabilityMode.h",
+      "objc/base/RTCVideoScalabilityMode.mm",
       "objc/base/RTCYUVPlanarBuffer.h",
     ]
 
     deps = [
+      "../api/video_codecs:scalability_mode",
+      "../api/video_codecs:scalability_mode_helper",
       "../rtc_base:checks",
       "../rtc_base:logging",
+      "//third_party/abseil-cpp/absl/types:optional",
     ]
     configs += [
       "..:common_objc",
@@ -713,10 +719,11 @@ if (is_ios || is_mac) {
         "objc/components/video_codec/RTCDefaultVideoDecoderFactory.h",
         "objc/components/video_codec/RTCDefaultVideoDecoderFactory.m",
         "objc/components/video_codec/RTCDefaultVideoEncoderFactory.h",
-        "objc/components/video_codec/RTCDefaultVideoEncoderFactory.m",
+        "objc/components/video_codec/RTCDefaultVideoEncoderFactory.mm",
       ]
 
       deps = [
+        ":base_native_additions_objc",
         ":base_objc",
         ":native_video",
         ":videocodec_objc",
@@ -765,6 +772,7 @@ if (is_ios || is_mac) {
         ":base_objc",
         ":wrapped_native_codec_objc",
         "../modules/video_coding:webrtc_vp8",
+        "../modules/video_coding:webrtc_vp8_scalability",
       ]
     }
 
@@ -812,6 +820,9 @@ if (is_ios || is_mac) {
       deps = [
         ":base_objc",
         ":wrapped_native_codec_objc",
+        "../api/video_codecs:scalability_mode",
+        "../api/video_codecs:scalability_mode_helper",
+        "../modules/video_coding/codecs/av1:av1_svc_config",
         "../modules/video_coding/codecs/av1:libaom_av1_encoder",
       ]
     }
@@ -1270,6 +1281,7 @@ if (is_ios || is_mac) {
           "objc/base/RTCSSLCertificateVerifier.h",
           "objc/base/RTCVideoCapturer.h",
           "objc/base/RTCVideoCodecInfo.h",
+          "objc/base/RTCVideoScalabilityMode.h",
           "objc/base/RTCVideoDecoder.h",
           "objc/base/RTCVideoDecoderFactory.h",
           "objc/base/RTCVideoEncoder.h",
@@ -1483,6 +1495,7 @@ if (is_ios || is_mac) {
           "objc/base/RTCVideoFrame.h",
           "objc/base/RTCVideoFrameBuffer.h",
           "objc/base/RTCVideoRenderer.h",
+          "objc/base/RTCVideoScalabilityMode.h",
           "objc/base/RTCYUVPlanarBuffer.h",
           "objc/components/capturer/RTCCameraVideoCapturer.h",
           "objc/components/capturer/RTCFileVideoCapturer.h",
@@ -1516,6 +1529,7 @@ if (is_ios || is_mac) {
           ":videocapture_objc",
           ":videocodec_objc",
           ":videotoolbox_objc",
+          "../api/video_codecs:scalability_mode",
         ]
         if (!build_with_chromium) {
           deps += [

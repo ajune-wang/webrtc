@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "22445409_2a4e26fb",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 19269
+      },
+      "writtenOn": "2024-08-05T06:05:41Z",
+      "side": 1,
+      "message": "I don\u0027t mind moving this to a separate file. However, given this class is internal to channel_send, is simple/small, and testing integration with channel_send seems more useful than testing AudioBitrateUsageAccountant behavior (which is rather trivial). Your thoughts?",
+      "parentUuid": "f290462a_3b010152",
+      "range": {
+        "startLine": 60,
+        "startChar": 6,
+        "endLine": 60,
+        "endChar": 33
+      },
+      "revId": "486914fe5875aa07c0ef2806f2532748e241ab27",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "00f0921f_79a0fc7f",
         "filename": "audio/channel_send.cc",
         "patchSetId": 2
@@ -37,6 +61,30 @@
       "writtenOn": "2024-08-01T07:37:37Z",
       "side": 1,
       "message": "IMO, it\u0027s a bit easier to work with DataSize and TimeDelta instead of integers.",
+      "range": {
+        "startLine": 74,
+        "startChar": 21,
+        "endLine": 74,
+        "endChar": 47
+      },
+      "revId": "486914fe5875aa07c0ef2806f2532748e241ab27",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "212862fa_2c46472f",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 19269
+      },
+      "writtenOn": "2024-08-05T06:05:41Z",
+      "side": 1,
+      "message": "Great idea. Changed accordingly.",
+      "parentUuid": "00f0921f_79a0fc7f",
       "range": {
         "startLine": 74,
         "startChar": 21,
@@ -72,6 +120,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "600c37f3_b44620e7",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 19269
+      },
+      "writtenOn": "2024-08-05T06:05:41Z",
+      "side": 1,
+      "message": "With frame size \u003e\u003e 20 ms at low-bitrate, reported used bitrate during silence is actually 5kbps (per logcat print). Eventually in bitrate_allocator, the used bitrate is going to be compared to the allocated audio bitrate. The per-packet-overhead is subtracted from allocated audio bitrate to become payload bitrate, so we should add it back. Otherwise, allocated audio bitrate will always be higher than reported media bitrate (verified in logcat).\n\nAlso, it appears that redundancy would be accounted in the per-packet-overhead as well?",
+      "parentUuid": "28c1bf0e_08ccbaa9",
+      "range": {
+        "startLine": 85,
+        "startChar": 0,
+        "endLine": 85,
+        "endChar": 58
+      },
+      "revId": "486914fe5875aa07c0ef2806f2532748e241ab27",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fe9c484b_b6f965ce",
         "filename": "audio/channel_send.cc",
         "patchSetId": 2
@@ -83,6 +155,30 @@
       "writtenOn": "2024-08-01T07:37:37Z",
       "side": 1,
       "message": "How about storing this in AudioBitrateUsageAccountant instead? :)\n\n(Call GetBpsEstimate UpdateBpsEstimate or something and then have a separate const getter.)",
+      "range": {
+        "startLine": 293,
+        "startChar": 2,
+        "endLine": 293,
+        "endChar": 20
+      },
+      "revId": "486914fe5875aa07c0ef2806f2532748e241ab27",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2eb697ce_d7fa1793",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 19269
+      },
+      "writtenOn": "2024-08-05T06:05:41Z",
+      "side": 1,
+      "message": "Great idea. Done.",
+      "parentUuid": "fe9c484b_b6f965ce",
       "range": {
         "startLine": 293,
         "startChar": 2,

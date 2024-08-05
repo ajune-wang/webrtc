@@ -12,7 +12,7 @@
 
 #include <string.h>
 
-#include <string>
+#include <cstring>
 
 #include "media/base/fake_rtp.h"
 #include "pc/test/srtp_test_util.h"
@@ -42,44 +42,45 @@ class SrtpSessionTest : public ::testing::Test {
     rtp_len_ = sizeof(kPcmuFrame);
     rtcp_len_ = sizeof(kRtcpReport);
     memcpy(rtp_packet_, kPcmuFrame, rtp_len_);
-    memcpy(rtcp_packet_, kRtcpReport, rtcp_len_);
+    rtcp_packet_.EnsureCapacity(rtcp_len_ + 4 + 10);
+    rtcp_packet_.SetData(kRtcpReport, rtcp_len_);
   }
   void TestProtectRtp(int crypto_suite) {
     int out_len = 0;
     EXPECT_TRUE(
         s1_.ProtectRtp(rtp_packet_, rtp_len_, sizeof(rtp_packet_), &out_len));
-    EXPECT_EQ(out_len, rtp_len_ + rtp_auth_tag_len(crypto_suite));
-    EXPECT_NE(0, memcmp(rtp_packet_, kPcmuFrame, rtp_len_));
+    EXPECT_EQ(static_cast<size_t>(out_len),
+              rtp_len_ + rtp_auth_tag_len(crypto_suite));
+    EXPECT_NE(0, std::memcmp(rtp_packet_, kPcmuFrame, rtp_len_));
     rtp_len_ = out_len;
   }
   void TestProtectRtcp(int crypto_suite) {
-    int out_len = 0;
-    EXPECT_TRUE(s1_.ProtectRtcp(rtcp_packet_, rtcp_len_, sizeof(rtcp_packet_),
-                                &out_len));
-    EXPECT_EQ(out_len,
-              rtcp_len_ + 4 + rtcp_auth_tag_len(crypto_suite));  // NOLINT
-    EXPECT_NE(0, memcmp(rtcp_packet_, kRtcpReport, rtcp_len_));
-    rtcp_len_ = out_len;
+    EXPECT_TRUE(s1_.ProtectRtcp(rtcp_packet_));
+    EXPECT_EQ(rtcp_packet_.size(),
+              rtcp_len_ + 4 + rtcp_auth_tag_len(crypto_suite));
+    EXPECT_NE(
+        0, std::memcmp(kRtcpReport, rtcp_packet_.data(), rtcp_packet_.size()));
+    rtcp_len_ = rtcp_packet_.size();
   }
   void TestUnprotectRtp(int crypto_suite) {
-    int out_len = 0, expected_len = sizeof(kPcmuFrame);
-    EXPECT_TRUE(s2_.UnprotectRtp(rtp_packet_, rtp_len_, &out_len));
-    EXPECT_EQ(expected_len, out_len);
-    EXPECT_EQ(0, memcmp(rtp_packet_, kPcmuFrame, out_len));
+    rtc::CopyOnWriteBuffer buffer(rtp_packet_, rtp_len_);
+    EXPECT_TRUE(s2_.UnprotectRtp(buffer));
+    EXPECT_EQ(buffer.size(), sizeof(kPcmuFrame));
+    EXPECT_EQ(0, std::memcmp(kPcmuFrame, buffer.data(), buffer.size()));
   }
   void TestUnprotectRtcp(int crypto_suite) {
-    int out_len = 0, expected_len = sizeof(kRtcpReport);
-    EXPECT_TRUE(s2_.UnprotectRtcp(rtcp_packet_, rtcp_len_, &out_len));
-    EXPECT_EQ(expected_len, out_len);
-    EXPECT_EQ(0, memcmp(rtcp_packet_, kRtcpReport, out_len));
+    EXPECT_TRUE(s2_.UnprotectRtcp(rtcp_packet_));
+    EXPECT_EQ(rtcp_packet_.size(), sizeof(kRtcpReport));
+    EXPECT_EQ(
+        0, std::memcmp(kRtcpReport, rtcp_packet_.data(), rtcp_packet_.size()));
   }
   webrtc::test::ScopedKeyValueConfig field_trials_;
   cricket::SrtpSession s1_;
   cricket::SrtpSession s2_;
   char rtp_packet_[sizeof(kPcmuFrame) + 10];
-  char rtcp_packet_[sizeof(kRtcpReport) + 4 + 10];
-  int rtp_len_;
-  int rtcp_len_;
+  rtc::CopyOnWriteBuffer rtcp_packet_;
+  size_t rtp_len_;
+  size_t rtcp_len_;
 };
 
 // Test that we can set up the session and keys properly.
@@ -148,7 +149,6 @@ TEST_F(SrtpSessionTest, TestGetSendStreamPacketIndex) {
 
 // Test that we fail to unprotect if someone tampers with the RTP/RTCP paylaods.
 TEST_F(SrtpSessionTest, TestTamperReject) {
-  int out_len;
   EXPECT_TRUE(s1_.SetSend(kSrtpAes128CmSha1_80, kTestKey1, kTestKeyLen,
                           kEncryptedHeaderExtensionIds));
   EXPECT_TRUE(s2_.SetRecv(kSrtpAes128CmSha1_80, kTestKey1, kTestKeyLen,
@@ -156,12 +156,13 @@ TEST_F(SrtpSessionTest, TestTamperReject) {
   TestProtectRtp(kSrtpAes128CmSha1_80);
   TestProtectRtcp(kSrtpAes128CmSha1_80);
   rtp_packet_[0] = 0x12;
-  rtcp_packet_[1] = 0x34;
-  EXPECT_FALSE(s2_.UnprotectRtp(rtp_packet_, rtp_len_, &out_len));
+  rtcp_packet_.MutableData<uint8_t>()[1] = 0x34;
+  rtc::CopyOnWriteBuffer buffer(rtp_packet_, rtp_len_);
+  EXPECT_FALSE(s2_.UnprotectRtp(buffer));
   EXPECT_METRIC_THAT(
       webrtc::metrics::Samples("WebRTC.PeerConnection.SrtpUnprotectError"),
       ElementsAre(Pair(srtp_err_status_bad_param, 1)));
-  EXPECT_FALSE(s2_.UnprotectRtcp(rtcp_packet_, rtcp_len_, &out_len));
+  EXPECT_FALSE(s2_.UnprotectRtcp(rtcp_packet_));
   EXPECT_METRIC_THAT(
       webrtc::metrics::Samples("WebRTC.PeerConnection.SrtcpUnprotectError"),
       ElementsAre(Pair(srtp_err_status_auth_fail, 1)));
@@ -169,16 +170,16 @@ TEST_F(SrtpSessionTest, TestTamperReject) {
 
 // Test that we fail to unprotect if the payloads are not authenticated.
 TEST_F(SrtpSessionTest, TestUnencryptReject) {
-  int out_len;
   EXPECT_TRUE(s1_.SetSend(kSrtpAes128CmSha1_80, kTestKey1, kTestKeyLen,
                           kEncryptedHeaderExtensionIds));
   EXPECT_TRUE(s2_.SetRecv(kSrtpAes128CmSha1_80, kTestKey1, kTestKeyLen,
                           kEncryptedHeaderExtensionIds));
-  EXPECT_FALSE(s2_.UnprotectRtp(rtp_packet_, rtp_len_, &out_len));
+  rtc::CopyOnWriteBuffer buffer(rtp_packet_, rtp_len_);
+  EXPECT_FALSE(s2_.UnprotectRtp(buffer));
   EXPECT_METRIC_THAT(
       webrtc::metrics::Samples("WebRTC.PeerConnection.SrtpUnprotectError"),
       ElementsAre(Pair(srtp_err_status_auth_fail, 1)));
-  EXPECT_FALSE(s2_.UnprotectRtcp(rtcp_packet_, rtcp_len_, &out_len));
+  EXPECT_FALSE(s2_.UnprotectRtcp(rtcp_packet_));
   EXPECT_METRIC_THAT(
       webrtc::metrics::Samples("WebRTC.PeerConnection.SrtcpUnprotectError"),
       ElementsAre(Pair(srtp_err_status_cant_check, 1)));
@@ -191,8 +192,10 @@ TEST_F(SrtpSessionTest, TestBuffersTooSmall) {
                           kEncryptedHeaderExtensionIds));
   EXPECT_FALSE(s1_.ProtectRtp(rtp_packet_, rtp_len_, sizeof(rtp_packet_) - 10,
                               &out_len));
-  EXPECT_FALSE(s1_.ProtectRtcp(rtcp_packet_, rtcp_len_,
-                               sizeof(rtcp_packet_) - 14, &out_len));
+  // This buffer does not have extra capacity which we treat as an error.
+  rtc::CopyOnWriteBuffer buffer(rtcp_packet_.data(), rtcp_packet_.size(),
+                                rtcp_packet_.size());
+  EXPECT_FALSE(s1_.ProtectRtcp(buffer));
 }
 
 TEST_F(SrtpSessionTest, TestReplay) {
@@ -261,9 +264,10 @@ TEST_F(SrtpSessionTest, RemoveSsrc) {
   // Encrypt and decrypt the packet once.
   EXPECT_TRUE(
       s1_.ProtectRtp(rtp_packet_, rtp_len_, sizeof(rtp_packet_), &out_len));
-  EXPECT_TRUE(s2_.UnprotectRtp(rtp_packet_, out_len, &out_len));
-  EXPECT_EQ(rtp_len_, out_len);
-  EXPECT_EQ(0, memcmp(rtp_packet_, kPcmuFrame, out_len));
+  rtc::CopyOnWriteBuffer buffer(rtp_packet_, out_len);
+  EXPECT_TRUE(s2_.UnprotectRtp(buffer));
+  EXPECT_EQ(rtp_len_, buffer.size());
+  EXPECT_EQ(0, std::memcmp(kPcmuFrame, buffer.data(), buffer.size()));
 
   // Recreate the original packet and encrypt again.
   memcpy(rtp_packet_, kPcmuFrame, rtp_len_);
@@ -271,16 +275,17 @@ TEST_F(SrtpSessionTest, RemoveSsrc) {
       s1_.ProtectRtp(rtp_packet_, rtp_len_, sizeof(rtp_packet_), &out_len));
   // Attempting to decrypt will fail as a replay attack.
   // (srtp_err_status_replay_fail) since the sequence number was already seen.
-  EXPECT_FALSE(s2_.UnprotectRtp(rtp_packet_, out_len, &out_len));
+  buffer.SetData(rtp_packet_, out_len);
+  EXPECT_FALSE(s2_.UnprotectRtp(buffer));
 
   // Remove the fake packet SSRC 1 from the session.
   EXPECT_TRUE(s2_.RemoveSsrcFromSession(1));
   EXPECT_FALSE(s2_.RemoveSsrcFromSession(1));
 
   // Since the SRTP state was discarded, this is no longer a replay attack.
-  EXPECT_TRUE(s2_.UnprotectRtp(rtp_packet_, out_len, &out_len));
-  EXPECT_EQ(rtp_len_, out_len);
-  EXPECT_EQ(0, memcmp(rtp_packet_, kPcmuFrame, out_len));
+  EXPECT_TRUE(s2_.UnprotectRtp(buffer));
+  EXPECT_EQ(rtp_len_, buffer.size());
+  EXPECT_EQ(0, std::memcmp(kPcmuFrame, buffer.data(), buffer.size()));
   EXPECT_TRUE(s2_.RemoveSsrcFromSession(1));
 }
 

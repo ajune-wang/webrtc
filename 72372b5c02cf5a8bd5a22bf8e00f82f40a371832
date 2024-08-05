@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e10d2fcc_b0441151",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-08-05T12:26:01Z",
+      "side": 1,
+      "message": "Seems we need to somehow avoid including __endian.",
+      "revId": "72372b5c02cf5a8bd5a22bf8e00f82f40a371832",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -84,6 +84,23 @@
       "message": "@orphis@webrtc.org thanks for the review. Could you please add it to merge queue?",
       "revId": "c247f4052ce867c96093395e0c0e37253b2314a1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3e8dc190_c1c795dc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 20334
+      },
+      "writtenOn": "2024-08-05T18:13:15Z",
+      "side": 1,
+      "message": "Thanks @danilchap@webrtc.org and @orphis@webrtc.org for review and merge the change.",
+      "revId": "c247f4052ce867c96093395e0c0e37253b2314a1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -43,6 +43,9 @@ struct ReceiverFrameStats {
   VideoFrameType frame_type = VideoFrameType::kEmptyFrame;
   DataSize encoded_image_size = DataSize::Bytes(0);
 
+  // Spatial layer index of the received frame.
+  absl::optional<int> spatial_layer_index = absl::nullopt;
+
   absl::optional<int> decoded_frame_width = absl::nullopt;
   absl::optional<int> decoded_frame_height = absl::nullopt;
 
@@ -105,7 +108,8 @@ class FrameInFlight {
                         Timestamp received_time,
                         Timestamp decode_start_time,
                         VideoFrameType frame_type,
-                        DataSize encoded_image_size);
+                        DataSize encoded_image_size,
+                        absl::optional<int> spatial_layer);
 
   bool HasReceivedTime(size_t peer) const;
 

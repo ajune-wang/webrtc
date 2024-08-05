@@ -514,6 +514,10 @@ void DefaultVideoQualityAnalyzerFramesComparator::ProcessComparison(
       ++stats->num_send_key_frames;
     }
   }
+  if (frame_stats.frame_spatial_layer_index.has_value()) {
+    stats->spatial_layer_index.AddSample(
+        *frame_stats.frame_spatial_layer_index);
+  }
   // Next stats can be calculated only if frame was received on remote side.
   if (comparison.type != FrameComparisonType::kDroppedFrame ||
       comparison.frame_stats.decoder_failed) {

@@ -88,6 +88,7 @@ FrameStats FrameStatsWith10msDeltaBetweenPhasesAnd10x10Frame(
       Vp8CodecForOneFrame(1, frame_stats.decode_end_time);
   frame_stats.decoded_frame_width = 10;
   frame_stats.decoded_frame_height = 10;
+  frame_stats.frame_spatial_layer_index = 1;
   return frame_stats;
 }
 
@@ -104,6 +105,8 @@ FrameStats ShiftStatsOn(const FrameStats& stats, TimeDelta delta) {
   frame_stats.used_decoder = stats.used_decoder;
   frame_stats.decoded_frame_width = stats.decoded_frame_width;
   frame_stats.decoded_frame_height = stats.decoded_frame_height;
+
+  frame_stats.frame_spatial_layer_index = 1;
 
   return frame_stats;
 }
@@ -195,6 +198,8 @@ TEST(DefaultVideoQualityAnalyzerFramesComparatorTest,
                               /*size=*/1, /*value=*/30.0);
   ExpectSizeAndAllElementsAre(stats.at(stats_key).resolution_of_decoded_frame,
                               /*size=*/1, /*value=*/100.0);
+  ExpectSizeAndAllElementsAre(stats.at(stats_key).spatial_layer_index,
+                              /*size=*/1, /*value=*/1);
 }
 
 TEST(
@@ -353,6 +358,9 @@ TEST(DefaultVideoQualityAnalyzerFramesComparatorTest,
   EXPECT_DOUBLE_EQ(result_stats.encode_frame_rate.GetEventsPerSecond(),
                    4.0 / 45 * 1000)
       << "There should be 4 events with interval of 15 ms";
+
+  EXPECT_EQ(result_stats.spatial_layer_index.NumSamples(), 5);
+  EXPECT_EQ(result_stats.spatial_layer_index.GetAverage(), 1);
 }
 
 // Tests to validate that stats for each possible input frame are computed
@@ -401,6 +409,7 @@ TEST(DefaultVideoQualityAnalyzerFramesComparatorTest,
   ExpectEmpty(stats.resolution_of_decoded_frame);
   ExpectEmpty(stats.target_encode_bitrate);
   EXPECT_THAT(stats.spatial_layers_qp, IsEmpty());
+  ExpectEmpty(stats.spatial_layer_index);
   ExpectEmpty(stats.recv_key_frame_size_bytes);
   ExpectEmpty(stats.recv_delta_frame_size_bytes);
   EXPECT_EQ(stats.total_encoded_images_payload, 0);
@@ -461,6 +470,7 @@ TEST(DefaultVideoQualityAnalyzerFramesComparatorTest,
   ExpectEmpty(stats.resolution_of_decoded_frame);
   ExpectEmpty(stats.target_encode_bitrate);
   EXPECT_THAT(stats.spatial_layers_qp, IsEmpty());
+  ExpectEmpty(stats.spatial_layer_index);
   ExpectEmpty(stats.recv_key_frame_size_bytes);
   ExpectEmpty(stats.recv_delta_frame_size_bytes);
   EXPECT_EQ(stats.total_encoded_images_payload, 0);
@@ -536,6 +546,7 @@ TEST(DefaultVideoQualityAnalyzerFramesComparatorTest,
   EXPECT_THAT(stats.spatial_layers_qp, SizeIs(1));
   ExpectSizeAndAllElementsAre(stats.spatial_layers_qp[0], /*size=*/2,
                               /*value=*/5.0);
+  ExpectEmpty(stats.spatial_layer_index);
   ExpectEmpty(stats.recv_key_frame_size_bytes);
   ExpectEmpty(stats.recv_delta_frame_size_bytes);
   EXPECT_EQ(stats.total_encoded_images_payload, 1000);
@@ -612,6 +623,7 @@ TEST(DefaultVideoQualityAnalyzerFramesComparatorTest,
   EXPECT_THAT(stats.spatial_layers_qp, SizeIs(1));
   ExpectSizeAndAllElementsAre(stats.spatial_layers_qp[0], /*size=*/2,
                               /*value=*/5.0);
+  ExpectEmpty(stats.spatial_layer_index);
   ExpectEmpty(stats.recv_key_frame_size_bytes);
   ExpectEmpty(stats.recv_delta_frame_size_bytes);
   EXPECT_EQ(stats.total_encoded_images_payload, 1000);
@@ -662,6 +674,7 @@ TEST(DefaultVideoQualityAnalyzerFramesComparatorTest,
   frame_stats.pre_decoded_image_size = DataSize::Bytes(500);
   frame_stats.received_time = captured_time + TimeDelta::Millis(30);
   frame_stats.decode_start_time = captured_time + TimeDelta::Millis(40);
+  frame_stats.frame_spatial_layer_index = 2;
 
   comparator.Start(/*max_threads_count=*/1);
   comparator.EnsureStatsForStream(stream, sender, /*peers_count=*/2,
@@ -694,6 +707,8 @@ TEST(DefaultVideoQualityAnalyzerFramesComparatorTest,
   EXPECT_THAT(stats.spatial_layers_qp, SizeIs(1));
   ExpectSizeAndAllElementsAre(stats.spatial_layers_qp[0], /*size=*/2,
                               /*value=*/5.0);
+  ExpectSizeAndAllElementsAre(stats.spatial_layer_index, /*size=*/1,
+                              /*value=*/2);
   ExpectSizeAndAllElementsAre(stats.recv_key_frame_size_bytes, /*size=*/1,
                               /*value=*/500.0);
   ExpectEmpty(stats.recv_delta_frame_size_bytes);
@@ -745,6 +760,7 @@ TEST(DefaultVideoQualityAnalyzerFramesComparatorTest,
   frame_stats.pre_decoded_image_size = DataSize::Bytes(500);
   frame_stats.received_time = captured_time + TimeDelta::Millis(30);
   frame_stats.decode_start_time = captured_time + TimeDelta::Millis(40);
+  frame_stats.frame_spatial_layer_index = 1;
   // Frame decoded
   frame_stats.decode_end_time = captured_time + TimeDelta::Millis(50);
   frame_stats.decoded_frame_width = 200;
@@ -784,6 +800,8 @@ TEST(DefaultVideoQualityAnalyzerFramesComparatorTest,
   EXPECT_THAT(stats.spatial_layers_qp, SizeIs(1));
   ExpectSizeAndAllElementsAre(stats.spatial_layers_qp[0], /*size=*/2,
                               /*value=*/5.0);
+  ExpectSizeAndAllElementsAre(stats.spatial_layer_index, /*size=*/1,
+                              /*value=*/1);
   ExpectSizeAndAllElementsAre(stats.recv_key_frame_size_bytes, /*size=*/1,
                               /*value=*/500.0);
   ExpectEmpty(stats.recv_delta_frame_size_bytes);
@@ -836,6 +854,7 @@ TEST(DefaultVideoQualityAnalyzerFramesComparatorTest,
   frame_stats.pre_decoded_image_size = DataSize::Bytes(500);
   frame_stats.received_time = captured_time + TimeDelta::Millis(30);
   frame_stats.decode_start_time = captured_time + TimeDelta::Millis(40);
+  frame_stats.frame_spatial_layer_index = 2;
   // Frame decoded
   frame_stats.decoder_failed = true;
   frame_stats.used_decoder =
@@ -872,6 +891,8 @@ TEST(DefaultVideoQualityAnalyzerFramesComparatorTest,
   EXPECT_THAT(stats.spatial_layers_qp, SizeIs(1));
   ExpectSizeAndAllElementsAre(stats.spatial_layers_qp[0], /*size=*/2,
                               /*value=*/5.0);
+  ExpectSizeAndAllElementsAre(stats.spatial_layer_index, /*size=*/1,
+                              /*value=*/2);
   ExpectSizeAndAllElementsAre(stats.recv_key_frame_size_bytes, /*size=*/1,
                               /*value=*/500.0);
   ExpectEmpty(stats.recv_delta_frame_size_bytes);
@@ -936,6 +957,7 @@ TEST(DefaultVideoQualityAnalyzerFramesComparatorTest,
   ExpectEmpty(stats.resolution_of_decoded_frame);
   ExpectEmpty(stats.target_encode_bitrate);
   EXPECT_THAT(stats.spatial_layers_qp, IsEmpty());
+  ExpectEmpty(stats.spatial_layer_index);
   ExpectEmpty(stats.recv_key_frame_size_bytes);
   ExpectEmpty(stats.recv_delta_frame_size_bytes);
   EXPECT_EQ(stats.total_encoded_images_payload, 0);
@@ -996,6 +1018,7 @@ TEST(DefaultVideoQualityAnalyzerFramesComparatorTest,
   ExpectEmpty(stats.resolution_of_decoded_frame);
   ExpectEmpty(stats.target_encode_bitrate);
   EXPECT_THAT(stats.spatial_layers_qp, IsEmpty());
+  ExpectEmpty(stats.spatial_layer_index);
   ExpectEmpty(stats.recv_key_frame_size_bytes);
   ExpectEmpty(stats.recv_delta_frame_size_bytes);
   EXPECT_EQ(stats.total_encoded_images_payload, 0);
@@ -1071,6 +1094,7 @@ TEST(DefaultVideoQualityAnalyzerFramesComparatorTest,
   EXPECT_THAT(stats.spatial_layers_qp, SizeIs(1));
   ExpectSizeAndAllElementsAre(stats.spatial_layers_qp[0], /*size=*/2,
                               /*value=*/5.0);
+  ExpectEmpty(stats.spatial_layer_index);
   ExpectEmpty(stats.recv_key_frame_size_bytes);
   ExpectEmpty(stats.recv_delta_frame_size_bytes);
   EXPECT_EQ(stats.total_encoded_images_payload, 1000);
@@ -1147,6 +1171,7 @@ TEST(DefaultVideoQualityAnalyzerFramesComparatorTest,
   EXPECT_THAT(stats.spatial_layers_qp, SizeIs(1));
   ExpectSizeAndAllElementsAre(stats.spatial_layers_qp[0], /*size=*/2,
                               /*value=*/5.0);
+  ExpectEmpty(stats.spatial_layer_index);
   ExpectEmpty(stats.recv_key_frame_size_bytes);
   ExpectEmpty(stats.recv_delta_frame_size_bytes);
   EXPECT_EQ(stats.total_encoded_images_payload, 1000);
@@ -1216,6 +1241,7 @@ TEST(DefaultVideoQualityAnalyzerFramesComparatorTest,
   ExpectEmpty(stats.decode_time_ms);
   ExpectEmpty(stats.receive_to_render_time_ms);
   ExpectEmpty(stats.skipped_between_rendered);
+  ExpectEmpty(stats.spatial_layer_index);
   ExpectSizeAndAllElementsAre(stats.freeze_time_ms, /*size=*/1, /*value=*/0);
   ExpectEmpty(stats.time_between_freezes_ms);
   ExpectEmpty(stats.resolution_of_decoded_frame);
@@ -1311,6 +1337,7 @@ TEST(DefaultVideoQualityAnalyzerFramesComparatorTest,
   EXPECT_THAT(stats.spatial_layers_qp, SizeIs(1));
   ExpectSizeAndAllElementsAre(stats.spatial_layers_qp[0], /*size=*/2,
                               /*value=*/5.0);
+  ExpectEmpty(stats.spatial_layer_index);
   ExpectEmpty(stats.recv_key_frame_size_bytes);
   ExpectEmpty(stats.recv_delta_frame_size_bytes);
   EXPECT_EQ(stats.total_encoded_images_payload, 1000);
@@ -1362,6 +1389,7 @@ TEST(DefaultVideoQualityAnalyzerFramesComparatorTest,
   frame_stats.pre_decoded_image_size = DataSize::Bytes(500);
   frame_stats.received_time = captured_time + TimeDelta::Millis(30);
   frame_stats.decode_start_time = captured_time + TimeDelta::Millis(40);
+  frame_stats.frame_spatial_layer_index = 1;
   // Frame decoded
   frame_stats.decoder_failed = true;
   frame_stats.used_decoder =
@@ -1398,6 +1426,8 @@ TEST(DefaultVideoQualityAnalyzerFramesComparatorTest,
   EXPECT_THAT(stats.spatial_layers_qp, SizeIs(1));
   ExpectSizeAndAllElementsAre(stats.spatial_layers_qp[0], /*size=*/2,
                               /*value=*/5.0);
+  ExpectSizeAndAllElementsAre(stats.spatial_layer_index, /*size=*/1,
+                              /*value=*/1);
   ExpectSizeAndAllElementsAre(stats.recv_key_frame_size_bytes, /*size=*/1,
                               /*value=*/500.0);
   ExpectEmpty(stats.recv_delta_frame_size_bytes);
@@ -1454,6 +1484,7 @@ TEST(DefaultVideoQualityAnalyzerFramesComparatorTest,
   frame_stats.pre_decoded_image_size = DataSize::Bytes(500);
   frame_stats.received_time = captured_time + TimeDelta::Millis(30);
   frame_stats.decode_start_time = captured_time + TimeDelta::Millis(40);
+  frame_stats.frame_spatial_layer_index = 0;
   // Frame decoded
   frame_stats.decode_end_time = captured_time + TimeDelta::Millis(50);
   frame_stats.used_decoder =
@@ -1494,6 +1525,8 @@ TEST(DefaultVideoQualityAnalyzerFramesComparatorTest,
   EXPECT_THAT(stats.spatial_layers_qp, SizeIs(1));
   ExpectSizeAndAllElementsAre(stats.spatial_layers_qp[0], /*size=*/2,
                               /*value=*/5.0);
+  ExpectSizeAndAllElementsAre(stats.spatial_layer_index, /*size=*/1,
+                              /*value=*/0);
   ExpectSizeAndAllElementsAre(stats.recv_key_frame_size_bytes, /*size=*/1,
                               /*value=*/500.0);
   ExpectEmpty(stats.recv_delta_frame_size_bytes);

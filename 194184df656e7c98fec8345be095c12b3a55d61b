@@ -1,0 +1,39 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a24b8d10_49b00805",
+        "filename": "api/rtp_sender_interface.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 17470
+      },
+      "writtenOn": "2024-08-06T08:44:19Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this be set at construction time",
+      "fixSuggestions": [
+        {
+          "fixId": "2fb4520b_096b257c",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "api/rtp_sender_interface.h",
+              "range": {
+                "startLine": 126,
+                "startChar": 0,
+                "endLine": 127,
+                "endChar": 0
+              },
+              "replacement": "  // TODO - rtc::scoped_refptr - should be set at construction time\n"
+            }
+          ]
+        }
+      ],
+      "revId": "194184df656e7c98fec8345be095c12b3a55d61b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

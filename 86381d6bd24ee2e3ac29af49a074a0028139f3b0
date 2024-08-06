@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c3915f04_8ba4e157",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 10557
+      },
+      "writtenOn": "2024-08-06T19:13:08Z",
+      "side": 1,
+      "message": "Hey Danil, Wdyt about this UAF fix?",
+      "revId": "86381d6bd24ee2e3ac29af49a074a0028139f3b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

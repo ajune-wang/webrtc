@@ -138,6 +138,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7c71204e_656974db",
+        "filename": "rtc_base/openssl_certificate.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5602
+      },
+      "writtenOn": "2024-08-06T16:02:02Z",
+      "side": 1,
+      "message": "Can you:\n1. Print the value of `params.common_name`. Is it actually \"client\"?\n2. Trace through where in OpenSSL is `X509_NAME_add_entry_by_NID` failing?",
+      "parentUuid": "6a37abf1_103a734b",
+      "revId": "4763a800dd079e30e020fe86df9c6d2441efc896",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "da204262_33514f99",
         "filename": "rtc_base/openssl_identity.cc",
         "patchSetId": 7
@@ -238,6 +256,24 @@
       "side": 1,
       "message": "Without this SSLStreamAdapterTestDTLSCertChain.TwoCertHandshake blows up (for context, OpenSSL support is in a sad state with no bots etc and I poked in this with a stick)\n\nERR_GET_LIB(err) is ERR_LIB_PEM but\nERR_GET_REASON(err) PEM_R_UNSUPPORTED_PUBLIC_KEY_TYPE (110)\nnot PEM_R_NO_START_LINE (108) which is what the code is looking for.\nBIO_eof is true at that point. I suspect that OpenSSL may have changed behavior between 1.x and 3.x but in a case which might be considered \"meh\" since one should not try to read from a EOF BIO. \n\nThe code is not designed to ignore empty lines as would return on the first blank line when a certificate (chain) file with blank lines inserted between keys were to be used?",
       "parentUuid": "4f72b381_3c174d94",
+      "revId": "4763a800dd079e30e020fe86df9c6d2441efc896",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f6c5273b_c9bb2d35",
+        "filename": "rtc_base/openssl_identity.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 5602
+      },
+      "writtenOn": "2024-08-06T16:02:02Z",
+      "side": 1,
+      "message": "Like the other comment, it sounds like there is something more complex going on and needs more investigation. The changes to this file are not a fix but a regression.\n\nWhat exactly is the input here?\n\n\u003e PEM_R_UNSUPPORTED_PUBLIC_KEY_TYPE\n\nGetting PEM_R_UNSUPPORTED_PUBLIC_KEY_TYPE on EOF doesn\u0027t make any sense at all. It sounds like there may be something else going on here.\n\n\u003e but in a case which might be considered \"meh\" since one should not try to read from a EOF BIO\n\nNo, it is reasonable to try to read a PEM block from an EOF BIO. Per the previous comment, EOF detection when iterating over PEM needs to be done inside the PEM library rather than outside. The PEM_R_NO_START_LINE loop appears throughout the ecosystem and within OpenSSL itself. If they broke it, that would absolutely be considered a regression.\n\n\u003e The code is not designed to ignore empty lines as would return on the first blank line when a certificate (chain) file with blank lines inserted between keys were to be used?\n\nThe code, both before and after the CL, *is* designed to ignore empty lines and indeed all non-PEM data because that is how the `PEM_read_*` functions work. That\u0027s how the PEM format itself works. The only difference is that the old version correctly ignored trailing data in the same way as leading and interspersed data, while the new version has a bug in how it handles trailing data.",
+      "parentUuid": "832b95e1_28dd4e2a",
       "revId": "4763a800dd079e30e020fe86df9c6d2441efc896",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

@@ -32,6 +32,8 @@ class ObjCVideoEncoderFactory : public VideoEncoderFactory {
 
   std::vector<SdpVideoFormat> GetSupportedFormats() const override;
   std::vector<SdpVideoFormat> GetImplementations() const override;
+  CodecSupport QueryCodecSupport(const SdpVideoFormat& format,
+                                 absl::optional<std::string> scalability_mode) const override;
   std::unique_ptr<VideoEncoder> Create(const Environment& env,
                                        const SdpVideoFormat& format) override;
   std::unique_ptr<EncoderSelectorInterface> GetEncoderSelector() const override;

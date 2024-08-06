@@ -15,6 +15,11 @@
 #import "RTCNativeVideoEncoder.h"
 #import "RTCNativeVideoEncoderBuilder+Native.h"
 #import "RTCVideoEncoderAV1.h"
+#import "helpers/NSString+StdString.h"
+
+#include "api/video_codecs/scalability_mode.h"
+#include "api/video_codecs/scalability_mode_helper.h"
+#include "modules/video_coding/codecs/av1/av1_svc_config.h"
 #include "modules/video_coding/codecs/av1/libaom_av1_encoder.h"
 
 @interface RTC_OBJC_TYPE (RTCVideoEncoderAV1Builder)
@@ -33,6 +38,15 @@
 
     + (id<RTC_OBJC_TYPE(RTCVideoEncoder)>)av1Encoder {
       return [[RTC_OBJC_TYPE(RTCVideoEncoderAV1Builder) alloc] init];
+    }
+
+    + (bool)isScalabilityModeSupported:(nonnull NSString*)name {
+      absl::optional<webrtc::ScalabilityMode> mode =
+          webrtc::ScalabilityModeStringToEnum([NSString stdStringForString:name]);
+      if (!mode.has_value()) {
+        return false;
+      }
+      return webrtc::LibaomAv1EncoderSupportsScalabilityMode(*mode);
     }
 
     + (bool)isSupported {

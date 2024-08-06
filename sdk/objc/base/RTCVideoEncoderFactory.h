@@ -44,6 +44,10 @@ RTC_OBJC_EXPORT
     supportedCodecs;  // TODO(andersc): "supportedFormats" instead?
 
 @optional
+// TODO: b/299588022 - make required when implemented by all derived classes.
+- (nonnull RTC_OBJC_TYPE(RTCVideoEncoderCodecSupport) *)
+    queryCodecSupport:(nonnull RTC_OBJC_TYPE(RTCVideoCodecInfo) *)info
+      scalabilityMode:(nullable NSString *)scalabilityMode;
 - (NSArray<RTC_OBJC_TYPE(RTCVideoCodecInfo) *> *)implementations;
 - (nullable id<RTC_OBJC_TYPE(RTCVideoEncoderSelector)>)encoderSelector;
 

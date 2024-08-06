@@ -15,7 +15,10 @@
 #import "RTCNativeVideoEncoder.h"
 #import "RTCNativeVideoEncoderBuilder+Native.h"
 #import "RTCVideoEncoderVP9.h"
+#import "helpers/NSString+StdString.h"
 
+#include "api/video_codecs/scalability_mode.h"
+#include "api/video_codecs/scalability_mode_helper.h"
 #include "modules/video_coding/codecs/vp9/include/vp9.h"
 
 @interface RTC_OBJC_TYPE (RTCVideoEncoderVP9Builder)
@@ -31,6 +34,15 @@
     @end
 
     @implementation RTC_OBJC_TYPE (RTCVideoEncoderVP9)
+
+    + (bool)isScalabilityModeSupported:(nonnull NSString*)name {
+      absl::optional<webrtc::ScalabilityMode> mode =
+          webrtc::ScalabilityModeStringToEnum([NSString stdStringForString:name]);
+      if (!mode.has_value()) {
+        return false;
+      }
+      return webrtc::VP9Encoder::SupportsScalabilityMode(*mode);
+    }
 
     + (id<RTC_OBJC_TYPE(RTCVideoEncoder)>)vp9Encoder {
 #if defined(RTC_ENABLE_VP9)

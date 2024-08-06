@@ -111,6 +111,7 @@ if (is_ios || is_mac) {
       "objc/base/RTCVideoDecoderFactory.h",
       "objc/base/RTCVideoEncoder.h",
       "objc/base/RTCVideoEncoderFactory.h",
+      "objc/base/RTCVideoEncoderFactory.mm",
       "objc/base/RTCVideoEncoderQpThresholds.h",
       "objc/base/RTCVideoEncoderQpThresholds.m",
       "objc/base/RTCVideoEncoderSettings.h",
@@ -1685,6 +1686,7 @@ if (is_ios || is_mac) {
         "../rtc_base:logging",
         "../rtc_base:timestamp_aligner",
         "../rtc_base:timeutils",
+        "//third_party/abseil-cpp/absl/types:optional",
       ]
     }
 

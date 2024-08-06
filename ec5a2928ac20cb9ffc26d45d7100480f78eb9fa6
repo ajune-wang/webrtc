@@ -16,6 +16,24 @@
       "message": "Should we log a warning and just ensure the capacity here? DCHECK on capacity maybe?",
       "revId": "ec5a2928ac20cb9ffc26d45d7100480f78eb9fa6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0a5e69e6_7d3e1a08",
+        "filename": "pc/srtp_session.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-08-06T06:43:35Z",
+      "side": 1,
+      "message": "Since we\u0027re using a CopyOnWriteBuffer, we can call buffer.EnsureCapacity(need_len), which will reallocate if needed.\nOf course this may impact performance, so it\u0027s a sign of non-optimal code, which may warrant a LOG(WARNING), or perhaps DLOG(WARNING)?",
+      "parentUuid": "f8133b30_ca5a73ab",
+      "revId": "ec5a2928ac20cb9ffc26d45d7100480f78eb9fa6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

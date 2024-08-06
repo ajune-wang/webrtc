@@ -3,6 +3,40 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "a8da9d3d_99278c09",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-08-06T06:43:35Z",
+      "side": 1,
+      "message": "No such luck - there are internal users of ProtectRt(c)p and UnprotectRt(c)p that expect the 4-argument version :-(",
+      "revId": "da211c8bdb3a89da256dc5f0e69cf61bd023d905",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f643c617_3d6c164d",
+        "filename": "pc/srtp_session.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-08-06T06:43:35Z",
+      "side": 1,
+      "message": "Can use EnsureCapacity() here too.",
+      "revId": "da211c8bdb3a89da256dc5f0e69cf61bd023d905",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "764a27f8_0ad2b4be",
         "filename": "pc/srtp_session.cc",
         "patchSetId": 10

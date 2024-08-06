@@ -132,6 +132,45 @@ std::unique_ptr<webrtc::VideoEncoder> GetObjCEncoder(
   EXPECT_EQ(encoder->Release(), WEBRTC_VIDEO_CODEC_ERROR);
 }
 
+- (void)testQueryCodecSupportDelegatesToObjcFactoryConvertsNulloptModeToNil {
+  id encoderFactoryMock = OCMProtocolMock(@protocol(RTC_OBJC_TYPE(RTCVideoEncoderFactory)));
+  OCMStub([encoderFactoryMock queryCodecSupport:[OCMArg any] scalabilityMode:nil])
+      .andReturn([[RTC_OBJC_TYPE(RTCVideoEncoderCodecSupport) alloc] initIsSupported:true
+                                                                    isPowerEfficient:true]);
+  webrtc::SdpVideoFormat codec("VP8");
+  webrtc::ObjCVideoEncoderFactory encoder_factory(encoderFactoryMock);
+
+  webrtc::VideoEncoderFactory::CodecSupport s =
+      encoder_factory.QueryCodecSupport(codec, absl::nullopt);
+
+  EXPECT_TRUE(s.is_supported);
+  EXPECT_TRUE(s.is_power_efficient);
+}
+
+- (void)testQueryCodecSupportDelegatesToObjcFactoryIncludesPowerEfficientFlag {
+  id encoderFactoryMock = OCMProtocolMock(@protocol(RTC_OBJC_TYPE(RTCVideoEncoderFactory)));
+  OCMStub([encoderFactoryMock queryCodecSupport:[OCMArg any] scalabilityMode:@"L1T2"])
+      .andReturn([[RTC_OBJC_TYPE(RTCVideoEncoderCodecSupport) alloc] initIsSupported:true
+                                                                    isPowerEfficient:false]);
+
+  webrtc::SdpVideoFormat codec("VP8");
+  webrtc::ObjCVideoEncoderFactory encoder_factory(encoderFactoryMock);
+
+  webrtc::VideoEncoderFactory::CodecSupport s = encoder_factory.QueryCodecSupport(codec, "L1T2");
+  EXPECT_TRUE(s.is_supported);
+  EXPECT_FALSE(s.is_power_efficient);
+}
+
+- (void)testQueryCodecSupportDelegatesToObjcFactoryMayReturnUnsupported {
+  id encoderFactoryMock = OCMProtocolMock(@protocol(RTC_OBJC_TYPE(RTCVideoEncoderFactory)));
+  OCMStub([encoderFactoryMock queryCodecSupport:[OCMArg any] scalabilityMode:@"L2T1"])
+      .andReturn([[RTC_OBJC_TYPE(RTCVideoEncoderCodecSupport) alloc] initIsSupported:false]);
+  webrtc::SdpVideoFormat codec("VP8");
+  webrtc::ObjCVideoEncoderFactory encoder_factory(encoderFactoryMock);
+
+  EXPECT_FALSE(encoder_factory.QueryCodecSupport(codec, "L2T1").is_supported);
+}
+
 - (void)testGetSupportedFormats {
   webrtc::ObjCVideoEncoderFactory encoder_factory(CreateOKEncoderFactory());
   std::vector<webrtc::SdpVideoFormat> supportedFormats = encoder_factory.GetSupportedFormats();

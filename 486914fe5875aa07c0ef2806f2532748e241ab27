@@ -214,6 +214,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6f35c2c0_d783f4cb",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2024-08-06T07:34:58Z",
+      "side": 1,
+      "message": "Alright, thanks for explaining. I don\u0027t have any immediate suggestion for how it can be improved, so let\u0027s start with this.",
+      "parentUuid": "aeee7ad8_9b0af87a",
+      "range": {
+        "startLine": 85,
+        "startChar": 0,
+        "endLine": 85,
+        "endChar": 58
+      },
+      "revId": "486914fe5875aa07c0ef2806f2532748e241ab27",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fe9c484b_b6f965ce",

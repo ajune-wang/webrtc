@@ -74,6 +74,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "588d17aa_d1faecb2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 3485001
+      },
+      "writtenOn": "2024-08-06T14:39:00Z",
+      "side": 1,
+      "message": "Thank you for creating a bug for the issue.",
+      "parentUuid": "fecfb7ff_a7ab7de2",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 385
+      },
+      "revId": "2770b2e8f40d2e0c0a2c11682f561733f081480b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "740d8f2e_565136bd",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 4

@@ -155,6 +155,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b524ee19_e25c82bb",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer_frame_in_flight.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 3485001
+      },
+      "writtenOn": "2024-08-06T14:39:00Z",
+      "side": 1,
+      "message": "OK, lets remove it and see what happens then.",
+      "parentUuid": "81b34d47_ed5d48d5",
+      "range": {
+        "startLine": 98,
+        "startChar": 2,
+        "endLine": 101,
+        "endChar": 3
+      },
+      "revId": "837717fa02464a87dec8c1893832c665bb546248",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3f15affc_4589c6b8",
@@ -192,6 +216,30 @@
           ]
         }
       ],
+      "revId": "837717fa02464a87dec8c1893832c665bb546248",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "99c6f071_970a7200",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer_internal_shared_objects.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 3485001
+      },
+      "writtenOn": "2024-08-06T14:39:00Z",
+      "side": 1,
+      "message": "Assigned bug webrtc:357636606.",
+      "parentUuid": "3f15affc_4589c6b8",
+      "range": {
+        "startLine": 77,
+        "startChar": 10,
+        "endLine": 77,
+        "endChar": 19
+      },
       "revId": "837717fa02464a87dec8c1893832c665bb546248",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

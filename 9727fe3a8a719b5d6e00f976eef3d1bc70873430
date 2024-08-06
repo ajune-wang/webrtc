@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1399b67b_beec7b97",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-08-06T14:21:23Z",
+      "side": 1,
+      "message": "Åsa, that what is missing for supporting scalability modes on ios, right?\n(as a followup I plan to implement the new function somehow like in https://webrtc-review.googlesource.com/c/src/+/358540)\n\nKári, can you please help me with objc, in particular.... what I\u0027m doing wrong trying to mock a method from the protocol?",
+      "revId": "9727fe3a8a719b5d6e00f976eef3d1bc70873430",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

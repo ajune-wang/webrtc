@@ -646,6 +646,39 @@ TEST(FrameCadenceAdapterTest, EncodeFramesAreAlignedWithMetronomeTick) {
   finalized.Wait(rtc::Event::kForever);
 }
 
+TEST(FrameCadenceAdapterTest, ShutdownUnderMetronome) {
+  // Regression test for crbug.com/356423094.
+  GlobalSimulatedTimeController time_controller(Timestamp::Zero());
+  static constexpr TimeDelta kTickPeriod = TimeDelta::Millis(100);
+  auto queue = time_controller.GetTaskQueueFactory()->CreateTaskQueue(
+      "queue", TaskQueueFactory::Priority::NORMAL);
+  auto worker_queue = time_controller.GetTaskQueueFactory()->CreateTaskQueue(
+      "work_queue", TaskQueueFactory::Priority::NORMAL);
+  static test::FakeMetronome metronome(kTickPeriod);
+  test::ScopedKeyValueConfig no_field_trials;
+  auto adapter = FrameCadenceAdapterInterface::Create(
+      time_controller.GetClock(), queue.get(), &metronome, worker_queue.get(),
+      no_field_trials);
+  MockCallback callback;
+  adapter->Initialize(&callback);
+
+  // Pass a frame, this is expected to trigger an encode call in the future.
+  adapter->OnFrame(CreateFrame());
+
+  // Then post destruction of the adapter and encode queue.
+  rtc::Event finalized;
+  queue->PostTask([&] {
+    adapter = nullptr;
+    queue = nullptr;
+    finalized.Set();
+  });
+
+  // Now that we advance time, there should be no encoding happening.
+  EXPECT_CALL(callback, OnFrame).Times(0);
+  time_controller.AdvanceTime(TimeDelta::Millis(100));
+  finalized.Wait(rtc::Event::kForever);
+}
+
 class FrameCadenceAdapterSimulcastLayersParamTest
     : public ::testing::TestWithParam<int> {
  public:

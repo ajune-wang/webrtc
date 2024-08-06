@@ -70,6 +70,24 @@
       "parentUuid": "402f09fc_13563aa5",
       "revId": "53c424eba79013dc993208cdd33aaa16a11189eb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b43dbd18_845471a5",
+        "filename": "api/transport/stun.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 19769
+      },
+      "writtenOn": "2024-08-06T11:22:50Z",
+      "side": 0,
+      "message": "Ok, after looking into this, I figured the \"bug\" is actually in `cpplint.py`.\nAccording to https://source.chromium.org/chromium/chromium/src/+/main:third_party/depot_tools/cpplint.py;l\u003d5730-5750?q\u003dcpplint.py, it will note the algorithm is required if it sees `copy()`, and the same for other library methods. Unsure why we\u0027re not doing this only if we see `std::copy()`...?\nAnyway, we can have the \"pragma keep\" for now...",
+      "parentUuid": "98d93189_4498844a",
+      "revId": "53c424eba79013dc993208cdd33aaa16a11189eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

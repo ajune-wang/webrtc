@@ -34,6 +34,24 @@
       "parentUuid": "f8133b30_ca5a73ab",
       "revId": "ec5a2928ac20cb9ffc26d45d7100480f78eb9fa6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b5038682_07b29a73",
+        "filename": "pc/srtp_session.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-08-06T20:00:18Z",
+      "side": 1,
+      "message": "we might do that but only after getting rid of the old signature.\nI think the current behavior is fine. Maybe DCHECK so tests force us to do it properly and then EnsureCapacity in production?",
+      "parentUuid": "0a5e69e6_7d3e1a08",
+      "revId": "ec5a2928ac20cb9ffc26d45d7100480f78eb9fa6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -35,6 +35,42 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f79ceb55_d62708bd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-08-06T20:00:18Z",
+      "side": 1,
+      "message": "backward compat added, can you do another run with the bot?",
+      "parentUuid": "a8da9d3d_99278c09",
+      "revId": "da211c8bdb3a89da256dc5f0e69cf61bd023d905",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "236b1335_e971886b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-08-06T20:00:18Z",
+      "side": 1,
+      "message": "Turned out to be comparing the original buffer beyond its size in the memcmp. Argument to memcmp fixed!",
+      "parentUuid": "319e1886_b44802d3",
+      "revId": "da211c8bdb3a89da256dc5f0e69cf61bd023d905",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f643c617_3d6c164d",
@@ -48,6 +84,24 @@
       "writtenOn": "2024-08-06T06:43:35Z",
       "side": 1,
       "message": "Can use EnsureCapacity() here too.",
+      "revId": "da211c8bdb3a89da256dc5f0e69cf61bd023d905",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7afa55ea_522255da",
+        "filename": "pc/srtp_session.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-08-06T20:00:18Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "f643c617_3d6c164d",
       "revId": "da211c8bdb3a89da256dc5f0e69cf61bd023d905",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

@@ -48,6 +48,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "fecfb7ff_a7ab7de2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2024-08-06T11:27:00Z",
+      "side": 1,
+      "message": "You can set `Bug: None`",
+      "parentUuid": "23b46466_04d6c84c",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 385
+      },
+      "revId": "2770b2e8f40d2e0c0a2c11682f561733f081480b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "740d8f2e_565136bd",

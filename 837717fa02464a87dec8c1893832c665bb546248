@@ -133,6 +133,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "81b34d47_ed5d48d5",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer_frame_in_flight.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2024-08-06T11:27:00Z",
+      "side": 1,
+      "message": "Single cast is used in p2p calls.\n\nIf we will add\n```\nif (stream_layers_qp_.count(stream_index) \u003d\u003d 0) {\n```\nhere, then we will hide cases where we had multiple QP values for some reasons and will make CHECK in test/pc/e2e/analyzer/video/default_video_quality_analyzer_frames_comparator.cc to always pass. So I would either remove if for now or replace it with check. And only when we know that it\u0027s true that there is only one QP per stream index as we expect, replace counter with optional single value and add if or even keep check here.\n\nWDYT?",
+      "parentUuid": "a30d386d_1b0590a5",
+      "range": {
+        "startLine": 98,
+        "startChar": 2,
+        "endLine": 101,
+        "endChar": 3
+      },
+      "revId": "837717fa02464a87dec8c1893832c665bb546248",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3f15affc_4589c6b8",
         "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer_internal_shared_objects.h",
         "patchSetId": 7

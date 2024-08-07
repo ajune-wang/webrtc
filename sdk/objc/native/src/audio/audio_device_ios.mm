@@ -1045,13 +1045,22 @@ bool AudioDeviceIOS::MicrophoneIsInitialized() const {
 }
 
 int32_t AudioDeviceIOS::MicrophoneMuteIsAvailable(bool& available) {
-  available = false;
+  available = true;
   return 0;
 }
 
 int32_t AudioDeviceIOS::SetMicrophoneMute(bool enable) {
-  RTC_DCHECK_NOTREACHED() << "Not implemented";
-  return -1;
+  if (enable) {
+    OSStatus result = audio_unit_->SetMicrophoneMute();
+    if (result != noErr) {
+      RTCLogError(@"Mute microphone failed, reason %d", result);
+      return -1;
+    }
+  } else {
+    RTCLogError(@"unmute microphone failed, unmute microphone is not supported.");
+    return -1;
+  }
+  return 0;
 }
 
 int32_t AudioDeviceIOS::MicrophoneMute(bool& enabled) const {

@@ -398,6 +398,23 @@ bool VoiceProcessingAudioUnit::Uninitialize() {
   return true;
 }
 
+bool VoiceProcessingAudioUnit::SetMicrophoneMute() {
+  RTC_DCHECK_GE(state_, kUninitialized);
+  RTCLog(@"Muting microphone.");
+
+  UInt32 muteUplinkOutput = 1;
+  OSStatus result =
+      AudioUnitSetProperty(vpio_unit_, kAUVoiceIOProperty_MuteOutput, kAudioUnitScope_Global, 0,
+                           &muteUplinkOutput, sizeof(muteUplinkOutput));
+  if (result != noErr) {
+    RTCLogError(@"Failed to mute microphone. Error=%ld", (long)result);
+    return false;
+  }
+
+  RTCLog(@"Muted microphone.");
+  return true;
+}
+
 OSStatus VoiceProcessingAudioUnit::Render(AudioUnitRenderActionFlags* flags,
                                           const AudioTimeStamp* time_stamp,
                                           UInt32 output_bus_number,

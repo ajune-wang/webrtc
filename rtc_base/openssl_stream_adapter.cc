@@ -553,11 +553,6 @@ int OpenSSLStreamAdapter::StartSSL() {
   return 0;
 }
 
-void OpenSSLStreamAdapter::SetMode(SSLMode mode) {
-  RTC_DCHECK(state_ == SSL_NONE);
-  ssl_mode_ = mode;
-}
-
 void OpenSSLStreamAdapter::SetMaxProtocolVersion(SSLProtocolVersion version) {
   RTC_DCHECK(ssl_ctx_ == nullptr);
   ssl_max_version_ = version;

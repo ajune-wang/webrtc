@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "50fd48d1_8f8c561b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-08-07T18:00:29Z",
+      "side": 1,
+      "message": "See PS1 for the sad failure due to lack of SHA-384 and SHA-512. This is only used by STUN so not a concern yet.\n\nI pondered going straight for using OpenSSLs HMAC but that will be easier once the OpenSSL(+BoringSSL via ifdef) and general SSL code paths are folded.",
+      "revId": "76ee0b5cad55cd3d2ba7b51fa1e9d43e6b5de4d1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

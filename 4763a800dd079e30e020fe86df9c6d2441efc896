@@ -312,6 +312,24 @@
       "parentUuid": "f6c5273b_c9bb2d35",
       "revId": "4763a800dd079e30e020fe86df9c6d2441efc896",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "805043b8_1c51ed51",
+        "filename": "rtc_base/openssl_identity.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 5602
+      },
+      "writtenOn": "2024-08-07T18:26:54Z",
+      "side": 1,
+      "message": "\u003e Smells like an issue with my environment where the library and the header do not match...\n\nOh! That could explain the -1 issue too. If you\u0027re building against OpenSSL headers but linking against BoringSSL, we bumped that len parameter from an `int` to an `ssize_t` to fix some overflow problems.\n\nOn most 64-bit calling conventions, an `int` parameter (32-bit) is passed in a 64-bit register (all registers are 64-bit), but the upper 32 bits are undefined.\n\nIf your compiler generated code assuming `int`, but then passed it into a function that expected `ssize_t`, the compiler could left the upper half some arbitrary bit pattern, and then the `ssize_t`-expecting code would misinterpret it as a giant length.",
+      "parentUuid": "34c45073_a16b818b",
+      "revId": "4763a800dd079e30e020fe86df9c6d2441efc896",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

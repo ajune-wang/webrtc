@@ -33,6 +33,23 @@
       "message": "Removing from attn set temporarily to make bots happy with UT.",
       "revId": "86381d6bd24ee2e3ac29af49a074a0028139f3b0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "94cea3c6_8b9f3ab5",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-08-07T09:40:36Z",
+      "side": 1,
+      "message": "the point of the task queue was to avoid locking.... sigh.\nSomething smells wrong with the design if this lock is needed.\n\nUsually when class receives a raw pointer to the TaskQueue it is responsibility of the caller to ensure TaskQueue outlives the object.\n\nMay be this mutex deserves at least a TODO.",
+      "revId": "86381d6bd24ee2e3ac29af49a074a0028139f3b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

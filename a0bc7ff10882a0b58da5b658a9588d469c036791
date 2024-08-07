@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7704ce41_06b948d8",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 318,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2024-08-07T12:41:24Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "ab2b7503_2cc9cf45",
+      "range": {
+        "startLine": 318,
+        "startChar": 5,
+        "endLine": 318,
+        "endChar": 31
+      },
+      "revId": "a0bc7ff10882a0b58da5b658a9588d469c036791",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f2409df2_fbb5de5a",
@@ -41,6 +65,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "06358174_77068c8d",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 842,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2024-08-07T12:41:24Z",
+      "side": 1,
+      "message": "I gave it some thought and callback_ should exist while running encoder queue tasks exist, so we can invoke without lock held, code changed.",
+      "parentUuid": "f2409df2_fbb5de5a",
+      "revId": "a0bc7ff10882a0b58da5b658a9588d469c036791",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "23514c07_d3e5db4d",
@@ -54,6 +96,30 @@
       "writtenOn": "2024-08-07T11:23:19Z",
       "side": 1,
       "message": "why static?\n\nstatic members should at least have trivial destructor\n\n(initializing restrictions for static members do not apply here because it is in a function block)",
+      "range": {
+        "startLine": 656,
+        "startChar": 2,
+        "endLine": 656,
+        "endChar": 8
+      },
+      "revId": "a0bc7ff10882a0b58da5b658a9588d469c036791",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7e468ac2_b5ca276a",
+        "filename": "video/frame_cadence_adapter_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 656,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2024-08-07T12:41:24Z",
+      "side": 1,
+      "message": "Done. Copy paste, I\u0027ll update the other tests that have this.",
+      "parentUuid": "23514c07_d3e5db4d",
       "range": {
         "startLine": 656,
         "startChar": 2,
@@ -87,6 +153,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "02c225c9_cecf5033",
+        "filename": "video/frame_cadence_adapter_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 674,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2024-08-07T12:41:24Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "79146b85_82b35ebd",
+      "range": {
+        "startLine": 669,
+        "startChar": 0,
+        "endLine": 674,
+        "endChar": 39
+      },
+      "revId": "a0bc7ff10882a0b58da5b658a9588d469c036791",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cfcc5d45_7a0efc61",
@@ -100,6 +190,24 @@
       "writtenOn": "2024-08-07T11:23:19Z",
       "side": 1,
       "message": "Can you set that expectation right when mock is created?\n\nhttps://google.github.io/googletest/gmock_for_dummies.html#expectation-ordering\n\n“gMock requires expectations to be set before the mock functions are called, otherwise the behavior is undefined. Do not alternate between calls to EXPECT_CALL() and calls to the mock functions, and do not set any expectations on a mock after passing the mock to an API.”",
+      "revId": "a0bc7ff10882a0b58da5b658a9588d469c036791",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1e8fde2b_65e4298a",
+        "filename": "video/frame_cadence_adapter_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 678,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2024-08-07T12:41:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cfcc5d45_7a0efc61",
       "revId": "a0bc7ff10882a0b58da5b658a9588d469c036791",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

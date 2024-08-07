@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "42ef527e_7bd56e1c",
+        "filename": "video/frame_cadence_adapter_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 650,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-08-07T14:13:06Z",
+      "side": 1,
+      "message": "does this test fails without the patch (at least sometimes)?\n\nbecause it destroys Adapter synchronously it seems it can\u0027t run into the issue that this patch addresses.\ndestruction of the Adapter would invalidate `queue_safety_flag_` and thus posted task won\u0027t run anyway.\n\nReading the test I realize I not longer understand the race.",
+      "revId": "45d0633336fe21698bf00e0a7e68d83a199fed50",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

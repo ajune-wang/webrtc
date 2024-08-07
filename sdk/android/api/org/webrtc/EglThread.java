@@ -17,7 +17,10 @@ import android.os.Message;
 import androidx.annotation.GuardedBy;
 import androidx.annotation.Nullable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 import org.webrtc.EglBase.EglConnection;
 
 /** EGL graphics thread that allows multiple clients to share the same underlying EGLContext. */
@@ -122,7 +125,7 @@ public class EglThread implements RenderSynchronizer.Listener {
   private final HandlerWithExceptionCallbacks handler;
   private final EglConnection eglConnection;
   private final RenderSynchronizer renderSynchronizer;
-  private final List<RenderUpdate> pendingRenderUpdates = new ArrayList<>();
+  private final Map<UUID, RenderUpdate> pendingRenderUpdates = new HashMap<>();
   private boolean renderWindowOpen = true;
 
   private EglThread(
@@ -189,11 +192,19 @@ public class EglThread implements RenderSynchronizer.Listener {
    * open render window. If the render window is currently open the update will run immediately.
    * This method must be called on the EglThread during a render pass.
    */
+  public void scheduleRenderUpdate(UUID id, RenderUpdate update) {
+    if (renderWindowOpen) {
+      update.update(/* runsInline = */ true);
+    } else {
+      pendingRenderUpdates.put(id, update);
+    }
+  }
+
   public void scheduleRenderUpdate(RenderUpdate update) {
     if (renderWindowOpen) {
-      update.update(/* runsInline = */true);
+      update.update(/* runsInline = */ true);
     } else {
-      pendingRenderUpdates.add(update);
+      pendingRenderUpdates.put(UUID.randomUUID(), update);
     }
   }
 
@@ -202,8 +213,8 @@ public class EglThread implements RenderSynchronizer.Listener {
     handler.post(
         () -> {
           renderWindowOpen = true;
-          for (RenderUpdate update : pendingRenderUpdates) {
-            update.update(/* runsInline = */false);
+          for (RenderUpdate update : pendingRenderUpdates.values()) {
+            update.update(/* runsInline = */ false);
           }
           pendingRenderUpdates.clear();
         });

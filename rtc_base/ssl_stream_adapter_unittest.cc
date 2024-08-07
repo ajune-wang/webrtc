@@ -10,6 +10,9 @@
 
 #include "rtc_base/ssl_stream_adapter.h"
 
+#include <openssl/evp.h>
+#include <openssl/sha.h>
+
 #include <cstddef>
 #include <cstdint>
 #include <cstring>
@@ -474,9 +477,9 @@ class SSLStreamAdapterTestBase : public ::testing::Test,
   }
 
   void SetPeerIdentitiesByDigest(bool correct, bool expect_success) {
-    unsigned char server_digest[20];
+    unsigned char server_digest[EVP_MAX_MD_SIZE];
     size_t server_digest_len;
-    unsigned char client_digest[20];
+    unsigned char client_digest[EVP_MAX_MD_SIZE];
     size_t client_digest_len;
     bool rv;
     rtc::SSLPeerCertificateDigestError err;
@@ -488,18 +491,20 @@ class SSLStreamAdapterTestBase : public ::testing::Test,
     RTC_LOG(LS_INFO) << "Setting peer identities by digest";
 
     rv = server_identity()->certificate().ComputeDigest(
-        rtc::DIGEST_SHA_1, server_digest, 20, &server_digest_len);
+        rtc::DIGEST_SHA_256, server_digest, SHA256_DIGEST_LENGTH,
+        &server_digest_len);
     ASSERT_TRUE(rv);
     rv = client_identity()->certificate().ComputeDigest(
-        rtc::DIGEST_SHA_1, client_digest, 20, &client_digest_len);
+        rtc::DIGEST_SHA_256, client_digest, SHA256_DIGEST_LENGTH,
+        &client_digest_len);
     ASSERT_TRUE(rv);
 
     if (!correct) {
       RTC_LOG(LS_INFO) << "Setting bogus digest for server cert";
       server_digest[0]++;
     }
-    rv = client_ssl_->SetPeerCertificateDigest(rtc::DIGEST_SHA_1, server_digest,
-                                               server_digest_len, &err);
+    rv = client_ssl_->SetPeerCertificateDigest(
+        rtc::DIGEST_SHA_256, server_digest, server_digest_len, &err);
     EXPECT_EQ(expected_err, err);
     EXPECT_EQ(expect_success, rv);
 
@@ -507,8 +512,8 @@ class SSLStreamAdapterTestBase : public ::testing::Test,
       RTC_LOG(LS_INFO) << "Setting bogus digest for client cert";
       client_digest[0]++;
     }
-    rv = server_ssl_->SetPeerCertificateDigest(rtc::DIGEST_SHA_1, client_digest,
-                                               client_digest_len, &err);
+    rv = server_ssl_->SetPeerCertificateDigest(
+        rtc::DIGEST_SHA_256, client_digest, client_digest_len, &err);
     EXPECT_EQ(expected_err, err);
     EXPECT_EQ(expect_success, rv);
 
@@ -632,20 +637,22 @@ class SSLStreamAdapterTestBase : public ::testing::Test,
 
     // Collect both of the certificate digests; needs to be done before calling
     // SetPeerCertificateDigest as that may reset the identity.
-    unsigned char server_digest[20];
+    unsigned char server_digest[EVP_MAX_MD_SIZE];
     size_t server_digest_len;
-    unsigned char client_digest[20];
+    unsigned char client_digest[EVP_MAX_MD_SIZE];
     size_t client_digest_len;
     bool rv;
 
     ASSERT_THAT(server_identity(), NotNull());
     rv = server_identity()->certificate().ComputeDigest(
-        rtc::DIGEST_SHA_1, server_digest, 20, &server_digest_len);
+        rtc::DIGEST_SHA_256, server_digest, SHA256_DIGEST_LENGTH,
+        &server_digest_len);
     ASSERT_TRUE(rv);
 
     ASSERT_THAT(client_identity(), NotNull());
     rv = client_identity()->certificate().ComputeDigest(
-        rtc::DIGEST_SHA_1, client_digest, 20, &client_digest_len);
+        rtc::DIGEST_SHA_256, client_digest, SHA256_DIGEST_LENGTH,
+        &client_digest_len);
     ASSERT_TRUE(rv);
 
     if (!valid_identity) {
@@ -660,8 +667,8 @@ class SSLStreamAdapterTestBase : public ::testing::Test,
         valid_identity
             ? rtc::SSLPeerCertificateDigestError::NONE
             : rtc::SSLPeerCertificateDigestError::VERIFICATION_FAILED;
-    rv = client_ssl_->SetPeerCertificateDigest(rtc::DIGEST_SHA_1, server_digest,
-                                               server_digest_len, &err);
+    rv = client_ssl_->SetPeerCertificateDigest(
+        rtc::DIGEST_SHA_256, server_digest, server_digest_len, &err);
     EXPECT_EQ(expected_err, err);
     EXPECT_EQ(valid_identity, rv);
     // State should then transition to SS_OPEN or SS_CLOSED based on validation
@@ -679,8 +686,8 @@ class SSLStreamAdapterTestBase : public ::testing::Test,
     }
 
     // Set the peer certificate digest for the server.
-    rv = server_ssl_->SetPeerCertificateDigest(rtc::DIGEST_SHA_1, client_digest,
-                                               client_digest_len, &err);
+    rv = server_ssl_->SetPeerCertificateDigest(
+        rtc::DIGEST_SHA_256, client_digest, client_digest_len, &err);
     EXPECT_EQ(expected_err, err);
     EXPECT_EQ(valid_identity, rv);
     if (valid_identity) {
@@ -1299,8 +1306,8 @@ TEST_P(SSLStreamAdapterTestDTLS, TestDTLSSrtpKeyAndSaltLengths) {
 // Test an exporter
 TEST_P(SSLStreamAdapterTestDTLS, TestDTLSExporter) {
   TestHandshake();
-  unsigned char client_out[20];
-  unsigned char server_out[20];
+  unsigned char client_out[EVP_MAX_MD_SIZE];
+  unsigned char server_out[EVP_MAX_MD_SIZE];
 
   bool result;
   result = ExportKeyingMaterial(kExporterLabel, kExporterContext,

@@ -34,6 +34,24 @@
       "parentUuid": "844c7ec2_65ea5a90",
       "revId": "1f028f986e3c0aec1bfcb8a6c005dee24d8779fa",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d07d74fe_a7605454",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-08-07T13:46:35Z",
+      "side": 1,
+      "message": "Do file a bug about aligning the tools. I believe the cpplint is using a custom tool for this purpose - I don\u0027t know what it uses.",
+      "parentUuid": "32ee78c2_7cce8779",
+      "revId": "1f028f986e3c0aec1bfcb8a6c005dee24d8779fa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

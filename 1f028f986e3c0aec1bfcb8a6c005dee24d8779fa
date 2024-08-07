@@ -52,6 +52,24 @@
       "parentUuid": "32ee78c2_7cce8779",
       "revId": "1f028f986e3c0aec1bfcb8a6c005dee24d8779fa",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "439586a0_f5e2b8a6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2024-08-07T13:48:37Z",
+      "side": 1,
+      "message": "Yes, and I think the config of cpplint dearly needs a refresh as well.",
+      "parentUuid": "d07d74fe_a7605454",
+      "revId": "1f028f986e3c0aec1bfcb8a6c005dee24d8779fa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

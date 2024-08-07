@@ -156,6 +156,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "66623c2e_d45f0d73",
+        "filename": "rtc_base/openssl_certificate.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-08-07T18:10:10Z",
+      "side": 1,
+      "message": "it is \"client\". Will try tracing deep into openssl next...",
+      "parentUuid": "7c71204e_656974db",
+      "revId": "4763a800dd079e30e020fe86df9c6d2441efc896",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "da204262_33514f99",
         "filename": "rtc_base/openssl_identity.cc",
         "patchSetId": 7
@@ -274,6 +292,24 @@
       "side": 1,
       "message": "Like the other comment, it sounds like there is something more complex going on and needs more investigation. The changes to this file are not a fix but a regression.\n\nWhat exactly is the input here?\n\n\u003e PEM_R_UNSUPPORTED_PUBLIC_KEY_TYPE\n\nGetting PEM_R_UNSUPPORTED_PUBLIC_KEY_TYPE on EOF doesn\u0027t make any sense at all. It sounds like there may be something else going on here.\n\n\u003e but in a case which might be considered \"meh\" since one should not try to read from a EOF BIO\n\nNo, it is reasonable to try to read a PEM block from an EOF BIO. Per the previous comment, EOF detection when iterating over PEM needs to be done inside the PEM library rather than outside. The PEM_R_NO_START_LINE loop appears throughout the ecosystem and within OpenSSL itself. If they broke it, that would absolutely be considered a regression.\n\n\u003e The code is not designed to ignore empty lines as would return on the first blank line when a certificate (chain) file with blank lines inserted between keys were to be used?\n\nThe code, both before and after the CL, *is* designed to ignore empty lines and indeed all non-PEM data because that is how the `PEM_read_*` functions work. That\u0027s how the PEM format itself works. The only difference is that the old version correctly ignored trailing data in the same way as leading and interspersed data, while the new version has a bug in how it handles trailing data.",
       "parentUuid": "832b95e1_28dd4e2a",
+      "revId": "4763a800dd079e30e020fe86df9c6d2441efc896",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "34c45073_a16b818b",
+        "filename": "rtc_base/openssl_identity.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-08-07T18:10:10Z",
+      "side": 1,
+      "message": "this one is quite confusing.... I added this:\n      RTC_LOG(LS_ERROR) \u003c\u003c \"Failed to parse certificate from PEM string: \"\n              \u003c\u003c ERR_reason_error_string(err)\n                \u003c\u003c \" E\u003d\" \u003c\u003c ERR_GET_LIB(err) \u003c\u003c \"+\" \u003c\u003c ERR_GET_REASON(err)\n                \u003c\u003c \" libpem? \" \u003c\u003c (ERR_GET_LIB(err) \u003d\u003d ERR_LIB_PEM)\n                \u003c\u003c \" start? \" \u003c\u003c (ERR_GET_REASON(err) \u003d\u003d PEM_R_NO_START_LINE)\n                \u003c\u003c \" PEM_R_NO_START_LINE\u003d\" \u003c\u003c PEM_R_NO_START_LINE;\nand it showed the following:\n  (openssl_identity.cc:133): Failed to parse certificate from PEM string: NO_START_LINE E\u003d9+110 libpem? 1 start? 0 PEM_R_NO_START_LINE\u003d108\n  \nso the reason_error_string says it is NO_START_LINE but the error code different. Smells like an issue with my environment where the library and the header do not match...",
+      "parentUuid": "f6c5273b_c9bb2d35",
       "revId": "4763a800dd079e30e020fe86df9c6d2441efc896",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

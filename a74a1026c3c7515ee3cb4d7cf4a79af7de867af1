@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "228517b6_3890ee95",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-08-07T18:10:10Z",
+      "side": 1,
+      "message": "thanks for bearing with me while I poke this hornets nest :-)\n\nAnother thing I found out is that the tests use SHA1 certificates which OpenSSL3 no longer allows. Which brings us back to https://issues.webrtc.org/issues/42225856 where the UMA numbers still look too high to deprecate.",
+      "revId": "a74a1026c3c7515ee3cb4d7cf4a79af7de867af1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

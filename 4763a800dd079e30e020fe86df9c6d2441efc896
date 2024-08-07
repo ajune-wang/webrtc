@@ -330,6 +330,24 @@
       "parentUuid": "34c45073_a16b818b",
       "revId": "4763a800dd079e30e020fe86df9c6d2441efc896",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d34f9746_602f3597",
+        "filename": "rtc_base/openssl_identity.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 5602
+      },
+      "writtenOn": "2024-08-07T18:27:59Z",
+      "side": 1,
+      "message": "(Goes without saying, but BoringSSL does not make any attempt at ABI-compatibility with OpenSSL. As with most code, if you link with us, we expect you to compile against our headers. 😊)",
+      "parentUuid": "805043b8_1c51ed51",
+      "revId": "4763a800dd079e30e020fe86df9c6d2441efc896",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

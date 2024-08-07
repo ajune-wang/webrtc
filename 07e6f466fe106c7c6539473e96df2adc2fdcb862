@@ -1,0 +1,159 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4eab3f43_78dc7475",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2024-08-07T08:32:14Z",
+      "side": 1,
+      "message": "Hmm, I can\u0027t tell at a glance why mocking the method is not working, and I don\u0027t have a build set up locally to test.",
+      "revId": "07e6f466fe106c7c6539473e96df2adc2fdcb862",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "44ed19dc_f0502728",
+        "filename": "sdk/objc/base/RTCVideoEncoderFactory.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2024-08-07T08:32:14Z",
+      "side": 1,
+      "message": "The objc convention is to call this `initWithSupported:`",
+      "range": {
+        "startLine": 42,
+        "startChar": 16,
+        "endLine": 42,
+        "endChar": 31
+      },
+      "revId": "07e6f466fe106c7c6539473e96df2adc2fdcb862",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "64f645c7_b41358df",
+        "filename": "sdk/objc/base/RTCVideoEncoderFactory.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2024-08-07T08:32:14Z",
+      "side": 1,
+      "message": "mark this with NS_DESIGNATED_INITIALIZER",
+      "range": {
+        "startLine": 43,
+        "startChar": 73,
+        "endLine": 43,
+        "endChar": 89
+      },
+      "revId": "07e6f466fe106c7c6539473e96df2adc2fdcb862",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9f43626c_ebdd0e6b",
+        "filename": "sdk/objc/base/RTCVideoEncoderFactory.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2024-08-07T08:32:14Z",
+      "side": 1,
+      "message": "all properties should be `nonatomic`",
+      "range": {
+        "startLine": 45,
+        "startChar": 10,
+        "endLine": 45,
+        "endChar": 18
+      },
+      "revId": "07e6f466fe106c7c6539473e96df2adc2fdcb862",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "285f9f43_697039de",
+        "filename": "sdk/objc/base/RTCVideoEncoderFactory.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2024-08-07T08:32:14Z",
+      "side": 1,
+      "message": "not needed due to `NS_ASSUME_NONNULL_BEGIN`",
+      "range": {
+        "startLine": 64,
+        "startChar": 23,
+        "endLine": 64,
+        "endChar": 30
+      },
+      "revId": "07e6f466fe106c7c6539473e96df2adc2fdcb862",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "627d4694_b0c2b11e",
+        "filename": "sdk/objc/base/RTCVideoEncoderFactory.mm",
+        "patchSetId": 10
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2024-08-07T08:32:14Z",
+      "side": 1,
+      "message": "nit: have this init call the other one with `false`.",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 14
+      },
+      "revId": "07e6f466fe106c7c6539473e96df2adc2fdcb862",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "09dfe954_07377f49",
+        "filename": "sdk/objc/native/src/objc_video_encoder_factory.mm",
+        "patchSetId": 10
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2024-08-07T08:32:14Z",
+      "side": 1,
+      "message": "dot-notation for properties",
+      "range": {
+        "startLine": 199,
+        "startChar": 28,
+        "endLine": 199,
+        "endChar": 48
+      },
+      "revId": "07e6f466fe106c7c6539473e96df2adc2fdcb862",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

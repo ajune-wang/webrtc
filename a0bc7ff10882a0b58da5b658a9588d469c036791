@@ -1,0 +1,107 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ab2b7503_2cc9cf45",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 318,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-08-07T11:23:19Z",
+      "side": 1,
+      "message": "new recommended style for TODOs is\nTODO: $link - $message (go/todo-style)\n\n\n```suggestion\n  // TODO: crbug.com/358040973 - We should eventually figure out a way to avoid\n```",
+      "range": {
+        "startLine": 318,
+        "startChar": 5,
+        "endLine": 318,
+        "endChar": 31
+      },
+      "revId": "a0bc7ff10882a0b58da5b658a9588d469c036791",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f2409df2_fbb5de5a",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 842,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-08-07T11:23:19Z",
+      "side": 1,
+      "message": "running callback while holding the lock....\nThat risks deadlocks, and pretty much equivalent to the synchronous call.\n\nI need to find extra time to think about such solution to decide if it is acceptable.",
+      "revId": "a0bc7ff10882a0b58da5b658a9588d469c036791",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "23514c07_d3e5db4d",
+        "filename": "video/frame_cadence_adapter_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 656,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-08-07T11:23:19Z",
+      "side": 1,
+      "message": "why static?\n\nstatic members should at least have trivial destructor\n\n(initializing restrictions for static members do not apply here because it is in a function block)",
+      "range": {
+        "startLine": 656,
+        "startChar": 2,
+        "endLine": 656,
+        "endChar": 8
+      },
+      "revId": "a0bc7ff10882a0b58da5b658a9588d469c036791",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "79146b85_82b35ebd",
+        "filename": "video/frame_cadence_adapter_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 674,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-08-07T11:23:19Z",
+      "side": 1,
+      "message": "in tests you may use SendTask\n\nhttps://webrtc.googlesource.com/src/+/refs/heads/main/rtc_base/task_queue_for_test.h#27\n\n```suggestion\n  SendTask(queue.get(), [\u0026] { adapter \u003d nullptr; });\n```",
+      "range": {
+        "startLine": 669,
+        "startChar": 0,
+        "endLine": 674,
+        "endChar": 39
+      },
+      "revId": "a0bc7ff10882a0b58da5b658a9588d469c036791",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cfcc5d45_7a0efc61",
+        "filename": "video/frame_cadence_adapter_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 678,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-08-07T11:23:19Z",
+      "side": 1,
+      "message": "Can you set that expectation right when mock is created?\n\nhttps://google.github.io/googletest/gmock_for_dummies.html#expectation-ordering\n\n“gMock requires expectations to be set before the mock functions are called, otherwise the behavior is undefined. Do not alternate between calls to EXPECT_CALL() and calls to the mock functions, and do not set any expectations on a mock after passing the mock to an API.”",
+      "revId": "a0bc7ff10882a0b58da5b658a9588d469c036791",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

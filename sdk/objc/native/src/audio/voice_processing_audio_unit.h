@@ -86,6 +86,9 @@ class VoiceProcessingAudioUnit {
   // Uninitializes the underlying audio unit.
   bool Uninitialize();
 
+  // Mutes the microphone.
+  bool SetMicrophoneMute();
+
   // Calls render on the underlying audio unit.
   OSStatus Render(AudioUnitRenderActionFlags* flags,
                   const AudioTimeStamp* time_stamp,

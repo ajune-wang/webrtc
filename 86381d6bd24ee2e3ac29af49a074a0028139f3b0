@@ -16,6 +16,23 @@
       "message": "Hey Danil, Wdyt about this UAF fix?",
       "revId": "86381d6bd24ee2e3ac29af49a074a0028139f3b0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ef80187a_010a4eeb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2024-08-07T08:53:08Z",
+      "side": 1,
+      "message": "Removing from attn set temporarily to make bots happy with UT.",
+      "revId": "86381d6bd24ee2e3ac29af49a074a0028139f3b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

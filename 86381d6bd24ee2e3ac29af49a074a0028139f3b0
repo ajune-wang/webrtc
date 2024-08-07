@@ -50,6 +50,24 @@
       "message": "the point of the task queue was to avoid locking.... sigh.\nSomething smells wrong with the design if this lock is needed.\n\nUsually when class receives a raw pointer to the TaskQueue it is responsibility of the caller to ensure TaskQueue outlives the object.\n\nMay be this mutex deserves at least a TODO.",
       "revId": "86381d6bd24ee2e3ac29af49a074a0028139f3b0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "995eb5cc_4f823871",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2024-08-07T10:39:42Z",
+      "side": 1,
+      "message": "Yeah I know, the complexity comes from the fact that the Metronome works only with the worker queue. I considered having an external FCA \"prepare\" call that should be called from the worker thread from VideoStreamEncoder prior to shutdown, but the `queue_` attribute is accessed from both the encode queue and the worker queue inside the FCA. Is there an alternative design possible?",
+      "parentUuid": "94cea3c6_8b9f3ab5",
+      "revId": "86381d6bd24ee2e3ac29af49a074a0028139f3b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

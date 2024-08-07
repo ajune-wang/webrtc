@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "075d873a_3fea6707",
+        "filename": "sdk/android/api/org/webrtc/EglRenderer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2024-08-07T09:16:10Z",
+      "side": 1,
+      "message": "Can you add some documentation for this new public method?",
+      "range": {
+        "startLine": 221,
+        "startChar": 2,
+        "endLine": 221,
+        "endChar": 19
+      },
+      "revId": "b60e30b987d73f79f6413cb191e077be33cf30f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d08c5233_4f8ba9c5",
+        "filename": "sdk/android/api/org/webrtc/EglThread.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2024-08-07T09:16:10Z",
+      "side": 1,
+      "message": "Please update the description and explain what the UUID does.",
+      "range": {
+        "startLine": 195,
+        "startChar": 2,
+        "endLine": 195,
+        "endChar": 66
+      },
+      "revId": "b60e30b987d73f79f6413cb191e077be33cf30f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

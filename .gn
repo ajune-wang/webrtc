@@ -77,4 +77,6 @@ default_args = {
   # Chromium fix resolves the problem.
   fuchsia_sdk_readelf_exec =
       "//third_party/llvm-build/Release+Asserts/bin/llvm-readelf"
+
+  enable_jni_multiplexing = false
 }

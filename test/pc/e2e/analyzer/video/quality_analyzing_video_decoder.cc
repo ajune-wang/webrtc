@@ -239,7 +239,7 @@ void QualityAnalyzingVideoDecoder::OnFrameDecoded(
   VideoQualityAnalyzerInterface::DecoderStats stats;
   stats.decoder_name = codec_name;
   stats.decode_time_ms = decode_time_ms;
-  analyzer_->OnFrameDecoded(peer_name_, *frame, stats);
+  analyzer_->OnFrameDecoded(peer_name_, *frame, stats, qp);
 }
 
 QualityAnalyzingVideoDecoderFactory::QualityAnalyzingVideoDecoderFactory(

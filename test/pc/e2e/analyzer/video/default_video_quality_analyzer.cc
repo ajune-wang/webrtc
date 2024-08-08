@@ -441,6 +441,14 @@ void DefaultVideoQualityAnalyzer::OnFrameDecoded(
     absl::string_view peer_name,
     const webrtc::VideoFrame& frame,
     const DecoderStats& stats) {
+  OnFrameDecoded(peer_name, frame, stats, absl::nullopt);
+}
+
+void DefaultVideoQualityAnalyzer::OnFrameDecoded(
+    absl::string_view peer_name,
+    const webrtc::VideoFrame& frame,
+    const DecoderStats& stats,
+    const absl::optional<uint8_t> qp) {
   Timestamp processing_started = Now();
   MutexLock lock(&mutex_);
   RTC_CHECK_EQ(state_, State::kActive)
@@ -476,7 +484,7 @@ void DefaultVideoQualityAnalyzer::OnFrameDecoded(
   used_decoder.switched_on_at = now;
   used_decoder.switched_from_at = now;
   it->second.OnFrameDecoded(peer_index, now, frame.width(), frame.height(),
-                            used_decoder);
+                            used_decoder, qp);
 
   if (options_.report_infra_metrics) {
     analyzer_stats_.on_frame_decoded_processing_time_ms.AddSample(
@@ -1258,6 +1266,9 @@ void DefaultVideoQualityAnalyzer::ReportResults(
                                ImprovementDirection::kSmallerIsBetter,
                                std::move(qp_metadata));
   }
+  metrics_logger_->LogMetric(
+      "received_frame_qp", test_case_name, stats.received_frame_qp,
+      Unit::kUnitless, ImprovementDirection::kSmallerIsBetter, metric_metadata);
   metrics_logger_->LogSingleValueMetric(
       "actual_encode_bitrate", test_case_name,
       static_cast<double>(stats.total_encoded_images_payload) /

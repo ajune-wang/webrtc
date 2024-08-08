@@ -54,6 +54,10 @@ class ExampleVideoQualityAnalyzer : public VideoQualityAnalyzerInterface {
   void OnFrameDecoded(absl::string_view peer_name,
                       const VideoFrame& frame,
                       const DecoderStats& stats) override;
+  void OnFrameDecoded(absl::string_view peer_name,
+                      const VideoFrame& frame,
+                      const DecoderStats& stats,
+                      const absl::optional<uint8_t> qp) override;
   void OnFrameRendered(absl::string_view peer_name,
                        const VideoFrame& frame) override;
   void OnEncoderError(absl::string_view peer_name,

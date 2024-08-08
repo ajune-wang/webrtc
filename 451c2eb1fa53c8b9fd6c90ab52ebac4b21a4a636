@@ -16,6 +16,24 @@
       "message": "This is already called in `OnNodeInfo()`. Maybe you\u0027re loosing the response (see https://webrtc-review.googlesource.com/c/src/+/358862).",
       "revId": "451c2eb1fa53c8b9fd6c90ab52ebac4b21a4a636",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "85a36a0e_ab94c8fa",
+        "filename": "modules/video_capture/linux/pipewire_session.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2024-08-08T14:12:11Z",
+      "side": 1,
+      "message": "`OnNodeInfo()` is being called only after `pw_stream_connect()` is called, at least that\u0027s what I see here. At that point it\u0027s already late as we show all the cameras in the selection. That\u0027s why also https://webrtc-review.googlesource.com/c/src/+/358862 is calling `Finish()` twice, because the format enumeration happens after a camera is selected and we create a stream.",
+      "parentUuid": "fbd3cfbb_fc213b63",
+      "revId": "451c2eb1fa53c8b9fd6c90ab52ebac4b21a4a636",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

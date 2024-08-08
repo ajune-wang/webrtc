@@ -10,6 +10,9 @@
 
 #include "rtc_base/ssl_stream_adapter.h"
 
+#include <openssl/evp.h>
+#include <openssl/sha.h>
+
 #include <cstddef>
 #include <cstdint>
 #include <cstring>
@@ -375,11 +378,15 @@ class SSLStreamAdapterTestBase : public ::testing::Test,
       absl::string_view client_private_key_pem,
       bool dtls,
       rtc::KeyParams client_key_type = rtc::KeyParams(rtc::KT_DEFAULT),
-      rtc::KeyParams server_key_type = rtc::KeyParams(rtc::KT_DEFAULT))
+      rtc::KeyParams server_key_type = rtc::KeyParams(rtc::KT_DEFAULT),
+      std::pair<std::string, size_t> digest =
+          std::make_pair(rtc::DIGEST_SHA_256, SHA256_DIGEST_LENGTH))
       : client_cert_pem_(client_cert_pem),
         client_private_key_pem_(client_private_key_pem),
         client_key_type_(client_key_type),
         server_key_type_(server_key_type),
+        digest_algorithm_(digest.first),
+        digest_size_(digest.second),
         delay_(0),
         mtu_(1460),
         loss_(0),
@@ -474,9 +481,9 @@ class SSLStreamAdapterTestBase : public ::testing::Test,
   }
 
   void SetPeerIdentitiesByDigest(bool correct, bool expect_success) {
-    unsigned char server_digest[20];
+    unsigned char server_digest[EVP_MAX_MD_SIZE];
     size_t server_digest_len;
-    unsigned char client_digest[20];
+    unsigned char client_digest[EVP_MAX_MD_SIZE];
     size_t client_digest_len;
     bool rv;
     rtc::SSLPeerCertificateDigestError err;
@@ -488,18 +495,20 @@ class SSLStreamAdapterTestBase : public ::testing::Test,
     RTC_LOG(LS_INFO) << "Setting peer identities by digest";
 
     rv = server_identity()->certificate().ComputeDigest(
-        rtc::DIGEST_SHA_1, server_digest, 20, &server_digest_len);
+        rtc::DIGEST_SHA_256, server_digest, SHA256_DIGEST_LENGTH,
+        &server_digest_len);
     ASSERT_TRUE(rv);
     rv = client_identity()->certificate().ComputeDigest(
-        rtc::DIGEST_SHA_1, client_digest, 20, &client_digest_len);
+        rtc::DIGEST_SHA_256, client_digest, SHA256_DIGEST_LENGTH,
+        &client_digest_len);
     ASSERT_TRUE(rv);
 
     if (!correct) {
       RTC_LOG(LS_INFO) << "Setting bogus digest for server cert";
       server_digest[0]++;
     }
-    rv = client_ssl_->SetPeerCertificateDigest(rtc::DIGEST_SHA_1, server_digest,
-                                               server_digest_len, &err);
+    rv = client_ssl_->SetPeerCertificateDigest(
+        rtc::DIGEST_SHA_256, server_digest, server_digest_len, &err);
     EXPECT_EQ(expected_err, err);
     EXPECT_EQ(expect_success, rv);
 
@@ -507,8 +516,8 @@ class SSLStreamAdapterTestBase : public ::testing::Test,
       RTC_LOG(LS_INFO) << "Setting bogus digest for client cert";
       client_digest[0]++;
     }
-    rv = server_ssl_->SetPeerCertificateDigest(rtc::DIGEST_SHA_1, client_digest,
-                                               client_digest_len, &err);
+    rv = server_ssl_->SetPeerCertificateDigest(
+        rtc::DIGEST_SHA_256, client_digest, client_digest_len, &err);
     EXPECT_EQ(expected_err, err);
     EXPECT_EQ(expect_success, rv);
 
@@ -632,20 +641,22 @@ class SSLStreamAdapterTestBase : public ::testing::Test,
 
     // Collect both of the certificate digests; needs to be done before calling
     // SetPeerCertificateDigest as that may reset the identity.
-    unsigned char server_digest[20];
+    unsigned char server_digest[EVP_MAX_MD_SIZE];
     size_t server_digest_len;
-    unsigned char client_digest[20];
+    unsigned char client_digest[EVP_MAX_MD_SIZE];
     size_t client_digest_len;
     bool rv;
 
     ASSERT_THAT(server_identity(), NotNull());
     rv = server_identity()->certificate().ComputeDigest(
-        rtc::DIGEST_SHA_1, server_digest, 20, &server_digest_len);
+        rtc::DIGEST_SHA_256, server_digest, SHA256_DIGEST_LENGTH,
+        &server_digest_len);
     ASSERT_TRUE(rv);
 
     ASSERT_THAT(client_identity(), NotNull());
     rv = client_identity()->certificate().ComputeDigest(
-        rtc::DIGEST_SHA_1, client_digest, 20, &client_digest_len);
+        rtc::DIGEST_SHA_256, client_digest, SHA256_DIGEST_LENGTH,
+        &client_digest_len);
     ASSERT_TRUE(rv);
 
     if (!valid_identity) {
@@ -660,8 +671,8 @@ class SSLStreamAdapterTestBase : public ::testing::Test,
         valid_identity
             ? rtc::SSLPeerCertificateDigestError::NONE
             : rtc::SSLPeerCertificateDigestError::VERIFICATION_FAILED;
-    rv = client_ssl_->SetPeerCertificateDigest(rtc::DIGEST_SHA_1, server_digest,
-                                               server_digest_len, &err);
+    rv = client_ssl_->SetPeerCertificateDigest(
+        rtc::DIGEST_SHA_256, server_digest, server_digest_len, &err);
     EXPECT_EQ(expected_err, err);
     EXPECT_EQ(valid_identity, rv);
     // State should then transition to SS_OPEN or SS_CLOSED based on validation
@@ -679,8 +690,8 @@ class SSLStreamAdapterTestBase : public ::testing::Test,
     }
 
     // Set the peer certificate digest for the server.
-    rv = server_ssl_->SetPeerCertificateDigest(rtc::DIGEST_SHA_1, client_digest,
-                                               client_digest_len, &err);
+    rv = server_ssl_->SetPeerCertificateDigest(
+        rtc::DIGEST_SHA_256, client_digest, client_digest_len, &err);
     EXPECT_EQ(expected_err, err);
     EXPECT_EQ(valid_identity, rv);
     if (valid_identity) {
@@ -838,6 +849,8 @@ class SSLStreamAdapterTestBase : public ::testing::Test,
   std::string client_private_key_pem_;
   rtc::KeyParams client_key_type_;
   rtc::KeyParams server_key_type_;
+  std::string digest_algorithm_;
+  size_t digest_size_;
   std::unique_ptr<rtc::SSLStreamAdapter> client_ssl_;
   std::unique_ptr<rtc::SSLStreamAdapter> server_ssl_;
   int delay_;
@@ -852,8 +865,10 @@ class SSLStreamAdapterTestBase : public ::testing::Test,
 
 class SSLStreamAdapterTestDTLSBase : public SSLStreamAdapterTestBase {
  public:
-  SSLStreamAdapterTestDTLSBase(rtc::KeyParams param1, rtc::KeyParams param2)
-      : SSLStreamAdapterTestBase("", "", true, param1, param2),
+  SSLStreamAdapterTestDTLSBase(rtc::KeyParams param1,
+                               rtc::KeyParams param2,
+                               std::pair<std::string, size_t> digest)
+      : SSLStreamAdapterTestBase("", "", true, param1, param2, digest),
         packet_size_(1000),
         count_(0),
         sent_(0) {}
@@ -976,11 +991,14 @@ class SSLStreamAdapterTestDTLSBase : public SSLStreamAdapterTestBase {
 
 class SSLStreamAdapterTestDTLS
     : public SSLStreamAdapterTestDTLSBase,
-      public WithParamInterface<tuple<rtc::KeyParams, rtc::KeyParams>> {
+      public WithParamInterface<tuple<rtc::KeyParams,
+                                      rtc::KeyParams,
+                                      std::pair<std::string, size_t>>> {
  public:
   SSLStreamAdapterTestDTLS()
       : SSLStreamAdapterTestDTLSBase(::testing::get<0>(GetParam()),
-                                     ::testing::get<1>(GetParam())) {}
+                                     ::testing::get<1>(GetParam()),
+                                     ::testing::get<2>(GetParam())) {}
 
   SSLStreamAdapterTestDTLS(absl::string_view cert_pem,
                            absl::string_view private_key_pem)
@@ -1299,8 +1317,8 @@ TEST_P(SSLStreamAdapterTestDTLS, TestDTLSSrtpKeyAndSaltLengths) {
 // Test an exporter
 TEST_P(SSLStreamAdapterTestDTLS, TestDTLSExporter) {
   TestHandshake();
-  unsigned char client_out[20];
-  unsigned char server_out[20];
+  unsigned char client_out[EVP_MAX_MD_SIZE];
+  unsigned char server_out[EVP_MAX_MD_SIZE];
 
   bool result;
   result = ExportKeyingMaterial(kExporterLabel, kExporterContext,
@@ -1399,6 +1417,8 @@ TEST_P(SSLStreamAdapterTestDTLS, TestGetSslCipherSuite) {
 // The RSA keysizes here might look strange, why not include the RFC's size
 // 2048?. The reason is test case slowness; testing two sizes to exercise
 // parametrization is sufficient.
+// Test different key sizes with SHA-256, then different signature algorithms
+// with ECDSA.
 INSTANTIATE_TEST_SUITE_P(
     SSLStreamAdapterTestsDTLS,
     SSLStreamAdapterTestDTLS,
@@ -1407,7 +1427,19 @@ INSTANTIATE_TEST_SUITE_P(
                    rtc::KeyParams::ECDSA(rtc::EC_NIST_P256)),
             Values(rtc::KeyParams::RSA(1024, 65537),
                    rtc::KeyParams::RSA(1152, 65537),
-                   rtc::KeyParams::ECDSA(rtc::EC_NIST_P256))));
+                   rtc::KeyParams::ECDSA(rtc::EC_NIST_P256)),
+            Values(std::make_pair(rtc::DIGEST_SHA_256, SHA256_DIGEST_LENGTH))));
+
+INSTANTIATE_TEST_SUITE_P(
+    SSLStreamAdapterTestsDTLSSignatureAlgorithms,
+    SSLStreamAdapterTestDTLS,
+    Combine(Values(rtc::KeyParams::ECDSA(rtc::EC_NIST_P256)),
+            Values(rtc::KeyParams::ECDSA(rtc::EC_NIST_P256)),
+            Values(std::make_pair(rtc::DIGEST_SHA_1, SHA_DIGEST_LENGTH),
+                   std::make_pair(rtc::DIGEST_SHA_224, SHA224_DIGEST_LENGTH),
+                   std::make_pair(rtc::DIGEST_SHA_256, SHA256_DIGEST_LENGTH),
+                   std::make_pair(rtc::DIGEST_SHA_384, SHA384_DIGEST_LENGTH),
+                   std::make_pair(rtc::DIGEST_SHA_512, SHA512_DIGEST_LENGTH))));
 
 // Tests for enabling the (D)TLS extension permutation which randomizes the
 // order of extensions in the client hello.
@@ -1417,9 +1449,10 @@ class SSLStreamAdapterTestDTLSExtensionPermutation
     : public SSLStreamAdapterTestDTLSBase {
  public:
   SSLStreamAdapterTestDTLSExtensionPermutation()
-      : SSLStreamAdapterTestDTLSBase(rtc::KeyParams::ECDSA(rtc::EC_NIST_P256),
-                                     rtc::KeyParams::ECDSA(rtc::EC_NIST_P256)) {
-  }
+      : SSLStreamAdapterTestDTLSBase(
+            rtc::KeyParams::ECDSA(rtc::EC_NIST_P256),
+            rtc::KeyParams::ECDSA(rtc::EC_NIST_P256),
+            std::make_pair(rtc::DIGEST_SHA_256, SHA256_DIGEST_LENGTH)) {}
 
   void Initialize(absl::string_view client_experiment,
                   absl::string_view server_experiment) {

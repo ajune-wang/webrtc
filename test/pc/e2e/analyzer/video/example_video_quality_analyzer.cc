@@ -88,6 +88,14 @@ void ExampleVideoQualityAnalyzer::OnFrameDecoded(
     absl::string_view peer_name,
     const webrtc::VideoFrame& frame,
     const DecoderStats& stats) {
+  OnFrameDecoded(peer_name, frame, stats, absl::nullopt);
+}
+
+void ExampleVideoQualityAnalyzer::OnFrameDecoded(
+    absl::string_view peer_name,
+    const webrtc::VideoFrame& frame,
+    const DecoderStats& stats,
+    const absl::optional<uint8_t> qp) {
   MutexLock lock(&lock_);
   ++frames_decoded_;
 }

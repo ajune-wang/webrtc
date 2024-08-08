@@ -117,9 +117,14 @@ class VideoQualityAnalyzerInterface
                                 const EncodedImage& encoded_image) {}
   // Will be called after decoding the frame.
   // `peer_name` is name of the peer on which side frame was decoded.
+  ABSL_DEPRECATED("Use OnFrameDecoded with 4 parameters instead")
   virtual void OnFrameDecoded(absl::string_view peer_name,
                               const VideoFrame& frame,
                               const DecoderStats& stats) {}
+  virtual void OnFrameDecoded(absl::string_view peer_name,
+                              const VideoFrame& frame,
+                              const DecoderStats& stats,
+                              const absl::optional<uint8_t> qp) {}
   // Will be called when frame will be obtained from PeerConnection stack.
   // `peer_name` is name of the peer on which side frame was rendered.
   virtual void OnFrameRendered(absl::string_view peer_name,

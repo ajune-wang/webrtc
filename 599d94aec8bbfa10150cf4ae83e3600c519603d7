@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "086b131b_3c1dae66",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9816
+      },
+      "writtenOn": "2024-08-08T13:18:24Z",
+      "side": 1,
+      "message": "I don\u0027t think I\u0027ve seen `Finish()` called twice, but I think it can happen, when things change on the server side after the initial enumeration.\n\nSo maybe ignore all updates after the first `Finish()`?",
+      "revId": "599d94aec8bbfa10150cf4ae83e3600c519603d7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

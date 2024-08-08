@@ -1,0 +1,45 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0821d045_a0a685f8",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2024-08-08T13:12:57Z",
+      "side": 1,
+      "message": "Please move it into DecoderStats, as this struct was designed to hold such values and avoid signature change.",
+      "range": {
+        "startLine": 76,
+        "startChar": 52,
+        "endLine": 76,
+        "endChar": 54
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "5b804229_2bbba256",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.h",
+              "range": {
+                "startLine": 73,
+                "startChar": 0,
+                "endLine": 77,
+                "endChar": 0
+              },
+              "replacement": ""
+            }
+          ]
+        }
+      ],
+      "revId": "35c7c462d7049bd52d2f49e675e3955c6ec94bf4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

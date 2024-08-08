@@ -34,6 +34,24 @@
       "parentUuid": "2b69c0c4_78b096c3",
       "revId": "01120e4cb944f7448166ee61015ae7006a520092",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "988cecc1_dcc5abc6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2024-08-08T15:12:38Z",
+      "side": 1,
+      "message": "Actually, it looks it\u0027s vice versa, as adding breaks to `pw_proxy_destroy()` in gdb it says that:\n1) `pw_core_disconnect()` calls `pw_proxy_destroy()` first\n2) and `~PipeWireNode()` calls it again and hits the assert\n\nSee https://gitlab.freedesktop.org/pipewire/pipewire/-/blob/master/src/pipewire/core.c#L492.",
+      "parentUuid": "a50f375a_e572e4f3",
+      "revId": "01120e4cb944f7448166ee61015ae7006a520092",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

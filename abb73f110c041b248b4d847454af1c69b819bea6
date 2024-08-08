@@ -16,6 +16,24 @@
       "message": "Why are there changes in 2 webrtc files? Was it to unblock the roll because of some new compiler errors?",
       "revId": "abb73f110c041b248b4d847454af1c69b819bea6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4f5b7403_64ac90ff",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2024-08-08T08:46:05Z",
+      "side": 1,
+      "message": "Yes, new compiler and new MSan started to complain about these two things (both complaints are correct).",
+      "parentUuid": "be40701f_bd7531d8",
+      "revId": "abb73f110c041b248b4d847454af1c69b819bea6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

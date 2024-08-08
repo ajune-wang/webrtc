@@ -52,6 +52,23 @@
       "parentUuid": "a50f375a_e572e4f3",
       "revId": "01120e4cb944f7448166ee61015ae7006a520092",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d5bd6e97_26157039",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2024-08-08T15:17:58Z",
+      "side": 1,
+      "message": "We also have same issue in xdg-desktop-portal, where I proposed same fix: https://github.com/flatpak/xdg-desktop-portal/pull/1414.\n\nLet\u0027s put this on hold until we figure out what is correct.",
+      "revId": "01120e4cb944f7448166ee61015ae7006a520092",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -16,6 +16,24 @@
       "message": "I don\u0027t think I\u0027ve seen `Finish()` called twice, but I think it can happen, when things change on the server side after the initial enumeration.\n\nSo maybe ignore all updates after the first `Finish()`?",
       "revId": "599d94aec8bbfa10150cf4ae83e3600c519603d7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b5edece2_0b91c78c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2024-08-08T14:13:56Z",
+      "side": 1,
+      "message": "As mentioned in https://webrtc-review.googlesource.com/c/src/+/358864. The way it\u0027s written now it doesn\u0027t do the format enumeration until we connect to a stream, which happens once we select a camera. This makes it to call `Finish()` again, when we already called the `OnInitialized()` callback.",
+      "parentUuid": "086b131b_3c1dae66",
+      "revId": "599d94aec8bbfa10150cf4ae83e3600c519603d7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

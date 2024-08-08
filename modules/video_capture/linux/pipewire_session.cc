@@ -99,7 +99,9 @@ void PipeWireNode::OnNodeInfo(void* data, const pw_node_info* info) {
                pid.value());
       that->model_id_ = model_str;
     }
-  } else if (info->change_mask & PW_NODE_CHANGE_MASK_PARAMS) {
+  }
+
+  if (info->change_mask & PW_NODE_CHANGE_MASK_PARAMS) {
     for (uint32_t i = 0; i < info->n_params; i++) {
       uint32_t id = info->params[i].id;
       if (id == SPA_PARAM_EnumFormat &&
@@ -350,6 +352,13 @@ void PipeWireSession::OnCoreDone(void* data, uint32_t id, int seq) {
   if (id == PW_ID_CORE) {
     if (seq == that->sync_seq_) {
       RTC_LOG(LS_VERBOSE) << "Enumerating PipeWire camera devices complete.";
+
+      // Remove camera devices with no capabilities
+      auto it = std::remove_if(
+          that->nodes_.begin(), that->nodes_.end(),
+          [](const PipeWireNode& node) { return node.capabilities().empty(); });
+      that->nodes_.erase(it, that->nodes_.end());
+
       that->Finish(VideoCaptureOptions::Status::SUCCESS);
     }
   }

@@ -34,6 +34,24 @@
       "parentUuid": "fbd3cfbb_fc213b63",
       "revId": "451c2eb1fa53c8b9fd6c90ab52ebac4b21a4a636",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ab22ea93_65cf246b",
+        "filename": "modules/video_capture/linux/pipewire_session.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2024-08-08T14:41:28Z",
+      "side": 1,
+      "message": "I think I\u0027ve found the issue. I will update this change.",
+      "parentUuid": "85a36a0e_ab94c8fa",
+      "revId": "451c2eb1fa53c8b9fd6c90ab52ebac4b21a4a636",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

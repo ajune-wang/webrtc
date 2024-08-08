@@ -471,7 +471,8 @@ AudioProcessingImpl::AudioProcessingImpl(
     RTC_LOG(LS_INFO) << "Denormal disabler unsupported";
   }
 
-  // TODO(bugs.webrtc.org/7494): Remove transient suppression from the config.
+  // TODO(bugs.webrtc.org/357281131): Remove transient suppression from the
+  // config.
   // Disable for clarity; enabling transient suppression has no effect.
   config_.transient_suppression.enabled = false;
 
@@ -710,7 +711,8 @@ void AudioProcessingImpl::ApplyConfig(const AudioProcessing::Config& config) {
 
   config_ = config;
 
-  // TODO(bugs.webrtc.org/7494): Remove transient suppression from the config.
+  // TODO(bugs.webrtc.org/357281131): Remove transient suppression from the
+  // config.
   // Disable for clarity; enabling transient suppression has no effect.
   config_.transient_suppression.enabled = false;
 
@@ -2186,7 +2188,8 @@ void AudioProcessingImpl::WriteAecDumpConfigMessage(bool forced) {
   apm_config.ns_enabled = config_.noise_suppression.enabled;
   apm_config.ns_level = static_cast<int>(config_.noise_suppression.level);
 
-  // TODO(bugs.webrtc.org/7494): Remove transient suppression from the config.
+  // TODO(bugs.webrtc.org/357281131): Remove transient suppression from the
+  // config.
   // Disable for clarity; enabling transient suppression has no effect.
   apm_config.transient_suppression_enabled = false;
   apm_config.experiments_description = experiments_description;

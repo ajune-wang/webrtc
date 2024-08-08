@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2b69c0c4_78b096c3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 9816
+      },
+      "writtenOn": "2024-08-08T13:01:07Z",
+      "side": 1,
+      "message": "Hmm, that covers the case when the node is removed on the server, while we still keep track of it.\n\nBut what about the happens when the node still exists, when we shut down our end of the connection and destroy all objects? Are you sure that the core destroys all proxy objects?",
+      "revId": "01120e4cb944f7448166ee61015ae7006a520092",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

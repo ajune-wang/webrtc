@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "91296a0d_ec414944",
+        "filename": "modules/video_capture/linux/pipewire_session.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 9816
+      },
+      "writtenOn": "2024-08-08T12:48:14Z",
+      "side": 0,
+      "message": "Hmmm, I\u0027m not sure that this is correct. The idea behind `PipeWireSync()` is, that it is called when new data is requested. That way, `OnCoreDone()` knows if there is still data in flight. If you remove this here, then `Finish()` may be called before the response to `pw_node_enum_params()` arrives.",
+      "revId": "7fe62f25d14aef7dc17c4ba7742f8065c22fc968",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -108,7 +108,6 @@ void PipeWireNode::OnNodeInfo(void* data, const pw_node_info* info) {
         break;
       }
     }
-    that->session_->PipeWireSync();
   }
 }
 

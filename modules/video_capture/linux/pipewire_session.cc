@@ -71,6 +71,10 @@ PipeWireNode::PipeWireNode(PipeWireSession* session,
   };
 
   pw_node_add_listener(proxy_, &node_listener_, &node_events, this);
+
+  // Enumerate formats in order to filter out cameras with formats we don't
+  // support
+  pw_node_enum_params(proxy_, 0, SPA_PARAM_EnumFormat, 0, UINT32_MAX, nullptr);
 }
 
 PipeWireNode::~PipeWireNode() {
@@ -350,6 +354,13 @@ void PipeWireSession::OnCoreDone(void* data, uint32_t id, int seq) {
   if (id == PW_ID_CORE) {
     if (seq == that->sync_seq_) {
       RTC_LOG(LS_VERBOSE) << "Enumerating PipeWire camera devices complete.";
+
+      // Remove camera devices with no capabilities
+      auto it = std::remove_if(
+          that->nodes_.begin(), that->nodes_.end(),
+          [](const PipeWireNode& node) { return node.capabilities().empty(); });
+      that->nodes_.erase(it, that->nodes_.end());
+
       that->Finish(VideoCaptureOptions::Status::SUCCESS);
     }
   }

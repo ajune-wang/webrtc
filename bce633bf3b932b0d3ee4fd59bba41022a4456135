@@ -16,6 +16,92 @@
       "message": "Hi Alessio and Per! Could you please take a look? Thanks!",
       "revId": "bce633bf3b932b0d3ee4fd59bba41022a4456135",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "847a7583_b94e6515",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2024-08-08T14:34:06Z",
+      "side": 1,
+      "message": "Thanks for this CL!\nI wonder though if we cannot do even more and remove some of the code.",
+      "revId": "bce633bf3b932b0d3ee4fd59bba41022a4456135",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "90e8e5a3_b5417a37",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 477,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2024-08-08T14:34:06Z",
+      "side": 1,
+      "message": "Same as below",
+      "range": {
+        "startLine": 474,
+        "startChar": 1,
+        "endLine": 477,
+        "endChar": 48
+      },
+      "revId": "bce633bf3b932b0d3ee4fd59bba41022a4456135",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0048a5e1_8f6ccb66",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 717,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2024-08-08T14:34:06Z",
+      "side": 1,
+      "message": "Can\u0027t we simply just remove this code? I.e., what is blocking us from doing that?",
+      "range": {
+        "startLine": 714,
+        "startChar": 3,
+        "endLine": 717,
+        "endChar": 48
+      },
+      "revId": "bce633bf3b932b0d3ee4fd59bba41022a4456135",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "62b90587_b2727d9f",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2194,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2024-08-08T14:34:06Z",
+      "side": 1,
+      "message": "Same as below",
+      "range": {
+        "startLine": 2191,
+        "startChar": 1,
+        "endLine": 2194,
+        "endChar": 51
+      },
+      "revId": "bce633bf3b932b0d3ee4fd59bba41022a4456135",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

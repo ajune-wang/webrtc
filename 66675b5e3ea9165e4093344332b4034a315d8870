@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "83406741_2350f052",
+        "filename": "api/video/encoded_image.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5310
+      },
+      "writtenOn": "2024-08-08T18:50:31Z",
+      "side": 1,
+      "message": "Note: I did not add non-const versions due to the TODO above.",
+      "revId": "66675b5e3ea9165e4093344332b4034a315d8870",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

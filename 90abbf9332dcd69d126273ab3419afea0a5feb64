@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e51b1c0c_7736521f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2024-08-08T14:37:56Z",
+      "side": 1,
+      "message": "I am holding this one more day because it looks like we need to also change the xcode version.",
+      "revId": "90abbf9332dcd69d126273ab3419afea0a5feb64",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

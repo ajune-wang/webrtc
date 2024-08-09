@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "76c31d44_1c5352a7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2024-08-09T11:41:10Z",
+      "side": 1,
+      "message": "This now implements move assignment operator for `PipeWireNode`, otherwise `remove_if` doesn\u0027t properly move items at the end of the queue. This also fixes multiple calls of `pw_proxy_destroy()` in `~PipeWireNode()` making https://webrtc-review.googlesource.com/c/src/+/358921 obsolete. Please, review properly, because this is my first move assigment operator implementation 😊.",
+      "revId": "101974215b7a83325bd9278c74301afc2b4fb2fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

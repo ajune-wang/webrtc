@@ -70,6 +70,30 @@
       },
       "revId": "2f627605802f0745fdc0b0e0221cb7b07084b128",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b4fb77a5_8be4b5ea",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 3574774
+      },
+      "writtenOn": "2024-08-09T16:55:54Z",
+      "side": 1,
+      "message": "I\u0027m not familiar with the particular context so I can defer to Bo there, but submitting the CL to unbreak things in the interim.",
+      "parentUuid": "52a77866_d254f687",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 75
+      },
+      "revId": "2f627605802f0745fdc0b0e0221cb7b07084b128",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

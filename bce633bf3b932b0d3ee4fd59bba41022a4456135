@@ -58,6 +58,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4c5d5db0_81f139e2",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 477,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2024-08-09T12:08:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "90e8e5a3_b5417a37",
+      "range": {
+        "startLine": 474,
+        "startChar": 1,
+        "endLine": 477,
+        "endChar": 48
+      },
+      "revId": "bce633bf3b932b0d3ee4fd59bba41022a4456135",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0048a5e1_8f6ccb66",
@@ -83,6 +107,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0ba57d38_efb79b99",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 717,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2024-08-09T12:08:29Z",
+      "side": 1,
+      "message": "Removed now. I\u0027ve also removed the related `AudioProcessingImpl` unit tests except for `BitExactWithAndWithoutTransientSuppressionEnabledInConfig` which still has value as long as the deprecated field exists in the config.",
+      "parentUuid": "0048a5e1_8f6ccb66",
+      "range": {
+        "startLine": 714,
+        "startChar": 3,
+        "endLine": 717,
+        "endChar": 48
+      },
+      "revId": "bce633bf3b932b0d3ee4fd59bba41022a4456135",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "62b90587_b2727d9f",
         "filename": "modules/audio_processing/audio_processing_impl.cc",
         "patchSetId": 1
@@ -94,6 +142,30 @@
       "writtenOn": "2024-08-08T14:34:06Z",
       "side": 1,
       "message": "Same as below",
+      "range": {
+        "startLine": 2191,
+        "startChar": 1,
+        "endLine": 2194,
+        "endChar": 51
+      },
+      "revId": "bce633bf3b932b0d3ee4fd59bba41022a4456135",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f7fbdee7_12d17a00",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2194,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2024-08-09T12:08:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "62b90587_b2727d9f",
       "range": {
         "startLine": 2191,
         "startChar": 1,

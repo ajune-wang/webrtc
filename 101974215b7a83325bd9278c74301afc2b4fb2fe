@@ -35,6 +35,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "89e32998_50935341",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8178
+      },
+      "writtenOn": "2024-08-09T13:49:32Z",
+      "side": 1,
+      "message": "Or use rule-of-zero and move the destructor logic into a unique_ptr delete function.",
+      "revId": "101974215b7a83325bd9278c74301afc2b4fb2fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f9ad01fa_17128286",

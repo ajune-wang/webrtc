@@ -16,6 +16,91 @@
       "message": "This now implements move assignment operator for `PipeWireNode`, otherwise `remove_if` doesn\u0027t properly move items at the end of the queue. This also fixes multiple calls of `pw_proxy_destroy()` in `~PipeWireNode()` making https://webrtc-review.googlesource.com/c/src/+/358921 obsolete. Please, review properly, because this is my first move assigment operator implementation 😊.",
       "revId": "101974215b7a83325bd9278c74301afc2b4fb2fe",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b497b728_8e53e572",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8178
+      },
+      "writtenOn": "2024-08-09T13:48:12Z",
+      "side": 1,
+      "message": "I think you\u0027re better off making `nodes_` a deque of `unique_ptr\u003cPipeWireNode\u003e` instead. Also make sure to follow C.21 still by `\u003ddelete;`ing all four move and copy operations.",
+      "revId": "101974215b7a83325bd9278c74301afc2b4fb2fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f9ad01fa_17128286",
+        "filename": "modules/video_capture/linux/pipewire_session.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 8178
+      },
+      "writtenOn": "2024-08-09T13:48:12Z",
+      "side": 1,
+      "message": "I haven\u0027t seen this kind of optimization before. Is some move operation particularly expensive? Also a cleaner way would be to invert the logic into an early-exit guard.",
+      "revId": "101974215b7a83325bd9278c74301afc2b4fb2fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "147ffb3d_02549350",
+        "filename": "modules/video_capture/linux/pipewire_session.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 8178
+      },
+      "writtenOn": "2024-08-09T13:48:12Z",
+      "side": 1,
+      "message": "If you group the operations per-member instead of per-operation-type I think this would be easier to follow.",
+      "revId": "101974215b7a83325bd9278c74301afc2b4fb2fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c3c9d63a_67755dc7",
+        "filename": "modules/video_capture/linux/pipewire_session.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 8178
+      },
+      "writtenOn": "2024-08-09T13:48:12Z",
+      "side": 1,
+      "message": "Does `pw_node_add_listener` use the `this` arg? https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/modules/video_capture/linux/pipewire_session.cc;l\u003d75;drc\u003d9e755f0e19a9f3fdd5015283b5328fc65a7bfe1c\n\nIf yes I imagine you\u0027re going to UAF yourself here.",
+      "revId": "101974215b7a83325bd9278c74301afc2b4fb2fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1ec2391a_5170ea64",
+        "filename": "modules/video_capture/linux/pipewire_session.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 8178
+      },
+      "writtenOn": "2024-08-09T13:48:12Z",
+      "side": 1,
+      "message": "I think C.21 would be good here: https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#c21-if-you-define-or-delete-any-copy-move-or-destructor-function-define-or-delete-them-all",
+      "revId": "101974215b7a83325bd9278c74301afc2b4fb2fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

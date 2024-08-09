@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0ee90f4f_41f654df",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-08-09T18:04:38Z",
+      "side": 1,
+      "message": "RFC 5245 (or the updates) are not clear whether one should create a pair if the local address family and the STUN/TURN server address family do not match sadly.\nI think treating it as \"did not work\" is in spirit of not creating a pair when for host candidates local and remote AF do not match.\n\nI can ask on avtcore (?) if you want.",
+      "revId": "a89505748952ec3af63b7276a7b1c4c8cd4654bd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

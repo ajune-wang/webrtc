@@ -94,6 +94,30 @@
       },
       "revId": "2f627605802f0745fdc0b0e0221cb7b07084b128",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cde98e83_7284f5d0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2024-08-09T16:57:38Z",
+      "side": 1,
+      "message": "Thanks Rayan. Yes, I am chatting with Bo.\n\nThe CL is landing.",
+      "parentUuid": "b4fb77a5_8be4b5ea",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 75
+      },
+      "revId": "2f627605802f0745fdc0b0e0221cb7b07084b128",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

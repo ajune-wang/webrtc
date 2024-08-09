@@ -82,6 +82,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fb65791b_8438a97d",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 477,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2024-08-09T10:24:39Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "dddbad05_d426aaef",
+      "range": {
+        "startLine": 477,
+        "startChar": 2,
+        "endLine": 477,
+        "endChar": 14
+      },
+      "revId": "9c1208e4adc5466a005677077c5847b79080e1c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5b2e856e_0fafa260",
@@ -95,6 +119,30 @@
       "writtenOn": "2024-08-09T09:46:12Z",
       "side": 1,
       "message": "Should this be ImprovementDirection::kNeitherIsBetter?\n\nI think QP needs to be interpreted and it is not always clear that highler/lower is better.",
+      "range": {
+        "startLine": 1263,
+        "startChar": 23,
+        "endLine": 1263,
+        "endChar": 61
+      },
+      "revId": "9c1208e4adc5466a005677077c5847b79080e1c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bf5910a3_02d3304e",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1263,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2024-08-09T10:24:39Z",
+      "side": 1,
+      "message": "No, lower is always better. The range is different per encoder implementation. If there\u0027s HW/SW fallback toggling, we may interpret change in range as improvement/regression, however I think we don\u0027t have HW encoders in these tests. Thus, SmallerIsBetter suits here.",
+      "parentUuid": "5b2e856e_0fafa260",
       "range": {
         "startLine": 1263,
         "startChar": 23,

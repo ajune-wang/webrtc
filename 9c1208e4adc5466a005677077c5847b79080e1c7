@@ -39,6 +39,99 @@
       },
       "revId": "9c1208e4adc5466a005677077c5847b79080e1c7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dddbad05_d426aaef",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 477,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2024-08-09T09:46:12Z",
+      "side": 1,
+      "message": "I agree that doesn\u0027t suit well. The StreamCodecInfo contains info about the decoder used while qp is per frame.",
+      "parentUuid": "811fccb1_a3979779",
+      "range": {
+        "startLine": 477,
+        "startChar": 2,
+        "endLine": 477,
+        "endChar": 14
+      },
+      "revId": "9c1208e4adc5466a005677077c5847b79080e1c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5b2e856e_0fafa260",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1263,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2024-08-09T09:46:12Z",
+      "side": 1,
+      "message": "Should this be ImprovementDirection::kNeitherIsBetter?\n\nI think QP needs to be interpreted and it is not always clear that highler/lower is better.",
+      "range": {
+        "startLine": 1263,
+        "startChar": 23,
+        "endLine": 1263,
+        "endChar": 61
+      },
+      "revId": "9c1208e4adc5466a005677077c5847b79080e1c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0397ebf8_263322de",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer_metric_names_test.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 287,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2024-08-09T09:46:12Z",
+      "side": 1,
+      "message": "See other comment on ImprovementDirection::kNeitherIsBetter (also below).",
+      "range": {
+        "startLine": 287,
+        "startChar": 39,
+        "endLine": 287,
+        "endChar": 77
+      },
+      "revId": "9c1208e4adc5466a005677077c5847b79080e1c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1d54b3d0_fb6821ef",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer_shared_objects.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2024-08-09T09:46:12Z",
+      "side": 1,
+      "message": "Nit: I think \"shown\" is a bit misleading. Should we use a more explicit term here? Like \"received\" or \"rendered\"?",
+      "range": {
+        "startLine": 156,
+        "startChar": 30,
+        "endLine": 156,
+        "endChar": 35
+      },
+      "revId": "9c1208e4adc5466a005677077c5847b79080e1c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

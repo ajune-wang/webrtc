@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "38f37ad9_b1f4d5f2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3485001
+      },
+      "writtenOn": "2024-08-09T07:59:34Z",
+      "side": 1,
+      "message": "Thanks for the review.",
+      "revId": "9c1208e4adc5466a005677077c5847b79080e1c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "811fccb1_a3979779",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 477,
+      "author": {
+        "id": 3485001
+      },
+      "writtenOn": "2024-08-09T07:59:34Z",
+      "side": 1,
+      "message": "I can also bake `qp` into `used_decoder` here. However, imo `qp` doesn\u0027t suit well in the `StreamCodecInfo` struct, I rather have it as a separate input variable. But wdyt?",
+      "range": {
+        "startLine": 477,
+        "startChar": 2,
+        "endLine": 477,
+        "endChar": 14
+      },
+      "revId": "9c1208e4adc5466a005677077c5847b79080e1c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

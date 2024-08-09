@@ -72,6 +72,10 @@ struct FrameStats {
   // Sender side qp values per spatial layer. In case when spatial layer is not
   // set for `webrtc::EncodedImage`, 0 is used as default.
   std::map<int, SamplesStatsCounter> spatial_layers_qp;
+  // Receive side qp value. Receiver only sees one spatial layer for a given
+  // time index. The QP value here corresponds to one of the encoded spatial
+  // layer's QP given in `spatial_layers_qp`.
+  absl::optional<uint8_t> decoded_frame_qp = absl::nullopt;
 
   absl::optional<int> decoded_frame_width = absl::nullopt;
   absl::optional<int> decoded_frame_height = absl::nullopt;

@@ -16,6 +16,23 @@
       "message": "RFC 5245 (or the updates) are not clear whether one should create a pair if the local address family and the STUN/TURN server address family do not match sadly.\nI think treating it as \"did not work\" is in spirit of not creating a pair when for host candidates local and remote AF do not match.\n\nI can ask on avtcore (?) if you want.",
       "revId": "a89505748952ec3af63b7276a7b1c4c8cd4654bd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6cd02f3d_ed632786",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-08-09T18:07:59Z",
+      "side": 1,
+      "message": "looking at the code also made me wonder if the error(s) should only be emitted when setting the port to complete or error. This would avoid emitting an error if one can gather a srflx candidate from one interface but not the other, https://github.com/webrtc/samples/issues/1227#issuecomment-792204727 is a good example.",
+      "revId": "a89505748952ec3af63b7276a7b1c4c8cd4654bd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

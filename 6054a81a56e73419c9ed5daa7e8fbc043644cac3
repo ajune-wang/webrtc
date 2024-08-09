@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d9cccd90_15bd5065",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2024-08-09T11:35:13Z",
+      "side": 1,
+      "message": "I cannot add agrieve@chromium.org or mheikal@chromium.org as reviewers.\nSkipping presubmit (this CL is part of the project to onboard jni_zero, so they are indeed OK).\n\nAdding their other accounts to CC.",
+      "revId": "6054a81a56e73419c9ed5daa7e8fbc043644cac3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8b1af26f_b1940bd3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-08-09T22:03:55Z",
+      "side": 1,
+      "message": "well, at least we will get an error message and know we have a very weird dependency on boringssl via third_party/srtp :-)",
+      "revId": "57712999ce12391e9774c020175e68adc6db2669",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3a534e15_360ba7e0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-08-09T22:03:55Z",
+      "side": 1,
+      "message": "well, at least we will get an error message and know we have a",
+      "revId": "57712999ce12391e9774c020175e68adc6db2669",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

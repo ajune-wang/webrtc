@@ -970,6 +970,27 @@ TEST_F(TurnPortTest, TestTurnBadCredentials) {
   EXPECT_EQ(error_event_.error_text, "Unauthorized");
 }
 
+// Test that we fail without emitting an error if we try to get an address from
+// a TURN server with a different address family. IPv4 local, IPv6 TURN.
+TEST_F(TurnPortTest, TestServerAddressFamilyMismatch) {
+  CreateTurnPort(kTurnUsername, kTurnPassword, kTurnUdpIPv6ProtoAddr);
+  turn_port_->PrepareAddress();
+  EXPECT_TRUE_SIMULATED_WAIT(turn_error_, kSimulatedRtt * 3, fake_clock_);
+  ASSERT_EQ(0U, turn_port_->Candidates().size());
+  EXPECT_EQ(0, error_event_.error_code);
+}
+
+// Test that we fail without emitting an error if we try to get an address from
+// a TURN server with a different address family. IPv6 local, IPv4 TURN.
+TEST_F(TurnPortTest, TestServerAddressFamilyMismatch6) {
+  CreateTurnPort(kLocalIPv6Addr, kTurnUsername, kTurnPassword,
+                 kTurnUdpProtoAddr);
+  turn_port_->PrepareAddress();
+  EXPECT_TRUE_SIMULATED_WAIT(turn_error_, kSimulatedRtt * 3, fake_clock_);
+  ASSERT_EQ(0U, turn_port_->Candidates().size());
+  EXPECT_EQ(0, error_event_.error_code);
+}
+
 // Testing a normal UDP allocation using TCP connection.
 TEST_F(TurnPortTest, TestTurnTcpAllocate) {
   turn_server_.AddInternalSocket(kTurnTcpIntAddr, PROTO_TCP);
@@ -1021,13 +1042,13 @@ TEST_F(TurnPortTest,
   EXPECT_TRUE_SIMULATED_WAIT(turn_error_, kSimulatedRtt, fake_clock_);
   EXPECT_EQ_SIMULATED_WAIT(error_event_.error_code, STUN_ERROR_GLOBAL_FAILURE,
                            kSimulatedRtt, fake_clock_);
-  ASSERT_NE(error_event_.error_text.find('.'), std::string::npos);
-  ASSERT_NE(error_event_.address.find(kLocalAddr2.HostAsSensitiveURIString()),
+  EXPECT_NE(error_event_.error_text.find('.'), std::string::npos);
+  EXPECT_NE(error_event_.address.find(kLocalAddr2.HostAsSensitiveURIString()),
             std::string::npos);
-  ASSERT_NE(error_event_.port, 0);
+  EXPECT_NE(error_event_.port, 0);
   std::string server_url =
       "turn:" + kTurnTcpIntAddr.ToString() + "?transport=tcp";
-  ASSERT_EQ(error_event_.url, server_url);
+  EXPECT_EQ(error_event_.url, server_url);
 }
 
 // A caveat for the above logic: if the socket ends up bound to one of the IPs

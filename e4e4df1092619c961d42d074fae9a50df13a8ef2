@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fc9ac20f_d875630b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-08-09T14:34:53Z",
+      "side": 1,
+      "message": "ah, that fixes the OpenSSL tests (which went from broken to linking against boringssl while using openssl headers) with very nasty consequences.\n\nThank you!",
+      "revId": "e4e4df1092619c961d42d074fae9a50df13a8ef2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2ee64909_e096683d",

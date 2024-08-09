@@ -46,6 +46,30 @@
       },
       "revId": "2f627605802f0745fdc0b0e0221cb7b07084b128",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "52a77866_d254f687",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2024-08-09T16:48:33Z",
+      "side": 1,
+      "message": "\u003e Hi Mirko, is the https://ci.chromium.org/ui/p/webrtc/builders/try/presubmit/88456/overview the bot link you expected?\n\n\nHo, this is the presubmit I skipped on the original CL. I am interested in the issue you are hitting now so I can fix it.\n\n\u003e This breakage blocks our App\u0027s release. It would be great if we can submit the revert soon.\n\nYes, this sounds good to me. But please provide information about how to fix your use case.",
+      "parentUuid": "df216798_61087349",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 75
+      },
+      "revId": "2f627605802f0745fdc0b0e0221cb7b07084b128",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

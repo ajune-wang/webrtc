@@ -74,8 +74,31 @@ PipeWireNode::PipeWireNode(PipeWireSession* session,
 }
 
 PipeWireNode::~PipeWireNode() {
-  pw_proxy_destroy(proxy_);
+  if (proxy_) {
+    pw_proxy_destroy(proxy_);
+  }
   spa_hook_remove(&node_listener_);
+}
+
+PipeWireNode& PipeWireNode::operator=(PipeWireNode&& other) noexcept {
+  if (this != &other) {
+    spa_hook_remove(&node_listener_);
+    if (proxy_) {
+      pw_proxy_destroy(proxy_);
+    }
+    proxy_ = other.proxy_;
+    node_listener_ = std::move(other.node_listener_);
+    session_ = other.session_;
+    id_ = other.id_;
+    display_name_ = std::move(other.display_name_);
+    unique_id_ = std::move(other.unique_id_);
+    model_id_ = std::move(other.model_id_);
+    capabilities_ = std::move(other.capabilities_);
+
+    other.proxy_ = nullptr;
+    other.session_ = nullptr;
+  }
+  return *this;
 }
 
 // static
@@ -99,7 +122,9 @@ void PipeWireNode::OnNodeInfo(void* data, const pw_node_info* info) {
                pid.value());
       that->model_id_ = model_str;
     }
-  } else if (info->change_mask & PW_NODE_CHANGE_MASK_PARAMS) {
+  }
+
+  if (info->change_mask & PW_NODE_CHANGE_MASK_PARAMS) {
     for (uint32_t i = 0; i < info->n_params; i++) {
       uint32_t id = info->params[i].id;
       if (id == SPA_PARAM_EnumFormat &&
@@ -350,6 +375,13 @@ void PipeWireSession::OnCoreDone(void* data, uint32_t id, int seq) {
   if (id == PW_ID_CORE) {
     if (seq == that->sync_seq_) {
       RTC_LOG(LS_VERBOSE) << "Enumerating PipeWire camera devices complete.";
+
+      // Remove camera devices with no capabilities
+      auto it = std::remove_if(
+          that->nodes_.begin(), that->nodes_.end(),
+          [](const PipeWireNode& node) { return node.capabilities().empty(); });
+      that->nodes_.erase(it, that->nodes_.end());
+
       that->Finish(VideoCaptureOptions::Status::SUCCESS);
     }
   }

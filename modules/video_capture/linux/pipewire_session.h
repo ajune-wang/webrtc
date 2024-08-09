@@ -40,6 +40,9 @@ class PipeWireNode {
   PipeWireNode(PipeWireSession* session, uint32_t id, const spa_dict* props);
   ~PipeWireNode();
 
+  PipeWireNode& operator=(const PipeWireNode&) = delete;
+  PipeWireNode& operator=(PipeWireNode&& other) noexcept;
+
   uint32_t id() const { return id_; }
   std::string display_name() const { return display_name_; }
   std::string unique_id() const { return unique_id_; }

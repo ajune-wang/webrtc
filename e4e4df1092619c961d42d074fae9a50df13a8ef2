@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2ee64909_e096683d",
+        "filename": "rtc_base/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-08-09T13:48:28Z",
+      "side": 1,
+      "message": "Will this override other uses of \"libs\" (if any)?\nie should it be +\u003d rather than \u003d?",
+      "revId": "e4e4df1092619c961d42d074fae9a50df13a8ef2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

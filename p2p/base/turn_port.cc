@@ -420,8 +420,7 @@ void TurnPort::PrepareAddress() {
       RTC_LOG(LS_ERROR) << "IP address family does not match. server: "
                         << server_address_.address.family()
                         << " local: " << Network()->GetBestIP().family();
-      OnAllocateError(STUN_ERROR_GLOBAL_FAILURE,
-                      "IP address family does not match.");
+      OnAllocateError(STUN_ERROR_GLOBAL_FAILURE, "");
       return;
     }
 
@@ -955,8 +954,11 @@ void TurnPort::OnAllocateError(int error_code, absl::string_view reason) {
     address.clear();
     port = 0;
   }
-  SignalCandidateError(this, IceCandidateErrorEvent(address, port, server_url_,
-                                                    error_code, reason));
+  if (!reason.empty()) {
+    SignalCandidateError(
+        this,
+        IceCandidateErrorEvent(address, port, server_url_, error_code, reason));
+  }
 }
 
 void TurnPort::OnRefreshError() {

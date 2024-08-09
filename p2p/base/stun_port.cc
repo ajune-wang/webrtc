@@ -466,11 +466,11 @@ void UDPPort::SendStunBindingRequest(const rtc::SocketAddress& stun_addr) {
           new StunBindingRequest(this, stun_addr, rtc::TimeMillis()));
     } else {
       // Since we can't send stun messages to the server, we should mark this
-      // port ready.
-      const char* reason = "STUN server address is incompatible.";
-      RTC_LOG(LS_WARNING) << reason;
+      // port ready. This is not an error but similar to ignoring
+      // a mismatch of th address family when pairing candidates.
+      RTC_LOG(LS_WARNING) << "STUN server address is incompatible.";
       OnStunBindingOrResolveRequestFailed(stun_addr, SERVER_NOT_REACHABLE_ERROR,
-                                          reason);
+                                          "");
     }
   }
 }
@@ -534,12 +534,15 @@ void UDPPort::OnStunBindingOrResolveRequestFailed(
     const rtc::SocketAddress& stun_server_addr,
     int error_code,
     absl::string_view reason) {
-  rtc::StringBuilder url;
-  url << "stun:" << stun_server_addr.ToString();
-  SignalCandidateError(
-      this, IceCandidateErrorEvent(GetLocalAddress().HostAsSensitiveURIString(),
-                                   GetLocalAddress().port(), url.str(),
-                                   error_code, reason));
+  // An empty reason indicates this should not be emitted.
+  if (!reason.empty()) {
+    rtc::StringBuilder url;
+    url << "stun:" << stun_server_addr.ToString();
+    SignalCandidateError(
+        this, IceCandidateErrorEvent(
+                  GetLocalAddress().HostAsSensitiveURIString(),
+                  GetLocalAddress().port(), url.str(), error_code, reason));
+  }
   if (bind_request_failed_servers_.find(stun_server_addr) !=
       bind_request_failed_servers_.end()) {
     return;

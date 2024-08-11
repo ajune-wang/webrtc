@@ -270,6 +270,7 @@ class ChannelSend : public ChannelSendInterface,
 
   std::atomic<bool> include_audio_level_indication_ = false;
   std::atomic<bool> encoder_queue_is_active_ = false;
+  std::atomic<bool> congestion_control_configured_ = false;
   std::atomic<bool> first_frame_ = true;
 
   // E2EE Audio Frame Encryption
@@ -313,11 +314,29 @@ class RtpPacketSenderProxy : public RtpPacketSender {
   void EnqueuePackets(
       std::vector<std::unique_ptr<RtpPacketToSend>> packets) override {
     MutexLock lock(&mutex_);
+
+    // Since we allow having an instance with no rtp_packet_pacer_ set we
+    // should handle calls to member functions in this state gracefully rather
+    // than null dereferencing
+    if (!rtp_packet_pacer_) {
+      // Still trigger on debug builds since this state is unexpected
+      RTC_DCHECK_NOTREACHED();
+      return;
+    }
     rtp_packet_pacer_->EnqueuePackets(std::move(packets));
   }
 
   void RemovePacketsForSsrc(uint32_t ssrc) override {
     MutexLock lock(&mutex_);
+
+    // Since we allow having an instance with no rtp_packet_pacer_ set we
+    // should handle calls to member functions in this state gracefully rather
+    // than null dereferencing
+    if (!rtp_packet_pacer_) {
+      // Still trigger on debug builds since this state is unexpected
+      RTC_DCHECK_NOTREACHED();
+      return;
+    }
     rtp_packet_pacer_->RemovePacketsForSsrc(ssrc);
   }
 
@@ -719,11 +738,13 @@ void ChannelSend::RegisterSenderCongestionControlObjects(
   rtp_packet_pacer_proxy_->SetPacketPacer(rtp_packet_pacer);
   rtp_rtcp_->SetStorePacketsStatus(true, 600);
   packet_router_ = packet_router;
+  congestion_control_configured_.store(true);
 }
 
 void ChannelSend::ResetSenderCongestionControlObjects() {
   RTC_DCHECK_RUN_ON(&worker_thread_checker_);
   RTC_DCHECK(packet_router_);
+  congestion_control_configured_.store(false);
   rtp_rtcp_->SetStorePacketsStatus(false, 600);
   packet_router_ = nullptr;
   rtp_packet_pacer_proxy_->SetPacketPacer(nullptr);
@@ -794,7 +815,8 @@ void ChannelSend::ProcessAndEncodeAudio(
   RTC_DCHECK_GT(audio_frame->samples_per_channel_, 0);
   RTC_DCHECK_LE(audio_frame->num_channels_, 8);
 
-  if (!encoder_queue_is_active_.load()) {
+  if (!encoder_queue_is_active_.load() ||
+      !congestion_control_configured_.load()) {
     return;
   }
 
@@ -826,7 +848,8 @@ void ChannelSend::ProcessAndEncodeAudio(
   encoder_queue_->PostTask(
       [this, audio_frame = std::move(audio_frame)]() mutable {
         RTC_DCHECK_RUN_ON(&encoder_queue_checker_);
-        if (!encoder_queue_is_active_.load()) {
+        if (!encoder_queue_is_active_.load() ||
+            !congestion_control_configured_.load()) {
           return;
         }
         // Measure time between when the audio frame is added to the task queue

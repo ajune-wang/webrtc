@@ -209,7 +209,7 @@ void AecState::Update(
 
   // Update render counters.
   bool active_render = false;
-  for (int ch = 0; ch < aligned_render_block.NumChannels(); ++ch) {
+  for (size_t ch = 0; ch < aligned_render_block.NumChannels(); ++ch) {
     const float render_energy =
         std::inner_product(aligned_render_block.begin(/*block=*/0, ch),
                            aligned_render_block.end(/*block=*/0, ch),
@@ -465,7 +465,7 @@ void AecState::SaturationDetector::Update(
     }
   } else {
     float max_sample = 0.f;
-    for (int ch = 0; ch < x.NumChannels(); ++ch) {
+    for (size_t ch = 0; ch < x.NumChannels(); ++ch) {
       rtc::ArrayView<const float, kBlockSize> x_ch = x.View(/*band=*/0, ch);
       for (float sample : x_ch) {
         max_sample = std::max(max_sample, fabsf(sample));

@@ -65,8 +65,8 @@ bool VerifySubFrame(
 }
 
 void FillBlock(size_t block_counter, Block* block) {
-  for (int band = 0; band < block->NumBands(); ++band) {
-    for (int channel = 0; channel < block->NumChannels(); ++channel) {
+  for (size_t band = 0; band < block->NumBands(); ++band) {
+    for (size_t channel = 0; channel < block->NumChannels(); ++channel) {
       auto b = block->View(band, channel);
       for (size_t sample = 0; sample < kBlockSize; ++sample) {
         b[sample] = ComputeSampleValue(block_counter, kBlockSize, band, channel,

@@ -807,7 +807,10 @@ void EchoCanceller3::Initialize() {
   config_selector_.Update(
       multichannel_content_detector_.IsProperMultiChannelContentDetected());
 
-  render_block_.SetNumChannels(num_render_channels_to_aec_);
+  if (render_block_.NumChannels() != num_render_channels_to_aec_) {
+    render_block_ =
+        Block(render_block_.NumBands(), num_render_channels_to_aec_);
+  }
 
   render_blocker_.reset(
       new FrameBlocker(num_bands_, num_render_channels_to_aec_));

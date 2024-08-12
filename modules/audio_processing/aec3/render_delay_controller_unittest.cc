@@ -151,8 +151,8 @@ TEST(RenderDelayController, DISABLED_Alignment) {
                                                 num_capture_channels));
               DelayBuffer<float> signal_delay_buffer(delay_samples);
               for (size_t k = 0; k < (400 + delay_samples / kBlockSize); ++k) {
-                for (int band = 0; band < render_block.NumBands(); ++band) {
-                  for (int channel = 0; channel < render_block.NumChannels();
+                for (size_t band = 0; band < render_block.NumBands(); ++band) {
+                  for (size_t channel = 0; channel < render_block.NumChannels();
                        ++channel) {
                     RandomizeSampleVector(&random_generator,
                                           render_block.View(band, channel));

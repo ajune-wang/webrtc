@@ -123,8 +123,8 @@ void RunNormalUsageTest(size_t num_render_channels,
   EXPECT_TRUE(state.ActiveRender());
 
   // Verify that the ERL is properly estimated
-  for (int band = 0; band < x.NumBands(); ++band) {
-    for (int channel = 0; channel < x.NumChannels(); ++channel) {
+  for (size_t band = 0; band < x.NumBands(); ++band) {
+    for (size_t channel = 0; channel < x.NumChannels(); ++channel) {
       std::fill(x.begin(band, channel), x.end(band, channel), 0.0f);
     }
   }

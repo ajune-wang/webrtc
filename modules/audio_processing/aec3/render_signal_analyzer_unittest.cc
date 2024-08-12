@@ -38,8 +38,8 @@ void ProduceSinusoidInNoise(int sample_rate_hz,
                             size_t* sample_counter,
                             Block* x) {
   // Fill x with low-amplitude noise.
-  for (int band = 0; band < x->NumBands(); ++band) {
-    for (int channel = 0; channel < x->NumChannels(); ++channel) {
+  for (size_t band = 0; band < x->NumBands(); ++band) {
+    for (size_t channel = 0; channel < x->NumChannels(); ++channel) {
       RandomizeSampleVector(random_generator, x->View(band, channel),
                             /*amplitude=*/500.f);
     }
@@ -136,8 +136,8 @@ TEST(RenderSignalAnalyzer, NoFalseDetectionOfNarrowBands) {
     x_old.fill(0.f);
 
     for (int k = 0; k < 100; ++k) {
-      for (int band = 0; band < x.NumBands(); ++band) {
-        for (int channel = 0; channel < x.NumChannels(); ++channel) {
+      for (size_t band = 0; band < x.NumBands(); ++band) {
+        for (size_t channel = 0; channel < x.NumChannels(); ++channel) {
           RandomizeSampleVector(&random_generator, x.View(band, channel));
         }
       }

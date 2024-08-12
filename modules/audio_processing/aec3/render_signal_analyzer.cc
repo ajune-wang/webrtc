@@ -68,7 +68,7 @@ void IdentifyStrongNarrowBandComponent(const RenderBuffer& render_buffer,
 
   const Block& x_latest = render_buffer.GetBlock(0);
   float max_peak_level = 0.f;
-  for (int channel = 0; channel < x_latest.NumChannels(); ++channel) {
+  for (size_t channel = 0; channel < x_latest.NumChannels(); ++channel) {
     rtc::ArrayView<const float, kFftLengthBy2Plus1> X2_latest =
         render_buffer.Spectrum(0)[channel];
 

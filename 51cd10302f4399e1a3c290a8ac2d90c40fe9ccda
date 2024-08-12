@@ -16,6 +16,149 @@
       "message": "It is WIP, but before going forward I think it is good to establish the grounds, so please have a look on TODO(discussion) parts.",
       "revId": "51cd10302f4399e1a3c290a8ac2d90c40fe9ccda",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bc5307ed_28859e6e",
+        "filename": "call/video_receive_stream.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2024-08-12T09:38:00Z",
+      "side": 1,
+      "message": "float might be enough especially for a few samples, but you might run into issues with precision when calculating deltas if the sum grows very large. The precedence seems to be to just use double everywhere...\n\nSecond, I\u0027d update the name to make it clear this is the accumulate sum of corruption scores.\n\nThird, a lot of the other accumulators use the number of frames as part of the calculation (e.g. in order to calculate average frame qp). Since we don\u0027t instrument all frames, we should probably have a separate counter for that too.\n\nForth, I think we should have a squared corruption score accumulator too so that we can calculate the variance.",
+      "range": {
+        "startLine": 140,
+        "startChar": 4,
+        "endLine": 140,
+        "endChar": 43
+      },
+      "revId": "51cd10302f4399e1a3c290a8ac2d90c40fe9ccda",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1b4bf34e_544692c9",
+        "filename": "video/receive_statistics_proxy.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2024-08-12T09:38:00Z",
+      "side": 1,
+      "message": "I\u0027d avoid adding this type of dummy values. Just add usage from test cases instead.",
+      "range": {
+        "startLine": 45,
+        "startChar": 0,
+        "endLine": 49,
+        "endChar": 0
+      },
+      "revId": "51cd10302f4399e1a3c290a8ac2d90c40fe9ccda",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e2e92b28_e429707b",
+        "filename": "video/receive_statistics_proxy.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 702,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2024-08-12T09:38:00Z",
+      "side": 1,
+      "message": "Don\u0027t do this. Add a callback method `void OnCorruptionScore(double score);` or something like that, which is what we expect to be called from the receive stream anyway.",
+      "range": {
+        "startLine": 702,
+        "startChar": 2,
+        "endLine": 702,
+        "endChar": 52
+      },
+      "revId": "51cd10302f4399e1a3c290a8ac2d90c40fe9ccda",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "de262010_88e470c3",
+        "filename": "video/receive_statistics_proxy.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 704,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2024-08-12T09:38:00Z",
+      "side": 1,
+      "message": "Yes, slicing on content type seems useful here.",
+      "revId": "51cd10302f4399e1a3c290a8ac2d90c40fe9ccda",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5a954f77_30975f72",
+        "filename": "video/receive_statistics_proxy.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 707,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2024-08-12T09:38:00Z",
+      "side": 1,
+      "message": "I\u0027d be in favor of templetizing the sample counter instead. Avoid truncations where possible.",
+      "revId": "51cd10302f4399e1a3c290a8ac2d90c40fe9ccda",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "91f42d88_7a1f4854",
+        "filename": "video/receive_statistics_proxy.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 711,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2024-08-12T09:38:00Z",
+      "side": 1,
+      "message": "If we have a `SampleCounterWithVariance\u003cdouble\u003e` then we can report both mean and variance - alternatively pick an percentile that seems reasonable and report just that.",
+      "revId": "51cd10302f4399e1a3c290a8ac2d90c40fe9ccda",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4efc7521_b26b88d0",
+        "filename": "video/receive_statistics_proxy.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2024-08-12T09:38:00Z",
+      "side": 1,
+      "message": "I think we might want a `SampleCounterWithVariance` here.\n\nAlso not sure if we want to use this int version with a scaled double. Might be possible to change sample counter to be templetized (with int being the default type). That should be in a separate pre-cursor CL to this in that case. wdyt?",
+      "range": {
+        "startLine": 147,
+        "startChar": 4,
+        "endLine": 147,
+        "endChar": 40
+      },
+      "revId": "51cd10302f4399e1a3c290a8ac2d90c40fe9ccda",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

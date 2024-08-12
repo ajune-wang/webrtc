@@ -54,6 +54,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "85cbf9c7_2eaaaee3",
+        "filename": "tools_webrtc/iwyu/apply-include-cleaner",
+        "patchSetId": 2
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 19769
+      },
+      "writtenOn": "2024-08-12T14:33:21Z",
+      "side": 1,
+      "message": "The issue with sed is the different support for the -i argument for BSD/GNU based systems (https://stackoverflow.com/questions/4247068/sed-command-with-i-option-failing-on-mac-but-works-on-linux)\nI haven\u0027t tried really hard and just picked the perl solution from this thread, but I\u0027m sure we can modify this to support sed properly. Lemme look into this.",
+      "parentUuid": "cd894e4e_95f4faf0",
+      "revId": "e29f00d27f4af525ed706b6855ac130244c3037f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "81b77584_929ce587",
         "filename": "tools_webrtc/iwyu/apply-include-cleaner",
         "patchSetId": 2
@@ -65,6 +83,24 @@
       "writtenOn": "2024-08-12T13:21:42Z",
       "side": 1,
       "message": "The pattern isn\u0027t anchored to the start of the line, so will modify comments (not likely to be a problem in practice, but adding ^#include shouldn\u0027t hurt.",
+      "revId": "e29f00d27f4af525ed706b6855ac130244c3037f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "214a3438_bcddfc05",
+        "filename": "tools_webrtc/iwyu/apply-include-cleaner",
+        "patchSetId": 2
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 19769
+      },
+      "writtenOn": "2024-08-12T14:33:21Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "81b77584_929ce587",
       "revId": "e29f00d27f4af525ed706b6855ac130244c3037f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

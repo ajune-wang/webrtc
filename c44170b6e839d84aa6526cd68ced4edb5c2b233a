@@ -16,6 +16,23 @@
       "message": "Thanks!",
       "revId": "c44170b6e839d84aa6526cd68ced4edb5c2b233a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "70b7697d_f63cac87",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-08-12T09:33:40Z",
+      "side": 1,
+      "message": "+Mirko for sdk/BUILD.gn approval\nand suggestion what can be done with ios_dbg_simulator bot that keeps failing due to infrastructure issues.\n\n(This is ios specific change, so just ignoring this bot doesn\u0027t feel like a good idea)",
+      "revId": "c44170b6e839d84aa6526cd68ced4edb5c2b233a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

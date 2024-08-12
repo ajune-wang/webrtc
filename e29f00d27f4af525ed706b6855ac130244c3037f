@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2cc2d04e_d71e420e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19769
+      },
+      "writtenOn": "2024-08-12T09:03:11Z",
+      "side": 1,
+      "message": "The google test includes kind of annoyed me working on it. Although, if this is a repeated pattern with other includes it is worth writing a wrapper that supports something similar to iwyu mappings.",
+      "revId": "e29f00d27f4af525ed706b6855ac130244c3037f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -111,15 +111,15 @@ void CallPreProcessAudioBuffer(int num_calls,
   RTC_DCHECK_LE(peak_ratio, 1.0f);
   AudioBuffer audio_buffer(kSampleRateHz, kNumChannels, kSampleRateHz,
                            kNumChannels, kSampleRateHz, kNumChannels);
-  const int num_channels = audio_buffer.num_channels();
-  const int num_frames = audio_buffer.num_frames();
+  DeinterleavedView<float> channels = audio_buffer.view();
 
   // Make half of the calls with half zeroed frames.
-  for (int ch = 0; ch < num_channels; ++ch) {
+  for (size_t ch = 0; ch < NumChannels(channels); ++ch) {
     // 50% of the samples in one frame are zero.
-    for (int i = 0; i < num_frames; i += 2) {
-      audio_buffer.channels()[ch][i] = peak_ratio * 32767.0f;
-      audio_buffer.channels()[ch][i + 1] = 0.0f;
+    MonoView<float> channel = channels[ch];
+    for (size_t i = 0; i < SamplesPerChannel(channel); i += 2) {
+      channel[i] = peak_ratio * 32767.0f;
+      channel[i + 1] = 0.0f;
     }
   }
   for (int n = 0; n < num_calls / 2; ++n) {
@@ -127,9 +127,10 @@ void CallPreProcessAudioBuffer(int num_calls,
   }
 
   // Make the remaining half of the calls with frames whose samples are all set.
-  for (int ch = 0; ch < num_channels; ++ch) {
-    for (int i = 0; i < num_frames; ++i) {
-      audio_buffer.channels()[ch][i] = peak_ratio * 32767.0f;
+  for (size_t ch = 0; ch < NumChannels(channels); ++ch) {
+    MonoView<float> channel = channels[ch];
+    for (float& s : channel) {
+      s = peak_ratio * 32767.0f;
     }
   }
   for (int n = 0; n < num_calls - num_calls / 2; ++n) {
@@ -177,16 +178,16 @@ void WriteAudioBufferSamples(float samples_value,
   RTC_DCHECK_LE(samples_value, kMaxSample);
   RTC_DCHECK_GE(clipped_ratio, 0.0f);
   RTC_DCHECK_LE(clipped_ratio, 1.0f);
-  int num_channels = audio_buffer.num_channels();
-  int num_samples = audio_buffer.num_frames();
-  int num_clipping_samples = clipped_ratio * num_samples;
-  for (int ch = 0; ch < num_channels; ++ch) {
-    int i = 0;
+  DeinterleavedView<float> channels = audio_buffer.view();
+  size_t num_clipping_samples = clipped_ratio * SamplesPerChannel(channels);
+  for (size_t ch = 0; ch < NumChannels(channels); ++ch) {
+    MonoView<float> channel = channels[ch];
+    size_t i = 0;
     for (; i < num_clipping_samples; ++i) {
-      audio_buffer.channels()[ch][i] = 32767.0f;
+      channel[i] = 32767.0f;
     }
-    for (; i < num_samples; ++i) {
-      audio_buffer.channels()[ch][i] = samples_value;
+    for (; i < SamplesPerChannel(channels); ++i) {
+      channel[i] = samples_value;
     }
   }
 }
@@ -247,7 +248,8 @@ class SpeechSamplesReader {
       }
       // Apply gain and copy samples into `audio_buffer_`.
       std::transform(buffer_.begin(), buffer_.end(),
-                     audio_buffer_.channels()[0], [gain](int16_t v) -> float {
+                     audio_buffer_.view()[0].begin(),
+                     [gain](int16_t v) -> float {
                        return rtc::SafeClamp(static_cast<float>(v) * gain,
                                              kMinSample, kMaxSample);
                      });
@@ -281,7 +283,8 @@ class SpeechSamplesReader {
       }
       // Apply gain and copy samples into `audio_buffer_`.
       std::transform(buffer_.begin(), buffer_.end(),
-                     audio_buffer_.channels()[0], [gain](int16_t v) -> float {
+                     audio_buffer_.view()[0].begin(),
+                     [gain](int16_t v) -> float {
                        return rtc::SafeClamp(static_cast<float>(v) * gain,
                                              kMinSample, kMaxSample);
                      });
@@ -410,9 +413,11 @@ class AgcManagerDirectTestHelper {
     // `sample_values` and zeros.
     WriteAudioBufferSamples(samples_value, /*clipped_ratio=*/0.0f,
                             audio_buffer);
-    for (size_t ch = 0; ch < audio_buffer.num_channels(); ++ch) {
+    DeinterleavedView<float> channels = audio_buffer.view();
+    for (size_t ch = 0; ch < NumChannels(channels); ++ch) {
+      MonoView<float> channel = channels[ch];
       for (size_t k = 1; k < audio_buffer.num_frames(); k += 2) {
-        audio_buffer.channels()[ch][k] = 0.0f;
+        channel[k] = 0.0f;
       }
     }
     for (int i = 0; i < num_calls / 2; ++i) {

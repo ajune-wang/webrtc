@@ -1432,9 +1432,7 @@ int AudioProcessingImpl::ProcessCaptureStreamLocked() {
     }
 
     if (submodules_.echo_detector) {
-      submodules_.echo_detector->AnalyzeCaptureAudio(
-          rtc::ArrayView<const float>(capture_buffer->channels()[0],
-                                      capture_buffer->num_frames()));
+      submodules_.echo_detector->AnalyzeCaptureAudio(capture_buffer->view()[0]);
     }
 
     // Experimental APM sub-module that analyzes `capture_buffer`.
@@ -1454,9 +1452,7 @@ int AudioProcessingImpl::ProcessCaptureStreamLocked() {
       submodules_.capture_post_processor->Process(capture_buffer);
     }
 
-    capture_output_rms_.Analyze(rtc::ArrayView<const float>(
-        capture_buffer->channels_const()[0],
-        capture_nonlocked_.capture_processing_format.num_frames()));
+    capture_output_rms_.Analyze(capture_buffer->view()[0]);
     if (log_rms) {
       RmsLevel::Levels levels = capture_output_rms_.AverageAndPeak();
       RTC_HISTOGRAM_COUNTS_LINEAR(
@@ -1513,10 +1509,10 @@ int AudioProcessingImpl::ProcessCaptureStreamLocked() {
   // reactivated after unmuting.
   if (!capture_.capture_output_used_last_frame &&
       capture_.capture_output_used) {
-    for (size_t ch = 0; ch < capture_buffer->num_channels(); ++ch) {
-      rtc::ArrayView<float> channel_view(capture_buffer->channels()[ch],
-                                         capture_buffer->num_frames());
-      std::fill(channel_view.begin(), channel_view.end(), 0.f);
+    DeinterleavedView<float> channels = capture_buffer->view();
+    for (size_t ch = 0; ch < channels.num_channels(); ++ch) {
+      MonoView<float> channel = channels[ch];
+      std::fill(channel.begin(), channel.end(), 0.f);
     }
   }
   capture_.capture_output_used_last_frame = capture_.capture_output_used;

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "703b632f_1ec60f74",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2024-08-12T08:55:12Z",
+      "side": 1,
+      "message": "Please RS LGTM this cherry-pick CL.\nDo not land, as the approval for merge is still pending (my -1 is to prevent such an accident).",
+      "revId": "cdc92e207955a0dc7bbda30fe62ec287ba09d3f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b090c0fa_1b11960d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-08-12T05:17:53Z",
+      "side": 1,
+      "message": "(i think your gitconfig is a bit awkward and still uses the old domain but should be ok from a CLA PoV)",
+      "revId": "44bbc3fa081f460acd1b30676333af181aece90b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9832d146_57ff2da3",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 320,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-08-12T05:17:53Z",
+      "side": 1,
+      "message": "nit: missing .",
+      "revId": "44bbc3fa081f460acd1b30676333af181aece90b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "55b0bf0e_172839f6",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 334,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-08-12T05:17:53Z",
+      "side": 1,
+      "message": "nit: missing .",
+      "revId": "44bbc3fa081f460acd1b30676333af181aece90b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e0667382_4651aadc",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 335,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-08-12T05:17:53Z",
+      "side": 1,
+      "message": "RTC_DCHECK(rtp_packet_pacer_) followed by a return for the production case.",
+      "revId": "44bbc3fa081f460acd1b30676333af181aece90b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

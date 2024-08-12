@@ -245,6 +245,30 @@
       },
       "revId": "9c1208e4adc5466a005677077c5847b79080e1c7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "21445101_8712cd1c",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer_shared_objects.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 3485001
+      },
+      "writtenOn": "2024-08-12T07:55:37Z",
+      "side": 1,
+      "message": "Lets go with `rendered` here then. Because all of the spatial layers are received in some sense, but only the highest one is rendered.",
+      "parentUuid": "1d54b3d0_fb6821ef",
+      "range": {
+        "startLine": 156,
+        "startChar": 30,
+        "endLine": 156,
+        "endChar": 35
+      },
+      "revId": "9c1208e4adc5466a005677077c5847b79080e1c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

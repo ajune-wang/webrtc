@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cc2cb16e_894ec17e",
+        "filename": "rtc_base/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2024-08-12T12:28:48Z",
+      "side": 1,
+      "message": "Nit: \"if (\".\n\nCan you gn format the file?",
+      "range": {
+        "startLine": 18,
+        "startChar": 4,
+        "endLine": 18,
+        "endChar": 7
+      },
+      "revId": "152ff44df834969c0078dc2d277bfc4236eabdd8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

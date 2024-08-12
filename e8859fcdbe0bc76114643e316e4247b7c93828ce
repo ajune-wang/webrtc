@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "562a2124_d01c4fe3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2024-08-12T16:03:59Z",
+      "side": 1,
+      "message": "This can land now, waiting for Chromium Cl to land first https://chromium-review.googlesource.com/c/chromium/src/+/5781651",
+      "revId": "e8859fcdbe0bc76114643e316e4247b7c93828ce",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

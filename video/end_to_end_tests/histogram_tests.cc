@@ -25,6 +25,8 @@ enum : int {  // The first valid value is 1.
 };
 }  // namespace
 
+// TODO(vardar): Add test here.
+
 class HistogramTest : public test::CallTest {
  public:
   HistogramTest() {

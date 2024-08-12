@@ -143,6 +143,8 @@ class ReceiveStatisticsProxy : public VideoStreamBufferControllerStatsObserver,
     rtc::SampleCounter qp_counter;
     FrameCounts frame_counts;
     rtc::HistogramPercentileCounter interframe_delay_percentiles;
+    // The corruption score in the range [0, 100].
+    rtc::SampleCounter corruption_score;
   };
 
   // Removes info about old frames and then updates the framerate.

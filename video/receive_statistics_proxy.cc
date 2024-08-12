@@ -43,6 +43,10 @@ const int kRateStatisticsWindowSizeMs = 1000;
 // values above - in the map.
 const int kMaxCommonInterframeDelayMs = 500;
 
+// TODO(webrtc:358039777): Remove when corruption is actually calculated.
+// Dummy value for corruption score per frame.
+const float kDummyCorruptionScore = 0.5;
+
 const char* UmaPrefixForContentType(VideoContentType content_type) {
   if (videocontenttypehelpers::IsScreenshare(content_type))
     return "WebRTC.Video.Screenshare";
@@ -309,6 +313,16 @@ void ReceiveStatisticsProxy::UpdateHistograms(
                                         *height);
       log_stream << uma_prefix << ".ReceivedHeightInPixels"
                  << " " << *height << '\n';
+    }
+
+    // Around at least 3.5 min call is needed for getting a corruption score.
+    absl::optional<float> corruption_score =
+        stats.corruption_score.Avg(kMinRequiredSamples);
+    if (corruption_score) {
+      RTC_HISTOGRAM_COUNTS(uma_prefix + ".CorruptionScore", *corruption_score,
+                           /*min=*/0, /*max=*/100, /*bucket_count=*/20);
+      log_stream << uma_prefix << ".CorruptionScore" << " " << *corruption_score
+                 << '\n';
     }
 
     if (content_type != VideoContentType::UNSPECIFIED) {
@@ -682,6 +696,16 @@ void ReceiveStatisticsProxy::OnDecodedFrame(
     ++stats_.frames_assembled_from_multiple_packets;
   }
 
+  if (!stats_.corruption_score.has_value()) {
+    stats_.corruption_score = 0;
+    stats_.corruption_score_squared = 0;
+  }
+  *stats_.corruption_score += kDummyCorruptionScore;
+  *stats_.corruption_score_squared +=
+      kDummyCorruptionScore * kDummyCorruptionScore;
+  content_specific_stats->corruption_score.Add(
+      static_cast<int>(100 * kDummyCorruptionScore));
+
   last_content_type_ = content_type;
   decode_fps_estimator_.Update(1, frame_meta.decode_timestamp.ms());
 
@@ -849,6 +873,7 @@ void ReceiveStatisticsProxy::ContentSpecificStats::Add(
   frame_counts.key_frames += other.frame_counts.key_frames;
   frame_counts.delta_frames += other.frame_counts.delta_frames;
   interframe_delay_percentiles.Add(other.interframe_delay_percentiles);
+  corruption_score.Add(other.corruption_score);
 }
 
 }  // namespace internal

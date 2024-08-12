@@ -41,6 +41,9 @@ const int kWidth = 1280;
 const int kHeight = 720;
 }  // namespace
 
+// TODO(vardar): Add unittests when details on how to implement the corruption
+// score has been decided.
+
 // TODO(sakal): ReceiveStatisticsProxy is lacking unittesting.
 class ReceiveStatisticsProxyTest : public ::testing::Test {
  public:

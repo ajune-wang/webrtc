@@ -54,6 +54,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "36412cb9_8852b584",
+        "filename": "p2p/base/turn_port.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 423,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-08-12T15:54:29Z",
+      "side": 1,
+      "message": "ugh, why is this STUN_ERROR_GLOBAL_FAILURE (600) which can theoretically come via the network and not SERVER_NOT_REACHABLE_ERROR (701) even...",
+      "revId": "a89505748952ec3af63b7276a7b1c4c8cd4654bd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "74ab3b28_dafa7041",
         "filename": "p2p/base/turn_port.cc",
         "patchSetId": 5
@@ -65,6 +82,24 @@
       "writtenOn": "2024-08-12T11:27:48Z",
       "side": 1,
       "message": "This is a suspicious way to suppress that error message.\nChanging the error code to STUN_ERROR_ADDRESS_FAMILY_MISMATCH and filtering on that is cleaner, even if stun.h has to have a number that says \"Nonstandard error code, internal usage only\".",
+      "revId": "a89505748952ec3af63b7276a7b1c4c8cd4654bd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f730adf9_d48e2e06",
+        "filename": "p2p/base/turn_port.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 957,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-08-12T15:54:29Z",
+      "side": 1,
+      "message": "Bear with me... OnStunBindingOrResolveRequestFailed is a normal action. That it emits an error (and exposes it to JS) is the somewhat unexpected thing. But we should not split the code paths because then we will forget to call the \"we tried everything now\" that concludes ICE in *some* case...\n\nI think there are more cases where emitting an error does not make sense.\nWDYT about making a const empty string kSuppressError and then comparing it (which should be as efficient)\nOr we treat everything above STUN_ERROR_INTERNAL (700) as something filtered.",
+      "parentUuid": "74ab3b28_dafa7041",
       "revId": "a89505748952ec3af63b7276a7b1c4c8cd4654bd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

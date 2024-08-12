@@ -21,7 +21,9 @@
 #include "api/array_view.h"
 #include "api/field_trials_view.h"
 #include "modules/rtp_rtcp/source/rtp_util.h"
+#ifdef EXTERNAL_AUTH
 #include "pc/external_hmac.h"
+#endif
 #include "rtc_base/byte_order.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
@@ -86,11 +88,13 @@ bool LibSrtpInitializer::IncrementLibsrtpUsageCountAndMaybeInit(
       return false;
     }
 
+#ifdef EXTERNAL_AUTH
     err = external_crypto_init();
     if (err != srtp_err_status_ok) {
       RTC_LOG(LS_ERROR) << "Failed to initialize fake auth, err=" << err;
       return false;
     }
+#endif
   }
   ++usage_count_;
   return true;
@@ -294,10 +298,11 @@ bool SrtpSession::GetRtpAuthParams(uint8_t** key, int* key_len, int* tag_len) {
     return false;
   }
 
-  ExternalHmacContext* external_hmac = nullptr;
+#ifdef EXTERNAL_AUTH
   // stream_template will be the reference context for other streams.
   // Let's use it for getting the keys.
   srtp_stream_ctx_t* srtp_context = session_->stream_template;
+  ExternalHmacContext* external_hmac = nullptr;
   if (srtp_context && srtp_context->session_keys &&
       srtp_context->session_keys->rtp_auth) {
     external_hmac = reinterpret_cast<ExternalHmacContext*>(
@@ -313,6 +318,9 @@ bool SrtpSession::GetRtpAuthParams(uint8_t** key, int* key_len, int* tag_len) {
   *key_len = external_hmac->key_length;
   *tag_len = rtp_auth_tag_len_;
   return true;
+#else
+  return false;
+#endif
 }
 
 int SrtpSession::GetSrtpOverhead() const {
@@ -392,10 +400,12 @@ bool SrtpSession::DoSetKey(int type,
   // By default policy structure is initialized to HMAC_SHA1.
   // Enable external HMAC authentication only for outgoing streams and only
   // for cipher suites that support it (i.e. only non-GCM cipher suites).
+#ifdef EXTERNAL_AUTH
   if (type == ssrc_any_outbound && IsExternalAuthEnabled() &&
       !rtc::IsGcmCryptoSuite(crypto_suite)) {
     policy.rtp.auth_type = EXTERNAL_HMAC_SHA1;
   }
+#endif
   if (!extension_ids.empty()) {
     policy.enc_xtn_hdr = const_cast<int*>(&extension_ids[0]);
     policy.enc_xtn_hdr_count = static_cast<int>(extension_ids.size());
@@ -420,7 +430,11 @@ bool SrtpSession::DoSetKey(int type,
 
   rtp_auth_tag_len_ = policy.rtp.auth_tag_len;
   rtcp_auth_tag_len_ = policy.rtcp.auth_tag_len;
+#ifdef EXTERNAL_AUTH
   external_auth_active_ = (policy.rtp.auth_type == EXTERNAL_HMAC_SHA1);
+#else
+  external_auth_active_ = false;
+#endif
   return true;
 }
 

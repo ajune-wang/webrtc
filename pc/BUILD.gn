@@ -579,7 +579,6 @@ rtc_source_set("srtp_session") {
     "srtp_session.h",
   ]
   deps = [
-    ":external_hmac",
     "../api:array_view",
     "../api:field_trials_view",
     "../api:scoped_refptr",
@@ -599,6 +598,10 @@ rtc_source_set("srtp_session") {
   ]
   if (rtc_build_libsrtp) {
     deps += [ "//third_party/libsrtp" ]
+
+    if (rtc_enable_external_auth) {
+      deps += [ ":external_hmac" ]
+    }
   }
 }
 rtc_source_set("srtp_transport") {

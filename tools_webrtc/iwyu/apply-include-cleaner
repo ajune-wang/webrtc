@@ -98,5 +98,11 @@ fi
 
 $CLEANER -p $WORKDIR $INCLUDE_ARGS $COMMAND $FILE
 
+# include-cleaner does not support custom mappings for certain deps
+# this ensures that the gtest/gmock deps it inserts are replaced
+# with the right paths for those includes.
+git diff-index -U -G "gtest\/gtest\.h" HEAD --name-only | xargs -I {} sh -c "sed -i -E 's@gtest\/gtest\.h@test\/gtest\.h@g' {}"
+git diff-index -U -G "gmock\/gmock\.h" HEAD --name-only | xargs -I {} sh -c "sed -i -E 's@gmock\/gmock\.h@test\/gmock\.h@g' {}"
+
 echo "Finished. Check diff, compile, gn gen --check and git cl format"
 echo "before uploading."

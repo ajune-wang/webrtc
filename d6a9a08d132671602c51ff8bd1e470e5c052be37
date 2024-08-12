@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "37515a45_887f928b",
+        "filename": "api/transport/stun.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 737,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-08-12T22:15:05Z",
+      "side": 1,
+      "message": "can I just remove it? Not clear to me why it is not part of the enum but then we have two enums (other one below) for STUN and TURN error codes while it should be one...",
+      "revId": "d6a9a08d132671602c51ff8bd1e470e5c052be37",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

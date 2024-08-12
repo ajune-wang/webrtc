@@ -18,6 +18,46 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "377345fb_79200ac3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2024-08-12T08:22:48Z",
+      "side": 1,
+      "message": "Thanks for fixing this!",
+      "revId": "44bbc3fa081f460acd1b30676333af181aece90b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7957a105_66932568",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2024-08-12T08:22:48Z",
+      "side": 1,
+      "message": "I don\u0027t see why this bool is needed. The checks in `RtpPacketSenderProxy` seem sufficient, and this atomic will not prevent it from being called when `rtp_packet_pacer_` is nullptr (since it can be reset in between the `congestion_control_configured_.load()` check and `EnqueuePackets` is called).",
+      "range": {
+        "startLine": 273,
+        "startChar": 0,
+        "endLine": 273,
+        "endChar": 59
+      },
+      "revId": "44bbc3fa081f460acd1b30676333af181aece90b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9832d146_57ff2da3",
@@ -31,6 +71,29 @@
       "writtenOn": "2024-08-12T05:17:53Z",
       "side": 1,
       "message": "nit: missing .",
+      "revId": "44bbc3fa081f460acd1b30676333af181aece90b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f4e466da_7a53ad7d",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 323,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2024-08-12T08:22:48Z",
+      "side": 1,
+      "message": "It seems expected that `EnqueuePackets` will be called with rtp_packet_pacer_ being nullptr, so I would not have this dcheck. Maybe log a warning or something instead.",
+      "range": {
+        "startLine": 323,
+        "startChar": 6,
+        "endLine": 323,
+        "endChar": 27
+      },
       "revId": "44bbc3fa081f460acd1b30676333af181aece90b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

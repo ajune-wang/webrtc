@@ -41,6 +41,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "da2bc38a_023ee988",
+        "filename": "call/video_receive_stream.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 3485001
+      },
+      "writtenOn": "2024-08-12T15:55:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bc5307ed_28859e6e",
+      "range": {
+        "startLine": 140,
+        "startChar": 4,
+        "endLine": 140,
+        "endChar": 43
+      },
+      "revId": "51cd10302f4399e1a3c290a8ac2d90c40fe9ccda",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1b4bf34e_544692c9",
@@ -54,6 +78,30 @@
       "writtenOn": "2024-08-12T09:38:00Z",
       "side": 1,
       "message": "I\u0027d avoid adding this type of dummy values. Just add usage from test cases instead.",
+      "range": {
+        "startLine": 45,
+        "startChar": 0,
+        "endLine": 49,
+        "endChar": 0
+      },
+      "revId": "51cd10302f4399e1a3c290a8ac2d90c40fe9ccda",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b934752e_fa84c7f9",
+        "filename": "video/receive_statistics_proxy.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 3485001
+      },
+      "writtenOn": "2024-08-12T15:55:18Z",
+      "side": 1,
+      "message": "See comment below.",
+      "parentUuid": "1b4bf34e_544692c9",
       "range": {
         "startLine": 45,
         "startChar": 0,
@@ -89,6 +137,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a480b350_04c62ca0",
+        "filename": "video/receive_statistics_proxy.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 702,
+      "author": {
+        "id": 3485001
+      },
+      "writtenOn": "2024-08-12T15:55:18Z",
+      "side": 1,
+      "message": "Yes exactly. But I understood that @linderborg@webrtc.org is going to do that in a separate CL. We do not need to submit this CL until that one has passed. Or do you want me to do implement a callback with this CL?",
+      "parentUuid": "e2e92b28_e429707b",
+      "range": {
+        "startLine": 702,
+        "startChar": 2,
+        "endLine": 702,
+        "endChar": 52
+      },
+      "revId": "51cd10302f4399e1a3c290a8ac2d90c40fe9ccda",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "de262010_88e470c3",
         "filename": "video/receive_statistics_proxy.cc",
         "patchSetId": 1
@@ -100,6 +172,24 @@
       "writtenOn": "2024-08-12T09:38:00Z",
       "side": 1,
       "message": "Yes, slicing on content type seems useful here.",
+      "revId": "51cd10302f4399e1a3c290a8ac2d90c40fe9ccda",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d39443c8_9c323c5d",
+        "filename": "video/receive_statistics_proxy.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 704,
+      "author": {
+        "id": 3485001
+      },
+      "writtenOn": "2024-08-12T15:55:18Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "de262010_88e470c3",
       "revId": "51cd10302f4399e1a3c290a8ac2d90c40fe9ccda",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -123,6 +213,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3151fe58_f129c682",
+        "filename": "video/receive_statistics_proxy.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 707,
+      "author": {
+        "id": 3485001
+      },
+      "writtenOn": "2024-08-12T15:55:18Z",
+      "side": 1,
+      "message": "Acknowledged. Let me create a new CL for this and discuss it over there before we continue with this one then.",
+      "parentUuid": "5a954f77_30975f72",
+      "revId": "51cd10302f4399e1a3c290a8ac2d90c40fe9ccda",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "91f42d88_7a1f4854",
         "filename": "video/receive_statistics_proxy.cc",
         "patchSetId": 1
@@ -134,6 +242,24 @@
       "writtenOn": "2024-08-12T09:38:00Z",
       "side": 1,
       "message": "If we have a `SampleCounterWithVariance\u003cdouble\u003e` then we can report both mean and variance - alternatively pick an percentile that seems reasonable and report just that.",
+      "revId": "51cd10302f4399e1a3c290a8ac2d90c40fe9ccda",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "414f761c_c51f678b",
+        "filename": "video/receive_statistics_proxy.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 711,
+      "author": {
+        "id": 3485001
+      },
+      "writtenOn": "2024-08-12T15:55:18Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "91f42d88_7a1f4854",
       "revId": "51cd10302f4399e1a3c290a8ac2d90c40fe9ccda",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -151,6 +277,30 @@
       "writtenOn": "2024-08-12T09:38:00Z",
       "side": 1,
       "message": "I think we might want a `SampleCounterWithVariance` here.\n\nAlso not sure if we want to use this int version with a scaled double. Might be possible to change sample counter to be templetized (with int being the default type). That should be in a separate pre-cursor CL to this in that case. wdyt?",
+      "range": {
+        "startLine": 147,
+        "startChar": 4,
+        "endLine": 147,
+        "endChar": 40
+      },
+      "revId": "51cd10302f4399e1a3c290a8ac2d90c40fe9ccda",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6ad432c0_82b84b98",
+        "filename": "video/receive_statistics_proxy.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 3485001
+      },
+      "writtenOn": "2024-08-12T15:55:18Z",
+      "side": 1,
+      "message": "Sure can do that.",
+      "parentUuid": "4efc7521_b26b88d0",
       "range": {
         "startLine": 147,
         "startChar": 4,

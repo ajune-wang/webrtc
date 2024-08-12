@@ -38,6 +38,8 @@ class TransientSuppressorImpl : public TransientSuppressor {
                   int detector_rate_hz,
                   int num_channels) override;
 
+  // TODO(tommi): Accept a DeinterleavedView<> instead of `data`, `data_length`
+  // `num_channels`. Same for detection (MonoView?) and reference data.
   float Suppress(float* data,
                  size_t data_length,
                  int num_channels,

@@ -119,8 +119,8 @@ static const size_t kMaxNumFramesToBuffer = 100;
 void PackRenderAudioBufferForEchoDetector(const AudioBuffer& audio,
                                           std::vector<float>& packed_buffer) {
   packed_buffer.clear();
-  packed_buffer.insert(packed_buffer.end(), audio.channels_const()[0],
-                       audio.channels_const()[0] + audio.num_frames());
+  MonoView<const float> view = audio.channels_const()[0];
+  packed_buffer.insert(packed_buffer.end(), view.begin(), view.end());
 }
 
 // Options for gracefully handling processing errors.
@@ -1250,6 +1250,8 @@ int AudioProcessingImpl::ProcessCaptureStreamLocked() {
 
   AudioBuffer* capture_buffer = capture_.capture_audio.get();  // For brevity.
   AudioBuffer* linear_aec_buffer = capture_.linear_aec_output.get();
+  RTC_DCHECK_EQ(capture_nonlocked_.capture_processing_format.num_frames(),
+                capture_buffer->num_frames());
 
   if (submodules_.high_pass_filter &&
       config_.high_pass_filter.apply_in_full_band &&
@@ -1270,9 +1272,10 @@ int AudioProcessingImpl::ProcessCaptureStreamLocked() {
         *capture_buffer);
   }
 
-  capture_input_rms_.Analyze(rtc::ArrayView<const float>(
-      capture_buffer->channels_const()[0],
-      capture_nonlocked_.capture_processing_format.num_frames()));
+  MonoView<const float> ch = capture_buffer->channels_const()[0];
+  RTC_DCHECK_EQ(capture_nonlocked_.capture_processing_format.num_frames(),
+                SamplesPerChannel(ch));
+  capture_input_rms_.Analyze(ch);
   const bool log_rms = ++capture_rms_interval_counter_ >= 1000;
   if (log_rms) {
     capture_rms_interval_counter_ = 0;
@@ -1428,7 +1431,18 @@ int AudioProcessingImpl::ProcessCaptureStreamLocked() {
       if (submodule_states_.CaptureMultiBandProcessingActive(ec_active)) {
         capture_buffer->CopyTo(capture_.capture_fullband_audio.get());
       }
+      // TODO(tommi): Changing what `capture_buffer` is at this point is risky
+      // because the `ProcessCaptureStreamLocked()` function is so huge that
+      // it's practically impossible to fully what the variable represents
+      // consistently throughout all the possible paths the flow might take.
+      // Instead, the function could be broken up into smaller, more readable
+      // parts.
+      // Note that when this happens, what capture_buffer points to and `ch`
+      // for analysis, no longer matches with the settings in
+      // `capture_nonlocked_.capture_processing_format.num_frames()`.
       capture_buffer = capture_.capture_fullband_audio.get();
+      // Update `ch` since `capture_buffer` now points to a different buffer.
+      ch = capture_buffer->channels_const()[0];
     }
 
     if (submodules_.echo_detector) {
@@ -1685,9 +1699,8 @@ bool AudioProcessingImpl::GetLinearAecOutput(
 
     for (size_t ch = 0; ch < linear_aec_buffer->num_channels(); ++ch) {
       RTC_DCHECK_EQ(linear_output[ch].size(), linear_aec_buffer->num_frames());
-      rtc::ArrayView<const float> channel_view =
-          rtc::ArrayView<const float>(linear_aec_buffer->channels_const()[ch],
-                                      linear_aec_buffer->num_frames());
+      MonoView<const float> channel_view =
+          linear_aec_buffer->channels_const()[ch];
       FloatS16ToFloat(channel_view.data(), channel_view.size(),
                       linear_output[ch].data());
     }

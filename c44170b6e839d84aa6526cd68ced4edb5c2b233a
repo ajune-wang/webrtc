@@ -33,6 +33,24 @@
       "message": "+Mirko for sdk/BUILD.gn approval\nand suggestion what can be done with ios_dbg_simulator bot that keeps failing due to infrastructure issues.\n\n(This is ios specific change, so just ignoring this bot doesn\u0027t feel like a good idea)",
       "revId": "c44170b6e839d84aa6526cd68ced4edb5c2b233a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cf981b4f_66a7a1f6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2024-08-12T09:39:10Z",
+      "side": 1,
+      "message": "There are some issues with xcode con this bot so I temporarily skipped https://webrtc-review.googlesource.com/c/src/+/358601.\n\nIs landing this CL urgent?",
+      "parentUuid": "70b7697d_f63cac87",
+      "revId": "c44170b6e839d84aa6526cd68ced4edb5c2b233a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

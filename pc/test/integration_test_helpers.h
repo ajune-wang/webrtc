@@ -796,7 +796,9 @@ class PeerConnectionIntegrationWrapper : public PeerConnectionObserver,
     // SetLocalDescription.
     SendSdpMessage(type, sdp);
     EXPECT_TRUE_WAIT(observer->called(), kDefaultTimeout);
-    return true;
+    // @no-commit: make sure this doesn't break other tests that were ok with
+    // failed SetLocalDescription. hopefully none?
+    return observer->result();
   }
 
   bool SetRemoteDescription(std::unique_ptr<SessionDescriptionInterface> desc) {

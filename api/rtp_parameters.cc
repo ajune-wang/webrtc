@@ -291,7 +291,8 @@ const std::vector<RtpExtension> RtpExtension::DeduplicateHeaderExtensions(
       if (extension.encrypt) {
         continue;
       }
-      if (!HeaderExtensionWithUriExists(filtered, extension.uri)) {
+      if (FindHeaderExtensionByUriAndEncryption(filtered, extension.uri,
+                                                false) != NULL) {
         filtered.push_back(extension);
       }
     }

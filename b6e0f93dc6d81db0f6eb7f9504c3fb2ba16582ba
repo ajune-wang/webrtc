@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "39f64b73_a74c4854",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-08-13T15:57:12Z",
+      "side": 1,
+      "message": "Jonas, can you please do the second +1?",
+      "revId": "b6e0f93dc6d81db0f6eb7f9504c3fb2ba16582ba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

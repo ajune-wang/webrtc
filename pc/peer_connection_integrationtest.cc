@@ -300,6 +300,43 @@ TEST_P(PeerConnectionIntegrationTest,
   ASSERT_TRUE(ExpectNewFrames(media_expectations));
 }
 
+// The caller offers encrypted extensions, but the callee does not accept them,
+// then initiates a renegotiation
+TEST_P(PeerConnectionIntegrationTest,
+       OneSidedEncryptedRtpHeaderExtensionsWithRenegotiation) {
+  CryptoOptions caller_crypto_options;
+  caller_crypto_options.srtp.enable_encrypted_rtp_header_extensions = true;
+  PeerConnectionInterface::RTCConfiguration caller_config;
+  caller_config.crypto_options = caller_crypto_options;
+
+  CryptoOptions callee_crypto_options;
+  callee_crypto_options.srtp.enable_encrypted_rtp_header_extensions = false;
+  PeerConnectionInterface::RTCConfiguration callee_config;
+  callee_config.crypto_options = callee_crypto_options;
+
+  caller_config.offer_extmap_allow_mixed = true;
+  callee_config.offer_extmap_allow_mixed = true;
+  ASSERT_TRUE(
+      CreatePeerConnectionWrappersWithConfig(caller_config, callee_config));
+  ConnectFakeSignaling();
+
+  // Do normal offer/answer and wait for some frames to be received in each
+  // direction.
+  caller()->AddAudioVideoTracks();
+  callee()->AddAudioVideoTracks();
+  caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+  MediaExpectations media_expectations;
+  media_expectations.ExpectBidirectionalAudioAndVideo();
+  ASSERT_TRUE(ExpectNewFrames(media_expectations));
+
+  // Callee, who doesn't support encrypted extensions, renegotiates
+  callee()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+  media_expectations.ExpectBidirectionalAudioAndVideo();
+  ASSERT_TRUE(ExpectNewFrames(media_expectations));
+}
+
 // This test sets up a call between two parties with a source resolution of
 // 1280x720 and verifies that a 16:9 aspect ratio is received.
 TEST_P(PeerConnectionIntegrationTest,

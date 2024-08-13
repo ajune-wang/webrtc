@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "2c55ec94_cc09980b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-08-13T09:10:49Z",
+      "side": 1,
+      "message": "Presubmit won\u0027t pass this one.",
+      "revId": "7c1691818ae04ce48caf38b3a17188b4eb8acb2e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "cb834454_d7ab743d",
@@ -14,6 +31,23 @@
       "writtenOn": "2024-08-13T06:45:22Z",
       "side": 1,
       "message": "Seems OK to submit now, but let me run the internal bots...",
+      "revId": "7c1691818ae04ce48caf38b3a17188b4eb8acb2e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "32ccf821_ae3698c0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-08-13T09:10:49Z",
+      "side": 1,
+      "message": "Internal bots seem OKish (they\u0027re failing on apparently unrelated issues).",
       "revId": "7c1691818ae04ce48caf38b3a17188b4eb8acb2e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

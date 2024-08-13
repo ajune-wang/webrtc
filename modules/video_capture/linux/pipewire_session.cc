@@ -52,6 +52,13 @@ VideoType PipeWireRawFormatToVideoType(uint32_t id) {
   }
 }
 
+// static
+PipeWireNode::PipeWireNodePtr PipeWireNode::Create(PipeWireSession* session,
+                                                   uint32_t id,
+                                                   const spa_dict* props) {
+  return PipeWireNodePtr(new PipeWireNode(session, id, props));
+}
+
 PipeWireNode::PipeWireNode(PipeWireSession* session,
                            uint32_t id,
                            const spa_dict* props)
@@ -71,11 +78,6 @@ PipeWireNode::PipeWireNode(PipeWireSession* session,
   };
 
   pw_node_add_listener(proxy_, &node_listener_, &node_events, this);
-}
-
-PipeWireNode::~PipeWireNode() {
-  pw_proxy_destroy(proxy_);
-  spa_hook_remove(&node_listener_);
 }
 
 // static
@@ -99,7 +101,9 @@ void PipeWireNode::OnNodeInfo(void* data, const pw_node_info* info) {
                pid.value());
       that->model_id_ = model_str;
     }
-  } else if (info->change_mask & PW_NODE_CHANGE_MASK_PARAMS) {
+  }
+
+  if (info->change_mask & PW_NODE_CHANGE_MASK_PARAMS) {
     for (uint32_t i = 0; i < info->n_params; i++) {
       uint32_t id = info->params[i].id;
       if (id == SPA_PARAM_EnumFormat &&
@@ -350,6 +354,14 @@ void PipeWireSession::OnCoreDone(void* data, uint32_t id, int seq) {
   if (id == PW_ID_CORE) {
     if (seq == that->sync_seq_) {
       RTC_LOG(LS_VERBOSE) << "Enumerating PipeWire camera devices complete.";
+
+      // Remove camera devices with no capabilities
+      auto it = std::remove_if(that->nodes_.begin(), that->nodes_.end(),
+                               [](const PipeWireNodePtr& node) {
+                                 return node->capabilities().empty();
+                               });
+      that->nodes_.erase(it, that->nodes_.end());
+
       that->Finish(VideoCaptureOptions::Status::SUCCESS);
     }
   }
@@ -366,8 +378,8 @@ void PipeWireSession::OnRegistryGlobal(void* data,
 
   // Skip already added nodes to avoid duplicate camera entries
   if (std::find_if(that->nodes_.begin(), that->nodes_.end(),
-                   [id](const PipeWireNode& node) {
-                     return node.id() == id;
+                   [id](const PipeWireNodePtr& node) {
+                     return node->id() == id;
                    }) != that->nodes_.end())
     return;
 
@@ -381,7 +393,7 @@ void PipeWireSession::OnRegistryGlobal(void* data,
   if (!node_role || strcmp(node_role, "Camera"))
     return;
 
-  that->nodes_.emplace_back(that, id, props);
+  that->nodes_.emplace_back(PipeWireNode::Create(that, id, props));
   that->PipeWireSync();
 }
 
@@ -391,7 +403,7 @@ void PipeWireSession::OnRegistryGlobalRemove(void* data, uint32_t id) {
 
   auto it = std::remove_if(
       that->nodes_.begin(), that->nodes_.end(),
-      [id](const PipeWireNode& node) { return node.id() == id; });
+      [id](const PipeWireNodePtr& node) { return node->id() == id; });
   that->nodes_.erase(it, that->nodes_.end());
 }
 

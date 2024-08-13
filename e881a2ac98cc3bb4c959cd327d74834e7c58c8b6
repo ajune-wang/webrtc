@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "14a3891f_1636884b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8178
+      },
+      "writtenOn": "2024-08-13T12:28:53Z",
+      "side": 1,
+      "message": "Should make clearer the responsibility of setting up and tearing down the proxy and the listener.",
+      "revId": "e881a2ac98cc3bb4c959cd327d74834e7c58c8b6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b41ba24c_b66c0705",
+        "filename": "modules/video_capture/linux/device_info_pipewire.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 8178
+      },
+      "writtenOn": "2024-08-13T12:28:53Z",
+      "side": 1,
+      "message": "const?",
+      "revId": "e881a2ac98cc3bb4c959cd327d74834e7c58c8b6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "855bd3cc_1137621b",
+        "filename": "modules/video_capture/linux/pipewire_session.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 8178
+      },
+      "writtenOn": "2024-08-13T12:28:53Z",
+      "side": 1,
+      "message": "Without a dtor, it\u0027ll be easy to make a mistake and run this pw_registry_bind (and the others below) through the ctor without the matching teardown bits in the deleter.\n\nI\u0027d suggest making the ctor private and using a static `Create` function that returns the appropriate unique_ptr type.",
+      "revId": "e881a2ac98cc3bb4c959cd327d74834e7c58c8b6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

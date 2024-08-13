@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "64b1a16a_83dfb1ee",
+        "filename": "modules/video_capture/linux/pipewire_session.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 417,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2024-08-13T15:34:00Z",
+      "side": 1,
+      "message": "nit: \".\" at the end.",
+      "range": {
+        "startLine": 417,
+        "startChar": 14,
+        "endLine": 417,
+        "endChar": 25
+      },
+      "revId": "396db7cf5ac73e83f27afedb53cc50c89b9489a2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6f502fed_2e95facd",
+        "filename": "modules/video_capture/linux/pipewire_session.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 433,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2024-08-13T15:34:00Z",
+      "side": 1,
+      "message": "nit: \".\" at the end.",
+      "range": {
+        "startLine": 433,
+        "startChar": 14,
+        "endLine": 433,
+        "endChar": 25
+      },
+      "revId": "396db7cf5ac73e83f27afedb53cc50c89b9489a2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -29,6 +29,7 @@
 namespace webrtc {
 namespace videocapturemodule {
 
+class DeviceInfoPipeWire;
 class PipeWireSession;
 class VideoCaptureModulePipeWire;
 
@@ -88,6 +89,10 @@ class PipeWireSession : public rtc::RefCountedNonVirtual<PipeWireSession> {
   void Init(VideoCaptureOptions::Callback* callback,
             int fd = kInvalidPipeWireFd);
 
+  // [De]Register DeviceInfo for device change updates
+  void RegisterDeviceInfo(DeviceInfoPipeWire* device_info);
+  void DeRegisterDeviceInfo(DeviceInfoPipeWire* device_info);
+
   const std::deque<PipeWireNode>& nodes() const { return nodes_; }
 
   friend class CameraPortalNotifier;
@@ -99,6 +104,8 @@ class PipeWireSession : public rtc::RefCountedNonVirtual<PipeWireSession> {
   bool StartPipeWire(int fd);
   void StopPipeWire();
   void PipeWireSync();
+
+  void NotifyDeviceChange();
 
   static void OnCoreError(void* data,
                           uint32_t id,
@@ -121,6 +128,10 @@ class PipeWireSession : public rtc::RefCountedNonVirtual<PipeWireSession> {
   webrtc::Mutex callback_lock_;
   VideoCaptureOptions::Callback* callback_ RTC_GUARDED_BY(&callback_lock_) =
       nullptr;
+
+  webrtc::Mutex device_info_lock_;
+  std::set<DeviceInfoPipeWire*> device_info_list_
+      RTC_GUARDED_BY(device_info_lock_);
 
   VideoCaptureOptions::Status status_;
 

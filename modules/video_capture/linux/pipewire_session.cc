@@ -18,6 +18,7 @@
 
 #include "common_video/libyuv/include/webrtc_libyuv.h"
 #include "modules/video_capture/device_info_impl.h"
+#include "modules/video_capture/linux/device_info_pipewire.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/sanitizer.h"
 #include "rtc_base/string_encode.h"
@@ -268,6 +269,19 @@ void PipeWireSession::InitPipeWire(int fd) {
     Finish(VideoCaptureOptions::Status::ERROR);
 }
 
+void PipeWireSession::RegisterDeviceInfo(DeviceInfoPipeWire* device_info) {
+  MutexLock lock(&device_info_lock_);
+  device_info_list_.insert(device_info);
+}
+
+void PipeWireSession::DeRegisterDeviceInfo(DeviceInfoPipeWire* device_info) {
+  MutexLock lock(&device_info_lock_);
+  auto it = device_info_list_.find(device_info);
+  if (it != device_info_list_.end()) {
+    device_info_list_.erase(it);
+  }
+}
+
 RTC_NO_SANITIZE("cfi-icall")
 bool PipeWireSession::StartPipeWire(int fd) {
   pw_init(/*argc=*/nullptr, /*argv=*/nullptr);
@@ -340,6 +354,14 @@ void PipeWireSession::PipeWireSync() {
   sync_seq_ = pw_core_sync(pw_core_, PW_ID_CORE, sync_seq_);
 }
 
+void PipeWireSession::NotifyDeviceChange() {
+  RTC_LOG(LS_INFO) << "Notify about device list changes";
+  MutexLock lock(&device_info_lock_);
+  for (auto* deviceInfo : device_info_list_) {
+    deviceInfo->DeviceChange();
+  }
+}
+
 // static
 void PipeWireSession::OnCoreError(void* data,
                                   uint32_t id,
@@ -390,6 +412,12 @@ void PipeWireSession::OnRegistryGlobal(void* data,
 
   that->nodes_.emplace_back(that, id, props);
   that->PipeWireSync();
+
+  // It makes sense to notify about device changes only once we are
+  // properly initialized
+  if (that->status_ == VideoCaptureOptions::Status::SUCCESS) {
+    that->NotifyDeviceChange();
+  }
 }
 
 // static
@@ -400,10 +428,18 @@ void PipeWireSession::OnRegistryGlobalRemove(void* data, uint32_t id) {
       that->nodes_.begin(), that->nodes_.end(),
       [id](const PipeWireNode& node) { return node.id() == id; });
   that->nodes_.erase(it, that->nodes_.end());
+
+  // It makes sense to notify about device changes only once we are
+  // properly initialized
+  if (that->status_ == VideoCaptureOptions::Status::SUCCESS) {
+    that->NotifyDeviceChange();
+  }
 }
 
 void PipeWireSession::Finish(VideoCaptureOptions::Status status) {
   webrtc::MutexLock lock(&callback_lock_);
+
+  status_ = status;
 
   if (callback_) {
     callback_->OnInitialized(status);

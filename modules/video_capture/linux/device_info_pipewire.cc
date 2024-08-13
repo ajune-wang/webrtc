@@ -29,13 +29,17 @@
 namespace webrtc {
 namespace videocapturemodule {
 DeviceInfoPipeWire::DeviceInfoPipeWire(VideoCaptureOptions* options)
-    : DeviceInfoImpl(), pipewire_session_(options->pipewire_session()) {}
+    : DeviceInfoImpl(), pipewire_session_(options->pipewire_session()) {
+  pipewire_session_->RegisterDeviceInfo(this);
+}
 
 int32_t DeviceInfoPipeWire::Init() {
   return 0;
 }
 
-DeviceInfoPipeWire::~DeviceInfoPipeWire() = default;
+DeviceInfoPipeWire::~DeviceInfoPipeWire() {
+  pipewire_session_->DeRegisterDeviceInfo(this);
+}
 
 uint32_t DeviceInfoPipeWire::NumberOfDevices() {
   RTC_CHECK(pipewire_session_);

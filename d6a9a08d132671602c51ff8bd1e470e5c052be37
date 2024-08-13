@@ -34,6 +34,24 @@
       "parentUuid": "37515a45_887f928b",
       "revId": "d6a9a08d132671602c51ff8bd1e470e5c052be37",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0f284e45_61d966d6",
+        "filename": "api/transport/stun.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 737,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-08-13T15:59:31Z",
+      "side": 1,
+      "message": "yeah but both are defined in stun.h and they are enums, not class enum where splitting with inheritance would make sense so you would reference them as StunErrorCode:: and TurnErrorCode::. Will clean up as a follow-up.",
+      "parentUuid": "33cbacbd_a4b83683",
+      "revId": "d6a9a08d132671602c51ff8bd1e470e5c052be37",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

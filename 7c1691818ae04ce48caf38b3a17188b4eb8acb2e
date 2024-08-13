@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cb834454_d7ab743d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-08-13T06:45:22Z",
+      "side": 1,
+      "message": "Seems OK to submit now, but let me run the internal bots...",
+      "revId": "7c1691818ae04ce48caf38b3a17188b4eb8acb2e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "34d94255_321d9522",
+        "filename": "p2p/base/stun_port.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 475,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-08-13T06:45:22Z",
+      "side": 1,
+      "message": "Good name!",
+      "revId": "7c1691818ae04ce48caf38b3a17188b4eb8acb2e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

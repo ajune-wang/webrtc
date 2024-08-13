@@ -16,6 +16,24 @@
       "message": "can I just remove it? Not clear to me why it is not part of the enum but then we have two enums (other one below) for STUN and TURN error codes while it should be one...",
       "revId": "d6a9a08d132671602c51ff8bd1e470e5c052be37",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "33cbacbd_a4b83683",
+        "filename": "api/transport/stun.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 737,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-08-13T06:45:22Z",
+      "side": 1,
+      "message": "I think the excuse for the two enums is that STUN needs to be standalone and not depend on TURN. I don\u0027t agree with that logic; I\u0027d rather merge them even though it introduces a (formalistic) dependency from the STUN implementation to the TURN spec.",
+      "parentUuid": "37515a45_887f928b",
+      "revId": "d6a9a08d132671602c51ff8bd1e470e5c052be37",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

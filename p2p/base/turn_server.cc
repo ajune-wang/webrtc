@@ -625,7 +625,7 @@ void TurnServerAllocation::HandleAllocateRequest(const TurnMessage* msg) {
   auto relayed_addr_attr = std::make_unique<StunXorAddressAttribute>(
       STUN_ATTR_XOR_RELAYED_ADDRESS, external_socket_->GetLocalAddress());
   auto lifetime_attr = std::make_unique<StunUInt32Attribute>(
-      STUN_ATTR_LIFETIME, lifetime.seconds());
+      STUN_ATTR_TURN_LIFETIME, lifetime.seconds());
   response.AddAttribute(std::move(mapped_addr_attr));
   response.AddAttribute(std::move(relayed_addr_attr));
   response.AddAttribute(std::move(lifetime_attr));
@@ -649,7 +649,7 @@ void TurnServerAllocation::HandleRefreshRequest(const TurnMessage* msg) {
                        msg->transaction_id());
 
   auto lifetime_attr = std::make_unique<StunUInt32Attribute>(
-      STUN_ATTR_LIFETIME, lifetime.seconds());
+      STUN_ATTR_TURN_LIFETIME, lifetime.seconds());
   response.AddAttribute(std::move(lifetime_attr));
 
   SendResponse(&response);
@@ -801,7 +801,8 @@ void TurnServerAllocation::OnExternalPacket(rtc::AsyncPacketSocket* socket,
 }
 
 TimeDelta TurnServerAllocation::ComputeLifetime(const TurnMessage& msg) {
-  if (const StunUInt32Attribute* attr = msg.GetUInt32(STUN_ATTR_LIFETIME)) {
+  if (const StunUInt32Attribute* attr =
+          msg.GetUInt32(STUN_ATTR_TURN_LIFETIME)) {
     return std::min(TimeDelta::Seconds(static_cast<int>(attr->value())),
                     kDefaultAllocationTimeout);
   }

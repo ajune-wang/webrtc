@@ -1563,8 +1563,8 @@ TurnRefreshRequest::TurnRefreshRequest(TurnPort* port, int lifetime /*= -1*/)
   // No attributes need to be included.
   RTC_DCHECK_EQ(message->type(), TURN_REFRESH_REQUEST);
   if (lifetime > -1) {
-    message->AddAttribute(
-        std::make_unique<StunUInt32Attribute>(STUN_ATTR_LIFETIME, lifetime));
+    message->AddAttribute(std::make_unique<StunUInt32Attribute>(
+        STUN_ATTR_TURN_LIFETIME, lifetime));
   }
 
   port_->AddRequestAuthInfo(message);

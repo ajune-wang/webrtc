@@ -38,7 +38,7 @@ constexpr size_t kCngTimeoutMs = 1000;
 
 std::unique_ptr<DelayManager> CreateDelayManager(
     const NetEqController::Config& neteq_config) {
-  DelayManager::Config config;
+  DelayManager::Config config(neteq_config.env.field_trials());
   config.max_packets_in_buffer = neteq_config.max_packets_in_buffer;
   config.base_minimum_delay_ms = neteq_config.base_min_delay_ms;
   config.Log();

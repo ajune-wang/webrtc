@@ -17,6 +17,7 @@
 #include <memory>
 
 #include "absl/types/optional.h"
+#include "api/environment/environment.h"
 #include "api/neteq/neteq.h"
 #include "api/neteq/tick_timer.h"
 #include "system_wrappers/include/clock.h"
@@ -62,12 +63,14 @@ class NetEqController {
  public:
   // This struct is used to create a NetEqController.
   struct Config {
+    Environment env;
     bool allow_time_stretching;
     bool enable_rtx_handling;
     int max_packets_in_buffer;
     int base_min_delay_ms;
     TickTimer* tick_timer;
-    webrtc::Clock* clock = nullptr;
+    // Deprecated, use env.clock() instead.
+    webrtc::Clock* clock = &env.clock();
   };
 
   struct PacketInfo {

@@ -122,7 +122,7 @@ class NetEqImplTest : public ::testing::Test {
       mock_neteq_controller_ = mock.get();
       deps.neteq_controller = std::move(mock);
     } else {
-      NetEqController::Config controller_config;
+      NetEqController::Config controller_config = {.env = env_};
       controller_config.tick_timer = tick_timer_;
       controller_config.base_min_delay_ms = config_.min_delay_ms;
       controller_config.allow_time_stretching = true;

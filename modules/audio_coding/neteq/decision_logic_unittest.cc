@@ -12,6 +12,7 @@
 
 #include "modules/audio_coding/neteq/decision_logic.h"
 
+#include "api/environment/environment_factory.h"
 #include "api/neteq/neteq_controller.h"
 #include "api/neteq/tick_timer.h"
 #include "modules/audio_coding/neteq/delay_manager.h"
@@ -55,11 +56,12 @@ using ::testing::Return;
 class DecisionLogicTest : public ::testing::Test {
  protected:
   DecisionLogicTest() {
-    NetEqController::Config config;
+    const Environment env = CreateEnvironment();
+    NetEqController::Config config = {.env = env};
     config.tick_timer = &tick_timer_;
     config.allow_time_stretching = true;
     auto delay_manager = std::make_unique<MockDelayManager>(
-        DelayManager::Config(), config.tick_timer);
+        DelayManager::Config(env.field_trials()), config.tick_timer);
     mock_delay_manager_ = delay_manager.get();
     auto buffer_level_filter = std::make_unique<MockBufferLevelFilter>();
     mock_buffer_level_filter_ = buffer_level_filter.get();

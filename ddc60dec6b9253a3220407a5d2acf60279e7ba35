@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3b06cb8d_f00deb9e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-08-14T08:52:05Z",
+      "side": 1,
+      "message": "Anders is OOO and won\u0027t be back soon, so adding another owner for approval",
+      "revId": "ddc60dec6b9253a3220407a5d2acf60279e7ba35",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

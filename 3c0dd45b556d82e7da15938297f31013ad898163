@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b2aa0f5d_c2bd812e",
+        "filename": "modules/video_capture/linux/pipewire_session.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2024-08-14T15:17:25Z",
+      "side": 1,
+      "message": "Not sure what do you mean by Gecko-specific, but it\u0027s not stated anywhere. It\u0027s probably only used in Firefox for now, but that\u0027s because Chromium didn\u0027t use WebRTC for cameras until PipeWire support was added. It still probably unimplemented there, but I don\u0027t think there is reason not to use it in Chromium as well.",
+      "parentUuid": "46a99111_2fd51796",
+      "revId": "3c0dd45b556d82e7da15938297f31013ad898163",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d6aa8917_290f1779",
@@ -31,6 +49,24 @@
       "writtenOn": "2024-08-14T14:04:28Z",
       "side": 1,
       "message": "Please clarify the access policy at the declaration site, i.e. with RTC_GUARDED_BY or similar.",
+      "revId": "3c0dd45b556d82e7da15938297f31013ad898163",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "962ea94d_b4a4e822",
+        "filename": "modules/video_capture/linux/pipewire_session.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 442,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2024-08-14T15:17:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d6aa8917_290f1779",
       "revId": "3c0dd45b556d82e7da15938297f31013ad898163",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

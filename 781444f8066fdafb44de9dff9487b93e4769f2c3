@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5c75eef2_68d71df7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8178
+      },
+      "writtenOn": "2024-08-14T13:54:09Z",
+      "side": 1,
+      "message": "Thanks",
+      "revId": "781444f8066fdafb44de9dff9487b93e4769f2c3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8fdcb745_9e0309c2",
+        "filename": "modules/video_capture/linux/pipewire_session.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 403,
+      "author": {
+        "id": 8178
+      },
+      "writtenOn": "2024-08-14T13:54:09Z",
+      "side": 1,
+      "message": "push_back seems more appropriate",
+      "revId": "781444f8066fdafb44de9dff9487b93e4769f2c3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "83dae9bb_b4f4b499",
+        "filename": "modules/video_capture/linux/pipewire_session.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 8178
+      },
+      "writtenOn": "2024-08-14T13:54:09Z",
+      "side": 1,
+      "message": "Here you\u0027re moving a definition into a header file, which could have a say on includes. Mostly something to be aware of.",
+      "revId": "781444f8066fdafb44de9dff9487b93e4769f2c3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "96d99dcf_5478bf8e",
+        "filename": "modules/video_capture/linux/pipewire_session.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 8178
+      },
+      "writtenOn": "2024-08-14T13:54:09Z",
+      "side": 1,
+      "message": "This if is new, I guess it\u0027s from an intermediate step where you had the move operation on PipeWireNode directly? Might not be needed now.",
+      "revId": "781444f8066fdafb44de9dff9487b93e4769f2c3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dc42e843_ab221cce",
+        "filename": "modules/video_capture/linux/pipewire_session.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 8178
+      },
+      "writtenOn": "2024-08-14T13:54:09Z",
+      "side": 1,
+      "message": "You only need this once.",
+      "revId": "781444f8066fdafb44de9dff9487b93e4769f2c3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -161,6 +161,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ea820ebb_40c81b82",
+        "filename": "video/receive_statistics_proxy.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 702,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2024-08-14T12:49:29Z",
+      "side": 1,
+      "message": "I think we can add the callback method in this CL. Going to be much easier to test the behavior then anyway.",
+      "parentUuid": "a480b350_04c62ca0",
+      "range": {
+        "startLine": 702,
+        "startChar": 2,
+        "endLine": 702,
+        "endChar": 52
+      },
+      "revId": "51cd10302f4399e1a3c290a8ac2d90c40fe9ccda",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "de262010_88e470c3",
         "filename": "video/receive_statistics_proxy.cc",
         "patchSetId": 1

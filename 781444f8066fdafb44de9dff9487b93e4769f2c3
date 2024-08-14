@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dc3eb9d4_19abd5d9",
+        "filename": "modules/video_capture/linux/pipewire_session.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 403,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2024-08-14T15:32:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8fdcb745_9e0309c2",
+      "revId": "781444f8066fdafb44de9dff9487b93e4769f2c3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "83dae9bb_b4f4b499",
@@ -48,6 +66,24 @@
       "writtenOn": "2024-08-14T13:54:09Z",
       "side": 1,
       "message": "Here you\u0027re moving a definition into a header file, which could have a say on includes. Mostly something to be aware of.",
+      "revId": "781444f8066fdafb44de9dff9487b93e4769f2c3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f21dbb81_19e02537",
+        "filename": "modules/video_capture/linux/pipewire_session.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2024-08-14T15:32:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "83dae9bb_b4f4b499",
       "revId": "781444f8066fdafb44de9dff9487b93e4769f2c3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -69,6 +105,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "aa2d78b7_42e180e7",
+        "filename": "modules/video_capture/linux/pipewire_session.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2024-08-14T15:32:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "96d99dcf_5478bf8e",
+      "revId": "781444f8066fdafb44de9dff9487b93e4769f2c3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dc42e843_ab221cce",
@@ -82,6 +136,24 @@
       "writtenOn": "2024-08-14T13:54:09Z",
       "side": 1,
       "message": "You only need this once.",
+      "revId": "781444f8066fdafb44de9dff9487b93e4769f2c3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6bfd3a76_ca1a522d",
+        "filename": "modules/video_capture/linux/pipewire_session.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2024-08-14T15:32:19Z",
+      "side": 1,
+      "message": "I know, but with that I didn\u0027t need to include `PipeWireNode::` for every `PipeWireNodePtr`. Done.",
+      "parentUuid": "dc42e843_ab221cce",
       "revId": "781444f8066fdafb44de9dff9487b93e4769f2c3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

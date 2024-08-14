@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "825963a2_c3382666",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 15079
+      },
+      "writtenOn": "2024-08-14T13:15:25Z",
+      "side": 1,
+      "message": "Please take a look folks, looks like this has become a problem starting with iOS 18.",
+      "revId": "f83d994f77bad71ff521367abb0d256faca1601a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

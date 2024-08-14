@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "18f2f266_8a8ac8a6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-08-14T15:26:54Z",
+      "side": 1,
+      "message": "Any blockers pushing this to the next step?\n\n(this is one of non-trivial usages of the global field trial string through FieldTrialBasedConfig. It is non trivial because this function has to be called before PeerConnectionFactory is created, and thus can\u0027t always rely on propagated field trials as most other classes can. I would prefer to remove FieldTrialsView parameter altogether in this function)",
+      "revId": "d050d3a718a0ac1118e21786bae7404e7d25edf9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

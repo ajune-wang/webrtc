@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "46a99111_2fd51796",
+        "filename": "modules/video_capture/linux/pipewire_session.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 8178
+      },
+      "writtenOn": "2024-08-14T14:04:28Z",
+      "side": 1,
+      "message": "This API is Gecko-specific for now, no?",
+      "revId": "3c0dd45b556d82e7da15938297f31013ad898163",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d6aa8917_290f1779",
+        "filename": "modules/video_capture/linux/pipewire_session.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 442,
+      "author": {
+        "id": 8178
+      },
+      "writtenOn": "2024-08-14T14:04:28Z",
+      "side": 1,
+      "message": "Please clarify the access policy at the declaration site, i.e. with RTC_GUARDED_BY or similar.",
+      "revId": "3c0dd45b556d82e7da15938297f31013ad898163",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

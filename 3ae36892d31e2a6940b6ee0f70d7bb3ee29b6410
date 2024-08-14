@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6190f91e_efd15da4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-08-14T21:45:41Z",
+      "side": 1,
+      "message": "Sergey, can you please take a look while Philip is out?",
+      "revId": "3ae36892d31e2a6940b6ee0f70d7bb3ee29b6410",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a7d6ff11_b3c6b0e7",
+        "filename": "video/receive_statistics_proxy.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 3485001
+      },
+      "writtenOn": "2024-08-14T13:49:14Z",
+      "side": 1,
+      "message": "This only accepts `int` sample values. Probably need to update this, if we dont want a histogram on the range (0, 100) instead. Wdyt @sprang@webrtc.org?",
+      "range": {
+        "startLine": 316,
+        "startChar": 0,
+        "endLine": 317,
+        "endChar": 70
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "a5442ef8_4c1d32d4",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "video/receive_statistics_proxy.cc",
+              "range": {
+                "startLine": 316,
+                "startChar": 0,
+                "endLine": 318,
+                "endChar": 0
+              },
+              "replacement": "      RTC_HISTOGRAM_COUNTS_100(uma_prefix + \".CorruptionScore\",\n                               *corruption_score * 100);\n"
+            }
+          ]
+        }
+      ],
+      "revId": "4d72c483e9cddb0b60123a9f25af89a1b1dc7c14",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

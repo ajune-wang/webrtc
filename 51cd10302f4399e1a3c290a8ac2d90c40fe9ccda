@@ -183,6 +183,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2489387a_98362552",
+        "filename": "video/receive_statistics_proxy.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 702,
+      "author": {
+        "id": 3485001
+      },
+      "writtenOn": "2024-08-14T13:49:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ea820ebb_40c81b82",
+      "range": {
+        "startLine": 702,
+        "startChar": 2,
+        "endLine": 702,
+        "endChar": 52
+      },
+      "revId": "51cd10302f4399e1a3c290a8ac2d90c40fe9ccda",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "de262010_88e470c3",
@@ -249,6 +273,24 @@
       "side": 1,
       "message": "Acknowledged. Let me create a new CL for this and discuss it over there before we continue with this one then.",
       "parentUuid": "5a954f77_30975f72",
+      "revId": "51cd10302f4399e1a3c290a8ac2d90c40fe9ccda",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "83f66967_e40d5d95",
+        "filename": "video/receive_statistics_proxy.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 707,
+      "author": {
+        "id": 3485001
+      },
+      "writtenOn": "2024-08-14T13:49:14Z",
+      "side": 1,
+      "message": "Aborting this idea.",
+      "parentUuid": "3151fe58_f129c682",
       "revId": "51cd10302f4399e1a3c290a8ac2d90c40fe9ccda",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -325,6 +367,30 @@
       "side": 1,
       "message": "Sure can do that.",
       "parentUuid": "4efc7521_b26b88d0",
+      "range": {
+        "startLine": 147,
+        "startChar": 4,
+        "endLine": 147,
+        "endChar": 40
+      },
+      "revId": "51cd10302f4399e1a3c290a8ac2d90c40fe9ccda",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1a5050aa_63505a3f",
+        "filename": "video/receive_statistics_proxy.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 3485001
+      },
+      "writtenOn": "2024-08-14T13:49:14Z",
+      "side": 1,
+      "message": "Probably, what we want is to use `webrtc::webrtc_impl::RunningStatistics` instead.",
+      "parentUuid": "6ad432c0_82b84b98",
       "range": {
         "startLine": 147,
         "startChar": 4,

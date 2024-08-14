@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "638d9b30_6bfccbe6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-08-14T08:54:14Z",
+      "side": 1,
+      "message": "Another approach is to add Environment directly into neteq controller config,\nI\u0027ve tried that: https://webrtc-review.googlesource.com/c/src/+/359242\nbut that would require more temporary code to migrate downstream",
+      "revId": "6e0ef27787185b5fa34864d552ffac86c5377c62",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

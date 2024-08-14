@@ -139,7 +139,7 @@ ACTIVE_FIELD_TRIALS: FrozenSet[FieldTrial] = frozenset([
                date(2024, 10, 1)),
     FieldTrial('WebRTC-TaskQueue-ReplaceLibeventWithStdlib',
                42224654,
-               date(2024, 4, 1)),
+               date(2024, 10, 1)),
     FieldTrial('WebRTC-UseNtpTimeAbsoluteSendTime',
                42226305,
                date(2024, 9, 1)),

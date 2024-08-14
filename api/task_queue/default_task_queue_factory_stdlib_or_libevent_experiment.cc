@@ -24,7 +24,7 @@ std::unique_ptr<TaskQueueFactory> CreateDefaultTaskQueueFactory(
     const FieldTrialsView* field_trials_view) {
   AlwaysValidPointer<const FieldTrialsView, FieldTrialBasedConfig> field_trials(
       field_trials_view);
-  if (field_trials->IsEnabled("WebRTC-TaskQueue-ReplaceLibeventWithStdlib")) {
+  if (!field_trials->IsDisabled("WebRTC-TaskQueue-ReplaceLibeventWithStdlib")) {
     RTC_LOG(LS_INFO) << "WebRTC-TaskQueue-ReplaceLibeventWithStdlib: "
                      << "using TaskQueueStdlibFactory.";
     return CreateTaskQueueStdlibFactory();

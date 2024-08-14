@@ -16,6 +16,23 @@
       "message": "Thanks",
       "revId": "d319df3dda84fe35597f64866a0f88b75f0f6dbd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0cb60ee1_700eabdc",
+        "filename": "call/video_receive_stream.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 17594
+      },
+      "writtenOn": "2024-08-14T10:03:15Z",
+      "side": 1,
+      "message": "Nit: \"it\u0027s\" -\u003e \"its\"",
+      "revId": "d319df3dda84fe35597f64866a0f88b75f0f6dbd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

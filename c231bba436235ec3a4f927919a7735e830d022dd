@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b2535849_89824550",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-08-15T03:41:03Z",
+      "side": 1,
+      "message": "Danil, this is a fun one. I ended up scratching my head when someone told me DD does not work for VP8 while it works for all other codecs.\n\nTurned out my simulcast playground did not negotiate extmap-allow-mixed. This limits the size of the header extensions and VP8 stands out (not sure why?)\nThen I traced it down to the 2021 change (see issue #) you did and found that I should have remembered that issue...\n\n:-)",
+      "revId": "c231bba436235ec3a4f927919a7735e830d022dd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

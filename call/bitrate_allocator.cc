@@ -20,6 +20,7 @@
 #include "api/units/data_rate.h"
 #include "api/units/time_delta.h"
 #include "rtc_base/checks.h"
+#include "rtc_base/experiments/field_trial_parser.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/numerics/safe_minmax.h"
 #include "system_wrappers/include/clock.h"
@@ -317,9 +318,81 @@ std::map<BitrateAllocatorObserver*, int> ZeroRateAllocation(
   return allocation;
 }
 
+void ApplySurplus(std::map<BitrateAllocatorObserver*, int>& allocation,
+                  const std::vector<AllocatableTrack>& allocatable_tracks,
+                  uint32_t bitrate,
+                  int32_t upper_elastic_bps_limit) {
+  if (upper_elastic_bps_limit == 0)
+    return;
+
+  // computes surplus from all tracks
+  int32_t surplus = 0;
+  double sum_demand = 0.0;
+  int sum_assigned = 0;
+
+  for (const auto& observer_config : allocatable_tracks) {
+    sum_assigned += allocation[observer_config.observer];
+    auto config = observer_config.config;
+    bool inactive_can_contribute_and_consume = false;
+    if (!config.rate_elasticity.has_value())
+      continue;
+    if (config.rate_elasticity ==
+            TrackRateElasticity::kCanContributeUnusedRate ||
+        config.rate_elasticity ==
+            TrackRateElasticity::kCanContributeAndConsume) {
+      auto used = observer_config.observer->GetUsedRate();
+      if (used.has_value() &&
+          used.value().bps() < allocation[observer_config.observer]) {
+        surplus += allocation[observer_config.observer] - used.value().bps();
+        if (config.rate_elasticity ==
+                TrackRateElasticity::kCanContributeAndConsume &&
+            used.value().bps() < allocation[observer_config.observer] / 2) {
+          inactive_can_contribute_and_consume = true;
+        }
+      }
+    }
+    if (!inactive_can_contribute_and_consume &&
+        (config.rate_elasticity == TrackRateElasticity::kCanConsumeExtraRate ||
+         config.rate_elasticity ==
+             TrackRateElasticity::kCanContributeAndConsume)) {
+      sum_demand += observer_config.config.bitrate_priority;
+    }
+  }
+
+  // sum_assigned can be higher than bitrate if sum minBitrates
+  // is less than estimated rate
+  int overshoot = sum_assigned - bitrate;
+  if (overshoot > 0) {
+    surplus -= overshoot;
+  }
+  if (surplus <= 0 || sum_demand < 0.0001f) {
+    return;
+  }
+
+  for (const auto& observer_config : allocatable_tracks) {
+    auto config = observer_config.config;
+    if (config.rate_elasticity == TrackRateElasticity::kCanConsumeExtraRate ||
+        config.rate_elasticity ==
+            TrackRateElasticity::kCanContributeAndConsume) {
+      double share = observer_config.config.bitrate_priority / sum_demand;
+      if (allocation[observer_config.observer] < upper_elastic_bps_limit) {
+        allocation[observer_config.observer] += surplus * share;
+        if (allocation[observer_config.observer] > upper_elastic_bps_limit)
+          allocation[observer_config.observer] = upper_elastic_bps_limit;
+      }
+    }
+    if (allocation[observer_config.observer] >
+        static_cast<int>(observer_config.config.max_bitrate_bps)) {
+      allocation[observer_config.observer] =
+          observer_config.config.max_bitrate_bps;
+    }
+  }
+}
+
 std::map<BitrateAllocatorObserver*, int> AllocateBitrates(
     const std::vector<AllocatableTrack>& allocatable_tracks,
-    uint32_t bitrate) {
+    uint32_t bitrate,
+    uint32_t upper_elastic_bps_limit = 0) {
   if (allocatable_tracks.empty())
     return std::map<BitrateAllocatorObserver*, int>();
 
@@ -342,8 +415,13 @@ std::map<BitrateAllocatorObserver*, int> AllocateBitrates(
 
   // All observers will get their min bitrate plus a share of the rest. This
   // share is allocated to each observer based on its bitrate_priority.
-  if (bitrate <= sum_max_bitrates)
-    return NormalRateAllocation(allocatable_tracks, bitrate, sum_min_bitrates);
+  if (bitrate <= sum_max_bitrates) {
+    auto allocation =
+        NormalRateAllocation(allocatable_tracks, bitrate, sum_min_bitrates);
+    ApplySurplus(allocation, allocatable_tracks, bitrate,
+                 upper_elastic_bps_limit);
+    return allocation;
+  }
 
   // All observers will get up to transmission_max_bitrate_multiplier_ x max.
   return MaxRateAllocation(allocatable_tracks, bitrate, sum_max_bitrates);
@@ -351,7 +429,8 @@ std::map<BitrateAllocatorObserver*, int> AllocateBitrates(
 
 }  // namespace
 
-BitrateAllocator::BitrateAllocator(LimitObserver* limit_observer)
+BitrateAllocator::BitrateAllocator(LimitObserver* limit_observer,
+                                   DataRate upper_elastic_rate_limit)
     : limit_observer_(limit_observer),
       last_target_bps_(0),
       last_stable_target_bps_(0),
@@ -360,7 +439,8 @@ BitrateAllocator::BitrateAllocator(LimitObserver* limit_observer)
       last_rtt_(0),
       last_bwe_period_ms_(1000),
       num_pause_events_(0),
-      last_bwe_log_time_(0) {
+      last_bwe_log_time_(0),
+      upper_elastic_rate_limit_(upper_elastic_rate_limit) {
   sequenced_checker_.Detach();
 }
 
@@ -394,7 +474,8 @@ void BitrateAllocator::OnNetworkEstimateChanged(TargetTransferRate msg) {
     last_bwe_log_time_ = now;
   }
 
-  auto allocation = AllocateBitrates(allocatable_tracks_, last_target_bps_);
+  auto allocation = AllocateBitrates(allocatable_tracks_, last_target_bps_,
+                                     upper_elastic_rate_limit_.bps());
   auto stable_bitrate_allocation =
       AllocateBitrates(allocatable_tracks_, last_stable_target_bps_);
 
@@ -439,6 +520,9 @@ void BitrateAllocator::OnNetworkEstimateChanged(TargetTransferRate msg) {
     if (allocated_bitrate > 0)
       config.media_ratio = MediaRatio(allocated_bitrate, protection_bitrate);
     config.allocated_bitrate_bps = allocated_bitrate;
+    auto bps_used = config.observer->GetUsedRate();
+    if (bps_used.has_value())
+      config.last_used_bitrate_bps = bps_used.value().bps();
   }
   UpdateAllocationLimits();
 }
@@ -461,7 +545,8 @@ void BitrateAllocator::AddObserver(BitrateAllocatorObserver* observer,
   if (last_target_bps_ > 0) {
     // Calculate a new allocation and update all observers.
 
-    auto allocation = AllocateBitrates(allocatable_tracks_, last_target_bps_);
+    auto allocation = AllocateBitrates(allocatable_tracks_, last_target_bps_,
+                                       upper_elastic_rate_limit_.bps());
     auto stable_bitrate_allocation =
         AllocateBitrates(allocatable_tracks_, last_stable_target_bps_);
     for (auto& config : allocatable_tracks_) {
@@ -477,6 +562,9 @@ void BitrateAllocator::AddObserver(BitrateAllocatorObserver* observer,
       update.bwe_period = TimeDelta::Millis(last_bwe_period_ms_);
       uint32_t protection_bitrate = config.observer->OnBitrateUpdated(update);
       config.allocated_bitrate_bps = allocated_bitrate;
+      auto bps_used = config.observer->GetUsedRate();
+      if (bps_used.has_value())
+        config.last_used_bitrate_bps = bps_used.value().bps();
       if (allocated_bitrate > 0)
         config.media_ratio = MediaRatio(allocated_bitrate, protection_bitrate);
     }
@@ -494,6 +582,69 @@ void BitrateAllocator::AddObserver(BitrateAllocatorObserver* observer,
     observer->OnBitrateUpdated(update);
   }
   UpdateAllocationLimits();
+}
+
+bool BitrateAllocator::RecomputeAllocationIfNeeded() {
+  RTC_DCHECK_RUN_ON(&sequenced_checker_);
+
+  if (upper_elastic_rate_limit_ == DataRate::Zero()) {
+    return false;
+  }
+
+  bool need_recompute = false;
+  bool has_contributor = false;
+  bool has_consumer = false;
+  for (auto& config : allocatable_tracks_) {
+    if (config.config.rate_elasticity.has_value()) {
+      auto elasticity = config.config.rate_elasticity.value();
+      if (elasticity == TrackRateElasticity::kCanContributeUnusedRate ||
+          elasticity == TrackRateElasticity::kCanContributeAndConsume) {
+        auto current_bps_usage = config.observer->GetUsedRate();
+        if (config.last_used_bitrate_bps > 0 && current_bps_usage.has_value()) {
+          if (current_bps_usage.value().bps() - config.last_used_bitrate_bps >
+              3000) {
+            need_recompute = true;
+          }
+        }
+        has_contributor = true;
+      }
+      if (elasticity == TrackRateElasticity::kCanConsumeExtraRate ||
+          elasticity == TrackRateElasticity::kCanContributeAndConsume) {
+        has_consumer = true;
+      }
+    }
+  }
+  if (has_contributor == false || has_consumer == false)
+    return false;
+
+  if (need_recompute && last_target_bps_ > 0) {
+    // Calculate a new allocation and update all observers.
+    auto allocation = AllocateBitrates(allocatable_tracks_, last_target_bps_,
+                                       upper_elastic_rate_limit_.bps());
+    auto stable_bitrate_allocation =
+        AllocateBitrates(allocatable_tracks_, last_stable_target_bps_);
+    for (auto& config : allocatable_tracks_) {
+      uint32_t allocated_bitrate = allocation[config.observer];
+      uint32_t allocated_stable_bitrate =
+          stable_bitrate_allocation[config.observer];
+      BitrateAllocationUpdate update;
+      update.target_bitrate = DataRate::BitsPerSec(allocated_bitrate);
+      update.stable_target_bitrate =
+          DataRate::BitsPerSec(allocated_stable_bitrate);
+      update.packet_loss_ratio = last_fraction_loss_ / 256.0;
+      update.round_trip_time = TimeDelta::Millis(last_rtt_);
+      update.bwe_period = TimeDelta::Millis(last_bwe_period_ms_);
+      uint32_t protection_bitrate = config.observer->OnBitrateUpdated(update);
+      config.allocated_bitrate_bps = allocated_bitrate;
+      auto bps_used = config.observer->GetUsedRate();
+      if (bps_used.has_value())
+        config.last_used_bitrate_bps = bps_used.value().bps();
+      if (allocated_bitrate > 0)
+        config.media_ratio = MediaRatio(allocated_bitrate, protection_bitrate);
+    }
+    UpdateAllocationLimits();
+  }
+  return true;
 }
 
 void BitrateAllocator::UpdateAllocationLimits() {
@@ -588,6 +739,17 @@ uint32_t bitrate_allocator_impl::AllocatableTrack::MinBitrateWithHysteresis()
     min_bitrate += min_bitrate * (1.0 - media_ratio);
 
   return min_bitrate;
+}
+
+// TODO(b/350555527): Remove after experiment
+const char kElasticBitrateAllocator[] = "WebRTC-ElasticBitrateAllocation";
+DataRate GetElasticRateAllocationFieldTrialParameter(
+    const FieldTrialsView& field_trials) {
+  FieldTrialParameter<DataRate> elastic_rate_limit("upper_limit",
+                                                   DataRate::Zero());
+  std::string trial_string = field_trials.Lookup(kElasticBitrateAllocator);
+  ParseFieldTrial({&elastic_rate_limit}, trial_string);
+  return elastic_rate_limit.Get();
 }
 
 }  // namespace webrtc

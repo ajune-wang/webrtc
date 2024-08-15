@@ -36,6 +36,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "489f7021_b10c37f1",
+        "filename": "modules/video_capture/linux/pipewire_session.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 8178
+      },
+      "writtenOn": "2024-08-15T07:48:20Z",
+      "side": 1,
+      "message": "Let me rephrase: does it build?\nBecause https://source.chromium.org/search?q\u003dDeviceChange%20path:third_party%2Fwebrtc\u0026sq\u003d\u0026ss\u003dchromium",
+      "parentUuid": "b2aa0f5d_c2bd812e",
+      "revId": "3c0dd45b556d82e7da15938297f31013ad898163",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d6aa8917_290f1779",

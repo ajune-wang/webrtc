@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ac04e39c_e102160b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-08-15T16:16:07Z",
+      "side": 1,
+      "message": "No merge conflict with https://webrtc-review.googlesource.com/c/src/+/358961 but I bet you will find internal tests doing this still wrong ;-)\n\ngice is almost gone!",
+      "revId": "23fe87eb4e7f242195a5cc96103a9ca3ebc7a246",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

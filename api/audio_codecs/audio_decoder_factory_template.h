@@ -40,7 +40,69 @@ struct Helper<> {
       absl::optional<AudioCodecPairId> codec_pair_id) {
     return nullptr;
   }
+
+  static absl::Nullable<std::unique_ptr<AudioDecoder>> Create(
+      const Environment& env,
+      const SdpAudioFormat& format,
+      absl::optional<AudioCodecPairId> codec_pair_id) {
+    return nullptr;
+  }
 };
+
+// Use ranked overloads (abseil.io/tips/229) for dispatching.
+struct Rank0 {};
+struct Rank1 : Rank0 {};
+
+template <typename Trait,
+          typename = std::enable_if_t<std::is_convertible_v<
+              decltype(Trait::MakeAudioDecoder(
+                  std::declval<Environment>(),
+                  std::declval<typename Trait::Config>(),
+                  std::declval<absl::optional<AudioCodecPairId>>())),
+              std::unique_ptr<AudioDecoder>>>>
+absl::Nullable<std::unique_ptr<AudioDecoder>> CreateDecoder(
+    Rank1,
+    const Environment& env,
+    const typename Trait::Config& config,
+    absl::optional<AudioCodecPairId> codec_pair_id) {
+  return Trait::MakeAudioDecoder(env, config, codec_pair_id);
+}
+
+template <typename Trait,
+          typename = std::enable_if_t<std::is_convertible_v<
+              decltype(Trait::MakeAudioDecoder(
+                  std::declval<typename Trait::Config>(),
+                  std::declval<absl::optional<AudioCodecPairId>>())),
+              std::unique_ptr<AudioDecoder>>>>
+absl::Nullable<std::unique_ptr<AudioDecoder>> CreateDecoder(
+    Rank0,
+    const Environment& env,
+    const typename Trait::Config& config,
+    absl::optional<AudioCodecPairId> codec_pair_id) {
+  return Trait::MakeAudioDecoder(config, codec_pair_id);
+}
+
+template <typename Trait,
+          typename = std::enable_if_t<std::is_convertible_v<
+              decltype(Trait::MakeAudioDecoder(
+                  std::declval<typename Trait::Config>(),
+                  std::declval<absl::optional<AudioCodecPairId>>())),
+              std::unique_ptr<AudioDecoder>>>>
+absl::Nullable<std::unique_ptr<AudioDecoder>> LegacyCreateDecoder(
+    Rank1,
+    const typename Trait::Config& config,
+    absl::optional<AudioCodecPairId> codec_pair_id) {
+  return Trait::MakeAudioDecoder(config, codec_pair_id);
+}
+
+template <typename Trait>
+absl::Nullable<std::unique_ptr<AudioDecoder>> LegacyCreateDecoder(
+    Rank0,
+    const typename Trait::Config& config,
+    absl::optional<AudioCodecPairId> codec_pair_id) {
+  RTC_DCHECK_NOTREACHED();
+  return nullptr;
+}
 
 // Inductive case: Called with n + 1 template parameters; calls subroutines
 // with n template parameters.
@@ -61,9 +123,21 @@ struct Helper<T, Ts...> {
   static std::unique_ptr<AudioDecoder> MakeAudioDecoder(
       const SdpAudioFormat& format,
       absl::optional<AudioCodecPairId> codec_pair_id) {
-    auto opt_config = T::SdpToConfig(format);
-    return opt_config ? T::MakeAudioDecoder(*opt_config, codec_pair_id)
-                      : Helper<Ts...>::MakeAudioDecoder(format, codec_pair_id);
+    if (auto opt_config = T::SdpToConfig(format); opt_config.has_value()) {
+      return LegacyCreateDecoder<T>(Rank1{}, *opt_config, codec_pair_id);
+    }
+    return Helper<Ts...>::MakeAudioDecoder(format, codec_pair_id);
+  }
+
+  static absl::Nullable<std::unique_ptr<AudioDecoder>> Create(
+      const Environment& env,
+      const SdpAudioFormat& format,
+      absl::optional<AudioCodecPairId> codec_pair_id) {
+    if (auto opt_config = T::SdpToConfig(format); opt_config.has_value()) {
+      return CreateDecoder<T>(Rank1{}, env, *opt_config, codec_pair_id);
+    }
+
+    return Helper<Ts...>::Create(env, format, codec_pair_id);
   }
 };
 
@@ -85,6 +159,13 @@ class AudioDecoderFactoryT : public AudioDecoderFactory {
       absl::optional<AudioCodecPairId> codec_pair_id) override {
     return Helper<Ts...>::MakeAudioDecoder(format, codec_pair_id);
   }
+
+  absl::Nullable<std::unique_ptr<AudioDecoder>> Create(
+      const Environment& env,
+      const SdpAudioFormat& format,
+      absl::optional<AudioCodecPairId> codec_pair_id) override {
+    return Helper<Ts...>::Create(env, format, codec_pair_id);
+  }
 };
 
 }  // namespace audio_decoder_factory_template_impl
@@ -104,7 +185,12 @@ class AudioDecoderFactoryT : public AudioDecoderFactory {
 //   void AppendSupportedDecoders(std::vector<AudioCodecSpec>* specs);
 //
 //   // Creates an AudioDecoder for the specified format. Used to implement
-//   // AudioDecoderFactory::MakeAudioDecoder().
+//   // AudioDecoderFactory::Create().
+//   std::unique_ptr<AudioEncoder> MakeAudioDecoder(
+//       const Environment& env,
+//       const ConfigType& config,
+//       absl::optional<AudioCodecPairId> codec_pair_id);
+//   or
 //   std::unique_ptr<AudioDecoder> MakeAudioDecoder(
 //       const ConfigType& config,
 //       absl::optional<AudioCodecPairId> codec_pair_id);

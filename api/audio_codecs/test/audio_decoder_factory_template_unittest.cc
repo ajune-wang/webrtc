@@ -24,6 +24,8 @@
 #include "api/audio_codecs/g722/audio_decoder_g722.h"
 #include "api/audio_codecs/ilbc/audio_decoder_ilbc.h"
 #include "api/audio_codecs/opus/audio_decoder_opus.h"
+#include "api/environment/environment.h"
+#include "api/environment/environment_factory.h"
 #include "api/make_ref_counted.h"
 #include "api/scoped_refptr.h"
 #include "test/gmock.h"
@@ -31,8 +33,12 @@
 #include "test/mock_audio_decoder.h"
 
 namespace webrtc {
-
 namespace {
+
+using ::testing::NiceMock;
+using ::testing::Pointer;
+using ::testing::Property;
+using ::testing::Return;
 
 struct BogusParams {
   static SdpAudioFormat AudioFormat() { return {"bogus", 8000, 1}; }
@@ -81,7 +87,94 @@ struct AudioDecoderFakeApi {
   }
 };
 
-}  // namespace
+// Trait to pass as template parameter to `CreateDecoderEncoderFactory` with
+// all the functions except the functions to create the audio decoder.
+struct BaseAudioDecoderApi {
+  // Create Decoders with different sample rates depending if it is created
+  // through V1 or V2 method so that a test may detect which method was used.
+  static constexpr int kV1Rate = 10'000;
+  static constexpr int kV2Rate = 20'000;
+
+  struct Config {};
+
+  static SdpAudioFormat AudioFormat() { return {"fake", 16'000, 2, {}}; }
+  static AudioCodecInfo CodecInfo() { return {16'000, 2, 23456}; }
+
+  static absl::optional<Config> SdpToConfig(
+      const SdpAudioFormat& audio_format) {
+    return Config();
+  }
+
+  static void AppendSupportedDecoders(std::vector<AudioCodecSpec>* specs) {
+    specs->push_back({AudioFormat(), CodecInfo()});
+  }
+};
+
+struct AudioDecoderApiWithV1Make : BaseAudioDecoderApi {
+  static std::unique_ptr<AudioDecoder> MakeAudioDecoder(
+      const Config&,
+      absl::optional<AudioCodecPairId> codec_pair_id) {
+    auto decoder = std::make_unique<NiceMock<MockAudioDecoder>>();
+    ON_CALL(*decoder, SampleRateHz).WillByDefault(Return(kV1Rate));
+    return decoder;
+  }
+};
+
+struct AudioDecoderApiWithV2Make : BaseAudioDecoderApi {
+  static std::unique_ptr<AudioDecoder> MakeAudioDecoder(
+      const Environment& env,
+      const Config& config,
+      absl::optional<AudioCodecPairId> codec_pair_id) {
+    auto decoder = std::make_unique<NiceMock<MockAudioDecoder>>();
+    ON_CALL(*decoder, SampleRateHz).WillByDefault(Return(kV2Rate));
+    return decoder;
+  }
+};
+
+struct AudioDecoderApiWithBothV1AndV2Make : BaseAudioDecoderApi {
+  static std::unique_ptr<AudioDecoder> MakeAudioDecoder(
+      const Config&,
+      absl::optional<AudioCodecPairId> codec_pair_id) {
+    auto decoder = std::make_unique<NiceMock<MockAudioDecoder>>();
+    ON_CALL(*decoder, SampleRateHz).WillByDefault(Return(kV1Rate));
+    return decoder;
+  }
+
+  static std::unique_ptr<AudioDecoder> MakeAudioDecoder(
+      const Environment& env,
+      const Config& config,
+      absl::optional<AudioCodecPairId> codec_pair_id) {
+    auto decoder = std::make_unique<NiceMock<MockAudioDecoder>>();
+    ON_CALL(*decoder, SampleRateHz).WillByDefault(Return(kV2Rate));
+    return decoder;
+  }
+};
+
+TEST(AudioEncoderFactoryTemplateTest, PreferV2OverV1MakeAudioDecoder) {
+  const Environment env = CreateEnvironment();
+  auto factory =
+      CreateAudioDecoderFactory<AudioDecoderApiWithBothV1AndV2Make>();
+
+  EXPECT_THAT(factory->Create(env, BaseAudioDecoderApi::AudioFormat(), {}),
+              Pointer(Property(&AudioDecoder::SampleRateHz,
+                               BaseAudioDecoderApi::kV2Rate)));
+}
+
+TEST(AudioEncoderFactoryTemplateTest, CanUseTraitWithOnlyV1MakeAudioDecoder) {
+  const Environment env = CreateEnvironment();
+  auto factory = CreateAudioDecoderFactory<AudioDecoderApiWithV1Make>();
+  EXPECT_THAT(factory->Create(env, BaseAudioDecoderApi::AudioFormat(), {}),
+              Pointer(Property(&AudioDecoder::SampleRateHz,
+                               BaseAudioDecoderApi::kV1Rate)));
+}
+
+TEST(AudioEncoderFactoryTemplateTest, CanUseTraitWithOnlyV2MakeAudioDecoder) {
+  const Environment env = CreateEnvironment();
+  auto factory = CreateAudioDecoderFactory<AudioDecoderApiWithV2Make>();
+  EXPECT_THAT(factory->Create(env, BaseAudioDecoderApi::AudioFormat(), {}),
+              Pointer(Property(&AudioDecoder::SampleRateHz,
+                               BaseAudioDecoderApi::kV2Rate)));
+}
 
 TEST(AudioDecoderFactoryTemplateTest, NoDecoderTypes) {
   rtc::scoped_refptr<AudioDecoderFactory> factory(
@@ -225,4 +318,5 @@ TEST(AudioDecoderFactoryTemplateTest, Opus) {
   EXPECT_EQ(48000, dec->SampleRateHz());
 }
 
+}  // namespace
 }  // namespace webrtc

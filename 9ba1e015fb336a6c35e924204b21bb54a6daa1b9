@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4891cc17_162df9cb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-08-15T12:45:40Z",
+      "side": 1,
+      "message": "Florent, can you please check pc/\nMirko, can you please check test/",
+      "revId": "9ba1e015fb336a6c35e924204b21bb54a6daa1b9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -1,0 +1,654 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ff13bbf0_ee73190f",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 5597
+      },
+      "writtenOn": "2024-08-15T15:03:24Z",
+      "side": 1,
+      "message": "pass this as a const reference",
+      "range": {
+        "startLine": 321,
+        "startChar": 18,
+        "endLine": 321,
+        "endChar": 71
+      },
+      "revId": "db7006a0f35a119c71a7b785f0a0f006bb5bcda6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "01f9b4ea_3c4a40af",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 324,
+      "author": {
+        "id": 5597
+      },
+      "writtenOn": "2024-08-15T15:03:24Z",
+      "side": 1,
+      "message": "Suggest moving all new code to use unit types like `DataRate` instead of ints.\n\nRefactoring the whole class would be great, but it outside the scope of this cl.",
+      "range": {
+        "startLine": 323,
+        "startChar": 18,
+        "endLine": 324,
+        "endChar": 49
+      },
+      "revId": "db7006a0f35a119c71a7b785f0a0f006bb5bcda6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6b716c7a_96254639",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 328,
+      "author": {
+        "id": 5597
+      },
+      "writtenOn": "2024-08-15T15:03:24Z",
+      "side": 1,
+      "message": "nit: Feel free to expand on this comment, especially what `sum_demand` is, and start with capital letter and end with period.",
+      "range": {
+        "startLine": 328,
+        "startChar": 0,
+        "endLine": 328,
+        "endChar": 37
+      },
+      "revId": "db7006a0f35a119c71a7b785f0a0f006bb5bcda6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c4be9270_65ed9069",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 329,
+      "author": {
+        "id": 5597
+      },
+      "writtenOn": "2024-08-15T15:03:24Z",
+      "side": 1,
+      "message": "Suggest changing both `surplus` and `sum_assigned` to `DataRate` type.",
+      "range": {
+        "startLine": 329,
+        "startChar": 2,
+        "endLine": 329,
+        "endChar": 22
+      },
+      "revId": "db7006a0f35a119c71a7b785f0a0f006bb5bcda6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "84804034_892fa695",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 334,
+      "author": {
+        "id": 5597
+      },
+      "writtenOn": "2024-08-15T15:03:24Z",
+      "side": 1,
+      "message": "Avoid using `operator[]` here. Partly because it might insert a new value in the map if the key is not found, which is both unexpected and forces the `allocation` argument to be non-const. There\u0027s also a lot of repetition below the causes a lookup tree traversal every time. Suggest something along these lines:\n```\n  auto it \u003d allocation.find(observer_config.observer);\n  \n// ...then if allocation MUST always contain all keys from allocatable_tracks\n  RTC_CHECK(it !\u003d allocation.end()); \n// ...else if an entry is not required for all tracks\n  if (it \u003d\u003d allocation.end()) {\n    // No allocation for this track.\n    continue;\n  }\n\n  DataRate track_allocation \u003d DataRate::BitsPerSecond(*it);\n  \n  ...\n```",
+      "range": {
+        "startLine": 334,
+        "startChar": 20,
+        "endLine": 334,
+        "endChar": 56
+      },
+      "revId": "db7006a0f35a119c71a7b785f0a0f006bb5bcda6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0db868ce_dada8216",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 370,
+      "author": {
+        "id": 5597
+      },
+      "writtenOn": "2024-08-15T15:03:24Z",
+      "side": 1,
+      "message": "Usually it\u0027s preferable to check the relative size rather than the delta, and I\u0027d put the `sum_demand` check first since that takes precedence. e.g.\n\n```\n  DataRate overshoot \u003d sum_assigned \u003e\u003d bitrate ? (sum_assigned - bitrate) : DataRate::Zero();\n  if (sum_demand \u003c 0.0001 || overshoot \u003e surplus) {\n    // No available surplus.\n    return;\n  }\n  surplus -\u003d overshoot;\n```",
+      "range": {
+        "startLine": 364,
+        "startChar": 0,
+        "endLine": 370,
+        "endChar": 3
+      },
+      "revId": "db7006a0f35a119c71a7b785f0a0f006bb5bcda6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c1397a3b_edee9c63",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 525,
+      "author": {
+        "id": 5597
+      },
+      "writtenOn": "2024-08-15T15:03:24Z",
+      "side": 1,
+      "message": "What should `last_used_bitrate_bps` be if this optional is not set? Do we need to keep the current value or can explicitly set it to either 0 or -1 (looks like the default value?)\n\nDepending on which, this could be simplified to either.\n```\n  if (absl::Optional\u003cDataRate\u003e used_rate \u003d config.observer-\u003eGetUsedRate())\n    config.last_used_bitrate_bps \u003d used_rate-\u003ebps();\n```\n\nor\n\n```\n  config.last_used_bitrate_bps \u003d config.observer-\u003eGetUsedRate().value_or(-1);\n```",
+      "range": {
+        "startLine": 523,
+        "startChar": 0,
+        "endLine": 525,
+        "endChar": 60
+      },
+      "revId": "db7006a0f35a119c71a7b785f0a0f006bb5bcda6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2228ed66_ebb4b977",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 567,
+      "author": {
+        "id": 5597
+      },
+      "writtenOn": "2024-08-15T15:03:24Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 565,
+        "startChar": 0,
+        "endLine": 567,
+        "endChar": 62
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "0d29042c_35a1de37",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "call/bitrate_allocator.cc",
+              "range": {
+                "startLine": 565,
+                "startChar": 0,
+                "endLine": 568,
+                "endChar": 0
+              },
+              "replacement": "      config.last_used_bitrate_bps \u003d config.observer-\u003eGetUsedRate().bps();\n"
+            }
+          ]
+        }
+      ],
+      "revId": "db7006a0f35a119c71a7b785f0a0f006bb5bcda6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a65f102b_adb12ed3",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 590,
+      "author": {
+        "id": 5597
+      },
+      "writtenOn": "2024-08-15T15:03:24Z",
+      "side": 1,
+      "message": "nit: or `.IsZero()`",
+      "range": {
+        "startLine": 590,
+        "startChar": 31,
+        "endLine": 590,
+        "endChar": 51
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "372000a6_d2b8500b",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "call/bitrate_allocator.cc",
+              "range": {
+                "startLine": 590,
+                "startChar": 0,
+                "endLine": 591,
+                "endChar": 0
+              },
+              "replacement": "  if (upper_elastic_rate_limit_.IsZero()) {\n"
+            }
+          ]
+        }
+      ],
+      "revId": "db7006a0f35a119c71a7b785f0a0f006bb5bcda6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9cad0a5f_7d8650bb",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 599,
+      "author": {
+        "id": 5597
+      },
+      "writtenOn": "2024-08-15T15:03:24Z",
+      "side": 1,
+      "message": "nit: Prefer explicit type over `auto` except where it is very obvious or the type is complex such as and stl iterator.\n\nAlso, prefer using `operator*()` over `value()` so it follows the same pattern as e.g. unique_ptr.",
+      "range": {
+        "startLine": 599,
+        "startChar": 6,
+        "endLine": 599,
+        "endChar": 10
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "e13f8e11_248ff0a6",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "call/bitrate_allocator.cc",
+              "range": {
+                "startLine": 599,
+                "startChar": 0,
+                "endLine": 600,
+                "endChar": 0
+              },
+              "replacement": "      TrackRateElasticity elasticity \u003d *config.config.rate_elasticity;\n"
+            }
+          ]
+        }
+      ],
+      "revId": "db7006a0f35a119c71a7b785f0a0f006bb5bcda6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e72bea4d_a007460e",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 605,
+      "author": {
+        "id": 5597
+      },
+      "writtenOn": "2024-08-15T15:03:24Z",
+      "side": 1,
+      "message": "suggestion:\n```\n  // TODO: Explaining commment\n  constexpr kUsageDeadBandThreshold \u003d DataRate::KilobitsPerSecond(3);\n...\n\n  DataRate current_usage \u003d config.observer-\u003eGetUsedRate().value_or(DataRate::Zero());\n  DataRate last_usage \u003d DataRate::BitsPerSecond(config.last_used_bitrate);\n  if (!last_usage.IsZero() \u0026\u0026 current_usage \u003e last_usage + kUsageDeadBandThreshold) {\n    needs_recompute \u003d true;\n  }\n```",
+      "range": {
+        "startLine": 602,
+        "startChar": 8,
+        "endLine": 605,
+        "endChar": 21
+      },
+      "revId": "db7006a0f35a119c71a7b785f0a0f006bb5bcda6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ae1a9263_b38083ec",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 605,
+      "author": {
+        "id": 5597
+      },
+      "writtenOn": "2024-08-15T15:03:24Z",
+      "side": 1,
+      "message": "Where does this magic constant come from? Should it be extracted to e.g. a named static with a comment?",
+      "range": {
+        "startLine": 605,
+        "startChar": 14,
+        "endLine": 605,
+        "endChar": 18
+      },
+      "revId": "db7006a0f35a119c71a7b785f0a0f006bb5bcda6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5c0683fd_0ae99f7c",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 627,
+      "author": {
+        "id": 5597
+      },
+      "writtenOn": "2024-08-15T15:03:24Z",
+      "side": 1,
+      "message": "nit: you can convert to DataRate right off the bat here (or refactor the functions to return units type in the first place)",
+      "range": {
+        "startLine": 627,
+        "startChar": 6,
+        "endLine": 627,
+        "endChar": 32
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "369edde3_f4617afe",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "call/bitrate_allocator.cc",
+              "range": {
+                "startLine": 553,
+                "startChar": 0,
+                "endLine": 556,
+                "endChar": 0
+              },
+              "replacement": "      DataRate allocated_bitrate \u003d\n          DataRate::BitsPerSec(allocation[config.observer]);\n      DataRate allocated_stable_bitrate \u003d\n          DataRate::BitsPerSec(stable_bitrate_allocation[config.observer]);\n"
+            },
+            {
+              "path": "call/bitrate_allocator.cc",
+              "range": {
+                "startLine": 557,
+                "startChar": 0,
+                "endLine": 560,
+                "endChar": 0
+              },
+              "replacement": "      update.target_bitrate \u003d allocated_bitrate;\n      update.stable_target_bitrate \u003d allocated_stable_bitrate;\n"
+            },
+            {
+              "path": "call/bitrate_allocator.cc",
+              "range": {
+                "startLine": 563,
+                "startChar": 0,
+                "endLine": 565,
+                "endChar": 0
+              },
+              "replacement": "      DataRate protection_bitrate \u003d\n          DataRate::BitsPerSec(config.observer-\u003eOnBitrateUpdated(update));\n      config.allocated_bitrate_bps \u003d allocated_bitrate.bps();\n"
+            },
+            {
+              "path": "call/bitrate_allocator.cc",
+              "range": {
+                "startLine": 568,
+                "startChar": 0,
+                "endLine": 570,
+                "endChar": 0
+              },
+              "replacement": "      if (allocated_bitrate.bps() \u003e 0)\n        config.media_ratio \u003d\n            MediaRatio(allocated_bitrate.bps(), protection_bitrate.bps());\n"
+            }
+          ]
+        }
+      ],
+      "revId": "db7006a0f35a119c71a7b785f0a0f006bb5bcda6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4a7cec09_3278ad78",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 634,
+      "author": {
+        "id": 5597
+      },
+      "writtenOn": "2024-08-15T15:03:24Z",
+      "side": 1,
+      "message": "Not really a new thing, but shouldn\u0027t this be 255.0?",
+      "range": {
+        "startLine": 634,
+        "startChar": 55,
+        "endLine": 634,
+        "endChar": 61
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "f7b9e65f_b3c770c1",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "call/bitrate_allocator.cc",
+              "range": {
+                "startLine": 490,
+                "startChar": 0,
+                "endLine": 491,
+                "endChar": 0
+              },
+              "replacement": "    update.packet_loss_ratio \u003d last_fraction_loss_ / 255.0;\n"
+            },
+            {
+              "path": "call/bitrate_allocator.cc",
+              "range": {
+                "startLine": 560,
+                "startChar": 0,
+                "endLine": 561,
+                "endChar": 0
+              },
+              "replacement": "      update.packet_loss_ratio \u003d last_fraction_loss_ / 255.0;\n"
+            },
+            {
+              "path": "call/bitrate_allocator.cc",
+              "range": {
+                "startLine": 579,
+                "startChar": 0,
+                "endLine": 580,
+                "endChar": 0
+              },
+              "replacement": "    update.packet_loss_ratio \u003d last_fraction_loss_ / 255.0;\n"
+            },
+            {
+              "path": "call/bitrate_allocator.cc",
+              "range": {
+                "startLine": 634,
+                "startChar": 0,
+                "endLine": 635,
+                "endChar": 0
+              },
+              "replacement": "      update.packet_loss_ratio \u003d last_fraction_loss_ / 255.0;\n"
+            }
+          ]
+        }
+      ],
+      "revId": "db7006a0f35a119c71a7b785f0a0f006bb5bcda6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f66760c_8a9e2586",
+        "filename": "call/bitrate_allocator.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 5597
+      },
+      "writtenOn": "2024-08-15T15:03:24Z",
+      "side": 1,
+      "message": "nit: Use `explicit` only for single-argument constructors.",
+      "range": {
+        "startLine": 129,
+        "startChar": 2,
+        "endLine": 129,
+        "endChar": 10
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "9f11c092_a0a0bf67",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "call/bitrate_allocator.h",
+              "range": {
+                "startLine": 129,
+                "startChar": 0,
+                "endLine": 132,
+                "endChar": 0
+              },
+              "replacement": "  BitrateAllocator(LimitObserver* limit_observer,\n                   DataRate upper_elastic_rate_limit \u003d DataRate::Zero());\n"
+            }
+          ]
+        }
+      ],
+      "revId": "db7006a0f35a119c71a7b785f0a0f006bb5bcda6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "de420083_2cde128c",
+        "filename": "call/bitrate_allocator.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 5597
+      },
+      "writtenOn": "2024-08-15T15:03:24Z",
+      "side": 1,
+      "message": "Avoid default arguments.",
+      "range": {
+        "startLine": 131,
+        "startChar": 39,
+        "endLine": 131,
+        "endChar": 58
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "eeb9eecd_c9bbb45b",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "call/bitrate_allocator.h",
+              "range": {
+                "startLine": 129,
+                "startChar": 0,
+                "endLine": 132,
+                "endChar": 0
+              },
+              "replacement": "  explicit BitrateAllocator(LimitObserver* limit_observer,\n                            DataRate upper_elastic_rate_limit);\n"
+            }
+          ]
+        }
+      ],
+      "revId": "db7006a0f35a119c71a7b785f0a0f006bb5bcda6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "75baed9f_af7d27c2",
+        "filename": "call/bitrate_allocator.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 5597
+      },
+      "writtenOn": "2024-08-15T15:03:24Z",
+      "side": 1,
+      "message": "can this be const?",
+      "fixSuggestions": [
+        {
+          "fixId": "c52a5eae_540035d7",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "call/bitrate_allocator.h",
+              "range": {
+                "startLine": 190,
+                "startChar": 0,
+                "endLine": 191,
+                "endChar": 0
+              },
+              "replacement": "  const DataRate upper_elastic_rate_limit_ RTC_GUARDED_BY(\u0026sequenced_checker_);\n"
+            }
+          ]
+        }
+      ],
+      "revId": "db7006a0f35a119c71a7b785f0a0f006bb5bcda6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "988d1236_404088d5",
+        "filename": "call/call.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 711,
+      "author": {
+        "id": 5597
+      },
+      "writtenOn": "2024-08-15T15:03:24Z",
+      "side": 1,
+      "message": "just make this the right type from the beginning, e.g. `TimeDelta next_scheduled_interval \u003d TimeDelta::Millis(25);`",
+      "range": {
+        "startLine": 711,
+        "startChar": 10,
+        "endLine": 711,
+        "endChar": 36
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "4368f7c7_74b13e51",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "call/call.cc",
+              "range": {
+                "startLine": 711,
+                "startChar": 0,
+                "endLine": 712,
+                "endChar": 0
+              },
+              "replacement": "          TimeDelta next_schedule_interval \u003d TimeDelta::Millis(25);\n"
+            },
+            {
+              "path": "call/call.cc",
+              "range": {
+                "startLine": 714,
+                "startChar": 0,
+                "endLine": 715,
+                "endChar": 0
+              },
+              "replacement": "              next_schedule_interval \u003d TimeDelta::Millis(300);\n"
+            },
+            {
+              "path": "call/call.cc",
+              "range": {
+                "startLine": 716,
+                "startChar": 0,
+                "endLine": 717,
+                "endChar": 0
+              },
+              "replacement": "          return next_schedule_interval;\n"
+            }
+          ]
+        }
+      ],
+      "revId": "db7006a0f35a119c71a7b785f0a0f006bb5bcda6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

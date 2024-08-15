@@ -54,6 +54,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e7012581_fa41f3a9",
+        "filename": "modules/video_capture/linux/pipewire_session.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2024-08-15T08:02:15Z",
+      "side": 1,
+      "message": "I see, I\u0027m an idiot 😊.\n\nI\u0027ve been building this with Firefox and it never came to my mind that this might be something that\u0027s not in WebRTC upstream. \n\nI will submit this to Firefox for now and try to think about something more generic that can be used in both.",
+      "parentUuid": "489f7021_b10c37f1",
+      "revId": "3c0dd45b556d82e7da15938297f31013ad898163",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d6aa8917_290f1779",

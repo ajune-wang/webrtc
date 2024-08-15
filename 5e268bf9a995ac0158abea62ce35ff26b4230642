@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "262ba90d_22328364",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2024-08-15T11:19:18Z",
+      "side": 1,
+      "message": "It seems like IsAtTargetQuality has usage in internal projects - did you investigate if this CL is safe?",
+      "revId": "5e268bf9a995ac0158abea62ce35ff26b4230642",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -16,6 +16,24 @@
       "message": "Florent, can you please check pc/\nMirko, can you please check test/",
       "revId": "9ba1e015fb336a6c35e924204b21bb54a6daa1b9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9e4aea6f_065d1b22",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2024-08-15T13:14:08Z",
+      "side": 1,
+      "message": "test/ LGTM.",
+      "parentUuid": "4891cc17_162df9cb",
+      "revId": "9ba1e015fb336a6c35e924204b21bb54a6daa1b9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

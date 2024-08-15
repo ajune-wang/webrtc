@@ -22,6 +22,30 @@
       },
       "revId": "cea03b1d8c43e42b6d5bb239a8315b60de2bf738",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "397929ed_1df25092",
+        "filename": "rtc_tools/rtc_event_log_visualizer/analyze_audio.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2024-08-15T12:15:14Z",
+      "side": 1,
+      "message": "Sure, I can follow up with that.",
+      "parentUuid": "b31f3a1c_b4c2c6e2",
+      "range": {
+        "startLine": 279,
+        "startChar": 34,
+        "endLine": 279,
+        "endChar": 68
+      },
+      "revId": "cea03b1d8c43e42b6d5bb239a8315b60de2bf738",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

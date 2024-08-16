@@ -536,6 +536,8 @@ TEST_F(ReceiveStatisticsProxyTest, OnRenderedFrameIncreasesFramesRendered) {
   }
 }
 
+// TODO(vardar): Add OncorruptionScore... test here.
+
 TEST_F(ReceiveStatisticsProxyTest, GetStatsReportsSsrc) {
   EXPECT_EQ(kRemoteSsrc, statistics_proxy_->GetStats().ssrc);
 }
@@ -681,6 +683,9 @@ TEST_F(ReceiveStatisticsProxyTest, GetStatsReportsNoCNameForUnknownSsrc) {
   statistics_proxy_->OnCname(kRemoteSsrc + 1, kName);
   EXPECT_STREQ("", statistics_proxy_->GetStats().c_name.c_str());
 }
+
+// TODO(vardar): Add getstats test here for corruption score.
+// TODO(vardar): Add histogram update test here (or below) for corruption score.
 
 TEST_F(ReceiveStatisticsProxyTest, ReportsLongestTimingFrameInfo) {
   const int64_t kShortEndToEndDelay = 10;

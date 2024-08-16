@@ -18,7 +18,7 @@
 #include "api/audio_codecs/audio_codec_pair_id.h"
 #include "api/audio_codecs/audio_decoder.h"
 #include "api/audio_codecs/audio_format.h"
-#include "api/field_trials_view.h"
+#include "api/environment/environment.h"
 #include "rtc_base/system/rtc_export.h"
 
 namespace webrtc {
@@ -33,10 +33,15 @@ struct RTC_EXPORT AudioDecoderOpus {
   };
   static absl::optional<Config> SdpToConfig(const SdpAudioFormat& audio_format);
   static void AppendSupportedDecoders(std::vector<AudioCodecSpec>* specs);
-  static std::unique_ptr<AudioDecoder> MakeAudioDecoder(
+
+  [[deprecated("bugs.webrtc.org/356878416")]]  //
+  static std::unique_ptr<AudioDecoder>
+  MakeAudioDecoder(
       Config config,
-      absl::optional<AudioCodecPairId> codec_pair_id = absl::nullopt,
-      const FieldTrialsView* field_trials = nullptr);
+      absl::optional<AudioCodecPairId> codec_pair_id = absl::nullopt);
+
+  static std::unique_ptr<AudioDecoder> MakeAudioDecoder(const Environment& env,
+                                                        Config config);
 };
 
 }  // namespace webrtc

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e26c00db_b6720b7f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-08-16T23:53:07Z",
+      "side": 1,
+      "message": "I think this bug now bears commits with three different emails from me :-)",
+      "revId": "b521a2a4504b4d195df76ecf082805de728ec714",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

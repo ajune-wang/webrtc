@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "253fe2cd_3299d0d6",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 19269
+      },
+      "writtenOn": "2024-08-16T06:46:01Z",
+      "side": 1,
+      "message": "I am storing/rewriting the new allocation back into `allocation`. Alternatively, `ApplySurplus` can return the new allocation, but that seems to require more copying.",
+      "parentUuid": "ff13bbf0_ee73190f",
+      "range": {
+        "startLine": 321,
+        "startChar": 18,
+        "endLine": 321,
+        "endChar": 71
+      },
+      "revId": "db7006a0f35a119c71a7b785f0a0f006bb5bcda6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "01f9b4ea_3c4a40af",
         "filename": "call/bitrate_allocator.cc",
         "patchSetId": 1
@@ -37,6 +61,30 @@
       "writtenOn": "2024-08-15T15:03:24Z",
       "side": 1,
       "message": "Suggest moving all new code to use unit types like `DataRate` instead of ints.\n\nRefactoring the whole class would be great, but it outside the scope of this cl.",
+      "range": {
+        "startLine": 323,
+        "startChar": 18,
+        "endLine": 324,
+        "endChar": 49
+      },
+      "revId": "db7006a0f35a119c71a7b785f0a0f006bb5bcda6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ad2fe8ec_95d429a8",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 324,
+      "author": {
+        "id": 19269
+      },
+      "writtenOn": "2024-08-16T06:46:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "01f9b4ea_3c4a40af",
       "range": {
         "startLine": 323,
         "startChar": 18,
@@ -70,6 +118,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8764e29c_2c565e5a",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 328,
+      "author": {
+        "id": 19269
+      },
+      "writtenOn": "2024-08-16T06:46:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6b716c7a_96254639",
+      "range": {
+        "startLine": 328,
+        "startChar": 0,
+        "endLine": 328,
+        "endChar": 37
+      },
+      "revId": "db7006a0f35a119c71a7b785f0a0f006bb5bcda6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c4be9270_65ed9069",
@@ -83,6 +155,30 @@
       "writtenOn": "2024-08-15T15:03:24Z",
       "side": 1,
       "message": "Suggest changing both `surplus` and `sum_assigned` to `DataRate` type.",
+      "range": {
+        "startLine": 329,
+        "startChar": 2,
+        "endLine": 329,
+        "endChar": 22
+      },
+      "revId": "db7006a0f35a119c71a7b785f0a0f006bb5bcda6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bbe2a5fd_88583d5d",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 329,
+      "author": {
+        "id": 19269
+      },
+      "writtenOn": "2024-08-16T06:46:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c4be9270_65ed9069",
       "range": {
         "startLine": 329,
         "startChar": 2,
@@ -116,6 +212,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "806f4b73_0500d340",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 334,
+      "author": {
+        "id": 19269
+      },
+      "writtenOn": "2024-08-16T06:46:01Z",
+      "side": 1,
+      "message": "Thanks! I completely overlooked observer_config.observer might not be in allocation.",
+      "parentUuid": "84804034_892fa695",
+      "range": {
+        "startLine": 334,
+        "startChar": 20,
+        "endLine": 334,
+        "endChar": 56
+      },
+      "revId": "db7006a0f35a119c71a7b785f0a0f006bb5bcda6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0db868ce_dada8216",
@@ -139,6 +259,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0d5c1b89_d9715d0b",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 370,
+      "author": {
+        "id": 19269
+      },
+      "writtenOn": "2024-08-16T06:46:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0db868ce_dada8216",
+      "range": {
+        "startLine": 364,
+        "startChar": 0,
+        "endLine": 370,
+        "endChar": 3
+      },
+      "revId": "db7006a0f35a119c71a7b785f0a0f006bb5bcda6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c1397a3b_edee9c63",
@@ -152,6 +296,30 @@
       "writtenOn": "2024-08-15T15:03:24Z",
       "side": 1,
       "message": "What should `last_used_bitrate_bps` be if this optional is not set? Do we need to keep the current value or can explicitly set it to either 0 or -1 (looks like the default value?)\n\nDepending on which, this could be simplified to either.\n```\n  if (absl::Optional\u003cDataRate\u003e used_rate \u003d config.observer-\u003eGetUsedRate())\n    config.last_used_bitrate_bps \u003d used_rate-\u003ebps();\n```\n\nor\n\n```\n  config.last_used_bitrate_bps \u003d config.observer-\u003eGetUsedRate().value_or(-1);\n```",
+      "range": {
+        "startLine": 523,
+        "startChar": 0,
+        "endLine": 525,
+        "endChar": 60
+      },
+      "revId": "db7006a0f35a119c71a7b785f0a0f006bb5bcda6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ac013129_f3dcd803",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 525,
+      "author": {
+        "id": 19269
+      },
+      "writtenOn": "2024-08-16T06:46:01Z",
+      "side": 1,
+      "message": "Very good suggestion. `config.last_used_bitrate_bps` is for detecting significant audio bitrate changes. (Rather than going deep into audio codec to detect silence to speech transition, it is suggested that it is simpler/better to simply check jump in bitrate usage). For audio, GetUsedRate() always return a valid value except in cases when the audio encoder just (re)started. Setting to -1 or 0 would avoid diffing with stale values.\n\nHowever, keeping with the spirit of moving to use DataRate, it is even simpler if we change last_used_bitrate_bps to an optional DataRate.",
+      "parentUuid": "c1397a3b_edee9c63",
       "range": {
         "startLine": 523,
         "startChar": 0,
@@ -203,6 +371,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a023582c_244fd665",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 567,
+      "author": {
+        "id": 19269
+      },
+      "writtenOn": "2024-08-16T06:46:01Z",
+      "side": 1,
+      "message": "Same as above, changed last_used_bitrate_bps to be optiona\u003cDataRate\u003e.",
+      "parentUuid": "2228ed66_ebb4b977",
+      "range": {
+        "startLine": 565,
+        "startChar": 0,
+        "endLine": 567,
+        "endChar": 62
+      },
+      "revId": "db7006a0f35a119c71a7b785f0a0f006bb5bcda6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a65f102b_adb12ed3",
@@ -240,6 +432,30 @@
           ]
         }
       ],
+      "revId": "db7006a0f35a119c71a7b785f0a0f006bb5bcda6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "94a4adb2_48b51455",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 590,
+      "author": {
+        "id": 19269
+      },
+      "writtenOn": "2024-08-16T06:46:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a65f102b_adb12ed3",
+      "range": {
+        "startLine": 590,
+        "startChar": 31,
+        "endLine": 590,
+        "endChar": 51
+      },
       "revId": "db7006a0f35a119c71a7b785f0a0f006bb5bcda6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -285,6 +501,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "351c6cf3_10a401cf",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 599,
+      "author": {
+        "id": 19269
+      },
+      "writtenOn": "2024-08-16T06:46:01Z",
+      "side": 1,
+      "message": "Done. Globally used * in place of value().",
+      "parentUuid": "9cad0a5f_7d8650bb",
+      "range": {
+        "startLine": 599,
+        "startChar": 6,
+        "endLine": 599,
+        "endChar": 10
+      },
+      "revId": "db7006a0f35a119c71a7b785f0a0f006bb5bcda6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e72bea4d_a007460e",
@@ -321,6 +561,54 @@
       "writtenOn": "2024-08-15T15:03:24Z",
       "side": 1,
       "message": "Where does this magic constant come from? Should it be extracted to e.g. a named static with a comment?",
+      "range": {
+        "startLine": 605,
+        "startChar": 14,
+        "endLine": 605,
+        "endChar": 18
+      },
+      "revId": "db7006a0f35a119c71a7b785f0a0f006bb5bcda6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7920fc01_042e36e4",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 605,
+      "author": {
+        "id": 19269
+      },
+      "writtenOn": "2024-08-16T06:46:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e72bea4d_a007460e",
+      "range": {
+        "startLine": 602,
+        "startChar": 8,
+        "endLine": 605,
+        "endChar": 21
+      },
+      "revId": "db7006a0f35a119c71a7b785f0a0f006bb5bcda6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ea281a52_3683608c",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 605,
+      "author": {
+        "id": 19269
+      },
+      "writtenOn": "2024-08-16T06:46:01Z",
+      "side": 1,
+      "message": "At lowest bitrate, audio might report about 5kbps usage for silence periods (via GetUsedRate() for payload plus all headers).  During speech period, usage is closer to 12kbps for a difference of 7kbps. So 3k is a reasonable threshold. However, 3k might be too small for high bitrate calls.  Let me change that to a fraction (20%) of allocated_bitrate, so that it would be about 2.5k for min audio bitrate, but scale with bitrate.",
+      "parentUuid": "ae1a9263_b38083ec",
       "range": {
         "startLine": 605,
         "startChar": 14,
@@ -402,6 +690,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a870cb57_1f51e554",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 627,
+      "author": {
+        "id": 19269
+      },
+      "writtenOn": "2024-08-16T06:46:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5c0683fd_0ae99f7c",
+      "range": {
+        "startLine": 627,
+        "startChar": 6,
+        "endLine": 627,
+        "endChar": 32
+      },
+      "revId": "db7006a0f35a119c71a7b785f0a0f006bb5bcda6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4a7cec09_3278ad78",
@@ -475,6 +787,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4c736e6d_bf3057fd",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 634,
+      "author": {
+        "id": 19269
+      },
+      "writtenOn": "2024-08-16T06:46:01Z",
+      "side": 1,
+      "message": "Existing code (e.g., in BitrateAllocator::OnNetworkEstimateChanged) also computes `packet_loss_ratio` using divide-by-256.0. RFC 3550 says fraction loss is \"equivalent to taking the integer part after multiplying the loss fraction by 256.\" Since truncation is done, division by 256 is indeed underestimating. If we prefer 255, we should change that uniformly at least inside BitrateAllocator.",
+      "parentUuid": "4a7cec09_3278ad78",
+      "range": {
+        "startLine": 634,
+        "startChar": 55,
+        "endLine": 634,
+        "endChar": 61
+      },
+      "revId": "db7006a0f35a119c71a7b785f0a0f006bb5bcda6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4f66760c_8a9e2586",
         "filename": "call/bitrate_allocator.h",
         "patchSetId": 1
@@ -510,6 +846,30 @@
           ]
         }
       ],
+      "revId": "db7006a0f35a119c71a7b785f0a0f006bb5bcda6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "269b7e9f_1b8efd6d",
+        "filename": "call/bitrate_allocator.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 19269
+      },
+      "writtenOn": "2024-08-16T06:46:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4f66760c_8a9e2586",
+      "range": {
+        "startLine": 129,
+        "startChar": 2,
+        "endLine": 129,
+        "endChar": 10
+      },
       "revId": "db7006a0f35a119c71a7b785f0a0f006bb5bcda6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -555,6 +915,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c77b6007_1799bbb2",
+        "filename": "call/bitrate_allocator.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 19269
+      },
+      "writtenOn": "2024-08-16T06:46:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "de420083_2cde128c",
+      "range": {
+        "startLine": 131,
+        "startChar": 39,
+        "endLine": 131,
+        "endChar": 58
+      },
+      "revId": "db7006a0f35a119c71a7b785f0a0f006bb5bcda6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "75baed9f_af7d27c2",
@@ -586,6 +970,24 @@
           ]
         }
       ],
+      "revId": "db7006a0f35a119c71a7b785f0a0f006bb5bcda6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b1fc8f42_72c71763",
+        "filename": "call/bitrate_allocator.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 19269
+      },
+      "writtenOn": "2024-08-16T06:46:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "75baed9f_af7d27c2",
       "revId": "db7006a0f35a119c71a7b785f0a0f006bb5bcda6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -647,6 +1049,30 @@
           ]
         }
       ],
+      "revId": "db7006a0f35a119c71a7b785f0a0f006bb5bcda6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "400bf8fb_3c033e64",
+        "filename": "call/call.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 711,
+      "author": {
+        "id": 19269
+      },
+      "writtenOn": "2024-08-16T06:46:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "988d1236_404088d5",
+      "range": {
+        "startLine": 711,
+        "startChar": 10,
+        "endLine": 711,
+        "endChar": 36
+      },
       "revId": "db7006a0f35a119c71a7b785f0a0f006bb5bcda6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

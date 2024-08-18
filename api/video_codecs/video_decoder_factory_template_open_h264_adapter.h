@@ -14,7 +14,8 @@
 #include <memory>
 #include <vector>
 
-#include "modules/video_coding/codecs/h264/include/h264.h"
+#include "api/video_codecs/sdp_video_format.h"
+#include "api/video_codecs/video_decoder.h"
 
 namespace webrtc {
 // TODO(bugs.webrtc.org/13573): When OpenH264 is no longer a conditional build

@@ -15,7 +15,9 @@
 #include <vector>
 
 #include "api/environment/environment.h"
-#include "modules/video_coding/codecs/h264/include/h264.h"
+#include "api/video_codecs/scalability_mode.h"
+#include "api/video_codecs/sdp_video_format.h"
+#include "api/video_codecs/video_encoder.h"
 
 namespace webrtc {
 // TODO(bugs.webrtc.org/13573): When OpenH264 is no longer a conditional build

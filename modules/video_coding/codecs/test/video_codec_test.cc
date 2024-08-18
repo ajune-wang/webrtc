@@ -52,7 +52,10 @@ ABSL_FLAG(std::string,
           "dav1d",
           "Decoder: dav1d, libvpx-vp9, libvpx-vp8, ffmpeg-h264, hw-vp8, "
           "hw-vp9, hw-av1, hw-h264, hw-h265");
-ABSL_FLAG(std::string, scalability_mode, "L1T1", "Scalability mode.");
+ABSL_FLAG(std::vector<std::string>,
+          scalability_mode,
+          {"L1T1"},
+          "Scalability mode.");
 ABSL_FLAG(absl::optional<int>, width, absl::nullopt, "Encode width.");
 ABSL_FLAG(absl::optional<int>, height, absl::nullopt, "Encode height.");
 ABSL_FLAG(std::vector<std::string>,
@@ -60,9 +63,9 @@ ABSL_FLAG(std::vector<std::string>,
           {"1024"},
           "Encode target bitrate per layer (l0t0,l0t1,...l1t0,l1t1 and so on) "
           "in kbps.");
-ABSL_FLAG(absl::optional<double>,
+ABSL_FLAG(std::vector<std::string>,
           framerate_fps,
-          absl::nullopt,
+          {},
           "Encode target frame rate of the top temporal layer in fps.");
 ABSL_FLAG(bool, screencast, false, "Enable screen encoding mode.");
 ABSL_FLAG(bool, frame_drop, true, "Enable frame dropping.");
@@ -318,9 +321,9 @@ TEST_P(SpatialQualityTest, SpatialQuality) {
   VideoSourceSettings source_settings = ToSourceSettings(video_info);
 
   EncodingSettings encoding_settings = VideoCodecTester::CreateEncodingSettings(
-      env, codec_type, /*scalability_mode=*/"L1T1", width, height,
+      env, codec_type, {"L1T1"}, width, height,
       {DataRate::KilobitsPerSec(bitrate_kbps)},
-      Frequency::Hertz(framerate_fps));
+      {Frequency::Hertz(framerate_fps)});
 
   std::map<uint32_t, EncodingSettings> frame_settings =
       VideoCodecTester::CreateFrameSettings(encoding_settings, num_frames);
@@ -370,6 +373,30 @@ INSTANTIATE_TEST_SUITE_P(
                    std::make_tuple(1280, 720, 30, 2048, 39))),
     SpatialQualityTest::TestParamsToString);
 
+INSTANTIATE_TEST_SUITE_P(
+    Screencast,
+    SpatialQualityTest,
+    Combine(Values("VP8", "AV1"),
+#if defined(WEBRTC_ANDROID)
+            Values("builtin", "mediacodec"),
+#else
+            Values("builtin"),
+#endif
+            Values(kFourPeople_1280x720_30),
+            Values(std::make_tuple(320, 180, 30, 32, 26),
+                   std::make_tuple(320, 180, 30, 64, 29),
+                   std::make_tuple(320, 180, 30, 128, 32),
+                   std::make_tuple(320, 180, 30, 256, 36),
+                   std::make_tuple(640, 360, 30, 128, 29),
+                   std::make_tuple(640, 360, 30, 256, 33),
+                   std::make_tuple(640, 360, 30, 384, 35),
+                   std::make_tuple(640, 360, 30, 512, 36),
+                   std::make_tuple(1280, 720, 30, 256, 30),
+                   std::make_tuple(1280, 720, 30, 512, 34),
+                   std::make_tuple(1280, 720, 30, 1024, 37),
+                   std::make_tuple(1280, 720, 30, 2048, 39))),
+    SpatialQualityTest::TestParamsToString);
+
 class BitrateAdaptationTest
     : public ::testing::TestWithParam<
           std::tuple</*codec_type=*/std::string,
@@ -397,17 +424,16 @@ TEST_P(BitrateAdaptationTest, BitrateAdaptation) {
   VideoSourceSettings source_settings = ToSourceSettings(video_info);
 
   EncodingSettings encoding_settings = VideoCodecTester::CreateEncodingSettings(
-      env, codec_type, /*scalability_mode=*/"L1T1",
+      env, codec_type, {"L1T1"},
       /*width=*/640, /*height=*/360,
-      {DataRate::KilobitsPerSec(bitrate_kbps.first)},
-      /*framerate=*/Frequency::Hertz(30));
+      {DataRate::KilobitsPerSec(bitrate_kbps.first)}, {Frequency::Hertz(30)});
 
   EncodingSettings encoding_settings2 =
       VideoCodecTester::CreateEncodingSettings(
-          env, codec_type, /*scalability_mode=*/"L1T1",
+          env, codec_type, /*scalability_modes=*/{"L1T1"},
           /*width=*/640, /*height=*/360,
           {DataRate::KilobitsPerSec(bitrate_kbps.second)},
-          /*framerate=*/Frequency::Hertz(30));
+          {Frequency::Hertz(30)});
 
   std::map<uint32_t, EncodingSettings> frame_settings =
       VideoCodecTester::CreateFrameSettings(encoding_settings, num_frames);
@@ -483,17 +509,17 @@ TEST_P(FramerateAdaptationTest, FramerateAdaptation) {
   VideoSourceSettings source_settings = ToSourceSettings(video_info);
 
   EncodingSettings encoding_settings = VideoCodecTester::CreateEncodingSettings(
-      env, codec_type, /*scalability_mode=*/"L1T1",
+      env, codec_type, /*scalability_modes=*/{"L1T1"},
       /*width=*/640, /*height=*/360,
-      /*bitrate=*/{DataRate::KilobitsPerSec(512)},
-      Frequency::Hertz(framerate_fps.first));
+      /*bitrates=*/{DataRate::KilobitsPerSec(512)},
+      /*framerates=*/{Frequency::Hertz(framerate_fps.first)});
 
   EncodingSettings encoding_settings2 =
       VideoCodecTester::CreateEncodingSettings(
-          env, codec_type, /*scalability_mode=*/"L1T1",
+          env, codec_type, /*scalability_modes=*/{"L1T1"},
           /*width=*/640, /*height=*/360,
           /*bitrate=*/{DataRate::KilobitsPerSec(512)},
-          Frequency::Hertz(framerate_fps.second));
+          /*framerates=*/{Frequency::Hertz(framerate_fps.second)});
 
   int num_frames = static_cast<int>(duration_s * framerate_fps.first);
   std::map<uint32_t, EncodingSettings> frame_settings =
@@ -565,16 +591,18 @@ TEST(VideoCodecTest, DISABLED_EncodeDecode) {
                    return DataRate::KilobitsPerSec(std::stoi(str));
                  });
 
-  Frequency framerate = Frequency::Hertz<double>(
-      absl::GetFlag(FLAGS_framerate_fps)
-          .value_or(absl::GetFlag(FLAGS_input_framerate_fps)));
+  std::vector<std::string> framerate_str = absl::GetFlag(FLAGS_framerate_fps);
+  std::vector<Frequency> framerate;
+  std::transform(
+      framerate_str.begin(), framerate_str.end(), std::back_inserter(framerate),
+      [](const std::string& str) { return Frequency::Hertz(std::stof(str)); });
 
   EncodingSettings encoding_settings = VideoCodecTester::CreateEncodingSettings(
       env, CodecNameToCodecType(absl::GetFlag(FLAGS_encoder)),
       absl::GetFlag(FLAGS_scalability_mode),
       absl::GetFlag(FLAGS_width).value_or(absl::GetFlag(FLAGS_input_width)),
       absl::GetFlag(FLAGS_height).value_or(absl::GetFlag(FLAGS_input_height)),
-      {bitrate}, framerate, absl::GetFlag(FLAGS_screencast),
+      bitrate, framerate, absl::GetFlag(FLAGS_screencast),
       absl::GetFlag(FLAGS_frame_drop));
 
   int num_frames = absl::GetFlag(FLAGS_num_frames);
@@ -585,7 +613,7 @@ TEST(VideoCodecTest, DISABLED_EncodeDecode) {
     encoding_settings.keyframe =
         (key_interval > 0 && (frame_num % key_interval) == 0);
     frame_settings.emplace(timestamp_rtp, encoding_settings);
-    timestamp_rtp += k90kHz / framerate;
+    timestamp_rtp += k90kHz / framerate.back();
   }
 
   std::unique_ptr<VideoCodecStats> stats;
@@ -610,11 +638,18 @@ TEST(VideoCodecTest, DISABLED_EncodeDecode) {
                     /*metadata=*/{});
 
   // Log metrics sliced on spatial and temporal layer.
+  std::vector<std::string> scalability_mode_str =
+      absl::GetFlag(FLAGS_scalability_mode);
   ScalabilityMode scalability_mode =
-      *ScalabilityModeFromString(absl::GetFlag(FLAGS_scalability_mode));
-  int num_spatial_layers = ScalabilityModeToNumSpatialLayers(scalability_mode);
+      *ScalabilityModeFromString(scalability_mode_str[0]);
   int num_temporal_layers =
       ScalabilityModeToNumTemporalLayers(scalability_mode);
+  int num_spatial_layers;
+  if (scalability_mode_str.size() == 1) {
+    num_spatial_layers = ScalabilityModeToNumSpatialLayers(scalability_mode);
+  } else {
+    num_spatial_layers = static_cast<int>(scalability_mode_str.size());
+  }
   for (int sidx = 0; sidx < num_spatial_layers; ++sidx) {
     for (int tidx = 0; tidx < num_temporal_layers; ++tidx) {
       std::string metric_name_prefix =

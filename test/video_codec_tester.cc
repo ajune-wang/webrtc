@@ -37,6 +37,7 @@
 #include "modules/video_coding/codecs/av1/av1_svc_config.h"
 #include "modules/video_coding/codecs/h264/include/h264.h"
 #include "modules/video_coding/codecs/vp9/svc_config.h"
+#include "modules/video_coding/include/video_codec_initializer.h"
 #include "modules/video_coding/include/video_codec_interface.h"
 #include "modules/video_coding/include/video_error_codes.h"
 #include "modules/video_coding/svc/scalability_mode_util.h"
@@ -502,7 +503,7 @@ class VideoCodecAnalyzer : public VideoCodecTester::VideoCodecStats {
       bool is_svc = false;
       if (!encoding_settings_.empty()) {
         ScalabilityMode scalability_mode =
-            encoding_settings_.at(timestamp_rtp).scalability_mode;
+            encoding_settings_.at(timestamp_rtp).scalability_modes.front();
         if (kFullSvcScalabilityModes.count(scalability_mode) > 0 ||
             (kKeySvcScalabilityModes.count(scalability_mode) > 0 &&
              temporal_unit_frames.at(0).keyframe)) {
@@ -763,13 +764,21 @@ class VideoCodecAnalyzer : public VideoCodecTester::VideoCodecStats {
     int base_spatial_idx;
     if (layer_id.has_value()) {
       bool is_svc =
-          kFullSvcScalabilityModes.count(encoding_settings.scalability_mode);
+          kFullSvcScalabilityModes.count(encoding_settings.scalability_modes.front());
       base_spatial_idx = is_svc ? 0 : layer_id->spatial_idx;
     } else {
       int num_spatial_layers =
           ScalabilityModeToNumSpatialLayers(encoding_settings.scalability_mode);
       int num_temporal_layers = ScalabilityModeToNumTemporalLayers(
           encoding_settings.scalability_mode);
+      bool is_simulcast =
+          (num_spatial_layers == 1 &&
+           static_cast<int>(encoding_settings.layers_settings.size()) >
+               num_temporal_layers);
+      if (is_simulcast) {
+        num_spatial_layers =
+            encoding_settings.layers_settings.size() / num_temporal_layers;
+      }
       layer_id = LayerId({.spatial_idx = num_spatial_layers - 1,
                           .temporal_idx = num_temporal_layers - 1});
       base_spatial_idx = 0;
@@ -1101,7 +1110,7 @@ class Encoder : public EncodedImageCallback {
     vc.minBitrate = 0;
     vc.maxFramerate = top_layer_settings.framerate.hertz<uint32_t>();
     vc.active = true;
-    vc.numberOfSimulcastStreams = 0;
+    vc.numberOfSimulcastStreams = es.scalability_modes.size();
     vc.mode = es.content_type;
     vc.SetFrameDropEnabled(es.frame_drop);
     vc.SetScalabilityMode(es.scalability_mode);
@@ -1137,13 +1146,9 @@ class Encoder : public EncodedImageCallback {
         break;
     }
 
-    bool is_simulcast =
-        num_spatial_layers > 1 &&
-        (vc.codecType == kVideoCodecVP8 || vc.codecType == kVideoCodecH264 ||
-         vc.codecType == kVideoCodecH265);
+    bool is_simulcast = vc.numberOfSimulcastStreams > 1;
     if (is_simulcast) {
-      vc.numberOfSimulcastStreams = num_spatial_layers;
-      for (int sidx = 0; sidx < num_spatial_layers; ++sidx) {
+      for (int sidx = 0; sidx < vc.numberOfSimulcastStreams; ++sidx) {
         auto tl0_settings = es.layers_settings.find(
             LayerId{.spatial_idx = sidx, .temporal_idx = 0});
         auto tlx_settings = es.layers_settings.find(LayerId{
@@ -1272,201 +1277,6 @@ class Encoder : public EncodedImageCallback {
   Mutex mutex_;
 };
 
-void ConfigureSimulcast(const FieldTrialsView& field_trials, VideoCodec* vc) {
-  int num_spatial_layers =
-      ScalabilityModeToNumSpatialLayers(*vc->GetScalabilityMode());
-  int num_temporal_layers =
-      ScalabilityModeToNumTemporalLayers(*vc->GetScalabilityMode());
-
-  if (num_spatial_layers == 1) {
-    SimulcastStream* ss = &vc->simulcastStream[0];
-    ss->width = vc->width;
-    ss->height = vc->height;
-    ss->numberOfTemporalLayers = num_temporal_layers;
-    ss->maxBitrate = vc->maxBitrate;
-    ss->targetBitrate = vc->maxBitrate;
-    ss->minBitrate = vc->minBitrate;
-    ss->qpMax = vc->qpMax;
-    ss->active = true;
-    return;
-  }
-
-  VideoEncoderConfig encoder_config;
-  encoder_config.codec_type = vc->codecType;
-  encoder_config.number_of_streams = num_spatial_layers;
-  encoder_config.simulcast_layers.resize(num_spatial_layers);
-  VideoEncoder::EncoderInfo encoder_info;
-  auto stream_factory =
-      rtc::make_ref_counted<cricket::EncoderStreamFactory>(encoder_info);
-  const std::vector<VideoStream> streams = stream_factory->CreateEncoderStreams(
-      field_trials, vc->width, vc->height, encoder_config);
-  vc->numberOfSimulcastStreams = streams.size();
-  RTC_CHECK_LE(vc->numberOfSimulcastStreams, num_spatial_layers);
-  if (vc->numberOfSimulcastStreams < num_spatial_layers) {
-    vc->SetScalabilityMode(LimitNumSpatialLayers(*vc->GetScalabilityMode(),
-                                                 vc->numberOfSimulcastStreams));
-  }
-
-  for (int i = 0; i < vc->numberOfSimulcastStreams; ++i) {
-    SimulcastStream* ss = &vc->simulcastStream[i];
-    ss->width = streams[i].width;
-    ss->height = streams[i].height;
-    ss->numberOfTemporalLayers = num_temporal_layers;
-    ss->maxBitrate = streams[i].max_bitrate_bps / 1000;
-    ss->targetBitrate = streams[i].target_bitrate_bps / 1000;
-    ss->minBitrate = streams[i].min_bitrate_bps / 1000;
-    ss->qpMax = vc->qpMax;
-    ss->active = true;
-  }
-}
-
-void SetDefaultCodecSpecificSettings(VideoCodec* vc, int num_temporal_layers) {
-  switch (vc->codecType) {
-    case kVideoCodecVP8:
-      *(vc->VP8()) = VideoEncoder::GetDefaultVp8Settings();
-      vc->VP8()->SetNumberOfTemporalLayers(num_temporal_layers);
-      break;
-    case kVideoCodecVP9: {
-      *(vc->VP9()) = VideoEncoder::GetDefaultVp9Settings();
-      vc->VP9()->SetNumberOfTemporalLayers(num_temporal_layers);
-    } break;
-    case kVideoCodecH264: {
-      *(vc->H264()) = VideoEncoder::GetDefaultH264Settings();
-      vc->H264()->SetNumberOfTemporalLayers(num_temporal_layers);
-    } break;
-    case kVideoCodecAV1:
-    case kVideoCodecH265:
-      break;
-    case kVideoCodecGeneric:
-      RTC_CHECK_NOTREACHED();
-  }
-}
-
-std::tuple<std::vector<DataRate>, ScalabilityMode>
-SplitBitrateAndUpdateScalabilityMode(const Environment& env,
-                                     std::string codec_type,
-                                     ScalabilityMode scalability_mode,
-                                     int width,
-                                     int height,
-                                     std::vector<DataRate> layer_bitrate,
-                                     Frequency framerate,
-                                     VideoCodecMode content_type) {
-  int num_spatial_layers = ScalabilityModeToNumSpatialLayers(scalability_mode);
-  int num_temporal_layers =
-      ScalabilityModeToNumTemporalLayers(scalability_mode);
-
-  int num_bitrates = static_cast<int>(layer_bitrate.size());
-  RTC_CHECK(num_bitrates == 1 || num_bitrates == num_spatial_layers ||
-            num_bitrates == num_spatial_layers * num_temporal_layers);
-
-  if (num_bitrates == num_spatial_layers * num_temporal_layers) {
-    return std::make_tuple(layer_bitrate, scalability_mode);
-  }
-
-  DataRate total_bitrate = std::accumulate(
-      layer_bitrate.begin(), layer_bitrate.end(), DataRate::Zero());
-
-  VideoCodec vc;
-  vc.codecType = PayloadStringToCodecType(codec_type);
-  vc.width = width;
-  vc.height = height;
-  vc.startBitrate = total_bitrate.kbps();
-  vc.maxBitrate = total_bitrate.kbps();
-  vc.minBitrate = 0;
-  vc.maxFramerate = framerate.hertz();
-  vc.numberOfSimulcastStreams = 0;
-  vc.mode = content_type;
-  vc.SetScalabilityMode(scalability_mode);
-  SetDefaultCodecSpecificSettings(&vc, num_temporal_layers);
-
-  if (num_bitrates == num_spatial_layers) {
-    switch (vc.codecType) {
-      case kVideoCodecVP8:
-      case kVideoCodecH264:
-      case kVideoCodecH265:
-        vc.numberOfSimulcastStreams = num_spatial_layers;
-        for (int sidx = 0; sidx < num_spatial_layers; ++sidx) {
-          SimulcastStream* ss = &vc.simulcastStream[sidx];
-          ss->width = width >> (num_spatial_layers - sidx - 1);
-          ss->height = height >> (num_spatial_layers - sidx - 1);
-          ss->maxFramerate = vc.maxFramerate;
-          ss->numberOfTemporalLayers = num_temporal_layers;
-          ss->maxBitrate = layer_bitrate[sidx].kbps();
-          ss->targetBitrate = layer_bitrate[sidx].kbps();
-          ss->minBitrate = 0;
-          ss->qpMax = 0;
-          ss->active = true;
-        }
-        break;
-      case kVideoCodecVP9:
-      case kVideoCodecAV1:
-        for (int sidx = num_spatial_layers - 1; sidx >= 0; --sidx) {
-          SpatialLayer* ss = &vc.spatialLayers[sidx];
-          ss->width = width >> (num_spatial_layers - sidx - 1);
-          ss->height = height >> (num_spatial_layers - sidx - 1);
-          ss->maxFramerate = vc.maxFramerate;
-          ss->numberOfTemporalLayers = num_temporal_layers;
-          ss->maxBitrate = layer_bitrate[sidx].kbps();
-          ss->targetBitrate = layer_bitrate[sidx].kbps();
-          ss->minBitrate = 0;
-          ss->qpMax = 0;
-          ss->active = true;
-        }
-        break;
-      case kVideoCodecGeneric:
-        RTC_CHECK_NOTREACHED();
-    }
-  } else {
-    switch (vc.codecType) {
-      case kVideoCodecVP8:
-      case kVideoCodecH264:
-      case kVideoCodecH265:
-        ConfigureSimulcast(env.field_trials(), &vc);
-        break;
-      case kVideoCodecVP9: {
-        const std::vector<SpatialLayer> spatialLayers = GetVp9SvcConfig(vc);
-        for (size_t i = 0; i < spatialLayers.size(); ++i) {
-          vc.spatialLayers[i] = spatialLayers[i];
-          vc.spatialLayers[i].active = true;
-        }
-      } break;
-      case kVideoCodecAV1: {
-        bool result =
-            SetAv1SvcConfig(vc, num_spatial_layers, num_temporal_layers);
-        RTC_CHECK(result) << "SetAv1SvcConfig failed";
-      } break;
-      case kVideoCodecGeneric:
-        RTC_CHECK_NOTREACHED();
-    }
-
-    if (*vc.GetScalabilityMode() != scalability_mode) {
-      RTC_LOG(LS_WARNING) << "Scalability mode changed from "
-                          << ScalabilityModeToString(scalability_mode) << " to "
-                          << ScalabilityModeToString(*vc.GetScalabilityMode());
-      num_spatial_layers =
-          ScalabilityModeToNumSpatialLayers(*vc.GetScalabilityMode());
-      num_temporal_layers =
-          ScalabilityModeToNumTemporalLayers(*vc.GetScalabilityMode());
-    }
-  }
-
-  std::unique_ptr<VideoBitrateAllocator> bitrate_allocator =
-      CreateBuiltinVideoBitrateAllocatorFactory()->Create(env, vc);
-  VideoBitrateAllocation bitrate_allocation =
-      bitrate_allocator->Allocate(VideoBitrateAllocationParameters(
-          total_bitrate.bps(), framerate.hertz<double>()));
-
-  std::vector<DataRate> bitrates;
-  for (int sidx = 0; sidx < num_spatial_layers; ++sidx) {
-    for (int tidx = 0; tidx < num_temporal_layers; ++tidx) {
-      int bitrate_bps = bitrate_allocation.GetBitrate(sidx, tidx);
-      bitrates.push_back(DataRate::BitsPerSec(bitrate_bps));
-    }
-  }
-
-  return std::make_tuple(bitrates, *vc.GetScalabilityMode());
-}
-
 }  // namespace
 
 void VideoCodecStats::Stream::LogMetrics(
@@ -1528,39 +1338,272 @@ void VideoCodecStats::Stream::LogMetrics(
                     metadata);
 }
 
+VideoCodec CreateVideoCodecWithCustomBitrates(
+    std::string codec_type,
+    ScalabilityMode scalability_mode,
+    std::vector<Resolution> resolutions,
+    std::vector<DataRate> bitrates,
+    std::vector<Frequency> framerates,
+    bool screencast) {
+  size_t num_spatial_layers =
+      ScalabilityModeToNumSpatialLayers(scalability_mode);
+  size_t num_temporal_layers =
+      ScalabilityModeToNumSpatialLayers(scalability_mode);
+  InterLayerPredMode ipred_mode =
+      ScalabilityModeToInterLayerPredMode(scalability_mode);
+
+  // Convert S mode to legacy simulcast.
+  size_t num_simulcast_streams = 1;
+  if (num_spatial_layers > 1 && ipred_mode == InterLayerPredMode::kOff) {
+    constexpr ScalabilityMode scalability_modes[3] = {
+        ScalabilityMode::kL1T1,
+        ScalabilityMode::kL1T2,
+        ScalabilityMode::kL1T3,
+    };
+    num_simulcast_streams = num_spatial_layers;
+    num_spatial_layers = 1;
+    scalability_mode = scalability_modes[num_temporal_layers];
+  }
+
+  RTC_CHECK_EQ(resolutions.size(), num_spatial_layers)
+      << "Resolutions for all spatial layers must be provided.";
+  RTC_CHECK_EQ(bitrates.size(), num_spatial_layers)
+      << "Bitrates for all spatial layers must be provided.";
+  RTC_CHECK(framerates.size() == 1 ||
+            framerates.size() == num_simulcast_streams)
+      << "Either max frame rate or frame rates for all simulcast streams must "
+         "be provided.";
+
+  VideoCodec vc;
+  vc.codecType = PayloadStringToCodecType(codec_type);
+  vc.width = resolutions.back().width;
+  vc.height = resolutions.back().height;
+  vc.startBitrate = vc.maxBitrate =
+      absl::c_accumulate(bitrates, DataRate::Zero()).kbps();
+  vc.minBitrate = 0;
+  vc.maxFramerate = framerates.back().hertz<uint32_t>();
+  vc.active = true;
+  vc.numberOfSimulcastStreams = num_simulcast_streams;
+  vc.mode = screencast ? VideoCodecMode::kScreensharing
+                       : VideoCodecMode::kRealtimeVideo;
+  if ((vc.codecType == kVideoCodecAV1 || vc.codecType == kVideoCodecVP9) &&
+      vc.numberOfSimulcastStreams == 1) {
+    // Layers in VideoCodec::spatialLayers[] ordered from high to low
+    // resolutions.
+    for (size_t sidx = num_spatial_layers - 1; sidx >= 0; --sidx) {
+      SpatialLayer& ss = vc.spatialLayers[sidx];
+      ss.width = resolutions[sidx].width;
+      ss.height = resolutions[sidx].width;
+      ss.maxFramerate = vc.maxFramerate;
+      ss.numberOfTemporalLayers = num_temporal_layers;
+      ss.maxBitrate = bitrates[sidx].kbps();
+      ss.targetBitrate = bitrates[sidx].kbps();
+      ss.minBitrate = 0;
+      ss.active = true;
+    }
+  } else {
+    // Streams in VideoCodec::simulcastStream[] ordered from low to high
+    // resolutions.
+    for (size_t sidx = 0; sidx < num_simulcast_streams; ++sidx) {
+      SimulcastStream& ss = vc.simulcastStream[sidx];
+      ss.width = resolutions[sidx].width;
+      ss.height = resolutions[sidx].width;
+      if (framerates.size() == num_simulcast_streams) {
+        ss.maxFramerate = framerates[sidx].hertz<uint32_t>();
+      } else {
+        ss.maxFramerate = vc.maxFramerate;
+      }
+      ss.numberOfTemporalLayers = num_temporal_layers;
+      ss.maxBitrate = bitrates[sidx].kbps();
+      ss.targetBitrate = bitrates[sidx].kbps();
+      ss.minBitrate = 0;
+      ss.active = true;
+    }
+  }
+  return vc;
+}
+
+VideoCodec CreateVideoCodecWithDefaultBitrates(std::string codec_type,
+                                               ScalabilityMode scalability_mode,
+                                               Resolution resolution,
+                                               bool screencast) {
+  size_t num_spatial_layers =
+      ScalabilityModeToNumSpatialLayers(scalability_mode);
+  size_t num_temporal_layers =
+      ScalabilityModeToNumSpatialLayers(scalability_mode);
+  InterLayerPredMode inter_layer_pred_mode =
+      ScalabilityModeToInterLayerPredMode(scalability_mode);
+  bool is_simulcast = (num_spatial_layers > 1 &&
+                       inter_layer_pred_mode == InterLayerPredMode::kOff);
+
+  // Convert S mode to legacy simulcast.
+  if (is_simulcast) {
+    constexpr ScalabilityMode scalability_modes[3] = {
+        ScalabilityMode::kL1T1, ScalabilityMode::kL1T2, ScalabilityMode::kL1T3};
+    scalability_mode = scalability_modes[num_temporal_layers];
+  }
+
+  VideoEncoderConfig encoder_config;
+  encoder_config.codec_type = PayloadStringToCodecType(codec_type);
+  encoder_config.video_format = SdpVideoFormat(codec_type);
+  encoder_config.content_type =
+      screencast ? VideoEncoderConfig::ContentType::kScreen
+                 : VideoEncoderConfig::ContentType::kRealtimeVideo;
+  encoder_config.number_of_streams = is_simulcast ? num_spatial_layers : 1;
+  for (size_t sidx = 0; sidx < encoder_config.number_of_streams; ++sidx) {
+    VideoStream stream;
+    stream.scalability_mode = scalability_mode;
+    stream.num_temporal_layers = num_temporal_layers;
+    stream.active = true;
+    encoder_config.simulcast_layers.push_back(stream);
+  }
+
+  if (encoder_config.codec_type == VideoCodecType::kVideoCodecVP9) {
+    // Needed by EncoderStreamFactory::CreateDefaultVideoStreams.
+    VideoCodecVP9 vp9 = VideoEncoder::GetDefaultVp9Settings();
+    vp9.numberOfSpatialLayers = is_simulcast ? 1 : num_spatial_layers;
+    vp9.numberOfTemporalLayers = num_temporal_layers;
+    encoder_config.encoder_specific_settings =
+        rtc::make_ref_counted<VideoEncoderConfig::Vp9EncoderSpecificSettings>(
+            vp9);
+  }
+
+  VideoEncoder::EncoderInfo encoder_info;
+  ExplicitKeyValueConfig field_trials(field_trial::GetFieldTrialString());
+  auto encoder_stream_factory =
+      rtc::make_ref_counted<cricket::EncoderStreamFactory>(encoder_info);
+  std::vector<VideoStream> streams =
+      encoder_stream_factory->CreateEncoderStreams(
+          field_trials, resolution.width, resolution.height, encoder_config);
+  return VideoCodecInitializer::SetupCodec(field_trials, encoder_config,
+                                           streams);
+}
+
 EncodingSettings VideoCodecTester::CreateEncodingSettings(
     const Environment& env,
     std::string codec_type,
-    std::string scalability_name,
-    int width,
-    int height,
-    std::vector<DataRate> bitrate,
-    Frequency framerate,
+    std::vector<ScalabilityMode> scalability_modes,
+    std::vector<Resolution> resolutions,
+    std::vector<Frequency> framerates,
+    std::vector<DataRate> bitrates,
     bool screencast,
     bool frame_drop) {
-  VideoCodecMode content_type = screencast ? VideoCodecMode::kScreensharing
-                                           : VideoCodecMode::kRealtimeVideo;
+  size_t num_simulcast_streams = scalability_modes.size();
+  if (num_simulcast_streams > 1) {
+    for (const& scalability_mode : scalability_modes) {
+      RTC_CHECk_EQ(ScalabilityModeToNumSpatialLayers(scalability_mode), 1u);
+    }
+  }
+  size_t total_spatial_layers = ScalabilityModeToNumSpatialLayers(scalability_modes[0]);
+  size_t total_temporal_layers = 0;
+  for (size_t sidx = 0; sidx < num_simulcast_streams; ++sidx) {
+    size_t stream_num_spatial_layers = ScalabilityModeToNumSpatialLayers(scalability_modes[sidx]);
+    size_t stream_num_temporal_layers = ScalabilityModeToNumTemporalLayers(scalability_modes[sidx]);
+    num_spatial_layers += stream_num_spatial_layers;
+    total_temporal_layers += stream_num_temporal_layers * stream_num_temporal_layers;
+  }
 
-  auto [adjusted_bitrate, scalability_mode] =
-      SplitBitrateAndUpdateScalabilityMode(
-          env, codec_type, *ScalabilityModeFromString(scalability_name), width,
-          height, bitrate, framerate, content_type);
+  size_t num_bitrates = bitrates.size();
+  size_t num_resolutions = resolutions.size();
+  size_t num_framerates = framerates.size();
 
-  int num_spatial_layers = ScalabilityModeToNumSpatialLayers(scalability_mode);
-  int num_temporal_layers =
-      ScalabilityModeToNumTemporalLayers(scalability_mode);
+  std::vector<DataRate> allocated_bitrates;
+  std::vector<Resolution> allocated_resolutions;
+  if (num_bitrates == total_temporal_layers) {
+    allocated_bitrates = bitrates;
+    allocated_resolutions = resolutions;
+  } else {
+    VideoCodec vc;
+    if (num_bitrates == num_spatial_layers) {
+      RTC_CHECK_EQ(num_resolutions, num_spatial_layers);
+      RTC_CHECK_EQ(num_framerates, num_spatial_layers);
+      vc = CreateVideoCodecWithCustomBitrates(codec_type, scalability_modes,
+                                              resolutions, bitrates, framerates,
+                                              screencast);
+    } else {
+      RTC_CHECK_EQ(num_bitrates, 1u);
+      RTC_CHECK_EQ(num_resolutions, 1u);
+      RTC_CHECK_EQ(num_framerates, 1u);
+      vc = CreateVideoCodecWithDefaultBitrates(codec_type, scalability_modes,
+                                               resolutions.back(), screencast);
+      if (vc.numberOfSimulcastStreams > 1) {
+        if (vc.numberOfSimulcastStreams < num_simulcast_streams) {
+          RTC_LOG(LS_INFO) << "Reduced number of simulcast streams from "
+                           << num_simulcast_streams << " to "
+                           << vc.numberOfSimulcastStreams;
+          num_simulcast_streams = vc.numberOfSimulcastStreams;
+          for (size_t sidx = 0; sidx < num_simulcast_streams; ++sidx) {
+            int num_spatial_layers = ScalabilityModeToNumSpatialLayers(*vc.simulcastStream[sidx].GetScalabilityMode());
+            RTC_CHECK_EQ(num_spatial_layers, 1); // Simulcast with only one spatial layer is supported for now.
+          }
+          num_spatial_layers = num_simulcast_streams;
+        }
+      } else {
+        size_t allocated_num_spatial_layers =
+            ScalabilityModeToNumSpatialLayers(*vc.GetScalabilityMode());
+        if (allocated_num_spatial_layers < num_spatial_layers) {
+          RTC_LOG(LS_INFO) << "Reduced number of spatial layers from "
+                           << num_spatial_layers << " to "
+                           << allocated_num_spatial_layers;
+          num_spatial_layers = allocated_num_spatial_layers;
+        }
+      }
+    }
+
+    DataRate total_bitrate = absl::c_accumulate(bitrates, DataRate::Zero());
+    std::unique_ptr<VideoBitrateAllocator> bitrate_allocator =
+        CreateBuiltinVideoBitrateAllocatorFactory()->Create(env, vc);
+    VideoBitrateAllocation bitrate_allocation =
+        bitrate_allocator->Allocate(VideoBitrateAllocationParameters(
+            total_bitrate.bps(), framerates.back().hertz<double>()));
+
+    for (size_t sidx = 0; sidx < num_spatial_layers; ++sidx) {
+      size_t num_temporal_layers;
+      if (num_simulcast_streams > 1) {
+        RTC_CHECK_EQ
+        RTC_CHECK_LT(sidx, num_simulcast_streams);
+        num_temporal_layers = ScalabilityModeToNumTemporalLayers(scalability_modes[sidx]);
+      } else {
+        num_temporal_layers = ScalabilityModeToNumTemporalLayers(scalability_modes[0]);
+      }
+      for (size_t tidx = 0; tidx < num_temporal_layers; ++tidx) {
+        int bitrate_bps = bitrate_allocation.GetBitrate(sidx, tidx);
+        allocated_bitrates.push_back(DataRate::BitsPerSec(bitrate_bps));
+      }
+    }
+  }
 
   std::map<LayerId, LayerSettings> layers_settings;
-  for (int sidx = 0; sidx < num_spatial_layers; ++sidx) {
-    int layer_width = width >> (num_spatial_layers - sidx - 1);
-    int layer_height = height >> (num_spatial_layers - sidx - 1);
-    for (int tidx = 0; tidx < num_temporal_layers; ++tidx) {
+  for (size_t sidx = 0; sidx < num_spatial_layers; ++sidx) {
+    int width;
+    int height;
+    if (num_resolutions > 1) {
+      RTC_CHECK_EQ(num_resolutions, num_spatial_layers);
+      width = resolutions[sidx].width;
+      height = resolutions[sidx].height;
+    } else {
+      width = resolutions.back().width >> (num_spatial_layers - sidx - 1);
+      height = resolutions.back().height >> (num_spatial_layers - sidx - 1);
+    }
+
+    Frequency framerate;
+    if (num_framerates > 1) {
+      RTC_CHECK_EQ(num_framerates, num_spatial_layers);
+      framerate = framerates[sidx];
+    } else {
+      framerate = framerates.back()
+    }
+
+    size_t num_temporal_layers = ScalabilityModeToNumTemporalLayers(scalability_modes[sidx]);
+    for (size_t tidx = 0; tidx < num_temporal_layers; ++tidx) {
       layers_settings.emplace(
-          LayerId{.spatial_idx = sidx, .temporal_idx = tidx},
+          LayerId{.spatial_idx = static_cast<int>(sidx),
+                  .temporal_idx = static_cast<int>(tidx)},
           LayerSettings{
-              .resolution = {.width = layer_width, .height = layer_height},
+              .resolution = {.width = width, .height = height},
               .framerate = framerate / (1 << (num_temporal_layers - tidx - 1)),
-              .bitrate = adjusted_bitrate[sidx * num_temporal_layers + tidx]});
+              .bitrate =
+                  allocated_bitrates[sidx * num_temporal_layers + tidx]});
     }
   }
 
@@ -1575,8 +1618,11 @@ EncodingSettings VideoCodecTester::CreateEncodingSettings(
             .parameters;
   }
 
+  VideoCodecMode content_type = screencast ? VideoCodecMode::kScreensharing
+                                           : VideoCodecMode::kRealtimeVideo;
+
   return EncodingSettings{.sdp_video_format = sdp_video_format,
-                          .scalability_mode = scalability_mode,
+                          .scalability_modes = scalability_modes,
                           .content_type = content_type,
                           .frame_drop = frame_drop,
                           .layers_settings = layers_settings};

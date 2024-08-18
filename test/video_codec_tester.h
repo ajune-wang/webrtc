@@ -50,7 +50,7 @@ class VideoCodecTester {
 
   struct EncodingSettings {
     SdpVideoFormat sdp_video_format = SdpVideoFormat::VP8();
-    ScalabilityMode scalability_mode = ScalabilityMode::kL1T1;
+    std::vector<ScalabilityMode> scalability_modes = {ScalabilityMode::kL1T1};
     VideoCodecMode content_type = VideoCodecMode::kRealtimeVideo;
     bool frame_drop = true;
     bool keyframe = false;
@@ -190,19 +190,19 @@ class VideoCodecTester {
   };
 
   // A helper function that creates `EncodingSettings` from the given
-  // parameters. `bitrate` is either total, or per-spatial layer or per-spatial
-  // and per-temporal layer. If layer bitrates are not explicitly specified,
-  // then the codec-specific rate allocators used to distribute the total
-  // bitrate across spatial or/and temporal layers.
-  static EncodingSettings CreateEncodingSettings(const Environment& env,
-                                                 std::string codec_type,
-                                                 std::string scalability_name,
-                                                 int width,
-                                                 int height,
-                                                 std::vector<DataRate> bitrate,
-                                                 Frequency framerate,
-                                                 bool screencast = false,
-                                                 bool frame_drop = true);
+  // parameters. `bitrates` is either total, or per-spatial layer or
+  // per-temporal layer. If layer bitrates are not explicitly specified, then
+  // the codec-specific rate allocators used to distribute the total bitrate
+  // across spatial or/and temporal layers.
+  static EncodingSettings CreateEncodingSettings(
+      const Environment& env,
+      std::string codec_type,
+      std::vector<ScalabilityMode> scalability_modes,
+      std::vector<Resolution> resolutions,
+      std::vector<Frequency> framerates,
+      std::vector<DataRate> bitrates,
+      bool screencast = false,
+      bool frame_drop = true);
 
   // A helper function that creates a map of RTP timestamps to
   // `EncodingSettings` for the given number of frames.

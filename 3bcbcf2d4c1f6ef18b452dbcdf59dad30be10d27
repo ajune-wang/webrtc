@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e1556dd4_41b91ff1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2024-08-19T19:05:06Z",
+      "side": 1,
+      "message": "Philip is OOO for a while...",
+      "revId": "3bcbcf2d4c1f6ef18b452dbcdf59dad30be10d27",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

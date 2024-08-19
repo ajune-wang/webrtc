@@ -35,6 +35,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "35612bb9_0db70be8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 20509
+      },
+      "writtenOn": "2024-08-19T16:07:21Z",
+      "side": 1,
+      "message": "Thanks for the review\nI\u0027m going with @jakobi\u0027s suggestion of just relying on the proper handling inside the proxy and removing the atomic\n\nWill publish a new version in a moment",
+      "revId": "44bbc3fa081f460acd1b30676333af181aece90b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7957a105_66932568",
@@ -48,6 +65,30 @@
       "writtenOn": "2024-08-12T08:22:48Z",
       "side": 1,
       "message": "I don\u0027t see why this bool is needed. The checks in `RtpPacketSenderProxy` seem sufficient, and this atomic will not prevent it from being called when `rtp_packet_pacer_` is nullptr (since it can be reset in between the `congestion_control_configured_.load()` check and `EnqueuePackets` is called).",
+      "range": {
+        "startLine": 273,
+        "startChar": 0,
+        "endLine": 273,
+        "endChar": 59
+      },
+      "revId": "44bbc3fa081f460acd1b30676333af181aece90b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "84c241d5_863335c0",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 20509
+      },
+      "writtenOn": "2024-08-19T16:07:21Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "7957a105_66932568",
       "range": {
         "startLine": 273,
         "startChar": 0,
@@ -75,6 +116,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "346cc174_ad793c95",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 320,
+      "author": {
+        "id": 20509
+      },
+      "writtenOn": "2024-08-19T16:07:21Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "9832d146_57ff2da3",
+      "revId": "44bbc3fa081f460acd1b30676333af181aece90b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f4e466da_7a53ad7d",
@@ -88,6 +147,30 @@
       "writtenOn": "2024-08-12T08:22:48Z",
       "side": 1,
       "message": "It seems expected that `EnqueuePackets` will be called with rtp_packet_pacer_ being nullptr, so I would not have this dcheck. Maybe log a warning or something instead.",
+      "range": {
+        "startLine": 323,
+        "startChar": 6,
+        "endLine": 323,
+        "endChar": 27
+      },
+      "revId": "44bbc3fa081f460acd1b30676333af181aece90b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dd2dbe24_faba702d",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 323,
+      "author": {
+        "id": 20509
+      },
+      "writtenOn": "2024-08-19T16:07:21Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "f4e466da_7a53ad7d",
       "range": {
         "startLine": 323,
         "startChar": 6,
@@ -115,6 +198,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "aca853cc_14b0c09a",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 334,
+      "author": {
+        "id": 20509
+      },
+      "writtenOn": "2024-08-19T16:07:21Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "55b0bf0e_172839f6",
+      "revId": "44bbc3fa081f460acd1b30676333af181aece90b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e0667382_4651aadc",
@@ -128,6 +229,24 @@
       "writtenOn": "2024-08-12T05:17:53Z",
       "side": 1,
       "message": "RTC_DCHECK(rtp_packet_pacer_) followed by a return for the production case.",
+      "revId": "44bbc3fa081f460acd1b30676333af181aece90b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cbd5eb23_9e3316d5",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 335,
+      "author": {
+        "id": 20509
+      },
+      "writtenOn": "2024-08-19T16:07:21Z",
+      "side": 1,
+      "message": "Will go with logging warning then return per @jakobi comment",
+      "parentUuid": "e0667382_4651aadc",
       "revId": "44bbc3fa081f460acd1b30676333af181aece90b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

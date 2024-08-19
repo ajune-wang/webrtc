@@ -1,0 +1,45 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0906671f_fc06d6b1",
+        "filename": "video/receive_statistics_proxy.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 5597
+      },
+      "writtenOn": "2024-08-19T08:57:40Z",
+      "side": 1,
+      "message": "I think you can drop this.",
+      "range": {
+        "startLine": 150,
+        "startChar": 4,
+        "endLine": 150,
+        "endChar": 12
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "9505a52d_a27b46d3",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "video/receive_statistics_proxy.h",
+              "range": {
+                "startLine": 150,
+                "startChar": 0,
+                "endLine": 151,
+                "endChar": 0
+              },
+              "replacement": "    webrtc_impl::RunningStatistics\u003cdouble\u003e corruption_score;\n"
+            }
+          ]
+        }
+      ],
+      "revId": "6123f61fab199b5c3ec417bc38aa5ae8fb0e00b9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

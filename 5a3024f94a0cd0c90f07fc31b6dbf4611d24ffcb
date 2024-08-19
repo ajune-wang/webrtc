@@ -16,6 +16,29 @@
       "message": "Thanks for the help",
       "revId": "5a3024f94a0cd0c90f07fc31b6dbf4611d24ffcb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6853845a_3fcd7af2",
+        "filename": "video/receive_statistics_proxy_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 715,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2024-08-19T14:59:59Z",
+      "side": 1,
+      "message": "These can be removed now?",
+      "range": {
+        "startLine": 713,
+        "startChar": 0,
+        "endLine": 715,
+        "endChar": 0
+      },
+      "revId": "5a3024f94a0cd0c90f07fc31b6dbf4611d24ffcb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

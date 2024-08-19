@@ -50,6 +50,23 @@
       "message": "hbos is back so lets try this: DELETE DELETE!",
       "revId": "23fe87eb4e7f242195a5cc96103a9ca3ebc7a246",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "42e41004_cd444f41",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2024-08-19T14:36:21Z",
+      "side": 1,
+      "message": "Deleting a thing? I like deleting a thing. Delete!",
+      "revId": "23fe87eb4e7f242195a5cc96103a9ca3ebc7a246",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

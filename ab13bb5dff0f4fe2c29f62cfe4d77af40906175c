@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6ee20e46_623ec01b",
+        "filename": "test/fuzzers/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 791,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2024-08-19T14:44:42Z",
+      "side": 1,
+      "message": "I think the change might fix anyway, but the error was:\n\n```\nERROR Unresolved dependencies.\n//third_party/webrtc/test/fuzzers:fuzzers(//build/toolchain/linux:clang_x64)\n  needs //third_party/webrtc/test/fuzzers:sdp_integration_fuzzer(//build/toolchain/linux:clang_x64)\n```\n \nBecause of https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/test/fuzzers/BUILD.gn;l\u003d451-454;drc\u003d06391decf8397849f4c0dd9468612caa8f111185.\n\nShould we instead (or also) add it here only when not building with Chromium?",
+      "range": {
+        "startLine": 791,
+        "startChar": 6,
+        "endLine": 791,
+        "endChar": 28
+      },
+      "revId": "ab13bb5dff0f4fe2c29f62cfe4d77af40906175c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

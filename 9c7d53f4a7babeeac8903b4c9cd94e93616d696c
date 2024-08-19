@@ -16,6 +16,40 @@
       "message": "This seems to be reasonably clean for the parts that are implemented.\nSending this for review - next step is to try to replace one of the tables of PTs in the running code with a PayloadTypeRecorder.",
       "revId": "9c7d53f4a7babeeac8903b4c9cd94e93616d696c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b7e47d74_62df8f70",
+        "filename": "pc/payload_type_picker.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2024-08-19T08:50:18Z",
+      "side": 1,
+      "message": "I like this!",
+      "revId": "9c7d53f4a7babeeac8903b4c9cd94e93616d696c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e5e96c4e_8b262572",
+        "filename": "pc/payload_type_picker.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2024-08-19T08:50:18Z",
+      "side": 1,
+      "message": "nit: Move the comments for Rollback() just before the function instead of having it as one block for all the transaction methods.",
+      "revId": "9c7d53f4a7babeeac8903b4c9cd94e93616d696c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

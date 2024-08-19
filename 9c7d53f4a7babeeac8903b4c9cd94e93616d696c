@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3dab81c6_0348e7bb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-08-19T08:16:26Z",
+      "side": 1,
+      "message": "This seems to be reasonably clean for the parts that are implemented.\nSending this for review - next step is to try to replace one of the tables of PTs in the running code with a PayloadTypeRecorder.",
+      "revId": "9c7d53f4a7babeeac8903b4c9cd94e93616d696c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

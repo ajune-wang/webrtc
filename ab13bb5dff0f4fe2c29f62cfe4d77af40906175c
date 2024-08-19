@@ -22,6 +22,30 @@
       },
       "revId": "ab13bb5dff0f4fe2c29f62cfe4d77af40906175c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "89da1eb7_c3af0de0",
+        "filename": "test/fuzzers/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 791,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-08-19T14:56:01Z",
+      "side": 1,
+      "message": "That is exactly the plan - I\u0027ve rerun the chromium trybot to ensure it fails before the patchset#2.\nchecking now it pass with the patchset#2",
+      "parentUuid": "6ee20e46_623ec01b",
+      "range": {
+        "startLine": 791,
+        "startChar": 6,
+        "endLine": 791,
+        "endChar": 28
+      },
+      "revId": "ab13bb5dff0f4fe2c29f62cfe4d77af40906175c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

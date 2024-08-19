@@ -64,6 +64,30 @@
       },
       "revId": "4d72c483e9cddb0b60123a9f25af89a1b1dc7c14",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4c561a47_88cd85aa",
+        "filename": "video/receive_statistics_proxy.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 3485001
+      },
+      "writtenOn": "2024-08-19T14:55:39Z",
+      "side": 1,
+      "message": "Lets go with 1000 as discussed over the chat. Renamed it to `CorruptionLikelihoodPermille`.",
+      "parentUuid": "456f9aec_9a579a5c",
+      "range": {
+        "startLine": 316,
+        "startChar": 0,
+        "endLine": 317,
+        "endChar": 70
+      },
+      "revId": "4d72c483e9cddb0b60123a9f25af89a1b1dc7c14",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

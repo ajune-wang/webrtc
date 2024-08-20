@@ -12,6 +12,7 @@
 #define PC_PAYLOAD_TYPE_PICKER_H_
 
 #include <map>
+#include <set>
 #include <utility>
 #include <vector>
 
@@ -31,7 +32,7 @@ class PayloadType : public StrongAlias<class PayloadTypeTag, uint8_t> {
 
 class PayloadTypePicker {
  public:
-  PayloadTypePicker() = default;
+  PayloadTypePicker();
   PayloadTypePicker(const PayloadTypePicker&) = delete;
   PayloadTypePicker& operator=(const PayloadTypePicker&) = delete;
   PayloadTypePicker(PayloadTypePicker&&) = delete;
@@ -39,6 +40,21 @@ class PayloadTypePicker {
 
   RTCErrorOr<PayloadType> SuggestMapping(cricket::Codec codec);
   RTCError AddMapping(PayloadType payload_type, cricket::Codec codec);
+
+ private:
+  class MapEntry {
+   public:
+    MapEntry(PayloadType payload_type, cricket::Codec codec)
+        : payload_type_(payload_type), codec_(codec) {}
+    PayloadType payload_type() const { return payload_type_; }
+    cricket::Codec codec() const { return codec_; }
+
+   private:
+    PayloadType payload_type_;
+    cricket::Codec codec_;
+  };
+  std::vector<MapEntry> entries_;
+  std::set<PayloadType> seen_payload_types_;
 };
 
 class PayloadTypeRecorder {

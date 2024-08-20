@@ -91,4 +91,25 @@ TEST(PayloadTypePicker, RollbackAndCommit) {
   }
 }
 
+TEST(PayloadTypePicker, StaticValueIsGood) {
+  PayloadTypePicker picker;
+  cricket::Codec a_codec =
+      cricket::CreateAudioCodec(-1, cricket::kPcmuCodecName, 8000, 1);
+  auto result = picker.SuggestMapping(a_codec);
+  // In the absence of existing mappings, PCMU always has 0 as PT.
+  ASSERT_TRUE(result.ok());
+  EXPECT_EQ(result.value(), PayloadType(0));
+}
+
+TEST(PayloadTypePicker, DynamicValueIsGood) {
+  PayloadTypePicker picker;
+  cricket::Codec a_codec = cricket::CreateAudioCodec(-1, "lyra", 8000, 1);
+  auto result = picker.SuggestMapping(a_codec);
+  // This should result in a value from the dynamic range; since this is the
+  // first assignment, it should be in the upper range.
+  ASSERT_TRUE(result.ok());
+  EXPECT_GE(result.value(), PayloadType(96));
+  EXPECT_LE(result.value(), PayloadType(127));
+}
+
 }  // namespace webrtc

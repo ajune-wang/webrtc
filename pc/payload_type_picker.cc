@@ -48,8 +48,9 @@ RTCError PayloadTypePicker::AddMapping(PayloadType payload_type,
 
 RTCError PayloadTypeRecorder::AddMapping(PayloadType payload_type,
                                          cricket::Codec codec) {
-  if (payload_type_to_codec_.find(payload_type) !=
-      payload_type_to_codec_.end()) {
+  auto existing_codec_it = payload_type_to_codec_.find(payload_type);
+  if (existing_codec_it != payload_type_to_codec_.end() &&
+      !MatchesForSdp(codec, existing_codec_it->second)) {
     return RTCError(RTCErrorType::INVALID_PARAMETER,
                     "Attempt to insert duplicate mapping for PT");
   }

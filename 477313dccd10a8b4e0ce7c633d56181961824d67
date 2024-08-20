@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3879c4df_7b0676f4",
+        "filename": "pc/jsep_transport_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-08-20T19:19:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1bfbf15d_b513a539",
+      "revId": "477313dccd10a8b4e0ce7c633d56181961824d67",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dbeae8b6_5e145772",
@@ -48,6 +66,24 @@
       "writtenOn": "2024-08-20T15:37:48Z",
       "side": 1,
       "message": "Make this a TODO() to be easily searchable?",
+      "revId": "477313dccd10a8b4e0ce7c633d56181961824d67",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "957924db_85ee97e4",
+        "filename": "pc/peer_connection_interface_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 3088,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-08-20T19:19:45Z",
+      "side": 1,
+      "message": "I suspect this is an instance of https://issues.webrtc.org/42233461 - a TODO pointing to that might be more appropriate.\nTODO added.",
+      "parentUuid": "dbeae8b6_5e145772",
       "revId": "477313dccd10a8b4e0ce7c633d56181961824d67",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

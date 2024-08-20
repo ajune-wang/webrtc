@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b8fa45fa_f378f2a2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-08-20T19:19:45Z",
+      "side": 1,
+      "message": "Thank you. In the meantime, another fake had to be fixed, so need another approval stamp.",
+      "revId": "273bae43d64cafb23336748696283064e62c3038",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

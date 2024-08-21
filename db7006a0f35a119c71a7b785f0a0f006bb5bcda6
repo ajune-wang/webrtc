@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "00a0ec58_20bbda28",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2024-08-21T09:07:16Z",
+      "side": 1,
+      "message": "Ahaa, I missed that last assignment.\nI usually try to avoid input/output arguments as it can be confusing when reading the callsite what the functions are expected to mutate.\n\nPerhaps you can change the signature to something like\n```\nabsl::optional\u003cmap\u003cBitrateAllocationObserver*, int\u003e\u003e MaybeApplySurplus(\n  const map\u003cBitrateAllocationObserver*, int\u003e\u0026 allocation,\n  const std::vector\u003cAllocatableTrack\u003e\u0026 allocatable_tracks,\n  DataRate bitrate,\n  DataRate upper_elastic_limit) {\n```\n\nthen it becomes clear that no input arguments are mutated, and you get a new output only if the state was actually changed. So everywhere you now just return early without changing anything you would return an `absl::nullopt` instead - and then only when you get to the last for-loop where you actually change the allocation would you create a new map and return that value.\n\nThe call-site would then look something like\n```\nreturn MaybeApplySurplus(allocation, allocatable_tracks,\n                         DataRate::BitsPerSec(bitrate),\n                         upper_elastic_limit)\n         .value_or(allocation);\n```\n\nThat shouldn\u0027t really result it too much copying. Also I expect these maps to be small anyway.\n\nwdyt?",
+      "parentUuid": "253fe2cd_3299d0d6",
+      "range": {
+        "startLine": 321,
+        "startChar": 18,
+        "endLine": 321,
+        "endChar": 71
+      },
+      "revId": "db7006a0f35a119c71a7b785f0a0f006bb5bcda6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "01f9b4ea_3c4a40af",
         "filename": "call/bitrate_allocator.cc",
         "patchSetId": 1
@@ -320,6 +344,30 @@
       "side": 1,
       "message": "Very good suggestion. `config.last_used_bitrate_bps` is for detecting significant audio bitrate changes. (Rather than going deep into audio codec to detect silence to speech transition, it is suggested that it is simpler/better to simply check jump in bitrate usage). For audio, GetUsedRate() always return a valid value except in cases when the audio encoder just (re)started. Setting to -1 or 0 would avoid diffing with stale values.\n\nHowever, keeping with the spirit of moving to use DataRate, it is even simpler if we change last_used_bitrate_bps to an optional DataRate.",
       "parentUuid": "c1397a3b_edee9c63",
+      "range": {
+        "startLine": 523,
+        "startChar": 0,
+        "endLine": 525,
+        "endChar": 60
+      },
+      "revId": "db7006a0f35a119c71a7b785f0a0f006bb5bcda6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5d5e269a_8da34b47",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 525,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2024-08-21T09:07:16Z",
+      "side": 1,
+      "message": "Great!",
+      "parentUuid": "ac013129_f3dcd803",
       "range": {
         "startLine": 523,
         "startChar": 0,
@@ -619,6 +667,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b3163a74_754a7104",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 605,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2024-08-21T09:07:16Z",
+      "side": 1,
+      "message": "Sounds good, thanks!",
+      "parentUuid": "ea281a52_3683608c",
+      "range": {
+        "startLine": 605,
+        "startChar": 14,
+        "endLine": 605,
+        "endChar": 18
+      },
+      "revId": "db7006a0f35a119c71a7b785f0a0f006bb5bcda6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5c0683fd_0ae99f7c",
@@ -799,6 +871,30 @@
       "side": 1,
       "message": "Existing code (e.g., in BitrateAllocator::OnNetworkEstimateChanged) also computes `packet_loss_ratio` using divide-by-256.0. RFC 3550 says fraction loss is \"equivalent to taking the integer part after multiplying the loss fraction by 256.\" Since truncation is done, division by 256 is indeed underestimating. If we prefer 255, we should change that uniformly at least inside BitrateAllocator.",
       "parentUuid": "4a7cec09_3278ad78",
+      "range": {
+        "startLine": 634,
+        "startChar": 55,
+        "endLine": 634,
+        "endChar": 61
+      },
+      "revId": "db7006a0f35a119c71a7b785f0a0f006bb5bcda6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "83f66039_6c239944",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 634,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2024-08-21T09:07:16Z",
+      "side": 1,
+      "message": "Huh, interesting. Let\u0027s just follow the RFC for now then - I don\u0027t want to cause regressions.",
+      "parentUuid": "4c736e6d_bf3057fd",
       "range": {
         "startLine": 634,
         "startChar": 55,

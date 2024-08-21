@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "65a9cabb_06496691",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2024-08-21T09:07:16Z",
+      "side": 1,
+      "message": "Sorry for the late reply, I\u0027ve been a little out this week.\n\nThanks for the fixes, looks good! Just one more comment...",
+      "revId": "a876978af39cb4bccdb32dcb3c78076d0daf69ca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

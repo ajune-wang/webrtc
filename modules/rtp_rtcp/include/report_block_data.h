@@ -42,7 +42,9 @@ class ReportBlockData {
 
   // Fraction loss as was written in the raw packet: range is [0, 255] where 0
   // represents no loss, and 255 represents 99.6% loss (255/256 * 100%).
-  uint8_t fraction_lost_raw() const { return fraction_lost_raw_; }
+  float fraction_lost() const {
+    return static_cast<float>(fraction_lost_raw()) / 256.0f;
+  }
 
   // The total number of RTP data packets from 'source_ssrc()' that have been
   // lost since the beginning of reception.  This number is defined to be the

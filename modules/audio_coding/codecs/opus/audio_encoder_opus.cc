@@ -208,12 +208,24 @@ int GetMultipliedBitrate(int bitrate, const std::vector<float>& multipliers) {
 
 void AudioEncoderOpusImpl::AppendSupportedEncoders(
     std::vector<AudioCodecSpec>* specs) {
-  const SdpAudioFormat fmt = {"opus",
-                              kRtpTimestampRateHz,
-                              2,
-                              {{"minptime", "10"}, {"useinbandfec", "1"}}};
-  const AudioCodecInfo info = QueryAudioEncoder(*SdpToConfig(fmt));
-  specs->push_back({fmt, info});
+  const SdpAudioFormat format_mono = {
+      "opus",
+      kRtpTimestampRateHz,
+      2,
+      {{"minptime", "10"}, {"useinbandfec", "1"}}};
+  const AudioCodecInfo info_mono = QueryAudioEncoder(*SdpToConfig(format_mono));
+  specs->push_back({format_mono, info_mono});
+
+  const SdpAudioFormat format_stereo = {"opus",
+                                        kRtpTimestampRateHz,
+                                        2,
+                                        {{"minptime", "10"},
+                                         {"useinbandfec", "1"},
+                                         {"sprop-stereo", "1"},
+                                         {"stereo", "1"}}};
+  const AudioCodecInfo info_stereo =
+      QueryAudioEncoder(*SdpToConfig(format_stereo));
+  specs->push_back({format_stereo, info_stereo});
 }
 
 AudioCodecInfo AudioEncoderOpusImpl::QueryAudioEncoder(

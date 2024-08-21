@@ -71,6 +71,14 @@ PayloadTypeMapper::PayloadTypeMapper()
              {{kCodecParamMinPTime, "10"},
               {kCodecParamUseInbandFec, kParamValueTrue}}},
             111},
+           {{kOpusCodecName,
+             48000,
+             2,
+             {{kCodecParamMinPTime, "10"},
+              {kCodecParamUseInbandFec, kParamValueTrue},
+              {"sprop-stereo", "1"},
+              {"stereo", "1"}}},
+            111},
            // RED for opus is assigned in the lower range, starting at the top.
            // Note that the FMTP refers to the opus payload type.
            {{kRedCodecName,

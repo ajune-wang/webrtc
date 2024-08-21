@@ -57,6 +57,13 @@ TEST_F(PayloadTypeMapperTest, WebRTCPayloadTypes) {
                       48000,
                       2,
                       {{"minptime", "10"}, {"useinbandfec", "1"}}}));
+  EXPECT_EQ(111, mapper_.FindMappingFor({kOpusCodecName,
+                                         48000,
+                                         2,
+                                         {{"minptime", "10"},
+                                          {"useinbandfec", "1"},
+                                          {"sprop-stereo", "1"},
+                                          {"stereo", "1"}}}));
   EXPECT_EQ(
       63, mapper_.FindMappingFor({kRedCodecName, 48000, 2, {{"", "111/111"}}}));
   // TODO(solenberg): Remove 16k, 32k, 48k DTMF checks once these payload types
@@ -134,6 +141,46 @@ TEST_F(PayloadTypeMapperTest, ToAudioCodec) {
     EXPECT_EQ(codec.channels, format.num_channels);
     EXPECT_THAT(codec.params, ::testing::ContainerEq(format.parameters));
   }
+}
+
+TEST_F(PayloadTypeMapperTest, ToAudioCodecOpusMono) {
+  webrtc::SdpAudioFormat format("opus", 48000, 1,
+                                {{kCodecParamMinPTime, "10"},
+                                 {kCodecParamUseInbandFec, kParamValueTrue}});
+  auto opt_payload_type = mapper_.GetMappingFor(format);
+  ASSERT_TRUE(opt_payload_type);
+  auto opt_audio_codec = mapper_.ToAudioCodec(format);
+  ASSERT_TRUE(opt_audio_codec);
+
+  int payload_type = *opt_payload_type;
+  const Codec& codec = *opt_audio_codec;
+
+  EXPECT_EQ(codec.id, payload_type);
+  EXPECT_EQ(codec.name, format.name);
+  EXPECT_EQ(codec.clockrate, format.clockrate_hz);
+  EXPECT_EQ(codec.channels, format.num_channels);
+  EXPECT_THAT(codec.params, ::testing::ContainerEq(format.parameters));
+}
+
+TEST_F(PayloadTypeMapperTest, ToAudioCodecOpusStereo) {
+  webrtc::SdpAudioFormat format("opus", 48000, 2,
+                                {{kCodecParamMinPTime, "10"},
+                                 {kCodecParamUseInbandFec, kParamValueTrue},
+                                 {"sprop-stereo", "1"},
+                                 {"stereo", "1"}});
+  auto opt_payload_type = mapper_.GetMappingFor(format);
+  ASSERT_TRUE(opt_payload_type);
+  auto opt_audio_codec = mapper_.ToAudioCodec(format);
+  ASSERT_TRUE(opt_audio_codec);
+
+  int payload_type = *opt_payload_type;
+  const Codec& codec = *opt_audio_codec;
+
+  EXPECT_EQ(codec.id, payload_type);
+  EXPECT_EQ(codec.name, format.name);
+  EXPECT_EQ(codec.clockrate, format.clockrate_hz);
+  EXPECT_EQ(codec.channels, format.num_channels);
+  EXPECT_THAT(codec.params, ::testing::ContainerEq(format.parameters));
 }
 
 }  // namespace cricket

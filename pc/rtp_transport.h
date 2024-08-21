@@ -17,6 +17,7 @@
 #include <string>
 
 #include "absl/types/optional.h"
+#include "api/field_trials_view.h"
 #include "api/task_queue/pending_task_safety_flag.h"
 #include "api/units/timestamp.h"
 #include "call/rtp_demuxer.h"
@@ -47,8 +48,10 @@ class RtpTransport : public RtpTransportInternal {
   RtpTransport(const RtpTransport&) = delete;
   RtpTransport& operator=(const RtpTransport&) = delete;
 
-  explicit RtpTransport(bool rtcp_mux_enabled)
-      : rtcp_mux_enabled_(rtcp_mux_enabled) {}
+  RtpTransport(bool rtcp_mux_enabled, const FieldTrialsView& field_trials)
+      : set_ready_state_false_on_not_connected_(
+            field_trials.IsEnabled("WebRTC-SetReadyStateFalseOnNotConnected")),
+        rtcp_mux_enabled_(rtcp_mux_enabled) {}
 
   bool rtcp_mux_enabled() const override { return rtcp_mux_enabled_; }
   void SetRtcpMuxEnabled(bool enable) override;
@@ -125,6 +128,7 @@ class RtpTransport : public RtpTransportInternal {
 
   bool IsTransportWritable();
 
+  const bool set_ready_state_false_on_not_connected_;
   bool rtcp_mux_enabled_;
 
   rtc::PacketTransportInternal* rtp_packet_transport_ = nullptr;

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "26698666_301c0caa",
+        "filename": "build_overrides/build.gni",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2024-08-21T06:52:35Z",
+      "side": 1,
+      "message": "orphis: This should be equal to rtc_build_ssl, right?",
+      "range": {
+        "startLine": 55,
+        "startChar": 0,
+        "endLine": 55,
+        "endChar": 27
+      },
+      "revId": "c6e3d41276d6e1b0028606a45ed37555436b8232",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

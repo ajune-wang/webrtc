@@ -569,6 +569,9 @@ void VideoStreamEncoderResourceManager::ConfigureQualityScaler(
         encoder_settings_->encoder_config().is_quality_scaling_allowed)) &&
       encoder_info.is_qp_trusted.value_or(true);
 
+  RTC_LOG(LS_ERROR) << "------------- QP ALLOWED? ------------- "
+                    << (quality_scaling_allowed ? "yes" : "NOOOo1111!!!11");
+
   // TODO(https://crbug.com/webrtc/11222): Should this move to
   // QualityScalerResource?
   if (quality_scaling_allowed) {

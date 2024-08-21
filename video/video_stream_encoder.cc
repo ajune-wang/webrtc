@@ -901,6 +901,7 @@ void VideoStreamEncoder::ConfigureEncoder(VideoEncoderConfig config,
     }
     video_source_sink_controller_.SetActive(active);
     video_source_sink_controller_.PushSourceSinkSettings();
+    RTC_LOG(LS_ERROR) << "The max requested resolution changed...";
   }
 
   encoder_queue_->PostTask([this, config = std::move(config),
@@ -995,9 +996,20 @@ void VideoStreamEncoder::ReconfigureEncoder() {
         env_.field_trials(), last_frame_info_->width, last_frame_info_->height,
         encoder_config_);
   } else {
+    // Hack!
+    // latest_restrictions_ = absl::nullopt;
+    RTC_LOG(LS_ERROR) << "[hbos] ReconfigureEncoder with restrictions: "
+                      << (latest_restrictions_
+                              ? latest_restrictions_->ToString()
+                              : std::string("null"));
+
     auto factory = rtc::make_ref_counted<cricket::EncoderStreamFactory>(
         encoder_->GetEncoderInfo(), latest_restrictions_);
 
+    // RTC_LOG(LS_ERROR) << "[hbos] Creating encoder streams from last info: "
+    //                   << last_frame_info_->width << "x" <<
+    //                   last_frame_info_->height << " and latest
+    //                   restrictions...";
     streams = factory->CreateEncoderStreams(
         env_.field_trials(), last_frame_info_->width, last_frame_info_->height,
         encoder_config_);
@@ -1030,6 +1042,8 @@ void VideoStreamEncoder::ReconfigureEncoder() {
       });
   int highest_stream_width = static_cast<int>(highest_stream->width);
   int highest_stream_height = static_cast<int>(highest_stream->height);
+  RTC_LOG(LS_ERROR) << "[hbos] ReconfigureEncoder with " << highest_stream_width
+                    << "x" << highest_stream_height;
   // Dimension may be reduced to be, e.g. divisible by 4.
   RTC_CHECK_GE(last_frame_info_->width, highest_stream_width);
   RTC_CHECK_GE(last_frame_info_->height, highest_stream_height);
@@ -2371,6 +2385,10 @@ void VideoStreamEncoder::OnVideoSourceRestrictionsUpdated(
   // TODO(webrtc:14451) Split video_source_sink_controller_
   // so that ownership on restrictions/wants is kept on &encoder_queue_
   latest_restrictions_ = restrictions;
+  {
+    pending_encoder_reconfiguration_ = true;
+    ReconfigureEncoder();
+  }
 
   worker_queue_->PostTask(SafeTask(
       task_safety_.flag(), [this, restrictions = std::move(restrictions)]() {

@@ -476,6 +476,7 @@ EncoderStreamFactory::GetLayerResolutionFromRequestedResolution(
   adapter.OnOutputFormatRequest(requested_resolution.ToPair(),
                                 requested_resolution.PixelCount(),
                                 absl::nullopt);
+  // TODO(hbos): This seems to be a problem?
   if (restrictions_) {
     rtc::VideoSinkWants wants;
     wants.is_active = true;

@@ -12,7 +12,7 @@ enable_java_templates = true
 # Enables assertions on safety checks in libc++.
 enable_safe_libcxx = true
 
-# Don't set this variable to true when building stadalone WebRTC, it is
+# Don't set this variable to true when building standalone WebRTC, it is
 # only needed to support both WebRTC standalone and Chromium builds.
 build_with_chromium = false
 
@@ -49,6 +49,10 @@ if (host_os == "mac" || host_os == "linux") {
              "hermetic toolchain if the minimum OS version is not met.")
   use_system_xcode = _result == 0
 }
+
+# libsrtp will build with boringssl when either build_with_chromium or
+# srtp_build_boringssl is set to true.
+srtp_build_boringssl = true
 
 declare_args() {
   # WebRTC doesn't depend on //base from production code but only for testing

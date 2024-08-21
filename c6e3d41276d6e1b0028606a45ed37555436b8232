@@ -46,6 +46,30 @@
       },
       "revId": "c6e3d41276d6e1b0028606a45ed37555436b8232",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "94c89062_2b4e08b7",
+        "filename": "build_overrides/build.gni",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-08-21T13:47:33Z",
+      "side": 1,
+      "message": "renamed. It can not have rtc_build_ssl as default value since that is not known at this point in time.\n\nUnless we put rtc_build_ssl into this...",
+      "parentUuid": "6a5e9669_8ddf6e4f",
+      "range": {
+        "startLine": 55,
+        "startChar": 0,
+        "endLine": 55,
+        "endChar": 27
+      },
+      "revId": "c6e3d41276d6e1b0028606a45ed37555436b8232",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -271,7 +271,8 @@ QualityScaler::CheckQpResult QualityScaler::CheckQp() const {
                             ? framedrop_percent_all_.Size()
                             : framedrop_percent_media_opt_.Size();
   if (frames < min_frames_needed_) {
-    return CheckQpResult::kInsufficientSamples;
+    // TODO(hbos): return CheckQpResult::kInsufficientSamples;
+    return CheckQpResult::kLowQp;
   }
 
   // Check if we should scale down due to high frame drop.
@@ -292,17 +293,17 @@ QualityScaler::CheckQpResult QualityScaler::CheckQp() const {
       qp_smoother_low_ ? qp_smoother_low_->GetAvg()
                        : average_qp_.GetAverageRoundedDown();
   if (avg_qp_high && avg_qp_low) {
-    RTC_LOG(LS_INFO) << "Checking average QP " << *avg_qp_high << " ("
-                     << *avg_qp_low << ").";
     if (*avg_qp_high > thresholds_.high) {
-      return CheckQpResult::kHighQp;
+      // TODO(hbos): return CheckQpResult::kHighQp;
+      return CheckQpResult::kLowQp;
     }
     if (*avg_qp_low <= thresholds_.low) {
       // QP has been low. We want to try a higher resolution.
       return CheckQpResult::kLowQp;
     }
   }
-  return CheckQpResult::kNormalQp;
+  return CheckQpResult::kLowQp;
+  // TODO(hbos): return CheckQpResult::kNormalQp;
 }
 
 void QualityScaler::ClearSamples() {

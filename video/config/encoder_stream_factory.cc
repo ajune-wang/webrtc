@@ -285,10 +285,14 @@ std::vector<webrtc::VideoStream> EncoderStreamFactory::CreateEncoderStreams(
   std::vector<webrtc::VideoStream> streams;
   if (is_simulcast ||
       webrtc::SimulcastUtility::IsConferenceModeScreenshare(encoder_config)) {
+    RTC_LOG(LS_ERROR)
+        << "[hbos] FYI CreateSimulcastOrConferenceModeScreenshareStreams";
     streams = CreateSimulcastOrConferenceModeScreenshareStreams(
         trials, frame_width, frame_height, encoder_config,
         experimental_min_bitrate);
   } else {
+    RTC_LOG(LS_ERROR) << "[hbos] FYI CreateDefaultVideoStreams for "
+                      << frame_width << "x" << frame_height;
     streams = CreateDefaultVideoStreams(
         frame_width, frame_height, encoder_config, experimental_min_bitrate);
   }
@@ -361,11 +365,13 @@ EncoderStreamFactory::CreateDefaultVideoStreams(
                                 [](const auto& layer) { return layer.active; });
 
   if (encoder_config.simulcast_layers[0].requested_resolution) {
+    RTC_LOG(LS_ERROR) << "___ BEFORE: " << layer.width << "x" << layer.height;
     auto res = GetLayerResolutionFromRequestedResolution(
         width, height,
         *encoder_config.simulcast_layers[0].requested_resolution);
     layer.width = res.width;
     layer.height = res.height;
+    RTC_LOG(LS_ERROR) << "___ AFTER: " << layer.width << "x" << layer.height;
   } else if (encoder_config.simulcast_layers[0].scale_resolution_down_by > 1.) {
     layer.width = ScaleDownResolution(
         layer.width,
@@ -476,6 +482,7 @@ EncoderStreamFactory::GetLayerResolutionFromRequestedResolution(
   adapter.OnOutputFormatRequest(requested_resolution.ToPair(),
                                 requested_resolution.PixelCount(),
                                 absl::nullopt);
+  // TODO(hbos): This seems to be a problem?
   if (restrictions_) {
     rtc::VideoSinkWants wants;
     wants.is_active = true;

@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fe3bce09_3ecfbcc3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-08-22T18:58:32Z",
+      "side": 1,
+      "message": "That should solve it for realz hopefully. I validated by setting all four options in a custom build and ran strings rtc_pc_unittests |grep -i boringssl which did not show the boringssl symbols.",
+      "revId": "ae76eafd0ca9ea95a5297fb356482802fea4290d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dc946bb6_f641a4bf",
+        "filename": "pc/BUILD.gn",
+        "patchSetId": 8
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-08-22T18:58:32Z",
+      "side": 1,
+      "message": "I could not find out how to actually set the variables but asserting they are in sync seems good enough to me.",
+      "revId": "ae76eafd0ca9ea95a5297fb356482802fea4290d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

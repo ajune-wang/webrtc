@@ -70,6 +70,30 @@
       },
       "revId": "c6e3d41276d6e1b0028606a45ed37555436b8232",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fd38c587_76a40898",
+        "filename": "build_overrides/build.gni",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2024-08-22T14:30:12Z",
+      "side": 1,
+      "message": "Alright, we can look into updating that later then.",
+      "parentUuid": "94c89062_2b4e08b7",
+      "range": {
+        "startLine": 55,
+        "startChar": 0,
+        "endLine": 55,
+        "endChar": 27
+      },
+      "revId": "c6e3d41276d6e1b0028606a45ed37555436b8232",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

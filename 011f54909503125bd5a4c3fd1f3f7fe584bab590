@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4817a275_0f4ab2f7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-08-22T11:32:53Z",
+      "side": 1,
+      "message": "The transport controller seems to have all the information we need.",
+      "revId": "011f54909503125bd5a4c3fd1f3f7fe584bab590",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

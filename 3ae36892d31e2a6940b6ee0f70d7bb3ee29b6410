@@ -130,6 +130,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1a0627da_1bd4914c",
+        "filename": "modules/video_coding/packet_buffer_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 860,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-08-22T10:53:47Z",
+      "side": 1,
+      "message": "https://google.github.io/styleguide/cppguide.html#Type_deduction\n\n“Use type deduction only if it makes the code clearer to readers who aren\u0027t familiar with the project, or if it makes the code safer. Do not use it merely to avoid the inconvenience of writing an explicit type.”\n```suggestion\n  bool generic \u003d true;\n```",
+      "range": {
+        "startLine": 860,
+        "startChar": 2,
+        "endLine": 860,
+        "endChar": 6
+      },
+      "revId": "3ae36892d31e2a6940b6ee0f70d7bb3ee29b6410",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "129534fc_106ead77",
         "filename": "modules/video_coding/packet_buffer_unittest.cc",
         "patchSetId": 3

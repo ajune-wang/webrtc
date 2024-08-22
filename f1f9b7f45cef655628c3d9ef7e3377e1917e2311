@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "38b67776_5e4f53fb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-08-22T20:15:44Z",
+      "side": 1,
+      "message": "Compiler barfed on that one once but I can no longer reproduce after gclient sync.\n\nGood compiler, thank you for finding this.",
+      "revId": "f1f9b7f45cef655628c3d9ef7e3377e1917e2311",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

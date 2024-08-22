@@ -34,6 +34,12 @@ if (is_android) {
   import("//build/config/android/rules.gni")
 }
 
+if (rtc_build_libsrtp) {
+  import("//third_party/libsrtp/options.gni")
+  libsrtp_build_boringssl = rtc_build_ssl
+  libsrtp_ssl_root = rtc_ssl_root
+}
+
 group("pc") {
   deps = [ ":rtc_pc" ]
 }

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e3e76191_58d9aafc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2024-08-22T12:28:06Z",
+      "side": 1,
+      "message": "Infra broken on release branch. Using NO_TRY\u003dTRUE.",
+      "revId": "f365eb9b6a94acd93efd28160c2be17055e74604",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

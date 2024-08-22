@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2568a70c_7d8bd4d4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19269
+      },
+      "writtenOn": "2024-08-22T20:40:47Z",
+      "side": 1,
+      "message": "Hi Erik,\n\nLooks like I updated the commit message and caused the code-review+1 to be \"outdated\". Can you help take a look?  Thanks.",
+      "revId": "7798d0c2ab51af7d8ca7bd2d6d587dc3c48289f8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

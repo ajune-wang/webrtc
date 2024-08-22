@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f6fd8d5_144d6c11",
+        "filename": "build_overrides/build.gni",
+        "patchSetId": 4
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2024-08-22T14:49:56Z",
+      "side": 1,
+      "message": "In https://ci.chromium.org/ui/p/webrtc/builders/ci/Linux%20(more%20configs)/26039/overview, we build with rtc_build_ssl\u003dfalse.\n\nrtc_build_ssl is generally true (https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/webrtc.gni;l\u003d292;drc\u003d90c430cda4c76bee95976b0d7f17eccb1c6585a7).\n\nIf we default libsrtp_uses_boringssl to true, don\u0027t we risk to mix openssl and boringssl in the same build?\n\nI suggest:\nlibsrtp_uses_boringssl\u003drtc_build_ssl",
+      "range": {
+        "startLine": 55,
+        "startChar": 25,
+        "endLine": 55,
+        "endChar": 29
+      },
+      "revId": "41e89cf24c34a953098f640adc5a4762114ae86f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

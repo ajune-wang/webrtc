@@ -246,4 +246,105 @@ std::vector<SpatialLayer> GetSvcConfig(
   }
 }
 
+void SimulcastToSvcConverter::ConvertConfig(VideoCodec& codec) {
+  int num_temporal_layers =
+      codec.simulcastStream[0].GetNumberOfTemporalLayers();
+  int num_spatial_layers = codec.numberOfSimulcastStreams;
+  ScalabilityMode scalability_mode;
+  if (num_temporal_layers == 1) {
+    scalability_mode = ScalabilityMode::kL1T1;
+  } else if (num_temporal_layers == 2) {
+    scalability_mode = ScalabilityMode::kL1T2;
+  } else if (num_temporal_layers == 3) {
+    scalability_mode = ScalabilityMode::kL1T3;
+  }
+
+  for (int i = 0; i < num_spatial_layers; ++i) {
+    codec.spatialLayers[i] = codec.simulcastStream[i];
+  }
+  codec.simulcastStream[0] =
+      codec.simulcastStream[codec.numberOfSimulcastStreams - 1];
+  codec.VP9()->numberOfSpatialLayers = codec.numberOfSimulcastStreams;
+  codec.VP9()->numberOfTemporalLayers =
+      codec.spatialLayers[0].numberOfTemporalLayers;
+  codec.VP9()->interLayerPred = InterLayerPredMode::kOff;
+  codec.numberOfSimulcastStreams = 1;
+  codec.UnsetScalabilityMode();
+
+  VideoBitrateAllocation dummy_bitrates;
+  for (int i = 0; i < num_temporal_layers; ++i) {
+    dummy_bitrates.SetBitrate(0, i, 10000);
+  }
+  for (int i = 0; i < num_spatial_layers; ++i) {
+    video_controllers_.push_back(CreateScalabilityStructure(scalability_mode));
+    video_controllers_.back()->OnRatesUpdated(dummy_bitrates);
+  }
+
+  layer_config_.resize(num_spatial_layers);
+  awaiting_frame_.resize(num_spatial_layers);
+}
+
+void SimulcastToSvcConverter::EncodeStarted(bool force_keyframe) {
+  // Check if at least one layer was encoded successfully.
+  bool some_layers_has_completed = false;
+  for (size_t i = 0; i < video_controllers_.size(); ++i) {
+    some_layers_has_completed |= (!awaiting_frame_[i]);
+  }
+  for (size_t i = 0; i < video_controllers_.size(); ++i) {
+    if (awaiting_frame_[i] && some_layers_has_completed) {
+      // Simulcast SVC controller updates pattern on all layers, even
+      // if some layers has dropped the frame.
+      // Simulate that behavior for all controllers, not updated
+      // while rewriting frame descriptors.
+      video_controllers_[i]->OnEncodeDone(layer_config_[i]);
+    }
+    awaiting_frame_[i] = true;
+    auto configs = video_controllers_[i]->NextFrameConfig(force_keyframe);
+    RTC_CHECK_EQ(configs.size(), 1u);
+    layer_config_[i] = configs[0];
+  }
+}
+
+void SimulcastToSvcConverter::ConvertFrame(EncodedImage& encoded_image,
+                                           CodecSpecificInfo& codec_specific) {
+  int sid = encoded_image.SpatialIndex().value_or(0);
+  encoded_image.SetSimulcastIndex(sid);
+  encoded_image.SetSpatialIndex(absl::nullopt);
+  codec_specific.end_of_picture = true;
+  int num_temporal_layers =
+      ScalabilityModeToNumTemporalLayers(*codec_specific.scalability_mode);
+  RTC_DCHECK_LE(num_temporal_layers, 3);
+  if (num_temporal_layers == 1) {
+    codec_specific.scalability_mode = ScalabilityMode::kL1T1;
+  } else if (num_temporal_layers == 2) {
+    codec_specific.scalability_mode = ScalabilityMode::kL1T2;
+  } else if (num_temporal_layers == 3) {
+    codec_specific.scalability_mode = ScalabilityMode::kL1T3;
+  }
+  CodecSpecificInfoVP9& vp9_info = codec_specific.codecSpecific.VP9;
+  vp9_info.num_spatial_layers = 1;
+  vp9_info.first_active_layer = 0;
+  vp9_info.first_frame_in_picture = true;
+  if (vp9_info.ss_data_available) {
+    vp9_info.width[0] = vp9_info.width[sid];
+    vp9_info.height[0] = vp9_info.height[sid];
+  }
+
+  auto& video_controller = *video_controllers_[sid];
+  if (codec_specific.generic_frame_info) {
+    awaiting_frame_[sid] = false;
+    uint8_t tid = vp9_info.temporal_idx;
+    auto frame_config = layer_config_[sid];
+    RTC_DCHECK_EQ(frame_config.TemporalId(), tid == 255 ? 0 : tid);
+    codec_specific.generic_frame_info =
+        video_controller.OnEncodeDone(frame_config);
+  }
+  if (codec_specific.template_structure) {
+    auto resolution = codec_specific.template_structure->resolutions[sid];
+    codec_specific.template_structure = video_controller.DependencyStructure();
+    codec_specific.template_structure->resolutions.resize(1);
+    codec_specific.template_structure->resolutions[0] = resolution;
+  }
+}
+
 }  // namespace webrtc

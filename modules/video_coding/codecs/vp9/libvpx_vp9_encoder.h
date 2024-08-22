@@ -27,6 +27,7 @@
 #include "common_video/include/video_frame_buffer_pool.h"
 #include "modules/video_coding/codecs/interface/libvpx_interface.h"
 #include "modules/video_coding/codecs/vp9/include/vp9.h"
+#include "modules/video_coding/codecs/vp9/svc_config.h"
 #include "modules/video_coding/codecs/vp9/vp9_frame_buffer_pool.h"
 #include "modules/video_coding/svc/scalable_video_controller.h"
 #include "modules/video_coding/utility/framerate_controller_deprecated.h"
@@ -150,6 +151,10 @@ class LibvpxVp9Encoder : public VideoEncoder {
   VideoBitrateAllocation current_bitrate_allocation_;
   bool ss_info_needed_;
   bool force_all_active_layers_;
+
+  bool svc_for_simulcast_ = false;
+  const bool enable_svc_for_simulcast_;
+  SimulcastToSvcConverter simulcast_to_svc_converter_;
 
   std::unique_ptr<ScalableVideoController> svc_controller_;
   absl::optional<ScalabilityMode> scalability_mode_;

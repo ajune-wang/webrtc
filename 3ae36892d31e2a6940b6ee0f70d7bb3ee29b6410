@@ -82,6 +82,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9620c8fb_93c70410",
+        "filename": "modules/video_coding/packet_buffer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2024-08-22T11:10:10Z",
+      "side": 1,
+      "message": "should probably stop accepting patches for GFD since it is deprecated and recommend switching to DD instead.",
+      "parentUuid": "54994fb2_fe085304",
+      "range": {
+        "startLine": 277,
+        "startChar": 11,
+        "endLine": 277,
+        "endChar": 56
+      },
+      "revId": "3ae36892d31e2a6940b6ee0f70d7bb3ee29b6410",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7c704fd1_d23c5116",

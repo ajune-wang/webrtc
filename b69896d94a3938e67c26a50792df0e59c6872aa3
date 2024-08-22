@@ -16,6 +16,23 @@
       "message": "@holmer@chromium.org - could you please run the bots? having a hardtime running it locally",
       "revId": "b69896d94a3938e67c26a50792df0e59c6872aa3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e4d1c7f5_8a297d42",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6549
+      },
+      "writtenOn": "2024-08-22T08:13:29Z",
+      "side": 1,
+      "message": "I think Mirko may have a better idea of whether this is safe to do.",
+      "revId": "b69896d94a3938e67c26a50792df0e59c6872aa3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

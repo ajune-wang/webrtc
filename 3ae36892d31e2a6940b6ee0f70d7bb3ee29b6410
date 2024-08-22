@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "c0ca4759_2f7af86d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-08-22T10:51:07Z",
+      "side": 1,
+      "message": "put this line after the description [to make `presubmit` bot happy]",
+      "revId": "3ae36892d31e2a6940b6ee0f70d7bb3ee29b6410",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "6190f91e_efd15da4",
@@ -41,6 +58,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "54994fb2_fe085304",
+        "filename": "modules/video_coding/packet_buffer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-08-22T10:51:07Z",
+      "side": 1,
+      "message": "GFD (generic frame descriptor) has no spec. it is an early version of the DD (dependency descriptor), and eventually should be removed from the codebase.\n\nso... for GFD it depends on the implementation.\n\nDD is attached to every packet.",
+      "parentUuid": "e8d4b2e3_ae0c7940",
+      "range": {
+        "startLine": 277,
+        "startChar": 11,
+        "endLine": 277,
+        "endChar": 56
+      },
+      "revId": "3ae36892d31e2a6940b6ee0f70d7bb3ee29b6410",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7c704fd1_d23c5116",
@@ -59,6 +100,29 @@
         "startChar": 22,
         "endLine": 278,
         "endChar": 23
+      },
+      "revId": "3ae36892d31e2a6940b6ee0f70d7bb3ee29b6410",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "60061083_9763fb43",
+        "filename": "modules/video_coding/packet_buffer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-08-22T10:51:07Z",
+      "side": 1,
+      "message": "personally I think expanding it a bit would be easier to read:\nif (is_generic) {\n  is_h264_descriptor \u003d false;\n}\n\notherwise I wonder if is_h264_descriptor value might be set to true based on a packet that has nothing to do with h264, but with expanded version it become clear it may be changed only to false.",
+      "range": {
+        "startLine": 281,
+        "startChar": 10,
+        "endLine": 281,
+        "endChar": 44
       },
       "revId": "3ae36892d31e2a6940b6ee0f70d7bb3ee29b6410",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"

@@ -418,8 +418,6 @@ void ScreenshareLayers::OnFrameDropped(size_t stream_index,
 
 void ScreenshareLayers::OnPacketLossRateUpdate(float packet_loss_rate) {}
 
-void ScreenshareLayers::OnRttUpdate(int64_t rtt_ms) {}
-
 void ScreenshareLayers::OnLossNotification(
     const VideoEncoder::LossNotification& loss_notification) {}
 

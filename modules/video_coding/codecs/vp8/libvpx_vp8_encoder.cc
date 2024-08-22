@@ -443,13 +443,6 @@ void LibvpxVp8Encoder::OnPacketLossRateUpdate(float packet_loss_rate) {
   }
 }
 
-void LibvpxVp8Encoder::OnRttUpdate(int64_t rtt_ms) {
-  // TODO(bugs.webrtc.org/10431): Replace condition by DCHECK.
-  if (frame_buffer_controller_) {
-    frame_buffer_controller_->OnRttUpdate(rtt_ms);
-  }
-}
-
 void LibvpxVp8Encoder::OnLossNotification(
     const LossNotification& loss_notification) {
   if (frame_buffer_controller_) {

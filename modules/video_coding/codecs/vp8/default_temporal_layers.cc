@@ -586,8 +586,6 @@ void DefaultTemporalLayers::OnFrameDropped(size_t stream_index,
 
 void DefaultTemporalLayers::OnPacketLossRateUpdate(float packet_loss_rate) {}
 
-void DefaultTemporalLayers::OnRttUpdate(int64_t rtt_ms) {}
-
 void DefaultTemporalLayers::OnLossNotification(
     const VideoEncoder::LossNotification& loss_notification) {}
 

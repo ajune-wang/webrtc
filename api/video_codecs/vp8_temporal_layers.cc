@@ -100,12 +100,6 @@ void Vp8TemporalLayers::OnPacketLossRateUpdate(float packet_loss_rate) {
   }
 }
 
-void Vp8TemporalLayers::OnRttUpdate(int64_t rtt_ms) {
-  for (auto& controller : controllers_) {
-    controller->OnRttUpdate(rtt_ms);
-  }
-}
-
 void Vp8TemporalLayers::OnLossNotification(
     const VideoEncoder::LossNotification& loss_notification) {
   for (auto& controller : controllers_) {

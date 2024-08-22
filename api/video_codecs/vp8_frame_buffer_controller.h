@@ -166,9 +166,6 @@ class Vp8FrameBufferController {
   // `packet_loss_rate` runs between 0.0 (no loss) and 1.0 (everything lost).
   virtual void OnPacketLossRateUpdate(float packet_loss_rate) = 0;
 
-  // Called by the encoder when the round trip time changes.
-  virtual void OnRttUpdate(int64_t rtt_ms) = 0;
-
   // Called when a loss notification is received.
   virtual void OnLossNotification(
       const VideoEncoder::LossNotification& loss_notification) = 0;

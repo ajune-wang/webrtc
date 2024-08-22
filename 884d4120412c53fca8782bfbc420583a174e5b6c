@@ -18,6 +18,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b880fd94_f93fa5ba",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-08-22T08:14:57Z",
+      "side": 1,
+      "message": "So most of the CL is plumbing the field trial down through the layers.\nLogic seems good to me - ECONN is now treated as \"something happened, we\u0027ll try to recover\", not \"all is lost, panic\".\nSeems to be consistent with what we do elsewhere.\n\nIs there a danger of queues building up due to \"sending\" into a dead connection until recovered, or are those packets discarded and recovered after session recovery?",
+      "revId": "884d4120412c53fca8782bfbc420583a174e5b6c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7f888998_17bbed09",
@@ -31,6 +48,23 @@
       "writtenOn": "2024-08-22T06:49:17Z",
       "side": 1,
       "message": "i would prefer to split this into 2 if statements\nwith a comment about the field trial and a TODO to remove\ninside the first if...\n\nbut that is only personal taste...",
+      "revId": "884d4120412c53fca8782bfbc420583a174e5b6c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c685b7ce_6e33ba12",
+        "filename": "pc/rtp_transport_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 384,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-08-22T08:14:57Z",
+      "side": 1,
+      "message": "I remember discovering this recursion....",
       "revId": "884d4120412c53fca8782bfbc420583a174e5b6c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

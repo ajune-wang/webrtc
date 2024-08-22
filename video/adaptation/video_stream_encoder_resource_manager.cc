@@ -161,7 +161,8 @@ class VideoStreamEncoderResourceManager::InitialFrameDropper {
 
   void OnEncoderSettingsUpdated(
       const VideoCodec& codec,
-      const VideoAdaptationCounters& adaptation_counters) {
+      const VideoAdaptationCounters& adaptation_counters,
+      bool reset_initial_frame_drop_on_source_change) {
     last_stream_configuration_changed_ = false;
     std::vector<bool> active_flags = GetActiveLayersFlags(codec);
     // Check if the source resolution has changed for the external reasons,
@@ -172,7 +173,8 @@ class VideoStreamEncoderResourceManager::InitialFrameDropper {
         adaptation_counters.resolution_adaptations ==
             last_adaptation_counters_.resolution_adaptations;
     if (!EqualFlags(active_flags, last_active_flags_) ||
-        source_resolution_changed) {
+        (reset_initial_frame_drop_on_source_change &&
+         source_resolution_changed)) {
       // Streams configuration has changed.
       last_stream_configuration_changed_ = true;
       // Initial frame drop must be enabled because BWE might be way too low
@@ -413,8 +415,19 @@ void VideoStreamEncoderResourceManager::SetEncoderSettings(
   RTC_DCHECK_RUN_ON(encoder_queue_);
   encoder_settings_ = std::move(encoder_settings);
   bitrate_constraint_->OnEncoderSettingsUpdated(encoder_settings_);
+  // If `requested_resolution` is used (encoder resolution is not relative to
+  // frame size), then changing source size should not reset initial frame drop.
+  bool reset_initial_frame_drop_on_source_change = true;
+  for (const VideoStream& simulcast_layer :
+       encoder_settings.encoder_config().simulcast_layers) {
+    if (simulcast_layer.requested_resolution.has_value()) {
+      reset_initial_frame_drop_on_source_change = false;
+      break;
+    }
+  }
   initial_frame_dropper_->OnEncoderSettingsUpdated(
-      encoder_settings_->video_codec(), current_adaptation_counters_);
+      encoder_settings_->video_codec(), current_adaptation_counters_,
+      reset_initial_frame_drop_on_source_change);
   MaybeUpdateTargetFrameRate();
 }
 

@@ -65,8 +65,6 @@ class Vp8TemporalLayers final : public Vp8FrameBufferController {
 
   void OnPacketLossRateUpdate(float packet_loss_rate) override;
 
-  void OnRttUpdate(int64_t rtt_ms) override;
-
   void OnLossNotification(
       const VideoEncoder::LossNotification& loss_notification) override;
 

@@ -22,6 +22,30 @@
       },
       "revId": "41e89cf24c34a953098f640adc5a4762114ae86f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2b6cbb6a_16ed503f",
+        "filename": "build_overrides/build.gni",
+        "patchSetId": 4
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-08-22T16:13:00Z",
+      "side": 1,
+      "message": "from offline chat:\nlets do it the other way round. libsrtp which webrtc depends on declares how it wants to be build. The default is with boringssl.",
+      "parentUuid": "4f6fd8d5_144d6c11",
+      "range": {
+        "startLine": 55,
+        "startChar": 25,
+        "endLine": 55,
+        "endChar": 29
+      },
+      "revId": "41e89cf24c34a953098f640adc5a4762114ae86f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

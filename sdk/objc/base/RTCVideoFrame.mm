@@ -66,7 +66,9 @@
 - (instancetype)initWithBuffer:(id<RTC_OBJC_TYPE(RTCVideoFrameBuffer)>)buffer
                       rotation:(RTCVideoRotation)rotation
                    timeStampNs:(int64_t)timeStampNs {
-  if (self = [super init]) {
+  self = [super init];
+
+  if (self) {
     _buffer = buffer;
     _rotation = rotation;
     _timeStampNs = timeStampNs;

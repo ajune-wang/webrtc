@@ -33,6 +33,24 @@
       "message": "I could not find out how to actually set the variables but asserting they are in sync seems good enough to me.",
       "revId": "ae76eafd0ca9ea95a5297fb356482802fea4290d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ed90e02d_ed60fd97",
+        "filename": "pc/BUILD.gn",
+        "patchSetId": 8
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2024-08-23T06:56:13Z",
+      "side": 1,
+      "message": "I think this is OK.\n\nUsers will be able to set them in as GN args. And this check prevents to mix them in a dangerous way.",
+      "parentUuid": "dc946bb6_f641a4bf",
+      "revId": "ae76eafd0ca9ea95a5297fb356482802fea4290d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

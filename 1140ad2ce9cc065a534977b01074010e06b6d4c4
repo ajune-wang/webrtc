@@ -16,6 +16,52 @@
       "message": "This is a new incarnation of https://webrtc-review.googlesource.com/c/src/+/355003\n\nSince too much time has passed, it\u0027s a new Cl and not a reland.\n\nThere\u0027s quite a few new code to rewrite generic dependency descriptor.",
       "revId": "1140ad2ce9cc065a534977b01074010e06b6d4c4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6a8688fb_3fbcce7d",
+        "filename": "modules/video_coding/codecs/vp9/libvpx_vp9_encoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 742,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2024-08-23T07:21:40Z",
+      "side": 1,
+      "message": "not needed?",
+      "range": {
+        "startLine": 742,
+        "startChar": 48,
+        "endLine": 742,
+        "endChar": 70
+      },
+      "revId": "1140ad2ce9cc065a534977b01074010e06b6d4c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a1b2b0de_9801f17b",
+        "filename": "modules/video_coding/codecs/vp9/svc_config.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2024-08-23T07:21:40Z",
+      "side": 1,
+      "message": "Is this the right place for this class? svc_config is an analogue of simulcast.cc and generates a static config. SimulcastToSvcConverter does per-frame processing. It doesn\u0027t look right to combine these two functionalities in one place.",
+      "range": {
+        "startLine": 40,
+        "startChar": 6,
+        "endLine": 40,
+        "endChar": 29
+      },
+      "revId": "1140ad2ce9cc065a534977b01074010e06b6d4c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

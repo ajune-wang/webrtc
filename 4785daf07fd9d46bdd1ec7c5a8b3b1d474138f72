@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b32df527_88775219",
+        "filename": "sdk/objc/api/peerconnection/RTCVideoEncoderSettings+Private.mm",
+        "patchSetId": 3
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 6432
+      },
+      "writtenOn": "2024-08-23T17:28:51Z",
+      "side": 1,
+      "message": "Nit: extra line",
+      "revId": "4785daf07fd9d46bdd1ec7c5a8b3b1d474138f72",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "afd22ab7_6f229933",
+        "filename": "sdk/objc/base/RTCVideoFrame.mm",
+        "patchSetId": 3
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 6432
+      },
+      "writtenOn": "2024-08-23T17:28:51Z",
+      "side": 1,
+      "message": "nit: extra line",
+      "revId": "4785daf07fd9d46bdd1ec7c5a8b3b1d474138f72",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

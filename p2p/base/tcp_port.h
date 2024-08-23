@@ -176,7 +176,6 @@ class TCPConnection : public Connection, public sigslot::has_slots<> {
   void OnClose(rtc::AsyncPacketSocket* socket, int error);
   void OnReadPacket(rtc::AsyncPacketSocket* socket,
                     const rtc::ReceivedPacket& packet);
-  void OnReadyToSend(rtc::AsyncPacketSocket* socket);
   void OnDestroyed(Connection* c);
 
   TCPPort* tcp_port() {

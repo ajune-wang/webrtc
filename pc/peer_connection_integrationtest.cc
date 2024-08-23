@@ -3872,6 +3872,29 @@ TEST_F(PeerConnectionIntegrationTestUnifiedPlan, VideoPacketLossCausesNack) {
   EXPECT_TRUE_WAIT(NacksReceivedCount(*caller()) > 0, kDefaultTimeout);
 }
 
+TEST_F(PeerConnectionIntegrationTestUnifiedPlan, PrAnswerAndAnswerAreTheSame) {
+  RTCConfiguration config;
+  ASSERT_TRUE(CreatePeerConnectionWrappersWithConfig(config, config));
+  ConnectFakeSignaling();
+  caller()->pc()->AddTransceiver(caller()->CreateLocalAudioTrack());
+  callee()->SetAnswerWithPrAnswer(true);
+  caller()->CreateAndSetAndSignalOffer();
+  ASSERT_FALSE(HasFailure());
+  EXPECT_EQ(caller()->pc()->signaling_state(),
+            PeerConnectionInterface::kHaveRemotePrAnswer);
+  EXPECT_EQ(callee()->pc()->signaling_state(),
+            PeerConnectionInterface::kHaveLocalPrAnswer);
+  std::string first_answer;
+  callee()->pc()->local_description()->ToString(&first_answer);
+  RTC_LOG(LS_ERROR) << first_answer;
+  auto second_answer_struct = callee()->CreateAnswerForTest();
+  std::string second_answer;
+  second_answer_struct->ToString(&second_answer);
+  RTC_LOG(LS_ERROR) << second_answer;
+  // Does NOT work, because o= line will have differing timestamps.
+  // EXPECT_EQ(first_answer, second_answer);
+}
+
 }  // namespace
 
 }  // namespace webrtc

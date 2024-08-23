@@ -455,6 +455,10 @@ class PeerConnectionIntegrationWrapper : public PeerConnectionObserver,
     return data_observers_;
   }
 
+  std::unique_ptr<SessionDescriptionInterface> CreateAnswerForTest() {
+    return CreateAnswer();
+  }
+
   int audio_frames_received() const {
     return fake_audio_capture_module_->frames_received();
   }
@@ -654,6 +658,10 @@ class PeerConnectionIntegrationWrapper : public PeerConnectionObserver,
     candidates_expected_ = candidate_count;
   }
 
+  // For testing PR-Answer functionality
+  // If true, an offer will get a pr-answer back.
+  void SetAnswerWithPrAnswer(bool value) { answer_with_pr_answer_ = value; }
+
  private:
   // Constructor used by friend class PeerConnectionIntegrationBaseTest.
   explicit PeerConnectionIntegrationWrapper(const std::string& debug_name)
@@ -740,13 +748,20 @@ class PeerConnectionIntegrationWrapper : public PeerConnectionObserver,
     }
     auto answer = CreateAnswer();
     ASSERT_NE(nullptr, answer);
+    if (answer_with_pr_answer_) {
+      RTC_LOG(LS_ERROR) << "DEBUG: Making a PRAnswer";
+      std::string answer_string;
+      answer->ToString(&answer_string);
+      answer = CreateSessionDescription(SdpType::kPrAnswer, answer_string);
+    }
     EXPECT_TRUE(SetLocalDescriptionAndSendSdpMessage(std::move(answer)));
   }
 
-  void HandleIncomingAnswer(const std::string& msg) {
-    RTC_LOG(LS_INFO) << debug_name_ << ": HandleIncomingAnswer";
+  void HandleIncomingAnswer(SdpType type, const std::string& msg) {
+    RTC_LOG(LS_INFO) << debug_name_ << ": HandleIncomingAnswer of type "
+                     << SdpTypeToString(type);
     std::unique_ptr<SessionDescriptionInterface> desc =
-        CreateSessionDescription(SdpType::kAnswer, msg);
+        CreateSessionDescription(type, msg);
     if (received_sdp_munger_) {
       received_sdp_munger_(desc->description());
     }
@@ -838,6 +853,8 @@ class PeerConnectionIntegrationWrapper : public PeerConnectionObserver,
   // Simulate sending a blob of SDP with delay `signaling_delay_ms_` (0 by
   // default).
   void SendSdpMessage(SdpType type, const std::string& msg) {
+    RTC_LOG(LS_ERROR) << "DEBUG: Sending message of type "
+                      << SdpTypeToString(type);
     if (signaling_delay_ms_ == 0) {
       RelaySdpMessageIfReceiverExists(type, msg);
     } else {
@@ -888,7 +905,7 @@ class PeerConnectionIntegrationWrapper : public PeerConnectionObserver,
     if (type == SdpType::kOffer) {
       HandleIncomingOffer(msg);
     } else {
-      HandleIncomingAnswer(msg);
+      HandleIncomingAnswer(type, msg);
     }
   }
 
@@ -1082,6 +1099,8 @@ class PeerConnectionIntegrationWrapper : public PeerConnectionObserver,
   uint64_t audio_samples_stat_ = 0;
   uint64_t audio_concealed_stat_ = 0;
   std::string rtp_stats_id_;
+
+  bool answer_with_pr_answer_ = false;
 
   ScopedTaskSafety task_safety_;
 

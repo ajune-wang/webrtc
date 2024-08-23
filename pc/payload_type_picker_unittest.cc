@@ -46,6 +46,21 @@ TEST(PayloadTypePicker, StoreAndRecall) {
   EXPECT_FALSE(recorder.LookupCodec(not_a_payload_type).ok());
 }
 
+TEST(PayloadTypePicker, ModifyingPtIsIgnored) {
+  // Arguably a spec violation, but happens in production.
+  // To be decided: Whether we should disallow codec change, fmtp change
+  // or both.
+  PayloadTypePicker picker;
+  PayloadTypeRecorder recorder(picker);
+  const PayloadType a_payload_type(123);
+  const PayloadType not_a_payload_type(44);
+  cricket::Codec a_codec = cricket::CreateVideoCodec(0, "vp8");
+  cricket::Codec b_codec = cricket::CreateVideoCodec(0, "vp9");
+  recorder.AddMapping(47, a_codec);
+  auto error = recorder.AddMapping(47, b_codec);
+  EXPECT_TRUE(error.ok());
+}
+
 TEST(PayloadTypePicker, RollbackAndCommit) {
   PayloadTypePicker picker;
   PayloadTypeRecorder recorder(picker);

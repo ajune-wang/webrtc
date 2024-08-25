@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b0d66236_852e642e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-08-25T17:09:18Z",
+      "side": 1,
+      "message": "I noticed it was used by the other adapter and then saw it is quite verbose but... who reads those logs? :-)",
+      "revId": "c4af6a629b09cacc72a30d24f76bcf05c6e89db8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

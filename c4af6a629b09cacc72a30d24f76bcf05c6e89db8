@@ -50,6 +50,24 @@
       "message": "The \"type\" (string interpretation of \"where\") is no longer logged.\nIs it of no value?",
       "revId": "c4af6a629b09cacc72a30d24f76bcf05c6e89db8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2a941e84_922cc1ff",
+        "filename": "rtc_base/openssl_adapter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 796,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-08-25T23:36:38Z",
+      "side": 1,
+      "message": "the simplistic type is a lot less useful than the output of SSL_state_string_long. Full example below:\nTLS client start_connect\n TLS client enter_early_data\n TLS client read_hello_verify_request\n TLS client read_hello_verify_request\n TLS server start_accept\n TLS server read_client_hello\n TLS server read_client_hello\n TLS server read_client_hello_after_ech\n TLS server cert_callback\n TLS server select_parameters\n TLS server send_server_hello\n TLS server send_server_certificate\n TLS server send_server_key_exchange\n TLS server send_server_hello_done\n TLS server read_client_certificate\n TLS server read_client_certificate\n TLS client read_server_hello\n TLS client read_server_certificate\n TLS client read_certificate_status\n TLS client verify_server_certificate\n TLS client read_server_key_exchange\n TLS client read_certificate_request\n TLS client read_server_hello_done\n TLS client send_client_certificate\n TLS client send_client_key_exchange\n TLS client send_client_certificate_verify\n TLS client send_client_finished\n TLS client finish_flight\n TLS client read_session_ticket\n TLS client read_session_ticket\n TLS server verify_client_certificate\n TLS server read_client_key_exchange\n TLS server read_client_certificate_verify\n TLS server read_change_cipher_spec\n TLS server process_change_cipher_spec\n TLS server read_next_proto\n TLS server read_channel_id\n TLS server read_client_finished\n TLS server send_server_finished\n TLS server finish_server_handshake\n TLS server done\n TLS server done\n TLS server done\n TLS client process_change_cipher_spec\n TLS client read_server_finished\n TLS client finish_client_handshake\n TLS client done\n TLS client done\n TLS client done\n\nIt seems BoringSSL has way more cool log messages than OpenSSL: https://source.chromium.org/chromium/chromium/src/+/main:third_party/boringssl/src/ssl/ssl_stat.cc;l\u003d91?q\u003dSSL_state_string_long\n\nI also noticed that we only use the static version so this is of very limited use for debugging even. Normally one calls SSL_get_app_data to do a static cast to the owning object and then logs there... subsequent CL ;-)\n\nFixed the levels too, even fatal alerts only mean the connection is closed which should be a warning at best. Actual errors come with ret\u003d0.",
+      "parentUuid": "d3bd725b_a706b4dc",
+      "revId": "c4af6a629b09cacc72a30d24f76bcf05c6e89db8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

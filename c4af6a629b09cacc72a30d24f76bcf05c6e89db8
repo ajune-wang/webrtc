@@ -16,6 +16,40 @@
       "message": "I noticed it was used by the other adapter and then saw it is quite verbose but... who reads those logs? :-)",
       "revId": "c4af6a629b09cacc72a30d24f76bcf05c6e89db8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1784df20_9d590b76",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-08-25T17:59:16Z",
+      "side": 1,
+      "message": "Some information is now lost. Please present the argument why it\u0027s not needed.",
+      "revId": "c4af6a629b09cacc72a30d24f76bcf05c6e89db8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d3bd725b_a706b4dc",
+        "filename": "rtc_base/openssl_adapter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 796,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-08-25T17:59:16Z",
+      "side": 1,
+      "message": "The \"type\" (string interpretation of \"where\") is no longer logged.\nIs it of no value?",
+      "revId": "c4af6a629b09cacc72a30d24f76bcf05c6e89db8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

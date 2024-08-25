@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "220c575c_9f6c1de4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-08-25T20:41:44Z",
+      "side": 1,
+      "message": "Denne burde være klar til reland nå...",
+      "revId": "c417c99c21d00d5c1f788d6de6f9bab72f1a198e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

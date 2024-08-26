@@ -43,6 +43,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b517e8eb_40d5a2d0",
+        "filename": "modules/video_coding/codecs/vp9/libvpx_vp9_encoder.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2024-08-26T16:32:15Z",
+      "side": 1,
+      "message": "You could combine this and `svc_for_simulcast_` into an `absl::optional\u003cSimulcastToSvcConverter\u003e` to make it more clear when that is supposed to be used. That could also allow you to clear the instance when not used and configure it using the constructor when actually needed instead of relying on `ConvertConfig()`.",
+      "range": {
+        "startLine": 157,
+        "startChar": 2,
+        "endLine": 157,
+        "endChar": 54
+      },
+      "revId": "1140ad2ce9cc065a534977b01074010e06b6d4c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a1b2b0de_9801f17b",
         "filename": "modules/video_coding/codecs/vp9/svc_config.h",
         "patchSetId": 1
@@ -59,6 +82,52 @@
         "startChar": 6,
         "endLine": 40,
         "endChar": 29
+      },
+      "revId": "1140ad2ce9cc065a534977b01074010e06b6d4c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9accf76d_62722f0f",
+        "filename": "modules/video_coding/codecs/vp9/svc_config.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2024-08-26T16:32:15Z",
+      "side": 1,
+      "message": "Would prefer changing this to a ctor so as much as possible can be set up at construction time.",
+      "range": {
+        "startLine": 49,
+        "startChar": 2,
+        "endLine": 49,
+        "endChar": 40
+      },
+      "revId": "1140ad2ce9cc065a534977b01074010e06b6d4c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aab648a9_26c3ef2d",
+        "filename": "modules/video_coding/codecs/vp9/svc_config.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2024-08-26T16:32:15Z",
+      "side": 1,
+      "message": "These three vectors must all have the same length, afaict since they all represent the simulcast streams configured. I think it would be easier to follow if you put these into a struct instead and had a single vector of them. The length of that could then also be fixed at construction time and so no need for `unique_ptr` anymore.",
+      "range": {
+        "startLine": 57,
+        "startChar": 0,
+        "endLine": 59,
+        "endChar": 36
       },
       "revId": "1140ad2ce9cc065a534977b01074010e06b6d4c4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"

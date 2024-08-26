@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "74d96bd0_77e3bf23",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2024-08-26T16:08:53Z",
+      "side": 1,
+      "message": "lgtm % nit",
+      "revId": "d2f57686ceb9bc29734505bdef866e3a3be94bf0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "24ae21e0_b46e2c30",
+        "filename": "call/video_receive_stream.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2024-08-26T16:08:53Z",
+      "side": 1,
+      "message": "nit: I\u0027d probably name this `corruption_score_count` instead.",
+      "range": {
+        "startLine": 143,
+        "startChar": 13,
+        "endLine": 143,
+        "endChar": 47
+      },
+      "revId": "d2f57686ceb9bc29734505bdef866e3a3be94bf0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

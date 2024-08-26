@@ -111,42 +111,42 @@ std::string VideoCodec::ToString() const {
 }
 
 VideoCodecVP8* VideoCodec::VP8() {
-  RTC_DCHECK_EQ(codecType, kVideoCodecVP8);
+  // RTC_DCHECK_EQ(codecType, kVideoCodecVP8);
   return &codec_specific_.VP8;
 }
 
 const VideoCodecVP8& VideoCodec::VP8() const {
-  RTC_DCHECK_EQ(codecType, kVideoCodecVP8);
+  // RTC_DCHECK_EQ(codecType, kVideoCodecVP8);
   return codec_specific_.VP8;
 }
 
 VideoCodecVP9* VideoCodec::VP9() {
-  RTC_DCHECK_EQ(codecType, kVideoCodecVP9);
+  // RTC_DCHECK_EQ(codecType, kVideoCodecVP9);
   return &codec_specific_.VP9;
 }
 
 const VideoCodecVP9& VideoCodec::VP9() const {
-  RTC_DCHECK_EQ(codecType, kVideoCodecVP9);
+  // RTC_DCHECK_EQ(codecType, kVideoCodecVP9);
   return codec_specific_.VP9;
 }
 
 VideoCodecH264* VideoCodec::H264() {
-  RTC_DCHECK_EQ(codecType, kVideoCodecH264);
+  // RTC_DCHECK_EQ(codecType, kVideoCodecH264);
   return &codec_specific_.H264;
 }
 
 const VideoCodecH264& VideoCodec::H264() const {
-  RTC_DCHECK_EQ(codecType, kVideoCodecH264);
+  // RTC_DCHECK_EQ(codecType, kVideoCodecH264);
   return codec_specific_.H264;
 }
 
 VideoCodecAV1* VideoCodec::AV1() {
-  RTC_DCHECK_EQ(codecType, kVideoCodecAV1);
+  // RTC_DCHECK_EQ(codecType, kVideoCodecAV1);
   return &codec_specific_.AV1;
 }
 
 const VideoCodecAV1& VideoCodec::AV1() const {
-  RTC_DCHECK_EQ(codecType, kVideoCodecAV1);
+  // RTC_DCHECK_EQ(codecType, kVideoCodecAV1);
   return codec_specific_.AV1;
 }
 

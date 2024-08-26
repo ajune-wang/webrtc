@@ -751,7 +751,8 @@ void AddPlanBRtpSenderOptions(
 cricket::MediaDescriptionOptions GetMediaDescriptionOptionsForTransceiver(
     RtpTransceiver* transceiver,
     const std::string& mid,
-    bool is_create_offer) {
+    bool is_create_offer,
+    const std::vector<RidDescription>& receive_rids) {
   // NOTE: a stopping transceiver should be treated as a stopped one in
   // createOffer as specified in
   // https://w3c.github.io/webrtc-pc/#dom-rtcpeerconnection-createoffer.
@@ -794,6 +795,12 @@ cricket::MediaDescriptionOptions GetMediaDescriptionOptionsForTransceiver(
       continue;
     }
     send_rids.push_back(RidDescription(encoding.rid, RidDirection::kSend));
+    for (const auto& receive_rid : receive_rids) {
+      if (receive_rid.rid == encoding.rid) {
+        send_rids.back().payload_types = receive_rid.payload_types;
+        break;
+      }
+    }
     send_layers.AddLayer(SimulcastLayer(encoding.rid, !encoding.active));
   }
 
@@ -4281,6 +4288,9 @@ void SdpOfferAnswerHandler::GetOptionsForUnifiedPlanOffer(
     cricket::MediaType media_type =
         (local_content ? local_content->media_description()->type()
                        : remote_content->media_description()->type());
+    const std::vector<RidDescription>& receive_rids =
+        local_content ? local_content->media_description()->receive_rids()
+                      : remote_content->media_description()->receive_rids();
     if (media_type == cricket::MEDIA_TYPE_AUDIO ||
         media_type == cricket::MEDIA_TYPE_VIDEO) {
       // A media section is considered eligible for recycling if it is marked as
@@ -4308,7 +4318,7 @@ void SdpOfferAnswerHandler::GetOptionsForUnifiedPlanOffer(
           session_options->media_description_options.push_back(
               GetMediaDescriptionOptionsForTransceiver(
                   transceiver->internal(), mid,
-                  /*is_create_offer=*/true));
+                  /*is_create_offer=*/true, receive_rids));
           // CreateOffer shouldn't really cause any state changes in
           // PeerConnection, but we need a way to match new transceivers to new
           // media sections in SetLocalDescription and JSEP specifies this is
@@ -4360,13 +4370,13 @@ void SdpOfferAnswerHandler::GetOptionsForUnifiedPlanOffer(
         session_options->media_description_options[mline_index] =
             GetMediaDescriptionOptionsForTransceiver(
                 transceiver, mid_generator_.GenerateString(),
-                /*is_create_offer=*/true);
+                /*is_create_offer=*/true, {});
       } else {
         mline_index = session_options->media_description_options.size();
         session_options->media_description_options.push_back(
             GetMediaDescriptionOptionsForTransceiver(
                 transceiver, mid_generator_.GenerateString(),
-                /*is_create_offer=*/true));
+                /*is_create_offer=*/true, {}));
       }
       // See comment above for why CreateOffer changes the transceiver's state.
       transceiver->set_mline_index(mline_index);
@@ -4499,7 +4509,8 @@ void SdpOfferAnswerHandler::GetOptionsForUnifiedPlanAnswer(
         session_options->media_description_options.push_back(
             GetMediaDescriptionOptionsForTransceiver(
                 transceiver->internal(), content.name,
-                /*is_create_offer=*/false));
+                /*is_create_offer=*/false,
+                content.media_description()->receive_rids()));
       } else {
         // This should only happen with rejected transceivers.
         RTC_DCHECK(content.rejected);

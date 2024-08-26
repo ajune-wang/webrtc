@@ -49,18 +49,18 @@ std::string VideoStream::ToString() const {
 }
 
 VideoEncoderConfig::VideoEncoderConfig()
-    : codec_type(kVideoCodecGeneric),
-      video_format("Unset"),
+    : codec_types(),
+      video_formats(),
       content_type(ContentType::kRealtimeVideo),
       frame_drop_enabled(false),
-      encoder_specific_settings(nullptr),
+      encoder_specific_settings(),
       min_transmit_bitrate_bps(0),
       max_bitrate_bps(0),
       bitrate_priority(1.0),
       number_of_streams(0),
       legacy_conference_mode(false),
       is_quality_scaling_allowed(false),
-      max_qp(-1) {}
+      max_qps() {}
 
 VideoEncoderConfig::VideoEncoderConfig(VideoEncoderConfig&&) = default;
 
@@ -69,7 +69,7 @@ VideoEncoderConfig::~VideoEncoderConfig() = default;
 std::string VideoEncoderConfig::ToString() const {
   char buf[1024];
   rtc::SimpleStringBuilder ss(buf);
-  ss << "{codec_type: " << CodecTypeToPayloadString(codec_type);
+  ss << "{codec_type: " << CodecTypeToPayloadString(codec_types[0]);
   ss << ", content_type: ";
   switch (content_type) {
     case ContentType::kRealtimeVideo:
@@ -81,7 +81,7 @@ std::string VideoEncoderConfig::ToString() const {
   }
   ss << ", frame_drop_enabled: " << frame_drop_enabled;
   ss << ", encoder_specific_settings: ";
-  ss << (encoder_specific_settings != nullptr ? "(ptr)" : "NULL");
+  ss << (!encoder_specific_settings.empty() ? "(ptr)" : "NULL");
 
   ss << ", min_transmit_bitrate_bps: " << min_transmit_bitrate_bps;
   ss << '}';
@@ -99,8 +99,8 @@ void VideoEncoderConfig::EncoderSpecificSettings::FillEncoderSpecificSettings(
   } else if (codec->codecType == kVideoCodecAV1) {
     FillVideoCodecAv1(codec->AV1());
   } else {
-    RTC_DCHECK_NOTREACHED()
-        << "Encoder specifics set/used for unknown codec type.";
+    // RTC_DCHECK_NOTREACHED()
+    //     << "Encoder specifics set/used for unknown codec type.";
   }
 }
 

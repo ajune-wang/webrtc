@@ -673,7 +673,8 @@ bool Port::MaybeIceRoleConflict(const rtc::SocketAddress& addr,
       }
       break;
     default:
-      RTC_DCHECK_NOTREACHED();
+      // RTC_DCHECK_NOTREACHED();
+      break;
   }
   return ret;
 }

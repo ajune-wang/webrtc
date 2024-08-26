@@ -112,9 +112,9 @@ std::unique_ptr<rtclog::StreamConfig> CreateRtcLogStreamConfig(
   rtclog_config->rtcp_mode = config.rtp.rtcp_mode;
   rtclog_config->rtp_extensions = config.rtp.extensions;
 
-  rtclog_config->codecs.emplace_back(config.rtp.payload_name,
-                                     config.rtp.payload_type,
-                                     config.rtp.rtx.payload_type);
+  rtclog_config->codecs.emplace_back(config.rtp.payload_names.front(),
+                                     config.rtp.payload_types.front(),
+                                     config.rtp.rtx.payload_types.front());
   return rtclog_config;
 }
 
@@ -384,8 +384,8 @@ class Call final : public webrtc::Call,
   RTC_NO_UNIQUE_ADDRESS SequenceChecker receive_11993_checker_;
 
   // Audio and Video send streams are owned by the client that creates them.
-  // TODO(bugs.webrtc.org/11993): `audio_send_ssrcs_` and `video_send_ssrcs_`
-  // should be accessed on the network thread.
+  // TODO(bugs.webrtc.org/11993): `audio_send_ssrcs_` should be accessed on
+  // the network thread.
   std::map<uint32_t, AudioSendStream*> audio_send_ssrcs_
       RTC_GUARDED_BY(worker_thread_);
   std::map<uint32_t, VideoSendStreamImpl*> video_send_ssrcs_

@@ -104,7 +104,8 @@ bool ShouldDisableRedAndUlpfec(bool flexfec_enabled,
   // is a waste of bandwidth since FEC packets still have to be transmitted.
   // Note that this is not the case with FlexFEC.
   if (nack_enabled && IsUlpfecEnabled() &&
-      !PayloadTypeSupportsSkippingFecPackets(rtp_config.payload_name, trials)) {
+      !PayloadTypeSupportsSkippingFecPackets(rtp_config.payload_names[0],
+                                             trials)) {
     RTC_LOG(LS_WARNING)
         << "Transmitting payload type without picture ID using "
            "NACK+ULPFEC is a waste of bandwidth since ULPFEC packets "
@@ -299,10 +300,10 @@ std::vector<RtpStreamSender> CreateRtpStreamSenders(
 }
 
 absl::optional<VideoCodecType> GetVideoCodecType(const RtpConfig& config) {
-  if (config.raw_payload) {
+  if (config.raw_payloads[0]) {
     return absl::nullopt;
   }
-  return PayloadStringToCodecType(config.payload_name);
+  return PayloadStringToCodecType(config.payload_names[0]);
 }
 bool TransportSeqNumExtensionConfigured(const RtpConfig& config) {
   return absl::c_any_of(config.extensions, [](const RtpExtension& ext) {
@@ -433,11 +434,12 @@ RtpVideoSender::RtpVideoSender(
   }
 
   bool fec_enabled = false;
-  for (const RtpStreamSender& stream : rtp_streams_) {
+  for (size_t i = 0; i < rtp_streams_.size(); i++) {
+    const RtpStreamSender& stream = rtp_streams_[i];
     // Simulcast has one module for each layer. Set the CNAME on all modules.
     stream.rtp_rtcp->SetCNAME(rtp_config_.c_name.c_str());
     stream.rtp_rtcp->SetMaxRtpPacketSize(rtp_config_.max_packet_size);
-    stream.rtp_rtcp->RegisterSendPayloadFrequency(rtp_config_.payload_type,
+    stream.rtp_rtcp->RegisterSendPayloadFrequency(rtp_config_.payload_types[i],
                                                   kVideoPayloadTypeFrequency);
     if (stream.fec_generator != nullptr) {
       fec_enabled = true;
@@ -532,7 +534,7 @@ EncodedImageCallback::Result RtpVideoSender::OnEncodedImage(
   // knowledge of the offset to a single place.
   if (!rtp_streams_[simulcast_index].rtp_rtcp->OnSendingRtpFrame(
           encoded_image.RtpTimestamp(), encoded_image.capture_time_ms_,
-          rtp_config_.payload_type,
+          rtp_config_.payload_types[simulcast_index],
           encoded_image._frameType == VideoFrameType::kVideoFrameKey)) {
     // The payload router could be active but this module isn't sending.
     return Result(Result::ERROR_SEND_FAILED);
@@ -572,7 +574,9 @@ EncodedImageCallback::Result RtpVideoSender::OnEncodedImage(
 
   bool send_result =
       rtp_streams_[simulcast_index].sender_video->SendEncodedImage(
-          rtp_config_.payload_type, codec_type_, rtp_timestamp, encoded_image,
+          rtp_config_.payload_types[simulcast_index],
+          PayloadStringToCodecType(rtp_config_.payload_names[simulcast_index]),
+          rtp_timestamp, encoded_image,
           params_[simulcast_index].GetRtpVideoHeader(
               encoded_image, codec_specific_info, frame_id),
           expected_retransmission_time);
@@ -695,10 +699,12 @@ void RtpVideoSender::ConfigureSsrcs(
   }
 
   // Configure RTX payload types.
-  RTC_DCHECK_GE(rtp_config_.rtx.payload_type, 0);
-  for (const RtpStreamSender& stream : rtp_streams_) {
-    stream.rtp_rtcp->SetRtxSendPayloadType(rtp_config_.rtx.payload_type,
-                                           rtp_config_.payload_type);
+  for (size_t i = 0; i < rtp_streams_.size(); i++) {
+    if (rtp_config_.rtx.payload_types[i] < 0)
+      continue;
+    const RtpStreamSender& stream = rtp_streams_[i];
+    stream.rtp_rtcp->SetRtxSendPayloadType(rtp_config_.rtx.payload_types[i],
+                                           rtp_config_.payload_types[i]);
     stream.rtp_rtcp->SetRtxSendStatus(kRtxRetransmitted |
                                       kRtxRedundantPayloads);
   }

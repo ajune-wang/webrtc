@@ -108,12 +108,12 @@ struct RtpConfig {
   // RtpTransportControllerSend, with a reference from RtpVideoSender, where
   // the latter would be responsible for mapping the codec type of encoded
   // images to the right payload type.
-  std::string payload_name;
-  int payload_type = -1;
+  std::vector<std::string> payload_names;
+  std::vector<int> payload_types;
   // Payload should be packetized using raw packetizer (payload header will
   // not be added, additional meta data is expected to be present in generic
   // frame descriptor RTP header extension).
-  bool raw_payload = false;
+  std::vector<bool> raw_payloads;
 
   // See LntfConfig for description.
   LntfConfig lntf;
@@ -154,7 +154,7 @@ struct RtpConfig {
     std::vector<uint32_t> ssrcs;
 
     // Payload type to use for the RTX stream.
-    int payload_type = -1;
+    std::vector<int> payload_types;
   } rtx;
 
   // RTCP CNAME, see RFC 3550.

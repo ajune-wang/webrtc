@@ -16,6 +16,7 @@
 #include <cmath>
 #include <cstdint>
 #include <numeric>
+#include <set>
 #include <string>
 #include <tuple>
 #include <vector>
@@ -171,8 +172,24 @@ void SimulcastRateAllocator::DistributeAllocationToSimulcastLayers(
       min_bitrate = std::min(hysteresis_factor * min_bitrate, target_bitrate);
     }
     if (left_in_stable_allocation < min_bitrate) {
-      allocated_bitrates->set_bw_limited(true);
-      break;
+      bool is_mixedcodec = std::invoke([this]() -> bool {
+        std::set<std::string> codecs;
+        for (int i = 0; i < codec_.numberOfSimulcastStreams; ++i) {
+          codecs.insert(codec_.simulcastStream[i].format.name);
+        }
+        return codecs.size() > 1;
+      });
+
+      if (is_mixedcodec) {
+        // If the total bitrate is too low, it's impossible to allocate enough
+        // bitrate to the higher layers. However, in the case of mixed-codec
+        // simulcast, this becomes problematic, so we force output even if it
+        // exceeds the total bitrate.
+        left_in_stable_allocation = left_in_total_allocation = min_bitrate;
+      } else {
+        allocated_bitrates->set_bw_limited(true);
+        break;
+      }
     }
 
     // We are allocating to this layer so it is the current active allocation.
@@ -332,10 +349,11 @@ const VideoCodec& webrtc::SimulcastRateAllocator::GetCodec() const {
 
 int SimulcastRateAllocator::NumTemporalStreams(size_t simulcast_id) const {
   return std::max<uint8_t>(
-      1,
-      codec_.codecType == kVideoCodecVP8 && codec_.numberOfSimulcastStreams == 0
-          ? codec_.VP8().numberOfTemporalLayers
-          : codec_.simulcastStream[simulcast_id].numberOfTemporalLayers);
+      1, codec_.simulcastStream[simulcast_id].format.IsSameCodec(
+             webrtc::SdpVideoFormat::VP8()) &&
+                 codec_.numberOfSimulcastStreams == 0
+             ? codec_.VP8().numberOfTemporalLayers
+             : codec_.simulcastStream[simulcast_id].numberOfTemporalLayers);
 }
 
 void SimulcastRateAllocator::SetLegacyConferenceMode(bool enabled) {

@@ -35,7 +35,7 @@ void VideoStreamInputStateProvider::OnEncoderSettingsChanged(
     EncoderSettings encoder_settings) {
   MutexLock lock(&mutex_);
   input_state_.set_video_codec_type(
-      encoder_settings.encoder_config().codec_type);
+      encoder_settings.encoder_config().codec_types[0]);
   input_state_.set_min_pixels_per_frame(
       encoder_settings.encoder_info().scaling_settings.min_pixels_per_frame);
   input_state_.set_single_active_stream_pixels(

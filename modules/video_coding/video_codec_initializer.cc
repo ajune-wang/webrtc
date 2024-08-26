@@ -43,7 +43,7 @@ VideoCodec VideoCodecInitializer::SetupCodec(
   RTC_DCHECK_GE(config.min_transmit_bitrate_bps, 0);
 
   VideoCodec video_codec;
-  video_codec.codecType = config.codec_type;
+  video_codec.codecType = config.codec_types[0];
 
   switch (config.content_type) {
     case VideoEncoderConfig::ContentType::kRealtimeVideo:
@@ -100,6 +100,7 @@ VideoCodec VideoCodecInitializer::SetupCodec(
     sim_stream->targetBitrate = streams[i].target_bitrate_bps / 1000;
     sim_stream->maxBitrate = streams[i].max_bitrate_bps / 1000;
     sim_stream->qpMax = streams[i].max_qp;
+    sim_stream->format = config.video_formats[i];
 
     int num_temporal_layers =
         streams[i].scalability_mode.has_value()
@@ -160,12 +161,15 @@ VideoCodec VideoCodecInitializer::SetupCodec(
           : streams[0].num_temporal_layers.value_or(1);
 
   // Set codec specific options
-  if (config.encoder_specific_settings)
-    config.encoder_specific_settings->FillEncoderSpecificSettings(&video_codec);
+  for (auto& encoder_specific : config.encoder_specific_settings) {
+    if (encoder_specific != nullptr) {
+      encoder_specific->FillEncoderSpecificSettings(&video_codec);
+    }
+  }
 
   switch (video_codec.codecType) {
     case kVideoCodecVP8: {
-      if (!config.encoder_specific_settings) {
+      if (config.encoder_specific_settings.empty()) {
         *video_codec.VP8() = VideoEncoder::GetDefaultVp8Settings();
       }
 
@@ -202,7 +206,7 @@ VideoCodec VideoCodecInitializer::SetupCodec(
         video_codec.simulcastStream[0].active = codec_active;
       }
 
-      if (!config.encoder_specific_settings) {
+      if (config.encoder_specific_settings.empty()) {
         *video_codec.VP9() = VideoEncoder::GetDefaultVp9Settings();
       }
 
@@ -317,7 +321,7 @@ VideoCodec VideoCodecInitializer::SetupCodec(
       }
       break;
     case kVideoCodecH264: {
-      RTC_CHECK(!config.encoder_specific_settings);
+      // RTC_CHECK(config.encoder_specific_settings.empty());
 
       *video_codec.H264() = VideoEncoder::GetDefaultH264Settings();
       video_codec.H264()->numberOfTemporalLayers = static_cast<unsigned char>(
@@ -333,8 +337,8 @@ VideoCodec VideoCodecInitializer::SetupCodec(
       break;
     default:
       // TODO(pbos): Support encoder_settings codec-agnostically.
-      RTC_DCHECK(!config.encoder_specific_settings)
-          << "Encoder-specific settings for codec type not wired up.";
+      // RTC_DCHECK(config.encoder_specific_settings.empty())
+      //     << "Encoder-specific settings for codec type not wired up.";
       break;
   }
 

@@ -47,7 +47,7 @@ const VideoCodec& EncoderSettings::video_codec() const {
 
 VideoCodecType GetVideoCodecTypeOrGeneric(
     const absl::optional<EncoderSettings>& settings) {
-  return settings.has_value() ? settings->encoder_config().codec_type
+  return settings.has_value() ? settings->encoder_config().codec_types[0]
                               : kVideoCodecGeneric;
 }
 

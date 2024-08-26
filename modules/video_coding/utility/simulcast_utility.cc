@@ -85,8 +85,10 @@ bool SimulcastUtility::IsConferenceModeScreenshare(
   return encoder_config.content_type ==
              VideoEncoderConfig::ContentType::kScreen &&
          encoder_config.legacy_conference_mode &&
-         (encoder_config.codec_type == webrtc::VideoCodecType::kVideoCodecVP8 ||
-          encoder_config.codec_type == webrtc::VideoCodecType::kVideoCodecH264);
+         (encoder_config.codec_types[0] ==
+              webrtc::VideoCodecType::kVideoCodecVP8 ||
+          encoder_config.codec_types[0] ==
+              webrtc::VideoCodecType::kVideoCodecH264);
 }
 
 int SimulcastUtility::NumberOfTemporalLayers(const VideoCodec& codec,

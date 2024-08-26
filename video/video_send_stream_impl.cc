@@ -289,7 +289,7 @@ size_t CalculateMaxHeaderSize(const RtpConfig& config) {
     }
   }
   // Additional room for Rtx.
-  if (config.rtx.payload_type >= 0)
+  if (!config.rtx.payload_types.empty() && config.rtx.payload_types[0] >= 0)
     header_size += kRtxHeaderSize;
   return header_size;
 }
@@ -420,7 +420,7 @@ VideoSendStreamImpl::VideoSendStreamImpl(
       encoder_feedback_(
           env_,
           SupportsPerLayerPictureLossIndication(
-              encoder_config.video_format.parameters),
+              encoder_config.video_formats[0].parameters),
           config_.rtp.ssrcs,
           video_stream_encoder_.get(),
           [this](uint32_t ssrc, const std::vector<uint16_t>& seq_nums) {
@@ -455,15 +455,13 @@ VideoSendStreamImpl::VideoSendStreamImpl(
       encoder_target_rate_bps_(0),
       encoder_bitrate_priority_(encoder_config.bitrate_priority),
       encoder_av1_priority_bitrate_override_bps_(
-          GetEncoderPriorityBitrate(config_.rtp.payload_name,
+          GetEncoderPriorityBitrate(config_.rtp.payload_names[0],
                                     env_.field_trials())),
       configured_pacing_factor_(
           GetConfiguredPacingFactor(config_,
                                     content_type_,
                                     pacing_config_,
                                     env_.field_trials())) {
-  RTC_DCHECK_GE(config_.rtp.payload_type, 0);
-  RTC_DCHECK_LE(config_.rtp.payload_type, 127);
   RTC_DCHECK(!config_.rtp.ssrcs.empty());
   RTC_DCHECK(transport_);
   RTC_DCHECK_NE(encoder_max_bitrate_bps_, 0);
@@ -799,16 +797,19 @@ void VideoSendStreamImpl::OnEncoderConfigurationChanged(
     TRACE_EVENT0("webrtc", "VideoSendStream::OnEncoderConfigurationChanged");
     RTC_DCHECK_RUN_ON(&thread_checker_);
 
-    const VideoCodecType codec_type =
-        PayloadStringToCodecType(config_.rtp.payload_name);
+    encoder_min_bitrate_bps_ = 0;
+    for (const auto& payload_name : config_.rtp.payload_names) {
+      const VideoCodecType codec_type = PayloadStringToCodecType(payload_name);
 
-    const absl::optional<DataRate> experimental_min_bitrate =
-        GetExperimentalMinVideoBitrate(env_.field_trials(), codec_type);
-    encoder_min_bitrate_bps_ =
-        experimental_min_bitrate
-            ? experimental_min_bitrate->bps()
-            : std::max(streams[0].min_bitrate_bps,
-                       GetDefaultMinVideoBitrateBps(codec_type));
+      const absl::optional<DataRate> experimental_min_bitrate =
+          GetExperimentalMinVideoBitrate(env_.field_trials(), codec_type);
+      encoder_min_bitrate_bps_ +=
+          experimental_min_bitrate
+              ? experimental_min_bitrate->bps()
+              : std::max(streams[0].min_bitrate_bps,
+                         GetDefaultMinVideoBitrateBps(codec_type));
+    }
+
     double stream_bitrate_priority_sum = 0;
     uint32_t encoder_max_bitrate_bps = 0;
     for (const auto& stream : streams) {

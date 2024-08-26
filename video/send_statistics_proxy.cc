@@ -138,7 +138,7 @@ SendStatisticsProxy::SendStatisticsProxy(
     VideoEncoderConfig::ContentType content_type,
     const FieldTrialsView& field_trials)
     : clock_(clock),
-      payload_name_(config.rtp.payload_name),
+      payload_name_(config.rtp.payload_names[0]),
       rtp_config_(config.rtp),
       fallback_max_pixels_(
           GetFallbackMaxPixelsIfFieldTrialEnabled(field_trials)),

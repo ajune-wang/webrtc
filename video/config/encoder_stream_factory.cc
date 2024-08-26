@@ -142,10 +142,10 @@ void OverrideStreamSettings(
                                       webrtc::kDefaultMinVideoBitrateBps))
                                   .bps<int>();
 
-  const bool temporal_layers_supported =
-      IsTemporalLayersSupported(encoder_config.codec_type);
-
   for (size_t i = 0; i < layers.size(); ++i) {
+    const bool temporal_layers_supported =
+        IsTemporalLayersSupported(encoder_config.codec_types[i]);
+
     const webrtc::VideoStream& overrides = encoder_config.simulcast_layers[i];
     webrtc::VideoStream& layer = layers[i];
     layer.active = overrides.active;
@@ -199,10 +199,10 @@ void OverrideStreamSettings(
 
     if (overrides.max_qp > 0) {
       layer.max_qp = overrides.max_qp;
-    } else if (encoder_config.max_qp > 0) {
-      layer.max_qp = encoder_config.max_qp;
+    } else if (!encoder_config.max_qps.empty()) {
+      layer.max_qp = encoder_config.max_qps[0];
     } else {
-      layer.max_qp = GetDefaultMaxQp(encoder_config.codec_type);
+      layer.max_qp = GetDefaultMaxQp(encoder_config.codec_types[i]);
     }
   }
 
@@ -263,7 +263,7 @@ std::vector<webrtc::VideoStream> EncoderStreamFactory::CreateEncoderStreams(
                 encoder_config.number_of_streams);
 
   const absl::optional<webrtc::DataRate> experimental_min_bitrate =
-      GetExperimentalMinVideoBitrate(trials, encoder_config.codec_type);
+      GetExperimentalMinVideoBitrate(trials, encoder_config.codec_types[0]);
 
   bool is_simulcast = (encoder_config.number_of_streams > 1);
   // If scalability mode was specified, don't treat {active,inactive,inactive}
@@ -377,12 +377,13 @@ EncoderStreamFactory::CreateDefaultVideoStreams(
         kMinLayerSize);
   }
 
-  if (encoder_config.codec_type == webrtc::VideoCodecType::kVideoCodecVP9) {
-    RTC_DCHECK(encoder_config.encoder_specific_settings);
+  if (encoder_config.codec_types[0] == webrtc::VideoCodecType::kVideoCodecVP9) {
+    RTC_DCHECK(!encoder_config.encoder_specific_settings.empty());
     // Use VP9 SVC layering from codec settings which might be initialized
     // though field trial in ConfigureVideoEncoderSettings.
     webrtc::VideoCodecVP9 vp9_settings;
-    encoder_config.encoder_specific_settings->FillVideoCodecVp9(&vp9_settings);
+    encoder_config.encoder_specific_settings[0]->FillVideoCodecVp9(
+        &vp9_settings);
     layer.num_temporal_layers = vp9_settings.numberOfTemporalLayers;
 
     // Number of spatial layers is signalled differently from different call
@@ -427,13 +428,13 @@ EncoderStreamFactory::CreateDefaultVideoStreams(
   layer.max_bitrate_bps = max_bitrate_bps;
   layer.bitrate_priority = encoder_config.bitrate_priority;
 
-  if (encoder_config.max_qp > 0) {
-    layer.max_qp = encoder_config.max_qp;
+  if (!encoder_config.max_qps.empty()) {
+    layer.max_qp = encoder_config.max_qps[0];
   } else {
-    layer.max_qp = GetDefaultMaxQp(encoder_config.codec_type);
+    layer.max_qp = GetDefaultMaxQp(encoder_config.codec_types[0]);
   }
 
-  if (IsTemporalLayersSupported(encoder_config.codec_type)) {
+  if (IsTemporalLayersSupported(encoder_config.codec_types[0])) {
     // Use configured number of temporal layers if set.
     if (encoder_config.simulcast_layers[0].num_temporal_layers) {
       layer.num_temporal_layers =
@@ -459,8 +460,8 @@ EncoderStreamFactory::CreateSimulcastOrConferenceModeScreenshareStreams(
   std::vector<webrtc::VideoStream> layers = GetSimulcastConfig(
       resolutions,
       webrtc::SimulcastUtility::IsConferenceModeScreenshare(encoder_config),
-      IsTemporalLayersSupported(encoder_config.codec_type), trials,
-      encoder_config.codec_type);
+      IsTemporalLayersSupported(encoder_config.codec_types[0]), trials,
+      encoder_config.codec_types[0]);
 
   OverrideStreamSettings(encoder_config, experimental_min_bitrate, layers);
 
@@ -508,10 +509,18 @@ std::vector<webrtc::Resolution> EncoderStreamFactory::GetStreamResolutions(
       resolutions.push_back({.width = width, .height = height});
     }
   } else {
-    size_t min_num_layers = FindRequiredActiveLayers(encoder_config);
+    // In the case of mixed-codec simulcast, min_num_layers = max_num_layers is
+    // set to avoid reducing the number of simulcast layers based on resolution.
+    bool is_mixedcodec =
+        std::set<webrtc::VideoCodecType>(encoder_config.codec_types.begin(),
+                                         encoder_config.codec_types.end())
+            .size() >= 2;
+    size_t min_num_layers = is_mixedcodec
+                                ? encoder_config.number_of_streams
+                                : FindRequiredActiveLayers(encoder_config);
     size_t max_num_layers = LimitSimulcastLayerCount(
         min_num_layers, encoder_config.number_of_streams, width, height, trials,
-        encoder_config.codec_type);
+        encoder_config.codec_types[0]);
     RTC_DCHECK_LE(max_num_layers, encoder_config.number_of_streams);
 
     const bool has_scale_resolution_down_by = absl::c_any_of(

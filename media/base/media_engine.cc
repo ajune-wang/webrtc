@@ -187,13 +187,6 @@ webrtc::RTCError CheckRtpParametersValues(
                            "Attempted to set scale_resolution_down_by and "
                            "requested_resolution simultaniously.");
     }
-
-    if (i > 0 && rtp_parameters.encodings[i - 1].codec !=
-                     rtp_parameters.encodings[i].codec) {
-      LOG_AND_RETURN_ERROR(RTCErrorType::UNSUPPORTED_OPERATION,
-                           "Attempted to use different codec values for "
-                           "different encodings.");
-    }
   }
 
   return CheckScalabilityModeValues(rtp_parameters, send_codecs, send_codec);

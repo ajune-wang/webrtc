@@ -153,7 +153,8 @@ class RTC_EXPORT SimulcastEncoderAdapter : public VideoEncoder {
   // `cached_encoder_contexts_`. It's const because it's used from
   // const GetEncoderInfo().
   std::unique_ptr<EncoderContext> FetchOrCreateEncoderContext(
-      bool is_lowest_quality_stream) const;
+      bool is_lowest_quality_stream,
+      const SdpVideoFormat& format) const;
 
   webrtc::VideoCodec MakeStreamCodec(const webrtc::VideoCodec& codec,
                                      int stream_idx,
@@ -174,7 +175,7 @@ class RTC_EXPORT SimulcastEncoderAdapter : public VideoEncoder {
   std::atomic<int> inited_;
   VideoEncoderFactory* const primary_encoder_factory_;
   VideoEncoderFactory* const fallback_encoder_factory_;
-  const SdpVideoFormat video_format_;
+  // const SdpVideoFormat video_format_;
   VideoCodec codec_;
   int total_streams_count_;
   bool bypass_mode_;

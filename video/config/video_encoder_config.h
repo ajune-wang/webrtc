@@ -167,8 +167,8 @@ class VideoEncoderConfig {
   std::string ToString() const;
 
   // TODO(bugs.webrtc.org/6883): Consolidate on one of these.
-  VideoCodecType codec_type;
-  SdpVideoFormat video_format;
+  std::vector<VideoCodecType> codec_types;
+  std::vector<SdpVideoFormat> video_formats;
 
   // Note: This factory can be unset, and VideoStreamEncoder will
   // then use the EncoderStreamFactory. The factory is only set by
@@ -177,7 +177,8 @@ class VideoEncoderConfig {
   std::vector<SpatialLayer> spatial_layers;
   ContentType content_type;
   bool frame_drop_enabled;
-  rtc::scoped_refptr<const EncoderSpecificSettings> encoder_specific_settings;
+  std::vector<rtc::scoped_refptr<const EncoderSpecificSettings>>
+      encoder_specific_settings;
 
   // Padding will be used up to this bitrate regardless of the bitrate produced
   // by the encoder. Padding above what's actually produced by the encoder helps
@@ -213,7 +214,7 @@ class VideoEncoderConfig {
   // Maximum Quantization Parameter.
   // This value is fed into EncoderStreamFactory that
   // apply it to all simulcast layers/spatial layers.
-  int max_qp;
+  std::vector<int> max_qps;
 
  private:
   // Access to the copy constructor is private to force use of the Copy()

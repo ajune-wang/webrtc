@@ -10,6 +10,9 @@
 
 #include "api/audio_options.h"
 
+#include <string>
+
+#include "absl/types/optional.h"
 #include "api/array_view.h"
 #include "rtc_base/strings/string_builder.h"
 

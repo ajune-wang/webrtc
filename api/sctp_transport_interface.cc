@@ -12,6 +12,10 @@
 
 #include <utility>
 
+#include "absl/types/optional.h"
+#include "api/dtls_transport_interface.h"
+#include "api/scoped_refptr.h"
+
 namespace webrtc {
 
 SctpTransportInformation::SctpTransportInformation(SctpTransportState state)

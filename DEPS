@@ -72,7 +72,7 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': 'https://chromium.googlesource.com/chromium/src/ios@9c77ec35a20c2280cc01f7519866e8e4836966fd',
+    'url': 'https://chromium.googlesource.com/chromium/src/ios@dfa82fd983ea69e971b5143034a72b3a37b60ad7',
     'condition': 'checkout_ios',
   },
   'src/testing':

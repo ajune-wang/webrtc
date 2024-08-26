@@ -16,6 +16,41 @@
       "message": "Philip is OOO for a while...",
       "revId": "3bcbcf2d4c1f6ef18b452dbcdf59dad30be10d27",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5f128326_7ceec226",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2024-08-26T11:33:34Z",
+      "side": 1,
+      "message": "Thanks for the review!",
+      "revId": "3bcbcf2d4c1f6ef18b452dbcdf59dad30be10d27",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "243802d7_38d7555c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2024-08-26T11:33:34Z",
+      "side": 1,
+      "message": "Thanks!",
+      "parentUuid": "e1556dd4_41b91ff1",
+      "revId": "3bcbcf2d4c1f6ef18b452dbcdf59dad30be10d27",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

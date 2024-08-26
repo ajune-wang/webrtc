@@ -33,6 +33,23 @@
       "message": "Thanks!",
       "revId": "be79341d46ebfd8a160b277b6e75e760a55c936c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8359f534_83b4ee47",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-08-26T14:25:51Z",
+      "side": 1,
+      "message": "Approving based on Kari\u0027s approval.",
+      "revId": "be79341d46ebfd8a160b277b6e75e760a55c936c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

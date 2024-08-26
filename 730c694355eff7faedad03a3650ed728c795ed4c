@@ -16,6 +16,24 @@
       "message": "I triggered the ios_sim just to see 😊",
       "revId": "730c694355eff7faedad03a3650ed728c795ed4c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9a7b79fc_646bbc28",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 12234
+      },
+      "writtenOn": "2024-08-26T15:55:34Z",
+      "side": 1,
+      "message": "ah was wondering why it got triggered :)\nso the roll does not contain https://chromium-review.googlesource.com/c/chromium/src/+/5807701, just wanted to unblock the auto roller",
+      "parentUuid": "3e60ff62_ac9801eb",
+      "revId": "730c694355eff7faedad03a3650ed728c795ed4c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -41,7 +41,6 @@ WEBRTC_ONLY_DEPS = [
     'src/ios',
     'src/testing',
     'src/third_party',
-    'src/third_party/android_build_tools/aapt2',
     'src/third_party/clang_format/script',
     'src/third_party/gtest-parallel',
     'src/third_party/hamcrest',

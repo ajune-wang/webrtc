@@ -16,6 +16,23 @@
       "message": "Ready for approval.",
       "revId": "e11840df86d2b3cf0c594aea7950bc4f3a9ec028",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a276a568_a393d49a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2024-08-26T12:36:37Z",
+      "side": 1,
+      "message": "Can you add a test for the use-case that triggered the revert?",
+      "revId": "e11840df86d2b3cf0c594aea7950bc4f3a9ec028",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

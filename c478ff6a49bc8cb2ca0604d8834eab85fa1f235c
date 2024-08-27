@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1a47e0be_5f51b72b",
+        "filename": "p2p/base/tcp_port.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 629,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2024-08-27T07:22:09Z",
+      "side": 0,
+      "message": "why don\u0027t we disconnect all the signals we have connected to ?",
+      "revId": "c478ff6a49bc8cb2ca0604d8834eab85fa1f235c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

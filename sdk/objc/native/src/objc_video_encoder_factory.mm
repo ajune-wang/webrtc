@@ -184,6 +184,25 @@ std::vector<SdpVideoFormat> ObjCVideoEncoderFactory::GetImplementations() const 
   return GetSupportedFormats();
 }
 
+VideoEncoderFactory::CodecSupport ObjCVideoEncoderFactory::QueryCodecSupport(
+    const SdpVideoFormat &format, absl::optional<std::string> scalability_mode) const {
+  if ([encoder_factory_ respondsToSelector:@selector(queryCodecSupport:scalabilityMode:)]) {
+    RTC_OBJC_TYPE(RTCVideoCodecInfo) *info =
+        [[RTC_OBJC_TYPE(RTCVideoCodecInfo) alloc] initWithNativeSdpVideoFormat:format];
+    NSString *mode;
+    if (scalability_mode.has_value()) {
+      mode = [NSString stringForAbslStringView:*scalability_mode];
+    }
+
+    RTC_OBJC_TYPE(RTCVideoEncoderCodecSupport) *result = [encoder_factory_ queryCodecSupport:info
+                                                                             scalabilityMode:mode];
+    return {.is_supported = result.isSupported, .is_power_efficient = result.isPowerEfficient};
+  }
+
+  // Use default implementation.
+  return VideoEncoderFactory::QueryCodecSupport(format, scalability_mode);
+}
+
 std::unique_ptr<VideoEncoder> ObjCVideoEncoderFactory::Create(const Environment &env,
                                                               const SdpVideoFormat &format) {
   RTC_OBJC_TYPE(RTCVideoCodecInfo) *info =

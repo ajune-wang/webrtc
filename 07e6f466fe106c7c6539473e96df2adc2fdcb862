@@ -36,6 +36,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e229bd8a_f688bb81",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-08-27T13:14:33Z",
+      "side": 1,
+      "message": "I gave up on OCM, trying various things, but it keeps telling\n\nOCProtocolMockObject(RTCVideoEncoderFactory): cannot stub/expect/verify method \u0027queryCodecSupport:scalabilityMode:\u0027 because no such method exists in the mocked class. (NSInvalidArgumentException)\n\n\nSo I\u0027ve mock the protocol manually.\nmore wordy, less nice, but it works.\nWould you find that acceptable?",
+      "parentUuid": "7b4fcdf3_fe6c0bb8",
+      "revId": "07e6f466fe106c7c6539473e96df2adc2fdcb862",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "44ed19dc_f0502728",

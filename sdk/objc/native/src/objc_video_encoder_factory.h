@@ -13,10 +13,13 @@
 
 #import <Foundation/Foundation.h>
 
-#import "base/RTCMacros.h"
+#include <string>
 
+#include "absl/types/optional.h"
 #include "api/environment/environment.h"
+#include "api/video_codecs/sdp_video_format.h"
 #include "api/video_codecs/video_encoder_factory.h"
+#import "base/RTCMacros.h"
 
 @protocol RTC_OBJC_TYPE
 (RTCVideoEncoderFactory);
@@ -32,6 +35,8 @@ class ObjCVideoEncoderFactory : public VideoEncoderFactory {
 
   std::vector<SdpVideoFormat> GetSupportedFormats() const override;
   std::vector<SdpVideoFormat> GetImplementations() const override;
+  CodecSupport QueryCodecSupport(const SdpVideoFormat& format,
+                                 absl::optional<std::string> scalability_mode) const override;
   std::unique_ptr<VideoEncoder> Create(const Environment& env,
                                        const SdpVideoFormat& format) override;
   std::unique_ptr<EncoderSelectorInterface> GetEncoderSelector() const override;

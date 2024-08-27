@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "41c13203_e97d29c1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-08-27T17:49:05Z",
+      "side": 1,
+      "message": "This one was weird. The config dependency is for the linker flags but that gets done later so not necessary here.",
+      "revId": "b3291b560987c66b823d93c2d33487a0f4de6425",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -33,6 +33,24 @@
       "message": "1) why is SignalSentPacket only subscribed to for outgoing ?\nsimilar to SignalReadyToSend\n\n2) I don\u0027t see where the OnReadyToSend is implemented ?",
       "revId": "d43f3eb6451bb405211c8bc356d4e57522a88ab9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f800ed03_a773a933",
+        "filename": "p2p/base/tcp_port.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 601,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2024-08-27T11:01:29Z",
+      "side": 1,
+      "message": "changed. All signals connected to Connection now.",
+      "parentUuid": "57b8a26c_b2d3600b",
+      "revId": "d43f3eb6451bb405211c8bc356d4e57522a88ab9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

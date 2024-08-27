@@ -44,6 +44,14 @@ id<RTC_OBJC_TYPE(RTCVideoEncoderFactory)> CreateEncoderFactoryReturning(int retu
   return encoderFactoryMock;
 }
 
+id<RTC_OBJC_TYPE(RTCVideoEncoderFactory)> CreateEncoderFactory1() {
+  id encoderFactoryMock = OCMProtocolMock(@protocol(RTC_OBJC_TYPE(RTCVideoEncoderFactory)));
+  OCMStub([encoderFactoryMock queryCodecSupport:[OCMArg any] scalabilityMode:[OCMArg isNil]])
+      .andReturn([[RTC_OBJC_TYPE(RTCVideoEncoderCodecSupport) alloc] initWithSupported:true
+                                                                      isPowerEfficient:true]);
+  return encoderFactoryMock;
+}
+
 id<RTC_OBJC_TYPE(RTCVideoEncoderFactory)> CreateOKEncoderFactory() {
   return CreateEncoderFactoryReturning(WEBRTC_VIDEO_CODEC_OK);
 }
@@ -130,6 +138,42 @@ std::unique_ptr<webrtc::VideoEncoder> GetObjCEncoder(
   std::unique_ptr<webrtc::VideoEncoder> encoder = GetObjCEncoder(CreateErrorEncoderFactory());
 
   EXPECT_EQ(encoder->Release(), WEBRTC_VIDEO_CODEC_ERROR);
+}
+
+- (void)testQueryCodecSupportDelegatesToObjcFactoryConvertsNulloptModeToNil {
+  webrtc::SdpVideoFormat codec("VP8");
+  webrtc::ObjCVideoEncoderFactory encoder_factory(CreateEncoderFactory1());
+
+  webrtc::VideoEncoderFactory::CodecSupport s =
+      encoder_factory.QueryCodecSupport(codec, absl::nullopt);
+
+  EXPECT_TRUE(s.is_supported);
+  EXPECT_TRUE(s.is_power_efficient);
+}
+
+- (void)testQueryCodecSupportDelegatesToObjcFactoryIncludesPowerEfficientFlag {
+  id encoderFactoryMock = OCMProtocolMock(@protocol(RTC_OBJC_TYPE(RTCVideoEncoderFactory)));
+  OCMStub([encoderFactoryMock queryCodecSupport:[OCMArg any] scalabilityMode:@"L1T2"])
+      .andReturn([[RTC_OBJC_TYPE(RTCVideoEncoderCodecSupport) alloc] initWithSupported:true
+                                                                      isPowerEfficient:false]);
+  webrtc::SdpVideoFormat codec("VP8");
+  webrtc::ObjCVideoEncoderFactory encoder_factory(encoderFactoryMock);
+
+  webrtc::VideoEncoderFactory::CodecSupport s = encoder_factory.QueryCodecSupport(codec, "L1T2");
+  EXPECT_TRUE(s.is_supported);
+  EXPECT_FALSE(s.is_power_efficient);
+}
+
+- (void)testQueryCodecSupportDelegatesToObjcFactoryMayReturnUnsupported {
+  id encoderFactoryMock = OCMProtocolMock(@protocol(RTC_OBJC_TYPE(RTCVideoEncoderFactory)));
+  RTC_OBJC_TYPE(RTCVideoEncoderCodecSupport)* supported =
+      [[RTC_OBJC_TYPE(RTCVideoEncoderCodecSupport) alloc] initWithSupported:false];
+  OCMStub([encoderFactoryMock queryCodecSupport:[OCMArg any] scalabilityMode:@"L2T1"])
+      .andReturn(supported);
+  webrtc::SdpVideoFormat codec("VP8");
+  webrtc::ObjCVideoEncoderFactory encoder_factory(encoderFactoryMock);
+
+  EXPECT_FALSE(encoder_factory.QueryCodecSupport(codec, "L2T1").is_supported);
 }
 
 - (void)testGetSupportedFormats {

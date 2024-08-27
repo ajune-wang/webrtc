@@ -1,11 +1,14 @@
 # Corruption Detection
 
-** Name: **
+**Name:**
 "Corruption Detection"; "Extension for Automatic Detection of Video Corruptions"
-** Formal name: **
+
+**Formal name:**
 <http://www.webrtc.org/experiments/rtp-hdrext/corruption-detection>
-** Status: ** This extension is defined here to allow for experimentation.
-** Contact: ** <sprang@google.com>
+
+**Status:** This extension is defined here to allow for experimentation.
+
+**Contact:** <sprang@google.com>
 
 NOTE: This explainer is a work in progress and may change without notice.
 
@@ -226,11 +229,11 @@ subsampling format. When determining which plane a location belongs to, it is
 easiest to visualize it as the chroma planes being “stacked” to the side of the
 luma plane:
 
-+------+---+
-|      | U |
-+  Y   +---+
-|      | V |
-+------+---+
+    +------+---+
+    |      | U |
+    +  Y   +---+
+    |      | V |
+    +------+---+
 
 In pseudo code:
 ```
@@ -273,9 +276,9 @@ In pseudo-code, that means we get the following:
   weight_sum = 0;
   for (y = max(0, row - max_d) to min(plane_height, row + max_d) {
     for (x = max(0, col - max_d) to min(plane_width, col + max_d) {
-	weight = e^(-1 * ((y - row)^2 + (x - col)^2) / (2 * stddev^2));
-	sample_sum += SampleAt(x, y) * weight;
-	weight_sum += weight;
+      weight = e^(-1 * ((y - row)^2 + (x - col)^2) / (2 * stddev^2));
+      sample_sum += SampleAt(x, y) * weight;
+      weight_sum += weight;
     }
   }
   filtered_sample = sample_sum / weight_sum;

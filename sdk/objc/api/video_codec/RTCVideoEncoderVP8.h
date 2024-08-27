@@ -22,4 +22,9 @@ RTC_OBJC_EXPORT
  */
 + (id<RTC_OBJC_TYPE(RTCVideoEncoder)>)vp8Encoder;
 
+/* Returns if scalability mode `name` will be supported by the encoder created
+ * with `vp8Encoder` method above.
+ */
++ (bool)isScalabilityModeSupported:(nonnull NSString*)name;
+
 @end

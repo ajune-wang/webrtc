@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "76a92c1b_366d9883",
+        "filename": "api/neteq/neteq.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2024-08-27T14:32:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "582b1f54_ade4602b",
+      "revId": "75d6f7dc93f31184798512808ac1e819c626671f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "532034be_2d798063",
@@ -35,6 +53,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "66c65e8b_2816c968",
+        "filename": "modules/audio_coding/neteq/neteq_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 401,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2024-08-27T14:32:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "532034be_2d798063",
+      "revId": "75d6f7dc93f31184798512808ac1e819c626671f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "27ad0939_fe6dbc5a",
@@ -48,6 +84,24 @@
       "writtenOn": "2024-08-27T13:26:25Z",
       "side": 1,
       "message": "```suggestion\n  absl::optional\u003cDecoderFormat\u003e GetCurrentDecoderFormat() const override;\n```",
+      "revId": "75d6f7dc93f31184798512808ac1e819c626671f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d7e4048e_2d712cec",
+        "filename": "modules/audio_coding/neteq/neteq_impl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2024-08-27T14:32:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "27ad0939_fe6dbc5a",
       "revId": "75d6f7dc93f31184798512808ac1e819c626671f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

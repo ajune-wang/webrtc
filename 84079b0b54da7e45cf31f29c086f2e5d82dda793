@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4fb176c6_436c58bb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-08-28T12:00:38Z",
+      "side": 1,
+      "message": "This looks like a nice prototype and a useful feature, but quite some work is needed to convert prototype code into commitable code.\n\nI think it would be good to create an webrtc issue for this effort, keep this CL as is to reference it, but split out smaller steps out of this change for review.\n\nSee https://google.github.io/eng-practices/review/developer/small-cls.html",
+      "revId": "84079b0b54da7e45cf31f29c086f2e5d82dda793",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b1637b0a_4c454bea",
+        "filename": "call/rtp_config.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-08-28T12:00:38Z",
+      "side": 1,
+      "message": "Looks like its time to refactor these:\ncreate a struct and have single vector of that struct instead of having 7 vectors that should be the same size (or empty): ssrcs, rids, payload_names, payload_types,  raw_payloads, rtx.ssrcs, rtx.payload_types.\n\nThis kind of refactor can be its own change even through in the 1st version payload_names/types would be the same for all simulcast substreams.",
+      "revId": "84079b0b54da7e45cf31f29c086f2e5d82dda793",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b30b4f55_9e5d6d59",
+        "filename": "modules/video_coding/utility/simulcast_rate_allocator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-08-28T12:00:38Z",
+      "side": 1,
+      "message": "why create one time use-lamba?\nreturn in the middle of the block that doesn\u0027t actually terminates current function is often confusing\n```suggestion\n      std::set\u003cstd::string\u003e codecs;\n      for (int i \u003d 0; i \u003c codec_.numberOfSimulcastStreams; ++i) {\n        codecs.insert(codec_.simulcastStream[i].format.name);\n      }\n      bool is_mixedcodec \u003d codecs.size() \u003e 1;\n```",
+      "range": {
+        "startLine": 175,
+        "startChar": 0,
+        "endLine": 181,
+        "endChar": 9
+      },
+      "revId": "84079b0b54da7e45cf31f29c086f2e5d82dda793",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

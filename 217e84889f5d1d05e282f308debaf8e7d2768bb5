@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4b6e0693_31fd5b65",
+        "filename": "sdk/objc/native/src/audio/audio_device_ios.mm",
+        "patchSetId": 2
+      },
+      "lineNbr": 1057,
+      "author": {
+        "id": 5670
+      },
+      "writtenOn": "2024-08-28T07:03:04Z",
+      "side": 1,
+      "message": "Please update the logging as well (now logging a boolean that is always false).",
+      "range": {
+        "startLine": 1057,
+        "startChar": 46,
+        "endLine": 1057,
+        "endChar": 55
+      },
+      "revId": "217e84889f5d1d05e282f308debaf8e7d2768bb5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

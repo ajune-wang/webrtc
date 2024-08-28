@@ -230,7 +230,6 @@ class AcmReceiver {
 
   const Environment env_;
   mutable Mutex mutex_;
-  absl::optional<DecoderInfo> last_decoder_ RTC_GUARDED_BY(mutex_);
   ACMResampler resampler_ RTC_GUARDED_BY(mutex_);
   CallStatistics call_stats_ RTC_GUARDED_BY(mutex_);
   const std::unique_ptr<NetEq> neteq_;  // NetEq is thread-safe; no lock needed.

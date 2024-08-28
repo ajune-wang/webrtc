@@ -3,6 +3,29 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "5321c01f_53048885",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-08-28T15:17:20Z",
+      "side": 1,
+      "message": "Might help to be more specific with the motivation of this change:\n\nsomething like\n\u0027Moving defines before they are used with unique_ptr allows to compile this file with -std\u003dc++2b flag.\u0027",
+      "range": {
+        "startLine": 8,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 6
+      },
+      "revId": "9c6738578ad6a94983734c58ea38145f656397f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "17002fd3_e8c1f5e9",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 1
@@ -14,6 +37,23 @@
       "writtenOn": "2024-08-28T15:12:20Z",
       "side": 1,
       "message": "PTAL",
+      "revId": "9c6738578ad6a94983734c58ea38145f656397f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3481bbd7_0400be77",
+        "filename": "api/audio/audio_processing.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-08-28T15:17:20Z",
+      "side": 1,
+      "message": "can these forward declarations be removed now? [to help avoid backsliding]",
       "revId": "9c6738578ad6a94983734c58ea38145f656397f3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

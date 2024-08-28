@@ -9,6 +9,8 @@
  */
 #include "modules/video_coding/utility/vp9_uncompressed_header_parser.h"
 
+#include <iostream>
+
 #include "absl/numeric/bits.h"
 #include "absl/strings/string_view.h"
 #include "rtc_base/bitstream_reader.h"
@@ -488,6 +490,8 @@ void Parse(BitstreamReader& br,
   // Frame context index.
   frame_info->frame_context_idx = br.ReadBits(2);
 
+  frame_info->loop_filter_params_offset_bits =
+      total_buffer_size_bits - br.RemainingBitCount();
   Vp9ReadLoopfilter(br);
 
   // Read base QP.

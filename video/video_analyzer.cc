@@ -496,6 +496,12 @@ void VideoAnalyzer::PollStats() {
   last_fec_bytes_ = fec_bytes;
 
   if (receive_stream_ != nullptr) {
+    // TODO(discuss): Do we want to add something regarding corruption score
+    // here? Can do it in another CL. However, it might also be better to do
+    // something similar to how PSNR is calculated here where the input and
+    // output is know (see method VideoAnalyzer::PerformFrameComparison). We can
+    // calc. corruption score on more frames and with more samples if we have it
+    // here. Wdyt?
     VideoReceiveStreamInterface::Stats receive_stats =
         receive_stream_->GetStats();
 

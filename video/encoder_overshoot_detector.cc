@@ -11,6 +11,7 @@
 #include "video/encoder_overshoot_detector.h"
 
 #include <algorithm>
+#include <optional>
 #include <string>
 
 #include "system_wrappers/include/metrics.h"
@@ -136,13 +137,13 @@ double EncoderOvershootDetector::HandleEncodedFrame(
   return utilization_factor;
 }
 
-absl::optional<double>
-EncoderOvershootDetector::GetNetworkRateUtilizationFactor(int64_t time_ms) {
+std::optional<double> EncoderOvershootDetector::GetNetworkRateUtilizationFactor(
+    int64_t time_ms) {
   CullOldUpdates(time_ms);
 
   // No data points within window, return.
   if (utilization_factors_.empty()) {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   // TODO(sprang): Consider changing from arithmetic mean to some other
@@ -150,13 +151,13 @@ EncoderOvershootDetector::GetNetworkRateUtilizationFactor(int64_t time_ms) {
   return sum_network_utilization_factors_ / utilization_factors_.size();
 }
 
-absl::optional<double> EncoderOvershootDetector::GetMediaRateUtilizationFactor(
+std::optional<double> EncoderOvershootDetector::GetMediaRateUtilizationFactor(
     int64_t time_ms) {
   CullOldUpdates(time_ms);
 
   // No data points within window, return.
   if (utilization_factors_.empty()) {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return sum_media_utilization_factors_ / utilization_factors_.size();

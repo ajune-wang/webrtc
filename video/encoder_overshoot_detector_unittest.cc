@@ -10,6 +10,7 @@
 
 #include "video/encoder_overshoot_detector.h"
 
+#include <optional>
 #include <string>
 
 #include "api/units/data_rate.h"
@@ -87,12 +88,12 @@ class EncoderOvershootDetectorTest : public TestWithParam<TestParams> {
 
     // At constant utilization, both network and media utilization should be
     // close to expected.
-    const absl::optional<double> network_utilization_factor =
+    const std::optional<double> network_utilization_factor =
         detector_.GetNetworkRateUtilizationFactor(rtc::TimeMillis());
     EXPECT_NEAR(network_utilization_factor.value_or(-1),
                 expected_utilization_factor, allowed_error);
 
-    const absl::optional<double> media_utilization_factor =
+    const std::optional<double> media_utilization_factor =
         detector_.GetMediaRateUtilizationFactor(rtc::TimeMillis());
     EXPECT_NEAR(media_utilization_factor.value_or(-1),
                 expected_utilization_factor, allowed_error);
@@ -189,12 +190,12 @@ TEST_P(EncoderOvershootDetectorTest, PartialOvershoot) {
   }
 
   // Expect 5% overshoot for network rate, see above.
-  const absl::optional<double> network_utilization_factor =
+  const std::optional<double> network_utilization_factor =
       detector_.GetNetworkRateUtilizationFactor(rtc::TimeMillis());
   EXPECT_NEAR(network_utilization_factor.value_or(-1), 1.05, 0.01);
 
   // Expect media rate to be on average correct.
-  const absl::optional<double> media_utilization_factor =
+  const std::optional<double> media_utilization_factor =
       detector_.GetMediaRateUtilizationFactor(rtc::TimeMillis());
   EXPECT_NEAR(media_utilization_factor.value_or(-1), 1.00, 0.01);
 }

@@ -11,6 +11,7 @@
 #include "video/end_to_end_tests/multi_stream_tester.h"
 
 #include <memory>
+#include <optional>
 #include <utility>
 #include <vector>
 
@@ -115,8 +116,8 @@ void MultiStreamTester::RunTest() {
 
       auto* frame_generator = new test::FrameGeneratorCapturer(
           &env.clock(),
-          test::CreateSquareFrameGenerator(width, height, absl::nullopt,
-                                           absl::nullopt),
+          test::CreateSquareFrameGenerator(width, height, std::nullopt,
+                                           std::nullopt),
           30, env.task_queue_factory());
       frame_generators[i] = frame_generator;
       send_streams[i]->SetSource(frame_generator,

@@ -12,6 +12,7 @@
 
 #include <algorithm>
 #include <memory>
+#include <optional>
 #include <vector>
 
 #include "api/field_trials_view.h"
@@ -193,11 +194,11 @@ VideoBitrateAllocation EncoderBitrateAdjuster::AdjustRateAllocation(
       layer_info.media_utilization_factor = 0.0;
       for (size_t ti = 0; ti < active_tls[si]; ++ti) {
         RTC_DCHECK(overshoot_detectors_[si][ti]);
-        const absl::optional<double> ti_link_utilization_factor =
+        const std::optional<double> ti_link_utilization_factor =
             overshoot_detectors_[si][ti]->GetNetworkRateUtilizationFactor(
                 now.ms());
 
-        const absl::optional<double> ti_media_utilization_factor =
+        const std::optional<double> ti_media_utilization_factor =
             overshoot_detectors_[si][ti]->GetMediaRateUtilizationFactor(
                 now.ms());
         if (!ti_link_utilization_factor || !ti_media_utilization_factor) {

@@ -12,6 +12,7 @@
 
 #include <iterator>
 #include <memory>
+#include <optional>
 #include <utility>
 #include <vector>
 
@@ -58,11 +59,11 @@ DecodeSynchronizer::SynchronizedFrameDecodeScheduler::
   RTC_DCHECK(stopped_);
 }
 
-absl::optional<uint32_t>
+std::optional<uint32_t>
 DecodeSynchronizer::SynchronizedFrameDecodeScheduler::ScheduledRtpTimestamp() {
   return next_frame_.has_value()
-             ? absl::make_optional(next_frame_->rtp_timestamp())
-             : absl::nullopt;
+             ? std::make_optional(next_frame_->rtp_timestamp())
+             : std::nullopt;
 }
 
 DecodeSynchronizer::ScheduledFrame

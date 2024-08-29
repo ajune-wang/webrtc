@@ -12,6 +12,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <vector>
 
 #include "api/test/mock_frame_decryptor.h"
@@ -74,7 +75,7 @@ class BufferedFrameDecryptorTest : public ::testing::Test,
         kVideoRotation_0,
         VideoContentType::UNSPECIFIED,
         rtp_video_header,
-        /*color_space=*/absl::nullopt,
+        /*color_space=*/std::nullopt,
         RtpPacketInfos(),
         EncodedImageBuffer::Create(/*size=*/0));
     // clang-format on

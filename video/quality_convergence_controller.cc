@@ -10,6 +10,8 @@
 
 #include "video/quality_convergence_controller.h"
 
+#include <optional>
+
 #include "rtc_base/checks.h"
 
 namespace webrtc {
@@ -41,7 +43,7 @@ int GetDefaultStaticQpThreshold(VideoCodecType codec) {
 
 void QualityConvergenceController::Initialize(
     int number_of_layers,
-    absl::optional<int> static_qp_threshold,
+    std::optional<int> static_qp_threshold,
     VideoCodecType codec,
     const FieldTrialsView& trials) {
   RTC_DCHECK(sequence_checker_.IsCurrent());

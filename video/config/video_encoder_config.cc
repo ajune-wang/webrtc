@@ -9,6 +9,7 @@
  */
 #include "video/config/video_encoder_config.h"
 
+#include <optional>
 #include <string>
 
 #include "rtc_base/checks.h"
@@ -24,7 +25,7 @@ VideoStream::VideoStream()
       max_bitrate_bps(-1),
       scale_resolution_down_by(-1.),
       max_qp(-1),
-      num_temporal_layers(absl::nullopt),
+      num_temporal_layers(std::nullopt),
       active(true) {}
 VideoStream::VideoStream(const VideoStream& other) = default;
 

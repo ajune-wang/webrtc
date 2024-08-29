@@ -14,6 +14,7 @@
 #include <list>
 #include <map>
 #include <memory>
+#include <optional>
 #include <vector>
 
 #include "api/scoped_refptr.h"
@@ -41,7 +42,7 @@ class VideoStreamDecoder : public VCMReceiveCallback {
 
   // Implements VCMReceiveCallback.
   int32_t FrameToRender(VideoFrame& video_frame,
-                        absl::optional<uint8_t> qp,
+                        std::optional<uint8_t> qp,
                         TimeDelta decode_time,
                         VideoContentType content_type,
                         VideoFrameType frame_type) override;

@@ -10,6 +10,7 @@
 
 #include "video/adaptation/bitrate_constraint.h"
 
+#include <optional>
 #include <utility>
 #include <vector>
 
@@ -36,7 +37,7 @@ const VideoSourceRestrictions k720p{/*max_pixels_per_frame=*/1280 * 720,
 
 struct TestParams {
   bool active;
-  absl::optional<ScalabilityMode> scalability_mode;
+  std::optional<ScalabilityMode> scalability_mode;
 };
 
 void FillCodecConfig(VideoCodec* video_codec,

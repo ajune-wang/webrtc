@@ -11,6 +11,8 @@
 #ifndef VIDEO_TASK_QUEUE_FRAME_DECODE_SCHEDULER_H_
 #define VIDEO_TASK_QUEUE_FRAME_DECODE_SCHEDULER_H_
 
+#include <optional>
+
 #include "video/frame_decode_scheduler.h"
 
 namespace webrtc {
@@ -27,7 +29,7 @@ class TaskQueueFrameDecodeScheduler : public FrameDecodeScheduler {
       const TaskQueueFrameDecodeScheduler&) = delete;
 
   // FrameDecodeScheduler implementation.
-  absl::optional<uint32_t> ScheduledRtpTimestamp() override;
+  std::optional<uint32_t> ScheduledRtpTimestamp() override;
   void ScheduleFrame(uint32_t rtp,
                      FrameDecodeTiming::FrameSchedule schedule,
                      FrameReleaseCallback cb) override;
@@ -38,7 +40,7 @@ class TaskQueueFrameDecodeScheduler : public FrameDecodeScheduler {
   Clock* const clock_;
   TaskQueueBase* const bookkeeping_queue_;
 
-  absl::optional<uint32_t> scheduled_rtp_;
+  std::optional<uint32_t> scheduled_rtp_;
   ScopedTaskSafetyDetached task_safety_;
   bool stopped_ = false;
 };

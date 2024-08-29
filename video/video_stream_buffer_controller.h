@@ -12,6 +12,7 @@
 #define VIDEO_VIDEO_STREAM_BUFFER_CONTROLLER_H_
 
 #include <memory>
+#include <optional>
 
 #include "api/field_trials_view.h"
 #include "api/task_queue/task_queue_base.h"
@@ -80,7 +81,7 @@ class VideoStreamBufferController {
   void Stop();
   void SetProtectionMode(VCMVideoProtection protection_mode);
   void Clear();
-  absl::optional<int64_t> InsertFrame(std::unique_ptr<EncodedFrame> frame);
+  std::optional<int64_t> InsertFrame(std::unique_ptr<EncodedFrame> frame);
   void UpdateRtt(int64_t max_rtt_ms);
   void SetMaxWaits(TimeDelta max_wait_for_keyframe,
                    TimeDelta max_wait_for_frame);

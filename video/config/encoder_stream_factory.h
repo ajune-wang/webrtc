@@ -10,6 +10,7 @@
 #ifndef VIDEO_CONFIG_ENCODER_STREAM_FACTORY_H_
 #define VIDEO_CONFIG_ENCODER_STREAM_FACTORY_H_
 
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -25,8 +26,8 @@ class EncoderStreamFactory
     : public webrtc::VideoEncoderConfig::VideoStreamFactoryInterface {
  public:
   EncoderStreamFactory(const webrtc::VideoEncoder::EncoderInfo& encoder_info,
-                       absl::optional<webrtc::VideoSourceRestrictions>
-                           restrictions = absl::nullopt);
+                       std::optional<webrtc::VideoSourceRestrictions>
+                           restrictions = std::nullopt);
 
   std::vector<webrtc::VideoStream> CreateEncoderStreams(
       const webrtc::FieldTrialsView& trials,
@@ -39,7 +40,7 @@ class EncoderStreamFactory
       int width,
       int height,
       const webrtc::VideoEncoderConfig& encoder_config,
-      const absl::optional<webrtc::DataRate>& experimental_min_bitrate) const;
+      const std::optional<webrtc::DataRate>& experimental_min_bitrate) const;
 
   std::vector<webrtc::VideoStream>
   CreateSimulcastOrConferenceModeScreenshareStreams(
@@ -47,7 +48,7 @@ class EncoderStreamFactory
       int width,
       int height,
       const webrtc::VideoEncoderConfig& encoder_config,
-      const absl::optional<webrtc::DataRate>& experimental_min_bitrate) const;
+      const std::optional<webrtc::DataRate>& experimental_min_bitrate) const;
 
   webrtc::Resolution GetLayerResolutionFromRequestedResolution(
       int in_frame_width,
@@ -61,7 +62,7 @@ class EncoderStreamFactory
       const webrtc::VideoEncoderConfig& encoder_config) const;
 
   const int encoder_info_requested_resolution_alignment_;
-  const absl::optional<webrtc::VideoSourceRestrictions> restrictions_;
+  const std::optional<webrtc::VideoSourceRestrictions> restrictions_;
 };
 
 }  // namespace cricket

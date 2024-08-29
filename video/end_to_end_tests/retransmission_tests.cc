@@ -9,6 +9,7 @@
  */
 
 #include <memory>
+#include <optional>
 
 #include "absl/algorithm/container.h"
 #include "api/task_queue/task_queue_base.h"
@@ -191,7 +192,7 @@ TEST_F(RetransmissionEndToEndTest, ReceivesNackAndRetransmitsAudio) {
     uint32_t local_ssrc_;
     uint32_t remote_ssrc_;
     Transport* receive_transport_;
-    absl::optional<uint16_t> sequence_number_to_retransmit_;
+    std::optional<uint16_t> sequence_number_to_retransmit_;
   } test;
 
   RunBaseTest(&test);

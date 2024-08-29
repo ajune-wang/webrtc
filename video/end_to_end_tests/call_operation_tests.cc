@@ -9,6 +9,7 @@
  */
 
 #include <memory>
+#include <optional>
 
 #include "api/test/create_frame_generator.h"
 #include "api/test/frame_generator_interface.h"
@@ -116,8 +117,8 @@ TEST_F(CallOperationEndToEndTest, RendersSingleDelayedFrame) {
     // Create frames that are smaller than the send width/height, this is
     // done to check that the callbacks are done after processing video.
     std::unique_ptr<test::FrameGeneratorInterface> frame_generator(
-        test::CreateSquareFrameGenerator(kWidth, kHeight, absl::nullopt,
-                                         absl::nullopt));
+        test::CreateSquareFrameGenerator(kWidth, kHeight, std::nullopt,
+                                         std::nullopt));
     GetVideoSendStream()->SetSource(&frame_forwarder,
                                     DegradationPreference::MAINTAIN_FRAMERATE);
 
@@ -175,7 +176,7 @@ TEST_F(CallOperationEndToEndTest, TransmitsFirstFrame) {
 
     frame_generator = test::CreateSquareFrameGenerator(
         test::VideoTestConstants::kDefaultWidth,
-        test::VideoTestConstants::kDefaultHeight, absl::nullopt, absl::nullopt);
+        test::VideoTestConstants::kDefaultHeight, std::nullopt, std::nullopt);
     GetVideoSendStream()->SetSource(&frame_forwarder,
                                     DegradationPreference::MAINTAIN_FRAMERATE);
     test::FrameGeneratorInterface::VideoFrameData frame_data =

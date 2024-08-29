@@ -11,6 +11,7 @@
 #include "video/rtp_video_stream_receiver2.h"
 
 #include <memory>
+#include <optional>
 #include <utility>
 
 #include "api/task_queue/task_queue_base.h"
@@ -395,7 +396,7 @@ TEST_F(RtpVideoStreamReceiver2Test, PacketInfoIsPropagatedIntoVideoFrames) {
   rtp_packet.SetSsrc(kSsrc);
   rtp_packet.SetExtension<AbsoluteCaptureTimeExtension>(
       AbsoluteCaptureTime{kAbsoluteCaptureTimestamp,
-                          /*estimated_capture_clock_offset=*/absl::nullopt});
+                          /*estimated_capture_clock_offset=*/std::nullopt});
 
   RTPVideoHeader video_header =
       GetGenericVideoHeader(VideoFrameType::kVideoFrameKey);
@@ -428,7 +429,7 @@ TEST_F(RtpVideoStreamReceiver2Test,
   rtp_packet.SetSsrc(kSsrc);
   rtp_packet.SetExtension<AbsoluteCaptureTimeExtension>(
       AbsoluteCaptureTime{kAbsoluteCaptureTimestamp,
-                          /*estimated_capture_clock_offset=*/absl::nullopt});
+                          /*estimated_capture_clock_offset=*/std::nullopt});
 
   RTPVideoHeader video_header =
       GetGenericVideoHeader(VideoFrameType::kVideoFrameKey);

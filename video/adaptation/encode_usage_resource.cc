@@ -11,6 +11,7 @@
 #include "video/adaptation/encode_usage_resource.h"
 
 #include <limits>
+#include <optional>
 #include <utility>
 
 #include "rtc_base/checks.h"
@@ -29,7 +30,7 @@ EncodeUsageResource::EncodeUsageResource(
     : VideoStreamEncoderResource("EncoderUsageResource"),
       overuse_detector_(std::move(overuse_detector)),
       is_started_(false),
-      target_frame_rate_(absl::nullopt) {
+      target_frame_rate_(std::nullopt) {
   RTC_DCHECK(overuse_detector_);
 }
 
@@ -56,7 +57,7 @@ void EncodeUsageResource::StopCheckForOveruse() {
 }
 
 void EncodeUsageResource::SetTargetFrameRate(
-    absl::optional<double> target_frame_rate) {
+    std::optional<double> target_frame_rate) {
   RTC_DCHECK_RUN_ON(encoder_queue());
   if (target_frame_rate == target_frame_rate_)
     return;
@@ -77,7 +78,7 @@ void EncodeUsageResource::OnEncodeCompleted(
     uint32_t timestamp,
     int64_t time_sent_in_us,
     int64_t capture_time_us,
-    absl::optional<int> encode_duration_us) {
+    std::optional<int> encode_duration_us) {
   RTC_DCHECK_RUN_ON(encoder_queue());
   // TODO(hbos): Rename FrameSent() to something more appropriate (e.g.
   // "OnEncodeCompleted"?).

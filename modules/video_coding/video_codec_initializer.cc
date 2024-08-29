@@ -30,7 +30,6 @@
 #include "rtc_base/experiments/min_video_bitrate_experiment.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/numerics/safe_conversions.h"
-
 namespace webrtc {
 namespace {
 
@@ -334,9 +333,14 @@ VideoCodec VideoCodecInitializer::SetupCodec(
       RTC_CHECK(!config.encoder_specific_settings);
 
       *video_codec.H264() = VideoEncoder::GetDefaultH264Settings();
-      video_codec.H264()->numberOfTemporalLayers = static_cast<unsigned char>(
-          streams.back().num_temporal_layers.value_or(
-              video_codec.H264()->numberOfTemporalLayers));
+
+      video_codec.H264()->numberOfTemporalLayers =
+          streams.back().scalability_mode.has_value()
+              ? ScalabilityModeToNumTemporalLayers(
+                    *streams.back().scalability_mode)
+              : streams.back().num_temporal_layers.value_or(
+                    video_codec.H264()->numberOfTemporalLayers);
+
       RTC_DCHECK_GE(video_codec.H264()->numberOfTemporalLayers, 1);
       RTC_DCHECK_LE(video_codec.H264()->numberOfTemporalLayers,
                     kMaxTemporalStreams);

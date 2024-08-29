@@ -689,6 +689,18 @@ TEST_F(VideoCodecInitializerTest, UpdatesVp9SpecificFieldsWithScalabilityMode) {
   EXPECT_EQ(codec.VP9()->interLayerPred, InterLayerPredMode::kOff);
 }
 
+TEST_F(VideoCodecInitializerTest, H264TemporalLayerSupport) {
+  VideoEncoderConfig config;
+  config.codec_type = VideoCodecType::kVideoCodecH264;
+  std::vector<VideoStream> streams = {DefaultStream()};
+  streams[0].scalability_mode = ScalabilityMode::kL1T2;
+
+  VideoCodec codec =
+      VideoCodecInitializer::SetupCodec(env_.field_trials(), config, streams);
+
+  EXPECT_EQ(codec.H264()->numberOfTemporalLayers, 2u);
+}
+
 #ifdef RTC_ENABLE_H265
 TEST_F(VideoCodecInitializerTest, H265SingleSpatialLayerBitratesAreConsistent) {
   VideoEncoderConfig config;

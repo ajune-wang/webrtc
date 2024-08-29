@@ -251,6 +251,30 @@
       },
       "revId": "1140ad2ce9cc065a534977b01074010e06b6d4c4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1ae6d277_7a4ede6e",
+        "filename": "modules/video_coding/codecs/vp9/svc_config.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2024-08-29T13:52:21Z",
+      "side": 1,
+      "message": "Ah that\u0027s fine then, but see other comment below.",
+      "parentUuid": "6cdced66_14d72979",
+      "range": {
+        "startLine": 57,
+        "startChar": 0,
+        "endLine": 59,
+        "endChar": 36
+      },
+      "revId": "1140ad2ce9cc065a534977b01074010e06b6d4c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

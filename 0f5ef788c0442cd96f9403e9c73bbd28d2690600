@@ -16,6 +16,40 @@
       "message": "Approved based on reviewing a sample of the changes.",
       "revId": "0f5ef788c0442cd96f9403e9c73bbd28d2690600",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c9dd636a_1ed0db21",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-08-29T13:33:33Z",
+      "side": 1,
+      "message": "This is CL is too huge to review even the list of modified files.\nand might be hard to land in one go:\nit would conflict with pretty much any other change in the CQ\n\nI would recommend to commit smaller chunks.\nalso it might be helpful to postpone removing absl/types/optional.h include and deps to separate post-update step.",
+      "revId": "0f5ef788c0442cd96f9403e9c73bbd28d2690600",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1563a726_4b2aed37",
+        "filename": "g3doc/abseil-in-webrtc.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-08-29T13:33:33Z",
+      "side": 1,
+      "message": "search and replace doesn\u0027t always do the right thing....\nupdate to this file should be different (or better in a dedicated CL)",
+      "revId": "0f5ef788c0442cd96f9403e9c73bbd28d2690600",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

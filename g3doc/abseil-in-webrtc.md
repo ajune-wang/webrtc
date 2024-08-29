@@ -32,7 +32,7 @@ Previously, `absl_deps` was used but been deprecated in May 2024.
 * `absl::InlinedVector`
 * `absl::Nonnull` and `absl::Nullable`
 * `absl::WrapUnique`
-* `absl::optional` and related stuff from `absl/types/optional.h`.
+* `std::optional` and related stuff from `absl/types/optional.h`.
 * `absl::string_view`
 * The functions in `absl/strings/ascii.h`, `absl/strings/match.h`,
   and `absl/strings/str_replace.h`.

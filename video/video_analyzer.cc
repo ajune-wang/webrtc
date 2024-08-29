@@ -496,6 +496,8 @@ void VideoAnalyzer::PollStats() {
   last_fec_bytes_ = fec_bytes;
 
   if (receive_stream_ != nullptr) {
+    // TODO(discuss): Do we want to add something regarding corruption score
+    // here?
     VideoReceiveStreamInterface::Stats receive_stats =
         receive_stream_->GetStats();
 

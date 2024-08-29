@@ -41,6 +41,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0e8ac7fc_699d1113",
+        "filename": "modules/video_coding/svc/simulcast_to_svc_converter.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2024-08-29T16:32:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5f7f042a_d473351f",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 3
+      },
+      "revId": "72ab6c764bcfb44b9f78aafa63d6d0b115998011",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "98ff7397_ba3fd816",
@@ -54,6 +78,30 @@
       "writtenOn": "2024-08-29T13:52:21Z",
       "side": 1,
       "message": "nit: Not sure it\u0027s worth pre-sizing in this case. Id probably add a constructor to `LayerState`:\n\n```\n  LayerState::LayerState(ScalabilityMode scalability_mode)\n    : video_controller(CreateScalabilityStructure(scalability_mode)),\n      awaiting_frame(false) {\n     // Initialize the controller with arbitrary non-zero bitrates.\n     int num_temporal_layers \u003d ScalabilityModeToNumTemporalLayers(scalability_mode);\n     VideoBitrateAllocation dummy_bitrates;\n     for (int i \u003d 0; i \u003c num_temporal_layers; ++i) {\n       dummy_bitrates.SetBitrate(0, i, 10000);\n     }\n     video_controller-\u003eOnRatesUpdated(dummy_bitrates);\n   }\n```\n\n...then the initialization of the vector would just be:\n\n```\n  for (int i \u003d 0; i \u003c num_spatial_layers; ++i) {\n    layers_.emplace_back(scalability_mode);\n  }\n```",
+      "range": {
+        "startLine": 50,
+        "startChar": 1,
+        "endLine": 54,
+        "endChar": 3
+      },
+      "revId": "72ab6c764bcfb44b9f78aafa63d6d0b115998011",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ee46e28b_8b327761",
+        "filename": "modules/video_coding/svc/simulcast_to_svc_converter.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2024-08-29T16:32:38Z",
+      "side": 1,
+      "message": "But in this case we tranlate number of temporal layers to scalability mode and then back, it has even more amount of code and the logic is spread around the file.\n\nI feel that having it all here in one place with a simplest struct is most readable.\n\nSince it\u0027s marked as nit, I\u0027ll ignore this suggestion, unless you insist on it.",
+      "parentUuid": "98ff7397_ba3fd816",
       "range": {
         "startLine": 50,
         "startChar": 1,
@@ -89,6 +137,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "eda11e4d_d4c2696a",
+        "filename": "modules/video_coding/svc/simulcast_to_svc_converter.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2024-08-29T16:32:38Z",
+      "side": 1,
+      "message": "No, it\u0027s actually the other way arround. If FULL_SUPERFRAME_DROP was always happenining, there would be no need for all this complication. The issue is that the actually invoked ScalableVideoController for S3T3 mode updates the internal state (which is shared across all layers) as soon as any frame is encoded. So if only some layer has dropped a frame, the internal state of the simulated controller here and the actually used one gets off-sync.\n\nIt\u0027s brittle and won\u0027t work if the VideoController gets separate state for each layer for example.\n\nBut it won\u0027t fail silently - there\u0027s a check in `ConvertFrame()`: \n```\nRTC_DCHECK_EQ(frame_config.TemporalId(), tid \u003d\u003d 255 ? 0 : tid);\n```\n\nIt will trigger because if state isn\u0027t predicted correctly here, the temporal ids will get off-sync.\n\n\nFor now, I\u0027ve added some tests to simulate frame drops and changed the interface to return an error.\n\nAlternatively, updating the VideoController itself with a flag to generate descriptors and dependency structure for each layer separately would be the safest option. But it\u0027s too external and goes against the design to contain the change locally and keep it invisible to other layers.\n\nI tried to rewrite the generic_info and dependency_structure manually in SimulcastToSvcConverter. It was a stateless solution and had no external assumptions, but it got out of hand. It\u0027s quite complicated to figure out which decode targets and chains to omit and how to update the templates. Some first-party project is very picky about how the descriptors are populated and just didn\u0027t accept the packets.",
+      "parentUuid": "45f79f47_13cbee72",
+      "range": {
+        "startLine": 69,
+        "startChar": 0,
+        "endLine": 72,
+        "endChar": 43
+      },
+      "revId": "72ab6c764bcfb44b9f78aafa63d6d0b115998011",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5fd071ab_de68e48b",
         "filename": "modules/video_coding/svc/simulcast_to_svc_converter.h",
         "patchSetId": 2
@@ -100,6 +172,30 @@
       "writtenOn": "2024-08-29T13:52:21Z",
       "side": 1,
       "message": "nit: const",
+      "range": {
+        "startLine": 44,
+        "startChar": 0,
+        "endLine": 44,
+        "endChar": 4
+      },
+      "revId": "72ab6c764bcfb44b9f78aafa63d6d0b115998011",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c0a8c691_022fa7e6",
+        "filename": "modules/video_coding/svc/simulcast_to_svc_converter.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2024-08-29T16:32:38Z",
+      "side": 1,
+      "message": "Doesn\u0027t work without moving all the VideoController setup logic into constructor, which I decided not to do (see other comment).",
+      "parentUuid": "5fd071ab_de68e48b",
       "range": {
         "startLine": 44,
         "startChar": 0,
@@ -133,6 +229,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6672b476_1cc057d9",
+        "filename": "modules/video_coding/svc/simulcast_to_svc_converter.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2024-08-29T16:32:38Z",
+      "side": 1,
+      "message": "Can\u0027t. It\u0027s being modified extensively.",
+      "parentUuid": "86d81751_ae0b226d",
+      "range": {
+        "startLine": 49,
+        "startChar": 0,
+        "endLine": 49,
+        "endChar": 2
+      },
+      "revId": "72ab6c764bcfb44b9f78aafa63d6d0b115998011",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3b1ac8a8_439643ea",
@@ -146,6 +266,24 @@
       "writtenOn": "2024-08-29T13:52:21Z",
       "side": 1,
       "message": "nit: I think you can just do `EXPECT_EQ(image.SimulcastIndex(), 1);` - it should fail if the left side is a nullopt and otherwise match the values.",
+      "revId": "72ab6c764bcfb44b9f78aafa63d6d0b115998011",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "506dcef3_1ca3de38",
+        "filename": "modules/video_coding/svc/simulcast_to_svc_converter_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2024-08-29T16:32:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3b1ac8a8_439643ea",
       "revId": "72ab6c764bcfb44b9f78aafa63d6d0b115998011",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

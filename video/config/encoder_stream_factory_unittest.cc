@@ -471,7 +471,7 @@ TEST(EncoderStreamFactory, H264TemporalLayerCountTransferToStreamSettings) {
   auto streams = CreateEncoderStreams(ExplicitKeyValueConfig(""), {1280, 720},
                                       encoder_config);
   ASSERT_THAT(streams, SizeIs(1));
-  EXPECT_EQ(streams[0].num_temporal_layers, std::nullopt);
+  EXPECT_EQ(streams[0].num_temporal_layers, 3);
 }
 
 #ifdef RTC_ENABLE_H265

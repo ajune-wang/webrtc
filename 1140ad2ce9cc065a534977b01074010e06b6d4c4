@@ -41,6 +41,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ea04caa0_a322eba9",
+        "filename": "modules/video_coding/codecs/vp9/libvpx_vp9_encoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 742,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2024-08-29T12:34:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6a8688fb_3fbcce7d",
+      "range": {
+        "startLine": 742,
+        "startChar": 48,
+        "endLine": 742,
+        "endChar": 70
+      },
+      "revId": "1140ad2ce9cc065a534977b01074010e06b6d4c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b517e8eb_40d5a2d0",
@@ -54,6 +78,30 @@
       "writtenOn": "2024-08-26T16:32:15Z",
       "side": 1,
       "message": "You could combine this and `svc_for_simulcast_` into an `absl::optional\u003cSimulcastToSvcConverter\u003e` to make it more clear when that is supposed to be used. That could also allow you to clear the instance when not used and configure it using the constructor when actually needed instead of relying on `ConvertConfig()`.",
+      "range": {
+        "startLine": 157,
+        "startChar": 2,
+        "endLine": 157,
+        "endChar": 54
+      },
+      "revId": "1140ad2ce9cc065a534977b01074010e06b6d4c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c370c1ef_eafe9724",
+        "filename": "modules/video_coding/codecs/vp9/libvpx_vp9_encoder.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2024-08-29T12:34:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b517e8eb_40d5a2d0",
       "range": {
         "startLine": 157,
         "startChar": 2,
@@ -87,6 +135,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fa8d7414_9ad4e932",
+        "filename": "modules/video_coding/codecs/vp9/svc_config.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2024-08-29T12:34:58Z",
+      "side": 1,
+      "message": "Moved to modules/video_coding/svc",
+      "parentUuid": "a1b2b0de_9801f17b",
+      "range": {
+        "startLine": 40,
+        "startChar": 6,
+        "endLine": 40,
+        "endChar": 29
+      },
+      "revId": "1140ad2ce9cc065a534977b01074010e06b6d4c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9accf76d_62722f0f",
@@ -110,6 +182,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "24f50c3d_7cad10da",
+        "filename": "modules/video_coding/codecs/vp9/svc_config.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2024-08-29T12:34:58Z",
+      "side": 1,
+      "message": "Done. Now constructor sets the config and an additional method is used to get the modified config. It\u0027s now a copy operation instead of a in-place modification, but that shouldn\u0027t be an issue for a rare event of encoder reconfiguration.",
+      "parentUuid": "9accf76d_62722f0f",
+      "range": {
+        "startLine": 49,
+        "startChar": 2,
+        "endLine": 49,
+        "endChar": 40
+      },
+      "revId": "1140ad2ce9cc065a534977b01074010e06b6d4c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "aab648a9_26c3ef2d",
@@ -123,6 +219,30 @@
       "writtenOn": "2024-08-26T16:32:15Z",
       "side": 1,
       "message": "These three vectors must all have the same length, afaict since they all represent the simulcast streams configured. I think it would be easier to follow if you put these into a struct instead and had a single vector of them. The length of that could then also be fixed at construction time and so no need for `unique_ptr` anymore.",
+      "range": {
+        "startLine": 57,
+        "startChar": 0,
+        "endLine": 59,
+        "endChar": 36
+      },
+      "revId": "1140ad2ce9cc065a534977b01074010e06b6d4c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6cdced66_14d72979",
+        "filename": "modules/video_coding/codecs/vp9/svc_config.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2024-08-29T12:34:58Z",
+      "side": 1,
+      "message": "Changed to struct.\n\n`unique_ptr` is still used here because `ScalableVideoController` is an abstract class. In theory, I could store a specific class like `ScalabilityStructureSimulcast`, but then I wouldn\u0027t be able to use existing utilities like `CreateScalabilityStructure()`. Also, this is a less change-resilient approach, since if someone changes the common utilities to produce some other structures, this place will also have to be updated.\n\nPlease tell me if you insist on this change.",
+      "parentUuid": "aab648a9_26c3ef2d",
       "range": {
         "startLine": 57,
         "startChar": 0,

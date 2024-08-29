@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ce68bc99_939149d1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-08-29T10:39:47Z",
+      "side": 1,
+      "message": "Mirko, do you mind providing approval for the BUILD.gn file?\n\n[or may be we should change owners so that sdk/objc owners are automaticly own sdk/BUILD.gn file too]",
+      "revId": "a4f4a422400156d95bf914c9e5366bdf8130c66e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

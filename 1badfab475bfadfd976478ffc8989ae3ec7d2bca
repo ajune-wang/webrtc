@@ -1,0 +1,225 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "87bf9df4_1ebd6101",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-08-29T07:00:23Z",
+      "side": 1,
+      "message": "Always nits..... and make a note of the one place where I really think it\u0027s not going to remain possible.",
+      "revId": "1badfab475bfadfd976478ffc8989ae3ec7d2bca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b288ef68_802054f1",
+        "filename": "pc/peer_connection_integrationtest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 3908,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-08-29T07:00:23Z",
+      "side": 1,
+      "message": "```suggestion\n  // // Apply the pranswer as a definitive one.\n```",
+      "revId": "1badfab475bfadfd976478ffc8989ae3ec7d2bca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e886571e_40fdafe4",
+        "filename": "pc/peer_connection_integrationtest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 3915,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-08-29T07:00:23Z",
+      "side": 1,
+      "message": "```suggestion\n// Let caller get a prAnswer followed by an answer.\n```",
+      "revId": "1badfab475bfadfd976478ffc8989ae3ec7d2bca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9bdbc60a_31ecb4f0",
+        "filename": "pc/peer_connection_integrationtest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 3925,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-08-29T07:00:23Z",
+      "side": 1,
+      "message": "If you use the SetGeneratedSdpMunger instead of the SetReceivedSdpMunger, you can test that callee is also in have-local-pranswer state. This is less inconsistent.",
+      "revId": "1badfab475bfadfd976478ffc8989ae3ec7d2bca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "14153ea2_3b78db35",
+        "filename": "pc/peer_connection_integrationtest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 3937,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-08-29T07:00:23Z",
+      "side": 1,
+      "message": "```suggestion\n  // // Apply the pranswer as a definitive one.\n```",
+      "revId": "1badfab475bfadfd976478ffc8989ae3ec7d2bca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "40cf29f8_15f030b8",
+        "filename": "pc/peer_connection_integrationtest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 3943,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-08-29T07:00:23Z",
+      "side": 1,
+      "message": "Actually, I think it should be \"reassign payload types\", since you\u0027re not moving the description, you\u0027re just moving the IDs around.",
+      "revId": "1badfab475bfadfd976478ffc8989ae3ec7d2bca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3230a3d4_ce7f2a6f",
+        "filename": "pc/peer_connection_integrationtest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 3962,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-08-29T07:00:23Z",
+      "side": 1,
+      "message": "This function swaps payload types between codecs. In the case where there is only one codec, it will do nothing. CHECK(codecs.size() \u003e 1)?",
+      "revId": "1badfab475bfadfd976478ffc8989ae3ec7d2bca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5d645aff_11892afa",
+        "filename": "pc/peer_connection_integrationtest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 3976,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-08-29T07:00:23Z",
+      "side": 1,
+      "message": "CHECK(streams.size() \u003e 0)?\nFor pure Unified Plan, there will be no SSRCs.",
+      "revId": "1badfab475bfadfd976478ffc8989ae3ec7d2bca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bc9e1727_28883185",
+        "filename": "pc/peer_connection_integrationtest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 4017,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-08-29T07:00:23Z",
+      "side": 1,
+      "message": "```suggestion\n       PrAnswerStateTransitionsAsymmetricScrambled) {\n```",
+      "revId": "1badfab475bfadfd976478ffc8989ae3ec7d2bca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "48ea4196_ad10ac1d",
+        "filename": "pc/peer_connection_integrationtest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 4040,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-08-29T07:00:23Z",
+      "side": 1,
+      "message": "Make a note that this is likely a violation of SDP offer/answer semantics.",
+      "revId": "1badfab475bfadfd976478ffc8989ae3ec7d2bca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6e4ef0d1_218b47ce",
+        "filename": "pc/peer_connection_integrationtest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 4043,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-08-29T07:00:23Z",
+      "side": 1,
+      "message": "```suggestion\n  // Apply the modified answer as a definitive one.\n```",
+      "revId": "1badfab475bfadfd976478ffc8989ae3ec7d2bca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bfadefb3_c7022199",
+        "filename": "pc/test/integration_test_helpers.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-08-29T07:00:23Z",
+      "side": 1,
+      "message": "Modifying a std::unique_ptr (deallocating and reallocating the pointed-to object) is an unusual pattern, I think.\nDo you really want to do it like this?\n\n(Alternate caller sequence: sdp \u003d SetSdpType(type, std::move(sdp)) )",
+      "revId": "1badfab475bfadfd976478ffc8989ae3ec7d2bca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d8b2f90d_a7534093",
+        "filename": "pc/test/integration_test_helpers.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 671,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-08-29T07:00:23Z",
+      "side": 1,
+      "message": "I know this is old code, but use of release() indicates that ownership semantics haven\u0027t been thought through. Use the SetRemoteDescription() that takes a std::unique_ptr.\n\n(NOTE: I looked at the implementation, and there might be a timing difference between the two variants. So if just changing it makes for errors, just add a TODO.)",
+      "revId": "1badfab475bfadfd976478ffc8989ae3ec7d2bca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

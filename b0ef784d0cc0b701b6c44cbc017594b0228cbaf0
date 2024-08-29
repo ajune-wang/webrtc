@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d16d83fe_ba50381e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-08-29T18:45:08Z",
+      "side": 1,
+      "message": "Danil, the style guide does not have anything on if-with-return but you might have an opinion.\n\nThe variableSnakecase is a clear no ;-)",
+      "revId": "b0ef784d0cc0b701b6c44cbc017594b0228cbaf0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

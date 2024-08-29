@@ -87,6 +87,30 @@
       },
       "revId": "4903a5da3ec5fae2016b23fcd3029f4e1bffb5c5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "87163109_beb8cd05",
+        "filename": "modules/video_coding/utility/vp9_uncompressed_header_parser.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 3485001
+      },
+      "writtenOn": "2024-08-29T12:11:05Z",
+      "side": 1,
+      "message": "Did not know that (the \"keep-alive\" part, very interesting imo). Thanks for clarification. OK, updating it so its optional.",
+      "parentUuid": "0a4382e9_d3f11510",
+      "range": {
+        "startLine": 111,
+        "startChar": 2,
+        "endLine": 111,
+        "endChar": 40
+      },
+      "revId": "4903a5da3ec5fae2016b23fcd3029f4e1bffb5c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

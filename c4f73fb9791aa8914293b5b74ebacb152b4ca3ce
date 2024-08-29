@@ -22,6 +22,30 @@
       },
       "revId": "c4f73fb9791aa8914293b5b74ebacb152b4ca3ce",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "81c7d1e0_6d45a8d3",
+        "filename": "sdk/objc/api/video_codec/RTCVideoEncoderVP9.mm",
+        "patchSetId": 4
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-08-29T10:38:44Z",
+      "side": 1,
+      "message": "Done.\n\n(I think all currently known scalability modes are supported by vp9,\nbut in practice it shouldn\u0027t matter if capacity is a bit larger or smaller - this function expected to be called may be once or twice per call.\nso changing to less confusing code)",
+      "parentUuid": "6a6c051f_ec0aa3ed",
+      "range": {
+        "startLine": 47,
+        "startChar": 26,
+        "endLine": 47,
+        "endChar": 83
+      },
+      "revId": "c4f73fb9791aa8914293b5b74ebacb152b4ca3ce",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -22,6 +22,30 @@
       },
       "revId": "217e84889f5d1d05e282f308debaf8e7d2768bb5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7a46ace5_d99e8409",
+        "filename": "sdk/objc/native/src/audio/audio_device_ios.mm",
+        "patchSetId": 2
+      },
+      "lineNbr": 1057,
+      "author": {
+        "id": 16914
+      },
+      "writtenOn": "2024-08-29T09:28:49Z",
+      "side": 1,
+      "message": "Fixed. Thanks for reminding.",
+      "parentUuid": "4b6e0693_31fd5b65",
+      "range": {
+        "startLine": 1057,
+        "startChar": 46,
+        "endLine": 1057,
+        "endChar": 55
+      },
+      "revId": "217e84889f5d1d05e282f308debaf8e7d2768bb5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

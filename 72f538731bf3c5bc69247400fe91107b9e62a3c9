@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0c9bb9cb_45fb318b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-08-29T18:06:17Z",
+      "side": 1,
+      "message": "I spotted a typo ;-)",
+      "revId": "72f538731bf3c5bc69247400fe91107b9e62a3c9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ba6cbd49_25d251d2",
+        "filename": "modules/video_coding/codecs/vp9/test/vp9_impl_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 476,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-08-29T18:06:17Z",
+      "side": 1,
+      "message": "```suggestion\n  // Ensure it fails if scaling factors in horz/vert dimensions are different.\n```",
+      "revId": "72f538731bf3c5bc69247400fe91107b9e62a3c9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

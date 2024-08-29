@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "10522548_e3d0b3ab",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-08-29T08:34:27Z",
+      "side": 1,
+      "message": "Good enough!\nOne style-ish comment on int !\u003d bool.",
+      "revId": "1f9e99f239031c9b06065693342cd6d7de7f6d86",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c4159deb_d18daa54",
+        "filename": "pc/peer_connection_integrationtest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 4057,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-08-29T08:34:27Z",
+      "side": 1,
+      "message": "since return type is an int, would be more coherent to say ASSERT_GT(0, SetNewSsrcs(answer))",
+      "revId": "1f9e99f239031c9b06065693342cd6d7de7f6d86",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d8ccd465_2a4d5861",
+        "filename": "pc/peer_connection_integrationtest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 4058,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-08-29T08:34:27Z",
+      "side": 1,
+      "message": "Same here. int to bool auto-casting is a C-ism.",
+      "revId": "1f9e99f239031c9b06065693342cd6d7de7f6d86",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

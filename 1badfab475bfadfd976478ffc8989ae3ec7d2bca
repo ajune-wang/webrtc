@@ -420,6 +420,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "74a30b19_6e648659",
+        "filename": "pc/test/integration_test_helpers.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-08-29T08:34:27Z",
+      "side": 1,
+      "message": "Yes, existing pattern. Let it pass....",
+      "parentUuid": "4898780a_aef5c3c0",
+      "revId": "1badfab475bfadfd976478ffc8989ae3ec7d2bca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d8b2f90d_a7534093",

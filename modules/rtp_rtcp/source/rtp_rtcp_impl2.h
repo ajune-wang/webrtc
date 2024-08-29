@@ -21,6 +21,7 @@
 
 #include "absl/strings/string_view.h"
 #include "absl/types/optional.h"
+#include "api/environment/environment.h"
 #include "api/rtp_headers.h"
 #include "api/sequence_checker.h"
 #include "api/task_queue/pending_task_safety_flag.h"
@@ -52,8 +53,8 @@ struct RTPVideoHeader;
 class ModuleRtpRtcpImpl2 final : public RtpRtcpInterface,
                                  public RTCPReceiver::ModuleRtpRtcp {
  public:
-  explicit ModuleRtpRtcpImpl2(
-      const RtpRtcpInterface::Configuration& configuration);
+  ModuleRtpRtcpImpl2(const Environment& env,
+                     const RtpRtcpInterface::Configuration& configuration);
   ~ModuleRtpRtcpImpl2() override;
 
   // This method is provided to easy with migrating away from the
@@ -255,6 +256,8 @@ class ModuleRtpRtcpImpl2 final : public RtpRtcpInterface,
   const RTPSender* RtpSender() const override;
 
  private:
+  explicit ModuleRtpRtcpImpl2(const Configuration& configuration);
+
   FRIEND_TEST_ALL_PREFIXES(RtpRtcpImpl2Test, Rtt);
   FRIEND_TEST_ALL_PREFIXES(RtpRtcpImpl2Test, RttForReceiverOnly);
 

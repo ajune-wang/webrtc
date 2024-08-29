@@ -47,8 +47,8 @@ class RtpRtcpInterface : public RtcpFeedbackSenderInterface {
     Configuration() = default;
     Configuration(Configuration&& rhs) = default;
 
-    Configuration(const Configuration&) = delete;
-    Configuration& operator=(const Configuration&) = delete;
+    Configuration(const Configuration&) = default;
+    Configuration& operator=(const Configuration&) = default;
 
     // True for a audio version of the RTP/RTCP module object false will create
     // a video version.

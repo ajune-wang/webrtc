@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6a6c051f_ec0aa3ed",
+        "filename": "sdk/objc/api/video_codec/RTCVideoEncoderVP9.mm",
+        "patchSetId": 4
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2024-08-29T10:31:48Z",
+      "side": 1,
+      "message": "we\u0027re allocating an array with more space than the number of objects. We should just do [NSMutableArray array] here.",
+      "range": {
+        "startLine": 47,
+        "startChar": 26,
+        "endLine": 47,
+        "endChar": 83
+      },
+      "revId": "c4f73fb9791aa8914293b5b74ebacb152b4ca3ce",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

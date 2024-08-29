@@ -104,6 +104,24 @@
       "parentUuid": "0e54c1bd_d645d0b5",
       "revId": "0f5ef788c0442cd96f9403e9c73bbd28d2690600",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "500213c8_591e107b",
+        "filename": "g3doc/abseil-in-webrtc.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2024-08-29T13:57:31Z",
+      "side": 1,
+      "message": "I\u0027ll remove it and submit another CL for this as soon as CI is mostly done for patchset 2.",
+      "parentUuid": "39dcff7e_f5913e0c",
+      "revId": "0f5ef788c0442cd96f9403e9c73bbd28d2690600",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -63,6 +63,30 @@
       },
       "revId": "4903a5da3ec5fae2016b23fcd3029f4e1bffb5c5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0a4382e9_d3f11510",
+        "filename": "modules/video_coding/utility/vp9_uncompressed_header_parser.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2024-08-29T11:49:49Z",
+      "side": 1,
+      "message": "I\u0027d contend that `base_qp` and others like it should be made optional (or moved into a struct that can be optional), but that\u0027s outside the scope of this cl.\n\nAlso, there\u0027s nothing preventing `show_existing_frame` for RTC. It\u0027s use for B-frames is prohibited, but it can be used for other things such as sending \"keep-alive\" frames when a screenshare stream is entirely static.",
+      "parentUuid": "af3ee3fd_a2fa4d4c",
+      "range": {
+        "startLine": 111,
+        "startChar": 2,
+        "endLine": 111,
+        "endChar": 40
+      },
+      "revId": "4903a5da3ec5fae2016b23fcd3029f4e1bffb5c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

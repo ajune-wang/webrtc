@@ -39,6 +39,30 @@
       },
       "revId": "4903a5da3ec5fae2016b23fcd3029f4e1bffb5c5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "af3ee3fd_a2fa4d4c",
+        "filename": "modules/video_coding/utility/vp9_uncompressed_header_parser.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 3485001
+      },
+      "writtenOn": "2024-08-29T11:42:21Z",
+      "side": 1,
+      "message": "At first sight I thought this would be the best as well. However, looking into it a little more carefully, one observes that e.g `base_qp` is \"not\" optional which is obtained after this parameter. Also the only way this field is not populated is if there is an error or as you mentioned `show_existing_frame \u003d\u003d 1`. However, in RTC `show_existing_frame` can not be set. So, that is an error in itself.\n\nThe reason for `render_size_offset_bits` being optional is because of the `if` check it has based on a boolean in the header.\n\nSo, I think it is fine, however, might be good to give an initial value.",
+      "parentUuid": "b0f3f410_419e553f",
+      "range": {
+        "startLine": 111,
+        "startChar": 2,
+        "endLine": 111,
+        "endChar": 40
+      },
+      "revId": "4903a5da3ec5fae2016b23fcd3029f4e1bffb5c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

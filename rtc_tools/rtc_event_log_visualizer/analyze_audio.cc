@@ -13,13 +13,13 @@
 #include <cstdint>
 #include <map>
 #include <memory>
+#include <optional>
 #include <set>
 #include <string>
 #include <utility>
 #include <vector>
 
 #include "absl/strings/string_view.h"
-#include "absl/types/optional.h"
 #include "api/audio_codecs/audio_codec_pair_id.h"
 #include "api/audio_codecs/audio_decoder.h"
 #include "api/audio_codecs/audio_decoder_factory.h"
@@ -52,11 +52,11 @@ void CreateAudioEncoderTargetBitrateGraph(const ParsedRtcEventLog& parsed_log,
   TimeSeries time_series("Audio encoder target bitrate", LineStyle::kLine,
                          PointStyle::kHighlight);
   auto GetAnaBitrateBps = [](const LoggedAudioNetworkAdaptationEvent& ana_event)
-      -> absl::optional<float> {
+      -> std::optional<float> {
     if (ana_event.config.bitrate_bps)
-      return absl::optional<float>(
+      return std::optional<float>(
           static_cast<float>(*ana_event.config.bitrate_bps));
-    return absl::nullopt;
+    return std::nullopt;
   };
   auto ToCallTime = [config](const LoggedAudioNetworkAdaptationEvent& packet) {
     return config.GetCallTimeSec(packet.log_time());
@@ -79,9 +79,9 @@ void CreateAudioEncoderFrameLengthGraph(const ParsedRtcEventLog& parsed_log,
   auto GetAnaFrameLengthMs =
       [](const LoggedAudioNetworkAdaptationEvent& ana_event) {
         if (ana_event.config.frame_length_ms)
-          return absl::optional<float>(
+          return std::optional<float>(
               static_cast<float>(*ana_event.config.frame_length_ms));
-        return absl::optional<float>();
+        return std::optional<float>();
       };
   auto ToCallTime = [config](const LoggedAudioNetworkAdaptationEvent& packet) {
     return config.GetCallTimeSec(packet.log_time());
@@ -104,9 +104,9 @@ void CreateAudioEncoderPacketLossGraph(const ParsedRtcEventLog& parsed_log,
   auto GetAnaPacketLoss =
       [](const LoggedAudioNetworkAdaptationEvent& ana_event) {
         if (ana_event.config.uplink_packet_loss_fraction)
-          return absl::optional<float>(static_cast<float>(
+          return std::optional<float>(static_cast<float>(
               *ana_event.config.uplink_packet_loss_fraction));
-        return absl::optional<float>();
+        return std::optional<float>();
       };
   auto ToCallTime = [config](const LoggedAudioNetworkAdaptationEvent& packet) {
     return config.GetCallTimeSec(packet.log_time());
@@ -130,9 +130,9 @@ void CreateAudioEncoderEnableFecGraph(const ParsedRtcEventLog& parsed_log,
   auto GetAnaFecEnabled =
       [](const LoggedAudioNetworkAdaptationEvent& ana_event) {
         if (ana_event.config.enable_fec)
-          return absl::optional<float>(
+          return std::optional<float>(
               static_cast<float>(*ana_event.config.enable_fec));
-        return absl::optional<float>();
+        return std::optional<float>();
       };
   auto ToCallTime = [config](const LoggedAudioNetworkAdaptationEvent& packet) {
     return config.GetCallTimeSec(packet.log_time());
@@ -155,9 +155,9 @@ void CreateAudioEncoderEnableDtxGraph(const ParsedRtcEventLog& parsed_log,
   auto GetAnaDtxEnabled =
       [](const LoggedAudioNetworkAdaptationEvent& ana_event) {
         if (ana_event.config.enable_dtx)
-          return absl::optional<float>(
+          return std::optional<float>(
               static_cast<float>(*ana_event.config.enable_dtx));
-        return absl::optional<float>();
+        return std::optional<float>();
       };
   auto ToCallTime = [config](const LoggedAudioNetworkAdaptationEvent& packet) {
     return config.GetCallTimeSec(packet.log_time());
@@ -180,9 +180,9 @@ void CreateAudioEncoderNumChannelsGraph(const ParsedRtcEventLog& parsed_log,
   auto GetAnaNumChannels =
       [](const LoggedAudioNetworkAdaptationEvent& ana_event) {
         if (ana_event.config.num_channels)
-          return absl::optional<float>(
+          return std::optional<float>(
               static_cast<float>(*ana_event.config.num_channels));
-        return absl::optional<float>();
+        return std::optional<float>();
       };
   auto ToCallTime = [config](const LoggedAudioNetworkAdaptationEvent& packet) {
     return config.GetCallTimeSec(packet.log_time());
@@ -220,7 +220,7 @@ class ReplacementAudioDecoderFactory : public AudioDecoderFactory {
 
   std::unique_ptr<AudioDecoder> MakeAudioDecoder(
       const SdpAudioFormat& format,
-      absl::optional<AudioCodecPairId> codec_pair_id) override {
+      std::optional<AudioCodecPairId> codec_pair_id) override {
     auto replacement_file = std::make_unique<test::ResampleInputAudioFile>(
         replacement_file_name_, file_sample_rate_hz_);
     replacement_file->set_output_rate_hz(48000);

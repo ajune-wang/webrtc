@@ -16,11 +16,11 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
 #include "absl/strings/string_view.h"
-#include "absl/types/optional.h"
 #include "api/call/transport.h"
 #include "api/fec_controller.h"
 #include "api/media_types.h"
@@ -144,7 +144,7 @@ class DegradedCall : public Call, private PacketReceiver {
     TaskQueueBase* const task_queue_;
     rtc::scoped_refptr<PendingTaskSafetyFlag> call_alive_;
     FakeNetworkPipe pipe_;
-    absl::optional<int64_t> next_process_ms_ RTC_GUARDED_BY(&task_queue_);
+    std::optional<int64_t> next_process_ms_ RTC_GUARDED_BY(&task_queue_);
   };
 
   // For audio/video send stream, a TransportAdapter instance is used to

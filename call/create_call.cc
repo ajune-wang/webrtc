@@ -13,11 +13,11 @@
 #include <stdio.h>
 
 #include <memory>
+#include <optional>
 #include <string>
 #include <utility>
 #include <vector>
 
-#include "absl/types/optional.h"
 #include "api/test/simulated_network.h"
 #include "api/units/time_delta.h"
 #include "call/call.h"

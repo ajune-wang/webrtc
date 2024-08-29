@@ -18,6 +18,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "abb5debe_a7ff786b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2024-08-29T08:26:01Z",
+      "side": 1,
+      "message": "thanks and PTAL",
+      "revId": "1badfab475bfadfd976478ffc8989ae3ec7d2bca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b288ef68_802054f1",
@@ -31,6 +48,24 @@
       "writtenOn": "2024-08-29T07:00:23Z",
       "side": 1,
       "message": "```suggestion\n  // // Apply the pranswer as a definitive one.\n```",
+      "revId": "1badfab475bfadfd976478ffc8989ae3ec7d2bca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4e2e4f30_802c6313",
+        "filename": "pc/peer_connection_integrationtest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 3908,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2024-08-29T08:26:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b288ef68_802054f1",
       "revId": "1badfab475bfadfd976478ffc8989ae3ec7d2bca",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -52,6 +87,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "85b911e1_fa7f9945",
+        "filename": "pc/peer_connection_integrationtest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 3915,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2024-08-29T08:26:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e886571e_40fdafe4",
+      "revId": "1badfab475bfadfd976478ffc8989ae3ec7d2bca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9bdbc60a_31ecb4f0",
@@ -65,6 +118,24 @@
       "writtenOn": "2024-08-29T07:00:23Z",
       "side": 1,
       "message": "If you use the SetGeneratedSdpMunger instead of the SetReceivedSdpMunger, you can test that callee is also in have-local-pranswer state. This is less inconsistent.",
+      "revId": "1badfab475bfadfd976478ffc8989ae3ec7d2bca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2dcb40a3_00fdad25",
+        "filename": "pc/peer_connection_integrationtest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 3925,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2024-08-29T08:26:01Z",
+      "side": 1,
+      "message": "That is what I mean by asymmetric\nThat caller/callee has different point of view.\nWhat you are asking is tested in the tescase above.",
+      "parentUuid": "9bdbc60a_31ecb4f0",
       "revId": "1badfab475bfadfd976478ffc8989ae3ec7d2bca",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -86,6 +157,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "53a6d6d8_fadd5918",
+        "filename": "pc/peer_connection_integrationtest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 3937,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2024-08-29T08:26:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "14153ea2_3b78db35",
+      "revId": "1badfab475bfadfd976478ffc8989ae3ec7d2bca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "40cf29f8_15f030b8",
@@ -99,6 +188,24 @@
       "writtenOn": "2024-08-29T07:00:23Z",
       "side": 1,
       "message": "Actually, I think it should be \"reassign payload types\", since you\u0027re not moving the description, you\u0027re just moving the IDs around.",
+      "revId": "1badfab475bfadfd976478ffc8989ae3ec7d2bca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b7b7f673_8b4a8ca0",
+        "filename": "pc/peer_connection_integrationtest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 3943,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2024-08-29T08:26:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "40cf29f8_15f030b8",
       "revId": "1badfab475bfadfd976478ffc8989ae3ec7d2bca",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -120,6 +227,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5cd0da13_1c372747",
+        "filename": "pc/peer_connection_integrationtest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 3962,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2024-08-29T08:26:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3230a3d4_ce7f2a6f",
+      "revId": "1badfab475bfadfd976478ffc8989ae3ec7d2bca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5d645aff_11892afa",
@@ -133,6 +258,24 @@
       "writtenOn": "2024-08-29T07:00:23Z",
       "side": 1,
       "message": "CHECK(streams.size() \u003e 0)?\nFor pure Unified Plan, there will be no SSRCs.",
+      "revId": "1badfab475bfadfd976478ffc8989ae3ec7d2bca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a8c2d427_fab6b8e9",
+        "filename": "pc/peer_connection_integrationtest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 3976,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2024-08-29T08:26:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5d645aff_11892afa",
       "revId": "1badfab475bfadfd976478ffc8989ae3ec7d2bca",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -154,6 +297,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b2836f14_9a0eb3c9",
+        "filename": "pc/peer_connection_integrationtest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 4017,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2024-08-29T08:26:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bc9e1727_28883185",
+      "revId": "1badfab475bfadfd976478ffc8989ae3ec7d2bca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "48ea4196_ad10ac1d",
@@ -171,6 +332,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c4b78c5b_fdc71fe2",
+        "filename": "pc/peer_connection_integrationtest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 4040,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2024-08-29T08:26:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "48ea4196_ad10ac1d",
+      "revId": "1badfab475bfadfd976478ffc8989ae3ec7d2bca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6e4ef0d1_218b47ce",
@@ -184,6 +363,24 @@
       "writtenOn": "2024-08-29T07:00:23Z",
       "side": 1,
       "message": "```suggestion\n  // Apply the modified answer as a definitive one.\n```",
+      "revId": "1badfab475bfadfd976478ffc8989ae3ec7d2bca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0108c4f4_016d1585",
+        "filename": "pc/peer_connection_integrationtest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 4043,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2024-08-29T08:26:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6e4ef0d1_218b47ce",
       "revId": "1badfab475bfadfd976478ffc8989ae3ec7d2bca",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -207,6 +404,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4898780a_aef5c3c0",
+        "filename": "pc/test/integration_test_helpers.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2024-08-29T08:26:01Z",
+      "side": 1,
+      "message": "it was certainly deliberate. i thought this was the least intrusive way....otherwise i need to modify all the mungers...",
+      "parentUuid": "bfadefb3_c7022199",
+      "revId": "1badfab475bfadfd976478ffc8989ae3ec7d2bca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d8b2f90d_a7534093",
         "filename": "pc/test/integration_test_helpers.h",
         "patchSetId": 2
@@ -218,6 +433,24 @@
       "writtenOn": "2024-08-29T07:00:23Z",
       "side": 1,
       "message": "I know this is old code, but use of release() indicates that ownership semantics haven\u0027t been thought through. Use the SetRemoteDescription() that takes a std::unique_ptr.\n\n(NOTE: I looked at the implementation, and there might be a timing difference between the two variants. So if just changing it makes for errors, just add a TODO.)",
+      "revId": "1badfab475bfadfd976478ffc8989ae3ec7d2bca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1d20390a_c7daf52e",
+        "filename": "pc/test/integration_test_helpers.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 671,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2024-08-29T08:26:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d8b2f90d_a7534093",
       "revId": "1badfab475bfadfd976478ffc8989ae3ec7d2bca",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

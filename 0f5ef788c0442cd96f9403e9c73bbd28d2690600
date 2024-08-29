@@ -50,6 +50,24 @@
       "message": "search and replace doesn\u0027t always do the right thing....\nupdate to this file should be different (or better in a dedicated CL)",
       "revId": "0f5ef788c0442cd96f9403e9c73bbd28d2690600",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0e54c1bd_d645d0b5",
+        "filename": "g3doc/abseil-in-webrtc.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-08-29T13:35:32Z",
+      "side": 1,
+      "message": "patchset2 resolved this issue.",
+      "parentUuid": "1563a726_4b2aed37",
+      "revId": "0f5ef788c0442cd96f9403e9c73bbd28d2690600",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

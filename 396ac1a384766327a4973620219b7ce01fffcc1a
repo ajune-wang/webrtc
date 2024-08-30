@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "26f5be4b_99a65727",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2024-08-30T14:28:25Z",
+      "side": 1,
+      "message": "PTAL Ilya!\nCC Jonas FYI",
+      "revId": "396ac1a384766327a4973620219b7ce01fffcc1a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

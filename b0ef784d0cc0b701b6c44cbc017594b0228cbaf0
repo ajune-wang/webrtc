@@ -16,6 +16,24 @@
       "message": "Danil, the style guide does not have anything on if-with-return but you might have an opinion.\n\nThe variableSnakecase is a clear no ;-)",
       "revId": "b0ef784d0cc0b701b6c44cbc017594b0228cbaf0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d294f1d2_04964f09",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-08-30T08:20:21Z",
+      "side": 1,
+      "message": "lowerCamel -\u003e snake_case is clear improvement\n\nNo else after return is subtle, but still improvement - there is no style guide requirement, but there are various guidances this change align with:\nReduce indentation; no else after return when if and else branches are not \u0027symmetric\u0027.",
+      "parentUuid": "d16d83fe_ba50381e",
+      "revId": "b0ef784d0cc0b701b6c44cbc017594b0228cbaf0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

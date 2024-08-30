@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "43ca08ff_39bf44d7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2024-08-30T12:15:00Z",
+      "side": 1,
+      "message": "This enables a pretty large chunk of code. Should double check if we have the test coverage for this, especially if you intend to enable HW support as that will likely exercise the dependency descriptor simulation layer that has so far not been used. If the reference structure produced by the encoder ever misaligns with what the simulation assumes it may result in codec corruptions at the receiver.",
+      "revId": "d8010906fac1989773dcf75f1fa36b56b86ac26b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

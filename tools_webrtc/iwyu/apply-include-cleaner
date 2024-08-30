@@ -58,20 +58,25 @@ usage() {
   echo "Usage: $0 [ -c compile-commands-file.json ] [-r] file.cc"
   echo "Runs the include-cleaner tool on a file"
   echo "Arguments:"
-  echo " -n : just print changes, don't do them"
+  echo " -n : Just print changes, don't do them"
   echo " -r : Remove non-required includes from .h file"
   echo " -d <n> : Set debug level to <n>"
+  echo " -q : Quiet mode, returns a non-zero exit status if there are changes to apply"
+  echo " -w : Specify the workdir (out/Default if not specified)"
   echo " -h : Print this help message"
 }
 
 COMMAND=" --edit"
 INCLUDE_ARGS=""
+QUIET_MODE=false
 
-while getopts 'd:rnh' opts; do
+while getopts 'd:rnqw:h' opts; do
   case "${opts}" in
     n) COMMAND=" --print=changes" ;;
     r) INCLUDE_ARGS=" --remove" ;;
     d) DEBUG=${OPTARG};if [ $DEBUG -gt 0 ]; then set -x; fi  ;;
+    q) QUIET_MODE=true ;;
+    w) WORKDIR=${OPTARG} ;;
     h) usage; exit 1 ;;
     *) error "Unexpected option ${opts}" ;;
   esac
@@ -94,6 +99,14 @@ FILE="$1"
 
 if [ ! -f $FILE ]; then
   error "File $FILE is not found"
+fi
+
+if $QUIET_MODE; then
+  # Running on quiet mode does not apply any changes (--print=changes).
+  if [[ $($CLEANER -p $WORKDIR $INCLUDE_ARGS --print=changes $FILE) ]]; then
+    exit 1
+  fi
+  exit 0
 fi
 
 $CLEANER -p $WORKDIR $INCLUDE_ARGS $COMMAND $FILE

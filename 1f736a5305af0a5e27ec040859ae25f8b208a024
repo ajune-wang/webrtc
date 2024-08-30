@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d9b6212d_1c68dbc5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2024-08-30T13:26:10Z",
+      "side": 1,
+      "message": "Still LGTM, but maybe change -q to -c in the commit message",
+      "revId": "1f736a5305af0a5e27ec040859ae25f8b208a024",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

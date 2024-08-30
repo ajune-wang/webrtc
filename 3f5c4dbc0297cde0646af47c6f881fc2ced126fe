@@ -141,6 +141,30 @@
       },
       "revId": "3f5c4dbc0297cde0646af47c6f881fc2ced126fe",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "694fadf0_419c3c9a",
+        "filename": "tools_webrtc/iwyu/apply-include-cleaner",
+        "patchSetId": 1
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 12234
+      },
+      "writtenOn": "2024-08-30T11:48:50Z",
+      "side": 1,
+      "message": "IIUC it would be:\n```\nif [[ ! -z $OUTPUT ]]; then\n  exit 1\nfi\n```\nThis kind of works except that `echo ${OUTPUT}` writes everything on a single line. Tried \u0027echo -e\u0027 but it doesn\u0027t help.\nThink calling the script 2 times in the recipe might be the best solution here, let\u0027s keep the script simpler.",
+      "parentUuid": "202a58d6_afae85f9",
+      "range": {
+        "startLine": 106,
+        "startChar": 0,
+        "endLine": 110,
+        "endChar": 2
+      },
+      "revId": "3f5c4dbc0297cde0646af47c6f881fc2ced126fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

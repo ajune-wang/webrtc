@@ -43,6 +43,8 @@ class EncoderInfoSettings {
     return resolution_bitrate_limits_;
   }
 
+  absl::optional<int> min_qp() const;
+
   static std::vector<VideoEncoder::ResolutionBitrateLimits>
   GetDefaultSinglecastBitrateLimits(VideoCodecType codec_type);
 
@@ -67,6 +69,7 @@ class EncoderInfoSettings {
   FieldTrialOptional<uint32_t> requested_resolution_alignment_;
   FieldTrialFlag apply_alignment_to_all_simulcast_layers_;
   std::vector<VideoEncoder::ResolutionBitrateLimits> resolution_bitrate_limits_;
+  FieldTrialOptional<int> min_qp_;
 };
 
 // EncoderInfo settings for SimulcastEncoderAdapter.

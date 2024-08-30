@@ -179,7 +179,8 @@ EncoderInfoSettings::EncoderInfoSettings(const FieldTrialsView& field_trials,
                                          absl::string_view name)
     : requested_resolution_alignment_("requested_resolution_alignment"),
       apply_alignment_to_all_simulcast_layers_(
-          "apply_alignment_to_all_simulcast_layers") {
+          "apply_alignment_to_all_simulcast_layers"),
+      min_qp_("min_qp") {
   FieldTrialStructList<BitrateLimit> bitrate_limits(
       {FieldTrialStructMember(
            "frame_size_pixels",
@@ -202,7 +203,7 @@ EncoderInfoSettings::EncoderInfoSettings(const FieldTrialsView& field_trials,
   }
 
   ParseFieldTrial({&bitrate_limits, &requested_resolution_alignment_,
-                   &apply_alignment_to_all_simulcast_layers_},
+                   &apply_alignment_to_all_simulcast_layers_, &min_qp_},
                   experiment_string);
 
   resolution_bitrate_limits_ = ToResolutionBitrateLimits(bitrate_limits.Get());
@@ -216,6 +217,14 @@ absl::optional<uint32_t> EncoderInfoSettings::requested_resolution_alignment()
     return absl::nullopt;
   }
   return requested_resolution_alignment_.GetOptional();
+}
+
+absl::optional<int> EncoderInfoSettings::min_qp() const {
+  if (min_qp_ && min_qp_.Value() < 1) {
+    RTC_LOG(LS_WARNING) << "Unsupported min_qp value, ignored.";
+    return absl::nullopt;
+  }
+  return min_qp_.GetOptional();
 }
 
 EncoderInfoSettings::~EncoderInfoSettings() {}

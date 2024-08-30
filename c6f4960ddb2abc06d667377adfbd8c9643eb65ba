@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "22f9e273_af73c3a7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2024-08-30T11:32:37Z",
+      "side": 1,
+      "message": "Ouch, I missed this CL!\nLGTM",
+      "revId": "c6f4960ddb2abc06d667377adfbd8c9643eb65ba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -117,6 +117,30 @@
       },
       "revId": "3f5c4dbc0297cde0646af47c6f881fc2ced126fe",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "202a58d6_afae85f9",
+        "filename": "tools_webrtc/iwyu/apply-include-cleaner",
+        "patchSetId": 1
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2024-08-30T10:54:33Z",
+      "side": 1,
+      "message": "Does something like\n```\nOUTPUT\u003d$(command)\nEXIT_CODE\u003d$?\necho ${OUTPUT}\n```\nwork?\n\nAnd you want to test if the output is empty?\n```\nif [[ ! -z $OUTPUT ]]; ...\n```",
+      "parentUuid": "5278a743_c02d6295",
+      "range": {
+        "startLine": 106,
+        "startChar": 0,
+        "endLine": 110,
+        "endChar": 2
+      },
+      "revId": "3f5c4dbc0297cde0646af47c6f881fc2ced126fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

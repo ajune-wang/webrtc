@@ -58,20 +58,25 @@ usage() {
   echo "Usage: $0 [ -c compile-commands-file.json ] [-r] file.cc"
   echo "Runs the include-cleaner tool on a file"
   echo "Arguments:"
-  echo " -n : just print changes, don't do them"
+  echo " -n : Just print changes, don't do them"
   echo " -r : Remove non-required includes from .h file"
   echo " -d <n> : Set debug level to <n>"
+  echo " -q : Non-zero exit status if there are changes to apply"
+  echo " -w : Specify the workdir (out/Default if not specified)"
   echo " -h : Print this help message"
 }
 
 COMMAND=" --edit"
 INCLUDE_ARGS=""
+QUIET_MODE=false
 
-while getopts 'd:rnh' opts; do
+while getopts 'd:rnqw:h' opts; do
   case "${opts}" in
     n) COMMAND=" --print=changes" ;;
     r) INCLUDE_ARGS=" --remove" ;;
     d) DEBUG=${OPTARG};if [ $DEBUG -gt 0 ]; then set -x; fi  ;;
+    q) QUIET_MODE=true ;;
+    w) WORKDIR=${OPTARG} ;;
     h) usage; exit 1 ;;
     *) error "Unexpected option ${opts}" ;;
   esac
@@ -96,6 +101,17 @@ if [ ! -f $FILE ]; then
   error "File $FILE is not found"
 fi
 
+EXIT_CODE=0
+
+if $QUIET_MODE; then
+  # Only check the return status here (--print=changes). The command is ran a
+  # second time to actually apply the changes or display them. This is because
+  # running the command in a 'if' statement doesn't display any output.
+  if [[ $($CLEANER -p $WORKDIR --print=changes $INCLUDE_ARGS $COMMAND $FILE) ]]; then
+    EXIT_CODE=1
+  fi
+fi
+
 $CLEANER -p $WORKDIR $INCLUDE_ARGS $COMMAND $FILE
 
 # include-cleaner does not support custom mappings for certain deps
@@ -113,3 +129,5 @@ git diff-index -U -G "^#include \"gmock\/gmock\.h" HEAD --name-only | xargs -I {
 
 echo "Finished. Check diff, compile, gn gen --check and git cl format"
 echo "before uploading."
+
+exit $EXIT_CODE

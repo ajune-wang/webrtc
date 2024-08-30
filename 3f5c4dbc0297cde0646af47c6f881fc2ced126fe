@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6517a232_f8b6a695",
+        "filename": "tools_webrtc/iwyu/apply-include-cleaner",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2024-08-30T08:27:44Z",
+      "side": 1,
+      "message": "nit: Non-zero?",
+      "range": {
+        "startLine": 64,
+        "startChar": 14,
+        "endLine": 64,
+        "endChar": 35
+      },
+      "revId": "3f5c4dbc0297cde0646af47c6f881fc2ced126fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d83fd5c6_fa0cb835",
+        "filename": "tools_webrtc/iwyu/apply-include-cleaner",
+        "patchSetId": 1
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2024-08-30T08:27:44Z",
+      "side": 1,
+      "message": "Could you add a comment explaining this? It seems strange that we `--print\u003dchanges` in `QUIET_MODE`.\n\nMaybe the mode name should be changed? If we rename it to TEST_MODE or CHECK_MODE, maybe it could imply -n so we can return immediately instead of storing the exit code and running the same command twice?",
+      "range": {
+        "startLine": 106,
+        "startChar": 0,
+        "endLine": 110,
+        "endChar": 2
+      },
+      "revId": "3f5c4dbc0297cde0646af47c6f881fc2ced126fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

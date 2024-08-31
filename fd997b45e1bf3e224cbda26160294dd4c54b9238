@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "009a098a_201a96f8",
+        "filename": "rtc_base/openssl_stream_adapter.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 883,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-08-31T21:36:01Z",
+      "side": 1,
+      "message": "according to the man page this is a no-op for DTLS too, will clean up after removing SetMode",
+      "revId": "fd997b45e1bf3e224cbda26160294dd4c54b9238",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

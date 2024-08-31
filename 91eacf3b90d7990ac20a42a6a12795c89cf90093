@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e108ba46_e967c4c7",
+        "filename": "rtc_base/openssl_adapter.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1033,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-08-31T21:36:01Z",
+      "side": 0,
+      "message": "removal of DTLS mode is blocked on https://webrtc-review.googlesource.com/c/src/+/358800 which IIUC is still used internally.\n\nBut note how this version is not using the cool BoringSSL apis which tune the handshake ;-)",
+      "revId": "91eacf3b90d7990ac20a42a6a12795c89cf90093",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

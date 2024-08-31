@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "3cdee73f_af290045",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-08-31T22:57:54Z",
+      "side": 1,
+      "message": "caveat: the comment about boringssl is outside the boringssl codepath :-)\n\nI am not sure this is relevant even, we have a BIO in between and do not directly interact with the socket?",
+      "parentUuid": "bb72d27d_e101dba6",
+      "revId": "fd997b45e1bf3e224cbda26160294dd4c54b9238",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "009a098a_201a96f8",

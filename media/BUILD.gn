@@ -372,6 +372,15 @@ rtc_library("codec") {
   ]
 }
 
+rtc_source_set("payload_type") {
+  sources = [ "base/payload_type.h" ]
+  deps = [
+    ":codec",
+    "../api:rtc_error",
+    "../rtc_base:strong_alias",
+  ]
+}
+
 rtc_library("rtp_utils") {
   sources = [
     "base/rtp_utils.cc",
@@ -546,6 +555,7 @@ rtc_library("rtc_audio_video") {
     ":media_channel_impl",
     ":media_constants",
     ":media_engine",
+    ":payload_type",
     ":rid_description",
     ":rtc_media_config",
     ":rtp_utils",
@@ -615,6 +625,9 @@ rtc_library("rtc_audio_video") {
     "../modules/video_coding:video_coding_utility",
     "../modules/video_coding:webrtc_vp9_helpers",
     "../modules/video_coding/svc:scalability_mode_util",
+
+    # Temporary
+    "../pc:payload_type_picker",
     "../rtc_base:audio_format_to_string",
     "../rtc_base:buffer",
     "../rtc_base:byte_order",
@@ -658,8 +671,6 @@ rtc_library("rtc_audio_video") {
   sources = [
     "engine/adm_helpers.cc",
     "engine/adm_helpers.h",
-    "engine/payload_type_mapper.cc",
-    "engine/payload_type_mapper.h",
     "engine/webrtc_media_engine.cc",
     "engine/webrtc_media_engine.h",
     "engine/webrtc_video_engine.cc",
@@ -1002,7 +1013,6 @@ if (rtc_include_tests) {
         "base/video_common_unittest.cc",
         "engine/internal_decoder_factory_unittest.cc",
         "engine/internal_encoder_factory_unittest.cc",
-        "engine/payload_type_mapper_unittest.cc",
         "engine/simulcast_encoder_adapter_unittest.cc",
         "engine/webrtc_media_engine_unittest.cc",
         "engine/webrtc_video_engine_unittest.cc",

@@ -312,6 +312,7 @@ rtc_source_set("jsep_transport_controller") {
     "../api/transport:datagram_transport_interface",
     "../api/transport:enums",
     "../api/transport:sctp_transport_factory_interface",
+    "../media:payload_type",
     "../media:rtc_data_sctp_transport_internal",
     "../p2p:connection",
     "../p2p:dtls_transport",
@@ -424,6 +425,7 @@ rtc_library("payload_type_picker") {
   deps = [
     "../api:rtc_error",
     "../media:codec",
+    "../media:payload_type",
     "../rtc_base:strong_alias",
     "//third_party/abseil-cpp/absl/strings",
   ]

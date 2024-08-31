@@ -18,17 +18,10 @@
 
 #include "api/rtc_error.h"
 #include "media/base/codec.h"
+#include "media/base/payload_type.h"
 #include "rtc_base/strong_alias.h"
 
 namespace webrtc {
-
-class PayloadType : public StrongAlias<class PayloadTypeTag, uint8_t> {
- public:
-  // Non-explicit conversions from and to ints are to be deprecated and
-  // removed once calling code is upgraded.
-  PayloadType(uint8_t pt) { value_ = pt; }                // NOLINT: explicit
-  constexpr operator uint8_t() const& { return value_; }  // NOLINT: Explicit
-};
 
 class PayloadTypeRecorder;
 

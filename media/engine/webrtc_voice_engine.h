@@ -57,6 +57,7 @@
 #include "media/base/media_channel_impl.h"
 #include "media/base/media_config.h"
 #include "media/base/media_engine.h"
+#include "media/base/payload_type.h"
 #include "media/base/rtp_utils.h"
 #include "media/base/stream_params.h"
 #include "modules/async_audio_processing/async_audio_processing.h"
@@ -146,9 +147,6 @@ class WebRtcVoiceEngine final : public VoiceEngineInterface {
   webrtc::AudioDeviceModule* adm();
   webrtc::AudioProcessing* apm() const;
   webrtc::AudioState* audio_state();
-
-  std::vector<Codec> CollectCodecs(
-      const std::vector<webrtc::AudioCodecSpec>& specs) const;
 
   webrtc::SequenceChecker signal_thread_checker_{
       webrtc::SequenceChecker::kDetached};

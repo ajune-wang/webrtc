@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aa250edc_af419507",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 22
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2024-09-01T17:49:48Z",
+      "side": 1,
+      "message": "ooops, this got stuck. I made progress for AV1 and it builds nicely locally in Chromium but pulls in libgav1 which is *not* a dependency of libWebRTC.\n\nMirko: can you help with the deps issue (see presubmit) and tell me whether what I do to only support AV1 in Chromium makes sense?",
+      "revId": "ae46f4a1f761e0141d4881b23d38720b5affdc1d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

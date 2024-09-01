@@ -56,6 +56,30 @@
       },
       "revId": "67e861791ecfa5aba79fea7700088744e3fbe104",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4560f08d_a7bca8a1",
+        "filename": "modules/video_coding/black_frame_decoder.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2024-09-01T17:49:48Z",
+      "side": 1,
+      "message": "For SVC in modes like L3T3 (but not the K ones) when reducing resolution?\nThis made the unit test a bit harder which took some time.\n\nAV1 can do this too as I just learned from Niklas Enbom\u0027s talk.",
+      "parentUuid": "4adaa488_72d6643d",
+      "range": {
+        "startLine": 56,
+        "startChar": 27,
+        "endLine": 56,
+        "endChar": 41
+      },
+      "revId": "67e861791ecfa5aba79fea7700088744e3fbe104",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -2006,9 +2006,7 @@ TEST_F(PeerConnectionEncodingsIntegrationTest,
 }
 
 TEST_F(PeerConnectionEncodingsIntegrationTest,
-       AddTransceiverRejectsMixedCodecSimulcast) {
-  // Mixed Codec Simulcast is not yet supported, so we ensure that we reject
-  // such parameters.
+       AddTransceiverAcceptsMixedCodecSimulcast) {
   rtc::scoped_refptr<PeerConnectionTestWrapper> local_pc_wrapper = CreatePc();
   rtc::scoped_refptr<PeerConnectionTestWrapper> remote_pc_wrapper = CreatePc();
   ExchangeIceCandidates(local_pc_wrapper, remote_pc_wrapper);
@@ -2035,9 +2033,7 @@ TEST_F(PeerConnectionEncodingsIntegrationTest,
 
   auto transceiver_or_error =
       local_pc_wrapper->pc()->AddTransceiver(cricket::MEDIA_TYPE_VIDEO, init);
-  ASSERT_FALSE(transceiver_or_error.ok());
-  EXPECT_EQ(transceiver_or_error.error().type(),
-            RTCErrorType::UNSUPPORTED_OPERATION);
+  ASSERT_TRUE(transceiver_or_error.ok());
 }
 
 // Tests that use the standard path (specifying both `scalability_mode` and

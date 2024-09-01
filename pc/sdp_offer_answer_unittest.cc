@@ -108,6 +108,19 @@ class SdpOfferAnswerTest : public ::testing::Test {
         pc_factory_, result.MoveValue(), std::move(observer));
   }
 
+  absl::optional<webrtc::RtpCodecCapability> FindFirstSendCodecWithName(
+      cricket::MediaType media_type,
+      const std::string& name) const {
+    std::vector<webrtc::RtpCodecCapability> codecs =
+        pc_factory_->GetRtpSenderCapabilities(media_type).codecs;
+    for (const auto& codec : codecs) {
+      if (absl::EqualsIgnoreCase(codec.name, name)) {
+        return codec;
+      }
+    }
+    return absl::nullopt;
+  }
+
  protected:
   std::unique_ptr<rtc::Thread> signaling_thread_;
   rtc::scoped_refptr<PeerConnectionFactoryInterface> pc_factory_;
@@ -608,6 +621,37 @@ TEST_F(SdpOfferAnswerTest, SimulcastAnswerWithNoRidsIsRejected) {
       SdpType::kAnswer,
       absl::StrReplaceAll(sdp, {{"m=video 9 ", "m=video 0 "}}));
   EXPECT_TRUE(pc->SetRemoteDescription(std::move(rejected_answer)));
+}
+
+TEST_F(SdpOfferAnswerTest, SimulcastOfferWithMixedCodec) {
+  auto pc = CreatePeerConnection();
+
+  absl::optional<RtpCodecCapability> vp8_codec = FindFirstSendCodecWithName(
+      cricket::MEDIA_TYPE_VIDEO, cricket::kVp8CodecName);
+  ASSERT_TRUE(vp8_codec);
+  absl::optional<RtpCodecCapability> vp9_codec = FindFirstSendCodecWithName(
+      cricket::MEDIA_TYPE_VIDEO, cricket::kVp9CodecName);
+  ASSERT_TRUE(vp9_codec);
+
+  RtpTransceiverInit init;
+  RtpEncodingParameters rid1;
+  rid1.rid = "1";
+  rid1.codec = *vp8_codec;
+  init.send_encodings.push_back(rid1);
+  RtpEncodingParameters rid2;
+  rid2.rid = "2";
+  rid2.codec = *vp9_codec;
+  init.send_encodings.push_back(rid2);
+
+  auto transceiver = pc->AddTransceiver(cricket::MEDIA_TYPE_VIDEO, init);
+  auto offer = pc->CreateOffer();
+  auto& offer_contents = offer->description()->contents();
+  auto send_rids = offer_contents[0].media_description()->streams()[0].rids();
+  auto send_codecs = offer_contents[0].media_description()->codecs();
+  EXPECT_EQ(send_rids[0].payload_types.size(), 1u);
+  EXPECT_EQ(send_rids[0].payload_types[0], send_codecs[0].id);
+  EXPECT_EQ(send_rids[1].payload_types.size(), 1u);
+  EXPECT_EQ(send_rids[1].payload_types[0], send_codecs[1].id);
 }
 
 TEST_F(SdpOfferAnswerTest, ExpectAllSsrcsSpecifiedInSsrcGroupFid) {

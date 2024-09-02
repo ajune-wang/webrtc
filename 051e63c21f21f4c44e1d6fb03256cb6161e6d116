@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "13c35f25_7aaec3f0",
+        "filename": "examples/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2024-09-02T09:09:10Z",
+      "side": 1,
+      "message": "When adding new #includes, it is likely that you need to add a dependency on the build target (in this case here: https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/examples/androidvoip/BUILD.gn;l\u003d57;drc\u003dc7fd5afd456159823342f85d700444a1462f2b08).\n\nSee the error messages from the bots above:\n\n```\nERROR at //examples/androidvoip/jni/android_voip_client.cc:28:11: Can\u0027t include this header from here.\n#include \"api/units/time_delta.h\"\n          ^---------------------\nThe target:\n  //examples/androidvoip:examples_androidvoip_jni\nis including a file from the target:\n  //api/units:time_delta\n```\n\nWe do have a tool that almost always works for this. Try to run:\n\n```\n$ tools_webrtc/gn_check_autofix.py -m tryserver.webrtc -b android_arm_rel\n```\n\nIt should add the dependencies you need.",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 62
+      },
+      "revId": "051e63c21f21f4c44e1d6fb03256cb6161e6d116",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e0882cf1_fd88b9cb",
+        "filename": "examples/androidvoip/jni/android_voip_client.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2024-09-02T09:09:10Z",
+      "side": 1,
+      "message": "Since this is specific to channel stats. Should this be LogChannelStatistics?",
+      "range": {
+        "startLine": 153,
+        "startChar": 7,
+        "endLine": 153,
+        "endChar": 20
+      },
+      "revId": "051e63c21f21f4c44e1d6fb03256cb6161e6d116",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

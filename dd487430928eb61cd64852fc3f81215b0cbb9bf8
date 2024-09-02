@@ -16,6 +16,29 @@
       "message": "Sergey, can you take a first look at this CL?",
       "revId": "dd487430928eb61cd64852fc3f81215b0cbb9bf8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e119d8b3_4e70590a",
+        "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 874,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2024-09-02T08:34:02Z",
+      "side": 1,
+      "message": "I think we need a field trial that modifies QP threshold in QualityConvergenceController and sets the final value to: `convergence_qp_threshold \u003d max(qp_threhsold_from_field_trial, encoder_min_qp)`.\n\nEncoderInfo::min_qp should be set to what encoder is configured to use.",
+      "range": {
+        "startLine": 874,
+        "startChar": 7,
+        "endLine": 874,
+        "endChar": 13
+      },
+      "revId": "dd487430928eb61cd64852fc3f81215b0cbb9bf8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

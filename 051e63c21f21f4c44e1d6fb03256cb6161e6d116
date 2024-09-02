@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e154fb20_f9195432",
+        "filename": "examples/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 3614438
+      },
+      "writtenOn": "2024-09-02T19:51:58Z",
+      "side": 1,
+      "message": "This command does not work as I do not have Chromium RBE access.",
+      "parentUuid": "13c35f25_7aaec3f0",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 62
+      },
+      "revId": "051e63c21f21f4c44e1d6fb03256cb6161e6d116",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e0882cf1_fd88b9cb",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-09-02T09:09:10Z",
       "side": 1,
       "message": "Since this is specific to channel stats. Should this be LogChannelStatistics?",
+      "range": {
+        "startLine": 153,
+        "startChar": 7,
+        "endLine": 153,
+        "endChar": 20
+      },
+      "revId": "051e63c21f21f4c44e1d6fb03256cb6161e6d116",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5f741c2f_660a5cc5",
+        "filename": "examples/androidvoip/jni/android_voip_client.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 3614438
+      },
+      "writtenOn": "2024-09-02T19:51:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e0882cf1_fd88b9cb",
       "range": {
         "startLine": 153,
         "startChar": 7,

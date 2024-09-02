@@ -16,9 +16,9 @@
 #include <map>
 #include <memory>
 #include <string>
+#include <string_view>
 #include <vector>
 
-#include "absl/strings/string_view.h"
 #include "api/environment/environment.h"
 #include "api/network_state_predictor.h"
 #include "api/sequence_checker.h"
@@ -88,7 +88,7 @@ class RtpTransportControllerSend final
   StreamFeedbackProvider* GetStreamFeedbackProvider() override;
   void RegisterTargetTransferRateObserver(
       TargetTransferRateObserver* observer) override;
-  void OnNetworkRouteChanged(absl::string_view transport_name,
+  void OnNetworkRouteChanged(std::string_view transport_name,
                              const rtc::NetworkRoute& network_route) override;
   void OnNetworkAvailability(bool network_available) override;
   NetworkLinkRtcpObserver* GetRtcpObserver() override;

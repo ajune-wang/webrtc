@@ -12,11 +12,11 @@
 #include <cstdint>
 #include <memory>
 #include <optional>
+#include <string_view>
 #include <utility>
 #include <vector>
 
 #include "absl/strings/match.h"
-#include "absl/strings/string_view.h"
 #include "api/task_queue/pending_task_safety_flag.h"
 #include "api/task_queue/task_queue_base.h"
 #include "api/transport/goog_cc_factory.h"
@@ -316,7 +316,7 @@ bool RtpTransportControllerSend::IsRelevantRouteChange(
 }
 
 void RtpTransportControllerSend::OnNetworkRouteChanged(
-    absl::string_view transport_name,
+    std::string_view transport_name,
     const rtc::NetworkRoute& network_route) {
   RTC_DCHECK_RUN_ON(&sequence_checker_);
   // Check if the network route is connected.

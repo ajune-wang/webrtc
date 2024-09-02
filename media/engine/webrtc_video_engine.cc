@@ -18,6 +18,7 @@
 #include <optional>
 #include <set>
 #include <string>
+#include <string_view>
 #include <type_traits>
 #include <utility>
 
@@ -103,11 +104,11 @@ const char* StreamTypeToString(
   return nullptr;
 }
 
-bool IsEnabled(const webrtc::FieldTrialsView& trials, absl::string_view name) {
+bool IsEnabled(const webrtc::FieldTrialsView& trials, std::string_view name) {
   return absl::StartsWith(trials.Lookup(name), "Enabled");
 }
 
-bool IsDisabled(const webrtc::FieldTrialsView& trials, absl::string_view name) {
+bool IsDisabled(const webrtc::FieldTrialsView& trials, std::string_view name) {
   return absl::StartsWith(trials.Lookup(name), "Disabled");
 }
 
@@ -1637,7 +1638,7 @@ void WebRtcVideoSendChannel::OnReadyToSend(bool ready) {
 }
 
 void WebRtcVideoSendChannel::OnNetworkRouteChanged(
-    absl::string_view transport_name,
+    std::string_view transport_name,
     const rtc::NetworkRoute& network_route) {
   RTC_DCHECK_RUN_ON(&network_thread_checker_);
   worker_thread_->PostTask(SafeTask(

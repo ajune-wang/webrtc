@@ -20,11 +20,11 @@
 #include <optional>
 #include <set>
 #include <string>
+#include <string_view>
 #include <utility>
 #include <vector>
 
 #include "absl/functional/any_invocable.h"
-#include "absl/strings/string_view.h"
 #include "api/array_view.h"
 #include "api/call/transport.h"
 #include "api/crypto/crypto_options.h"
@@ -205,7 +205,7 @@ class WebRtcVideoSendChannel : public MediaChannelUtil,
 
   void OnPacketSent(const rtc::SentPacket& sent_packet) override;
   void OnReadyToSend(bool ready) override;
-  void OnNetworkRouteChanged(absl::string_view transport_name,
+  void OnNetworkRouteChanged(std::string_view transport_name,
                              const rtc::NetworkRoute& network_route) override;
 
   // Set a frame encryptor to a particular ssrc that will intercept all

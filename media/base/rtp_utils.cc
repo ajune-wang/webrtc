@@ -13,6 +13,7 @@
 #include <string.h>
 
 #include <cstdint>
+#include <string_view>
 #include <vector>
 
 // PacketTimeUpdateParams is defined in asyncpacketsocket.h.
@@ -161,7 +162,7 @@ bool IsValidRtpPacketSize(RtpPacketType packet_type, size_t size) {
   return size >= min_packet_length && size <= kMaxRtpPacketLen;
 }
 
-absl::string_view RtpPacketTypeToString(RtpPacketType packet_type) {
+std::string_view RtpPacketTypeToString(RtpPacketType packet_type) {
   switch (packet_type) {
     case RtpPacketType::kRtp:
       return "RTP";

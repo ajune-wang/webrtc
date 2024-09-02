@@ -12,8 +12,8 @@
 #define MEDIA_BASE_RTP_UTILS_H_
 
 #include <cstdint>
+#include <string_view>
 
-#include "absl/strings/string_view.h"
 #include "api/array_view.h"
 #include "rtc_base/byte_order.h"
 #include "rtc_base/system/rtc_export.h"
@@ -56,7 +56,7 @@ bool IsValidRtpPayloadType(int payload_type);
 bool IsValidRtpPacketSize(RtpPacketType packet_type, size_t size);
 
 // Returns "RTCP", "RTP" or "Unknown" according to `packet_type`.
-absl::string_view RtpPacketTypeToString(RtpPacketType packet_type);
+std::string_view RtpPacketTypeToString(RtpPacketType packet_type);
 
 // Verifies that a packet has a valid RTP header.
 bool RTC_EXPORT ValidateRtpHeader(const uint8_t* rtp,

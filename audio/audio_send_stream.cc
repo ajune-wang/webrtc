@@ -12,6 +12,7 @@
 
 #include <memory>
 #include <string>
+#include <string_view>
 #include <utility>
 #include <vector>
 
@@ -255,7 +256,7 @@ void AudioSendStream::ConfigureStream(
   }
 
   if (first_time || new_ids.abs_send_time != old_ids.abs_send_time) {
-    absl::string_view uri = AbsoluteSendTime::Uri();
+    std::string_view uri = AbsoluteSendTime::Uri();
     rtp_rtcp_module_->DeregisterSendRtpHeaderExtension(uri);
     if (new_ids.abs_send_time) {
       rtp_rtcp_module_->RegisterRtpHeaderExtension(uri, new_ids.abs_send_time);
@@ -294,7 +295,7 @@ void AudioSendStream::ConfigureStream(
   }
 
   if (first_time || new_ids.abs_capture_time != old_ids.abs_capture_time) {
-    absl::string_view uri = AbsoluteCaptureTimeExtension::Uri();
+    std::string_view uri = AbsoluteCaptureTimeExtension::Uri();
     rtp_rtcp_module_->DeregisterSendRtpHeaderExtension(uri);
     if (new_ids.abs_capture_time) {
       rtp_rtcp_module_->RegisterRtpHeaderExtension(uri,

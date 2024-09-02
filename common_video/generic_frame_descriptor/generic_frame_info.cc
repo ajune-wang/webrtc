@@ -9,6 +9,7 @@
  */
 #include "common_video/generic_frame_descriptor/generic_frame_info.h"
 
+#include <string_view>
 #include <utility>
 
 #include "rtc_base/checks.h"
@@ -37,7 +38,7 @@ GenericFrameInfo::Builder& GenericFrameInfo::Builder::S(int spatial_id) {
 }
 
 GenericFrameInfo::Builder& GenericFrameInfo::Builder::Dtis(
-    absl::string_view indication_symbols) {
+    std::string_view indication_symbols) {
   info_.decode_target_indications =
       webrtc_impl::StringToDecodeTargetIndications(indication_symbols);
   return *this;

@@ -11,9 +11,9 @@
 #ifndef MEDIA_ENGINE_WEBRTC_MEDIA_ENGINE_H_
 #define MEDIA_ENGINE_WEBRTC_MEDIA_ENGINE_H_
 
+#include <string_view>
 #include <vector>
 
-#include "absl/strings/string_view.h"
 #include "api/array_view.h"
 #include "api/field_trials_view.h"
 #include "api/rtp_parameters.h"
@@ -34,7 +34,7 @@ bool ValidateRtpExtensions(
 // mutually exclusive extensions (see implementation for details) are removed.
 std::vector<webrtc::RtpExtension> FilterRtpExtensions(
     const std::vector<webrtc::RtpExtension>& extensions,
-    bool (*supported)(absl::string_view),
+    bool (*supported)(std::string_view),
     bool filter_redundant_extensions,
     const webrtc::FieldTrialsView& trials);
 

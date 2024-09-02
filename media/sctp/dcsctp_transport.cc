@@ -14,10 +14,10 @@
 #include <cstdint>
 #include <limits>
 #include <optional>
+#include <string_view>
 #include <utility>
 #include <vector>
 
-#include "absl/strings/string_view.h"
 #include "api/array_view.h"
 #include "api/data_channel_interface.h"
 #include "api/environment/environment.h"
@@ -360,7 +360,7 @@ RTCError DcSctpTransport::SendData(int sid,
       ready_to_send_data_ = false;
       return RTCError(RTCErrorType::RESOURCE_EXHAUSTED);
     default:
-      absl::string_view message = dcsctp::ToString(error);
+      std::string_view message = dcsctp::ToString(error);
       RTC_LOG(LS_ERROR) << debug_name_
                         << "->SendData(...): send() failed with error "
                         << message << ".";
@@ -510,7 +510,7 @@ void DcSctpTransport::OnMessageReceived(dcsctp::DcSctpMessage message) {
 }
 
 void DcSctpTransport::OnError(dcsctp::ErrorKind error,
-                              absl::string_view message) {
+                              std::string_view message) {
   if (error == dcsctp::ErrorKind::kResourceExhaustion) {
     // Indicates that a message failed to be enqueued, because the send buffer
     // is full, which is a very common (and wanted) state for high throughput
@@ -526,7 +526,7 @@ void DcSctpTransport::OnError(dcsctp::ErrorKind error,
 }
 
 void DcSctpTransport::OnAborted(dcsctp::ErrorKind error,
-                                absl::string_view message) {
+                                std::string_view message) {
   RTC_DCHECK_RUN_ON(network_thread_);
   RTC_LOG(LS_ERROR) << debug_name_
                     << "->OnAborted(error=" << dcsctp::ToString(error)
@@ -568,7 +568,7 @@ void DcSctpTransport::OnConnectionRestarted() {
 
 void DcSctpTransport::OnStreamsResetFailed(
     rtc::ArrayView<const dcsctp::StreamID> outgoing_streams,
-    absl::string_view reason) {
+    std::string_view reason) {
   // TODO(orphis): Need a test to check for correct behavior
   for (auto& stream_id : outgoing_streams) {
     RTC_LOG(LS_WARNING)

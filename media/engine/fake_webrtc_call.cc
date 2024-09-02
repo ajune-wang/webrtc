@@ -11,10 +11,10 @@
 #include "media/engine/fake_webrtc_call.h"
 
 #include <cstdint>
+#include <string_view>
 #include <utility>
 
 #include "absl/algorithm/container.h"
-#include "absl/strings/string_view.h"
 #include "api/call/audio_sink.h"
 #include "api/environment/environment.h"
 #include "api/units/timestamp.h"
@@ -749,7 +749,7 @@ void FakeCall::OnLocalSsrcUpdated(webrtc::FlexfecReceiveStream& stream,
 }
 
 void FakeCall::OnUpdateSyncGroup(webrtc::AudioReceiveStreamInterface& stream,
-                                 absl::string_view sync_group) {
+                                 std::string_view sync_group) {
   auto& fake_stream = static_cast<FakeAudioReceiveStream&>(stream);
   fake_stream.SetSyncGroup(sync_group);
 }

@@ -13,6 +13,7 @@
 
 #include <memory>
 #include <string>
+#include <string_view>
 #include <vector>
 
 #include "api/audio/audio_frame.h"
@@ -67,7 +68,7 @@ class ChannelSendInterface {
   virtual void CallEncoder(rtc::FunctionView<void(AudioEncoder*)> modifier) = 0;
 
   // Use 0 to indicate that the extension should not be registered.
-  virtual void SetRTCP_CNAME(absl::string_view c_name) = 0;
+  virtual void SetRTCP_CNAME(std::string_view c_name) = 0;
   virtual void SetSendAudioLevelIndicationStatus(bool enable, int id) = 0;
   virtual void RegisterSenderCongestionControlObjects(
       RtpTransportControllerSendInterface* transport) = 0;

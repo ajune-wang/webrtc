@@ -17,9 +17,9 @@
 #include <memory>
 #include <optional>
 #include <string>
+#include <string_view>
 #include <vector>
 
-#include "absl/strings/string_view.h"
 #include "api/crypto/crypto_options.h"
 #include "api/fec_controller.h"
 #include "api/frame_transformer_interface.h"
@@ -133,7 +133,7 @@ class RtpTransportControllerSendInterface {
   virtual void RegisterTargetTransferRateObserver(
       TargetTransferRateObserver* observer) = 0;
   virtual void OnNetworkRouteChanged(
-      absl::string_view transport_name,
+      std::string_view transport_name,
       const rtc::NetworkRoute& network_route) = 0;
   virtual void OnNetworkAvailability(bool network_available) = 0;
   virtual NetworkLinkRtcpObserver* GetRtcpObserver() = 0;

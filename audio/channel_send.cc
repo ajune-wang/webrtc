@@ -14,6 +14,7 @@
 #include <map>
 #include <memory>
 #include <string>
+#include <string_view>
 #include <utility>
 #include <vector>
 
@@ -158,7 +159,7 @@ class ChannelSend : public ChannelSendInterface,
   void RegisterSenderCongestionControlObjects(
       RtpTransportControllerSendInterface* transport) override;
   void ResetSenderCongestionControlObjects() override;
-  void SetRTCP_CNAME(absl::string_view c_name) override;
+  void SetRTCP_CNAME(std::string_view c_name) override;
   std::vector<ReportBlockData> GetRemoteRTCPReportBlocks() const override;
   CallSendStatistics GetRTCPStatistics() const override;
 
@@ -740,7 +741,7 @@ void ChannelSend::ResetSenderCongestionControlObjects() {
   rtp_packet_pacer_proxy_->SetPacketPacer(nullptr);
 }
 
-void ChannelSend::SetRTCP_CNAME(absl::string_view c_name) {
+void ChannelSend::SetRTCP_CNAME(std::string_view c_name) {
   RTC_DCHECK_RUN_ON(&worker_thread_checker_);
   // Note: SetCNAME() accepts a c string of length at most 255.
   const std::string c_name_limited(c_name.substr(0, 255));

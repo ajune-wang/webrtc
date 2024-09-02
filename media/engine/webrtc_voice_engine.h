@@ -19,11 +19,11 @@
 #include <optional>
 #include <set>
 #include <string>
+#include <string_view>
 #include <utility>
 #include <vector>
 
 #include "absl/functional/any_invocable.h"
-#include "absl/strings/string_view.h"
 #include "api/audio/audio_device.h"
 #include "api/audio/audio_frame_processor.h"
 #include "api/audio/audio_mixer.h"
@@ -251,7 +251,7 @@ class WebRtcVoiceSendChannel final : public MediaChannelUtil,
   bool InsertDtmf(uint32_t ssrc, int event, int duration) override;
 
   void OnPacketSent(const rtc::SentPacket& sent_packet) override;
-  void OnNetworkRouteChanged(absl::string_view transport_name,
+  void OnNetworkRouteChanged(std::string_view transport_name,
                              const rtc::NetworkRoute& network_route) override;
   void OnReadyToSend(bool ready) override;
   bool GetStats(VoiceMediaSendInfo* info) override;

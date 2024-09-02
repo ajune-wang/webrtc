@@ -19,6 +19,7 @@
 #include <memory>
 #include <optional>
 #include <string>
+#include <string_view>
 #include <type_traits>
 #include <utility>
 #include <vector>
@@ -223,7 +224,7 @@ std::optional<int> ComputeSendBitrate(int max_send_bitrate_bps,
   }
 }
 
-bool IsEnabled(const webrtc::FieldTrialsView& config, absl::string_view trial) {
+bool IsEnabled(const webrtc::FieldTrialsView& config, std::string_view trial) {
   return absl::StartsWith(config.Lookup(trial), "Enabled");
 }
 
@@ -317,7 +318,7 @@ bool CheckRedParameters(
     RTC_LOG(LS_WARNING) << "audio/RED missing fmtp parameters.";
     return false;
   }
-  std::vector<absl::string_view> redundant_payloads =
+  std::vector<std::string_view> redundant_payloads =
       rtc::split(red_parameters->second, '/');
   // 32 is chosen as a maximum upper bound for consistency with the
   // red payload splitter.
@@ -1678,7 +1679,7 @@ void WebRtcVoiceSendChannel::OnPacketSent(const rtc::SentPacket& sent_packet) {
 }
 
 void WebRtcVoiceSendChannel::OnNetworkRouteChanged(
-    absl::string_view transport_name,
+    std::string_view transport_name,
     const rtc::NetworkRoute& network_route) {
   RTC_DCHECK_RUN_ON(&network_thread_checker_);
 

@@ -14,6 +14,7 @@
 #include <map>
 #include <memory>
 #include <string>
+#include <string_view>
 #include <utility>
 #include <vector>
 
@@ -127,7 +128,7 @@ class MockChannelSend : public voe::ChannelSendInterface {
               CallEncoder,
               (rtc::FunctionView<void(AudioEncoder*)> modifier),
               (override));
-  MOCK_METHOD(void, SetRTCP_CNAME, (absl::string_view c_name), (override));
+  MOCK_METHOD(void, SetRTCP_CNAME, (std::string_view c_name), (override));
   MOCK_METHOD(void,
               SetSendAudioLevelIndicationStatus,
               (bool enable, int id),

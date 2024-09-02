@@ -11,6 +11,7 @@
 #include "audio/audio_state.h"
 
 #include <memory>
+#include <string_view>
 #include <utility>
 #include <vector>
 
@@ -52,7 +53,7 @@ struct FakeAsyncAudioProcessingHelper {
     FakeTaskQueueFactory() = default;
     ~FakeTaskQueueFactory() override = default;
     std::unique_ptr<TaskQueueBase, TaskQueueDeleter> CreateTaskQueue(
-        absl::string_view name,
+        std::string_view name,
         Priority priority) const override {
       return std::unique_ptr<webrtc::TaskQueueBase, webrtc::TaskQueueDeleter>(
           new FakeTaskQueue());

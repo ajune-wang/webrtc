@@ -13,6 +13,7 @@
 #include <algorithm>
 #include <map>
 #include <string>
+#include <string_view>
 #include <utility>
 
 #include "absl/algorithm/container.h"
@@ -76,8 +77,8 @@ bool ValidateRtpExtensions(
   //
   // Getting at this seems like a hard slog.
   if (!old_extensions.empty()) {
-    absl::string_view urimap[1 + webrtc::RtpExtension::kMaxId];
-    std::map<absl::string_view, int> idmap;
+    std::string_view urimap[1 + webrtc::RtpExtension::kMaxId];
+    std::map<std::string_view, int> idmap;
     for (const auto& old_extension : old_extensions) {
       urimap[old_extension.id] = old_extension.uri;
       idmap[old_extension.uri] = old_extension.id;
@@ -104,7 +105,7 @@ bool ValidateRtpExtensions(
 
 std::vector<webrtc::RtpExtension> FilterRtpExtensions(
     const std::vector<webrtc::RtpExtension>& extensions,
-    bool (*supported)(absl::string_view),
+    bool (*supported)(std::string_view),
     bool filter_redundant_extensions,
     const webrtc::FieldTrialsView& trials) {
   // Don't check against old parameters; this should have been done earlier.

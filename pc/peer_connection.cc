@@ -695,6 +695,10 @@ RTCError PeerConnection::Initialize(
                               kPeerConnectionAddressFamilyCounter_Max);
     return InitializeTransportController_n(configuration, dependencies);
   });
+  worker_thread()->BlockingCall([this, tc = transport_controller_copy_] {
+    RTC_DCHECK_RUN_ON(worker_thread());
+    call_->SetPayloadTypeSuggester(tc);
+  });
 
   configuration_ = configuration;
 

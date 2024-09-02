@@ -38,6 +38,8 @@ rtc_library("call_interfaces") {
 
   deps = [
     ":audio_sender_interface",
+    ":payload_type",
+    ":payload_type",
     ":receive_stream_interface",
     ":rtp_interfaces",
     ":video_stream_api",
@@ -283,6 +285,9 @@ rtc_library("call") {
     ":bitrate_allocator",
     ":call_interfaces",
     ":fake_network",
+    ":payload_type",
+    ":payload_type",
+    ":payload_type_picker",
     ":rtp_interfaces",
     ":rtp_receiver",
     ":rtp_sender",
@@ -338,6 +343,29 @@ rtc_library("call") {
     "//third_party/abseil-cpp/absl/functional:bind_front",
     "//third_party/abseil-cpp/absl/strings:string_view",
     "//third_party/abseil-cpp/absl/types:optional",
+  ]
+}
+
+rtc_library("payload_type_picker") {
+  sources = [
+    "payload_type_picker.cc",
+    "payload_type_picker.h",
+  ]
+  deps = [
+    ":payload_type",
+    "../api:rtc_error",
+    "../media:codec",
+    "../rtc_base:strong_alias",
+    "//third_party/abseil-cpp/absl/strings",
+  ]
+}
+
+rtc_source_set("payload_type") {
+  sources = [ "payload_type.h" ]
+  deps = [
+    "../api:rtc_error",
+    "../media:codec",
+    "../rtc_base:strong_alias",
   ]
 }
 
@@ -435,6 +463,7 @@ if (rtc_include_tests) {
         "bitrate_estimator_tests.cc",
         "call_unittest.cc",
         "flexfec_receive_stream_unittest.cc",
+        "payload_type_picker_unittest.cc",
         "receive_time_calculator_unittest.cc",
         "rtp_bitrate_configurator_unittest.cc",
         "rtp_demuxer_unittest.cc",
@@ -448,6 +477,7 @@ if (rtc_include_tests) {
         ":call",
         ":call_interfaces",
         ":mock_rtp_interfaces",
+        ":payload_type_picker",
         ":rtp_interfaces",
         ":rtp_receiver",
         ":rtp_sender",
@@ -469,6 +499,7 @@ if (rtc_include_tests) {
         "../api/video:video_frame",
         "../api/video:video_rtp_headers",
         "../audio",
+        "../media:codec",
         "../modules/audio_device:mock_audio_device",
         "../modules/audio_mixer",
         "../modules/audio_mixer:audio_mixer_impl",

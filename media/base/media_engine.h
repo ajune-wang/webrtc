@@ -118,6 +118,10 @@ class VoiceEngineInterface : public RtpHeaderExtensionQueryInterface {
     return nullptr;
   }
 
+  // Legacy: Retrieve list of supported codecs.
+  // + protection codecs, and assigns PT numbers that may have to be
+  // reassigned.
+  // TODO: https://issues.webrtc.org/360058654 - deprecate and remove.
   virtual const std::vector<Codec>& send_codecs() const = 0;
   virtual const std::vector<Codec>& recv_codecs() const = 0;
 
@@ -163,7 +167,10 @@ class VideoEngineInterface : public RtpHeaderExtensionQueryInterface {
     return nullptr;
   }
 
-  // Retrieve list of supported codecs.
+  // Legacy: Retrieve list of supported codecs.
+  // + protection codecs, and assigns PT numbers that may have to be
+  // reassigned.
+  // TODO: https://issues.webrtc.org/360058654 - deprecate and remove.
   virtual std::vector<Codec> send_codecs() const = 0;
   virtual std::vector<Codec> recv_codecs() const = 0;
   // As above, but if include_rtx is false, don't include RTX codecs.

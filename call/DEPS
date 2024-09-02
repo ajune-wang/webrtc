@@ -17,6 +17,13 @@ include_rules = [
 ]
 
 specific_include_rules = {
+  "rtp_payload_params": [
+    "+common_video/generic_frame_descriptor/generic_frame_info.h",
+  ],
+  "rtp_video_sender": [
+    "+common_video/frame_counts.h",
+    "+common_video/generic_frame_descriptor/generic_frame_info.h",
+  ],
   "video_receive_stream\.h": [
     "+common_video/frame_counts.h",
   ],

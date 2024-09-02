@@ -12,6 +12,9 @@
 
 #include <algorithm>
 
+#include "absl/types/optional.h"
+#include "api/transport/bitrate_settings.h"
+#include "api/units/data_rate.h"
 #include "rtc_base/checks.h"
 
 namespace {

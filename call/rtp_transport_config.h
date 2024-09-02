@@ -11,7 +11,6 @@
 #ifndef CALL_RTP_TRANSPORT_CONFIG_H_
 #define CALL_RTP_TRANSPORT_CONFIG_H_
 
-#include <memory>
 
 #include "absl/types/optional.h"
 #include "api/environment/environment.h"

@@ -16,6 +16,29 @@
       "message": "Please see TODO(discussion).",
       "revId": "4991664825f6793e8954adc8b99268e89ae583a1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b444cad4_a72efb6d",
+        "filename": "video/video_analyzer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 504,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2024-09-02T07:57:13Z",
+      "side": 1,
+      "message": "Possibly, but I\u0027d punt that for now.",
+      "range": {
+        "startLine": 499,
+        "startChar": 0,
+        "endLine": 504,
+        "endChar": 18
+      },
+      "revId": "4991664825f6793e8954adc8b99268e89ae583a1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

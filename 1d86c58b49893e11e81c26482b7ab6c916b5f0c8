@@ -103,6 +103,24 @@
       "parentUuid": "3d889dd2_113029ef",
       "revId": "1d86c58b49893e11e81c26482b7ab6c916b5f0c8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "70627b01_f9b7ac2a",
+        "filename": "call/bitrate_estimator_tests.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-09-02T14:41:27Z",
+      "side": 1,
+      "message": "I do not think that would be helpful:\n\n```\n#if defined(ABSL_USES_STD_STRING_VIEW)\n#define STRING_VIEW_TYPE std::string_view\n#else\n#define STRING_VIEW_TYPE absl::string_view\n#endif\n```\n\nthis way `STRING_VIEW_TYPE` would always be `absl::string_view`\n(and sometimes would also be `std::string_view`)\n\nSee\nhttps://chromium.googlesource.com/chromium/src/+/refs/heads/main/third_party/abseil-cpp/absl/strings/string_view.h#47 to line 57\n\nSure, this CL compiles normally in stand-alone WebRTC and in Chromium, and in any dependencies where absl::string_view is aliased to std::string_view.\nBut if in `abseil-cpp/absl/base/options.h` you would change `ABSL_OPTION_USE_STD_STRING_VIEW` to 0, then this CL won\u0027t compile.",
+      "parentUuid": "778a9424_57cbf1d2",
+      "revId": "1d86c58b49893e11e81c26482b7ab6c916b5f0c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

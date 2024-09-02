@@ -87,6 +87,30 @@
       },
       "revId": "dd487430928eb61cd64852fc3f81215b0cbb9bf8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6dcee893_20464e73",
+        "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 874,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2024-09-02T09:13:26Z",
+      "side": 1,
+      "message": "I\u0027ll rework the code. I can see that it makes experimenting with the threshold simpler with an independent Finch parameter, but I still believe that it kind of breaks the reason to have a min qp reported by the encoder.",
+      "parentUuid": "3d1dadd3_42b5022f",
+      "range": {
+        "startLine": 874,
+        "startChar": 7,
+        "endLine": 874,
+        "endChar": 13
+      },
+      "revId": "dd487430928eb61cd64852fc3f81215b0cbb9bf8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

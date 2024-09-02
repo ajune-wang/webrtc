@@ -135,6 +135,30 @@
       },
       "revId": "dd487430928eb61cd64852fc3f81215b0cbb9bf8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a14b727a_44918000",
+        "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 874,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2024-09-02T12:20:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "45915a1e_078812f5",
+      "range": {
+        "startLine": 874,
+        "startChar": 7,
+        "endLine": 874,
+        "endChar": 13
+      },
+      "revId": "dd487430928eb61cd64852fc3f81215b0cbb9bf8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

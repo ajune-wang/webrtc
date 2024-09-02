@@ -10,7 +10,10 @@
 #include "call/rtp_bitrate_configurator.h"
 
 #include <memory>
+#include <optional>
 
+#include "absl/types/optional.h"
+#include "api/transport/bitrate_settings.h"
 #include "test/gtest.h"
 
 namespace webrtc {

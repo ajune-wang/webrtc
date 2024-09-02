@@ -38,10 +38,13 @@ rtc_library("call_interfaces") {
 
   deps = [
     ":audio_sender_interface",
+    ":payload_type",
+    ":payload_type",
     ":receive_stream_interface",
     ":rtp_interfaces",
     ":video_stream_api",
     "../api:fec_controller_api",
+    "../api:field_trials_view",
     "../api:frame_transformer_interface",
     "../api:network_state_predictor_api",
     "../api:rtp_headers",
@@ -64,6 +67,7 @@ rtc_library("call_interfaces") {
     "../api/task_queue",
     "../api/transport:bitrate_settings",
     "../api/transport:network_control",
+    "../api/units:time_delta",
     "../modules/async_audio_processing",
     "../modules/audio_device",
     "../modules/audio_processing",
@@ -76,6 +80,7 @@ rtc_library("call_interfaces") {
     "../rtc_base:refcount",
     "../rtc_base:stringutils",
     "../rtc_base/network:sent_packet",
+    "../video/config:encoder_config",
     "//third_party/abseil-cpp/absl/functional:any_invocable",
     "//third_party/abseil-cpp/absl/strings:string_view",
     "//third_party/abseil-cpp/absl/types:optional",
@@ -283,6 +288,10 @@ rtc_library("call") {
     ":bitrate_allocator",
     ":call_interfaces",
     ":fake_network",
+    ":payload_type",
+    ":payload_type",
+    ":payload_type_picker",
+    ":receive_stream_interface",
     ":rtp_interfaces",
     ":rtp_receiver",
     ":rtp_sender",
@@ -292,26 +301,37 @@ rtc_library("call") {
     "../api:array_view",
     "../api:fec_controller_api",
     "../api:field_trials_view",
+    "../api:rtc_error",
     "../api:rtp_headers",
     "../api:rtp_parameters",
+    "../api:scoped_refptr",
     "../api:sequence_checker",
     "../api:simulated_network_api",
     "../api:transport_api",
+    "../api/adaptation:resource_adaptation_api",
+    "../api/environment",
     "../api/rtc_event_log",
+    "../api/task_queue",
     "../api/task_queue:pending_task_safety_flag",
+    "../api/transport:bitrate_settings",
     "../api/transport:network_control",
+    "../api/units:data_rate",
+    "../api/units:data_size",
     "../api/units:time_delta",
+    "../api/units:timestamp",
     "../api/video_codecs:video_codecs_api",
     "../audio",
     "../logging:rtc_event_audio",
     "../logging:rtc_event_rtp_rtcp",
     "../logging:rtc_event_video",
     "../logging:rtc_stream_config",
+    "../media:codec",
     "../modules/congestion_controller",
     "../modules/pacing",
     "../modules/rtp_rtcp",
     "../modules/rtp_rtcp:rtp_rtcp_format",
     "../modules/video_coding",
+    "../modules/video_coding:nack_requester",
     "../rtc_base:checks",
     "../rtc_base:copy_on_write_buffer",
     "../rtc_base:event_tracer",
@@ -338,6 +358,32 @@ rtc_library("call") {
     "//third_party/abseil-cpp/absl/functional:bind_front",
     "//third_party/abseil-cpp/absl/strings:string_view",
     "//third_party/abseil-cpp/absl/types:optional",
+  ]
+}
+
+rtc_library("payload_type_picker") {
+  sources = [
+    "payload_type_picker.cc",
+    "payload_type_picker.h",
+  ]
+  deps = [
+    ":payload_type",
+    "../api:rtc_error",
+    "../api/audio_codecs:audio_codecs_api",
+    "../media:codec",
+    "../media:media_constants",
+    "../rtc_base:logging",
+    "../rtc_base:strong_alias",
+    "//third_party/abseil-cpp/absl/strings",
+  ]
+}
+
+rtc_source_set("payload_type") {
+  sources = [ "payload_type.h" ]
+  deps = [
+    "../api:rtc_error",
+    "../media:codec",
+    "../rtc_base:strong_alias",
   ]
 }
 
@@ -435,6 +481,7 @@ if (rtc_include_tests) {
         "bitrate_estimator_tests.cc",
         "call_unittest.cc",
         "flexfec_receive_stream_unittest.cc",
+        "payload_type_picker_unittest.cc",
         "receive_time_calculator_unittest.cc",
         "rtp_bitrate_configurator_unittest.cc",
         "rtp_demuxer_unittest.cc",
@@ -448,6 +495,8 @@ if (rtc_include_tests) {
         ":call",
         ":call_interfaces",
         ":mock_rtp_interfaces",
+        ":payload_type",
+        ":payload_type_picker",
         ":rtp_interfaces",
         ":rtp_receiver",
         ":rtp_sender",
@@ -469,6 +518,8 @@ if (rtc_include_tests) {
         "../api/video:video_frame",
         "../api/video:video_rtp_headers",
         "../audio",
+        "../media:codec",
+        "../media:media_constants",
         "../modules/audio_device:mock_audio_device",
         "../modules/audio_mixer",
         "../modules/audio_mixer:audio_mixer_impl",

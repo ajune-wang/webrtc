@@ -24,6 +24,7 @@
 #include "api/transport/network_control.h"
 #include "api/units/time_delta.h"
 #include "call/audio_state.h"
+#include "call/payload_type.h"
 #include "call/rtp_transport_config.h"
 #include "call/rtp_transport_controller_send_factory_interface.h"
 

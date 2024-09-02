@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "36ec5769_bc0c028e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-09-02T15:50:00Z",
+      "side": 1,
+      "message": "Using only subset of files I may touch working on b/362762208 to make change smaller and thus to reduce risk of introducing conflicts.",
+      "revId": "f6f9935e9c3ebb7c0c30d8f25d6b4301d1d3846a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

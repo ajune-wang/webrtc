@@ -871,7 +871,7 @@ VideoEncoder::EncoderInfo LibaomAv1Encoder::GetEncoderInfo() const {
         encoder_info_override_.resolution_bitrate_limits();
   }
 
-  info.min_qp = kMinQindex;
+  info.min_qp = encoder_info_override_.min_qp().value_or(kMinQindex);
   return info;
 }
 

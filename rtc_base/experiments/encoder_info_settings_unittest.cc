@@ -103,4 +103,14 @@ TEST(EncoderSettingsTest, CommonSettingsUsedIfEncoderNameUnspecified) {
   EXPECT_EQ(3u, vp9_settings.requested_resolution_alignment());
 }
 
+TEST(EncoderSettingsTest, MinQp) {
+  ExplicitKeyValueConfig field_trials(
+      "WebRTC-Av1-GetEncoderInfoOverride/min_qp:45/");
+
+  LibvpxVp8EncoderInfoSettings vp8_settings(field_trials);
+  EXPECT_FALSE(vp8_settings.min_qp());
+  LibaomAv1EncoderInfoSettings av1_settings(field_trials);
+  EXPECT_EQ(45, av1_settings.min_qp());
+}
+
 }  // namespace webrtc

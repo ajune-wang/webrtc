@@ -111,6 +111,30 @@
       },
       "revId": "dd487430928eb61cd64852fc3f81215b0cbb9bf8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "45915a1e_078812f5",
+        "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 874,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2024-09-02T09:32:21Z",
+      "side": 1,
+      "message": "Encoder knows nothing about quality convergence. It is quality convergence algo that needs to know encoder\u0027s min QP to guarantee this:\n\n```\nconvergence_qp_threshold \u003d max(qp_threhsold_from_field_trial, encoder_min_qp).\n```\n\nThis is why we need to report min_qp in EncoderInfo. But we don\u0027t need to adjust its value for users like quality convergence about which encoder knows nothing.\n\nIt is not about simplicity. It is about proper API and component boundaries.",
+      "parentUuid": "6dcee893_20464e73",
+      "range": {
+        "startLine": 874,
+        "startChar": 7,
+        "endLine": 874,
+        "endChar": 13
+      },
+      "revId": "dd487430928eb61cd64852fc3f81215b0cbb9bf8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -298,5 +298,42 @@ TEST(QualityConvergenceMonitorSetup, DisableAv1Dynamic) {
   EXPECT_FALSE(p.dynamic_detection_enabled);
 }
 
+TEST(QualityConvergenceMonitorSetup, OverrideVp8StaticThreshold) {
+  test::ScopedKeyValueConfig field_trials(
+      "WebRTC-QCM-Static-VP8/static_qp_threshold:22/");
+
+  auto monitor = QualityConvergenceMonitor::Create(
+      kStaticQpThreshold, kVideoCodecVP8, field_trials);
+  ASSERT_TRUE(monitor);
+  QualityConvergenceMonitor::Parameters p = monitor->GetParametersForTesting();
+  EXPECT_EQ(p.static_qp_threshold, 22);
+}
+
+TEST(QualityConvergenceMonitorSetup, OverrideVp9StaticThreshold) {
+  test::ScopedKeyValueConfig field_trials(
+      "WebRTC-QCM-Static-VP9/static_qp_threshold:44/");
+
+  auto monitor = QualityConvergenceMonitor::Create(
+      kStaticQpThreshold, kVideoCodecVP9, field_trials);
+  ASSERT_TRUE(monitor);
+  QualityConvergenceMonitor::Parameters p = monitor->GetParametersForTesting();
+  EXPECT_EQ(p.static_qp_threshold, 44);
+  // Dynamic QP threshold is unchaged.
+  EXPECT_EQ(p.dynamic_qp_threshold, 28);  // 13 + 25.
+}
+
+TEST(QualityConvergenceMonitorSetup, OverrideAv1QualiStaticThreshold) {
+  test::ScopedKeyValueConfig field_trials(
+      "WebRTC-QCM-Static-AV1/static_qp_threshold:46/");
+
+  auto monitor = QualityConvergenceMonitor::Create(
+      kStaticQpThreshold, kVideoCodecAV1, field_trials);
+  ASSERT_TRUE(monitor);
+  QualityConvergenceMonitor::Parameters p = monitor->GetParametersForTesting();
+  EXPECT_EQ(p.static_qp_threshold, 46);
+  // Dynamic QP threshold is unchaged.
+  EXPECT_EQ(p.dynamic_qp_threshold, 28);  // 13 + 25.
+}
+
 }  // namespace
 }  // namespace webrtc

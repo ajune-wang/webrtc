@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "40665215_65f02ce4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-09-02T20:31:20Z",
+      "side": 1,
+      "message": "Just cleanup while preparing for other changes.",
+      "revId": "e5eb24b0c9f0aa31cdfa91e55ea9faf8748705cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

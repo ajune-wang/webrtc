@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ad060712_a62993d3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-09-02T16:06:48Z",
+      "side": 1,
+      "message": "+Harald for owner approval of api/voip/DEPS",
+      "revId": "265cad1e1ce8c4ea3ec3a986847fb1926a8ef21f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

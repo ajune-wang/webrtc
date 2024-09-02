@@ -33,6 +33,75 @@
       "message": "```suggestion\n  // Ensure it fails if scaling factors in horz/vert dimensions are different.\n```",
       "revId": "72f538731bf3c5bc69247400fe91107b9e62a3c9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a68b1a76_2049f1cc",
+        "filename": "modules/video_coding/svc/simulcast_to_svc_converter.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2024-09-02T07:38:52Z",
+      "side": 1,
+      "message": "Should we take temporal index from encoded_image.TemporalIndex()? For consistency with the way we obtain spatial index.",
+      "range": {
+        "startLine": 115,
+        "startChar": 12,
+        "endLine": 115,
+        "endChar": 39
+      },
+      "revId": "72f538731bf3c5bc69247400fe91107b9e62a3c9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "06d319e0_471d0453",
+        "filename": "modules/video_coding/svc/simulcast_to_svc_converter.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2024-09-02T07:38:52Z",
+      "side": 1,
+      "message": "kNoTemporalIdx ?\n\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/modules/video_coding/codecs/interface/common_constants.h;l\u003d23",
+      "range": {
+        "startLine": 117,
+        "startChar": 52,
+        "endLine": 117,
+        "endChar": 55
+      },
+      "revId": "72f538731bf3c5bc69247400fe91107b9e62a3c9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9dadf7e6_4123f284",
+        "filename": "modules/video_coding/svc/simulcast_to_svc_converter.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2024-09-02T07:38:52Z",
+      "side": 1,
+      "message": "kNoTemporalIdx",
+      "range": {
+        "startLine": 118,
+        "startChar": 45,
+        "endLine": 118,
+        "endChar": 48
+      },
+      "revId": "72f538731bf3c5bc69247400fe91107b9e62a3c9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

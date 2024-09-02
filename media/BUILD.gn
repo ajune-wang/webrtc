@@ -469,6 +469,22 @@ rtc_library("rtc_simulcast_encoder_adapter") {
   ]
 }
 
+if (build_with_chromium) {
+  rtc_library("rtc_black_frame_decoder_factory") {
+    sources = [
+      "engine/black_frame_decoder_factory.cc",
+      "engine/black_frame_decoder_factory.h",
+    ]
+    deps = [
+      "../api/environment",
+      "../api/video_codecs:video_codecs_api",
+      "../modules/video_coding:black_frame_decoder",
+      "../rtc_base:logging",
+      "../rtc_base/system:rtc_export",
+    ]
+  }
+}
+
 rtc_library("rtc_internal_video_codecs") {
   visibility = [ "*" ]
   allow_poison = [ "software_video_codecs" ]
@@ -512,6 +528,9 @@ rtc_library("rtc_internal_video_codecs") {
 
   if (rtc_include_dav1d_in_internal_decoder_factory) {
     deps += [ "../modules/video_coding/codecs/av1:dav1d_decoder" ]
+  }
+  if (build_with_chromium) {
+    deps += [ ":rtc_black_frame_decoder_factory" ]
   }
   sources = [
     "engine/fake_video_codec_factory.cc",

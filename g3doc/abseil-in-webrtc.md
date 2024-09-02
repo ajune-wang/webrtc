@@ -1,5 +1,5 @@
 <!-- go/cmark -->
-<!--* freshness: {owner: 'danilchap' reviewed: '2021-05-12'} *-->
+<!--* freshness: {owner: 'danilchap' reviewed: '2024-09-02'} *-->
 
 # Using Abseil in WebRTC
 
@@ -21,8 +21,6 @@ For build targets of type `rtc_library`, `rtc_source_set` and
 The GN templates will take care of generating the proper dependency when
 used within Chromium or standalone. In that build mode, WebRTC will depend
 on a monolithic Abseil build target that will generate a shared library.
-
-Previously, `absl_deps` was used but been deprecated in May 2024.
 
 ## **Allowed**
 
@@ -46,6 +44,8 @@ Previously, `absl_deps` was used but been deprecated in May 2024.
 * The macros in `absl/base/attributes.h`, `absl/base/config.h` and
   `absl/base/macros.h`.
 * `absl/numeric/bits.h`
+
+* ABSL_FLAG is allowed in tests and tools, but disallowed in in non-test code.
 
 
 ## **Disallowed**
@@ -73,11 +73,9 @@ way that may not be compatible with the rest of WebRTC.
 *Use `rtc::ArrayView` instead.*
 
 `absl::Span` differs from `rtc::ArrayView` on several points, and both
-of them differ from the `std::span` that was voted into
-C++20&mdash;and `std::span` is likely to undergo further changes
-before C++20 is finalized. We should just keep using `rtc::ArrayView`
-and avoid `absl::Span` until C++20 is finalized and the Abseil team
-has decided if they will change `absl::Span` to match.
+of them differ from the `std::span` introduced in C++20. We should just keep
+using `rtc::ArrayView` and avoid `absl::Span`. When WebRTC switch to C++20,
+we would consider replacing `rtc::ArrayView` with `std::span`.
 [Bug](https://bugs.webrtc.org/9214).
 
 ### `absl::StrCat`, `absl::StrAppend`, `absl::StrJoin`, `absl::StrSplit`

@@ -22,6 +22,7 @@
 #include "api/units/time_delta.h"
 #include "api/units/timestamp.h"
 #include "call/rtp_transport_controller_send.h"
+#include "modules/rtp_rtcp/source/rtp_packet_received.h"
 #include "rtc_base/gunit.h"
 #include "test/gtest.h"
 #include "test/mock_transport.h"

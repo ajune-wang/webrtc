@@ -21,6 +21,7 @@
 #include "api/units/timestamp.h"
 #include "call/call.h"
 #include "rtc_base/copy_on_write_buffer.h"
+#include "rtc_base/network_route.h"
 #include "rtc_base/synchronization/mutex.h"
 #include "test/network/network_emulation.h"
 #include "test/network/simulated_network.h"

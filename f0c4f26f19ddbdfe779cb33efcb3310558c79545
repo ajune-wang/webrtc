@@ -139,6 +139,23 @@
       "parentUuid": "87da09ef_8f7e432a",
       "revId": "f0c4f26f19ddbdfe779cb33efcb3310558c79545",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b4e5a86a_fbca2983",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-09-02T12:47:25Z",
+      "side": 1,
+      "message": "This CL is now overtaken by events.",
+      "revId": "f0c4f26f19ddbdfe779cb33efcb3310558c79545",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

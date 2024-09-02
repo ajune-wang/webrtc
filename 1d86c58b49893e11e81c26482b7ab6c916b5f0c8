@@ -85,6 +85,24 @@
       "message": "This won\u0027t compile when absl::string_view and std::string_view are two different types as rtc::LogSink is not updated\n\n`ABSL_USES_STD_STRING_VIEW` macro\nfrom absl/base/config.h can help to detect which configuration is used.\nWhen defined, absl::string_view and std::string_view are the same type.",
       "revId": "1d86c58b49893e11e81c26482b7ab6c916b5f0c8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "778a9424_57cbf1d2",
+        "filename": "call/bitrate_estimator_tests.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 3417290
+      },
+      "writtenOn": "2024-09-02T14:33:26Z",
+      "side": 1,
+      "message": "Thanks for your review, can I modify the code here like this?\n\nAlso, I can compile this CL normally on Windows.\n\n```\n#if defined(ABSL_USES_STD_STRING_VIEW)\n#define STRING_VIEW_TYPE std::string_view\n#else\n#define STRING_VIEW_TYPE absl::string_view\n#endif\n\nnamespace webrtc {\nnamespace {\n// Note: If you consider to re-use this class, think twice and instead consider\n// writing tests that don\u0027t depend on the logging system.\nclass LogObserver {\n public:\n  LogObserver() { rtc::LogMessage::AddLogToStream(\u0026callback_, rtc::LS_INFO); }\n\n  ~LogObserver() { rtc::LogMessage::RemoveLogToStream(\u0026callback_); }\n\n  void PushExpectedLogLine(STRING_VIEW_TYPE expected_log_line) {\n    callback_.PushExpectedLogLine(expected_log_line);\n  }\n\n  bool Wait() { return callback_.Wait(); }\n\n private:\n  class Callback : public rtc::LogSink {\n   public:\n    void OnLogMessage(const std::string\u0026 message) override {\n      OnLogMessage(STRING_VIEW_TYPE(message));\n    }\n\n    void OnLogMessage(STRING_VIEW_TYPE message) override {\n      MutexLock lock(\u0026mutex_);\n      // Ignore log lines that are due to missing AST extensions, these are\n      // logged when we switch back from AST to TOF until the wrapping bitrate\n      // estimator gives up on using AST.\n      if (message.find(\"BitrateEstimator\") !\u003d STRING_VIEW_TYPE::npos \u0026\u0026\n          message.find(\"packet is missing\") \u003d\u003d STRING_VIEW_TYPE::npos) {\n        received_log_lines_.push_back(std::string(message));\n      }\n\n      int num_popped \u003d 0;\n      while (!received_log_lines_.empty() \u0026\u0026 !expected_log_lines_.empty()) {\n        std::string a \u003d received_log_lines_.front();\n        std::string b \u003d expected_log_lines_.front();\n        received_log_lines_.pop_front();\n        expected_log_lines_.pop_front();\n        num_popped++;\n        EXPECT_TRUE(a.find(b) !\u003d STRING_VIEW_TYPE::npos) \u003c\u003c a \u003c\u003c \" !\u003d \" \u003c\u003c b;\n      }\n      if (expected_log_lines_.empty()) {\n        if (num_popped \u003e 0) {\n          done_.Set();\n        }\n        return;\n      }\n    }\n\n    bool Wait() {\n      return done_.Wait(test::VideoTestConstants::kDefaultTimeout);\n    }\n\n    void PushExpectedLogLine(STRING_VIEW_TYPE expected_log_line) {\n      MutexLock lock(\u0026mutex_);\n      expected_log_lines_.emplace_back(expected_log_line);\n    }\n\n   private:\n    typedef std::list\u003cstd::string\u003e Strings;\n    Mutex mutex_;\n    Strings received_log_lines_ RTC_GUARDED_BY(mutex_);\n    Strings expected_log_lines_ RTC_GUARDED_BY(mutex_);\n    rtc::Event done_;\n  };\n\n  Callback callback_;\n};\n}\n```",
+      "parentUuid": "3d889dd2_113029ef",
+      "revId": "1d86c58b49893e11e81c26482b7ab6c916b5f0c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

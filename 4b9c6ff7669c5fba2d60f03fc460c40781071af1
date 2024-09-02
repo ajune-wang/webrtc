@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "80265330_f9d31ad4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-09-02T11:58:19Z",
+      "side": 1,
+      "message": "What is the advantage of including pt\u003d in the RID line - ie what receiver will change its behavior based on the existence of pt\u003d ?",
+      "revId": "4b9c6ff7669c5fba2d60f03fc460c40781071af1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

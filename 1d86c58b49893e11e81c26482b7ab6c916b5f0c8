@@ -34,6 +34,23 @@
       "parentUuid": "a5417069_0401a741",
       "revId": "1d86c58b49893e11e81c26482b7ab6c916b5f0c8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "52c49589_5d11ac64",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-09-02T13:56:30Z",
+      "side": 1,
+      "message": "Some of the WebRtc dependencies configured so that absl::string_view and std::string_view are two different types,\n\nso migration can\u0027t be too straight forward.\nIn particular virtual functions that take string_view need multi-step migration.\n\nLet me double check if this change is compatible with that other configuration.\n\nAnother difference is that absl::string_view(nullptr) is well defined to be empty string, but std::string_view(nullptr) is undefined behavior. So we need to double check that construct is not used in WebRTC (I do not remember seeing such code, but better to double check)",
+      "revId": "1d86c58b49893e11e81c26482b7ab6c916b5f0c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

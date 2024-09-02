@@ -114,6 +114,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ba3c98df_d46db907",
+        "filename": "modules/video_coding/svc/simulcast_to_svc_converter.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2024-09-02T07:53:18Z",
+      "side": 1,
+      "message": "You can always pass the temporal layer count as a parameter to avoid that.\n\nThe bitrate initialization is imo an implementation detail workaround for video_controller only - and it allows members to be clearly marked as const. \n\nAll we\u0027re really interested in seeing in this method is that we have `num_spatial_layer` instances and what scalability mode they have.",
+      "parentUuid": "ee46e28b_8b327761",
+      "range": {
+        "startLine": 50,
+        "startChar": 1,
+        "endLine": 54,
+        "endChar": 3
+      },
+      "revId": "72ab6c764bcfb44b9f78aafa63d6d0b115998011",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "45f79f47_13cbee72",
         "filename": "modules/video_coding/svc/simulcast_to_svc_converter.cc",
         "patchSetId": 2
@@ -149,6 +173,30 @@
       "side": 1,
       "message": "No, it\u0027s actually the other way arround. If FULL_SUPERFRAME_DROP was always happenining, there would be no need for all this complication. The issue is that the actually invoked ScalableVideoController for S3T3 mode updates the internal state (which is shared across all layers) as soon as any frame is encoded. So if only some layer has dropped a frame, the internal state of the simulated controller here and the actually used one gets off-sync.\n\nIt\u0027s brittle and won\u0027t work if the VideoController gets separate state for each layer for example.\n\nBut it won\u0027t fail silently - there\u0027s a check in `ConvertFrame()`: \n```\nRTC_DCHECK_EQ(frame_config.TemporalId(), tid \u003d\u003d 255 ? 0 : tid);\n```\n\nIt will trigger because if state isn\u0027t predicted correctly here, the temporal ids will get off-sync.\n\n\nFor now, I\u0027ve added some tests to simulate frame drops and changed the interface to return an error.\n\nAlternatively, updating the VideoController itself with a flag to generate descriptors and dependency structure for each layer separately would be the safest option. But it\u0027s too external and goes against the design to contain the change locally and keep it invisible to other layers.\n\nI tried to rewrite the generic_info and dependency_structure manually in SimulcastToSvcConverter. It was a stateless solution and had no external assumptions, but it got out of hand. It\u0027s quite complicated to figure out which decode targets and chains to omit and how to update the templates. Some first-party project is very picky about how the descriptors are populated and just didn\u0027t accept the packets.",
       "parentUuid": "45f79f47_13cbee72",
+      "range": {
+        "startLine": 69,
+        "startChar": 0,
+        "endLine": 72,
+        "endChar": 43
+      },
+      "revId": "72ab6c764bcfb44b9f78aafa63d6d0b115998011",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "43942d3e_4733927d",
+        "filename": "modules/video_coding/svc/simulcast_to_svc_converter.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2024-09-02T07:53:18Z",
+      "side": 1,
+      "message": "Ah, your right.\n\nAgree that doing it this way is probably the best way forward (unfortunately).",
+      "parentUuid": "eda11e4d_d4c2696a",
       "range": {
         "startLine": 69,
         "startChar": 0,

@@ -10,6 +10,8 @@
 
 #include "audio/channel_receive.h"
 
+#include <string_view>
+
 #include "absl/strings/escaping.h"
 #include "api/audio/audio_device.h"
 #include "api/audio_codecs/builtin_audio_decoder_factory.h"
@@ -136,7 +138,7 @@ class ChannelReceiveTest : public Test {
       RTC_LOG(LS_ERROR) << "Unexpected RTCP packet generated";
       RTC_LOG(LS_ERROR) << "Packet content "
                         << rtc::hex_encode_with_delimiter(
-                               absl::string_view(
+                               std::string_view(
                                    reinterpret_cast<char*>(packet.data()[0]),
                                    packet.size()),
                                ' ');

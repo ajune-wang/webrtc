@@ -13,10 +13,10 @@
 
 #include <bitset>
 #include <initializer_list>
+#include <string_view>
 #include <vector>
 
 #include "absl/container/inlined_vector.h"
-#include "absl/strings/string_view.h"
 #include "api/transport/rtp/dependency_descriptor.h"
 #include "api/video/video_codec_constants.h"
 #include "rtc_base/system/rtc_export.h"
@@ -53,7 +53,7 @@ class GenericFrameInfo::Builder {
   GenericFrameInfo Build() const;
   Builder& T(int temporal_id);
   Builder& S(int spatial_id);
-  Builder& Dtis(absl::string_view indication_symbols);
+  Builder& Dtis(std::string_view indication_symbols);
 
  private:
   GenericFrameInfo info_;

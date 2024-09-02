@@ -14,9 +14,9 @@
 #include <map>
 #include <memory>
 #include <string>
+#include <string_view>
 #include <vector>
 
-#include "absl/strings/string_view.h"
 #include "api/audio/audio_mixer.h"
 #include "api/environment/environment.h"
 #include "api/neteq/neteq_factory.h"
@@ -119,7 +119,7 @@ class AudioReceiveStreamImpl final : public webrtc::AudioReceiveStreamInterface,
   void AssociateSendStream(internal::AudioSendStream* send_stream);
   void DeliverRtcp(const uint8_t* packet, size_t length);
 
-  void SetSyncGroup(absl::string_view sync_group);
+  void SetSyncGroup(std::string_view sync_group);
 
   void SetLocalSsrc(uint32_t local_ssrc);
 

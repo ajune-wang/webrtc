@@ -23,10 +23,10 @@
 #include <map>
 #include <memory>
 #include <string>
+#include <string_view>
 #include <utility>
 #include <vector>
 
-#include "absl/strings/string_view.h"
 #include "api/environment/environment.h"
 #include "api/video/video_frame.h"
 #include "call/audio_receive_stream.h"
@@ -108,7 +108,7 @@ class FakeAudioReceiveStream final
     config_.rtp.local_ssrc = local_ssrc;
   }
 
-  void SetSyncGroup(absl::string_view sync_group) {
+  void SetSyncGroup(std::string_view sync_group) {
     config_.sync_group = std::string(sync_group);
   }
 
@@ -475,7 +475,7 @@ class FakeCall final : public webrtc::Call, public webrtc::PacketReceiver {
   void OnLocalSsrcUpdated(webrtc::FlexfecReceiveStream& stream,
                           uint32_t local_ssrc) override;
   void OnUpdateSyncGroup(webrtc::AudioReceiveStreamInterface& stream,
-                         absl::string_view sync_group) override;
+                         std::string_view sync_group) override;
   void OnSentPacket(const rtc::SentPacket& sent_packet) override;
 
   const webrtc::Environment env_;

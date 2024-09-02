@@ -17,6 +17,7 @@
 #include <memory>
 #include <set>
 #include <string>
+#include <string_view>
 #include <tuple>
 #include <utility>
 #include <vector>
@@ -406,7 +407,7 @@ class RtpSendChannelHelper : public Base, public MediaChannelUtil {
   }
   void OnPacketSent(const rtc::SentPacket& sent_packet) override {}
   void OnReadyToSend(bool ready) override { ready_to_send_ = ready; }
-  void OnNetworkRouteChanged(absl::string_view transport_name,
+  void OnNetworkRouteChanged(std::string_view transport_name,
                              const rtc::NetworkRoute& network_route) override {
     last_network_route_ = network_route;
     ++num_network_route_changes_;

@@ -15,6 +15,7 @@
 
 #include <cstddef>
 #include <string>
+#include <string_view>
 
 #include "common_audio/wav_header.h"
 #include "rtc_base/system/file_wrapper.h"
@@ -39,7 +40,7 @@ class WavFile {
 class WavWriter final : public WavFile {
  public:
   // Opens a new WAV file for writing.
-  WavWriter(absl::string_view filename,
+  WavWriter(std::string_view filename,
             int sample_rate,
             size_t num_channels,
             SampleFormat sample_format = SampleFormat::kInt16);
@@ -77,7 +78,7 @@ class WavWriter final : public WavFile {
 class WavReader final : public WavFile {
  public:
   // Opens an existing WAV file for reading.
-  explicit WavReader(absl::string_view filename);
+  explicit WavReader(std::string_view filename);
   explicit WavReader(FileWrapper file);
 
   // Close the WAV file.

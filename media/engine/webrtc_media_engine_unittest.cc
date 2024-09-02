@@ -12,6 +12,7 @@
 
 #include <memory>
 #include <string>
+#include <string_view>
 #include <utility>
 
 #include "test/gtest.h"
@@ -45,11 +46,11 @@ std::vector<RtpExtension> MakeRedundantExtensions() {
   return result;
 }
 
-bool SupportedExtensions1(absl::string_view name) {
+bool SupportedExtensions1(std::string_view name) {
   return name == "c" || name == "i";
 }
 
-bool SupportedExtensions2(absl::string_view name) {
+bool SupportedExtensions2(std::string_view name) {
   return name != "a" && name != "n";
 }
 

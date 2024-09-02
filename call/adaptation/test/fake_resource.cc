@@ -11,19 +11,19 @@
 #include "call/adaptation/test/fake_resource.h"
 
 #include <algorithm>
+#include <string_view>
 #include <utility>
 
-#include "absl/strings/string_view.h"
 #include "api/make_ref_counted.h"
 
 namespace webrtc {
 
 // static
-rtc::scoped_refptr<FakeResource> FakeResource::Create(absl::string_view name) {
+rtc::scoped_refptr<FakeResource> FakeResource::Create(std::string_view name) {
   return rtc::make_ref_counted<FakeResource>(name);
 }
 
-FakeResource::FakeResource(absl::string_view name)
+FakeResource::FakeResource(std::string_view name)
     : Resource(), name_(name), listener_(nullptr) {}
 
 FakeResource::~FakeResource() {}

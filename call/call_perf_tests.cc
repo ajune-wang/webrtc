@@ -12,9 +12,9 @@
 #include <limits>
 #include <memory>
 #include <string>
+#include <string_view>
 
 #include "absl/flags/flag.h"
-#include "absl/strings/string_view.h"
 #include "api/audio/audio_device.h"
 #include "api/audio_codecs/builtin_audio_encoder_factory.h"
 #include "api/numerics/samples_stats_counter.h"
@@ -91,7 +91,7 @@ class CallPerfTest : public test::CallTest {
                           float video_ntp_speed,
                           float video_rtp_speed,
                           float audio_rtp_speed,
-                          absl::string_view test_label);
+                          std::string_view test_label);
 
   void TestMinTransmitBitrate(bool pad_to_min_bitrate);
 
@@ -106,7 +106,7 @@ class CallPerfTest : public test::CallTest {
                                 int start_bwe,
                                 int max_bwe);
   void TestEncodeFramerate(VideoEncoderFactory* encoder_factory,
-                           absl::string_view payload_name,
+                           std::string_view payload_name,
                            const std::vector<int>& max_framerates);
 };
 
@@ -119,7 +119,7 @@ class VideoRtcpAndSyncObserver : public test::RtpRtcpObserver,
  public:
   explicit VideoRtcpAndSyncObserver(TaskQueueBase* task_queue,
                                     Clock* clock,
-                                    absl::string_view test_label)
+                                    std::string_view test_label)
       : test::RtpRtcpObserver(test::VideoTestConstants::kLongTimeout),
         clock_(clock),
         test_label_(test_label),
@@ -186,7 +186,7 @@ void CallPerfTest::TestAudioVideoSync(FecMode fec,
                                       float video_ntp_speed,
                                       float video_rtp_speed,
                                       float audio_rtp_speed,
-                                      absl::string_view test_label) {
+                                      std::string_view test_label) {
   const char* kSyncGroup = "av_sync";
   const uint32_t kAudioSendSsrc = 1234;
   const uint32_t kAudioRecvSsrc = 5678;
@@ -906,7 +906,7 @@ TEST_F(CallPerfTest, Min_Bitrate_VideoAndAudio) {
 }
 
 void CallPerfTest::TestEncodeFramerate(VideoEncoderFactory* encoder_factory,
-                                       absl::string_view payload_name,
+                                       std::string_view payload_name,
                                        const std::vector<int>& max_framerates) {
   static constexpr double kAllowedFpsDiff = 1.5;
   static constexpr TimeDelta kMinGetStatsInterval = TimeDelta::Millis(400);
@@ -918,7 +918,7 @@ void CallPerfTest::TestEncodeFramerate(VideoEncoderFactory* encoder_factory,
         public test::FrameGeneratorCapturer::SinkWantsObserver {
    public:
     FramerateObserver(VideoEncoderFactory* encoder_factory,
-                      absl::string_view payload_name,
+                      std::string_view payload_name,
                       const std::vector<int>& max_framerates,
                       TaskQueueBase* task_queue)
         : EndToEndTest(test::VideoTestConstants::kDefaultTimeout),

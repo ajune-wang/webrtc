@@ -11,6 +11,7 @@
 #include "audio/audio_receive_stream.h"
 
 #include <string>
+#include <string_view>
 #include <utility>
 
 #include "absl/memory/memory.h"
@@ -450,7 +451,7 @@ void AudioReceiveStreamImpl::DeliverRtcp(const uint8_t* packet, size_t length) {
   channel_receive_->ReceivedRTCPPacket(packet, length);
 }
 
-void AudioReceiveStreamImpl::SetSyncGroup(absl::string_view sync_group) {
+void AudioReceiveStreamImpl::SetSyncGroup(std::string_view sync_group) {
   RTC_DCHECK_RUN_ON(&packet_sequence_checker_);
   config_.sync_group = std::string(sync_group);
 }

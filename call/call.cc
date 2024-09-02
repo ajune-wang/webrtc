@@ -19,11 +19,11 @@
 #include <memory>
 #include <optional>
 #include <set>
+#include <string_view>
 #include <utility>
 #include <vector>
 
 #include "absl/functional/bind_front.h"
-#include "absl/strings/string_view.h"
 #include "api/media_types.h"
 #include "api/rtc_event_log/rtc_event_log.h"
 #include "api/sequence_checker.h"
@@ -253,7 +253,7 @@ class Call final : public webrtc::Call,
                           uint32_t local_ssrc) override;
 
   void OnUpdateSyncGroup(webrtc::AudioReceiveStreamInterface& stream,
-                         absl::string_view sync_group) override;
+                         std::string_view sync_group) override;
 
   void OnSentPacket(const rtc::SentPacket& sent_packet) override;
 
@@ -328,8 +328,8 @@ class Call final : public webrtc::Call,
       RTC_RUN_ON(network_thread_);
 
   AudioReceiveStreamImpl* FindAudioStreamForSyncGroup(
-      absl::string_view sync_group) RTC_RUN_ON(worker_thread_);
-  void ConfigureSync(absl::string_view sync_group) RTC_RUN_ON(worker_thread_);
+      std::string_view sync_group) RTC_RUN_ON(worker_thread_);
+  void ConfigureSync(std::string_view sync_group) RTC_RUN_ON(worker_thread_);
 
   void NotifyBweOfReceivedPacket(const RtpPacketReceived& packet,
                                  MediaType media_type)
@@ -1228,7 +1228,7 @@ void Call::OnLocalSsrcUpdated(FlexfecReceiveStream& stream,
 }
 
 void Call::OnUpdateSyncGroup(webrtc::AudioReceiveStreamInterface& stream,
-                             absl::string_view sync_group) {
+                             std::string_view sync_group) {
   RTC_DCHECK_RUN_ON(worker_thread_);
   webrtc::AudioReceiveStreamImpl& receive_stream =
       static_cast<webrtc::AudioReceiveStreamImpl&>(stream);
@@ -1300,7 +1300,7 @@ void Call::OnAllocationLimitsChanged(BitrateAllocationLimits limits) {
 }
 
 AudioReceiveStreamImpl* Call::FindAudioStreamForSyncGroup(
-    absl::string_view sync_group) {
+    std::string_view sync_group) {
   RTC_DCHECK_RUN_ON(worker_thread_);
   RTC_DCHECK_RUN_ON(&receive_11993_checker_);
   if (!sync_group.empty()) {
@@ -1313,7 +1313,7 @@ AudioReceiveStreamImpl* Call::FindAudioStreamForSyncGroup(
   return nullptr;
 }
 
-void Call::ConfigureSync(absl::string_view sync_group) {
+void Call::ConfigureSync(std::string_view sync_group) {
   // TODO(bugs.webrtc.org/11993): Expect to be called on the network thread.
   RTC_DCHECK_RUN_ON(worker_thread_);
   // `audio_stream` may be nullptr when clearing the audio stream for a group.

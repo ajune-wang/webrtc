@@ -10,7 +10,8 @@
 
 #include "call/rtp_demuxer.h"
 
-#include "absl/strings/string_view.h"
+#include <string_view>
+
 #include "call/rtp_packet_sink_interface.h"
 #include "modules/rtp_rtcp/source/rtp_header_extensions.h"
 #include "modules/rtp_rtcp/source/rtp_packet_received.h"
@@ -43,8 +44,8 @@ size_t RemoveFromMapByValue(Map* map, const Value& value) {
 }  // namespace
 
 RtpDemuxerCriteria::RtpDemuxerCriteria(
-    absl::string_view mid,
-    absl::string_view rsid /*= absl::string_view()*/)
+    std::string_view mid,
+    std::string_view rsid /*= std::string_view()*/)
     : mid_(mid), rsid_(rsid) {
   RTC_DCHECK(mid.length() <= BaseRtpStringExtension::kMaxValueSizeBytes);
 }
@@ -228,8 +229,8 @@ bool RtpDemuxer::AddSink(uint32_t ssrc, RtpPacketSinkInterface* sink) {
   return AddSink(criteria, sink);
 }
 
-void RtpDemuxer::AddSink(absl::string_view rsid, RtpPacketSinkInterface* sink) {
-  RtpDemuxerCriteria criteria(absl::string_view() /* mid */, rsid);
+void RtpDemuxer::AddSink(std::string_view rsid, RtpPacketSinkInterface* sink) {
+  RtpDemuxerCriteria criteria(std::string_view() /* mid */, rsid);
   AddSink(criteria, sink);
 }
 
@@ -365,7 +366,7 @@ RtpPacketSinkInterface* RtpDemuxer::ResolveSink(
   return ResolveSinkByPayloadType(packet.PayloadType(), ssrc);
 }
 
-RtpPacketSinkInterface* RtpDemuxer::ResolveSinkByMid(absl::string_view mid,
+RtpPacketSinkInterface* RtpDemuxer::ResolveSinkByMid(std::string_view mid,
                                                      uint32_t ssrc) {
   const auto it = sink_by_mid_.find(mid);
   if (it != sink_by_mid_.end()) {
@@ -376,8 +377,8 @@ RtpPacketSinkInterface* RtpDemuxer::ResolveSinkByMid(absl::string_view mid,
   return nullptr;
 }
 
-RtpPacketSinkInterface* RtpDemuxer::ResolveSinkByMidRsid(absl::string_view mid,
-                                                         absl::string_view rsid,
+RtpPacketSinkInterface* RtpDemuxer::ResolveSinkByMidRsid(std::string_view mid,
+                                                         std::string_view rsid,
                                                          uint32_t ssrc) {
   const auto it = sink_by_mid_and_rsid_.find(
       std::make_pair(std::string(mid), std::string(rsid)));
@@ -389,7 +390,7 @@ RtpPacketSinkInterface* RtpDemuxer::ResolveSinkByMidRsid(absl::string_view mid,
   return nullptr;
 }
 
-RtpPacketSinkInterface* RtpDemuxer::ResolveSinkByRsid(absl::string_view rsid,
+RtpPacketSinkInterface* RtpDemuxer::ResolveSinkByRsid(std::string_view rsid,
                                                       uint32_t ssrc) {
   const auto it = sink_by_rsid_.find(rsid);
   if (it != sink_by_rsid_.end()) {

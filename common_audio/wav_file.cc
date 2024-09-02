@@ -15,6 +15,7 @@
 #include <algorithm>
 #include <array>
 #include <cstdio>
+#include <string_view>
 #include <type_traits>
 #include <utility>
 
@@ -65,7 +66,7 @@ constexpr size_t kMaxChunksize = 4096;
 
 }  // namespace
 
-WavReader::WavReader(absl::string_view filename)
+WavReader::WavReader(std::string_view filename)
     : WavReader(FileWrapper::OpenReadOnly(filename)) {}
 
 WavReader::WavReader(FileWrapper file) : file_(std::move(file)) {
@@ -178,7 +179,7 @@ void WavReader::Close() {
   file_.Close();
 }
 
-WavWriter::WavWriter(absl::string_view filename,
+WavWriter::WavWriter(std::string_view filename,
                      int sample_rate,
                      size_t num_channels,
                      SampleFormat sample_format)

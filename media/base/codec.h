@@ -14,10 +14,10 @@
 #include <cstddef>
 #include <optional>
 #include <string>
+#include <string_view>
 #include <vector>
 
 #include "absl/container/inlined_vector.h"
-#include "absl/strings/string_view.h"
 #include "api/audio_codecs/audio_format.h"
 #include "api/rtp_parameters.h"
 #include "api/video_codecs/scalability_mode.h"
@@ -30,9 +30,9 @@ namespace cricket {
 class FeedbackParam {
  public:
   FeedbackParam() = default;
-  FeedbackParam(absl::string_view id, const std::string& param)
+  FeedbackParam(std::string_view id, const std::string& param)
       : id_(id), param_(param) {}
-  explicit FeedbackParam(absl::string_view id)
+  explicit FeedbackParam(std::string_view id)
       : id_(id), param_(kParamValueEmpty) {}
 
   bool operator==(const FeedbackParam& other) const;

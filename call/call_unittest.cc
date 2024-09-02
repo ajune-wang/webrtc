@@ -13,9 +13,9 @@
 #include <list>
 #include <map>
 #include <memory>
+#include <string_view>
 #include <utility>
 
-#include "absl/strings/string_view.h"
 #include "api/audio_codecs/builtin_audio_decoder_factory.h"
 #include "api/environment/environment.h"
 #include "api/environment/environment_factory.h"
@@ -77,7 +77,7 @@ struct CallHelper {
 
 rtc::scoped_refptr<Resource> FindResourceWhoseNameContains(
     const std::vector<rtc::scoped_refptr<Resource>>& resources,
-    absl::string_view name_contains) {
+    std::string_view name_contains) {
   for (const auto& resource : resources) {
     if (resource->Name().find(std::string(name_contains)) != std::string::npos)
       return resource;

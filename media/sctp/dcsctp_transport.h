@@ -14,8 +14,8 @@
 #include <memory>
 #include <optional>
 #include <string>
+#include <string_view>
 
-#include "absl/strings/string_view.h"
 #include "api/array_view.h"
 #include "api/environment/environment.h"
 #include "api/priority.h"
@@ -83,14 +83,14 @@ class DcSctpTransport : public cricket::SctpTransportInternal,
   void OnTotalBufferedAmountLow() override;
   void OnBufferedAmountLow(dcsctp::StreamID stream_id) override;
   void OnMessageReceived(dcsctp::DcSctpMessage message) override;
-  void OnError(dcsctp::ErrorKind error, absl::string_view message) override;
-  void OnAborted(dcsctp::ErrorKind error, absl::string_view message) override;
+  void OnError(dcsctp::ErrorKind error, std::string_view message) override;
+  void OnAborted(dcsctp::ErrorKind error, std::string_view message) override;
   void OnConnected() override;
   void OnClosed() override;
   void OnConnectionRestarted() override;
   void OnStreamsResetFailed(
       rtc::ArrayView<const dcsctp::StreamID> outgoing_streams,
-      absl::string_view reason) override;
+      std::string_view reason) override;
   void OnStreamsResetPerformed(
       rtc::ArrayView<const dcsctp::StreamID> outgoing_streams) override;
   void OnIncomingStreamsReset(

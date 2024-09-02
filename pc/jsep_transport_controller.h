@@ -37,6 +37,7 @@
 #include "api/sequence_checker.h"
 #include "api/transport/data_channel_transport_interface.h"
 #include "api/transport/sctp_transport_factory_interface.h"
+#include "call/payload_type.h"
 #include "media/sctp/sctp_transport_internal.h"
 #include "p2p/base/dtls_transport.h"
 #include "p2p/base/dtls_transport_factory.h"
@@ -76,7 +77,8 @@ class PacketTransportInternal;
 
 namespace webrtc {
 
-class JsepTransportController : public sigslot::has_slots<> {
+class JsepTransportController : public PayloadTypeSuggester,
+                                public sigslot::has_slots<> {
  public:
   // Used when the RtpTransport/DtlsTransport of the m= section is changed
   // because the section is rejected or BUNDLE is enabled.
@@ -240,7 +242,7 @@ class JsepTransportController : public sigslot::has_slots<> {
   // The function will either return a PT already in use on the connection
   // or a newly suggested one.
   RTCErrorOr<PayloadType> SuggestPayloadType(const std::string& mid,
-                                             cricket::Codec codec);
+                                             cricket::Codec codec) override;
 
   // TODO(deadbeef): GetStats isn't const because all the way down to
   // OpenSSLStreamAdapter, GetSslCipherSuite and GetDtlsSrtpCryptoSuite are not

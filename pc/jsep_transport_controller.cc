@@ -225,6 +225,15 @@ std::optional<rtc::SSLRole> JsepTransportController::GetDtlsRole(
 RTCErrorOr<webrtc::PayloadType> JsepTransportController::SuggestPayloadType(
     const std::string& mid,
     cricket::Codec codec) {
+  // Because SDP processing runs on the signal thread and Call processing
+  // runs on the worker thread, we allow cross thread invocation until we
+  // can clean up the thread work.
+  if (!network_thread_->IsCurrent()) {
+    return network_thread_->BlockingCall([&] {
+      RTC_DCHECK_RUN_ON(network_thread_);
+      return SuggestPayloadType(mid, codec);
+    });
+  }
   RTC_DCHECK_RUN_ON(network_thread_);
   const cricket::JsepTransport* transport = GetJsepTransportForMid(mid);
   if (transport) {

@@ -16,6 +16,57 @@
       "message": "+Harald for owner approval of api/voip/DEPS",
       "revId": "265cad1e1ce8c4ea3ec3a986847fb1926a8ef21f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ad07f63a_0d2436bf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-09-02T16:20:23Z",
+      "side": 1,
+      "message": "Some nits, but good update.",
+      "revId": "265cad1e1ce8c4ea3ec3a986847fb1926a8ef21f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ad1bf9ee_e6a1df98",
+        "filename": "g3doc/abseil-in-webrtc.md",
+        "patchSetId": 6
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-09-02T16:20:23Z",
+      "side": 1,
+      "message": "```suggestion\nusing `rtc::ArrayView` and avoid `absl::Span`. When WebRTC switches to C++20,\n```",
+      "revId": "265cad1e1ce8c4ea3ec3a986847fb1926a8ef21f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "29b8d9ff_c3638596",
+        "filename": "g3doc/abseil-in-webrtc.md",
+        "patchSetId": 6
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-09-02T16:20:23Z",
+      "side": 1,
+      "message": "```suggestion\nwe will consider replacing `rtc::ArrayView` with `std::span`.\n```",
+      "revId": "265cad1e1ce8c4ea3ec3a986847fb1926a8ef21f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

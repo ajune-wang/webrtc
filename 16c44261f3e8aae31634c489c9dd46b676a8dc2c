@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d9984827_c16478e2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-09-02T11:50:03Z",
+      "side": 1,
+      "message": "Reread that page and related section in the style guide and concluded no changes are needed.",
+      "revId": "16c44261f3e8aae31634c489c9dd46b676a8dc2c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

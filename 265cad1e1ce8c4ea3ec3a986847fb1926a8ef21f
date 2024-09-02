@@ -52,6 +52,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b0dcc954_97b68088",
+        "filename": "g3doc/abseil-in-webrtc.md",
+        "patchSetId": 6
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-09-02T16:24:06Z",
+      "side": 1,
+      "message": "Fix applied.",
+      "parentUuid": "ad1bf9ee_e6a1df98",
+      "revId": "265cad1e1ce8c4ea3ec3a986847fb1926a8ef21f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "29b8d9ff_c3638596",
@@ -65,6 +83,24 @@
       "writtenOn": "2024-09-02T16:20:23Z",
       "side": 1,
       "message": "```suggestion\nwe will consider replacing `rtc::ArrayView` with `std::span`.\n```",
+      "revId": "265cad1e1ce8c4ea3ec3a986847fb1926a8ef21f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d8e269a3_e578c938",
+        "filename": "g3doc/abseil-in-webrtc.md",
+        "patchSetId": 6
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-09-02T16:24:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "29b8d9ff_c3638596",
       "revId": "265cad1e1ce8c4ea3ec3a986847fb1926a8ef21f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

@@ -52,6 +52,7 @@
 #include "call/audio_send_stream.h"
 #include "call/audio_state.h"
 #include "call/call.h"
+#include "call/payload_type.h"
 #include "media/base/codec.h"
 #include "media/base/media_channel.h"
 #include "media/base/media_channel_impl.h"
@@ -146,9 +147,6 @@ class WebRtcVoiceEngine final : public VoiceEngineInterface {
   webrtc::AudioDeviceModule* adm();
   webrtc::AudioProcessing* apm() const;
   webrtc::AudioState* audio_state();
-
-  std::vector<Codec> CollectCodecs(
-      const std::vector<webrtc::AudioCodecSpec>& specs) const;
 
   webrtc::SequenceChecker signal_thread_checker_{
       webrtc::SequenceChecker::kDetached};

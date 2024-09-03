@@ -50,8 +50,10 @@ namespace {
 using ::testing::_;
 using ::testing::ContainerEq;
 using ::testing::Contains;
+using ::testing::Eq;
 using ::testing::Field;
 using ::testing::IsEmpty;
+using ::testing::Not;
 using ::testing::Return;
 using ::testing::ReturnPointee;
 using ::testing::SaveArg;
@@ -915,12 +917,34 @@ TEST_P(WebRtcVoiceEngineTestFake, SetRecvCodecs) {
   parameters.codecs[2].id = 126;
   EXPECT_TRUE(receive_channel_->SetReceiverParameters(parameters));
   EXPECT_TRUE(AddRecvStream(kSsrcX));
-  EXPECT_THAT(GetRecvStreamConfig(kSsrcX).decoder_map,
-              (ContainerEq<std::map<int, webrtc::SdpAudioFormat>>(
-                  {{0, {"PCMU", 8000, 1}},
-                   {106, {"OPUS", 48000, 2}},
-                   {126, {"telephone-event", 8000, 1}},
-                   {107, {"telephone-event", 32000, 1}}})));
+  for (auto iter : GetRecvStreamConfig(kSsrcX).decoder_map) {
+    RTC_LOG(LS_ERROR) << "DEBUG: Codec " << iter.first << " "
+                      << iter.second.name;
+  }
+  auto map = GetRecvStreamConfig(kSsrcX).decoder_map;
+  // Non-colliding values should be unchanged.
+  // None of these compile...
+  webrtc::SdpAudioFormat pcmu_format{"PCMU", 8000, 1};
+  auto form_0 = map.find(0)->second;
+  webrtc::SdpAudioFormat format_0 = form_0;
+  // EXPECT_EQ(pcmu_format, map[0]);
+  EXPECT_EQ((webrtc::SdpAudioFormat{"PCMU", 8000, 1}), map.find(0)->second);
+  EXPECT_THAT(map, Contains(testing::Pair<int, webrtc::SdpAudioFormat>(
+                       0, {"PCMU", 8000, 1})));
+  EXPECT_EQ((webrtc::SdpAudioFormat{"telephone-event", 8000, 1}),
+            map.find(126)->second);
+  EXPECT_EQ((webrtc::SdpAudioFormat{"telephone-event", 32000, 1}),
+            map.find(107)->second);
+  // The colliding value should be present, but in a different place.
+  int opus_idx = -1;
+  for (auto& iter : map) {
+    if (iter.second == webrtc::SdpAudioFormat({"OPUS", 48000, 2})) {
+      opus_idx = iter.first;
+      break;
+    }
+  }
+  EXPECT_THAT(opus_idx, Not(Eq(-1)));
+  EXPECT_THAT(opus_idx, Not(Eq(106)));
 }
 
 // Test that we fail to set an unknown inbound codec.

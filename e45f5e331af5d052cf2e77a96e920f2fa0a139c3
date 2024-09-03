@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c87ebf35_10d78226",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-09-03T11:23:14Z",
+      "side": 1,
+      "message": "Rebase killed the +1, so needs approval again.",
+      "revId": "e45f5e331af5d052cf2e77a96e920f2fa0a139c3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

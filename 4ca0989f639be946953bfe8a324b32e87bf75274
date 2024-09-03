@@ -16,6 +16,24 @@
       "message": "PTAL. Also, would it be better to [super init] instead?",
       "revId": "4ca0989f639be946953bfe8a324b32e87bf75274",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "457b9504_fe5c021f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2024-09-03T07:08:04Z",
+      "side": 1,
+      "message": "In this case the plain `init` is the designated  initializer, so other initializers should call it, as is being done here.",
+      "parentUuid": "b1491747_c997bcd4",
+      "revId": "4ca0989f639be946953bfe8a324b32e87bf75274",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

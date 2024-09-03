@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d119c64b_75fd1c8d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-09-03T15:56:24Z",
+      "side": 1,
+      "message": "Postponing rtcp_receiver/rtcp_sender to keep change smaller.\n(in particular postponing after would craft similar change for the deprecated ModuleRtpRtcp)\n\nInside ModuleRtpRtcpImpl2 passing Configuration with clock\u0026misc for two reasons:\na) rtcp_receiver still reads from it directly,\nb) I might miss updating some place with reading clock from Environment rather than from the Configuration, so it is safer to keep it in both places until ready for removal from the Configuration.",
+      "revId": "f6a8544dc7bc89f8367bf53350ff94813bcc0282",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

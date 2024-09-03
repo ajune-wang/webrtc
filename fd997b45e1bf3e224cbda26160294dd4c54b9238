@@ -56,6 +56,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "0b99dbfc_964b441c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-09-03T20:50:47Z",
+      "side": 1,
+      "message": "I ran things in production using OpenSSL without this so the man page seems correct.\n\nThank you for the history, one day we need to write up all this! My reference for this is still http://www.net-snmp.org/wiki/index.php/DTLS_Implementation_Notes which was last changed in 2010!",
+      "parentUuid": "7dba2ff6_95b1da28",
+      "revId": "fd997b45e1bf3e224cbda26160294dd4c54b9238",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "009a098a_201a96f8",
         "filename": "rtc_base/openssl_stream_adapter.cc",
         "patchSetId": 4

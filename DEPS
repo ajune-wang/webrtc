@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': '01d6daf05144a08e0e248c2d97b35612d95f7ec7',
+  'chromium_revision': 'ad60e0f60bd67814e7c4c8fc567a1dcd976496d3',
 
   # Fetch the prebuilt binaries for llvm-cov and llvm-profdata. Needed to
   # process the raw profiles produced by instrumented targets (built with
@@ -45,7 +45,7 @@ vars = {
   # RBE instance to use for running remote builds
   'rbe_instance': 'projects/rbe-webrtc-developer/instances/default_instance',
   # reclient CIPD package version
-  'reclient_version': 're_client_version:0.158.0.ddc2270e-gomaip',
+  'reclient_version': 're_client_version:0.159.2.996d35d3-gomaip',
 
   # ninja CIPD package.
   'ninja_package': 'infra/3pp/tools/ninja/',
@@ -61,7 +61,7 @@ vars = {
 deps = {
   # TODO(kjellander): Move this to be Android-only.
   'src/base':
-    'https://chromium.googlesource.com/chromium/src/base@b0531386e90193d52c2fa59d7442ac643bcde44e',
+    'https://chromium.googlesource.com/chromium/src/base@1c8652420e1f24b966646339eec8b730e21b8376',
   'src/build':
     'https://chromium.googlesource.com/chromium/src/build@469c6d506225a9aeaf7d3479745ece6d9a24f492',
   'src/buildtools':
@@ -72,11 +72,11 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': 'https://chromium.googlesource.com/chromium/src/ios@a891634072ebffd2205e22adb0aafd1d92618999',
+    'url': 'https://chromium.googlesource.com/chromium/src/ios@049fabffe2dee219e9b3032633f4f3cd28ff142e',
     'condition': 'checkout_ios',
   },
   'src/testing':
-    'https://chromium.googlesource.com/chromium/src/testing@c5261753f7a5d2c1624de75d6b39edf3234c34be',
+    'https://chromium.googlesource.com/chromium/src/testing@10047d88d6236aa4604ef1c146a5ad7e1dff2881',
   'src/third_party':
     'https://chromium.googlesource.com/chromium/src/third_party@ec6251c1b267294aefd56f0200b84b442aa3ba40',
 
@@ -410,7 +410,7 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@992e77c5a9a0e9808e97877897f6203118a40abf',
+    'https://chromium.googlesource.com/chromium/src/tools@d7fdfea3413222e9dfb49c47b3317e55c499c3bc',
 
   'src/third_party/espresso': {
       'packages': [

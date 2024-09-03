@@ -38,6 +38,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "7dba2ff6_95b1da28",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5602
+      },
+      "writtenOn": "2024-09-03T18:06:40Z",
+      "side": 1,
+      "message": "The history here is that OpenSSL\u0027s initial DTLS implementation was extremely hacky and did not work at all unless you called `SSL_set_read_ahead`.\n\nTLS runs over a stream transport, so read boundaries do not matter. OpenSSL by default never overreads. It first reads 5 bytes for the record header, then the body of the record, and so on. This is so that you can cleanly shutdown the TLS layer and then continue on with another protocol afterwards. (I have never seen an application protocol make use of this pointless feature.)\n\nThe `SSL_set_read_ahead` option was to configure OpenSSL to overread if you didn\u0027t care about this.\n\nDTLS is completely different. It runs over a datagram transport, so read boundaries matter a lot. You cannot simply read the DTLS header and then read the data because then you\u0027ll get two separate datagrams and in fact the first would get truncated. You have to read the whole datagram in one go.\n\nRather than simply teaching the library that the transports were different, OpenSSL\u0027s original DTLS implementation read as if the transport was TCP (and would get very, very confused in case of truncated or incomplete record). It only functioned over UDP if you called `SSL_set_read_ahead`.\n\nBoringSSL fixed this a while ago. If the OpenSSL man page is to be believed, OpenSSL did too, but this was long enough ago that I don\u0027t really remember. In which case, yeah, I believe this change is right.",
+      "parentUuid": "3cdee73f_af290045",
+      "revId": "fd997b45e1bf3e224cbda26160294dd4c54b9238",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "009a098a_201a96f8",
         "filename": "rtc_base/openssl_stream_adapter.cc",
         "patchSetId": 4

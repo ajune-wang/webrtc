@@ -17,35 +17,17 @@
 
 namespace webrtc {
 
-SourceTracker::SourceTracker(Clock* clock)
-    : worker_thread_(TaskQueueBase::Current()), clock_(clock) {
-  RTC_DCHECK(worker_thread_);
+SourceTracker::SourceTracker(Clock* clock) : clock_(clock) {
   RTC_DCHECK(clock_);
 }
 
 void SourceTracker::OnFrameDelivered(RtpPacketInfos packet_infos) {
+  TRACE_EVENT0("webrtc", "SourceTracker::OnFrameDelivered");
   if (packet_infos.empty()) {
     return;
   }
 
   Timestamp now = clock_->CurrentTime();
-  if (worker_thread_->IsCurrent()) {
-    RTC_DCHECK_RUN_ON(worker_thread_);
-    OnFrameDeliveredInternal(now, packet_infos);
-  } else {
-    worker_thread_->PostTask(
-        SafeTask(worker_safety_.flag(),
-                 [this, packet_infos = std::move(packet_infos), now]() {
-                   RTC_DCHECK_RUN_ON(worker_thread_);
-                   OnFrameDeliveredInternal(now, packet_infos);
-                 }));
-  }
-}
-
-void SourceTracker::OnFrameDeliveredInternal(
-    Timestamp now,
-    const RtpPacketInfos& packet_infos) {
-  TRACE_EVENT0("webrtc", "SourceTracker::OnFrameDelivered");
 
   for (const RtpPacketInfo& packet_info : packet_infos) {
     for (uint32_t csrc : packet_info.csrcs()) {
@@ -74,8 +56,6 @@ void SourceTracker::OnFrameDeliveredInternal(
 }
 
 std::vector<RtpSource> SourceTracker::GetSources() const {
-  RTC_DCHECK_RUN_ON(worker_thread_);
-
   PruneEntries(clock_->CurrentTime());
 
   std::vector<RtpSource> sources;
@@ -112,8 +92,7 @@ SourceTracker::SourceEntry& SourceTracker::UpdateEntry(const SourceKey& key) {
 }
 
 void SourceTracker::PruneEntries(Timestamp now) const {
-  Timestamp prune = now - kTimeout;
-  while (!list_.empty() && list_.back().second.timestamp < prune) {
+  while (!list_.empty() && list_.back().second.timestamp + kTimeout < now) {
     map_.erase(list_.back().first);
     list_.pop_back();
   }

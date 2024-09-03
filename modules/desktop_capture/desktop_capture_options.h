@@ -200,6 +200,13 @@ class RTC_EXPORT DesktopCaptureOptions {
   // The flag has no effect if the allow_wgc_capturer flag is false.
   bool allow_wgc_zero_hertz() const { return allow_wgc_zero_hertz_; }
   void set_allow_wgc_zero_hertz(bool allow) { allow_wgc_zero_hertz_ = allow; }
+
+  // This flag enables native texture of frame with the WGC capturer.
+  // The flag has no effect if the allow_wgc_capturer flag is false.
+  bool allow_wgc_using_texture() const { return allow_wgc_using_texture_; }
+  void set_allow_wgc_using_texture(bool allow) {
+    allow_wgc_using_texture_ = allow;
+  }
 #endif  // defined(RTC_ENABLE_WIN_WGC)
 #endif  // defined(WEBRTC_WIN)
 
@@ -256,6 +263,7 @@ class RTC_EXPORT DesktopCaptureOptions {
   bool allow_wgc_window_capturer_ = false;
   bool allow_wgc_capturer_fallback_ = false;
   bool allow_wgc_zero_hertz_ = false;
+  bool allow_wgc_using_texture_ = false;
 #endif
 #endif
 #if defined(WEBRTC_USE_X11)

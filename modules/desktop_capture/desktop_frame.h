@@ -60,6 +60,9 @@ class RTC_EXPORT DesktopFrame {
   // Data buffer used for the frame.
   uint8_t* data() const { return data_; }
 
+  // Texture used for the frame.
+  FrameTexture* texture() const { return texture_; }
+
   // SharedMemory used for the buffer or NULL if memory is allocated on the
   // heap. The result is guaranteed to be deleted only after the frame is
   // deleted (classes that inherit from DesktopFrame must ensure it).
@@ -153,13 +156,15 @@ class RTC_EXPORT DesktopFrame {
   DesktopFrame(DesktopSize size,
                int stride,
                uint8_t* data,
-               SharedMemory* shared_memory);
+               SharedMemory* shared_memory,
+               FrameTexture* texture = nullptr);
 
   // Ownership of the buffers is defined by the classes that inherit from this
   // class. They must guarantee that the buffer is not deleted before the frame
   // is deleted.
   uint8_t* const data_;
   SharedMemory* const shared_memory_;
+  FrameTexture* texture_;
 
  private:
   const DesktopSize size_;

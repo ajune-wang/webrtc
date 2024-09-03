@@ -26,9 +26,11 @@ namespace webrtc {
 DesktopFrame::DesktopFrame(DesktopSize size,
                            int stride,
                            uint8_t* data,
-                           SharedMemory* shared_memory)
+                           SharedMemory* shared_memory,
+                           FrameTexture* texture)
     : data_(data),
       shared_memory_(shared_memory),
+      texture_(texture),
       size_(size),
       stride_(stride),
       capture_time_ms_(0),

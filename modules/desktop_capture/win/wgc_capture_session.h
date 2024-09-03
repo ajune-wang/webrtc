@@ -23,6 +23,7 @@
 #include "modules/desktop_capture/screen_capture_frame_queue.h"
 #include "modules/desktop_capture/shared_desktop_frame.h"
 #include "modules/desktop_capture/win/wgc_capture_source.h"
+#include "modules/desktop_capture/win/wgc_texture_desktop_frame.h"
 #include "rtc_base/event.h"
 
 namespace webrtc {
@@ -82,6 +83,9 @@ class WgcCaptureSession final {
   // Process the captured frame and copy it to the `queue_`.
   HRESULT ProcessFrame();
 
+  // Process texture and copy frame with texture to the `queue_`.
+  HRESULT ProcessTexture(Microsoft::WRL::ComPtr<ID3D11Texture2D> texture);
+
   void RemoveEventHandler();
 
   bool FrameContentCanBeCompared();
@@ -140,11 +144,20 @@ class WgcCaptureSession final {
   // adds complexity since memcmp() is performed on two successive frames.
   bool allow_zero_hertz_ = false;
 
+  // Caches the value of DesktopCaptureOptions.allow_wgc_using_texture() in
+  // StartCapture(). Store texture handle of captured frame in DesktopFrame
+  // instead of mapping texture data which can reduce copy if clients process
+  // textures directly.
+  bool allow_using_texture_ = false;
+
   // Tracks damage region updates that were reported since the last time a frame
   // was captured. Currently only supports either the complete rect being
   // captured or an empty region. Will always be empty if `allow_zero_hertz_` is
   // false.
   DesktopRegion damage_region_;
+
+  // Provide ARGBToNV12 function for frame texture.
+  std::unique_ptr<WgcVideoProcessor> video_processor_;
 
   SequenceChecker sequence_checker_;
 };

@@ -65,6 +65,36 @@ class RTC_EXPORT SharedMemory {
   const int id_;
 };
 
+class DesktopFrame;
+
+// FrameTexture is a base class for platform-specific texture handle.
+// It stores handle, but doesn't have any logic to allocate or destroy it.
+// Inherit classes should implement those methods.
+class RTC_EXPORT FrameTexture {
+ public:
+#if defined(WEBRTC_WIN)
+  typedef HANDLE Handle;
+  static const Handle kInvalidHandle;
+#else
+  typedef int Handle;
+  static const Handle kInvalidHandle;
+#endif
+  // Platform-specific handle of the texture.
+  Handle handle() const { return handle_; }
+
+  virtual ~FrameTexture() {}
+  virtual std::unique_ptr<DesktopFrame> CreateDesktopFrameFromTexture() = 0;
+  virtual bool CopyToNewTexture(Handle new_texture_handle) = 0;
+
+  FrameTexture(const FrameTexture&) = delete;
+  FrameTexture& operator=(const FrameTexture&) = delete;
+
+ protected:
+  explicit FrameTexture(Handle handle);
+
+  Handle handle_;
+};
+
 // Interface used to create SharedMemory instances.
 class SharedMemoryFactory {
  public:

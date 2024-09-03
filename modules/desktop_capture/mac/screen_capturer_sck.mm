@@ -172,7 +172,6 @@ void ScreenCapturerSck::CaptureFrame() {
     MutexLock lock(&latest_frame_lock_);
     if (latest_frame_) {
       frame = latest_frame_->Share();
-      frame->set_dpi(DesktopVector(latest_frame_dpi_, latest_frame_dpi_));
       if (frame_is_dirty_) {
         frame->mutable_updated_region()->AddRect(DesktopRect::MakeSize(frame->size()));
         frame_is_dirty_ = false;
@@ -345,6 +344,9 @@ void ScreenCapturerSck::OnNewIOSurface(IOSurfaceRef io_surface, CFDictionaryRef 
 
   if (dirty) {
     MutexLock lock(&latest_frame_lock_);
+    frame->set_dpi(DesktopVector(latest_frame_dpi_, latest_frame_dpi_));
+    frame->set_may_contain_cursor(capture_options_.prefer_cursor_embedded());
+
     frame_is_dirty_ = true;
     std::swap(latest_frame_, frame);
   }

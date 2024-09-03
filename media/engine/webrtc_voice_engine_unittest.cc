@@ -10,37 +10,70 @@
 
 #include "media/engine/webrtc_voice_engine.h"
 
+#include <cstddef>
+#include <cstdint>
+#include <cstring>
+#include <map>
 #include <memory>
 #include <optional>
+#include <set>
+#include <string>
 #include <utility>
+#include <vector>
 
-#include "absl/memory/memory.h"
 #include "absl/strings/match.h"
+#include "api/audio/audio_processing.h"
+#include "api/audio_codecs/audio_codec_pair_id.h"
+#include "api/audio_codecs/audio_format.h"
 #include "api/audio_codecs/builtin_audio_decoder_factory.h"
 #include "api/audio_codecs/builtin_audio_encoder_factory.h"
+#include "api/audio_options.h"
+#include "api/call/audio_sink.h"
+#include "api/crypto/crypto_options.h"
 #include "api/environment/environment.h"
 #include "api/environment/environment_factory.h"
+#include "api/make_ref_counted.h"
 #include "api/media_types.h"
+#include "api/priority.h"
+#include "api/ref_count.h"
+#include "api/rtc_error.h"
+#include "api/rtp_headers.h"
 #include "api/rtp_parameters.h"
 #include "api/scoped_refptr.h"
 #include "api/task_queue/default_task_queue_factory.h"
+#include "api/transport/bitrate_settings.h"
 #include "api/transport/field_trial_based_config.h"
+#include "api/transport/rtp/rtp_source.h"
+#include "call/audio_receive_stream.h"
+#include "call/audio_send_stream.h"
+#include "call/audio_state.h"
 #include "call/call.h"
+#include "call/call_config.h"
 #include "media/base/codec.h"
 #include "media/base/fake_media_engine.h"
 #include "media/base/fake_network_interface.h"
 #include "media/base/fake_rtp.h"
 #include "media/base/media_channel.h"
+#include "media/base/media_config.h"
 #include "media/base/media_constants.h"
+#include "media/base/media_engine.h"
+#include "media/base/stream_params.h"
 #include "media/engine/fake_webrtc_call.h"
 #include "modules/audio_device/include/mock_audio_device.h"
 #include "modules/audio_mixer/audio_mixer_impl.h"
 #include "modules/audio_processing/include/mock_audio_processing.h"
+#include "modules/rtp_rtcp/include/rtp_header_extension_map.h"
 #include "modules/rtp_rtcp/source/rtp_header_extensions.h"
 #include "modules/rtp_rtcp/source/rtp_packet_received.h"
 #include "rtc_base/arraysize.h"
 #include "rtc_base/byte_order.h"
+#include "rtc_base/checks.h"
+#include "rtc_base/copy_on_write_buffer.h"
+#include "rtc_base/dscp.h"
+#include "rtc_base/logging.h"
 #include "rtc_base/numerics/safe_conversions.h"
+#include "rtc_base/thread.h"
+#include "test/gmock.h"
 #include "test/gtest.h"
 #include "test/mock_audio_decoder_factory.h"
 #include "test/mock_audio_encoder_factory.h"
@@ -50,8 +83,10 @@ namespace {
 using ::testing::_;
 using ::testing::ContainerEq;
 using ::testing::Contains;
+using ::testing::Eq;
 using ::testing::Field;
 using ::testing::IsEmpty;
+using ::testing::Not;
 using ::testing::Return;
 using ::testing::ReturnPointee;
 using ::testing::SaveArg;
@@ -915,12 +950,34 @@ TEST_P(WebRtcVoiceEngineTestFake, SetRecvCodecs) {
   parameters.codecs[2].id = 126;
   EXPECT_TRUE(receive_channel_->SetReceiverParameters(parameters));
   EXPECT_TRUE(AddRecvStream(kSsrcX));
-  EXPECT_THAT(GetRecvStreamConfig(kSsrcX).decoder_map,
-              (ContainerEq<std::map<int, webrtc::SdpAudioFormat>>(
-                  {{0, {"PCMU", 8000, 1}},
-                   {106, {"OPUS", 48000, 2}},
-                   {126, {"telephone-event", 8000, 1}},
-                   {107, {"telephone-event", 32000, 1}}})));
+  for (auto iter : GetRecvStreamConfig(kSsrcX).decoder_map) {
+    RTC_LOG(LS_ERROR) << "DEBUG: Codec " << iter.first << " "
+                      << iter.second.name;
+  }
+  auto map = GetRecvStreamConfig(kSsrcX).decoder_map;
+  // Non-colliding values should be unchanged.
+  // None of these compile...
+  webrtc::SdpAudioFormat pcmu_format{"PCMU", 8000, 1};
+  auto form_0 = map.find(0)->second;
+  webrtc::SdpAudioFormat format_0 = form_0;
+  // EXPECT_EQ(pcmu_format, map[0]);
+  EXPECT_EQ((webrtc::SdpAudioFormat{"PCMU", 8000, 1}), map.find(0)->second);
+  EXPECT_THAT(map, Contains(testing::Pair<int, webrtc::SdpAudioFormat>(
+                       0, {"PCMU", 8000, 1})));
+  EXPECT_EQ((webrtc::SdpAudioFormat{"telephone-event", 8000, 1}),
+            map.find(126)->second);
+  EXPECT_EQ((webrtc::SdpAudioFormat{"telephone-event", 32000, 1}),
+            map.find(107)->second);
+  // The colliding value should be present, but in a different place.
+  int opus_idx = -1;
+  for (auto& iter : map) {
+    if (iter.second == webrtc::SdpAudioFormat({"OPUS", 48000, 2})) {
+      opus_idx = iter.first;
+      break;
+    }
+  }
+  EXPECT_THAT(opus_idx, Not(Eq(-1)));
+  EXPECT_THAT(opus_idx, Not(Eq(106)));
 }
 
 // Test that we fail to set an unknown inbound codec.

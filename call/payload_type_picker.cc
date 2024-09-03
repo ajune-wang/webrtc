@@ -136,6 +136,16 @@ PayloadTypePicker::PayloadTypePicker() {
 RTCErrorOr<PayloadType> PayloadTypePicker::SuggestMapping(
     cricket::Codec codec,
     const PayloadTypeRecorder* excluder) {
+  RTC_LOG(LS_ERROR) << "DEBUG: Suggesting for " << codec.ToString();
+  // Test compatibility: If the codec contains a PT, and it is free, use it.
+  // This saves having to rewrite tests that set the codec ID themselves.
+  // Codecs with unassigned IDs should have -1 as their id.
+  if (codec.id >= 0 && codec.id <= kLastDynamicPayloadTypeUpperRange &&
+      seen_payload_types_.count(PayloadType(codec.id)) == 0) {
+    AddMapping(PayloadType(codec.id), codec);
+    RTC_LOG(LS_ERROR) << "DEBUG: Returning suggested PT " << codec.id;
+    return PayloadType(codec.id);
+  }
   // The first matching entry is returned, unless excluder
   // maps it to something different.
   for (auto entry : entries_) {
@@ -146,13 +156,17 @@ RTCErrorOr<PayloadType> PayloadTypePicker::SuggestMapping(
           continue;
         }
       }
+      RTC_LOG(LS_ERROR) << "DEBUG: Returning old PT "
+                        << entry.payload_type().value();
       return entry.payload_type();
     }
   }
+  // Assign the first free payload type.
   RTCErrorOr<PayloadType> found_pt = FindFreePayloadType(seen_payload_types_);
   if (found_pt.ok()) {
     AddMapping(found_pt.value(), codec);
   }
+  RTC_LOG(LS_ERROR) << "DEBUG: Returning new PT " << found_pt.value().value();
   return found_pt;
 }
 

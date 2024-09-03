@@ -58,6 +58,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "16808051_6bce8e38",
+        "filename": "media/base/fake_media_engine.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 311,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2024-09-03T10:22:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1db203cc_fe023ebc",
+      "range": {
+        "startLine": 311,
+        "startChar": 24,
+        "endLine": 311,
+        "endChar": 44
+      },
+      "revId": "ffc7a88e079ea1324ef66cb863588c92d9faad92",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d4986de8_26071c13",
@@ -81,6 +105,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fc9a4818_4236900d",
+        "filename": "pc/rtp_sender.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 345,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2024-09-03T10:22:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d4986de8_26071c13",
+      "range": {
+        "startLine": 345,
+        "startChar": 12,
+        "endLine": 345,
+        "endChar": 20
+      },
+      "revId": "ffc7a88e079ea1324ef66cb863588c92d9faad92",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "41940a93_87d8e23c",
@@ -94,6 +142,30 @@
       "writtenOn": "2024-09-03T09:34:25Z",
       "side": 1,
       "message": "ditto",
+      "range": {
+        "startLine": 370,
+        "startChar": 23,
+        "endLine": 370,
+        "endChar": 31
+      },
+      "revId": "ffc7a88e079ea1324ef66cb863588c92d9faad92",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "427207a2_c5f6c455",
+        "filename": "pc/rtp_sender.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 370,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2024-09-03T10:22:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "41940a93_87d8e23c",
       "range": {
         "startLine": 370,
         "startChar": 23,
@@ -151,6 +223,30 @@
       "writtenOn": "2024-09-03T09:34:25Z",
       "side": 1,
       "message": "drop namespace (looking at line#47)",
+      "range": {
+        "startLine": 74,
+        "startChar": 31,
+        "endLine": 74,
+        "endChar": 39
+      },
+      "revId": "ffc7a88e079ea1324ef66cb863588c92d9faad92",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1b99aff9_3a7430ea",
+        "filename": "pc/rtp_transmission_manager.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2024-09-03T10:22:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "47fbcfa9_9403e49d",
       "range": {
         "startLine": 74,
         "startChar": 31,

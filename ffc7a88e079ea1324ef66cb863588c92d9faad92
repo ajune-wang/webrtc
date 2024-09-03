@@ -16,6 +16,149 @@
       "message": "Can you check if that is the right way to propagate the environment and field trials?\nAlso, don\u0027t pay attention to the test changes too much, since the field trials are not yet used, I went with a generic `CreateEnvironment()` each time, and it\u0027ll be addressed when we start making use of them.",
       "revId": "ffc7a88e079ea1324ef66cb863588c92d9faad92",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9c72f3a7_12d8a38d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-09-03T09:34:25Z",
+      "side": 1,
+      "message": "Yes, that\u0027s how I would recommend to pass it: pass by const reference, store by value, env_ in peer connection is a good starting point.",
+      "revId": "ffc7a88e079ea1324ef66cb863588c92d9faad92",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1db203cc_fe023ebc",
+        "filename": "media/base/fake_media_engine.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 311,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-09-03T09:34:25Z",
+      "side": 1,
+      "message": "prefer ExplicitKeyValueConfig(\"\") in new code - that class avoids global field trial string,\nwhile ScopedKeyValueConfig relies on it.",
+      "range": {
+        "startLine": 311,
+        "startChar": 24,
+        "endLine": 311,
+        "endChar": 44
+      },
+      "revId": "ffc7a88e079ea1324ef66cb863588c92d9faad92",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d4986de8_26071c13",
+        "filename": "pc/rtp_sender.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 345,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-09-03T09:34:25Z",
+      "side": 1,
+      "message": "afaik this code is already in webrtc namespace (looking at line#48)",
+      "range": {
+        "startLine": 345,
+        "startChar": 12,
+        "endLine": 345,
+        "endChar": 20
+      },
+      "revId": "ffc7a88e079ea1324ef66cb863588c92d9faad92",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "41940a93_87d8e23c",
+        "filename": "pc/rtp_sender.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 370,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-09-03T09:34:25Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 370,
+        "startChar": 23,
+        "endLine": 370,
+        "endChar": 31
+      },
+      "revId": "ffc7a88e079ea1324ef66cb863588c92d9faad92",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "03c4acee_db822765",
+        "filename": "pc/rtp_sender_receiver_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 522,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-09-03T09:34:25Z",
+      "side": 1,
+      "message": "With Environment this member might be no longer needed",
+      "revId": "ffc7a88e079ea1324ef66cb863588c92d9faad92",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "82fe35ed_abb97de1",
+        "filename": "pc/rtp_sender_receiver_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 547,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-09-03T09:34:25Z",
+      "side": 1,
+      "message": "either delete field_trials_, or pass it to the CreateEnvironment function above:\nCreateEnvironment(\u0026field_trials_);\n\n[otherwise you\u0027re keep using global field trial string to propagate from individual test to the Create*Sender* functions above]\n...\nLooking how it is used, I do not see any tests that would pass in custom field trials, so another option would be to replace it with member `Environment env_ \u003d CreateEnvironment();`\nAnd use it to create Senders above, and use env_.field_trials() to `CreateDtlsSrtpTransport`\n\n\nOn the other hand - all of that can be done later as part of cleaning up tests from the global field trial string, and keep this change about prod code.",
+      "revId": "ffc7a88e079ea1324ef66cb863588c92d9faad92",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "47fbcfa9_9403e49d",
+        "filename": "pc/rtp_transmission_manager.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-09-03T09:34:25Z",
+      "side": 1,
+      "message": "drop namespace (looking at line#47)",
+      "range": {
+        "startLine": 74,
+        "startChar": 31,
+        "endLine": 74,
+        "endChar": 39
+      },
+      "revId": "ffc7a88e079ea1324ef66cb863588c92d9faad92",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

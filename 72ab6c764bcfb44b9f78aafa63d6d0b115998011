@@ -136,6 +136,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "16507f89_1573d25a",
+        "filename": "modules/video_coding/svc/simulcast_to_svc_converter.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2024-09-03T09:04:10Z",
+      "side": 1,
+      "message": "Done. Except, can\u0027t mark it const. It\u0027s not move-insertable then and vector can\u0027t store it.",
+      "parentUuid": "ba3c98df_d46db907",
+      "range": {
+        "startLine": 50,
+        "startChar": 1,
+        "endLine": 54,
+        "endChar": 3
+      },
+      "revId": "72ab6c764bcfb44b9f78aafa63d6d0b115998011",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "45f79f47_13cbee72",

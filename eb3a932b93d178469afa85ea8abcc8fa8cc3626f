@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "bb7d729d_8e2dcc3b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2024-09-03T11:10:06Z",
+      "side": 1,
+      "message": "Thanks for catching this!",
+      "parentUuid": "2cb9b51c_5d061e5a",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 50
+      },
+      "revId": "eb3a932b93d178469afa85ea8abcc8fa8cc3626f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "7b5ba27b_5a409a86",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 4

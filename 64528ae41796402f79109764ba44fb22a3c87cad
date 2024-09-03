@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "69993d3b_af017499",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8178
+      },
+      "writtenOn": "2024-09-03T07:23:07Z",
+      "side": 1,
+      "message": "Seems to never be read so ok; if it were I might have some questions around its thread access model.",
+      "revId": "64528ae41796402f79109764ba44fb22a3c87cad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

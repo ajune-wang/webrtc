@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "958e2562_feebb4d3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2024-09-03T09:17:09Z",
+      "side": 1,
+      "message": "Can you check if that is the right way to propagate the environment and field trials?\nAlso, don\u0027t pay attention to the test changes too much, since the field trials are not yet used, I went with a generic `CreateEnvironment()` each time, and it\u0027ll be addressed when we start making use of them.",
+      "revId": "ffc7a88e079ea1324ef66cb863588c92d9faad92",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -587,6 +587,8 @@ rtc_library("desktop_capture") {
       "win/wgc_capturer_win.h",
       "win/wgc_desktop_frame.cc",
       "win/wgc_desktop_frame.h",
+      "win/wgc_texture_desktop_frame.cc",
+      "win/wgc_texture_desktop_frame.h",
     ]
     libs += [ "dwmapi.lib" ]
     deps += [

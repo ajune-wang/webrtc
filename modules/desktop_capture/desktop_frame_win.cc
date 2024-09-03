@@ -10,9 +10,16 @@
 
 #include "modules/desktop_capture/desktop_frame_win.h"
 
+#include <comdef.h>
+#include <d3d11_4.h>
+
 #include <utility>
 
+#include "api/sequence_checker.h"
+#include "modules/desktop_capture/win/desktop_capture_utils.h"
 #include "rtc_base/logging.h"
+
+using Microsoft::WRL::ComPtr;
 
 namespace webrtc {
 

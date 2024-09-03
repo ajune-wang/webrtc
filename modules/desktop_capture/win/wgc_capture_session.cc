@@ -202,6 +202,13 @@ HRESULT WgcCaptureSession::StartCapture(const DesktopCaptureOptions& options) {
 
   allow_zero_hertz_ = options.allow_wgc_zero_hertz();
 
+  allow_using_texture_ = options.allow_wgc_using_texture();
+  if (allow_using_texture_) {
+    video_processor_ = std::make_unique<WgcVideoProcessor>(
+        DesktopSize(size_.Width, size_.Height), d3d11_device_);
+    video_processor_->PrepareVideoProcessor();
+  }
+
   hr = session_->StartCapture();
   if (FAILED(hr)) {
     RTC_LOG(LS_ERROR) << "Failed to start CaptureSession: " << hr;
@@ -302,6 +309,9 @@ HRESULT WgcCaptureSession::CreateMappedTexture(
     UINT width,
     UINT height) {
   RTC_DCHECK_RUN_ON(&sequence_checker_);
+  if (allow_using_texture_) {
+    return S_OK;
+  }
 
   D3D11_TEXTURE2D_DESC src_desc;
   src_texture->GetDesc(&src_desc);
@@ -413,6 +423,10 @@ HRESULT WgcCaptureSession::ProcessFrame() {
       RecordGetFrameResult(GetFrameResult::kRecreateFramePoolFailed);
       return hr;
     }
+  }
+
+  if (allow_using_texture_) {
+    return ProcessTexture(texture_2D);
   }
 
   // If the size has changed since the last capture, we must be sure to use
@@ -541,6 +555,28 @@ HRESULT WgcCaptureSession::ProcessFrame() {
   size_ = new_size;
   RecordGetFrameResult(GetFrameResult::kSuccess);
   return hr;
+}
+
+HRESULT WgcCaptureSession::ProcessTexture(
+    Microsoft::WRL::ComPtr<ID3D11Texture2D> texture) {
+  // 2. check damage rect(ignore)
+  // 3. replace queue frame with texture frame.
+  D3D11_TEXTURE2D_DESC desc;
+  texture->GetDesc(&desc);
+  DesktopSize size(desc.Width, desc.Height);
+  std::unique_ptr<DesktopFrame> texture_frame =
+      WgcTextureDesktopFrame::Create(size, texture, video_processor_.get());
+  if (!texture_frame) {
+    return E_FAIL;
+  }
+  if (queue_.current_frame() && queue_.current_frame()->IsShared()) {
+    RTC_LOG(LS_ERROR) << "Overwriting texture frame that is still shared.";
+  }
+  queue_.ReplaceCurrentFrame(
+      SharedDesktopFrame::Wrap(std::move(texture_frame)));
+  // Mark resized frames as damaged.
+  damage_region_.SetRect(DesktopRect::MakeSize(size));
+  return S_OK;
 }
 
 HRESULT WgcCaptureSession::OnItemClosed(WGC::IGraphicsCaptureItem* sender,

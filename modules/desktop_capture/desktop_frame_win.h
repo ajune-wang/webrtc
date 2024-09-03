@@ -11,7 +11,9 @@
 #ifndef MODULES_DESKTOP_CAPTURE_DESKTOP_FRAME_WIN_H_
 #define MODULES_DESKTOP_CAPTURE_DESKTOP_FRAME_WIN_H_
 
+#include <d3d11.h>
 #include <windows.h>
+#include <wrl/client.h>
 
 #include <memory>
 

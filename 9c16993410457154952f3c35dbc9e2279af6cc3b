@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a4e715fb_a04c4ae2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2024-09-03T08:55:17Z",
+      "side": 1,
+      "message": "lgtm but looks like you have a bot error...",
+      "revId": "9c16993410457154952f3c35dbc9e2279af6cc3b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

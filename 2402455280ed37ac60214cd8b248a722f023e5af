@@ -1,0 +1,123 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "05b1e1d3_c0f5f918",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-09-03T17:54:15Z",
+      "side": 1,
+      "message": "Currently tests pass on Fedora for me but Ubuntu already loathes 1024 bit RSA keys (which were deprecated in 2012?). This fixes all of them...\n\nsome questions inline...",
+      "revId": "2402455280ed37ac60214cd8b248a722f023e5af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f6d756bc_50802ab8",
+        "filename": "rtc_base/boringssl_identity.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-09-03T17:54:15Z",
+      "side": 1,
+      "message": "done to clear the error from the queue, saw it in unrelated error stacks. Same in OpenSSL variant.",
+      "revId": "2402455280ed37ac60214cd8b248a722f023e5af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f1659d71_1bf0a46b",
+        "filename": "rtc_base/ssl_identity.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-09-03T17:54:15Z",
+      "side": 1,
+      "message": "Can we do this without a PSA? Will need a tracking bug at least...",
+      "revId": "2402455280ed37ac60214cd8b248a722f023e5af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ea7d6e6a_bdde8ead",
+        "filename": "rtc_base/ssl_stream_adapter_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-09-03T17:54:15Z",
+      "side": 1,
+      "message": "*sob*",
+      "revId": "2402455280ed37ac60214cd8b248a722f023e5af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0d0e38f0_5e523bca",
+        "filename": "rtc_base/ssl_stream_adapter_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-09-03T17:54:15Z",
+      "side": 1,
+      "message": "Note that the chain is incomplete and does *not* point to the self-signed certificate. Which is a bit weird?",
+      "revId": "2402455280ed37ac60214cd8b248a722f023e5af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "53cf6c49_d12f79b1",
+        "filename": "rtc_base/ssl_stream_adapter_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 642,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-09-03T17:54:15Z",
+      "side": 1,
+      "message": "This one is quite surprising. I went for a day of simulated time and it still failed. Looks like OpenSSL does not have a hard limit?",
+      "revId": "2402455280ed37ac60214cd8b248a722f023e5af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c33094f9_b6bcccb7",
+        "filename": "rtc_base/ssl_stream_adapter_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1152,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-09-03T17:54:15Z",
+      "side": 1,
+      "message": "Does this rational still hold? It was probably written in 2011... maybe we should just go for 2048 and 4096?",
+      "revId": "2402455280ed37ac60214cd8b248a722f023e5af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -16,6 +16,23 @@
       "message": "hta: we still need an owner RS",
       "revId": "229ec21638aba3099995bed10944f11cea852b48",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0c31cab1_1928cdcd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-09-03T22:49:55Z",
+      "side": 1,
+      "message": "I see no functional change, and it looks better, so approving.",
+      "revId": "229ec21638aba3099995bed10944f11cea852b48",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

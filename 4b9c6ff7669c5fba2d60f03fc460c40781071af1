@@ -16,6 +16,24 @@
       "message": "What is the advantage of including pt\u003d in the RID line - ie what receiver will change its behavior based on the existence of pt\u003d ?",
       "revId": "4b9c6ff7669c5fba2d60f03fc460c40781071af1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bbb85731_7f9f6a8e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 22359
+      },
+      "writtenOn": "2024-09-03T01:48:01Z",
+      "side": 1,
+      "message": "This is one of the features to achieve mixed-codec simulcast. Originally, mixed-codec simulcast was implemented in this CL: https://webrtc-review.googlesource.com/c/src/+/360600, but since the patch set was too large, it is now being split into smaller CLs.",
+      "parentUuid": "80265330_f9d31ad4",
+      "revId": "4b9c6ff7669c5fba2d60f03fc460c40781071af1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -39,7 +39,8 @@ class AudioDecoderProxyFactory : public AudioDecoderFactory {
     return true;
   }
 
-  std::unique_ptr<AudioDecoder> MakeAudioDecoder(
+  std::unique_ptr<AudioDecoder> Create(
+      const Environment& /* env */,
       const SdpAudioFormat& /* format */,
       std::optional<AudioCodecPairId> /* codec_pair_id */) override {
     return std::make_unique<DecoderProxy>(decoder_);

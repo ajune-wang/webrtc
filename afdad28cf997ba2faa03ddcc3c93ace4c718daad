@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7a072ff9_7e7b6ede",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-09-04T12:40:23Z",
+      "side": 1,
+      "message": "just fyi: there was some discussion to avoid the problem differently, by allow Timestamp to be negative: bugs.webrtc.org/42224652",
+      "revId": "afdad28cf997ba2faa03ddcc3c93ace4c718daad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "03789094_f8c8b7c7",

@@ -33,6 +33,29 @@
       "message": "@mbonadei@webrtc.org can you take a look please?",
       "revId": "c2b32038aa622467d91158a436d53114b131ae99",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a32734dc_fbdb69b8",
+        "filename": "api/audio_options.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2024-09-04T11:27:34Z",
+      "side": 1,
+      "message": "I think this CL needs to be updated because we moved from absl::optional to std::optional (https://webrtc-review.googlesource.com/c/src/+/361021).",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 32
+      },
+      "revId": "c2b32038aa622467d91158a436d53114b131ae99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

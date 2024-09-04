@@ -16,6 +16,29 @@
       "message": "Thanks for the review!",
       "revId": "13840d6959742ae9ea1b3a362d1db90649289be8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "22aa0ed3_5497e20c",
+        "filename": "video/video_receive_stream2.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 630,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-09-04T11:20:45Z",
+      "side": 1,
+      "message": "42220804 is the new number of this issue\n(follow the link, see where it would auto-redirect)",
+      "range": {
+        "startLine": 630,
+        "startChar": 27,
+        "endLine": 630,
+        "endChar": 32
+      },
+      "revId": "13840d6959742ae9ea1b3a362d1db90649289be8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

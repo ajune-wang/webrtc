@@ -123,6 +123,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5030f2c6_c5674aa4",
+        "filename": "rtc_base/ssl_stream_adapter_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 642,
+      "author": {
+        "id": 5602
+      },
+      "writtenOn": "2024-09-04T22:58:52Z",
+      "side": 1,
+      "message": "BoringSSL\u0027s timeout behavior just came from OpenSSL\u0027s, which is an exponential backoff, giving up eventually. I mean, if we picked it ourselves, we wouldn\u0027t have picked something that gives up at a whole hour! That\u0027s kinda absurd.\n\nI think what\u0027s actually going on is that the API to mock out the clock only exists in BoringSSL.",
+      "parentUuid": "53cf6c49_d12f79b1",
+      "revId": "2402455280ed37ac60214cd8b248a722f023e5af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c33094f9_b6bcccb7",
         "filename": "rtc_base/ssl_stream_adapter_unittest.cc",
         "patchSetId": 5

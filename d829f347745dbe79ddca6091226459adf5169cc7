@@ -20,6 +20,52 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "dd48e4fe_3add8f82",
+        "filename": "rtc_base/openssl_stream_adapter.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 1213,
+      "author": {
+        "id": 5602
+      },
+      "writtenOn": "2024-09-04T22:58:52Z",
+      "side": 1,
+      "message": "I mean, this works, but it\u0027s kind of weird that all the other ifdefs use the `TLS1_CK_` constant while this uses the `TLS1_RFC` constant.\n\n```suggestion\n#elif defined(TLS1_CK_ECDHE_ECDSA_WITH_CHACHA20_POLY1305)  // OpenSSL.\n```\n\nAlso, ugh, why did OpenSSL go against the IANA naming convention here? The actual name of the cipher suite is ..._CHACHA20_POLY1305_SHA256, because they put the PRF hashes in.\n\nI mean, I could go define the other one in BoringSSL for OpenSSL compatibility. Probably should. (To that end, that\u0027s why I\u0027m suggesting `#elif`. Otherwise, if BoringSSL defines both, this code will get confused.)",
+      "range": {
+        "startLine": 1212,
+        "startChar": 0,
+        "endLine": 1213,
+        "endChar": 63
+      },
+      "revId": "d829f347745dbe79ddca6091226459adf5169cc7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c7fba1c5_9ccbcd3a",
+        "filename": "rtc_base/openssl_stream_adapter.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 1228,
+      "author": {
+        "id": 5602
+      },
+      "writtenOn": "2024-09-04T22:58:52Z",
+      "side": 1,
+      "message": "```suggestion\n#elif defined(TLS1_CK_ECDHE_ECDSA_WITH_CHACHA20_POLY1305)  // OpenSSL.\n```\n\nditto.",
+      "range": {
+        "startLine": 1227,
+        "startChar": 0,
+        "endLine": 1228,
+        "endChar": 62
+      },
+      "revId": "d829f347745dbe79ddca6091226459adf5169cc7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e115233f_30d84500",
         "filename": "rtc_base/ssl_stream_adapter_unittest.cc",
         "patchSetId": 11
@@ -31,6 +77,24 @@
       "writtenOn": "2024-09-04T22:36:38Z",
       "side": 1,
       "message": "davidben: maybe you know a better define for this than \"we are using BoringSSL\".",
+      "revId": "d829f347745dbe79ddca6091226459adf5169cc7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aaaeda44_2cbbd84b",
+        "filename": "rtc_base/ssl_stream_adapter_unittest.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 1173,
+      "author": {
+        "id": 5602
+      },
+      "writtenOn": "2024-09-04T22:58:52Z",
+      "side": 1,
+      "message": "Er, what\u0027s the context here? SHA-1 and SHA-224 are also implemented in OpenSSL...",
+      "parentUuid": "e115233f_30d84500",
       "revId": "d829f347745dbe79ddca6091226459adf5169cc7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

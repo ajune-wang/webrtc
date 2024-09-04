@@ -16,6 +16,173 @@
       "message": "Let me know if you think this is a bad idea :)",
       "revId": "447a41814a3d391b8f0f7579e1337c95131e64a3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "96744f0e_dbeea9a4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-09-04T10:01:01Z",
+      "side": 1,
+      "message": "http://go/cpp-primer#thread_safety\n“you should default to writing all of your classes to be thread-compatible unless you have a specific reason not to do so”\n\nso I welcome this change\n\nthis class is thread unsafe though, not thread compatible due to const methods also requiring full synchronization, but it is closer that thread safe.",
+      "parentUuid": "a65aae89_02aa909c",
+      "revId": "447a41814a3d391b8f0f7579e1337c95131e64a3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fc22e12b_cd88bca7",
+        "filename": "audio/channel_receive.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-09-04T10:01:01Z",
+      "side": 1,
+      "message": "why change the order of function here? \nit become diferent to order in .h and makes it a bit harder to see that there is no change to PreferredSampleRate.",
+      "revId": "447a41814a3d391b8f0f7579e1337c95131e64a3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0c2ed678_6ae5d308",
+        "filename": "audio/channel_receive.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 487,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-09-04T10:01:01Z",
+      "side": 1,
+      "message": "pass `RtpPacketInfos` copying it from audio_frame-\u003epacket_infos_\nas RtpPacketInfos is designed to have a cheap copy.\n\n....\nactually. There is a subtle bug introduced here.\nI think a bug like this is the reason why rvalue references are generally disallowed:\nRtpPacketInfos has two constructors: taking vector_type by const reference and by rvalue reference.\nline #483 I think uses 2nd constructor, that moves packet_infos content into itself and leaves packet_infos variable in moved-from state (empty for std::vector)\nThus at line#487 your are passing in an empty packet_infos.\n\nthat 2nd constructor of RtpPacketInfos really should take by value instead, and packet_infos above should be passed with std::move to make that visible.\nIt still would be possible to try to use packet_info in moved-from state, but it would be much more visible, in particular compiler (or clang-tidy) can warn you about it.",
+      "range": {
+        "startLine": 487,
+        "startChar": 15,
+        "endLine": 487,
+        "endChar": 27
+      },
+      "revId": "447a41814a3d391b8f0f7579e1337c95131e64a3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7b95c5b7_5f113969",
+        "filename": "audio/channel_receive.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 487,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-09-04T10:01:01Z",
+      "side": 1,
+      "message": "ditto, do not introduce new name in lambda capture",
+      "range": {
+        "startLine": 487,
+        "startChar": 29,
+        "endLine": 487,
+        "endChar": 42
+      },
+      "revId": "447a41814a3d391b8f0f7579e1337c95131e64a3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ac937d66_4c85f40f",
+        "filename": "audio/channel_receive.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 489,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-09-04T10:01:01Z",
+      "side": 1,
+      "message": "as of now this would trigger another copy.\nto avoid it you can mark lambda mutable (thus captured variables become mutable):\n`[this, ...]() mutable { ...`\n\nwon\u0027t be needed, but still will be helpful if you would capture and move RtpPacketInfos type instead of underneath vector.",
+      "range": {
+        "startLine": 489,
+        "startChar": 58,
+        "endLine": 489,
+        "endChar": 70
+      },
+      "revId": "447a41814a3d391b8f0f7579e1337c95131e64a3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ab65b9f7_5eb8dac1",
+        "filename": "modules/rtp_rtcp/source/source_tracker.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-09-04T10:01:01Z",
+      "side": 1,
+      "message": "why change this line?\nlooks unrelated\n\ntiny- adds extra arithmetic operation in each loop.\ntiny+ avoids negative Timestamp",
+      "revId": "447a41814a3d391b8f0f7579e1337c95131e64a3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4eb4fdc5_16f6a06c",
+        "filename": "video/video_receive_stream2.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 640,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-09-04T10:01:01Z",
+      "side": 1,
+      "message": "https://google.github.io/styleguide/cppguide.html#Lambda_expressions\n\n“Do not use captures with initializers to introduce new names, ... Instead, declare a new variable in the conventional way and then capture it,”",
+      "range": {
+        "startLine": 640,
+        "startChar": 19,
+        "endLine": 640,
+        "endChar": 60
+      },
+      "revId": "447a41814a3d391b8f0f7579e1337c95131e64a3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9383b86f_83909847",
+        "filename": "video/video_receive_stream2.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 652,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-09-04T10:01:01Z",
+      "side": 1,
+      "message": "while moving this TODO may be also update it to\nTODO: bugs.webrtc.org/42220804 - we should...\n\nhttp://go/todo-style",
+      "range": {
+        "startLine": 652,
+        "startChar": 11,
+        "endLine": 652,
+        "endChar": 39
+      },
+      "revId": "447a41814a3d391b8f0f7579e1337c95131e64a3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

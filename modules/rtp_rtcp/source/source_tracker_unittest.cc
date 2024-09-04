@@ -535,4 +535,12 @@ TEST(SourceTrackerTest, TimedOutSourcesAreRemoved) {
                                     kRtpTimestamp1, extensions1)));
 }
 
+TEST(SourceTrackerTest, AvoidNegativeTimestamp) {
+  GlobalSimulatedTimeController time_controller(Timestamp::Seconds(0));
+  SourceTracker tracker(time_controller.GetClock());
+  tracker.OnFrameDelivered(RtpPacketInfos(
+      {RtpPacketInfo(/*ssrc=*/111, /*csrcs=*/{}, /*rtp_timestamp=*/0,
+                     /*receive_time=*/Timestamp::Seconds(0))}));
+}
+
 }  // namespace webrtc

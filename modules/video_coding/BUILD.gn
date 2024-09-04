@@ -980,7 +980,6 @@ if (rtc_include_tests) {
       use_default_launcher = false
       deps += [
         ":android_codec_factory_helper",
-        "../../sdk/android:hwcodecs_java",
         "//sdk/android:native_test_jni_onload",
         "//testing/android/native_test:native_test_support",
       ]

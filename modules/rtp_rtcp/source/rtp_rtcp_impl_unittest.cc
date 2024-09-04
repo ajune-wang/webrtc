@@ -10,17 +10,36 @@
 
 #include "modules/rtp_rtcp/source/rtp_rtcp_impl.h"
 
+#include <cstddef>
+#include <cstdint>
 #include <map>
 #include <memory>
-#include <set>
+#include <optional>
+#include <vector>
 
+#include "api/array_view.h"
+#include "api/call/transport.h"
+#include "api/environment/environment.h"
+#include "api/environment/environment_factory.h"
+#include "api/rtp_headers.h"
 #include "api/units/time_delta.h"
+#include "api/video/video_codec_type.h"
+#include "api/video/video_content_type.h"
+#include "api/video/video_frame_type.h"
+#include "api/video/video_rotation.h"
+#include "modules/rtp_rtcp/include/receive_statistics.h"
+#include "modules/rtp_rtcp/include/rtcp_statistics.h"
 #include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
-#include "modules/rtp_rtcp/source/rtcp_packet.h"
 #include "modules/rtp_rtcp/source/rtcp_packet/nack.h"
+#include "modules/rtp_rtcp/source/rtcp_packet/sender_report.h"
 #include "modules/rtp_rtcp/source/rtp_packet_received.h"
+#include "modules/rtp_rtcp/source/rtp_rtcp_interface.h"
 #include "modules/rtp_rtcp/source/rtp_sender_video.h"
-#include "rtc_base/rate_limiter.h"
+#include "modules/rtp_rtcp/source/rtp_sequence_number_map.h"
+#include "modules/video_coding/codecs/interface/common_constants.h"
+#include "modules/video_coding/codecs/vp8/include/vp8_globals.h"
+#include "system_wrappers/include/clock.h"
+#include "system_wrappers/include/ntp_time.h"
 #include "test/explicit_key_value_config.h"
 #include "test/gmock.h"
 #include "test/gtest.h"
@@ -110,13 +129,14 @@ class SendTransport : public Transport {
 class RtpRtcpModule : public RtcpPacketTypeCounterObserver {
  public:
   RtpRtcpModule(SimulatedClock* clock, bool is_sender)
-      : is_sender_(is_sender),
-        receive_statistics_(ReceiveStatistics::Create(clock)),
-        clock_(clock) {
+      : env_(CreateEnvironment(clock)),
+        is_sender_(is_sender),
+        receive_statistics_(ReceiveStatistics::Create(clock)) {
     CreateModuleImpl();
     transport_.SimulateNetworkDelay(kOneWayNetworkDelay.ms(), clock);
   }
 
+  const Environment env_;
   const bool is_sender_;
   RtcpPacketTypeCounter packets_sent_;
   RtcpPacketTypeCounter packets_received_;
@@ -157,7 +177,6 @@ class RtpRtcpModule : public RtcpPacketTypeCounterObserver {
   void CreateModuleImpl() {
     RtpRtcpInterface::Configuration config;
     config.audio = false;
-    config.clock = clock_;
     config.outgoing_transport = &transport_;
     config.receive_statistics = receive_statistics_.get();
     config.rtcp_packet_type_counter_observer = this;
@@ -167,12 +186,11 @@ class RtpRtcpModule : public RtcpPacketTypeCounterObserver {
     config.need_rtp_packet_infos = true;
     config.non_sender_rtt_measurement = true;
 
-    impl_.reset(new ModuleRtpRtcpImpl(config));
+    impl_.reset(new ModuleRtpRtcpImpl(env_, config));
     impl_->SetRemoteSSRC(is_sender_ ? kReceiverSsrc : kSenderSsrc);
     impl_->SetRTCPStatus(RtcpMode::kCompound);
   }
 
-  SimulatedClock* const clock_;
   std::map<uint32_t, RtcpPacketTypeCounter> counter_map_;
 };
 }  // namespace

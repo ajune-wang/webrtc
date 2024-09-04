@@ -75,6 +75,23 @@ class CallSessionFileRotatingLogSink : public FileRotatingLogSink {
       const CallSessionFileRotatingLogSink&) = delete;
 };
 
+class StringPtrLogSink : public LogSink {
+ public:
+  explicit StringPtrLogSink(std::string* log_data) : log_data_(log_data) {}
+
+  template <typename P>
+  explicit StringPtrLogSink(P* p) {}
+
+ private:
+  void OnLogMessage(const std::string& message) override {
+    OnLogMessage(absl::string_view(message));
+  }
+  void OnLogMessage(absl::string_view message) override {
+    log_data_->append(message.begin(), message.end());
+  }
+  std::string* const log_data_;
+};
+
 }  // namespace rtc
 
 #endif  // RTC_BASE_LOG_SINKS_H_

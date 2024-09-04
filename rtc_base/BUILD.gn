@@ -732,21 +732,6 @@ rtc_library("rtc_task_queue_stdlib") {
   ]
 }
 
-if (rtc_include_tests) {
-  rtc_library("task_queue_stdlib_unittest") {
-    testonly = true
-
-    sources = [ "task_queue_stdlib_unittest.cc" ]
-    deps = [
-      ":gunit_helpers",
-      ":rtc_task_queue_stdlib",
-      "../api/task_queue:task_queue_test",
-      "../test:test_main",
-      "../test:test_support",
-    ]
-  }
-}
-
 rtc_library("weak_ptr") {
   sources = [
     "weak_ptr.cc",
@@ -1899,6 +1884,7 @@ if (rtc_include_tests) {
         "strings/string_format_unittest.cc",
         "strong_alias_unittest.cc",
         "swap_queue_unittest.cc",
+        "task_queue_stdlib_unittest.cc",
         "thread_annotations_unittest.cc",
         "time_utils_unittest.cc",
         "timestamp_aligner_unittest.cc",
@@ -1926,6 +1912,7 @@ if (rtc_include_tests) {
         ":gunit_helpers",
         ":histogram_percentile_counter",
         ":ip_address",
+        ":log_sinks",
         ":logging",
         ":macromagic",
         ":mod_ops",
@@ -1941,6 +1928,7 @@ if (rtc_include_tests) {
         ":rtc_base_tests_utils",
         ":rtc_event",
         ":rtc_numerics",
+        ":rtc_task_queue_stdlib",
         ":safe_compare",
         ":safe_minmax",
         ":sample_counter",
@@ -1962,6 +1950,8 @@ if (rtc_include_tests) {
         "../api:ref_count",
         "../api:scoped_refptr",
         "../api/numerics",
+        "../api/task_queue",
+        "../api/task_queue:task_queue_test",
         "../api/units:data_rate",
         "../api/units:data_size",
         "../api/units:frequency",

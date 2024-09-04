@@ -20,6 +20,7 @@
 #include "rtc_base/arraysize.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/event.h"
+#include "rtc_base/log_sinks.h"
 #include "rtc_base/platform_thread.h"
 #include "rtc_base/time_utils.h"
 #include "test/gmock.h"
@@ -36,23 +37,6 @@ constexpr char kFakeFilePath[] = "some/path/myfile.cc";
 #endif
 
 }  // namespace
-
-class LogSinkImpl : public LogSink {
- public:
-  explicit LogSinkImpl(std::string* log_data) : log_data_(log_data) {}
-
-  template <typename P>
-  explicit LogSinkImpl(P* p) {}
-
- private:
-  void OnLogMessage(const std::string& message) override {
-    OnLogMessage(absl::string_view(message));
-  }
-  void OnLogMessage(absl::string_view message) override {
-    log_data_->append(message.begin(), message.end());
-  }
-  std::string* const log_data_;
-};
 
 class LogMessageForTesting : public LogMessage {
  public:
@@ -89,7 +73,7 @@ TEST(LogTest, SingleStream) {
   int sev = LogMessage::GetLogToStream(nullptr);
 
   std::string str;
-  LogSinkImpl stream(&str);
+  StringPtrLogSink stream(&str);
   LogMessage::AddLogToStream(&stream, LS_INFO);
   EXPECT_EQ(LS_INFO, LogMessage::GetLogToStream(&stream));
 
@@ -146,7 +130,7 @@ TEST(LogTest, SingleStream) {
 
 TEST(LogTest, LogIfLogIfConditionIsTrue) {
   std::string str;
-  LogSinkImpl stream(&str);
+  StringPtrLogSink stream(&str);
   LogMessage::AddLogToStream(&stream, LS_INFO);
 
   RTC_LOG_IF(LS_INFO, true) << "Hello";
@@ -157,7 +141,7 @@ TEST(LogTest, LogIfLogIfConditionIsTrue) {
 
 TEST(LogTest, LogIfDontLogIfConditionIsFalse) {
   std::string str;
-  LogSinkImpl stream(&str);
+  StringPtrLogSink stream(&str);
   LogMessage::AddLogToStream(&stream, LS_INFO);
 
   RTC_LOG_IF(LS_INFO, false) << "Hello";
@@ -168,7 +152,7 @@ TEST(LogTest, LogIfDontLogIfConditionIsFalse) {
 
 TEST(LogTest, LogIfFLogIfConditionIsTrue) {
   std::string str;
-  LogSinkImpl stream(&str);
+  StringPtrLogSink stream(&str);
   LogMessage::AddLogToStream(&stream, LS_INFO);
 
   RTC_LOG_IF_F(LS_INFO, true) << "Hello";
@@ -180,7 +164,7 @@ TEST(LogTest, LogIfFLogIfConditionIsTrue) {
 
 TEST(LogTest, LogIfFDontLogIfConditionIsFalse) {
   std::string str;
-  LogSinkImpl stream(&str);
+  StringPtrLogSink stream(&str);
   LogMessage::AddLogToStream(&stream, LS_INFO);
 
   RTC_LOG_IF_F(LS_INFO, false) << "Not";
@@ -197,7 +181,7 @@ TEST(LogTest, MultipleStreams) {
   int sev = LogMessage::GetLogToStream(nullptr);
 
   std::string str1, str2;
-  LogSinkImpl stream1(&str1), stream2(&str2);
+  StringPtrLogSink stream1(&str1), stream2(&str2);
   LogMessage::AddLogToStream(&stream1, LS_INFO);
   LogMessage::AddLogToStream(&stream2, LS_VERBOSE);
   EXPECT_EQ(LS_INFO, LogMessage::GetLogToStream(&stream1));
@@ -241,7 +225,7 @@ TEST(LogTest, MultipleThreads) {
   thread3.Start();
 
   std::string s1, s2, s3;
-  LogSinkImpl stream1(&s1), stream2(&s2), stream3(&s3);
+  StringPtrLogSink stream1(&s1), stream2(&s2), stream3(&s3);
   for (int i = 0; i < 1000; ++i) {
     LogMessage::AddLogToStream(&stream1, LS_WARNING);
     LogMessage::AddLogToStream(&stream2, LS_INFO);
@@ -273,7 +257,7 @@ TEST(LogTest, CheckExtraErrorField) {
 
 TEST(LogTest, CheckFilePathParsed) {
   std::string str;
-  LogSinkImpl stream(&str);
+  StringPtrLogSink stream(&str);
   LogMessage::AddLogToStream(&stream, LS_INFO);
   EXPECT_EQ(LS_INFO, LogMessage::GetLogToStream(&stream));
 #if defined(WEBRTC_ANDROID)
@@ -299,7 +283,7 @@ TEST(LogTest, CheckFilePathParsed) {
 #if defined(WEBRTC_ANDROID)
 TEST(LogTest, CheckTagAddedToStringInDefaultOnLogMessageAndroid) {
   std::string str;
-  LogSinkImpl stream(&str);
+  StringPtrLogSink stream(&str);
   LogMessage::AddLogToStream(&stream, LS_INFO);
   EXPECT_EQ(LS_INFO, LogMessage::GetLogToStream(&stream));
 
@@ -312,7 +296,7 @@ TEST(LogTest, CheckTagAddedToStringInDefaultOnLogMessageAndroid) {
 // Test the time required to write 1000 80-character logs to a string.
 TEST(LogTest, Perf) {
   std::string str;
-  LogSinkImpl stream(&str);
+  StringPtrLogSink stream(&str);
   LogMessage::AddLogToStream(&stream, LS_VERBOSE);
 
   const std::string message(80, 'X');
@@ -343,7 +327,7 @@ TEST(LogTest, Perf) {
 TEST(LogTest, EnumsAreSupported) {
   enum class TestEnum { kValue0 = 0, kValue1 = 1 };
   std::string str;
-  LogSinkImpl stream(&str);
+  StringPtrLogSink stream(&str);
   LogMessage::AddLogToStream(&stream, LS_INFO);
   RTC_LOG(LS_INFO) << "[" << TestEnum::kValue0 << "]";
   EXPECT_NE(std::string::npos, str.find("[0]"));
@@ -374,7 +358,7 @@ std::string ToLogString(TestStruct foo) {
 
 TEST(LogTest, ToLogStringUsedForUnknownTypes) {
   std::string str;
-  LogSinkImpl stream(&str);
+  StringPtrLogSink stream(&str);
   LogMessage::AddLogToStream(&stream, LS_INFO);
   TestStruct t;
   RTC_LOG(LS_INFO) << t;

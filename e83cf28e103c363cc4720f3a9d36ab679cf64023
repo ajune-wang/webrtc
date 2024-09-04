@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "739220fe_a3698a97",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-09-04T07:53:51Z",
+      "side": 1,
+      "message": "Is it possible to test this (for ex by overriding the log handler with a fake and seeing that it\u0027s triggered when doing some action that should cause a log)?",
+      "revId": "e83cf28e103c363cc4720f3a9d36ab679cf64023",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

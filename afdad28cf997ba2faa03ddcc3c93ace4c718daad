@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2093417a_2f5d4288",
+        "filename": "modules/rtp_rtcp/source/source_tracker_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 539,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-09-04T12:35:53Z",
+      "side": 1,
+      "message": "or\n`Timestamp::Zero()`",
+      "range": {
+        "startLine": 539,
+        "startChar": 59,
+        "endLine": 539,
+        "endChar": 69
+      },
+      "revId": "afdad28cf997ba2faa03ddcc3c93ace4c718daad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "855e4671_6d9232f7",
+        "filename": "modules/rtp_rtcp/source/source_tracker_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 539,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-09-04T12:35:53Z",
+      "side": 1,
+      "message": "or use simpler\nSimulatedClock\n\nhttps://webrtc.googlesource.com/src/+/refs/heads/main/system_wrappers/include/clock.h#55\n\n(specially now that SourceTracker doesn\u0027t need a TaskQueue to potentially repost Tasks)",
+      "range": {
+        "startLine": 539,
+        "startChar": 2,
+        "endLine": 539,
+        "endChar": 31
+      },
+      "revId": "afdad28cf997ba2faa03ddcc3c93ace4c718daad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

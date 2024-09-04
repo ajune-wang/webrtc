@@ -19,9 +19,24 @@ import sys
 import tempfile
 
 
-SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
-SRC_DIR = os.path.realpath(os.path.join(SCRIPT_DIR, os.pardir, os.pardir))
-sys.path.append(os.path.join(SRC_DIR, 'build'))
+def find_root_path():
+    """Returns the absolute path to the highest level repo root.
+
+    If this repo is checked out as a submodule of the chromium/src
+    superproject, this returns the superproect root. Otherwise, it returns the
+    webrtc/src repo root.
+    """
+    root_dir = os.path.dirname(os.path.abspath(__file__))
+    while os.path.basename(root_dir) not in ('src', 'chromium'):
+        par_dir = os.path.normpath(os.path.join(root_dir, os.pardir))
+        if par_dir == root_dir:
+            raise RuntimeError('Could not find the repo root.')
+        root_dir = par_dir
+    return root_dir
+
+
+ROOT_DIR = find_root_path()
+sys.path.append(os.path.join(ROOT_DIR, 'build'))
 import find_depot_tools
 
 

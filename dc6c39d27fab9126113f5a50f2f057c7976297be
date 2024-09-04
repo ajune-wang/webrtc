@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "ffe2df1c_7e803b9c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-09-04T20:20:38Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "202d8e03_2c6e9cb0",
+      "revId": "dc6c39d27fab9126113f5a50f2f057c7976297be",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "b1765e56_7ddf7e64",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 6
@@ -31,6 +49,24 @@
       "writtenOn": "2024-09-03T22:55:15Z",
       "side": 1,
       "message": "Can we do this with a feature flag guard?",
+      "revId": "dc6c39d27fab9126113f5a50f2f057c7976297be",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "82b65eb3_8d2b7c0a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-09-04T20:20:38Z",
+      "side": 1,
+      "message": "The bump to default *should* be safe. Increasing min will require a separate CL.",
+      "parentUuid": "b1765e56_7ddf7e64",
       "revId": "dc6c39d27fab9126113f5a50f2f057c7976297be",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -48,6 +84,24 @@
       "writtenOn": "2024-09-03T22:55:15Z",
       "side": 1,
       "message": "It\u0027s this change that needs a PSA, not the default one. I think.\nWould be even happier if we could make a feature flag for the change in min, in case it turns out that Important Things still use too-small sizes.",
+      "revId": "dc6c39d27fab9126113f5a50f2f057c7976297be",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8f2f23a1_6efb01a1",
+        "filename": "rtc_base/ssl_identity.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-09-04T20:20:38Z",
+      "side": 1,
+      "message": "Default should be easy, I only see a reference to the method that uses a argument. Sadly it is called from Chrome\u0027s generateCertificate...",
+      "parentUuid": "244a2cc3_4c95ddca",
       "revId": "dc6c39d27fab9126113f5a50f2f057c7976297be",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

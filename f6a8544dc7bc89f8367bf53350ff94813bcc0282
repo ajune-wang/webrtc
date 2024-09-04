@@ -16,6 +16,29 @@
       "message": "Postponing rtcp_receiver/rtcp_sender to keep change smaller.\n(in particular postponing after would craft similar change for the deprecated ModuleRtpRtcp)\n\nInside ModuleRtpRtcpImpl2 passing Configuration with clock\u0026misc for two reasons:\na) rtcp_receiver still reads from it directly,\nb) I might miss updating some place with reading clock from Environment rather than from the Configuration, so it is safer to keep it in both places until ready for removal from the Configuration.",
       "revId": "f6a8544dc7bc89f8367bf53350ff94813bcc0282",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b3ca2ee7_2e085a76",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_egress.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 462,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2024-09-04T15:06:27Z",
+      "side": 1,
+      "message": "maybe remove",
+      "range": {
+        "startLine": 462,
+        "startChar": 4,
+        "endLine": 462,
+        "endChar": 8
+      },
+      "revId": "f6a8544dc7bc89f8367bf53350ff94813bcc0282",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

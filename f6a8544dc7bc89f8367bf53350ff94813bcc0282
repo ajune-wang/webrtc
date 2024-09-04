@@ -39,6 +39,30 @@
       },
       "revId": "f6a8544dc7bc89f8367bf53350ff94813bcc0282",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f09129ac_b035b307",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_egress.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 462,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-09-04T15:20:04Z",
+      "side": 1,
+      "message": "Then it would be also good to swap blocks, so that \"checks occur right as the errors are handled\" to align with https://testing.googleblog.com/2017/06/code-health-reduce-nesting-reduce.html",
+      "parentUuid": "b3ca2ee7_2e085a76",
+      "range": {
+        "startLine": 462,
+        "startChar": 4,
+        "endLine": 462,
+        "endChar": 8
+      },
+      "revId": "f6a8544dc7bc89f8367bf53350ff94813bcc0282",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

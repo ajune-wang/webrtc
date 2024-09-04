@@ -167,6 +167,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "d99caebb_65818259",
+        "filename": "audio/channel_receive.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 487,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-09-04T11:18:04Z",
+      "side": 1,
+      "message": "I don\u0027t fully understand either. rules are not simple [and thus style rule exists to avoid relying on complicated cpp rules]\npacket_infos has type \u0027vector_type\u0026\u0027\nThere are two overloads. one takes `const vector_type\u0026\u0027, another one \u0027vector_type\u0026\u0026\u0027\nNeither is perfect match.\n\nIn this case I think these rules are relevant:\nhttps://en.cppreference.com/w/cpp/language/overload_resolution\n\"Best viable function\nFor each pair of viable function F1 and F2, the implicit conversion sequences from the i-th argument to i-th parameter are ranked to determine which one is better\"\n\"Ranking of implicit conversion sequences\"\nd) both S1 and S2 are binding to a reference parameter and S1 binds an lvalue reference to function while S2 binds an rvalue reference to function\ne) S1 and S2 only differ in qualification conversion,\n\nso \u0027vector_type\u0026\u0027 -\u003e \u0027vector_type\u0026\u0026\u0027 is sligtly better implicit conversion than \u0027vector_type\u0026\u0027 -\u003e \u0027const vector_type\u0026\u0027",
+      "parentUuid": "e364e5a9_7e5c3037",
+      "range": {
+        "startLine": 487,
+        "startChar": 15,
+        "endLine": 487,
+        "endChar": 27
+      },
+      "revId": "447a41814a3d391b8f0f7579e1337c95131e64a3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "ac937d66_4c85f40f",
         "filename": "audio/channel_receive.cc",
         "patchSetId": 3

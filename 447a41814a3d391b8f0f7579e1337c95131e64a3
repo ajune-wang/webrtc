@@ -53,6 +53,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b66833d3_cf445609",
+        "filename": "audio/channel_receive.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2024-09-04T10:59:30Z",
+      "side": 1,
+      "message": "My mistake.",
+      "parentUuid": "fc22e12b_cd88bca7",
+      "revId": "447a41814a3d391b8f0f7579e1337c95131e64a3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0c2ed678_6ae5d308",
@@ -101,6 +119,54 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "57e33fd4_039af411",
+        "filename": "audio/channel_receive.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 487,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2024-09-04T10:59:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7b95c5b7_5f113969",
+      "range": {
+        "startLine": 487,
+        "startChar": 29,
+        "endLine": 487,
+        "endChar": 42
+      },
+      "revId": "447a41814a3d391b8f0f7579e1337c95131e64a3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e364e5a9_7e5c3037",
+        "filename": "audio/channel_receive.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 487,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2024-09-04T10:59:30Z",
+      "side": 1,
+      "message": "Wow, thanks, I don\u0027t think I realized the complexity of RtpPacketInfos...\nI don\u0027t fully understand why the second constructor would be used on line #483?\nAnyway, changed so that we move packet_infos and capture a copy of audio_frame-\u003epacket_infos_. I guess we can change RtpPacketInfos contructor in a follow up cl.",
+      "parentUuid": "0c2ed678_6ae5d308",
+      "range": {
+        "startLine": 487,
+        "startChar": 15,
+        "endLine": 487,
+        "endChar": 27
+      },
+      "revId": "447a41814a3d391b8f0f7579e1337c95131e64a3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "ac937d66_4c85f40f",
         "filename": "audio/channel_receive.cc",
         "patchSetId": 3
@@ -139,6 +205,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2b6ed44f_6e653b0c",
+        "filename": "modules/rtp_rtcp/source/source_tracker.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2024-09-04T10:59:30Z",
+      "side": 1,
+      "message": "I\u0027ll remove it from this cl and make another one. It is to avoid negative Timestamp.",
+      "parentUuid": "ab65b9f7_5eb8dac1",
+      "revId": "447a41814a3d391b8f0f7579e1337c95131e64a3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4eb4fdc5_16f6a06c",
@@ -164,6 +248,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "233c26d6_09202eae",
+        "filename": "video/video_receive_stream2.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 640,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2024-09-04T10:59:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4eb4fdc5_16f6a06c",
+      "range": {
+        "startLine": 640,
+        "startChar": 19,
+        "endLine": 640,
+        "endChar": 60
+      },
+      "revId": "447a41814a3d391b8f0f7579e1337c95131e64a3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "9383b86f_83909847",
         "filename": "video/video_receive_stream2.cc",
         "patchSetId": 3
@@ -175,6 +283,30 @@
       "writtenOn": "2024-09-04T10:01:01Z",
       "side": 1,
       "message": "while moving this TODO may be also update it to\nTODO: bugs.webrtc.org/42220804 - we should...\n\nhttp://go/todo-style",
+      "range": {
+        "startLine": 652,
+        "startChar": 11,
+        "endLine": 652,
+        "endChar": 39
+      },
+      "revId": "447a41814a3d391b8f0f7579e1337c95131e64a3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "abb9e5a1_38775df5",
+        "filename": "video/video_receive_stream2.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 652,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2024-09-04T10:59:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9383b86f_83909847",
       "range": {
         "startLine": 652,
         "startChar": 11,

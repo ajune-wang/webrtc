@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fe9997c2_cbe36c1e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-09-04T22:36:38Z",
+      "side": 1,
+      "message": "davidben: one code question below (and I need a second +1).\n\nLooks like Chrome in general removed 1024 bit RSA key support in 2017 already which should make it easy to justify the removal in WebRTCs generateCertificate.",
+      "revId": "d829f347745dbe79ddca6091226459adf5169cc7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e115233f_30d84500",
+        "filename": "rtc_base/ssl_stream_adapter_unittest.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 1173,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-09-04T22:36:38Z",
+      "side": 1,
+      "message": "davidben: maybe you know a better define for this than \"we are using BoringSSL\".",
+      "revId": "d829f347745dbe79ddca6091226459adf5169cc7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e2e19052_91ca364d",
+        "filename": "tools_webrtc/presubmit_checks_lib/build_helpers.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2024-09-04T20:10:28Z",
+      "side": 1,
+      "message": "Thanks!\n\nI did a manual test and it looks like we also need it in tools_webrtc/autoroller/roll_deps.py (because the unit test loads the roll_deps module).\n\nCan you add it there as well?",
+      "revId": "82a9b2810058043eb54323cf0495243c676e42b3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

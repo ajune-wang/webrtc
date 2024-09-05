@@ -147,6 +147,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e804ea58_b6dacd57",
+        "filename": "rtc_base/openssl_stream_adapter.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 1234,
+      "author": {
+        "id": 5602
+      },
+      "writtenOn": "2024-09-05T17:21:26Z",
+      "side": 1,
+      "message": "Ah yeah, I see this is just used in tests. I assumed this was an API for picking RSA vs ECDSA certificates. Yeah, deleting it entirely sounds great!",
+      "parentUuid": "64314e79_de981b95",
+      "revId": "d829f347745dbe79ddca6091226459adf5169cc7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e115233f_30d84500",

@@ -234,6 +234,24 @@
       "parentUuid": "a9d854ee_a1114ba4",
       "revId": "d829f347745dbe79ddca6091226459adf5169cc7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1ef86a22_7c3d0aef",
+        "filename": "rtc_base/ssl_stream_adapter_unittest.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 1173,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-09-05T17:51:02Z",
+      "side": 1,
+      "message": "That inconsistency is what I figured out trying to get it to run on different operating systems. What made me discover this particular thing is that we are in the process of adding a bot to run the OpenSSL variant (which as you probably noticed turned out to be quite a rabbithole)\n\nIf BoringSSL provides more test coverage we\u0027ll take that and revisit once it breaks the roll. Added a comment.",
+      "parentUuid": "e38e0c00_9ce6ce1c",
+      "revId": "d829f347745dbe79ddca6091226459adf5169cc7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -41,6 +41,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3255f6af_cc1ddb97",
+        "filename": "rtc_base/openssl_stream_adapter.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 1213,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-09-05T17:11:48Z",
+      "side": 1,
+      "message": "manually applied",
+      "parentUuid": "dd48e4fe_3add8f82",
+      "range": {
+        "startLine": 1212,
+        "startChar": 0,
+        "endLine": 1213,
+        "endChar": 63
+      },
+      "revId": "d829f347745dbe79ddca6091226459adf5169cc7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c7fba1c5_9ccbcd3a",
@@ -64,6 +88,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "638f307d_b69309b5",
+        "filename": "rtc_base/openssl_stream_adapter.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 1228,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-09-05T17:11:48Z",
+      "side": 1,
+      "message": "manually applied",
+      "parentUuid": "c7fba1c5_9ccbcd3a",
+      "range": {
+        "startLine": 1227,
+        "startChar": 0,
+        "endLine": 1228,
+        "endChar": 62
+      },
+      "revId": "d829f347745dbe79ddca6091226459adf5169cc7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e84dbbc4_3c25938c",
@@ -77,6 +125,24 @@
       "writtenOn": "2024-09-05T15:35:59Z",
       "side": 1,
       "message": "Better yet, delete all this code and replace it with `SSL_CIPHER_get_auth_nid`.\n\nAlthough there\u0027s a deeper problem here which is that RSA vs ECDSA is much, much more complicated than looking at the cipher suite. In fact this code is already incompatible with (D)TLS 1.3, which you all will need to move to for postquantum. (We\u0027re working on DTLS 1.3 implementation for BoringSSL right now.) (D)TLS 1.3 uses the signature algorithms to negotiate the certificate type.\n\nThough I also see no callers for this, so I\u0027m a little confused what this is for. Is this public API? That may be a problem as this public API will be unsalvageable.\n\nFor dispatching between RSA and ECDSA, BoringSSL has the SSL_CREDENTIAL API:\nhttps://commondatastorage.googleapis.com/chromium-boringssl-docs/ssl.h.html#Credentials\n\nThis API doesn\u0027t exist in OpenSSL, however. OpenSSL has some very weird behavior (that BoringSSL does not have, as it\u0027s kinda broken will things like intermediates and OCSP staples) where you can install one RSA key and one ECDSA key because the APIs to configure things secretly go into different slots. But it\u0027s super buggy because it\u0027s very easy to mix up additional information like the intermediates.",
+      "revId": "d829f347745dbe79ddca6091226459adf5169cc7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "64314e79_de981b95",
+        "filename": "rtc_base/openssl_stream_adapter.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 1234,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-09-05T17:11:48Z",
+      "side": 1,
+      "message": "Even better, delete all this code!\n\nI do not see why WebRTC would restrict the TLS cipher suites in either IETF or W3C specs, it should (and hopefully does) just reference them and then hope the TLS libraries do the right thing.\n\nWill do as a separate CL since there are a few of unit tests that reference it.",
+      "parentUuid": "e84dbbc4_3c25938c",
       "revId": "d829f347745dbe79ddca6091226459adf5169cc7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -112,6 +178,24 @@
       "side": 1,
       "message": "Er, what\u0027s the context here? SHA-1 and SHA-224 are also implemented in OpenSSL...",
       "parentUuid": "e115233f_30d84500",
+      "revId": "d829f347745dbe79ddca6091226459adf5169cc7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a9d854ee_a1114ba4",
+        "filename": "rtc_base/ssl_stream_adapter_unittest.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 1173,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-09-05T17:11:48Z",
+      "side": 1,
+      "message": "These two break in OpenSSL because OpenSSL 3.x deprecates SHA1 for cert signatures. On some Linux distributions (Ubuntu; not Fedora; different \"security levels\" I thnk). Yet  SHA_DIGEST_LENGTH and SHA224_DIGEST_LENGTH are still defined.\n\nI have not yet seen a good define for this and it seems weird that BoringSSL is putting up with it whe OpenSSL no longer does.",
+      "parentUuid": "aaaeda44_2cbbd84b",
       "revId": "d829f347745dbe79ddca6091226459adf5169cc7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

@@ -139,6 +139,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "11bd90bd_8c4b786b",
+        "filename": "rtc_base/ssl_stream_adapter_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 642,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-09-05T17:11:48Z",
+      "side": 1,
+      "message": "Good point, so this is untestable for Openssl. Surprised it does not take one hour though. Skipping the whole test in OpenSSL.",
+      "parentUuid": "5030f2c6_c5674aa4",
+      "revId": "2402455280ed37ac60214cd8b248a722f023e5af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c33094f9_b6bcccb7",

@@ -66,6 +66,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e84dbbc4_3c25938c",
+        "filename": "rtc_base/openssl_stream_adapter.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 1234,
+      "author": {
+        "id": 5602
+      },
+      "writtenOn": "2024-09-05T15:35:59Z",
+      "side": 1,
+      "message": "Better yet, delete all this code and replace it with `SSL_CIPHER_get_auth_nid`.\n\nAlthough there\u0027s a deeper problem here which is that RSA vs ECDSA is much, much more complicated than looking at the cipher suite. In fact this code is already incompatible with (D)TLS 1.3, which you all will need to move to for postquantum. (We\u0027re working on DTLS 1.3 implementation for BoringSSL right now.) (D)TLS 1.3 uses the signature algorithms to negotiate the certificate type.\n\nThough I also see no callers for this, so I\u0027m a little confused what this is for. Is this public API? That may be a problem as this public API will be unsalvageable.\n\nFor dispatching between RSA and ECDSA, BoringSSL has the SSL_CREDENTIAL API:\nhttps://commondatastorage.googleapis.com/chromium-boringssl-docs/ssl.h.html#Credentials\n\nThis API doesn\u0027t exist in OpenSSL, however. OpenSSL has some very weird behavior (that BoringSSL does not have, as it\u0027s kinda broken will things like intermediates and OCSP staples) where you can install one RSA key and one ECDSA key because the APIs to configure things secretly go into different slots. But it\u0027s super buggy because it\u0027s very easy to mix up additional information like the intermediates.",
+      "revId": "d829f347745dbe79ddca6091226459adf5169cc7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e115233f_30d84500",
         "filename": "rtc_base/ssl_stream_adapter_unittest.cc",
         "patchSetId": 11

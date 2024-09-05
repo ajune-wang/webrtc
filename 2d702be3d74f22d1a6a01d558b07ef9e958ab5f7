@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "17dbfb11_652a523a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2024-09-05T11:21:09Z",
+      "side": 1,
+      "message": "PTAL Ilya",
+      "revId": "2d702be3d74f22d1a6a01d558b07ef9e958ab5f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

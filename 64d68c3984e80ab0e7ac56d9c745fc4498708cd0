@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1acd117f_230a5a06",
+        "filename": "video/adaptation/video_stream_encoder_resource_manager.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2024-09-05T11:21:09Z",
+      "side": 0,
+      "message": "The mistake made here was thinking `last_input_width_`/`last_input_height_` was the input frame size but it\u0027s the previous codec size which does represent what we send so we need to account for it. And the bug was that this method was being called too often so it thought that the adaptation counters were stale when they weren\u0027t really on a per frame basis",
+      "revId": "64d68c3984e80ab0e7ac56d9c745fc4498708cd0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

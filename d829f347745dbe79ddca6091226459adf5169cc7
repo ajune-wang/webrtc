@@ -198,6 +198,24 @@
       "parentUuid": "aaaeda44_2cbbd84b",
       "revId": "d829f347745dbe79ddca6091226459adf5169cc7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e38e0c00_9ce6ce1c",
+        "filename": "rtc_base/ssl_stream_adapter_unittest.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 1173,
+      "author": {
+        "id": 5602
+      },
+      "writtenOn": "2024-09-05T17:19:23Z",
+      "side": 1,
+      "message": "Oh yeah the \"security level\" stuff is kinda incoherent and not very well thought through.\n\nBoringSSL has to put up with it because a bunch of projects, like this one, write tests that assert that they need it to work. :P\n\nIf WebRTC needs these to work, it should presumably configure OpenSSL 3.x with a \"security level\" that makes those work. If WebRTC doesn\u0027t need these to work, it shouldn\u0027t wire it up and test it. Which is it?",
+      "parentUuid": "a9d854ee_a1114ba4",
+      "revId": "d829f347745dbe79ddca6091226459adf5169cc7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -51,6 +51,24 @@
       "message": "I\u0027m skeptical of doing things in this order.\n\nAs you can see from https://luci-milo.appspot.com/ui/inv/build-8737919420461679633/test-results?q\u003dexternal%2Fwpt%2Fwebrtc%2FRTCRtpParameters-codec.html\u0026sortby\u003d\u0026groupby\u003d there\u0027s a Web Platform Test that is affected, which indicates that this CL is not without side effects. (You have to disable that test in order to land this CL).\n\nI\u0027d prefer to start with the parsing side - that the PT indications in the SDP can be parsed and will cause the correct correspondences to be set up on the receiving side.\n\nWriting tests for the SDP parsing part of that should be relatively simple (use hand-crafted SDP), even though you can\u0027t at the moment get data sent in the corresponding format.",
       "revId": "4b9c6ff7669c5fba2d60f03fc460c40781071af1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "25e8e8fa_535eeff2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 22359
+      },
+      "writtenOn": "2024-09-05T01:17:29Z",
+      "side": 1,
+      "message": "There is already a process in place for parsing pt\u003d, so there is no need to add a parser. Florent has implemented field trials for mixed-codec simulcast, so we will use this to ensure that there are no side effects in this CL.",
+      "parentUuid": "99958a8c_4cef2c4f",
+      "revId": "4b9c6ff7669c5fba2d60f03fc460c40781071af1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

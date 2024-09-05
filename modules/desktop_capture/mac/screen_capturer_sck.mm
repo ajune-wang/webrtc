@@ -114,6 +114,9 @@ class API_AVAILABLE(macos(14.0)) ScreenCapturerSck final : public DesktopCapture
   // support full-desktop capture, and will fall back to the first display.
   CGDirectDisplayID current_display_ RTC_GUARDED_BY(lock_) = 0;
 
+  // Configured maximum frame rate in frames per second.
+  uint32_t max_frame_rate_ RTC_GUARDED_BY(lock_) = 0;
+
   // Used by CaptureFrame() to detect if the screen configuration has changed. Only used on the
   // caller's thread.
   MacDesktopConfiguration desktop_config_;
@@ -152,7 +155,20 @@ void ScreenCapturerSck::Start(DesktopCapturer::Callback* callback) {
 }
 
 void ScreenCapturerSck::SetMaxFrameRate(uint32_t max_frame_rate) {
-  // TODO: crbug.com/327458809 - Implement this.
+  RTC_LOG(LS_INFO) << "ScreenCapturerSck " << this << " SetMaxFrameRate(" << max_frame_rate << ").";
+  bool stream_started = false;
+  {
+    MutexLock lock(&lock_);
+    if (max_frame_rate_ == max_frame_rate) {
+      return;
+    }
+
+    max_frame_rate_ = max_frame_rate;
+    stream_started = stream_;
+  }
+  if (stream_started) {
+    StartOrReconfigureCapturer();
+  }
 }
 
 void ScreenCapturerSck::CaptureFrame() {
@@ -263,6 +279,8 @@ void ScreenCapturerSck::OnShareableContentCreated(SCShareableContent* content, N
   config.width = filter.contentRect.size.width * filter.pointPixelScale;
   config.height = filter.contentRect.size.height * filter.pointPixelScale;
   config.captureResolution = SCCaptureResolutionNominal;
+  config.minimumFrameInterval =
+      max_frame_rate_ ? CMTimeMake(1, static_cast<int32_t>(max_frame_rate_)) : kCMTimeZero;
 
   {
     MutexLock lock(&latest_frame_lock_);
@@ -272,7 +290,7 @@ void ScreenCapturerSck::OnShareableContentCreated(SCShareableContent* content, N
   if (stream_) {
     RTC_LOG(LS_INFO) << "ScreenCapturerSck " << this
                      << " Updating stream configuration to size=" << config.width << "x"
-                     << config.height << ".";
+                     << config.height << " and maxFramerate=" << max_frame_rate_ << ".";
     [stream_ updateContentFilter:filter completionHandler:nil];
     [stream_ updateConfiguration:config completionHandler:nil];
   } else {

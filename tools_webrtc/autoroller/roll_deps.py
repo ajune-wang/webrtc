@@ -21,6 +21,23 @@ import sys
 import urllib.request
 
 
+def find_root_path():
+    """Returns the absolute path to the highest level repo root.
+
+    If this repo is checked out as a submodule of the chromium/src
+    superproject, this returns the superproect root. Otherwise, it returns the
+    webrtc/src repo root.
+    """
+    root_dir = os.path.dirname(os.path.abspath(__file__))
+    while os.path.basename(root_dir) not in ('src', 'chromium'):
+        par_dir = os.path.normpath(os.path.join(root_dir, os.pardir))
+        if par_dir == root_dir:
+            raise RuntimeError('Could not find the repo root.')
+        root_dir = par_dir
+    return root_dir
+
+
+
 # Skip these dependencies (list without solution name prefix).
 DONT_AUTOROLL_THESE = [
     'src/examples/androidtests/third_party/gradle',

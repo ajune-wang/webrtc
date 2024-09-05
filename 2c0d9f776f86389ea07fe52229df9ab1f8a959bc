@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "52ea9bea_02e375a1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5597
+      },
+      "writtenOn": "2024-09-05T14:21:43Z",
+      "side": 1,
+      "message": "looks good, but would be be even better if there was a unit test executing the sea/vesfw interaction you are trying to fix",
+      "revId": "2c0d9f776f86389ea07fe52229df9ab1f8a959bc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

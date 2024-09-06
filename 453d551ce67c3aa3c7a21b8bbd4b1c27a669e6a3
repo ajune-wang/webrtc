@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3e3d47ad_94a3c0f8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2024-09-06T10:20:07Z",
+      "side": 1,
+      "message": "PTAL at this attempt at collapsing AcmReceiver. The actual removal will have to come later after the last use is removed. Thanks!",
+      "revId": "453d551ce67c3aa3c7a21b8bbd4b1c27a669e6a3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -252,6 +252,24 @@
       "parentUuid": "e38e0c00_9ce6ce1c",
       "revId": "d829f347745dbe79ddca6091226459adf5169cc7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "25ade499_1860a86e",
+        "filename": "rtc_base/ssl_stream_adapter_unittest.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 1173,
+      "author": {
+        "id": 5602
+      },
+      "writtenOn": "2024-09-06T19:10:34Z",
+      "side": 1,
+      "message": "\u003e and revisit once it breaks the roll.\n\nThat is not how we do things. Once we land a change into BoringSSL, the autoroller will pull it into Chromium. If WebRTC breaks, that holds back *all* BoringSSL updates from Chromium.\n\nAs such, for things like this, the expectation is that downstream code\u0027s test accurate reflects what it actually wants. As long as WebRTC has SHA-1 tests here, the interpretation is that WebRTC actively wants to support SHA-1.\n\nSo, again, *what does WebRTC want to support in this context*? You all need to have a clear position here. The choices are:\n\n1. WebRTC wants SHA-1 to work here.\n2. WebRTC does not want SHA-1 to work here.\n\nIf you pick 1, you should remove this ifdef. Rather, the remediation for OpenSSL is to change how you call OpenSSL so that the tests pass.\n\nIF you pick 2, you should remove this ifdef and remove the tests, in both OpenSSL and BoringSSL.",
+      "parentUuid": "1ef86a22_7c3d0aef",
+      "revId": "d829f347745dbe79ddca6091226459adf5169cc7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

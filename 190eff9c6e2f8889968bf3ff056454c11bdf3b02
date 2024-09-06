@@ -16,6 +16,40 @@
       "message": "I have fixed the pointed-out items.",
       "revId": "190eff9c6e2f8889968bf3ff056454c11bdf3b02",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a1ee73db_a453b211",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-09-06T12:28:48Z",
+      "side": 1,
+      "message": "Good now. Made a comment on using matchers rather than the complex npos thing - it gives better error printouts when it fails, as well as being more readable.\n(https://google.github.io/googletest/reference/matchers.html gives details)",
+      "revId": "190eff9c6e2f8889968bf3ff056454c11bdf3b02",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3cb669eb_ba755e87",
+        "filename": "pc/sdp_offer_answer_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 661,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-09-06T12:28:48Z",
+      "side": 1,
+      "message": "THis can be written more readably as EXPECT_THAT(sdp, HasSubstr(\"a\u003drid:1 send pt\u003d\u0027...)",
+      "revId": "190eff9c6e2f8889968bf3ff056454c11bdf3b02",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

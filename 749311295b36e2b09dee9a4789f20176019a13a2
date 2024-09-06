@@ -53,6 +53,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "31841878_5fd11f74",
+        "filename": "pc/sdp_offer_answer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 801,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-09-06T12:28:48Z",
+      "side": 1,
+      "message": "There is no rule that prevents the same codec from occuring twice in remote descriptions. We\u0027re unlikely to generate this, but there are scenarios in which others may find it useful. \"Break\" is good.",
+      "parentUuid": "7ec1cd01_bd365792",
+      "revId": "749311295b36e2b09dee9a4789f20176019a13a2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "45e04be2_55569e39",

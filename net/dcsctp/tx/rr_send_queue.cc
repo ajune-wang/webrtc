@@ -82,9 +82,9 @@ bool RRSendQueue::IsConsistent() const {
     }
   }
   if (expected_active_streams != actual_active_streams) {
-    auto fn = [&](rtc::StringBuilder& sb, const auto& p) { sb << *p; };
+    auto fn = absl::DereferenceFormatter();
     RTC_DLOG(LS_ERROR) << "Active streams mismatch, is=["
-                       << StrJoin(actual_active_streams, ",", fn)
+                       << absl::StrJoin(actual_active_streams, ",", fn)
                        << "], expected=["
                        << StrJoin(expected_active_streams, ",", fn) << "]";
     return false;

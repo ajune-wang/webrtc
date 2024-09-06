@@ -43,9 +43,9 @@ std::optional<SendQueue::DataToSend> StreamScheduler::Produce(
                        << "Producing data, rescheduling=" << rescheduling
                        << ", active="
                        << StrJoin(active_streams_, ", ",
-                                  [&](rtc::StringBuilder& sb, const auto& p) {
-                                    sb << *p->stream_id() << "@"
-                                       << *p->next_finish_time();
+                                  [&](std::string* sb, const auto& p) {
+                                    absl::StrAppend(sb, *p->stream_id(), "@",
+                                                    *p->next_finish_time());
                                   });
 
   RTC_DCHECK(rescheduling || current_stream_ != nullptr);

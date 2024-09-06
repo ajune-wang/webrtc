@@ -115,10 +115,7 @@ void ReassemblyQueue::Add(TSN tsn, Data data) {
 void ReassemblyQueue::ResetStreamsAndLeaveDeferredReset(
     rtc::ArrayView<const StreamID> stream_ids) {
   RTC_DLOG(LS_VERBOSE) << log_prefix_ << "Resetting streams: ["
-                       << StrJoin(stream_ids, ",",
-                                  [](rtc::StringBuilder& sb, StreamID sid) {
-                                    sb << *sid;
-                                  })
+                       << StrJoin(stream_ids, ",", absl::DereferenceFormatter())
                        << "]";
 
   // https://tools.ietf.org/html/rfc6525#section-5.2.2
@@ -170,8 +167,8 @@ void ReassemblyQueue::AddReassembledMessage(
     DcSctpMessage message) {
   RTC_DLOG(LS_VERBOSE) << log_prefix_ << "Assembled message from TSN=["
                        << StrJoin(tsns, ",",
-                                  [](rtc::StringBuilder& sb, UnwrappedTSN tsn) {
-                                    sb << *tsn.Wrap();
+                                  [](std::string* sb, UnwrappedTSN tsn) {
+                                    absl::StrAppend(sb, *tsn.Wrap());
                                   })
                        << "], message; stream_id=" << *message.stream_id()
                        << ", ppid=" << *message.ppid()

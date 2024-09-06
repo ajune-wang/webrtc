@@ -58,6 +58,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "43012e30_136b9317",
+        "filename": "audio/channel_receive.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 402,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2024-09-06T11:36:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b525c065_f7e58deb",
+      "range": {
+        "startLine": 402,
+        "startChar": 2,
+        "endLine": 402,
+        "endChar": 21
+      },
+      "revId": "453d551ce67c3aa3c7a21b8bbd4b1c27a669e6a3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e5fe248d_bff6a21f",
@@ -71,6 +95,30 @@
       "writtenOn": "2024-09-06T10:56:51Z",
       "side": 1,
       "message": "nit: I\u0027d not declare an extra variable here and just use sample_rate_hz.",
+      "range": {
+        "startLine": 403,
+        "startChar": 0,
+        "endLine": 403,
+        "endChar": 66
+      },
+      "revId": "453d551ce67c3aa3c7a21b8bbd4b1c27a669e6a3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7f164f81_44f864d7",
+        "filename": "audio/channel_receive.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 403,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2024-09-06T11:36:54Z",
+      "side": 1,
+      "message": "`audio_frame-\u003esample_rate_hz_` can change in the call to NetEq. Calling MaybeResample with `audio_frame-\u003esample_rate_hz_` as desired frequency will guarantee that nothing is done. 😊",
+      "parentUuid": "e5fe248d_bff6a21f",
       "range": {
         "startLine": 403,
         "startChar": 0,

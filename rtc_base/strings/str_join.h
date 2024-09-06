@@ -14,23 +14,13 @@
 
 #include "absl/strings/string_view.h"
 #include "rtc_base/strings/string_builder.h"
+#include "absl/strings/str_join.h"
 
 namespace webrtc {
 
 template <typename Range>
 std::string StrJoin(const Range& seq, absl::string_view delimiter) {
-  rtc::StringBuilder sb;
-  int idx = 0;
-
-  for (const typename Range::value_type& elem : seq) {
-    if (idx > 0) {
-      sb << delimiter;
-    }
-    sb << elem;
-
-    ++idx;
-  }
-  return sb.Release();
+  return absl::StrJoin(seq, delimiter);
 }
 
 template <typename Range, typename Functor>

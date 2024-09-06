@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ec1cd01_bd365792",
+        "filename": "pc/sdp_offer_answer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 801,
+      "author": {
+        "id": 22359
+      },
+      "writtenOn": "2024-09-06T03:08:05Z",
+      "side": 1,
+      "message": "It is not the intended behavior for multiple values to be added to payload_types. I\u0027m not sure if the same codec can be included multiple times in send_codecs, but it seems safer to include a break just in case. Fixed.",
+      "parentUuid": "f5312246_20a3f21a",
+      "revId": "749311295b36e2b09dee9a4789f20176019a13a2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "45e04be2_55569e39",
@@ -48,6 +66,24 @@
       "writtenOn": "2024-09-06T00:25:00Z",
       "side": 1,
       "message": "Please add a test that verifies that the PTs actually occur in the generated SDP; this test merely verifies that they are stored in the non-serialized description.\n\nAnd then (since you said that parsing was already handled) add a test that verifies that parsing the generated SDP produces the expected result.",
+      "revId": "749311295b36e2b09dee9a4789f20176019a13a2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c8b73cb3_f5d27aa3",
+        "filename": "pc/sdp_offer_answer_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 662,
+      "author": {
+        "id": 22359
+      },
+      "writtenOn": "2024-09-06T03:08:05Z",
+      "side": 1,
+      "message": "I have updated it to verify the payload_type values after serializing and parsing the SessionDescription.",
+      "parentUuid": "45e04be2_55569e39",
       "revId": "749311295b36e2b09dee9a4789f20176019a13a2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

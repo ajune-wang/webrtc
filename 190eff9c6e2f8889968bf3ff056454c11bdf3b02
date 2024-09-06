@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d67d54bb_cddc02e4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 22359
+      },
+      "writtenOn": "2024-09-06T03:08:05Z",
+      "side": 1,
+      "message": "I have fixed the pointed-out items.",
+      "revId": "190eff9c6e2f8889968bf3ff056454c11bdf3b02",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -129,6 +129,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "cdabde6f_7851d779",
+        "filename": "audio/channel_receive.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 403,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2024-09-06T11:40:38Z",
+      "side": 1,
+      "message": "What I meant was passing `sample_rate_hz`, the input parameter to GetAudioFrameWithInfo.\nSidenote: not sure why we do `audio_frame-\u003esample_rate_hz_ \u003d sample_rate_hz` at the start of the function, pretty sure it does nothing :)",
+      "parentUuid": "7f164f81_44f864d7",
+      "range": {
+        "startLine": 403,
+        "startChar": 0,
+        "endLine": 403,
+        "endChar": 66
+      },
+      "revId": "453d551ce67c3aa3c7a21b8bbd4b1c27a669e6a3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "5cdae181_9eefd1f1",

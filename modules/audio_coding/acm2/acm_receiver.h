@@ -43,6 +43,7 @@ struct RTPHeader;
 
 namespace acm2 {
 
+// This class is deprecated. See https://issues.webrtc.org/issues/42225167.
 class AcmReceiver {
  public:
   struct Config {
@@ -218,17 +219,18 @@ class AcmReceiver {
   // Get statistics of calls to GetAudio().
   void GetDecodingCallStatistics(AudioDecodingCallStats* stats) const;
 
+  NetEq* neteq() { return neteq_.get(); }
+
+  const NetEq* neteq() const { return neteq_.get(); }
+
  private:
   uint32_t NowInTimestamp(int decoder_sampling_rate) const;
 
   const Environment env_;
   mutable Mutex mutex_;
-  ACMResampler resampler_ RTC_GUARDED_BY(mutex_);
   CallStatistics call_stats_ RTC_GUARDED_BY(mutex_);
   const std::unique_ptr<NetEq> neteq_;  // NetEq is thread-safe; no lock needed.
-  bool resampled_last_output_frame_ RTC_GUARDED_BY(mutex_);
-  std::array<int16_t, AudioFrame::kMaxDataSizeSamples> last_audio_buffer_
-      RTC_GUARDED_BY(mutex_);
+  ResamplerHelper resampler_helper_ RTC_GUARDED_BY(mutex_);
 };
 
 }  // namespace acm2

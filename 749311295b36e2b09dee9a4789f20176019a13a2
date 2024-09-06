@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9a6498e8_8fa988b6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-09-06T00:25:00Z",
+      "side": 1,
+      "message": "I\u0027d like more tests, please.",
+      "revId": "749311295b36e2b09dee9a4789f20176019a13a2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f5312246_20a3f21a",
+        "filename": "pc/sdp_offer_answer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 801,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-09-06T00:25:00Z",
+      "side": 1,
+      "message": "If there is more than one matching codec in the send codecs list, this will cause multiple entries to be added to the RID payload types. Is that the intent?",
+      "revId": "749311295b36e2b09dee9a4789f20176019a13a2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "45e04be2_55569e39",
+        "filename": "pc/sdp_offer_answer_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 662,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-09-06T00:25:00Z",
+      "side": 1,
+      "message": "Please add a test that verifies that the PTs actually occur in the generated SDP; this test merely verifies that they are stored in the non-serialized description.\n\nAnd then (since you said that parsing was already handled) add a test that verifies that parsing the generated SDP produces the expected result.",
+      "revId": "749311295b36e2b09dee9a4789f20176019a13a2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

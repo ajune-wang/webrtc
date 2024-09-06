@@ -146,8 +146,9 @@ class TestRollChromiumRevision(unittest.TestCase):
     def testUpdateAndroidGeneratedDeps(self):
         _, updated_contents = self._UpdateDepsSetup()
 
-        changed = 'third_party/android_deps/libs/android_arch_core_common'
-        changed_version = '1.0.0-cr0'
+        changed = 'third_party/android_deps/cipd/libs/' \
+                  'com_google_protobuf_protobuf_javalite'
+        changed_version = 'version:2@4.28.0.cr1'
         self.assertTrue(changed in updated_contents)
         self.assertTrue(changed_version in updated_contents)
 
@@ -244,12 +245,17 @@ class TestRollChromiumRevision(unittest.TestCase):
         self.assertEqual(len(changed_deps), 1)
         self.assertEqual(
             changed_deps[0].path,
-            'src/third_party/android_deps/libs/android_arch_core_common')
+            'src/third_party/android_deps/cipd/libs/' \
+            'com_google_protobuf_protobuf_javalite'
+        )
         self.assertEqual(
             changed_deps[0].package,
-            'chromium/third_party/android_deps/libs/android_arch_core_common')
-        self.assertEqual(changed_deps[0].current_version, 'version:0.9.0')
-        self.assertEqual(changed_deps[0].new_version, 'version:1.0.0-cr0')
+            'chromium/third_party/android_deps/libs/' \
+            'com_google_protobuf_protobuf_javalite'
+        )
+        self.assertEqual(changed_deps[0].current_version,
+                         'version:2@3.21.1.cr1')
+        self.assertEqual(changed_deps[0].new_version, 'version:2@4.28.0.cr1')
 
     def testFindAddedDeps(self):
         webrtc_deps = ParseLocalDepsFile(self._webrtc_depsfile_android)
@@ -316,8 +322,9 @@ class TestRollChromiumRevision(unittest.TestCase):
     def testChangedDepsInCommitMessage(self):
         commit_lines = self._CommitMessageSetup()
 
-        changed = '* src/third_party/android_deps/libs/' \
-                  'android_arch_core_common: version:0.9.0..version:1.0.0-cr0'
+        changed = '* src/third_party/android_deps/cipd/libs/' \
+                  'com_google_protobuf_protobuf_javalite: ' \
+                  'version:2@3.21.1.cr1..version:2@4.28.0.cr1'
         self.assertTrue(changed in commit_lines)
         # Check it is in adequate section.
         changed_line = commit_lines.index(changed)

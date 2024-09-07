@@ -270,6 +270,24 @@
       "parentUuid": "1ef86a22_7c3d0aef",
       "revId": "d829f347745dbe79ddca6091226459adf5169cc7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "51e2387a_535eb1f7",
+        "filename": "rtc_base/ssl_stream_adapter_unittest.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 1173,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-09-07T23:51:55Z",
+      "side": 1,
+      "message": "Do we UMA cert sigs?\nI think the SSLCipherSuite UMA (where video SHA is 0.3% and falling) is measuring the handshake sig, not the cert sig.",
+      "parentUuid": "25ade499_1860a86e",
+      "revId": "d829f347745dbe79ddca6091226459adf5169cc7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

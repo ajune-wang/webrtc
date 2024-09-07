@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "71eaefe9_24572a6d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-09-07T16:59:54Z",
+      "side": 1,
+      "message": "This CL adds a lot of plumbing. It is not supposed to make substantive changes in what PTs get assigned, but it uses the new code, not the old code.",
+      "revId": "e1b740a0ea7bccf8aa84173f3789202f1a82b7cc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

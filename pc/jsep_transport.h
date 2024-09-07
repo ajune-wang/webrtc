@@ -243,6 +243,9 @@ class JsepTransport {
   const webrtc::PayloadTypeRecorder& local_payload_types() const {
     return local_payload_types_;
   }
+  webrtc::PayloadTypeRecorder& local_payload_types() {
+    return local_payload_types_;
+  }
   void CommitPayloadTypes() {
     RTC_DCHECK_RUN_ON(network_thread_);
     local_payload_types_.Commit();

@@ -1,0 +1,4 @@
+# These are lines that apply-include-cleaner will prevent from being added to a
+# file. They are lines that refer to files that are conditionally included
+# in certain configurations.
+<sys/socket.h>

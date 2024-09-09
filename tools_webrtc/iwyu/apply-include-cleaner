@@ -68,11 +68,12 @@ usage() {
 
 COMMAND=" --edit"
 INCLUDE_ARGS=""
+PRINT_MODE=false
 CHECK_MODE=false
 
 while getopts 'd:rncw:h' opts; do
   case "${opts}" in
-    n) COMMAND=" --print=changes" ;;
+    n) COMMAND=" --print=changes"; PRINT_MODE=true ;;
     c) COMMAND=" --print=changes" ; CHECK_MODE=true ;;
     r) INCLUDE_ARGS=" --remove" ;;
     d) DEBUG=${OPTARG};if [ $DEBUG -gt 0 ]; then set -x; fi  ;;
@@ -104,16 +105,23 @@ fi
 
 OUTPUT=$($CLEANER -p $WORKDIR $INCLUDE_ARGS $COMMAND $FILE)
 
-# include-cleaner does not support custom mappings for certain deps
-# this ensures that the gtest/gmock deps it inserts are replaced
-# with the right paths for those includes.
-# Since sed inplace argument acts differently between GNU/BSD based systems
-# we handle this here.
 case "$(uname -s)" in
     Linux*)     INPLACE_ARG=( -i );;
     Darwin*)    INPLACE_ARG=( -i '' );;
     *)          INPLACE_ARG=( -i )
 esac
+# Filter out includes from the filter list.
+while read INCLUDE; do
+  OUTPUT=${OUTPUT//"+ ${INCLUDE}"/}
+  if ! $PRINT_MODE && ! $CHECK_MODE; then
+    sed "${INPLACE_ARG[@]}" -e "\@^#include ${INCLUDE}@d" $FILE
+  fi
+done < tools_webrtc/iwyu/include-cleaner-filter-list
+# include-cleaner does not support custom mappings for certain deps
+# this ensures that the gtest/gmock deps it inserts are replaced
+# with the right paths for those includes.
+# Since sed inplace argument acts differently between GNU/BSD based systems
+# we handle this here.
 for INCLUDE in "gtest" "gmock"; do
   if grep -q "#include \"test\/${INCLUDE}\.h\"" $FILE; then
     OUTPUT=${OUTPUT//"+ \"${INCLUDE}"\/"${INCLUDE}.h\""/}

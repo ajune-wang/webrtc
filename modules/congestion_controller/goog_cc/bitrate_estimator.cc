@@ -133,6 +133,7 @@ float BitrateEstimator::UpdateWindow(int64_t now_ms,
       sum_ = 0;
       current_window_ms_ %= rate_window_ms;
     }
+    sum_ += bytes;
   }
   prev_time_ms_ = now_ms;
   float bitrate_sample = -1.0f;
@@ -142,7 +143,6 @@ float BitrateEstimator::UpdateWindow(int64_t now_ms,
     current_window_ms_ -= rate_window_ms;
     sum_ = 0;
   }
-  sum_ += bytes;
   return bitrate_sample;
 }
 

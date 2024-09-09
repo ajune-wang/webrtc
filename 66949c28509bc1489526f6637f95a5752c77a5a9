@@ -34,6 +34,24 @@
       "parentUuid": "c0844477_e43da71e",
       "revId": "66949c28509bc1489526f6637f95a5752c77a5a9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c04b2af0_8a01bbd2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2024-09-09T14:03:55Z",
+      "side": 1,
+      "message": "I think you could accept the IWYU pragma on the same line to export (or keep) or to require a comment line `// no-presubmit-check` on the same line (as used by other checks in PRESUBMIT.py).\nThose Android files probably want the `no-presubmit-check` check one as they are built on a POSIX platform with the right headers always available.",
+      "parentUuid": "17e91f90_4329e6d5",
+      "revId": "66949c28509bc1489526f6637f95a5752c77a5a9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

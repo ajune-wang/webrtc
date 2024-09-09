@@ -324,6 +324,24 @@
       "parentUuid": "ff587b62_36b4ea17",
       "revId": "d829f347745dbe79ddca6091226459adf5169cc7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9e594a0c_a5cc7e29",
+        "filename": "rtc_base/ssl_stream_adapter_unittest.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 1173,
+      "author": {
+        "id": 5602
+      },
+      "writtenOn": "2024-09-09T18:35:50Z",
+      "side": 1,
+      "message": "Wait, is this the signature on the certificate (the irrelevant self-signature in the certificate itself) or the hash of the certificate that you all use to authenticate?\n\nAs I answered in https://issues.webrtc.org/issues/42225856#comment12, the signature on the certificate is basically always irrelevant. Is WebRTC checking those signatures? If so, why?\n\nIf it\u0027s the hash of the certificate, that is certainly security-relevant and you all should get SHA-1 out of there. But that has nothing to do with this mediasoup change.\n\nEither way, the question I asked is not a forward-facing one. Does WebRTC, **TODAY** care about supporting SHA-1 and SHA-224 in whatever this context is?\n\nIf the answer is yes, you should fix this by making things work in OpenSSL too.\nIf the answer is no, you should remove it.\nIf removing it would be a behavior change that you need to ask the IETF about, it sounds like the answer for *today* is yes and you should fix the code to enable these hashes in OpenSSL too.\n\nIn none of these outcomes should WebRTC have a BoringSSL vs OpenSSL ifdef.",
+      "parentUuid": "4c355de4_f3f611ce",
+      "revId": "d829f347745dbe79ddca6091226459adf5169cc7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

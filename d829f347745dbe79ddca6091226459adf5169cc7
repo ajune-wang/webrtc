@@ -360,6 +360,24 @@
       "parentUuid": "9e594a0c_a5cc7e29",
       "revId": "d829f347745dbe79ddca6091226459adf5169cc7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ba1cb193_06e3edbc",
+        "filename": "rtc_base/ssl_stream_adapter_unittest.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 1173,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-09-09T20:40:43Z",
+      "side": 1,
+      "message": "The test was failing in OpenSSL because of the self-signature with SHA1. Sadly trying to dig deeper I can no longer reproduce so removed the ifdef. Sorry for the confusion!\n\nWe (well, I at least) do not *care* about SHA1 fingerprints in the SDP but we do still have the 0.3% of usage of\nhttps://source.chromium.org/chromium/chromium/src/+/main:tools/metrics/histograms/metadata/web_rtc/histograms.xml;l\u003d1435?q\u003dSSLCipherSuite%20histograms\u0026ss\u003dchromium\nand no good way to find out who is responsible.\nAnd we have \"cross-browser support\" (at least for parsing the fingerprint, whether it works in practice is a different matter but we can not test that with WPT):\nhttps://wpt.fyi/results/webrtc/protocol/dtls-fingerprint-validation.html?label\u003dexperimental\u0026label\u003dmaster\u0026aligned for parsing.\n\nMight require throwing and see who complains.",
+      "parentUuid": "04098af2_5f9a195f",
+      "revId": "d829f347745dbe79ddca6091226459adf5169cc7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

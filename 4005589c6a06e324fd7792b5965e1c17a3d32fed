@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cebbb976_617c8f46",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-09-09T15:52:03Z",
+      "side": 1,
+      "message": "Is this still needed for sys/socket.h given the other CL?",
+      "revId": "4005589c6a06e324fd7792b5965e1c17a3d32fed",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

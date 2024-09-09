@@ -342,6 +342,24 @@
       "parentUuid": "4c355de4_f3f611ce",
       "revId": "d829f347745dbe79ddca6091226459adf5169cc7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "04098af2_5f9a195f",
+        "filename": "rtc_base/ssl_stream_adapter_unittest.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 1173,
+      "author": {
+        "id": 5602
+      },
+      "writtenOn": "2024-09-09T18:40:52Z",
+      "side": 1,
+      "message": "Ohhhhhhh...\n\nDoes WebRTC use the hash function of the (otherwise irrelevant) self-signature to determine the fingerprint hash? I.e. you all don\u0027t specify it explicitly elsewhere?\n\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/rtc_base/ssl_fingerprint.cc;l\u003d82-98;drc\u003d8e948282d37c0e119e3102236878d6f4d5052c16;bpv\u003d1;bpt\u003d1\n\nIn that case, yes, that mediasoup change is quite important. Although this is also a precarious place to be in with PQ transitions and whatnot because the self signature will become wasteful enough that you\u0027ll want to get rid of it.\n\nBut, again, for this CL, we only need an answer about today. It sounds like today WebRTC might indeed need SHA-1?",
+      "parentUuid": "9e594a0c_a5cc7e29",
+      "revId": "d829f347745dbe79ddca6091226459adf5169cc7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

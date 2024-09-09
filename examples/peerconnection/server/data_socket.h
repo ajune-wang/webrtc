@@ -12,13 +12,11 @@
 #define EXAMPLES_PEERCONNECTION_SERVER_DATA_SOCKET_H_
 
 #ifdef WIN32
-#include <winsock2.h>
 typedef int socklen_t;
 typedef SOCKET NativeSocket;
 #else
 #include <netinet/in.h>
 #include <sys/select.h>
-#include <sys/socket.h>
 #define closesocket close
 typedef int NativeSocket;
 
@@ -32,6 +30,8 @@ typedef int NativeSocket;
 #endif
 
 #include <string>
+
+#include "rtc_base/net_helpers.h"
 
 class SocketBase {
  public:

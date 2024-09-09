@@ -288,6 +288,24 @@
       "parentUuid": "25ade499_1860a86e",
       "revId": "d829f347745dbe79ddca6091226459adf5169cc7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ff587b62_36b4ea17",
+        "filename": "rtc_base/ssl_stream_adapter_unittest.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 1173,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-09-09T18:18:39Z",
+      "side": 1,
+      "message": "The BoringSSL roll into Chromium should (hopefully) not break since these tests are not built or run in Chromium.\nThe BoringSSL roll into WebRTC would already break if BoringSSL were to remove support, this CL does not change that. It will however provide a breadcrumb to whoever finds this discussion who can then say \"away with it\" and unbreak the the roll.\n\nWhich in turn might lead to production failures if anyone is still using it; Changes like https://github.com/versatica/mediasoup/pull/1450 will need time to trickle down. I\u0027ll check if we can measure the cert signature.\n\nhta: should the position discussion go onto the IETF avtcore (?) WG or the W3C WebRTC WG?",
+      "parentUuid": "51e2387a_535eb1f7",
+      "revId": "d829f347745dbe79ddca6091226459adf5169cc7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

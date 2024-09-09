@@ -68,11 +68,12 @@ usage() {
 
 COMMAND=" --edit"
 INCLUDE_ARGS=""
+PRINT_MODE=false
 CHECK_MODE=false
 
 while getopts 'd:rncw:h' opts; do
   case "${opts}" in
-    n) COMMAND=" --print=changes" ;;
+    n) COMMAND=" --print=changes"; PRINT_MODE=true ;;
     c) COMMAND=" --print=changes" ; CHECK_MODE=true ;;
     r) INCLUDE_ARGS=" --remove" ;;
     d) DEBUG=${OPTARG};if [ $DEBUG -gt 0 ]; then set -x; fi  ;;
@@ -103,6 +104,13 @@ if [ -z $FILE ] || [ ! -f $FILE ]; then
 fi
 
 OUTPUT=$($CLEANER -p $WORKDIR $INCLUDE_ARGS $COMMAND $FILE)
+
+# Filter out includes from the filter list.
+OUTPUT=$(grep -v -f tools_webrtc/iwyu/include-cleaner-filter-list <<< "${OUTPUT}")
+if ! $PRINT_MODE && ! $CHECK_MODE; then
+  grep -v -f tools_webrtc/iwyu/iwyu-filter-list $FILE > $FILE.new
+  mv $FILE.new $FILE
+fi
 
 # include-cleaner does not support custom mappings for certain deps
 # this ensures that the gtest/gmock deps it inserts are replaced

@@ -306,6 +306,24 @@
       "parentUuid": "51e2387a_535eb1f7",
       "revId": "d829f347745dbe79ddca6091226459adf5169cc7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4c355de4_f3f611ce",
+        "filename": "rtc_base/ssl_stream_adapter_unittest.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 1173,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-09-09T18:30:40Z",
+      "side": 1,
+      "message": "I think the \"should we refuse to support SHA-1 certs in webrtc\" discussion should be dispatched in the WIT area of the IETF. Which group to have the discussion in is unclear to me, since it straddles multiple areas of concern.",
+      "parentUuid": "ff587b62_36b4ea17",
+      "revId": "d829f347745dbe79ddca6091226459adf5169cc7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

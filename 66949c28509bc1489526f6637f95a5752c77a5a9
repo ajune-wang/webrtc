@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c0844477_e43da71e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2024-09-09T13:17:28Z",
+      "side": 1,
+      "message": "Can you add a presubmit check that verifies we don\u0027t include `\u003csys/socket.h\u003e` unless it has an associated IWYU pragma?\n\nAlso, can you update all the platform agnostic files in the codebase to use `net_helpers.h`?\nIt might uncover a few other headers that we should handle the same way.",
+      "revId": "66949c28509bc1489526f6637f95a5752c77a5a9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -92,23 +92,6 @@ ModuleRtpRtcpImpl2::RtpSenderContext::RtpSenderContext(
 // Merge two constructors into single one after that.
 ModuleRtpRtcpImpl2::ModuleRtpRtcpImpl2(const Environment& env,
                                        const Configuration& configuration)
-    : ModuleRtpRtcpImpl2({}, env, [&] {
-        // Check users of this constructor switch to not duplicate
-        // utilities passed with environment.
-        RTC_DCHECK(configuration.field_trials == nullptr);
-        RTC_DCHECK(configuration.clock == nullptr);
-        RTC_DCHECK(configuration.event_log == nullptr);
-
-        Configuration config = configuration;
-        config.field_trials = &env.field_trials();
-        config.clock = &env.clock();
-        config.event_log = &env.event_log();
-        return config;
-      }()) {}
-
-ModuleRtpRtcpImpl2::ModuleRtpRtcpImpl2(TagConfigurationIncludesEnvironment,
-                                       const Environment& env,
-                                       const Configuration& configuration)
     : env_(env),
       worker_queue_(TaskQueueBase::Current()),
       rtcp_sender_(env_,

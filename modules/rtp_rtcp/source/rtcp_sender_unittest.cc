@@ -72,19 +72,6 @@ static const uint32_t kSenderSsrc = 0x11111111;
 static const uint32_t kRemoteSsrc = 0x22222222;
 static const uint32_t kStartRtpTimestamp = 0x34567;
 static const uint32_t kRtpTimestamp = 0x45678;
-
-std::unique_ptr<RTCPSender> CreateRtcpSender(
-    const RTCPSender::Configuration& config,
-    bool init_timestamps = true) {
-  auto rtcp_sender = std::make_unique<RTCPSender>(config);
-  rtcp_sender->SetRemoteSSRC(kRemoteSsrc);
-  if (init_timestamps) {
-    rtcp_sender->SetTimestampOffset(kStartRtpTimestamp);
-    rtcp_sender->SetLastRtpTime(kRtpTimestamp, config.clock->CurrentTime(),
-                                /*payload_type=*/0);
-  }
-  return rtcp_sender;
-}
 }  // namespace
 
 class RtcpSenderTest : public ::testing::Test {
@@ -98,7 +85,6 @@ class RtcpSenderTest : public ::testing::Test {
   RTCPSender::Configuration GetDefaultConfig() {
     RTCPSender::Configuration configuration;
     configuration.audio = false;
-    configuration.clock = &clock_;
     configuration.outgoing_transport = &test_transport_;
     configuration.rtcp_report_interval = TimeDelta::Millis(1000);
     configuration.receive_statistics = receive_statistics_.get();
@@ -115,6 +101,19 @@ class RtcpSenderTest : public ::testing::Test {
     result.receive_statistics = config.receive_statistics;
     result.local_media_ssrc = config.local_media_ssrc;
     return result;
+  }
+
+  std::unique_ptr<RTCPSender> CreateRtcpSender(
+      const RTCPSender::Configuration& config,
+      bool init_timestamps = true) {
+    auto rtcp_sender = std::make_unique<RTCPSender>(env_, config);
+    rtcp_sender->SetRemoteSSRC(kRemoteSsrc);
+    if (init_timestamps) {
+      rtcp_sender->SetTimestampOffset(kStartRtpTimestamp);
+      rtcp_sender->SetLastRtpTime(kRtpTimestamp, env_.clock().CurrentTime(),
+                                  /*payload_type=*/0);
+    }
+    return rtcp_sender;
   }
 
   void InsertIncomingPacket(uint32_t remote_ssrc, uint16_t seq_num) {
@@ -217,7 +216,6 @@ TEST_F(RtcpSenderTest, SendConsecutiveSrWithExactSlope) {
 
 TEST_F(RtcpSenderTest, DoNotSendSrBeforeRtp) {
   RTCPSender::Configuration config;
-  config.clock = &clock_;
   config.receive_statistics = receive_statistics_.get();
   config.outgoing_transport = &test_transport_;
   config.rtcp_report_interval = TimeDelta::Millis(1000);
@@ -238,7 +236,6 @@ TEST_F(RtcpSenderTest, DoNotSendSrBeforeRtp) {
 
 TEST_F(RtcpSenderTest, DoNotSendCompundBeforeRtp) {
   RTCPSender::Configuration config;
-  config.clock = &clock_;
   config.receive_statistics = receive_statistics_.get();
   config.outgoing_transport = &test_transport_;
   config.rtcp_report_interval = TimeDelta::Millis(1000);
@@ -592,7 +589,6 @@ TEST_F(RtcpSenderTest, TestNoXrRrtrSentIfNotEnabled) {
 TEST_F(RtcpSenderTest, TestRegisterRtcpPacketTypeObserver) {
   RtcpPacketTypeCounterObserverImpl observer;
   RTCPSender::Configuration config;
-  config.clock = &clock_;
   config.receive_statistics = receive_statistics_.get();
   config.outgoing_transport = &test_transport_;
   config.rtcp_packet_type_counter_observer = &observer;
@@ -687,7 +683,6 @@ TEST_F(RtcpSenderTest, ByeMustBeLast) {
 
   // Re-configure rtcp_sender with mock_transport_
   RTCPSender::Configuration config;
-  config.clock = &clock_;
   config.receive_statistics = receive_statistics_.get();
   config.outgoing_transport = &mock_transport;
   config.rtcp_report_interval = TimeDelta::Millis(1000);

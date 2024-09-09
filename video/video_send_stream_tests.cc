@@ -991,12 +991,11 @@ void VideoSendStreamTest::TestNackRetransmission(
       // NACK packets at arbitrary points.
       if (send_count_ % 25 == 0) {
         RTCPSender::Configuration config;
-        config.clock = Clock::GetRealTimeClock();
         config.outgoing_transport = transport_adapter_.get();
         config.rtcp_report_interval = TimeDelta::Millis(kRtcpIntervalMs);
         config.local_media_ssrc =
             test::VideoTestConstants::kReceiverLocalVideoSsrc;
-        RTCPSender rtcp_sender(config);
+        RTCPSender rtcp_sender(env_, config);
 
         rtcp_sender.SetRTCPStatus(RtcpMode::kReducedSize);
         rtcp_sender.SetRemoteSSRC(test::VideoTestConstants::kVideoSendSsrcs[0]);
@@ -1069,6 +1068,7 @@ void VideoSendStreamTest::TestNackRetransmission(
       EXPECT_TRUE(Wait()) << "Timed out while waiting for NACK retransmission.";
     }
 
+    const Environment env_ = CreateEnvironment();
     std::unique_ptr<internal::TransportAdapter> transport_adapter_;
     int send_count_;
     int retransmit_count_;
@@ -1230,12 +1230,11 @@ void VideoSendStreamTest::TestPacketFragmentationSize(VideoFormat format,
             packets_lost_,  // Cumulative lost.
             loss_ratio);    // Loss percent.
         RTCPSender::Configuration config;
-        config.clock = Clock::GetRealTimeClock();
         config.receive_statistics = &lossy_receive_stats;
         config.outgoing_transport = transport_adapter_.get();
         config.rtcp_report_interval = TimeDelta::Millis(kRtcpIntervalMs);
         config.local_media_ssrc = test::VideoTestConstants::kVideoSendSsrcs[0];
-        RTCPSender rtcp_sender(config);
+        RTCPSender rtcp_sender(env_, config);
 
         rtcp_sender.SetRTCPStatus(RtcpMode::kReducedSize);
         rtcp_sender.SetRemoteSSRC(test::VideoTestConstants::kVideoSendSsrcs[0]);
@@ -1296,6 +1295,7 @@ void VideoSendStreamTest::TestPacketFragmentationSize(VideoFormat format,
       EXPECT_TRUE(Wait()) << "Timed out while observing incoming RTP packets.";
     }
 
+    const Environment env_ = CreateEnvironment();
     std::unique_ptr<internal::TransportAdapter> transport_adapter_;
     test::ConfigurableFrameSizeEncoder encoder_;
     test::VideoEncoderProxyFactory encoder_factory_;

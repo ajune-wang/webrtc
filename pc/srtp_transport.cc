@@ -191,12 +191,10 @@ void SrtpTransport::OnWritableState(
 }
 
 bool SrtpTransport::SetRtpParams(int send_crypto_suite,
-                                 const uint8_t* send_key,
-                                 int send_key_len,
+                                 const rtc::ZeroOnFreeBuffer<uint8_t>& send_key,
                                  const std::vector<int>& send_extension_ids,
                                  int recv_crypto_suite,
-                                 const uint8_t* recv_key,
-                                 int recv_key_len,
+                                 const rtc::ZeroOnFreeBuffer<uint8_t>& recv_key,
                                  const std::vector<int>& recv_extension_ids) {
   // If parameters are being set for the first time, we should create new SRTP
   // sessions and call "SetSend/SetRecv". Otherwise we should call
@@ -210,19 +208,18 @@ bool SrtpTransport::SetRtpParams(int send_crypto_suite,
   }
   bool ret = new_sessions
                  ? send_session_->SetSend(send_crypto_suite, send_key,
-                                          send_key_len, send_extension_ids)
+                                          send_extension_ids)
                  : send_session_->UpdateSend(send_crypto_suite, send_key,
-                                             send_key_len, send_extension_ids);
+                                             send_extension_ids);
   if (!ret) {
     ResetParams();
     return false;
   }
 
-  ret = new_sessions
-            ? recv_session_->SetRecv(recv_crypto_suite, recv_key, recv_key_len,
-                                     recv_extension_ids)
-            : recv_session_->UpdateRecv(recv_crypto_suite, recv_key,
-                                        recv_key_len, recv_extension_ids);
+  ret = new_sessions ? recv_session_->SetRecv(recv_crypto_suite, recv_key,
+                                              recv_extension_ids)
+                     : recv_session_->UpdateRecv(recv_crypto_suite, recv_key,
+                                                 recv_extension_ids);
   if (!ret) {
     ResetParams();
     return false;
@@ -236,14 +233,13 @@ bool SrtpTransport::SetRtpParams(int send_crypto_suite,
   return true;
 }
 
-bool SrtpTransport::SetRtcpParams(int send_crypto_suite,
-                                  const uint8_t* send_key,
-                                  int send_key_len,
-                                  const std::vector<int>& send_extension_ids,
-                                  int recv_crypto_suite,
-                                  const uint8_t* recv_key,
-                                  int recv_key_len,
-                                  const std::vector<int>& recv_extension_ids) {
+bool SrtpTransport::SetRtcpParams(
+    int send_crypto_suite,
+    const rtc::ZeroOnFreeBuffer<uint8_t>& send_key,
+    const std::vector<int>& send_extension_ids,
+    int recv_crypto_suite,
+    const rtc::ZeroOnFreeBuffer<uint8_t>& recv_key,
+    const std::vector<int>& recv_extension_ids) {
   // This can only be called once, but can be safely called after
   // SetRtpParams
   if (send_rtcp_session_ || recv_rtcp_session_) {
@@ -252,13 +248,13 @@ bool SrtpTransport::SetRtcpParams(int send_crypto_suite,
   }
 
   send_rtcp_session_.reset(new cricket::SrtpSession(field_trials_));
-  if (!send_rtcp_session_->SetSend(send_crypto_suite, send_key, send_key_len,
+  if (!send_rtcp_session_->SetSend(send_crypto_suite, send_key,
                                    send_extension_ids)) {
     return false;
   }
 
   recv_rtcp_session_.reset(new cricket::SrtpSession(field_trials_));
-  if (!recv_rtcp_session_->SetRecv(recv_crypto_suite, recv_key, recv_key_len,
+  if (!recv_rtcp_session_->SetRecv(recv_crypto_suite, recv_key,
                                    recv_extension_ids)) {
     return false;
   }
@@ -404,10 +400,8 @@ bool SrtpTransport::MaybeSetKeyParams() {
     return true;
   }
 
-  return SetRtpParams(*send_crypto_suite_, send_key_.data(),
-                      static_cast<int>(send_key_.size()), std::vector<int>(),
-                      *recv_crypto_suite_, recv_key_.data(),
-                      static_cast<int>(recv_key_.size()), std::vector<int>());
+  return SetRtpParams(*send_crypto_suite_, send_key_, std::vector<int>(),
+                      *recv_crypto_suite_, recv_key_, std::vector<int>());
 }
 
 bool SrtpTransport::ParseKeyParams(const std::string& key_params,

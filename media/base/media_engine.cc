@@ -185,7 +185,7 @@ webrtc::RTCError CheckRtpParametersValues(
 
     if (rtp_parameters.encodings[i].requested_resolution &&
         rtp_parameters.encodings[i].scale_resolution_down_by) {
-      LOG_AND_RETURN_ERROR(RTCErrorType::INVALID_RANGE,
+      LOG_AND_RETURN_ERROR(RTCErrorType::INVALID_MODIFICATION,
                            "Attempted to set scale_resolution_down_by and "
                            "requested_resolution simultaniously.");
     }

@@ -320,6 +320,15 @@ void ExtractStats(const cricket::VideoReceiverInfo& info,
   if (info.qp_sum)
     report->AddInt64(StatsReport::kStatsValueNameQpSum, *info.qp_sum);
 
+  if (info.corruption_score_sum) {
+    report->AddInt64(StatsReport::kStatsValueNameCorruptionScoreSum,
+                     *info.corruption_score_sum);
+    report->AddInt64(StatsReport::kStatsValueNameCorruptionScoreSquaredSum,
+                     *info.corruption_score_squared_sum);
+    report->AddInt64(StatsReport::kStatsValueNameCorruptionScoreCount,
+                     info.corruption_score_count);
+  }
+
   if (info.nacks_sent) {
     report->AddInt(StatsReport::kStatsValueNameNacksSent, *info.nacks_sent);
   }

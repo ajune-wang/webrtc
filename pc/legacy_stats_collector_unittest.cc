@@ -1943,6 +1943,9 @@ TEST_P(StatsCollectorTrackTest, VerifyVideoReceiveSsrcStatsNew) {
   video_receiver_info.add_ssrc(1234);
   video_receiver_info.frames_decoded = 10;
   video_receiver_info.qp_sum = 11;
+  video_receiver_info.corruption_score_sum = 0.5;
+  video_receiver_info.corruption_score_squared_sum = 0.25;
+  video_receiver_info.corruption_score_count = 2;
   VideoMediaInfo video_info;
   video_info.receivers.push_back(video_receiver_info);
 
@@ -1957,6 +1960,16 @@ TEST_P(StatsCollectorTrackTest, VerifyVideoReceiveSsrcStatsNew) {
                                   StatsReport::kStatsValueNameFramesDecoded));
   EXPECT_EQ(rtc::ToString(*video_receiver_info.qp_sum),
             ExtractSsrcStatsValue(reports, StatsReport::kStatsValueNameQpSum));
+  EXPECT_EQ(rtc::ToString(*video_receiver_info.corruption_score_sum),
+            ExtractSsrcStatsValue(
+                reports, StatsReport::kStatsValueNameCorruptionScoreSum));
+  EXPECT_EQ(
+      rtc::ToString(*video_receiver_info.corruption_score_squared_sum),
+      ExtractSsrcStatsValue(
+          reports, StatsReport::kStatsValueNameCorruptionScoreSquaredSum));
+  EXPECT_EQ(rtc::ToString(video_receiver_info.corruption_score_count),
+            ExtractSsrcStatsValue(
+                reports, StatsReport::kStatsValueNameCorruptionScoreCount));
 }
 
 INSTANTIATE_TEST_SUITE_P(HasStream, StatsCollectorTrackTest, ::testing::Bool());

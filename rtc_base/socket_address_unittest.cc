@@ -8,10 +8,6 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#if defined(WEBRTC_POSIX)
-#include <netinet/in.h>  // for sockaddr_in
-#endif
-
 #include <string.h>
 
 #include "rtc_base/ip_address.h"

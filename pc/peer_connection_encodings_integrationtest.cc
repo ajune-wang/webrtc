@@ -2098,6 +2098,55 @@ TEST_F(PeerConnectionEncodingsIntegrationTest,
   ASSERT_TRUE(transceiver_or_error.ok());
 }
 
+TEST_F(PeerConnectionEncodingsIntegrationTest,
+       RequestedResolutionParameterChecking) {
+  rtc::scoped_refptr<PeerConnectionTestWrapper> pc_wrapper = CreatePc();
+
+  // AddTransceiver: If `requested_resolution` is specified on any encoding it
+  // must be specified on all encodings.
+  RtpTransceiverInit init;
+  RtpEncodingParameters encoding;
+  encoding.requested_resolution = std::nullopt;
+  init.send_encodings.push_back(encoding);
+  encoding.requested_resolution = {.width = 1280, .height = 720};
+  init.send_encodings.push_back(encoding);
+  auto transceiver_or_error =
+      pc_wrapper->pc()->AddTransceiver(cricket::MEDIA_TYPE_VIDEO, init);
+  EXPECT_FALSE(transceiver_or_error.ok());
+  EXPECT_EQ(transceiver_or_error.error().type(),
+            RTCErrorType::UNSUPPORTED_OPERATION);
+
+  // AddTransceiver: Specifying both `requested_resolution` and
+  // `scale_resolution_down_by` is allowed (the latter is ignored).
+  init.send_encodings[0].requested_resolution = {.width = 640, .height = 480};
+  init.send_encodings[0].scale_resolution_down_by = 1.0;
+  init.send_encodings[1].requested_resolution = {.width = 1280, .height = 720};
+  init.send_encodings[1].scale_resolution_down_by = 2.0;
+  transceiver_or_error =
+      pc_wrapper->pc()->AddTransceiver(cricket::MEDIA_TYPE_VIDEO, init);
+  ASSERT_TRUE(transceiver_or_error.ok());
+
+  // SetParameters: If `requested_resolution` is specified on any encoding it
+  // must be specified on all encodings.
+  auto sender = transceiver_or_error.value()->sender();
+  auto parameters = sender->GetParameters();
+  parameters.encodings[0].requested_resolution = {.width = 640, .height = 480};
+  parameters.encodings[1].requested_resolution = std::nullopt;
+  auto error = sender->SetParameters(parameters);
+  EXPECT_FALSE(error.ok());
+  EXPECT_EQ(error.type(), RTCErrorType::INVALID_MODIFICATION);
+
+  // SetParameters: Specifying both `requested_resolution` and
+  // `scale_resolution_down_by` is allowed (the latter is ignored).
+  parameters = sender->GetParameters();
+  parameters.encodings[0].requested_resolution = {.width = 640, .height = 480};
+  parameters.encodings[0].scale_resolution_down_by = 2.0;
+  parameters.encodings[1].requested_resolution = {.width = 1280, .height = 720};
+  parameters.encodings[1].scale_resolution_down_by = 1.0;
+  error = sender->SetParameters(parameters);
+  EXPECT_TRUE(error.ok());
+}
+
 // Tests that use the standard path (specifying both `scalability_mode` and
 // `scale_resolution_down_by` or `requested_resolution`) should pass for all
 // codecs.

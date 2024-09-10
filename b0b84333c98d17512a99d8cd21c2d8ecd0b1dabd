@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "07e79c7a_98ae1924",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-09-10T13:51:59Z",
+      "side": 1,
+      "message": "Still good.\nThe netinet header export can be done in a separate CL.",
+      "revId": "b0b84333c98d17512a99d8cd21c2d8ecd0b1dabd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

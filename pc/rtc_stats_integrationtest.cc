@@ -554,9 +554,19 @@ class RTCStatsReportVerifier {
     if (inbound_stream.kind.has_value() && *inbound_stream.kind == "video") {
       verifier.TestAttributeIsNonNegative<uint64_t>(inbound_stream.qp_sum);
       verifier.TestAttributeIsDefined(inbound_stream.decoder_implementation);
+      // TODO(webrtc:358039777): When call to `OnCorruptionScore` has been
+      // activated update this. Then it should not be "Undefined".
+      verifier.TestAttributeIsUndefined(inbound_stream.corruption_score_sum);
+      verifier.TestAttributeIsUndefined(
+          inbound_stream.corruption_score_squared_sum);
+      verifier.TestAttributeIsUndefined(inbound_stream.corruption_score_count);
       verifier.TestAttributeIsDefined(inbound_stream.power_efficient_decoder);
     } else {
       verifier.TestAttributeIsUndefined(inbound_stream.qp_sum);
+      verifier.TestAttributeIsUndefined(inbound_stream.corruption_score_sum);
+      verifier.TestAttributeIsUndefined(
+          inbound_stream.corruption_score_squared_sum);
+      verifier.TestAttributeIsUndefined(inbound_stream.corruption_score_count);
       verifier.TestAttributeIsUndefined(inbound_stream.decoder_implementation);
       verifier.TestAttributeIsUndefined(inbound_stream.power_efficient_decoder);
     }

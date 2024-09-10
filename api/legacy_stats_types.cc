@@ -417,6 +417,12 @@ const char* StatsReport::Value::display_name() const {
       return "mediaType";
     case kStatsValueNameQpSum:
       return "qpSum";
+    case kStatsValueNameCorruptionScoreSum:
+      return "corruptionScoreSum";
+    case kStatsValueNameCorruptionScoreSquaredSum:
+      return "corruptionScoreSquaredSum";
+    case kStatsValueNameCorruptionScoreCount:
+      return "corruptionScoreCount";
     // 'goog' prefixed constants.
     case kStatsValueNameAccelerateRate:
       return "googAccelerateRate";

@@ -1216,9 +1216,6 @@ PeerConnection::AddTransceiver(
   auto result = cricket::CheckRtpParametersValues(
       parameters, codecs, std::nullopt, env_.field_trials());
   if (!result.ok()) {
-    if (result.type() == RTCErrorType::INVALID_MODIFICATION) {
-      result.set_type(RTCErrorType::UNSUPPORTED_OPERATION);
-    }
     LOG_AND_RETURN_ERROR(result.type(), result.message());
   }
 

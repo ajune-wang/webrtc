@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "87405dc1_2b855203",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2024-09-10T17:37:32Z",
+      "side": 1,
+      "message": "LGTM to not block because of timezones, but I\u0027m not 100% convinced this is needed as we should be able to check the windows version based on the discussion in the bug?",
+      "revId": "ae38c85f7b64aba91258e48e18a153b87c4efd24",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1596cd76_0deb7671",
+        "filename": "modules/desktop_capture/win/wgc_capturer_win.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2024-09-10T17:37:32Z",
+      "side": 1,
+      "message": "Is it possible for this to fail on older versions and thus this should mean \"false\" ?\n\nCould we not instead just check the Windows version?",
+      "range": {
+        "startLine": 64,
+        "startChar": 0,
+        "endLine": 65,
+        "endChar": 20
+      },
+      "revId": "ae38c85f7b64aba91258e48e18a153b87c4efd24",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "de045ef3_777580ff",
+        "filename": "modules/desktop_capture/win/wgc_capturer_win.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2024-09-10T17:37:32Z",
+      "side": 1,
+      "message": "I know Chromium style made one-line braces required ~recently. Can\u0027t recall if WebRTC style has anything to override it.",
+      "range": {
+        "startLine": 76,
+        "startChar": 1,
+        "endLine": 77,
+        "endChar": 11
+      },
+      "revId": "ae38c85f7b64aba91258e48e18a153b87c4efd24",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3870e778_a4a001c9",
+        "filename": "modules/desktop_capture/win/wgc_capturer_win.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2024-09-10T17:37:32Z",
+      "side": 1,
+      "message": "Seems like these are leaked by the early returns? Not sure if https://source.chromium.org/chromium/chromium/src/+/main:base/win/scoped_hstring.h was ported to WebRTC, but any kind of scoped handle wrapper may be a good idea?",
+      "range": {
+        "startLine": 93,
+        "startChar": 0,
+        "endLine": 94,
+        "endChar": 42
+      },
+      "revId": "ae38c85f7b64aba91258e48e18a153b87c4efd24",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

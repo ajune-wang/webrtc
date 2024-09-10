@@ -19,6 +19,7 @@
 #include "api/field_trials_view.h"
 #include "api/scoped_refptr.h"
 #include "api/sequence_checker.h"
+#include "rtc_base/buffer.h"
 #include "rtc_base/synchronization/mutex.h"
 
 // Forward declaration to avoid pulling in libsrtp headers here
@@ -45,23 +46,19 @@ class SrtpSession {
   // Configures the session for sending data using the specified
   // crypto suite and key. Receiving must be done by a separate session.
   bool SetSend(int crypto_suite,
-               const uint8_t* key,
-               size_t len,
+               const rtc::ZeroOnFreeBuffer<uint8_t>& key,
                const std::vector<int>& extension_ids);
   bool UpdateSend(int crypto_suite,
-                  const uint8_t* key,
-                  size_t len,
+                  const rtc::ZeroOnFreeBuffer<uint8_t>& key,
                   const std::vector<int>& extension_ids);
 
   // Configures the session for receiving data using the specified
   // crypto suite and key. Sending must be done by a separate session.
   bool SetRecv(int crypto_suite,
-               const uint8_t* key,
-               size_t len,
+               const rtc::ZeroOnFreeBuffer<uint8_t>& key,
                const std::vector<int>& extension_ids);
   bool UpdateRecv(int crypto_suite,
-                  const uint8_t* key,
-                  size_t len,
+                  const rtc::ZeroOnFreeBuffer<uint8_t>& key,
                   const std::vector<int>& extension_ids);
 
   // Encrypts/signs an individual RTP/RTCP packet, in-place.
@@ -108,18 +105,15 @@ class SrtpSession {
  private:
   bool DoSetKey(int type,
                 int crypto_suite,
-                const uint8_t* key,
-                size_t len,
+                const rtc::ZeroOnFreeBuffer<uint8_t>& key,
                 const std::vector<int>& extension_ids);
   bool SetKey(int type,
               int crypto_suite,
-              const uint8_t* key,
-              size_t len,
+              const rtc::ZeroOnFreeBuffer<uint8_t>& key,
               const std::vector<int>& extension_ids);
   bool UpdateKey(int type,
                  int crypto_suite,
-                 const uint8_t* key,
-                 size_t len,
+                 const rtc::ZeroOnFreeBuffer<uint8_t>& key,
                  const std::vector<int>& extension_ids);
   // Returns send stream current packet index from srtp db.
   bool GetSendStreamPacketIndex(void* data, int in_len, int64_t* index);

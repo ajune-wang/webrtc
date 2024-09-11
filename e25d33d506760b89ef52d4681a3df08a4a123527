@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4a78bba2_cbce56d9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-09-11T17:41:30Z",
+      "side": 1,
+      "message": "maybe this one is easier than https://webrtc-review.googlesource.com/c/src/+/358442 ? But I guess it needs more deprecations...",
+      "revId": "e25d33d506760b89ef52d4681a3df08a4a123527",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "84c51130_8b4eb46c",
+        "filename": "pc/srtp_session.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-09-11T17:41:30Z",
+      "side": 1,
+      "message": "not replaced, buffer was added, mutex moved to the .cc",
+      "revId": "9727aceca599d10bf675b7a2f3f4320427ba7580",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

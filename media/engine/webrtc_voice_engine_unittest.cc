@@ -3994,3 +3994,91 @@ TEST(WebRtcVoiceEngineTest, CollectRecvCodecs) {
     EXPECT_GE(find_codec({"telephone-event", 48000, 1}), num_specs);
   }
 }
+
+TEST(WebRtcVoiceEngineTest, CollectRecvCodecsWithLatePtAssignment) {
+  webrtc::test::ScopedKeyValueConfig field_trials(
+      "WebRTC-PayloadTypesInTransport/Enabled/");
+
+  for (bool use_null_apm : {false, true}) {
+    std::vector<webrtc::AudioCodecSpec> specs;
+    webrtc::AudioCodecSpec spec1{{"codec1", 48000, 2, {{"param1", "value1"}}},
+                                 {48000, 2, 16000, 10000, 20000}};
+    spec1.info.allow_comfort_noise = false;
+    spec1.info.supports_network_adaption = true;
+    specs.push_back(spec1);
+    webrtc::AudioCodecSpec spec2{{"codec2", 32000, 1}, {32000, 1, 32000}};
+    spec2.info.allow_comfort_noise = false;
+    specs.push_back(spec2);
+    specs.push_back(webrtc::AudioCodecSpec{
+        {"codec3", 16000, 1, {{"param1", "value1b"}, {"param2", "value2"}}},
+        {16000, 1, 13300}});
+    specs.push_back(
+        webrtc::AudioCodecSpec{{"codec4", 8000, 1}, {8000, 1, 64000}});
+    specs.push_back(
+        webrtc::AudioCodecSpec{{"codec5", 8000, 2}, {8000, 1, 64000}});
+
+    std::unique_ptr<webrtc::TaskQueueFactory> task_queue_factory =
+        webrtc::CreateDefaultTaskQueueFactory();
+    rtc::scoped_refptr<webrtc::MockAudioEncoderFactory> unused_encoder_factory =
+        webrtc::MockAudioEncoderFactory::CreateUnusedFactory();
+    rtc::scoped_refptr<webrtc::MockAudioDecoderFactory> mock_decoder_factory =
+        rtc::make_ref_counted<webrtc::MockAudioDecoderFactory>();
+    EXPECT_CALL(*mock_decoder_factory.get(), GetSupportedDecoders())
+        .WillOnce(Return(specs));
+    rtc::scoped_refptr<webrtc::test::MockAudioDeviceModule> adm =
+        webrtc::test::MockAudioDeviceModule::CreateNice();
+
+    rtc::scoped_refptr<webrtc::AudioProcessing> apm =
+        use_null_apm ? nullptr : webrtc::AudioProcessingBuilder().Create();
+    cricket::WebRtcVoiceEngine engine(
+        task_queue_factory.get(), adm.get(), unused_encoder_factory,
+        mock_decoder_factory, nullptr, apm, nullptr, field_trials);
+    engine.Init();
+    auto codecs = engine.recv_codecs();
+    EXPECT_EQ(11u, codecs.size());
+
+    // Rather than just ASSERTing that there are enough codecs, ensure that we
+    // can check the actual values safely, to provide better test results.
+    auto get_codec = [&codecs](size_t index) -> const cricket::Codec& {
+      static const cricket::Codec missing_codec =
+          cricket::CreateAudioCodec(0, "<missing>", 0, 0);
+      if (codecs.size() > index)
+        return codecs[index];
+      return missing_codec;
+    };
+
+    // Ensure the general codecs are generated first and in order.
+    for (size_t i = 0; i != specs.size(); ++i) {
+      EXPECT_EQ(specs[i].format.name, get_codec(i).name);
+      EXPECT_EQ(specs[i].format.clockrate_hz, get_codec(i).clockrate);
+      EXPECT_EQ(specs[i].format.num_channels, get_codec(i).channels);
+      EXPECT_EQ(specs[i].format.parameters, get_codec(i).params);
+    }
+
+    // Find the index of a codec, or -1 if not found, so that we can easily
+    // check supplementary codecs are ordered after the general codecs.
+    auto find_codec = [&codecs](const webrtc::SdpAudioFormat& format) -> int {
+      for (size_t i = 0; i != codecs.size(); ++i) {
+        const cricket::Codec& codec = codecs[i];
+        if (absl::EqualsIgnoreCase(codec.name, format.name) &&
+            codec.clockrate == format.clockrate_hz &&
+            codec.channels == format.num_channels) {
+          return rtc::checked_cast<int>(i);
+        }
+      }
+      return -1;
+    };
+
+    // Ensure all supplementary codecs are generated last. Their internal
+    // ordering is not important. Without this cast, the comparison turned
+    // unsigned and, thus, failed for -1.
+    const int num_specs = static_cast<int>(specs.size());
+    EXPECT_GE(find_codec({"cn", 8000, 1}), num_specs);
+    EXPECT_GE(find_codec({"cn", 16000, 1}), num_specs);
+    EXPECT_EQ(find_codec({"cn", 32000, 1}), -1);
+    EXPECT_GE(find_codec({"telephone-event", 8000, 1}), num_specs);
+    EXPECT_GE(find_codec({"telephone-event", 16000, 1}), num_specs);
+    EXPECT_GE(find_codec({"telephone-event", 32000, 1}), num_specs);
+    EXPECT_GE(find_codec({"telephone-event", 48000, 1}), num_specs);
+  }
+}

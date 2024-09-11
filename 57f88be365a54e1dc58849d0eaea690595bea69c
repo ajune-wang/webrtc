@@ -16,6 +16,58 @@
       "message": "in general lgtm, will defer to hbos@ on specifics for the review",
       "revId": "57f88be365a54e1dc58849d0eaea690595bea69c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5fa6598a_225f3dcd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2024-09-11T13:11:21Z",
+      "side": 1,
+      "message": "Plumbing-wise this looks good to me but sounds like a) it\u0027s not implemented yet and b) we haven\u0027t done a spec PR yet, so I wonder if we should wait some more before landing this CL",
+      "parentUuid": "0136b287_70449c1f",
+      "revId": "57f88be365a54e1dc58849d0eaea690595bea69c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9c07394d_9e38874e",
+        "filename": "api/stats/rtcstats_objects.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 301,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2024-09-11T13:11:21Z",
+      "side": 1,
+      "message": "We\u0027ll want to standardize this metric in which case it would be defined in https://w3c.github.io/webrtc-stats/, if we wait for that we don\u0027t need a special link.\n\nWe can of course land this CL without waiting for that because a separate CL is needed in Chromium to expose this to JavaScript (without it this will be a C++-only metric). But we should not expose without some extra process there.\n\nIn the meantime that link is as good as any.",
+      "revId": "57f88be365a54e1dc58849d0eaea690595bea69c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "020538f7_2158310c",
+        "filename": "pc/rtc_stats_integrationtest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 558,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2024-09-11T13:11:21Z",
+      "side": 1,
+      "message": "IIUC the metric is not implemented before `OnCorruptionScore` is implemented - should we perhaps land that CL before we plumb up this metric? No value in an always undefined metric",
+      "revId": "57f88be365a54e1dc58849d0eaea690595bea69c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

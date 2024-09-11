@@ -27,6 +27,7 @@
 #include "rtc_base/logging.h"
 #include "rtc_base/ssl_stream_adapter.h"
 #include "rtc_base/string_encode.h"
+#include "rtc_base/synchronization/mutex.h"
 #include "rtc_base/thread_annotations.h"
 #include "rtc_base/time_utils.h"
 #include "system_wrappers/include/metrics.h"
@@ -134,31 +135,27 @@ SrtpSession::~SrtpSession() {
 }
 
 bool SrtpSession::SetSend(int crypto_suite,
-                          const uint8_t* key,
-                          size_t len,
+                          const rtc::ZeroOnFreeBuffer<uint8_t>& key,
                           const std::vector<int>& extension_ids) {
-  return SetKey(ssrc_any_outbound, crypto_suite, key, len, extension_ids);
+  return SetKey(ssrc_any_outbound, crypto_suite, key, extension_ids);
 }
 
 bool SrtpSession::UpdateSend(int crypto_suite,
-                             const uint8_t* key,
-                             size_t len,
+                             const rtc::ZeroOnFreeBuffer<uint8_t>& key,
                              const std::vector<int>& extension_ids) {
-  return UpdateKey(ssrc_any_outbound, crypto_suite, key, len, extension_ids);
+  return UpdateKey(ssrc_any_outbound, crypto_suite, key, extension_ids);
 }
 
 bool SrtpSession::SetRecv(int crypto_suite,
-                          const uint8_t* key,
-                          size_t len,
+                          const rtc::ZeroOnFreeBuffer<uint8_t>& key,
                           const std::vector<int>& extension_ids) {
-  return SetKey(ssrc_any_inbound, crypto_suite, key, len, extension_ids);
+  return SetKey(ssrc_any_inbound, crypto_suite, key, extension_ids);
 }
 
 bool SrtpSession::UpdateRecv(int crypto_suite,
-                             const uint8_t* key,
-                             size_t len,
+                             const rtc::ZeroOnFreeBuffer<uint8_t>& key,
                              const std::vector<int>& extension_ids) {
-  return UpdateKey(ssrc_any_inbound, crypto_suite, key, len, extension_ids);
+  return UpdateKey(ssrc_any_inbound, crypto_suite, key, extension_ids);
 }
 
 bool SrtpSession::ProtectRtp(void* p, int in_len, int max_len, int* out_len) {
@@ -356,8 +353,7 @@ bool SrtpSession::GetSendStreamPacketIndex(void* p,
 
 bool SrtpSession::DoSetKey(int type,
                            int crypto_suite,
-                           const uint8_t* key,
-                           size_t len,
+                           const rtc::ZeroOnFreeBuffer<uint8_t>& key,
                            const std::vector<int>& extension_ids) {
   RTC_DCHECK(thread_checker_.IsCurrent());
 
@@ -374,7 +370,7 @@ bool SrtpSession::DoSetKey(int type,
     return false;
   }
 
-  if (!key || len != static_cast<size_t>(policy.rtp.cipher_key_len)) {
+  if (key.size() != static_cast<size_t>(policy.rtp.cipher_key_len)) {
     RTC_LOG(LS_ERROR) << "Failed to " << (session_ ? "update" : "create")
                       << " SRTP session: invalid key";
     return false;
@@ -382,7 +378,7 @@ bool SrtpSession::DoSetKey(int type,
 
   policy.ssrc.type = static_cast<srtp_ssrc_type_t>(type);
   policy.ssrc.value = 0;
-  policy.key = const_cast<uint8_t*>(key);
+  policy.key = const_cast<uint8_t*>(key.data());
   // TODO(astor) parse window size from WSH session-param
   policy.window_size = 1024;
   policy.allow_repeat_tx = 1;
@@ -426,8 +422,7 @@ bool SrtpSession::DoSetKey(int type,
 
 bool SrtpSession::SetKey(int type,
                          int crypto_suite,
-                         const uint8_t* key,
-                         size_t len,
+                         const rtc::ZeroOnFreeBuffer<uint8_t>& key,
                          const std::vector<int>& extension_ids) {
   RTC_DCHECK(thread_checker_.IsCurrent());
   if (session_) {
@@ -445,13 +440,12 @@ bool SrtpSession::SetKey(int type,
     return false;
   }
 
-  return DoSetKey(type, crypto_suite, key, len, extension_ids);
+  return DoSetKey(type, crypto_suite, key, extension_ids);
 }
 
 bool SrtpSession::UpdateKey(int type,
                             int crypto_suite,
-                            const uint8_t* key,
-                            size_t len,
+                            const rtc::ZeroOnFreeBuffer<uint8_t>& key,
                             const std::vector<int>& extension_ids) {
   RTC_DCHECK(thread_checker_.IsCurrent());
   if (!session_) {
@@ -459,7 +453,7 @@ bool SrtpSession::UpdateKey(int type,
     return false;
   }
 
-  return DoSetKey(type, crypto_suite, key, len, extension_ids);
+  return DoSetKey(type, crypto_suite, key, extension_ids);
 }
 
 void ProhibitLibsrtpInitialization() {

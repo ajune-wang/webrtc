@@ -53,6 +53,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "aab53bfa_3bf7ed85",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2024-09-11T15:10:47Z",
+      "side": 1,
+      "message": "In summary: I would claim that the current implementation feels more \"correct\" since it checks the existence of a specific API instead of a more broad version check (which also is not up2date in WebRTC).",
+      "parentUuid": "c9c174b9_8e6257b8",
+      "revId": "ae38c85f7b64aba91258e48e18a153b87c4efd24",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1596cd76_0deb7671",

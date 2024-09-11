@@ -18,6 +18,41 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "43047d5f_9f6d477d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2024-09-11T13:34:06Z",
+      "side": 1,
+      "message": "I added comments which I hope explain why I did not go for a version check here.\n\nAlso, Chrome has https://source.chromium.org/chromium/chromium/src/+/main:base/win/windows_version.h;l\u003d61 which does not cover 24H2 (build 26100) and WebRTC seems to be way behind Chrome :-(",
+      "parentUuid": "87405dc1_2b855203",
+      "revId": "ae38c85f7b64aba91258e48e18a153b87c4efd24",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c9c174b9_8e6257b8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2024-09-11T13:34:06Z",
+      "side": 1,
+      "message": "Thanks Alex, added some comments but hope we can land this tomorrow if you are OK with my comments.",
+      "revId": "ae38c85f7b64aba91258e48e18a153b87c4efd24",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1596cd76_0deb7671",
@@ -31,6 +66,30 @@
       "writtenOn": "2024-09-10T17:37:32Z",
       "side": 1,
       "message": "Is it possible for this to fail on older versions and thus this should mean \"false\" ?\n\nCould we not instead just check the Windows version?",
+      "range": {
+        "startLine": 64,
+        "startChar": 0,
+        "endLine": 65,
+        "endChar": 20
+      },
+      "revId": "ae38c85f7b64aba91258e48e18a153b87c4efd24",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "185bd8e1_5292002a",
+        "filename": "modules/desktop_capture/win/wgc_capturer_win.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2024-09-11T13:34:06Z",
+      "side": 1,
+      "message": "By this comment I mean that we don\u0027t create a histogram if any of the initial HSTRING method fails. If they do, we can call ApiInformation::IsPropertyPresent() and expect a valid result. My comment was perhaps misleading but the result should be false if API does not exist and true otherwise. Only if CreateHstring fails, we don\u0027t log.\n\nI discussed this with experts from Microsoft in https://issues.chromium.org/issues/347991512 and they recommended to use this method. That is also what is used in their reference WGC application. It looks like the method used here should correspond to \"24H2 (build 26100)\" and it might be OK to use instead but we don\u0027t have this granularity today https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/rtc_base/win/windows_version.h;drc\u003d8e948282d37c0e119e3102236878d6f4d5052c16;l\u003d52",
+      "parentUuid": "1596cd76_0deb7671",
       "range": {
         "startLine": 64,
         "startChar": 0,
@@ -66,6 +125,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a0b78cca_11fd800e",
+        "filename": "modules/desktop_capture/win/wgc_capturer_win.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2024-09-11T13:34:06Z",
+      "side": 1,
+      "message": "Will fix.",
+      "parentUuid": "de045ef3_777580ff",
+      "range": {
+        "startLine": 76,
+        "startChar": 1,
+        "endLine": 77,
+        "endChar": 11
+      },
+      "revId": "ae38c85f7b64aba91258e48e18a153b87c4efd24",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3870e778_a4a001c9",
         "filename": "modules/desktop_capture/win/wgc_capturer_win.cc",
         "patchSetId": 9
@@ -77,6 +160,30 @@
       "writtenOn": "2024-09-10T17:37:32Z",
       "side": 1,
       "message": "Seems like these are leaked by the early returns? Not sure if https://source.chromium.org/chromium/chromium/src/+/main:base/win/scoped_hstring.h was ported to WebRTC, but any kind of scoped handle wrapper may be a good idea?",
+      "range": {
+        "startLine": 93,
+        "startChar": 0,
+        "endLine": 94,
+        "endChar": 42
+      },
+      "revId": "ae38c85f7b64aba91258e48e18a153b87c4efd24",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3f42b67a_0d67efb3",
+        "filename": "modules/desktop_capture/win/wgc_capturer_win.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2024-09-11T13:34:06Z",
+      "side": 1,
+      "message": "I considered it but based on previous experience this type work tend to lead to adding unwanted dependencies and I figured it was only a histogram. Are you OK with if I fix the memory issue manually this round?",
+      "parentUuid": "3870e778_a4a001c9",
       "range": {
         "startLine": 93,
         "startChar": 0,

@@ -16,6 +16,24 @@
       "message": "Is it possible to test this (for ex by overriding the log handler with a fake and seeing that it\u0027s triggered when doing some action that should cause a log)?",
       "revId": "e83cf28e103c363cc4720f3a9d36ab679cf64023",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ba3022da_1761618c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-09-11T20:00:23Z",
+      "side": 1,
+      "message": "I tried with a SSRC collision only to find out this can not happen by design. Which is a good learning, added a note here: https://issues.webrtc.org/issues/42222822#comment11\n\nThat would only leave us with soft key limits which would take too long for CI and arcane crypto errors. I\u0027d still like to see those in the Chrome logs if they happen.",
+      "parentUuid": "739220fe_a3698a97",
+      "revId": "e83cf28e103c363cc4720f3a9d36ab679cf64023",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

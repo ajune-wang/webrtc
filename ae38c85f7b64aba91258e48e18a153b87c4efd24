@@ -118,6 +118,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ccc64b5d_b8353ac1",
+        "filename": "modules/desktop_capture/win/wgc_capturer_win.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2024-09-11T16:32:05Z",
+      "side": 1,
+      "message": "ACK. That makes sense.\n\nYeah, I guess when I was referring to checking hte windows version I more meant instead of this check if we had that data. This is fine though.",
+      "parentUuid": "185bd8e1_5292002a",
+      "range": {
+        "startLine": 64,
+        "startChar": 0,
+        "endLine": 65,
+        "endChar": 20
+      },
+      "revId": "ae38c85f7b64aba91258e48e18a153b87c4efd24",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "de045ef3_777580ff",
@@ -202,6 +226,30 @@
       "side": 1,
       "message": "I considered it but based on previous experience this type work tend to lead to adding unwanted dependencies and I figured it was only a histogram. Are you OK with if I fix the memory issue manually this round?",
       "parentUuid": "3870e778_a4a001c9",
+      "range": {
+        "startLine": 93,
+        "startChar": 0,
+        "endLine": 94,
+        "endChar": 42
+      },
+      "revId": "ae38c85f7b64aba91258e48e18a153b87c4efd24",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e2acffb3_8ecd1c1d",
+        "filename": "modules/desktop_capture/win/wgc_capturer_win.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2024-09-11T16:32:05Z",
+      "side": 1,
+      "message": "Yeah, a manual delete is fine for now.",
+      "parentUuid": "3f42b67a_0d67efb3",
       "range": {
         "startLine": 93,
         "startChar": 0,

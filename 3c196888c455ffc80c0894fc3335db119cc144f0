@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "08a11746_e554d161",
+        "filename": "docs/native-code/rtp-hdrext/corruption-detection/README.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 354,
+      "author": {
+        "id": 17594
+      },
+      "writtenOn": "2024-09-11T07:41:01Z",
+      "side": 1,
+      "message": "I\u0027m not sure \"should\" is the correct wording here, could \"must\" be more correct? So in this case \"if used it must only be present in the last packet...\" and \"it must be ignored\". See RFC 2119 for definitions: https://datatracker.ietf.org/doc/html/rfc2119",
+      "revId": "3c196888c455ffc80c0894fc3335db119cc144f0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bb132c67_85fa2953",
+        "filename": "docs/native-code/rtp-hdrext/corruption-detection/README.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 354,
+      "author": {
+        "id": 17594
+      },
+      "writtenOn": "2024-09-11T07:41:01Z",
+      "side": 1,
+      "message": "\"The extension\"",
+      "revId": "3c196888c455ffc80c0894fc3335db119cc144f0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

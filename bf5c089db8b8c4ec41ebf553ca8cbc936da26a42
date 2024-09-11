@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fa27061b_47d5ce84",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-09-11T19:49:53Z",
+      "side": 1,
+      "message": "spanify? Delete delete! It does not seem to have been used by the SDES code even...",
+      "revId": "bf5c089db8b8c4ec41ebf553ca8cbc936da26a42",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

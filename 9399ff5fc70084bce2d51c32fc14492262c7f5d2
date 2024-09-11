@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "64cfe728_cc3b6f97",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2024-09-11T13:02:01Z",
+      "side": 1,
+      "message": "Thanks for doing these tests! Just nits except for the EXPECT/return comment",
+      "revId": "9399ff5fc70084bce2d51c32fc14492262c7f5d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "51dc8e01_1a8d0b3b",
+        "filename": "video/video_stream_encoder_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1409,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2024-09-11T13:02:01Z",
+      "side": 1,
+      "message": "I find it confusing to have helper functions that both expect and return values at the same time because if the EXPECT fails then the test has already failed, so why does the test need to know the bool? The test is kind of over.\n\nInstead can we just return a bool and then delegate the EXPECT to inside the test which improves the debugability without making it \"confusing\"?\n\nOtherwise I prefer it to be void, unless you feel strongly otherwise.\n\n(Same comment applies to all these test functions, the above ones too that do `sink_.ExpectFoo()`)",
+      "revId": "9399ff5fc70084bce2d51c32fc14492262c7f5d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b07f2af2_641e98e5",
+        "filename": "video/video_stream_encoder_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 6272,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2024-09-11T13:02:01Z",
+      "side": 1,
+      "message": "You can delete this commented out line",
+      "revId": "9399ff5fc70084bce2d51c32fc14492262c7f5d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fb24968f_9d5d9dfe",
+        "filename": "video/video_stream_encoder_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 6287,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2024-09-11T13:02:01Z",
+      "side": 1,
+      "message": "This used to be EXPECT, should we do EXPECT rather than ASSERT or was this change intentional?",
+      "revId": "9399ff5fc70084bce2d51c32fc14492262c7f5d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e01fb254_a379f9e8",
+        "filename": "video/video_stream_encoder_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 6413,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2024-09-11T13:02:01Z",
+      "side": 1,
+      "message": "Delete commented out line",
+      "revId": "9399ff5fc70084bce2d51c32fc14492262c7f5d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

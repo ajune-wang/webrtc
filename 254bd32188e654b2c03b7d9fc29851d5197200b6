@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7b7b4f8f_de2db7da",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2024-09-11T09:57:32Z",
+      "side": 1,
+      "message": "Should have referenced a bug, e.g. https://crbug.com/363544347",
+      "revId": "254bd32188e654b2c03b7d9fc29851d5197200b6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -350,3 +350,6 @@ Regardless of method, the implementation at the send side SHOULD strive to set
 the filter size and error thresholds such that 99.5% of filtered samples end up
 with a delta <= the error threshold for that plane, based on a representative
 set of test clips and bandwidth constraints.
+
+Notes: The extension should be present only in the last packet of video frames.
+If attached to other packets it should be ignored.

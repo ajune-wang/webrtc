@@ -102,6 +102,15 @@ rtc::StreamResult StreamInterfaceChannel::Write(
   // TODO(zhihuang): Should this block if ice_transport_'s temporarily
   // unwritable?
   rtc::PacketOptions packet_options;
+  RTC_LOG(LS_ERROR) << "SSL WRITE " << data.size() 
+                    << " is_handshake= " << (data.size() > 0 && data[0] == 0x16);
+  if (!ice_transport_->writable()) {
+    RTC_LOG(LS_ERROR) << "Not yet writeable... " << this;
+    /*
+    written = data.size();
+    return rtc::SR_SUCCESS;
+    */
+  }
   ice_transport_->SendPacket(reinterpret_cast<const char*>(data.data()),
                              data.size(), packet_options);
   written = data.size();
@@ -765,7 +774,11 @@ void DtlsTransport::OnNetworkRouteChanged(
 }
 
 void DtlsTransport::MaybeStartDtls() {
-  if (dtls_ && ice_transport_->writable()) {
+  RTC_LOG(LS_ERROR) << "MaybeStartDtls";
+  // This is the crucial change. We currently call this early
+  // but since the ICE transport is not writable we do nothing.
+  // This needs to be guarded by field trial for sending.
+  if (dtls_ /*&& ice_transport_->writable()*/) {
     ConfigureHandshakeTimeout();
 
     if (dtls_->StartSSL()) {

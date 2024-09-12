@@ -16,6 +16,52 @@
       "message": "I\u0027ll add a unit test to check the absolute capture timestamp at stream restart of channel_sender in a follow up: I want to land this CL so it can be in for the 130 branch on Monday.",
       "revId": "71c3bf84e4e1841760b9fbbbc37187be7654961e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "adbc54bc_0b089d7a",
+        "filename": "audio/channel_send_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2024-09-12T14:15:39Z",
+      "side": 1,
+      "message": "nit: remove this change",
+      "range": {
+        "startLine": 142,
+        "startChar": 3,
+        "endLine": 144,
+        "endChar": 24
+      },
+      "revId": "71c3bf84e4e1841760b9fbbbc37187be7654961e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "45b28b2d_b033b9b6",
+        "filename": "modules/audio_coding/include/audio_coding_module.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2024-09-12T14:15:39Z",
+      "side": 1,
+      "message": "nit: buffered?",
+      "range": {
+        "startLine": 81,
+        "startChar": 71,
+        "endLine": 81,
+        "endChar": 77
+      },
+      "revId": "71c3bf84e4e1841760b9fbbbc37187be7654961e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

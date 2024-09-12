@@ -657,6 +657,12 @@ void P2PTransportChannel::SetIceConfig(const IceConfig& config) {
                      << config.stun_keepalive_interval_or_default();
   }
 
+  if (config_.dtls_handshake_in_stun != config.dtls_handshake_in_stun) {
+    config_.dtls_handshake_in_stun = config.dtls_handshake_in_stun;
+    RTC_LOG(LS_INFO) << "Set DTLS handshake in STUN to"
+                     << config.dtls_handshake_in_stun;
+  }
+
   webrtc::BasicRegatheringController::Config regathering_config;
   regathering_config.regather_on_failed_networks_interval =
       config_.regather_on_failed_networks_interval_or_default();
@@ -987,6 +993,7 @@ void P2PTransportChannel::OnUnknownAddress(PortInterface* port,
                                            const std::string& remote_username,
                                            bool port_muxed) {
   RTC_DCHECK_RUN_ON(network_thread_);
+  RTC_DCHECK(stun_msg);
 
   // Port has received a valid stun packet from an address that no Connection
   // is currently available for. See if we already have a candidate with the
@@ -1116,6 +1123,15 @@ void P2PTransportChannel::OnUnknownAddress(PortInterface* port,
                                                : "resurrected")
                    << " candidate: " << remote_candidate.ToSensitiveString();
   AddConnection(connection);
+
+  // Process DTLS before sending the binding response.
+  if (auto dtls_attribute =
+          stun_msg->GetByteString(STUN_ATTR_META_DTLS_IN_STUN)) {
+    // Signal this as a DTLS packet.
+    // TODO: restore access to original packet and pass arrival_time and ecn.
+    rtc::ReceivedPacket dtls_packet(dtls_attribute->array_view(), address);
+    connection->OnReadPacket(dtls_packet);
+  }
   connection->HandleStunBindingOrGoogPingRequest(stun_msg);
 
   // Update the list of connections since we just added another.  We do this
@@ -1433,6 +1449,11 @@ bool P2PTransportChannel::CreateConnection(PortInterface* port,
       return false;
     }
     AddConnection(connection);
+    if (config_.dtls_handshake_in_stun) {
+      RTC_LOG(LS_ERROR) << "CREATED " << dtls_buffer_.size() << " " << this;
+      connection->set_dtls_in_stun(true);
+      connection->set_dtls_data(dtls_buffer_);
+    }
     RTC_LOG(LS_INFO) << ToString()
                      << ": Created connection with origin: " << origin
                      << ", total: " << connections_.size();
@@ -1575,10 +1596,33 @@ int P2PTransportChannel::SendPacket(const char* data,
   }
   // If we don't think the connection is working yet, return ENOTCONN
   // instead of sending a packet that will probably be dropped.
-  if (!ReadyToSend(selected_connection_)) {
+  // TODO: DTLS handshakes always start with 0x16, reuse helper function.
+  if (config_.dtls_handshake_in_stun && !ReadyToSend(selected_connection_) &&
+      len > 0 && data[0] == 0x16) {
     error_ = ENOTCONN;
+    RTC_LOG(LS_ERROR) << "DROPPED HERE connections #" << connections_.size()
+                      << " sz=" << len;
+    dtls_buffer_.SetData(data, len);
+    for (Connection* connection : connections_) {
+      connection->set_dtls_in_stun(true);
+      connection->set_dtls_data(dtls_buffer_);
+    }
     return -1;
   }
+  /*
+   * TODO: this is fun for demos but should not be required.
+   * Doing this harms fallback to non-supporting browsers.
+   * But it may be good to still call set_dtls_data for resiliency?
+  if (len > 0 && data[0] == 0x16) {
+    RTC_LOG(LS_ERROR) << "Dropping explicit handshake " << writable_;
+    dtls_buffer_.SetData(data, len);
+    for (Connection* connection : connections_) {
+      connection->set_dtls_in_stun(true);
+      connection->set_dtls_data(dtls_buffer_);
+    }
+    return len;
+  }
+  */
 
   packets_sent_++;
   last_sent_packet_id_ = options.packet_id;
@@ -2242,6 +2286,23 @@ void P2PTransportChannel::SetWritable(bool writable) {
     SignalReadyToSend(this);
   }
   SignalWritableState(this);
+
+  // Need to STUN ping here to get the last bit of the DTLS handshake across
+  // (which we explicitly drop right now)
+  // Unless we decide we just let DTLS handle this normally and send a "raw"
+  // DTLS packet.
+  RTC_LOG(LS_ERROR) << "WRITABLE! " << selected_connection_;
+  SendPingRequestInternal(selected_connection_);
+  // TODO: we should be clearing the dtls_buffer_ once we successfully unprotect
+  // a SRTP packet or decrypt a DTLS packet (or receiving a binding response
+  // without a DTLS attribute after we previously saw one?).
+  // This currently clears the final server flight too early and should resend
+  // more. Works ok but how do we ensure it does not get set again? E.g. by
+  // making it a optional that gets unset.
+  dtls_buffer_.SetSize(0);
+  for (Connection* connection : connections_) {
+    connection->set_dtls_data(dtls_buffer_);
+  }
 }
 
 void P2PTransportChannel::SetReceiving(bool receiving) {

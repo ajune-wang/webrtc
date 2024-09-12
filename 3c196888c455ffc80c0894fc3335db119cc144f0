@@ -33,6 +33,42 @@
       "message": "\"The extension\"",
       "revId": "3c196888c455ffc80c0894fc3335db119cc144f0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d23abc33_950faf2d",
+        "filename": "docs/native-code/rtp-hdrext/corruption-detection/README.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 354,
+      "author": {
+        "id": 3485001
+      },
+      "writtenOn": "2024-09-12T07:43:04Z",
+      "side": 1,
+      "message": "I believe we have the freedom to chose here. Depending on the wording here we (and others who want to implement it) needs to take this into considiration when implementing. However, I think we dont need to be \"MUST\" strict at this point.\n\nFurthermore, extensions like color space (https://webrtc.googlesource.com/src/+/refs/heads/main/docs/native-code/rtp-hdrext/color-space) and video-frame-tracking-id (https://webrtc.googlesource.com/src/+/refs/heads/main/docs/native-code/rtp-hdrext/video-frame-tracking-id) etc. have used the wording \"SHOULD\".",
+      "parentUuid": "08a11746_e554d161",
+      "revId": "3c196888c455ffc80c0894fc3335db119cc144f0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "683994b6_320f52f6",
+        "filename": "docs/native-code/rtp-hdrext/corruption-detection/README.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 354,
+      "author": {
+        "id": 3485001
+      },
+      "writtenOn": "2024-09-12T07:43:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bb132c67_85fa2953",
+      "revId": "3c196888c455ffc80c0894fc3335db119cc144f0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

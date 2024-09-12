@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7db47881_e7b0c002",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-09-12T13:44:32Z",
+      "side": 1,
+      "message": "Yes, absl::optional would be cleaner, but also quite disruptive.",
+      "revId": "f6bb2457f5812fa6306cd470a0438db05eafe70f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "51a5a95d_b9464c54",
@@ -14,6 +31,24 @@
       "writtenOn": "2024-09-12T13:22:18Z",
       "side": 1,
       "message": "Alternatively can we make it std::optional\u003cint\u003e for code health, or is this used in too many places already?",
+      "revId": "f6bb2457f5812fa6306cd470a0438db05eafe70f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "478caf0a_c3fb1b90",
+        "filename": "media/base/codec.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-09-12T13:44:32Z",
+      "side": 1,
+      "message": "I did not dare to touch it, since the type is used massively downstream; absl::optional requires users to add a * when they access the value, so the change can\u0027t be transparent.\nI want to take another whack at changing the codec type eventually, but this seems to need to land first.",
+      "parentUuid": "51a5a95d_b9464c54",
       "revId": "f6bb2457f5812fa6306cd470a0438db05eafe70f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

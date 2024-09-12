@@ -2281,6 +2281,8 @@ TEST_F(WebRtcSdpTest, ParseSslTcpCandidate) {
 
 TEST_F(WebRtcSdpTest, SerializeSessionDescriptionWithH264) {
   cricket::Codec h264_codec = cricket::CreateVideoCodec("H264");
+  // Id must be valid, but value doesn't matter.
+  h264_codec.id = 123;
   h264_codec.SetParam("profile-level-id", "42e01f");
   h264_codec.SetParam("level-asymmetry-allowed", "1");
   h264_codec.SetParam("packetization-mode", "1");

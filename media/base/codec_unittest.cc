@@ -62,7 +62,7 @@ TEST(CodecTest, TestCodecOperators) {
   EXPECT_TRUE(c0 != c1);
 
   TestCodec c5;
-  TestCodec c6(0, "", 0);
+  TestCodec c6(Codec::kIdNotSet, "", 0);
   EXPECT_TRUE(c5 == c6);
 }
 

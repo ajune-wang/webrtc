@@ -189,6 +189,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "934942e6_d5b0d246",
+        "filename": "modules/desktop_capture/win/wgc_capturer_win.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2024-09-12T13:53:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a0b78cca_11fd800e",
+      "range": {
+        "startLine": 76,
+        "startChar": 1,
+        "endLine": 77,
+        "endChar": 11
+      },
+      "revId": "ae38c85f7b64aba91258e48e18a153b87c4efd24",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3870e778_a4a001c9",
@@ -250,6 +274,30 @@
       "side": 1,
       "message": "Yeah, a manual delete is fine for now.",
       "parentUuid": "3f42b67a_0d67efb3",
+      "range": {
+        "startLine": 93,
+        "startChar": 0,
+        "endLine": 94,
+        "endChar": 42
+      },
+      "revId": "ae38c85f7b64aba91258e48e18a153b87c4efd24",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "43612a8d_925895a4",
+        "filename": "modules/desktop_capture/win/wgc_capturer_win.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2024-09-12T13:53:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e2acffb3_8ecd1c1d",
       "range": {
         "startLine": 93,
         "startChar": 0,

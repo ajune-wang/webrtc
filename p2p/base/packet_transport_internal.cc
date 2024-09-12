@@ -50,7 +50,9 @@ void PacketTransportInternal::SetOnCloseCallback(
 void PacketTransportInternal::NotifyPacketReceived(
     const rtc::ReceivedPacket& packet) {
   RTC_DCHECK_RUN_ON(&network_checker_);
+  RTC_LOG(LS_ERROR) << "BEFORE NOTIFY";
   received_packet_callback_list_.Send(this, packet);
+  RTC_LOG(LS_ERROR) << "AFTER NOTIFY";
 }
 
 void PacketTransportInternal::NotifyOnClose() {

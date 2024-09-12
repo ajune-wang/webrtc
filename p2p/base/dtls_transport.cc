@@ -102,6 +102,15 @@ rtc::StreamResult StreamInterfaceChannel::Write(
   // TODO(zhihuang): Should this block if ice_transport_'s temporarily
   // unwritable?
   rtc::PacketOptions packet_options;
+  RTC_LOG(LS_ERROR) << "SSL WRITE " << data.size() << " "
+                    << rtc::ToString(data.size() > 0 ? data.data()[0] : 0);
+  if (!ice_transport_->writable()) {
+    RTC_LOG(LS_ERROR) << "Not yet writeable... " << this;
+    /*
+    written = data.size();
+    return rtc::SR_SUCCESS;
+    */
+  }
   ice_transport_->SendPacket(reinterpret_cast<const char*>(data.data()),
                              data.size(), packet_options);
   written = data.size();
@@ -608,6 +617,9 @@ void DtlsTransport::OnReadPacket(rtc::PacketTransportInternal* transport,
   RTC_DCHECK_RUN_ON(&thread_checker_);
   RTC_DCHECK(transport == ice_transport_);
 
+  // RTC_LOG(LS_ERROR) << "DTLs received packet..." << packet.payload().size()
+  // << " active=" << dtls_active_ << " state " <<
+  // static_cast<int>(dtls_state());
   if (!dtls_active_) {
     // Not doing DTLS.
     NotifyPacketReceived(packet);
@@ -652,6 +664,9 @@ void DtlsTransport::OnReadPacket(rtc::PacketTransportInternal* transport,
         if (!HandleDtlsPacket(packet.payload())) {
           RTC_LOG(LS_ERROR) << ToString() << ": Failed to handle DTLS packet.";
           return;
+        } else {
+          RTC_LOG(LS_ERROR) << "HANDLED " << packet.payload().size();
+          // dtls_->StartSSL(); // Trigger nego.
         }
       } else {
         // Not a DTLS packet; our handshake should be complete by now.
@@ -765,7 +780,8 @@ void DtlsTransport::OnNetworkRouteChanged(
 }
 
 void DtlsTransport::MaybeStartDtls() {
-  if (dtls_ && ice_transport_->writable()) {
+  RTC_LOG(LS_ERROR) << "MaybeStartDtls";
+  if (dtls_ /*&& ice_transport_->writable()*/) {
     ConfigureHandshakeTimeout();
 
     if (dtls_->StartSSL()) {

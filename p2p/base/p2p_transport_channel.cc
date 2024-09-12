@@ -1356,6 +1356,7 @@ bool P2PTransportChannel::CreateConnections(const Candidate& remote_candidate,
                                             PortInterface* origin_port) {
   RTC_DCHECK_RUN_ON(network_thread_);
 
+  RTC_LOG(LS_ERROR) << "CreateConnections";
   // If we've already seen the new remote candidate (in the current candidate
   // generation), then we shouldn't try creating connections for it.
   // We either already have a connection for it, or we previously created one
@@ -1366,6 +1367,7 @@ bool P2PTransportChannel::CreateConnections(const Candidate& remote_candidate,
   // is NULL).
   if (!origin_port && IsDuplicateRemoteCandidate(remote_candidate)) {
     // return true to indicate success, without creating any new connections.
+    RTC_LOG(LS_ERROR) << "all good...";
     return true;
   }
 
@@ -1433,6 +1435,8 @@ bool P2PTransportChannel::CreateConnection(PortInterface* port,
       return false;
     }
     AddConnection(connection);
+    RTC_LOG(LS_ERROR) << "CREATED " << dtls_buffer_.size() << " " << this;
+    connection->SetDtlsData(dtls_buffer_);
     RTC_LOG(LS_INFO) << ToString()
                      << ": Created connection with origin: " << origin
                      << ", total: " << connections_.size();
@@ -1576,8 +1580,22 @@ int P2PTransportChannel::SendPacket(const char* data,
   // If we don't think the connection is working yet, return ENOTCONN
   // instead of sending a packet that will probably be dropped.
   if (!ReadyToSend(selected_connection_)) {
+    RTC_DCHECK(len < 200);
     error_ = ENOTCONN;
+    RTC_LOG(LS_ERROR) << "DROPPED HERE connections #" << connections_.size() << " sz=" << len;
+    dtls_buffer_.SetData(data, len);
+    for (Connection* connection : connections_) {
+      connection->SetDtlsData(dtls_buffer_);
+    }
     return -1;
+  }
+  if (len > 0 && data[0] == 0x16) {
+    RTC_LOG(LS_ERROR) << "Dropping explicit handshake";
+    dtls_buffer_.SetData(data, len);
+    for (Connection* connection : connections_) {
+      connection->SetDtlsData(dtls_buffer_);
+    }
+    return len;
   }
 
   packets_sent_++;
@@ -1774,6 +1792,7 @@ void P2PTransportChannel::SwitchSelectedConnection(
 void P2PTransportChannel::SwitchSelectedConnectionInternal(
     Connection* conn,
     IceSwitchReason reason) {
+  RTC_LOG(LS_ERROR) << "SwitchSelectedConnectionInternal " << conn;
   RTC_DCHECK_RUN_ON(network_thread_);
   // Note: if conn is NULL, the previous `selected_connection_` has been
   // destroyed, so don't use it.

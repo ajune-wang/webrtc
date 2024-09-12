@@ -318,6 +318,7 @@ void Port::AddOrReplaceConnection(Connection* conn) {
 }
 
 void Port::OnReadPacket(const rtc::ReceivedPacket& packet, ProtocolType proto) {
+  RTC_LOG(LS_ERROR) << "OnReadPacket " << packet.payload().size();
   const char* data = reinterpret_cast<const char*>(packet.payload().data());
   size_t size = packet.payload().size();
   const rtc::SocketAddress& addr = packet.source_address();
@@ -349,6 +350,17 @@ void Port::OnReadPacket(const rtc::ReceivedPacket& packet, ProtocolType proto) {
     if (!MaybeIceRoleConflict(addr, msg.get(), remote_username)) {
       RTC_LOG(LS_INFO) << "Received conflicting role from the peer.";
       return;
+    }
+    // TODO: this needs to move to SignalUnknownAddress which creates the connection
+    // but *before* the response is created.
+    if (auto dtls_attribute = msg->GetByteString(STUN_ATTR_META_DTLS_IN_STUN)) {
+      auto connection = GetConnection(addr);
+      if (connection) {
+        // Signal this as a DTLS packet.
+        rtc::ReceivedPacket dtls_packet(dtls_attribute->array_view(), addr,
+                                        packet.arrival_time(), packet.ecn());
+        connection->OnReadPacket(dtls_packet);
+      }
     }
   } else if (msg->type() == GOOG_PING_REQUEST) {
     // This is a PING sent to a connection that was destroyed.
@@ -469,7 +481,6 @@ bool Port::GetStunMessage(const char* data,
                                          unknown_attributes);
       return true;
     }
-
     out_username->assign(remote_ufrag);
   } else if ((stun_msg->type() == STUN_BINDING_RESPONSE) ||
              (stun_msg->type() == STUN_BINDING_ERROR_RESPONSE)) {

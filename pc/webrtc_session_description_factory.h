@@ -23,6 +23,7 @@
 #include "api/peer_connection_interface.h"
 #include "api/scoped_refptr.h"
 #include "api/task_queue/task_queue_base.h"
+#include "call/payload_type.h"
 #include "p2p/base/transport_description.h"
 #include "p2p/base/transport_description_factory.h"
 #include "pc/media_session.h"
@@ -53,6 +54,7 @@ class WebRtcSessionDescriptionFactory {
       rtc::scoped_refptr<rtc::RTCCertificate> certificate,
       std::function<void(const rtc::scoped_refptr<rtc::RTCCertificate>&)>
           on_certificate_ready,
+      PayloadTypeSuggester* pt_suggester,
       const FieldTrialsView& field_trials);
   ~WebRtcSessionDescriptionFactory();
 

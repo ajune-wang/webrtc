@@ -80,7 +80,8 @@ class SdpOfferAnswerHandler : public SdpStateProvider {
       PeerConnectionSdpMethods* pc,
       const PeerConnectionInterface::RTCConfiguration& configuration,
       PeerConnectionDependencies& dependencies,
-      ConnectionContext* context);
+      ConnectionContext* context,
+      PayloadTypeSuggester* pt_suggester);
 
   void ResetSessionDescFactory() {
     RTC_DCHECK_RUN_ON(signaling_thread());
@@ -210,7 +211,8 @@ class SdpOfferAnswerHandler : public SdpStateProvider {
   void Initialize(
       const PeerConnectionInterface::RTCConfiguration& configuration,
       PeerConnectionDependencies& dependencies,
-      ConnectionContext* context);
+      ConnectionContext* context,
+      PayloadTypeSuggester* pt_suggester);
 
   rtc::Thread* signaling_thread() const;
   rtc::Thread* network_thread() const;

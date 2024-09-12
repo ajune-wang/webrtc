@@ -1002,6 +1002,7 @@ void Connection::Ping(int64_t now,
   }
 
   bool has_delta = delta != nullptr;
+  RTC_LOG(LS_ERROR) << "PING " << dtls_buffer_.size();
   auto req = std::make_unique<ConnectionRequest>(
       requests_, this, BuildPingRequest(std::move(delta)));
 

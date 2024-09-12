@@ -16,6 +16,40 @@
       "message": "if we need a deprecation any then lets rename Recv to Receive too!",
       "revId": "8de031c09d4cfffc1448c2120e8f05521076f61b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b68f64ff_e9b832c2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-09-12T16:17:41Z",
+      "side": 1,
+      "message": "I think",
+      "revId": "8de031c09d4cfffc1448c2120e8f05521076f61b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bb5136cf_132829ab",
+        "filename": "pc/srtp_session.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-09-12T16:17:41Z",
+      "side": 1,
+      "message": "I think this will double-zero. Always overwrite your crypto keys with zeros twice! ;-)",
+      "revId": "8de031c09d4cfffc1448c2120e8f05521076f61b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

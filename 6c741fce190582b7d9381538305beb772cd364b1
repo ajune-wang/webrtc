@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "f5236842_cd0371b3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-09-12T08:36:24Z",
+      "side": 1,
+      "message": "Late \u003d creating it when we need it for an offer/answer, not at PC creation time (which is what happens currently). The bug and design doc go into details.",
+      "parentUuid": "9df73d18_bc98d20a",
+      "revId": "6c741fce190582b7d9381538305beb772cd364b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "7fbbaa94_cbe97296",

@@ -492,6 +492,7 @@ void Connection::OnReadPacket(const rtc::ReceivedPacket& packet) {
     return;
   } else if (!msg) {
     // The packet was STUN, but failed a check and was handled internally.
+    RTC_LOG(LS_ERROR) << "FAIL";
     return;
   }
 
@@ -551,12 +552,38 @@ void Connection::OnReadPacket(const rtc::ReceivedPacket& packet) {
                                         STUN_ERROR_UNAUTHORIZED,
                                         STUN_ERROR_REASON_UNAUTHORIZED);
       }
+
+      if (auto dtls_attribute =
+              msg->GetByteString(STUN_ATTR_META_DTLS_IN_STUN)) {
+        // SignalReadPacket is not the way...
+        // SignalReadPacket(this, dtls->string_view().data(),
+        // dtls->string_view().size(), addr);
+        RTC_LOG(LS_ERROR) << "YO1 " << dtls_attribute->array_view().size();
+        rtc::ReceivedPacket dtls_packet(dtls_attribute->array_view(), addr,
+                                        packet.arrival_time(), packet.ecn());
+        if (received_packet_callback_) {
+          received_packet_callback_(this, dtls_packet);
+        }
+      }
       break;
 
       // Response from remote peer. Does it match request sent?
       // This doesn't just check, it makes callbacks if transaction
       // id's match.
     case STUN_BINDING_RESPONSE:
+      if (auto dtls_attribute =
+              msg->GetByteString(STUN_ATTR_META_DTLS_IN_STUN)) {
+        // SignalReadPacket is not the way...
+        // SignalReadPacket(this, dtls->string_view().data(),
+        // dtls->string_view().size(), addr);
+        RTC_LOG(LS_ERROR) << "YO2 " << dtls_attribute->array_view().size();
+        rtc::ReceivedPacket dtls_packet(dtls_attribute->array_view(), addr,
+                                        packet.arrival_time(), packet.ecn());
+        if (received_packet_callback_) {
+          received_packet_callback_(this, dtls_packet);
+        }
+      }
+      ABSL_FALLTHROUGH_INTENDED;
     case STUN_BINDING_ERROR_RESPONSE:
       requests_.CheckResponse(msg.get());
       break;
@@ -746,6 +773,13 @@ void Connection::SendStunBindingResponse(const StunMessage* message) {
                           << " goog_delta_consumer_ = "
                           << goog_delta_consumer_.has_value();
     }
+  }
+
+  RTC_LOG(LS_ERROR) << "BINDING RESPONSE " << dtls_buffer_.size();
+  if (dtls_buffer_.size()) {
+    RTC_LOG(LS_ERROR) << "PONG " << dtls_buffer_.size() << " " << this;
+    response.AddAttribute(std::make_unique<StunByteStringAttribute>(
+        STUN_ATTR_META_DTLS_IN_STUN, dtls_buffer_.data(), dtls_buffer_.size()));
   }
 
   response.AddMessageIntegrity(local_candidate().password());
@@ -1082,6 +1116,12 @@ std::unique_ptr<IceMessage> Connection::BuildPingRequest(
     RTC_DCHECK(delta->type() == STUN_ATTR_GOOG_DELTA);
     RTC_LOG(LS_INFO) << "Sending GOOG_DELTA: len: " << delta->length();
     message->AddAttribute(std::move(delta));
+  }
+
+  if (dtls_buffer_.size()) {
+    RTC_LOG(LS_ERROR) << "PING " << dtls_buffer_.size() << " " << this;
+    message->AddAttribute(std::make_unique<StunByteStringAttribute>(
+        STUN_ATTR_META_DTLS_IN_STUN, dtls_buffer_.data(), dtls_buffer_.size()));
   }
 
   message->AddMessageIntegrity(remote_candidate_.password());

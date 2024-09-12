@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6a0fd306_15771a7e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2024-09-12T11:59:26Z",
+      "side": 1,
+      "message": "It also seems that you have to update some tests.",
+      "revId": "70cdc225d3c608952b13b44a28ff63a83f95bfb2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fd2eb73e_4e031143",

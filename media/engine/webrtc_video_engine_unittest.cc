@@ -8031,7 +8031,10 @@ TEST_P(WebRtcVideoChannelScaleResolutionDownByTest, ScaleResolutionDownBy) {
   // Set up WebRtcVideoChannel for 3-layer simulcast.
   encoder_factory_->AddSupportedVideoCodecType(codec_name);
   VideoSenderParameters parameters;
-  parameters.codecs.push_back(cricket::CreateVideoCodec(codec_name));
+  cricket::Codec codec = cricket::CreateVideoCodec(codec_name);
+  // Codec ID does not matter, but must be valid.
+  codec.id = 123;
+  parameters.codecs.push_back(codec);
   ASSERT_TRUE(send_channel_->SetSenderParameters(parameters));
   FakeVideoSendStream* stream = SetUpSimulcast(true, /*with_rtx=*/false);
   webrtc::test::FrameForwarder frame_forwarder;
@@ -9351,7 +9354,7 @@ class WebRtcVideoChannelSimulcastTest : public ::testing::Test {
   }
 
  protected:
-  void VerifySimulcastSettings(const Codec& codec,
+  void VerifySimulcastSettings(const Codec& codec_in,
                                int capture_width,
                                int capture_height,
                                size_t num_configured_streams,
@@ -9359,6 +9362,9 @@ class WebRtcVideoChannelSimulcastTest : public ::testing::Test {
                                bool screenshare,
                                bool conference_mode) {
     cricket::VideoSenderParameters parameters;
+    // The codec ID does not matter, but must be valid.
+    Codec codec = codec_in;
+    codec.id = 123;
     parameters.codecs.push_back(codec);
     parameters.conference_mode = conference_mode;
     ASSERT_TRUE(send_channel_->SetSenderParameters(parameters));

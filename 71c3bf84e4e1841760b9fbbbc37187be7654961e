@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9d72817b_a1bd8e5a",
+        "filename": "audio/channel_send_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 19084
+      },
+      "writtenOn": "2024-09-12T14:26:09Z",
+      "side": 1,
+      "message": "I\u0027ll address in a follow up !",
+      "parentUuid": "adbc54bc_0b089d7a",
+      "range": {
+        "startLine": 142,
+        "startChar": 3,
+        "endLine": 144,
+        "endChar": 24
+      },
+      "revId": "71c3bf84e4e1841760b9fbbbc37187be7654961e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "45b28b2d_b033b9b6",
         "filename": "modules/audio_coding/include/audio_coding_module.h",
         "patchSetId": 1
@@ -54,6 +78,30 @@
       "writtenOn": "2024-09-12T14:15:39Z",
       "side": 1,
       "message": "nit: buffered?",
+      "range": {
+        "startLine": 81,
+        "startChar": 71,
+        "endLine": 81,
+        "endChar": 77
+      },
+      "revId": "71c3bf84e4e1841760b9fbbbc37187be7654961e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "848f3b75_3541ffd2",
+        "filename": "modules/audio_coding/include/audio_coding_module.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 19084
+      },
+      "writtenOn": "2024-09-12T14:26:09Z",
+      "side": 1,
+      "message": "I\u0027ll address in a follow up !",
+      "parentUuid": "45b28b2d_b033b9b6",
       "range": {
         "startLine": 81,
         "startChar": 71,

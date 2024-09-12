@@ -39,6 +39,7 @@
 #include "p2p/base/stun_request.h"
 #include "p2p/base/transport_description.h"
 #include "rtc_base/async_packet_socket.h"
+#include "rtc_base/copy_on_write_buffer.h"
 #include "rtc_base/network.h"
 #include "rtc_base/network/received_packet.h"
 #include "rtc_base/numerics/event_based_exponential_moving_average.h"
@@ -77,6 +78,7 @@ class RTC_EXPORT Connection : public CandidatePairInterface {
 
   webrtc::TaskQueueBase* network_thread() const;
 
+  void SetDtlsData(rtc::CopyOnWriteBuffer& buffer) { dtls_buffer_ = buffer; }
   // Implementation of virtual methods in CandidatePairInterface.
   // Returns the description of the local port
   const Candidate& local_candidate() const override;
@@ -511,6 +513,8 @@ class RTC_EXPORT Connection : public CandidatePairInterface {
       goog_delta_ack_consumer_;
   absl::AnyInvocable<void(Connection*, const rtc::ReceivedPacket&)>
       received_packet_callback_;
+
+  rtc::CopyOnWriteBuffer dtls_buffer_;
 };
 
 // ProxyConnection defers all the interesting work to the port.

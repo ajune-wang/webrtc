@@ -987,6 +987,7 @@ void P2PTransportChannel::OnUnknownAddress(PortInterface* port,
                                            const std::string& remote_username,
                                            bool port_muxed) {
   RTC_DCHECK_RUN_ON(network_thread_);
+  RTC_DCHECK(stun_msg);
 
   // Port has received a valid stun packet from an address that no Connection
   // is currently available for. See if we already have a candidate with the
@@ -1116,6 +1117,15 @@ void P2PTransportChannel::OnUnknownAddress(PortInterface* port,
                                                : "resurrected")
                    << " candidate: " << remote_candidate.ToSensitiveString();
   AddConnection(connection);
+
+  // Process DTLS before sending the binding response.
+  if (auto dtls_attribute = stun_msg->GetByteString(STUN_ATTR_META_DTLS_IN_STUN)) {
+    // Signal this as a DTLS packet.
+    // TODO: restore access to original packet.
+    rtc::ReceivedPacket dtls_packet(dtls_attribute->array_view(), address/*,
+                                    packet.arrival_time(), packet.ecn()*/);
+    connection->OnReadPacket(dtls_packet);
+  }
   connection->HandleStunBindingOrGoogPingRequest(stun_msg);
 
   // Update the list of connections since we just added another.  We do this
@@ -1356,6 +1366,7 @@ bool P2PTransportChannel::CreateConnections(const Candidate& remote_candidate,
                                             PortInterface* origin_port) {
   RTC_DCHECK_RUN_ON(network_thread_);
 
+  RTC_LOG(LS_ERROR) << "CreateConnections";
   // If we've already seen the new remote candidate (in the current candidate
   // generation), then we shouldn't try creating connections for it.
   // We either already have a connection for it, or we previously created one
@@ -1366,6 +1377,7 @@ bool P2PTransportChannel::CreateConnections(const Candidate& remote_candidate,
   // is NULL).
   if (!origin_port && IsDuplicateRemoteCandidate(remote_candidate)) {
     // return true to indicate success, without creating any new connections.
+    RTC_LOG(LS_ERROR) << "all good...";
     return true;
   }
 
@@ -1433,6 +1445,8 @@ bool P2PTransportChannel::CreateConnection(PortInterface* port,
       return false;
     }
     AddConnection(connection);
+    RTC_LOG(LS_ERROR) << "CREATED " << dtls_buffer_.size() << " " << this;
+    connection->SetDtlsData(dtls_buffer_);
     RTC_LOG(LS_INFO) << ToString()
                      << ": Created connection with origin: " << origin
                      << ", total: " << connections_.size();
@@ -1577,7 +1591,20 @@ int P2PTransportChannel::SendPacket(const char* data,
   // instead of sending a packet that will probably be dropped.
   if (!ReadyToSend(selected_connection_)) {
     error_ = ENOTCONN;
+    RTC_LOG(LS_ERROR) << "DROPPED HERE connections #" << connections_.size() << " sz=" << len;
+    dtls_buffer_.SetData(data, len);
+    for (Connection* connection : connections_) {
+      connection->SetDtlsData(dtls_buffer_);
+    }
     return -1;
+  }
+  if (len > 0 && data[0] == 0x16) {
+    RTC_LOG(LS_ERROR) << "Dropping explicit handshake";
+    dtls_buffer_.SetData(data, len);
+    for (Connection* connection : connections_) {
+      connection->SetDtlsData(dtls_buffer_);
+    }
+    return len;
   }
 
   packets_sent_++;
@@ -1774,6 +1801,7 @@ void P2PTransportChannel::SwitchSelectedConnection(
 void P2PTransportChannel::SwitchSelectedConnectionInternal(
     Connection* conn,
     IceSwitchReason reason) {
+  RTC_LOG(LS_ERROR) << "SwitchSelectedConnectionInternal " << conn;
   RTC_DCHECK_RUN_ON(network_thread_);
   // Note: if conn is NULL, the previous `selected_connection_` has been
   // destroyed, so don't use it.

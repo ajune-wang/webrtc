@@ -16,6 +16,108 @@
       "message": "maybe this one is easier than https://webrtc-review.googlesource.com/c/src/+/358442 ? But I guess it needs more deprecations...",
       "revId": "e25d33d506760b89ef52d4681a3df08a4a123527",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "95e92d85_f41d398c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-09-12T07:25:19Z",
+      "side": 1,
+      "message": "Wish it was this easy.... pure make-work, but necessary to land this.",
+      "revId": "e25d33d506760b89ef52d4681a3df08a4a123527",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3625ea08_21aba9bd",
+        "filename": "pc/srtp_session.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-09-12T07:25:19Z",
+      "side": 1,
+      "message": "The bad news is that this is called externally, so needs a backwards compatible [[deprecated]] shadow.",
+      "revId": "e25d33d506760b89ef52d4681a3df08a4a123527",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5e62f20a_b7cdcddc",
+        "filename": "pc/srtp_session.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-09-12T07:25:19Z",
+      "side": 1,
+      "message": "This too.",
+      "revId": "e25d33d506760b89ef52d4681a3df08a4a123527",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "899ecfe3_464243ba",
+        "filename": "pc/srtp_session.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-09-12T07:25:19Z",
+      "side": 1,
+      "message": "This too.",
+      "revId": "e25d33d506760b89ef52d4681a3df08a4a123527",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "89e307ee_1700ab00",
+        "filename": "pc/srtp_session.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-09-12T07:25:19Z",
+      "side": 1,
+      "message": "This too.",
+      "revId": "e25d33d506760b89ef52d4681a3df08a4a123527",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "250895ac_4177702a",
+        "filename": "pc/srtp_transport.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-09-12T07:25:19Z",
+      "side": 1,
+      "message": "The good news is that these two functions are NOT called from downstream.",
+      "revId": "e25d33d506760b89ef52d4681a3df08a4a123527",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

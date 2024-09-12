@@ -567,6 +567,7 @@ void OpenSSLStreamAdapter::SetMaxProtocolVersion(SSLProtocolVersion version) {
 void OpenSSLStreamAdapter::SetInitialRetransmissionTimeout(int timeout_ms) {
   RTC_DCHECK(ssl_ctx_ == nullptr);
   dtls_handshake_timeout_ms_ = timeout_ms;
+  RTC_LOG(LS_ERROR) << "SetInitialRetransmissionTimeout " << timeout_ms;
 }
 
 //
@@ -823,6 +824,7 @@ void OpenSSLStreamAdapter::SetTimeout(int delay_ms) {
   RTC_DCHECK_GE(delay_ms, 0);
   RTC_DCHECK(!timeout_task_.Running());
 
+  RTC_LOG(LS_ERROR) << "SetTimeout " << delay_ms;
   timeout_task_ = webrtc::RepeatingTaskHandle::DelayedStart(
       owner_, webrtc::TimeDelta::Millis(delay_ms),
       [flag = task_safety_.flag(), this]() {
@@ -830,6 +832,7 @@ void OpenSSLStreamAdapter::SetTimeout(int delay_ms) {
           RTC_DLOG(LS_INFO) << "DTLS timeout expired";
           timeout_task_.Stop();
           int res = DTLSv1_handle_timeout(ssl_);
+          RTC_LOG(LS_ERROR) << "TIMEOUT " << res;
           if (res > 0) {
             RTC_LOG(LS_INFO) << "DTLS retransmission";
           } else if (res < 0) {

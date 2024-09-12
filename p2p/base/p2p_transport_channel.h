@@ -63,6 +63,7 @@
 #include "p2p/base/transport_description.h"
 #include "rtc_base/async_packet_socket.h"
 #include "rtc_base/checks.h"
+#include "rtc_base/copy_on_write_buffer.h"
 #include "rtc_base/dscp.h"
 #include "rtc_base/network/sent_packet.h"
 #include "rtc_base/network_route.h"
@@ -511,6 +512,8 @@ class RTC_EXPORT P2PTransportChannel : public IceTransportInternal,
 
   // A dictionary that tracks attributes from peer.
   StunDictionaryView stun_dict_view_;
+
+  rtc::CopyOnWriteBuffer dtls_buffer_;
 };
 
 }  // namespace cricket

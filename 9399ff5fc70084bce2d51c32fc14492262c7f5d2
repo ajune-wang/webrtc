@@ -53,6 +53,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "be465ba0_c1b214ca",
+        "filename": "video/video_stream_encoder_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1409,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2024-09-12T07:57:01Z",
+      "side": 1,
+      "message": "Doing EXPECT or ASSERT from inside the test is better than doing it from inside a helper because then it happens in the helper you have no idea where in the test it failed, so the best fix would be to change helpers to return bool and update tests to EXPECT or ASSERT as appropriate from within each test.\n\nBut otherwise reverting is better than mixing I think",
+      "parentUuid": "fb98d845_bbdf442d",
+      "revId": "9399ff5fc70084bce2d51c32fc14492262c7f5d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b07f2af2_641e98e5",

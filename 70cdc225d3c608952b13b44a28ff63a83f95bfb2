@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fd2eb73e_4e031143",
+        "filename": "video/config/encoder_stream_factory.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 477,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2024-09-12T11:58:41Z",
+      "side": 1,
+      "message": "I believe it\u0027s not a best way to express this. Here we are letter-boxing the incoming frame so what it fits in the requested resolution.\nInstead of frame aspect ratio you need to choose the min value of requested/original for x and y and use this as a scaling factor.",
+      "range": {
+        "startLine": 475,
+        "startChar": 2,
+        "endLine": 477,
+        "endChar": 56
+      },
+      "revId": "70cdc225d3c608952b13b44a28ff63a83f95bfb2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

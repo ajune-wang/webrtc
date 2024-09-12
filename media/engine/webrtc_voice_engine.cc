@@ -247,8 +247,13 @@ std::optional<int> ComputeSendBitrate(int max_send_bitrate_bps,
   }
 }
 
+// TODO(hta): Remove and use FieldTrialsView::IsEnabled instead
 bool IsEnabled(const webrtc::FieldTrialsView& config, absl::string_view trial) {
   return absl::StartsWith(config.Lookup(trial), "Enabled");
+}
+bool IsDisabled(const webrtc::FieldTrialsView& config,
+                absl::string_view trial) {
+  return absl::StartsWith(config.Lookup(trial), "Disabled");
 }
 
 struct AdaptivePtimeConfig {
@@ -475,7 +480,7 @@ WebRtcVoiceEngine::WebRtcVoiceEngine(
       minimized_remsampling_on_mobile_trial_enabled_(
           IsEnabled(trials, "WebRTC-Audio-MinimizeResamplingOnMobile")),
       payload_types_in_transport_trial_enabled_(
-          IsEnabled(trials, "WebRTC-PayloadTypesInTransport")) {
+          !IsDisabled(trials, "WebRTC-PayloadTypesInTransport")) {
   RTC_LOG(LS_INFO) << "WebRtcVoiceEngine::WebRtcVoiceEngine";
   RTC_DCHECK(decoder_factory);
   RTC_DCHECK(encoder_factory);

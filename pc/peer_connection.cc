@@ -301,6 +301,8 @@ cricket::IceConfig ParseIceConfig(
   ice_config.network_preference = config.network_preference;
   ice_config.stable_writable_connection_ping_interval =
       config.stable_writable_connection_ping_interval_ms;
+  ice_config.dtls_handshake_in_stun =
+      false;  // Filled in later based on field trial.
   return ice_config;
 }
 
@@ -584,8 +586,7 @@ RTCErrorOr<rtc::scoped_refptr<PeerConnection>> PeerConnection::Create(
         << "PeerConnection constructed with legacy SDP semantics!";
   }
 
-  RTCError config_error = cricket::P2PTransportChannel::ValidateIceConfig(
-      ParseIceConfig(configuration));
+  RTCError config_error = ValidateConfiguration(configuration);
   if (!config_error.ok()) {
     RTC_LOG(LS_ERROR) << "Invalid ICE configuration: "
                       << config_error.message();
@@ -916,7 +917,18 @@ JsepTransportController* PeerConnection::InitializeTransportController_n(
             }));
       });
 
-  transport_controller_->SetIceConfig(ParseIceConfig(configuration));
+  auto ice_config = ParseIceConfig(configuration);
+  // Enable DTLS-in-STUN only if no certificates were passed those
+  // may be RSA certificates and this feature only works with small
+  // ECDSA certificates. Determining the type of the key is
+  // not trivially possible at this point.
+  ice_config.dtls_handshake_in_stun =
+      dtls_enabled_ && configuration.certificates.empty() &&
+      env_.field_trials().IsEnabled("WebRTC-IceHandshakeDtls");
+  RTC_LOG(LS_ERROR) << "PUTTING DTLS INTO STUN "
+                    << ice_config.dtls_handshake_in_stun;
+
+  transport_controller_->SetIceConfig(ice_config);
   return transport_controller_.get();
 }
 
@@ -1644,6 +1656,9 @@ RTCError PeerConnection::SetConfiguration(
       modified_config.GetTurnPortPrunePolicy() !=
           configuration_.GetTurnPortPrunePolicy();
   cricket::IceConfig ice_config = ParseIceConfig(modified_config);
+  ice_config.dtls_handshake_in_stun =
+      dtls_enabled_ && configuration.certificates.empty() &&
+      env_.field_trials().IsEnabled("WebRTC-IceHandshakeDtls");
 
   // Apply part of the configuration on the network thread.  In theory this
   // shouldn't fail.

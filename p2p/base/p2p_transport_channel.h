@@ -63,6 +63,7 @@
 #include "p2p/base/transport_description.h"
 #include "rtc_base/async_packet_socket.h"
 #include "rtc_base/checks.h"
+#include "rtc_base/copy_on_write_buffer.h"
 #include "rtc_base/dscp.h"
 #include "rtc_base/network/sent_packet.h"
 #include "rtc_base/network_route.h"
@@ -146,7 +147,7 @@ class RTC_EXPORT P2PTransportChannel : public IceTransportInternal,
   // will not use it to update the respective parameter in `config_`.
   // TODO(deadbeef): Use std::optional instead of negative values.
   void SetIceConfig(const IceConfig& config) override;
-  const IceConfig& config() const;
+  const IceConfig& config() const override;
   static webrtc::RTCError ValidateIceConfig(const IceConfig& config);
 
   // From TransportChannel:
@@ -511,6 +512,10 @@ class RTC_EXPORT P2PTransportChannel : public IceTransportInternal,
 
   // A dictionary that tracks attributes from peer.
   StunDictionaryView stun_dict_view_;
+
+  // Single packet buffer of a DTLS handshake packet that needs to
+  // be added to new connections.
+  rtc::CopyOnWriteBuffer dtls_buffer_ RTC_GUARDED_BY(network_thread_);
 };
 
 }  // namespace cricket

@@ -735,6 +735,7 @@ enum IceAttributeType {
   STUN_ATTR_GOOG_DELTA_SYNC_REQ = 0xC05E,  // Not yet implemented.
   // MESSAGE-INTEGRITY truncated to 32-bit.
   STUN_ATTR_GOOG_MESSAGE_INTEGRITY_32 = 0xC060,
+  STUN_ATTR_META_DTLS_IN_STUN = 0xC070,
 };
 
 // When adding new attributes to STUN_ATTR_GOOG_MISC_INFO

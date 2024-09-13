@@ -510,7 +510,7 @@ EncoderStreamFactory::GetLayerResolutionFromRequestedResolution(
   if (!adapter.AdaptFrameResolution(frame_width, frame_height, 0,
                                     &cropped_width, &cropped_height, &out_width,
                                     &out_height)) {
-    RTC_LOG(LS_ERROR) << "AdaptFrameResolution returned false!";
+    RTC_CHECK_NOTREACHED();
   }
   return {.width = out_width, .height = out_height};
 }

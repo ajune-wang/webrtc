@@ -102,6 +102,15 @@ rtc::StreamResult StreamInterfaceChannel::Write(
   // TODO(zhihuang): Should this block if ice_transport_'s temporarily
   // unwritable?
   rtc::PacketOptions packet_options;
+  RTC_LOG(LS_ERROR) << "SSL WRITE " << data.size()
+                    << " is_handshake=" << (data.size() > 0 && data[0] == 0x16);
+  if (!ice_transport_->writable()) {
+    RTC_LOG(LS_ERROR) << "Not yet writeable... " << this;
+    /*
+    written = data.size();
+    return rtc::SR_SUCCESS;
+    */
+  }
   ice_transport_->SendPacket(reinterpret_cast<const char*>(data.data()),
                              data.size(), packet_options);
   written = data.size();
@@ -765,7 +774,13 @@ void DtlsTransport::OnNetworkRouteChanged(
 }
 
 void DtlsTransport::MaybeStartDtls() {
-  if (dtls_ && ice_transport_->writable()) {
+  RTC_DCHECK(ice_transport_);
+  bool start_early_for_dtls_in_stun =
+      ice_transport_->config().dtls_handshake_in_stun;
+  RTC_LOG(LS_ERROR) << "MaybeStartDtls early=" << start_early_for_dtls_in_stun;
+  // When adding the DTLS handshake in STUN we want to call StartSSL even before
+  // the ICE transport is ready.
+  if (dtls_ && (ice_transport_->writable() || start_early_for_dtls_in_stun)) {
     ConfigureHandshakeTimeout();
 
     if (dtls_->StartSSL()) {

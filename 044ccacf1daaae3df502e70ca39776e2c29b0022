@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "47f13e52_6434774a",
+        "filename": "pc/media_session.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 2083,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2024-09-13T08:01:07Z",
+      "side": 1,
+      "message": "Offers can be rolled back, what happens then? And do we have test or should we add?\n\nE.g. offer PT 97\nrollback\noffer PT 98\nfor the same codec\n\nAssuming this is allowed to do",
+      "revId": "044ccacf1daaae3df502e70ca39776e2c29b0022",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "944bc093_4d6bd949",
+        "filename": "pc/media_session.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 324,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2024-09-13T08:01:07Z",
+      "side": 1,
+      "message": "Raw pointer... should we say anything about lifetime assumptions here?",
+      "revId": "044ccacf1daaae3df502e70ca39776e2c29b0022",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

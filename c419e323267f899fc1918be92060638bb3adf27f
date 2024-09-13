@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0af2d1db_cf03a598",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2024-09-13T14:04:13Z",
+      "side": 1,
+      "message": "I managed to get rid of all use of AcmReceiver 😎\nPTAL",
+      "revId": "c419e323267f899fc1918be92060638bb3adf27f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

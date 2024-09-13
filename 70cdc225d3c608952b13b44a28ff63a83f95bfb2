@@ -39,6 +39,30 @@
       },
       "revId": "70cdc225d3c608952b13b44a28ff63a83f95bfb2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "01254758_0a8dfa37",
+        "filename": "video/config/encoder_stream_factory.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 477,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2024-09-13T09:46:44Z",
+      "side": 1,
+      "message": "Updated the logic as discussed and improved tests!",
+      "parentUuid": "fd2eb73e_4e031143",
+      "range": {
+        "startLine": 475,
+        "startChar": 2,
+        "endLine": 477,
+        "endChar": 56
+      },
+      "revId": "70cdc225d3c608952b13b44a28ff63a83f95bfb2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

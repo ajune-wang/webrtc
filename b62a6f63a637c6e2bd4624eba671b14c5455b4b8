@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c72590f9_e6b275f2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2024-09-13T14:10:20Z",
+      "side": 1,
+      "message": "And +Henrik A can you stamp api/video/video_stream_encoder_settings.h ?",
+      "revId": "b62a6f63a637c6e2bd4624eba671b14c5455b4b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -3743,6 +3743,7 @@ TEST_F(PeerConnectionMediaConfigTest, TestDefaults) {
   EXPECT_TRUE(media_config.video.enable_prerenderer_smoothing);
   EXPECT_FALSE(media_config.video.suspend_below_min_bitrate);
   EXPECT_FALSE(media_config.video.experiment_cpu_load_estimator);
+  EXPECT_FALSE(media_config.video.use_standard_requested_resolution);
 }
 
 // This test verifies that the enable_prerenderer_smoothing flag is
@@ -3767,6 +3768,16 @@ TEST_F(PeerConnectionMediaConfigTest, TestEnableExperimentCpuLoadEstimator) {
   const cricket::MediaConfig& media_config = TestCreatePeerConnection(config);
 
   EXPECT_TRUE(media_config.video.experiment_cpu_load_estimator);
+}
+
+TEST_F(PeerConnectionMediaConfigTest, TestEnableStandardRequestedResolution) {
+  PeerConnectionInterface::RTCConfiguration config;
+  config.sdp_semantics = SdpSemantics::kUnifiedPlan;
+
+  config.set_use_standard_requested_resolution(true);
+  const cricket::MediaConfig& media_config = TestCreatePeerConnection(config);
+
+  EXPECT_TRUE(media_config.video.use_standard_requested_resolution);
 }
 
 // Tests a few random fields being different.

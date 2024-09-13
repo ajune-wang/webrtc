@@ -396,6 +396,24 @@
       "parentUuid": "ba1cb193_06e3edbc",
       "revId": "d829f347745dbe79ddca6091226459adf5169cc7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "53267630_fce1d8e6",
+        "filename": "rtc_base/ssl_stream_adapter_unittest.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 1173,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-09-13T15:57:13Z",
+      "side": 1,
+      "message": "ah, I meant WebRTC.PeerConnection.DtlsFingerprintLegacySha1 - boolean measure of whether SHA-1 is used as fingerprint in the SDP, generated with X509_digest(cert, digest-algorithm, ...)",
+      "parentUuid": "2e4f8d46_b6a6e53a",
+      "revId": "d829f347745dbe79ddca6091226459adf5169cc7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

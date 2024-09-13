@@ -65,6 +65,12 @@ struct MediaConfig {
 
     // Enables send packet batching from the egress RTP sender.
     bool enable_send_packet_batching = false;
+
+    // Use standard or legacy version of `requested_resolution` API, see
+    // `VideoStreamEncoderSettings::use_standard_requested_resolution` for info.
+    // TODO(https://crbug.com/webrtc/366284861): Migrate dependencies to
+    // standard behavior and delete this flag.
+    bool use_standard_requested_resolution = false;
   } video;
 
   // Audio-specific config.
@@ -87,6 +93,8 @@ struct MediaConfig {
            video.rtcp_report_interval_ms == o.video.rtcp_report_interval_ms &&
            video.enable_send_packet_batching ==
                o.video.enable_send_packet_batching &&
+           video.use_standard_requested_resolution ==
+               o.video.use_standard_requested_resolution &&
            audio.rtcp_report_interval_ms == o.audio.rtcp_report_interval_ms;
   }
 

@@ -379,6 +379,13 @@ class RTC_EXPORT PeerConnectionInterface : public webrtc::RefCountInterface {
       media_config.video.experiment_cpu_load_estimator = enable;
     }
 
+    bool use_standard_requested_resolution() const {
+      return media_config.video.use_standard_requested_resolution;
+    }
+    void set_use_standard_requested_resolution(bool enable) {
+      media_config.video.use_standard_requested_resolution = enable;
+    }
+
     int audio_rtcp_report_interval_ms() const {
       return media_config.audio.rtcp_report_interval_ms;
     }

@@ -188,6 +188,9 @@ ACTIVE_FIELD_TRIALS: FrozenSet[FieldTrial] = frozenset([
     FieldTrial('WebRTC-Video-Vp9FlexibleMode',
                329396373,
                date(2025, 6, 26)),
+    FieldTrial('WebRTC-IceHandshakeDtls',
+               42225331, # TODO: replace with actual bug.
+               date(2026, 1, 1)),
     # keep-sorted end
 ])  # yapf: disable
 

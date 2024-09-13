@@ -41,9 +41,25 @@ constexpr size_t kFuHeaderSizeBytes =
 rtc::Buffer GenerateNalUnit(size_t size) {
   RTC_CHECK_GT(size, 0);
   rtc::Buffer buffer(size);
-  // Set some valid header with type TRAIL_R and temporal id
-  buffer[0] = 2;
+  // Set some valid header with type IDR_N_LP and temporal id
+  buffer[0] = 41;
   buffer[1] = 2;
+  for (size_t i = 2; i < size; ++i) {
+    buffer[i] = static_cast<uint8_t>(i);
+  }
+  // Last byte shouldn't be 0, or it may be counted as part of next 4-byte start
+  // sequence.
+  buffer[size - 1] |= 0x10;
+  return buffer;
+}
+
+// Creates Buffer that looks like nal unit of given size.
+rtc::Buffer GenerateNalUnit(size_t size, uint8_t type, uint8_t tid) {
+  RTC_CHECK_GT(size, 0);
+  rtc::Buffer buffer(size);
+  // Set some valid header with type IDR_N_LP and temporal id
+  buffer[0] = type;
+  buffer[1] = tid;
   for (size_t i = 2; i < size; ++i) {
     buffer[i] = static_cast<uint8_t>(i);
   }
@@ -189,8 +205,8 @@ TEST(RtpPacketizerH265Test,
 
 // Aggregation tests.
 TEST(RtpPacketizerH265Test, ApRespectsNoPacketReduction) {
-  rtc::Buffer nalus[] = {GenerateNalUnit(/*size=*/2),
-                         GenerateNalUnit(/*size=*/2),
+  rtc::Buffer nalus[] = {GenerateNalUnit(/*size=*/3),
+                         GenerateNalUnit(/*size=*/3),
                          GenerateNalUnit(/*size=*/0x123)};
   rtc::Buffer frame = CreateFrame(nalus);
 
@@ -201,22 +217,58 @@ TEST(RtpPacketizerH265Test, ApRespectsNoPacketReduction) {
   auto payload = packets[0].payload();
   int type = H265::ParseNaluType(payload[0]);
   EXPECT_EQ(payload.size(), kH265NalHeaderSizeBytes +
-                                3 * kH265LengthFieldSizeBytes + 2 + 2 + 0x123);
+                                3 * kH265LengthFieldSizeBytes + 3 + 3 + 0x123);
 
   EXPECT_EQ(type, H265::NaluType::kAp);
   payload = payload.subview(kH265NalHeaderSizeBytes);
   // 1st fragment.
   EXPECT_THAT(payload.subview(0, kH265LengthFieldSizeBytes),
-              ElementsAre(0, 2));  // Size.
-  EXPECT_THAT(payload.subview(kH265LengthFieldSizeBytes, 2),
+              ElementsAre(0, 3));  // Size.
+  EXPECT_THAT(payload.subview(kH265LengthFieldSizeBytes, 3),
               ElementsAreArray(nalus[0]));
-  payload = payload.subview(kH265LengthFieldSizeBytes + 2);
+  payload = payload.subview(kH265LengthFieldSizeBytes + 3);
   // 2nd fragment.
   EXPECT_THAT(payload.subview(0, kH265LengthFieldSizeBytes),
-              ElementsAre(0, 2));  // Size.
-  EXPECT_THAT(payload.subview(kH265LengthFieldSizeBytes, 2),
+              ElementsAre(0, 3));  // Size.
+  EXPECT_THAT(payload.subview(kH265LengthFieldSizeBytes, 3),
               ElementsAreArray(nalus[1]));
-  payload = payload.subview(kH265LengthFieldSizeBytes + 2);
+  payload = payload.subview(kH265LengthFieldSizeBytes + 3);
+  // 3rd fragment.
+  EXPECT_THAT(payload.subview(0, kH265LengthFieldSizeBytes),
+              ElementsAre(0x1, 0x23));  // Size.
+  EXPECT_THAT(payload.subview(kH265LengthFieldSizeBytes),
+              ElementsAreArray(nalus[2]));
+}
+
+TEST(RtpPacketizerH265Test, ApRespectsTid) {
+  rtc::Buffer nalus[] = {GenerateNalUnit(/*size=*/3, 40, 22),
+                         GenerateNalUnit(/*size=*/3, 40, 1),
+                         GenerateNalUnit(/*size=*/0x123)};
+  rtc::Buffer frame = CreateFrame(nalus);
+
+  RtpPacketizerH265 packetizer(frame, kNoLimits);
+  std::vector<RtpPacketToSend> packets = FetchAllPackets(&packetizer);
+
+  ASSERT_THAT(packets, SizeIs(1));
+  auto payload = packets[0].payload();
+  int type = H265::ParseNaluType(payload[0]);
+  EXPECT_EQ(payload.size(), kH265NalHeaderSizeBytes +
+                                3 * kH265LengthFieldSizeBytes + 3 + 3 + 0x123);
+
+  EXPECT_EQ(type, H265::NaluType::kAp);
+  payload = payload.subview(kH265NalHeaderSizeBytes);
+  // 1st fragment.
+  EXPECT_THAT(payload.subview(0, kH265LengthFieldSizeBytes),
+              ElementsAre(0, 3));  // Size.
+  EXPECT_THAT(payload.subview(kH265LengthFieldSizeBytes, 3),
+              ElementsAreArray(nalus[0]));
+  payload = payload.subview(kH265LengthFieldSizeBytes + 3);
+  // 2nd fragment.
+  EXPECT_THAT(payload.subview(0, kH265LengthFieldSizeBytes),
+              ElementsAre(0, 3));  // Size.
+  EXPECT_THAT(payload.subview(kH265LengthFieldSizeBytes, 3),
+              ElementsAreArray(nalus[1]));
+  payload = payload.subview(kH265LengthFieldSizeBytes + 3);
   // 3rd fragment.
   EXPECT_THAT(payload.subview(0, kH265LengthFieldSizeBytes),
               ElementsAre(0x1, 0x23));  // Size.
@@ -231,8 +283,8 @@ TEST(RtpPacketizerH265Test, ApRespectsFirstPacketReduction) {
   const size_t kFirstFragmentSize =
       limits.max_payload_len - limits.first_packet_reduction_len;
   rtc::Buffer nalus[] = {GenerateNalUnit(/*size=*/kFirstFragmentSize),
-                         GenerateNalUnit(/*size=*/2),
-                         GenerateNalUnit(/*size=*/2)};
+                         GenerateNalUnit(/*size=*/3),
+                         GenerateNalUnit(/*size=*/3)};
   rtc::Buffer frame = CreateFrame(nalus);
 
   RtpPacketizerH265 packetizer(frame, limits);
@@ -247,9 +299,9 @@ TEST(RtpPacketizerH265Test, ApRespectsFirstPacketReduction) {
   // is 2, so the nal_unit_header should be "01100000 00000010",
   // which is 96 and 2.
   EXPECT_THAT(packets[1].payload(),
-              ElementsAre(96, 2,                           //
-                          0, 2, nalus[1][0], nalus[1][1],  //
-                          0, 2, nalus[2][0], nalus[2][1]));
+              ElementsAre(97, 2,                                        //
+                          0, 3, nalus[1][0], nalus[1][1], nalus[1][2],  //
+                          0, 3, nalus[2][0], nalus[2][1], nalus[2][2]));
 }
 
 TEST(RtpPacketizerH265Test, ApRespectsLastPacketReduction) {
@@ -258,8 +310,8 @@ TEST(RtpPacketizerH265Test, ApRespectsLastPacketReduction) {
   limits.last_packet_reduction_len = 100;
   const size_t kLastFragmentSize =
       limits.max_payload_len - limits.last_packet_reduction_len;
-  rtc::Buffer nalus[] = {GenerateNalUnit(/*size=*/2),
-                         GenerateNalUnit(/*size=*/2),
+  rtc::Buffer nalus[] = {GenerateNalUnit(/*size=*/3),
+                         GenerateNalUnit(/*size=*/3),
                          GenerateNalUnit(/*size=*/kLastFragmentSize)};
   rtc::Buffer frame = CreateFrame(nalus);
 
@@ -269,9 +321,9 @@ TEST(RtpPacketizerH265Test, ApRespectsLastPacketReduction) {
   ASSERT_THAT(packets, SizeIs(2));
   // Expect 1st packet is aggregate of 1st two fragments.
   EXPECT_THAT(packets[0].payload(),
-              ElementsAre(96, 2,                           //
-                          0, 2, nalus[0][0], nalus[0][1],  //
-                          0, 2, nalus[1][0], nalus[1][1]));
+              ElementsAre(97, 2,                                        //
+                          0, 3, nalus[0][0], nalus[0][1], nalus[0][2],  //
+                          0, 3, nalus[1][0], nalus[1][1], nalus[1][2]));
   // Expect 2nd packet is single nalu.
   EXPECT_THAT(packets[1].payload(), ElementsAreArray(nalus[2]));
 }
@@ -281,8 +333,8 @@ TEST(RtpPacketizerH265Test, TooSmallForApHeaders) {
   limits.max_payload_len = 1000;
   const size_t kLastFragmentSize =
       limits.max_payload_len - 3 * kH265LengthFieldSizeBytes - 4;
-  rtc::Buffer nalus[] = {GenerateNalUnit(/*size=*/2),
-                         GenerateNalUnit(/*size=*/2),
+  rtc::Buffer nalus[] = {GenerateNalUnit(/*size=*/3),
+                         GenerateNalUnit(/*size=*/3),
                          GenerateNalUnit(/*size=*/kLastFragmentSize)};
   rtc::Buffer frame = CreateFrame(nalus);
 
@@ -292,9 +344,9 @@ TEST(RtpPacketizerH265Test, TooSmallForApHeaders) {
   ASSERT_THAT(packets, SizeIs(2));
   // Expect 1st packet is aggregate of 1st two fragments.
   EXPECT_THAT(packets[0].payload(),
-              ElementsAre(96, 2,                           //
-                          0, 2, nalus[0][0], nalus[0][1],  //
-                          0, 2, nalus[1][0], nalus[1][1]));
+              ElementsAre(97, 2,                                        //
+                          0, 3, nalus[0][0], nalus[0][1], nalus[0][2],  //
+                          0, 3, nalus[1][0], nalus[1][1], nalus[1][2]));
   // Expect 2nd packet is single nalu.
   EXPECT_THAT(packets[1].payload(), ElementsAreArray(nalus[2]));
 }
@@ -328,6 +380,9 @@ std::vector<int> TestFu(size_t frame_payload_size,
 
   RtpPacketizerH265 packetizer(frame, limits);
   std::vector<RtpPacketToSend> packets = FetchAllPackets(&packetizer);
+  auto payload = packets[0].payload();
+  int type = H265::ParseNaluType(payload[0]);
+  printf("Fu packet type is:%d\n", type);
 
   EXPECT_GE(packets.size(), 2u);  // Single packet indicates it is not FU.
   std::vector<uint16_t> fu_header;
@@ -462,9 +517,9 @@ TEST_P(RtpPacketizerH265ParametrizedTest, MixedApFu) {
       uint8_t fu_header = 0;
       fu_header |= (expected_packet.first_fragment ? kH265SBitMask : 0);
       fu_header |= (expected_packet.last_fragment ? kH265EBitMask : 0);
-      fu_header |= H265::NaluType::kTrailR;
+      fu_header |= H265::NaluType::kIdrNLp;
       EXPECT_THAT(packets[i].payload().subview(0, kFuHeaderSizeBytes),
-                  ElementsAre(98, 2, fu_header));
+                  ElementsAre(99, 2, fu_header));
       EXPECT_THAT(packets[i].payload().subview(kFuHeaderSizeBytes),
                   ElementsAreArray(nalus[expected_packet.nalu_index].data() +
                                        kH265NalHeaderSizeBytes +

@@ -587,6 +587,9 @@ class AdaptingFrameForwarder : public test::FrameForwarder {
                   video_frame.width(), video_frame.height(), out_width,
                   out_height));
         }
+        RTC_LOG(LS_ERROR) << "The adaptation resulted in "
+                          << adapted_frame.width() << "x"
+                          << adapted_frame.height();
         test::FrameForwarder::IncomingCapturedFrame(adapted_frame);
         last_width_.emplace(adapted_frame.width());
         last_height_.emplace(adapted_frame.height());
@@ -613,6 +616,14 @@ class AdaptingFrameForwarder : public test::FrameForwarder {
 
   void AddOrUpdateSink(rtc::VideoSinkInterface<VideoFrame>* sink,
                        const rtc::VideoSinkWants& wants) override {
+    int rw = wants.requested_resolution.has_value()
+                 ? wants.requested_resolution->width
+                 : -1;
+    int rh = wants.requested_resolution.has_value()
+                 ? wants.requested_resolution->height
+                 : -1;
+    RTC_LOG(LS_ERROR) << "HBOS: wants requested_resolution = " << rw << "x"
+                      << rh;
     MutexLock lock(&mutex_);
     rtc::VideoSinkWants prev_wants = sink_wants_locked();
     bool did_adapt =
@@ -2547,6 +2558,41 @@ TEST_F(VideoStreamEncoderTest,
                                           kMaxPayloadLength);
   EXPECT_EQ(video_source_.sink_wants().requested_resolution,
             rtc::VideoSinkWants::FrameSize(640, 320));
+
+  video_stream_encoder_->Stop();
+}
+
+// Test that even when an adapted frame source is used, `requested_resolution`
+// does not affect the aspect ratio of the encoded frame.
+TEST_F(VideoStreamEncoderTest, RequestedResolutionInWrongAspectRatio) {
+  // Use a real video stream factory or else `requested_resolution` is not
+  // applied correctly.
+  video_encoder_config_.video_stream_factory = nullptr;
+  // Use a source that adapts resolution based on OnSinkWants.
+  AdaptingFrameForwarder source(&time_controller_);
+  source.set_adaptation_enabled(true);
+  video_stream_encoder_->SetSource(
+      &source, webrtc::DegradationPreference::MAINTAIN_FRAMERATE);
+
+  video_stream_encoder_->OnBitrateUpdatedAndWaitForManagedResources(
+      kTargetBitrate, kTargetBitrate, kTargetBitrate, 0, 0, 0);
+
+  ASSERT_THAT(video_encoder_config_.simulcast_layers, SizeIs(1));
+  video_encoder_config_.simulcast_layers[0].requested_resolution = {
+      .width = 30, .height = 30};
+  video_stream_encoder_->ConfigureEncoder(video_encoder_config_.Copy(),
+                                          kMaxPayloadLength);
+  EXPECT_EQ(source.sink_wants().requested_resolution,
+            rtc::VideoSinkWants::FrameSize(30, 30));
+
+  // The 60x30 frame does not fit inside the 30x30 restrictions,
+  // the expected frame size is 30x15 due to aspect ratio not changing.
+  source.IncomingCapturedFrame(CreateFrame(1, 60, 30));
+  WaitForEncodedFrame(30, 15);
+
+  // // And another one?
+  // source.IncomingCapturedFrame(CreateFrame(2, 60, 30));
+  // WaitForEncodedFrame(30, 15);
 
   video_stream_encoder_->Stop();
 }

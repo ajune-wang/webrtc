@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6c56454b_bba274c4",
+        "filename": "pc/media_session.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 2083,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2024-09-13T08:22:48Z",
+      "side": 1,
+      "message": "As discussed offline this does not block landing if it makes more sense to revisit in a future CL",
+      "parentUuid": "47f13e52_6434774a",
+      "revId": "044ccacf1daaae3df502e70ca39776e2c29b0022",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "944bc093_4d6bd949",
         "filename": "pc/media_session.h",
         "patchSetId": 4

@@ -803,7 +803,14 @@ bool BaseChannel::UpdateRemoteStreams_w(const MediaContentDescription* content,
 }
 
 RtpHeaderExtensions BaseChannel::GetDeduplicatedRtpHeaderExtensions(
-    const RtpHeaderExtensions& extensions) {
+    const RtpHeaderExtensions& extensions,
+    bool at_least_one_header_needs_encryption) {
+  // Even if for most header extensions, we don't care about encryption, there
+  // might be some header extensions that the user specifically wants to
+  // encrypt.
+  if (at_least_one_header_needs_encryption) {
+    extensions_filter_ = webrtc::RtpExtension::kPreferEncryptedExtension;
+  }
   return webrtc::RtpExtension::DeduplicateHeaderExtensions(extensions,
                                                            extensions_filter_);
 }
@@ -884,8 +891,9 @@ bool VoiceChannel::SetLocalContent_w(const MediaContentDescription* content,
 
   RTC_LOG_THREAD_BLOCK_COUNT();
 
-  RtpHeaderExtensions header_extensions =
-      GetDeduplicatedRtpHeaderExtensions(content->rtp_header_extensions());
+  RtpHeaderExtensions header_extensions = GetDeduplicatedRtpHeaderExtensions(
+      content->rtp_header_extensions(),
+      content->AtLeastOneRtpHeaderExtensionShouldBeEncrypted());
   bool update_header_extensions = true;
   media_send_channel()->SetExtmapAllowMixed(content->extmap_allow_mixed());
 
@@ -1027,8 +1035,9 @@ bool VideoChannel::SetLocalContent_w(const MediaContentDescription* content,
 
   RTC_LOG_THREAD_BLOCK_COUNT();
 
-  RtpHeaderExtensions header_extensions =
-      GetDeduplicatedRtpHeaderExtensions(content->rtp_header_extensions());
+  RtpHeaderExtensions header_extensions = GetDeduplicatedRtpHeaderExtensions(
+      content->rtp_header_extensions(),
+      content->AtLeastOneRtpHeaderExtensionShouldBeEncrypted());
   bool update_header_extensions = true;
   media_send_channel()->SetExtmapAllowMixed(content->extmap_allow_mixed());
 

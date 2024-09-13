@@ -61,7 +61,8 @@ std::vector<webrtc::RtpExtension> GetDefaultEnabledRtpHeaderExtensions(
   std::vector<webrtc::RtpExtension> extensions;
   for (const auto& entry : query_interface.GetRtpHeaderExtensions()) {
     if (entry.direction != webrtc::RtpTransceiverDirection::kStopped)
-      extensions.emplace_back(entry.uri, *entry.preferred_id);
+      extensions.emplace_back(entry.uri, *entry.preferred_id,
+                              entry.preferred_encrypt);
   }
   return extensions;
 }

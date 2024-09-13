@@ -1055,7 +1055,8 @@ std::vector<int> JsepTransportController::GetEncryptedHeaderExtensionIds(
   const cricket::MediaContentDescription* content_desc =
       content_info.media_description();
 
-  if (!config_.crypto_options.srtp.enable_encrypted_rtp_header_extensions) {
+  if (!config_.crypto_options.srtp.enable_encrypted_rtp_header_extensions &&
+      !content_desc->AtLeastOneRtpHeaderExtensionShouldBeEncrypted()) {
     return std::vector<int>();
   }
 

@@ -273,7 +273,8 @@ class BaseChannel : public ChannelInterface,
   // Encrypted extensions will be either preferred or discarded, depending on
   // the current crypto_options_.
   RtpHeaderExtensions GetDeduplicatedRtpHeaderExtensions(
-      const RtpHeaderExtensions& extensions);
+      const RtpHeaderExtensions& extensions,
+      bool at_least_one_header_needs_encryption);
 
   // Add `payload_type` to `demuxer_criteria_` if payload type demuxing is
   // enabled.
@@ -331,9 +332,10 @@ class BaseChannel : public ChannelInterface,
   bool was_ever_writable_ RTC_GUARDED_BY(worker_thread()) = false;
   const bool srtp_required_ = true;
 
-  // Set to either kPreferEncryptedExtension or kDiscardEncryptedExtension
-  // based on the supplied CryptoOptions.
-  const webrtc::RtpExtension::Filter extensions_filter_;
+  // Set to either `kPreferEncryptedExtension` or `kDiscardEncryptedExtension`
+  // based on the supplied CryptoOptions. Set to `kPreferEncryptedExtension` if
+  // user has specified that a header should be encrypted.
+  webrtc::RtpExtension::Filter extensions_filter_;
 
   // Currently the `enabled_` flag is accessed from the signaling thread as
   // well, but it can be changed only when signaling thread does a synchronous

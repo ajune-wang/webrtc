@@ -61,7 +61,8 @@ using webrtc::RtpTransceiverDirection;
 webrtc::RtpExtension RtpExtensionFromCapability(
     const webrtc::RtpHeaderExtensionCapability& capability) {
   return webrtc::RtpExtension(capability.uri,
-                              capability.preferred_id.value_or(1));
+                              capability.preferred_id.value_or(1),
+                              capability.preferred_encrypt);
 }
 
 cricket::RtpHeaderExtensions RtpHeaderExtensionsFromCapabilities(
@@ -1075,7 +1076,8 @@ bool CreateMediaContentAnswer(
     MediaContentDescription* answer) {
   answer->set_extmap_allow_mixed_enum(offer->extmap_allow_mixed_enum());
   const webrtc::RtpExtension::Filter extensions_filter =
-      enable_encrypted_rtp_header_extensions
+      (enable_encrypted_rtp_header_extensions ||
+       offer->AtLeastOneRtpHeaderExtensionShouldBeEncrypted())
           ? webrtc::RtpExtension::Filter::kPreferEncryptedExtension
           : webrtc::RtpExtension::Filter::kDiscardEncryptedExtension;
 

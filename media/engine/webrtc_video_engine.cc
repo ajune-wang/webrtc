@@ -837,7 +837,7 @@ WebRtcVideoEngine::GetRtpHeaderExtensions() const {
        {webrtc::RtpExtension::kTimestampOffsetUri,
         webrtc::RtpExtension::kAbsSendTimeUri,
         webrtc::RtpExtension::kVideoRotationUri,
-        webrtc::RtpExtension::kTransportSequenceNumberUri,
+        // webrtc::RtpExtension::kTransportSequenceNumberUri,
         webrtc::RtpExtension::kPlayoutDelayUri,
         webrtc::RtpExtension::kVideoContentTypeUri,
         webrtc::RtpExtension::kVideoTimingUri,
@@ -845,6 +845,15 @@ WebRtcVideoEngine::GetRtpHeaderExtensions() const {
         webrtc::RtpExtension::kRidUri, webrtc::RtpExtension::kRepairedRidUri}) {
     result.emplace_back(uri, id++, webrtc::RtpTransceiverDirection::kSendRecv);
   }
+  // TODO(vardar): Remove this line before submitting.
+  // For illustration purposes only. When `preferred_encrypt` is
+  // set to `true` the encryption for only the desired header extension will be
+  // encrypted.
+  // As discussed this could also be made a switch.
+  result.emplace_back(webrtc::RtpExtension::kTransportSequenceNumberUri, id++,
+                      /*preferred_encrypt=*/true,
+                      webrtc::RtpTransceiverDirection::kSendRecv);
+
   for (const auto& uri : {webrtc::RtpExtension::kAbsoluteCaptureTimeUri}) {
     result.emplace_back(uri, id, webrtc::RtpTransceiverDirection::kStopped);
   }

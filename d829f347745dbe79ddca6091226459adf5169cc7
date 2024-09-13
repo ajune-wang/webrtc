@@ -378,6 +378,24 @@
       "parentUuid": "04098af2_5f9a195f",
       "revId": "d829f347745dbe79ddca6091226459adf5169cc7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2e4f8d46_b6a6e53a",
+        "filename": "rtc_base/ssl_stream_adapter_unittest.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 1173,
+      "author": {
+        "id": 5602
+      },
+      "writtenOn": "2024-09-13T03:01:22Z",
+      "side": 1,
+      "message": "\u003e We (well, I at least) do not care about SHA1 fingerprints in the SDP but we do still have the 0.3% of usage of\n\u003e https://source.chromium.org/chromium/chromium/src/+/main:tools/metrics/histograms/metadata/web_rtc/histograms.xml;l\u003d1435?q\u003dSSLCipherSuite%20histograms\u0026ss\u003dchromium\n\nWhich histogram are you referring to here? I suspect the line numbers have since changed.\n\nSslCipherSuite is irrelevant to either the self-signature or the fingerprint hash.\n\nSslPeerSignatureAlgorithm is also irrelevant to either the self-signature or the fingerprint hash. That is the signature in the TLS handshake.",
+      "parentUuid": "ba1cb193_06e3edbc",
+      "revId": "d829f347745dbe79ddca6091226459adf5169cc7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

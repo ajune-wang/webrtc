@@ -160,13 +160,14 @@ int RtpPacketizerH265::PacketizeAp(size_t fragment_index) {
     return fragment_size;
   };
 
+  uint16_t header = (fragment[0] << 8) | fragment[1];
   while (payload_size_left >= payload_size_needed()) {
     RTC_CHECK_GT(fragment.size(), 0);
     packets_.push({.source_fragment = fragment,
                    .first_fragment = (aggregated_fragments == 0),
                    .last_fragment = false,
                    .aggregated = true,
-                   .header = fragment[0]});
+                   .header = header});
     payload_size_left -= fragment.size();
     payload_size_left -= fragment_headers_length;
 
@@ -234,22 +235,29 @@ void RtpPacketizerH265::NextAggregatePacket(RtpPacketToSend* rtp_packet) {
    |F|    Type   |  LayerId  | TID |
    +-------------+-----------------+
   */
-  // Refer to section section 4.4.2 for aggregation packets and modify type to
+  // Refer to section 4.4.2 for aggregation packets and modify type to
   // 48 in PayloadHdr for aggregate packet. Do not support DONL for aggregation
   // packets, DONL field is not present.
-  uint8_t payload_hdr_h = packet->header >> 8;
-  uint8_t payload_hdr_l = packet->header & 0xFF;
-  uint8_t layer_id_h = payload_hdr_h & kH265LayerIDHMask;
-  payload_hdr_h = (payload_hdr_h & kH265TypeMaskN) |
-                  (H265::NaluType::kAp << 1) | layer_id_h;
-  buffer[0] = payload_hdr_h;
-  buffer[1] = payload_hdr_l;
-
   int index = kH265PayloadHeaderSizeBytes;
   bool is_last_fragment = packet->last_fragment;
+
+  // Refer to section 4.4.2 for aggregation packets and calculate the lowest
+  // value of LayerId and TID of all the aggregated NAL units
+  uint8_t layer_id_min = kH265MaxLayerId;
+  uint8_t temporal_id_min = kH265MaxTemporalId;
   while (packet->aggregated) {
     // Add NAL unit length field.
     rtc::ArrayView<const uint8_t> fragment = packet->source_fragment;
+    uint8_t layer_id = ((fragment[0] & kH265LayerIDHMask) << 5) |
+                       ((fragment[1] & kH265LayerIDLMask) >> 3);
+    if (layer_id < layer_id_min) {
+      layer_id_min = layer_id;
+    }
+    uint8_t temporal_id = fragment[1] & kH265TIDMask;
+    if (temporal_id < temporal_id_min) {
+      temporal_id_min = temporal_id;
+    }
+
     ByteWriter<uint16_t>::WriteBigEndian(&buffer[index], fragment.size());
     index += kH265LengthFieldSizeBytes;
     // Add NAL unit.
@@ -263,6 +271,11 @@ void RtpPacketizerH265::NextAggregatePacket(RtpPacketToSend* rtp_packet) {
     packet = &packets_.front();
     is_last_fragment = packet->last_fragment;
   }
+
+  uint8_t payload_hdr_h = (H265::NaluType::kAp << 1) | (layer_id_min >> 5);
+  uint8_t payload_hdr_l = (layer_id_min << 3) | temporal_id_min;
+  buffer[0] = payload_hdr_h;
+  buffer[1] = payload_hdr_l;
   RTC_CHECK(is_last_fragment);
   rtp_packet->SetPayloadSize(index);
 }

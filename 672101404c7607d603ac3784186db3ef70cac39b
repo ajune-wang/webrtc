@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "93fb7304_46791224",
+        "filename": "modules/rtp_rtcp/source/rtp_packetizer_h265.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 18005
+      },
+      "writtenOn": "2024-09-14T01:24:55Z",
+      "side": 1,
+      "message": "layer_id_min \u003d std::min(layer_id_min, layer_id);",
+      "revId": "672101404c7607d603ac3784186db3ef70cac39b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "70d7a5aa_a1e34d27",
+        "filename": "modules/rtp_rtcp/source/rtp_packetizer_h265.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 18005
+      },
+      "writtenOn": "2024-09-14T01:24:55Z",
+      "side": 1,
+      "message": "ditto",
+      "revId": "672101404c7607d603ac3784186db3ef70cac39b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "18faa71e_408b65f5",
+        "filename": "modules/rtp_rtcp/source/rtp_packetizer_h265.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 18005
+      },
+      "writtenOn": "2024-09-14T01:24:55Z",
+      "side": 1,
+      "message": "```suggestion\n\n  buffer[0] \u003d (H265::NaluType::kAp \u003c\u003c 1) | (layer_id_min \u003e\u003e 5);\n  buffer[1] \u003d (layer_id_min \u003c\u003c 3) | temporal_id_min;\n```",
+      "range": {
+        "startLine": 274,
+        "startChar": 0,
+        "endLine": 278,
+        "endChar": 28
+      },
+      "revId": "672101404c7607d603ac3784186db3ef70cac39b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

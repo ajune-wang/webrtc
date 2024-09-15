@@ -55,14 +55,24 @@ struct AcknowledgedBitrateEstimatorTestStates {
   MockBitrateEstimator* mock_bitrate_estimator;
 };
 
-AcknowledgedBitrateEstimatorTestStates CreateTestStates() {
+AcknowledgedBitrateEstimatorTestStates CreateTestStates(
+    bool use_real_bitrate_estimator = false) {
   AcknowledgedBitrateEstimatorTestStates states;
-  auto mock_bitrate_estimator =
-      std::make_unique<MockBitrateEstimator>(&states.field_trial_config);
-  states.mock_bitrate_estimator = mock_bitrate_estimator.get();
-  states.acknowledged_bitrate_estimator =
-      std::make_unique<AcknowledgedBitrateEstimator>(
-          &states.field_trial_config, std::move(mock_bitrate_estimator));
+  if (use_real_bitrate_estimator) {
+    auto bitrate_estimator =
+        std::make_unique<webrtc::BitrateEstimator>(&states.field_trial_config);
+    states.mock_bitrate_estimator = nullptr;
+    states.acknowledged_bitrate_estimator =
+        std::make_unique<AcknowledgedBitrateEstimator>(
+            &states.field_trial_config, std::move(bitrate_estimator));
+  } else {
+    auto mock_bitrate_estimator =
+        std::make_unique<MockBitrateEstimator>(&states.field_trial_config);
+    states.mock_bitrate_estimator = mock_bitrate_estimator.get();
+    states.acknowledged_bitrate_estimator =
+        std::make_unique<AcknowledgedBitrateEstimator>(
+            &states.field_trial_config, std::move(mock_bitrate_estimator));
+  }
   return states;
 }
 
@@ -137,6 +147,36 @@ TEST(TestAcknowledgedBitrateEstimator, ReturnBitrate) {
       .Times(1)
       .WillOnce(Return(return_value));
   EXPECT_EQ(return_value, states.acknowledged_bitrate_estimator->bitrate());
+}
+
+TEST(TestAcknowledgedBitrateEstimator, CorrectBitrateAfterFirstPacket) {
+  auto states = CreateTestStates(/*use_real_bitrate_estimator=*/true);
+
+  // Simulate 6 packets received every 100 ms starting at time 0 ms.
+  Timestamp receive_time = Timestamp::Millis(0);
+  DataSize packet_size = DataSize::Bytes(1000);  // 1000 bytes per packet
+
+  // Send 6 packets to cover 500 ms
+  for (uint8_t i = 1; i <= 6; ++i) {
+    PacketResult packet_feedback;
+    packet_feedback.receive_time = receive_time;
+    packet_feedback.sent_packet.send_time = receive_time;
+    packet_feedback.sent_packet.sequence_number = i;
+    packet_feedback.sent_packet.size = packet_size;
+    std::vector<PacketResult> packet_feedback_vector = {packet_feedback};
+    states.acknowledged_bitrate_estimator->IncomingPacketFeedbackVector(
+        packet_feedback_vector);
+    receive_time += TimeDelta::Millis(100);
+  }
+
+  // Now (receive_time=600 ms) we should have a valid bitrate estimate
+  // - sum_ includes bytes from packets 2 to 5 (4 packets * 1000 bytes)
+  // - Time interval is 500 ms (from 100 ms to 600 ms)
+  // - Expected bitrate: (8 * 4000 bytes) / 500 ms = 64 kbps
+  std::optional<DataRate> bitrate =
+      states.acknowledged_bitrate_estimator->bitrate();
+  DataRate expected_bitrate = DataRate::KilobitsPerSec(64);
+  EXPECT_EQ(bitrate->kbps(), expected_bitrate.kbps());
 }
 
 }  // namespace webrtc*/

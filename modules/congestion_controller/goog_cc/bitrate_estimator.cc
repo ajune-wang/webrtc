@@ -126,6 +126,10 @@ float BitrateEstimator::UpdateWindow(int64_t now_ms,
     sum_ = 0;
     current_window_ms_ = 0;
   }
+  if (prev_time_ms_ < 0) {
+    prev_time_ms_ = now_ms;
+    return -1.0f;
+  }
   if (prev_time_ms_ >= 0) {
     current_window_ms_ += now_ms - prev_time_ms_;
     // Reset if nothing has been received for more than a full window.

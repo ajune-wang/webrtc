@@ -22,6 +22,30 @@
       },
       "revId": "d3563da53f23445e627fbff4d83ba9447b82f084",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b3ca0713_9d15f1c2",
+        "filename": "modules/audio_coding/codecs/opus/audio_encoder_opus.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 611,
+      "author": {
+        "id": 19084
+      },
+      "writtenOn": "2024-09-16T14:01:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f77e84b1_9a835115",
+      "range": {
+        "startLine": 611,
+        "startChar": 0,
+        "endLine": 611,
+        "endChar": 51
+      },
+      "revId": "d3563da53f23445e627fbff4d83ba9447b82f084",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -73,10 +73,6 @@ class WebRtcSessionDescriptionFactory {
   void CreateAnswer(CreateSessionDescriptionObserver* observer,
                     const cricket::MediaSessionOptions& session_options);
 
-  void set_enable_encrypted_rtp_header_extensions(bool enable) {
-    session_desc_factory_.set_enable_encrypted_rtp_header_extensions(enable);
-  }
-
   void set_is_unified_plan(bool is_unified_plan) {
     session_desc_factory_.set_is_unified_plan(is_unified_plan);
   }

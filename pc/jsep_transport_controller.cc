@@ -1055,10 +1055,6 @@ std::vector<int> JsepTransportController::GetEncryptedHeaderExtensionIds(
   const cricket::MediaContentDescription* content_desc =
       content_info.media_description();
 
-  if (!config_.crypto_options.srtp.enable_encrypted_rtp_header_extensions) {
-    return std::vector<int>();
-  }
-
   std::vector<int> encrypted_header_extension_ids;
   for (const auto& extension : content_desc->rtp_header_extensions()) {
     if (!extension.encrypt) {
@@ -1110,9 +1106,7 @@ int JsepTransportController::GetRtpAbsSendTimeHeaderExtensionId(
   const RtpExtension* send_time_extension =
       RtpExtension::FindHeaderExtensionByUri(
           content_desc->rtp_header_extensions(), RtpExtension::kAbsSendTimeUri,
-          config_.crypto_options.srtp.enable_encrypted_rtp_header_extensions
-              ? RtpExtension::kPreferEncryptedExtension
-              : RtpExtension::kDiscardEncryptedExtension);
+          RtpExtension::kDiscardEncryptedExtension);
   return send_time_extension ? send_time_extension->id : -1;
 }
 

@@ -144,10 +144,7 @@ BaseChannel::BaseChannel(
       signaling_thread_(signaling_thread),
       alive_(PendingTaskSafetyFlag::Create()),
       srtp_required_(srtp_required),
-      extensions_filter_(
-          crypto_options.srtp.enable_encrypted_rtp_header_extensions
-              ? webrtc::RtpExtension::kPreferEncryptedExtension
-              : webrtc::RtpExtension::kDiscardEncryptedExtension),
+      extensions_filter_(webrtc::RtpExtension::kDiscardEncryptedExtension),
       demuxer_criteria_(mid),
       ssrc_generator_(ssrc_generator) {
   RTC_DCHECK_RUN_ON(worker_thread_);

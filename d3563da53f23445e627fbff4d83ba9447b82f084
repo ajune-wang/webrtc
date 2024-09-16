@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f77e84b1_9a835115",
+        "filename": "modules/audio_coding/codecs/opus/audio_encoder_opus.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 611,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2024-09-16T13:42:53Z",
+      "side": 1,
+      "message": "Remove variable\n\n`info.speech \u003d WebRtcOpus_GetInDtx(inst_) \u003d\u003d 0;`",
+      "range": {
+        "startLine": 611,
+        "startChar": 0,
+        "endLine": 611,
+        "endChar": 51
+      },
+      "revId": "d3563da53f23445e627fbff4d83ba9447b82f084",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -677,17 +677,14 @@ RTCError UpdateSimulcastLayerStatusInSender(
 }
 
 bool SimulcastIsRejected(const ContentInfo* local_content,
-                         const MediaContentDescription& answer_media_desc,
-                         bool enable_encrypted_rtp_header_extensions) {
+                         const MediaContentDescription& answer_media_desc) {
   bool simulcast_offered = local_content &&
                            local_content->media_description() &&
                            local_content->media_description()->HasSimulcast();
   bool simulcast_answered = answer_media_desc.HasSimulcast();
   bool rids_supported = RtpExtension::FindHeaderExtensionByUri(
       answer_media_desc.rtp_header_extensions(), RtpExtension::kRidUri,
-      enable_encrypted_rtp_header_extensions
-          ? RtpExtension::Filter::kPreferEncryptedExtension
-          : RtpExtension::Filter::kDiscardEncryptedExtension);
+      RtpExtension::Filter::kDiscardEncryptedExtension);
   return simulcast_offered && (!simulcast_answered || !rids_supported);
 }
 
@@ -1429,8 +1426,6 @@ void SdpOfferAnswerHandler::Initialize(
     webrtc_session_desc_factory_->SetInsecureForTesting();
   }
 
-  webrtc_session_desc_factory_->set_enable_encrypted_rtp_header_extensions(
-      pc_->GetCryptoOptions().srtp.enable_encrypted_rtp_header_extensions);
   webrtc_session_desc_factory_->set_is_unified_plan(IsUnifiedPlan());
 
   if (dependencies.video_bitrate_allocator_factory) {
@@ -3903,9 +3898,7 @@ SdpOfferAnswerHandler::AssociateTransceiver(
 
     // Check if the offer indicated simulcast but the answer rejected it.
     // This can happen when simulcast is not supported on the remote party.
-    if (SimulcastIsRejected(old_local_content, *media_desc,
-                            pc_->GetCryptoOptions()
-                                .srtp.enable_encrypted_rtp_header_extensions)) {
+    if (SimulcastIsRejected(old_local_content, *media_desc)) {
       RTCError error =
           DisableSimulcastInSender(transceiver->internal()->sender_internal());
       if (!error.ok()) {

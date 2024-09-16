@@ -160,10 +160,6 @@ class MediaSessionDescriptionFactory {
   RtpHeaderExtensions filtered_rtp_header_extensions(
       RtpHeaderExtensions extensions) const;
 
-  void set_enable_encrypted_rtp_header_extensions(bool enable) {
-    enable_encrypted_rtp_header_extensions_ = enable;
-  }
-
   void set_is_unified_plan(bool is_unified_plan) {
     is_unified_plan_ = is_unified_plan;
   }
@@ -316,6 +312,7 @@ class MediaSessionDescriptionFactory {
   // This object may or may not be owned by this class.
   webrtc::AlwaysValidPointer<rtc::UniqueRandomIdGenerator> const
       ssrc_generator_;
+  // TODO(vardar): Remove
   bool enable_encrypted_rtp_header_extensions_ = false;
   const TransportDescriptionFactory* transport_desc_factory_;
 };

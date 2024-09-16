@@ -64,7 +64,6 @@ bool CryptoOptions::operator==(const CryptoOptions& other) const {
       bool enable_gcm_crypto_suites;
       bool enable_aes128_sha1_32_crypto_cipher;
       bool enable_aes128_sha1_80_crypto_cipher;
-      bool enable_encrypted_rtp_header_extensions;
     } srtp;
     struct SFrame {
       bool require_frame_encryption;
@@ -79,8 +78,6 @@ bool CryptoOptions::operator==(const CryptoOptions& other) const {
              other.srtp.enable_aes128_sha1_32_crypto_cipher &&
          srtp.enable_aes128_sha1_80_crypto_cipher ==
              other.srtp.enable_aes128_sha1_80_crypto_cipher &&
-         srtp.enable_encrypted_rtp_header_extensions ==
-             other.srtp.enable_encrypted_rtp_header_extensions &&
          sframe.require_frame_encryption ==
              other.sframe.require_frame_encryption;
 }

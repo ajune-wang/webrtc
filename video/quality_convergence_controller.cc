@@ -19,7 +19,7 @@ namespace {
 // default configurations used for the software encoders.
 constexpr int kVp8DefaultStaticQpThreshold = 15;
 constexpr int kVp9DefaultStaticQpThreshold = 32;
-constexpr int kAv1DefaultStaticQpThreshold = 40;
+constexpr int kAv1DefaultStaticQpThreshold = 60;
 
 int GetDefaultStaticQpThreshold(VideoCodecType codec) {
   switch (codec) {

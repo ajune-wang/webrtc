@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d5117043_98593498",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-09-16T20:43:27Z",
+      "side": 1,
+      "message": "Land after branch cut (today) with killswitch? Already interop-tested with Firefox et al which shows this is not required.",
+      "revId": "e089163f1dc27cb882962a412adb1133a720fbf2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

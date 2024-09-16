@@ -102,6 +102,24 @@
       "parentUuid": "12d0a38b_0ddb447c",
       "revId": "f0d1119aa3b78c7b452d59518ae5820c8dee407f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d07833a8_3eca2523",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19769
+      },
+      "writtenOn": "2024-09-16T12:45:51Z",
+      "side": 1,
+      "message": "Ack. I\u0027ll wait for the fix and resubmit then.",
+      "parentUuid": "6c8d835e_35f5fd38",
+      "revId": "f0d1119aa3b78c7b452d59518ae5820c8dee407f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

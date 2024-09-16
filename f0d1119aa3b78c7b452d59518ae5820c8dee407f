@@ -67,6 +67,23 @@
       "message": "Thanks, LGTM.",
       "revId": "f0d1119aa3b78c7b452d59518ae5820c8dee407f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "12d0a38b_0ddb447c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19769
+      },
+      "writtenOn": "2024-09-16T12:18:06Z",
+      "side": 1,
+      "message": "hmmm @hta@webrtc.org is there a way to bypass those failing bots? Or can I submit it without running them?",
+      "revId": "f0d1119aa3b78c7b452d59518ae5820c8dee407f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

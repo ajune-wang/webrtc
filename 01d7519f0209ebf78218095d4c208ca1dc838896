@@ -16,6 +16,23 @@
       "message": "@hta@chromium.org PTAL. Thanks!",
       "revId": "01d7519f0209ebf78218095d4c208ca1dc838896",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "489e8317_bb7f59b5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-09-16T09:44:24Z",
+      "side": 1,
+      "message": "Since this is in api/, the additional RTC_EXPORTs should do no harm.",
+      "revId": "01d7519f0209ebf78218095d4c208ca1dc838896",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

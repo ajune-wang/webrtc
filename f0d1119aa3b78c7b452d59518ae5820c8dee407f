@@ -50,6 +50,23 @@
       "message": "LGTM, but looping in another Objective-C expert.",
       "revId": "f0d1119aa3b78c7b452d59518ae5820c8dee407f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f6d89db3_23800efd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2024-09-16T12:06:37Z",
+      "side": 1,
+      "message": "Thanks, LGTM.",
+      "revId": "f0d1119aa3b78c7b452d59518ae5820c8dee407f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

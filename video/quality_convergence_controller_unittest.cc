@@ -10,6 +10,8 @@
  */
 #include "video/quality_convergence_controller.h"
 
+#include <optional>
+
 #include "test/gtest.h"
 #include "test/scoped_key_value_config.h"
 
@@ -20,7 +22,8 @@ constexpr int kStaticQpThreshold = 15;
 TEST(QualityConvergenceController, Singlecast) {
   test::ScopedKeyValueConfig field_trials;
   QualityConvergenceController controller;
-  controller.Initialize(1, kStaticQpThreshold, kVideoCodecVP8, field_trials);
+  controller.Initialize(1, /*static_qp_threshold=*/std::nullopt, kVideoCodecVP8,
+                        field_trials);
 
   EXPECT_FALSE(controller.AddSampleAndCheckTargetQuality(
       /*layer_index=*/0, kStaticQpThreshold + 1, /*is_refresh_frame=*/false));
@@ -31,7 +34,8 @@ TEST(QualityConvergenceController, Singlecast) {
 TEST(QualityConvergenceController, Simulcast) {
   test::ScopedKeyValueConfig field_trials;
   QualityConvergenceController controller;
-  controller.Initialize(2, kStaticQpThreshold, kVideoCodecVP8, field_trials);
+  controller.Initialize(2, /*static_qp_threshold=*/std::nullopt, kVideoCodecVP8,
+                        field_trials);
 
   EXPECT_FALSE(controller.AddSampleAndCheckTargetQuality(
       /*layer_index=*/0, kStaticQpThreshold + 1, /*is_refresh_frame=*/false));
@@ -54,12 +58,25 @@ TEST(QualityConvergenceController, Simulcast) {
 TEST(QualityConvergenceController, InvalidLayerIndex) {
   test::ScopedKeyValueConfig field_trials;
   QualityConvergenceController controller;
-  controller.Initialize(2, kStaticQpThreshold, kVideoCodecVP8, field_trials);
+  controller.Initialize(2, /*static_qp_threshold=*/std::nullopt, kVideoCodecVP8,
+                        field_trials);
 
   EXPECT_FALSE(controller.AddSampleAndCheckTargetQuality(
       /*layer_index=*/-1, kStaticQpThreshold, /*is_refresh_frame=*/false));
   EXPECT_FALSE(controller.AddSampleAndCheckTargetQuality(
       /*layer_index=*/3, kStaticQpThreshold, /*is_refresh_frame=*/false));
+}
+
+TEST(QualityConvergenceController, UseMaxOfSpecifiedAndDefaultQpThresholds) {
+  test::ScopedKeyValueConfig field_trials;
+  QualityConvergenceController controller;
+  controller.Initialize(1, kStaticQpThreshold + 1, kVideoCodecVP8,
+                        field_trials);
+
+  EXPECT_FALSE(controller.AddSampleAndCheckTargetQuality(
+      /*layer_index=*/0, kStaticQpThreshold + 2, /*is_refresh_frame=*/false));
+  EXPECT_TRUE(controller.AddSampleAndCheckTargetQuality(
+      /*layer_index=*/0, kStaticQpThreshold + 1, /*is_refresh_frame=*/false));
 }
 
 }  // namespace

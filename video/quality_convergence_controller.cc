@@ -10,6 +10,8 @@
 
 #include "video/quality_convergence_controller.h"
 
+#include <algorithm>
+
 #include "rtc_base/checks.h"
 
 namespace webrtc {
@@ -19,7 +21,7 @@ namespace {
 // default configurations used for the software encoders.
 constexpr int kVp8DefaultStaticQpThreshold = 15;
 constexpr int kVp9DefaultStaticQpThreshold = 32;
-constexpr int kAv1DefaultStaticQpThreshold = 40;
+constexpr int kAv1DefaultStaticQpThreshold = 60;
 
 int GetDefaultStaticQpThreshold(VideoCodecType codec) {
   switch (codec) {
@@ -49,8 +51,11 @@ void QualityConvergenceController::Initialize(
   number_of_layers_ = number_of_layers;
   convergence_monitors_.clear();
 
-  int qp_threshold =
-      static_qp_threshold.value_or(GetDefaultStaticQpThreshold(codec));
+  int qp_threshold = GetDefaultStaticQpThreshold(codec);
+  if (static_qp_threshold.has_value()) {
+    qp_threshold = std::max(qp_threshold, *static_qp_threshold);
+  }
+
   for (int i = 0; i < number_of_layers_; ++i) {
     convergence_monitors_.push_back(
         QualityConvergenceMonitor::Create(qp_threshold, codec, trials));

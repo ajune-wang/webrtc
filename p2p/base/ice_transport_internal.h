@@ -195,6 +195,9 @@ struct RTC_EXPORT IceConfig {
 
   webrtc::VpnPreference vpn_preference = webrtc::VpnPreference::kDefault;
 
+  // Experimental feature to transport the DTLS handshake in STUN packets.
+  bool dtls_handshake_in_stun = false;
+
   IceConfig();
   IceConfig(int receiving_timeout_ms,
             int backup_connection_ping_interval,
@@ -274,6 +277,7 @@ class RTC_EXPORT IceTransportInternal : public rtc::PacketTransportInternal {
   virtual void SetRemoteIceMode(IceMode mode) = 0;
 
   virtual void SetIceConfig(const IceConfig& config) = 0;
+  virtual const IceConfig& config() const = 0;
 
   // Start gathering candidates if not already started, or if an ICE restart
   // occurred.

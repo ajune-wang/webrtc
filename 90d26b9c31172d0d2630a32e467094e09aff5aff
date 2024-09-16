@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a93de332_5eab6d6e",
+        "filename": "video/quality_convergence_controller.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 22470
+      },
+      "writtenOn": "2024-09-16T14:17:03Z",
+      "side": 1,
+      "message": "It\u0027s probably a good idea to do the change like this. The other option would be to add the new threshold as a default value here, https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/video/quality_convergence_monitor.cc;l\u003d84?q\u003dQualityConvergenceMonitor\u0026ss\u003dchromium\n```\nstatic_config.static_qp_threshold_override \u003d 60;\n```\n\nBut, I think that we should also move the readout of the static Finch parameter from QualityConvergenceMonitor to GetDefaultStaticQpThreshold(). Something like:\n```\n  switch (codec) {\n    case kVideoCodecVP8:\n      \"trials.Lookup(\"WebRTC-QCM-Static-VP8\"));\"\n      return field trial value or kVp8DefaultStaticQpThreshold;\n    case kVideoCodecVP9:\n      \"trials.Lookup(\"WebRTC-QCM-Static-VP9\"));\"\n      return field trial value or kVp9DefaultStaticQpThreshold;\n    case kVideoCodecAV1:\n      \"trials.Lookup(\"WebRTC-QCM-Static-AV1\"));\"\n      return field trial value or kAv1DefaultStaticQpThreshold;\n    case kVideoCodecGeneric:\n```\n\nOtherwise, setting the Finch parameter will not be exactly the same thing as updating this line.",
+      "range": {
+        "startLine": 54,
+        "startChar": 0,
+        "endLine": 57,
+        "endChar": 3
+      },
+      "revId": "90d26b9c31172d0d2630a32e467094e09aff5aff",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

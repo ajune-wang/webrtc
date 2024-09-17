@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d22e77b5_8aaaf24d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-09-17T06:36:33Z",
+      "side": 1,
+      "message": "If all our theories are right, this should be safe to roll out as default-on.\nLet\u0027s try it.",
+      "revId": "8e26c7ffb3f892aa60e235f4f1df651a891d9220",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

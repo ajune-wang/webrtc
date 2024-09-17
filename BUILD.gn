@@ -427,11 +427,6 @@ config("common_config") {
         # Fuchsia build errors are fixed.
         cflags += [ "-Wundef" ]
       }
-
-      if (!is_nacl) {
-        # Flags NaCl (Clang 3.7) do not recognize.
-        cflags += [ "-Wunused-lambda-capture" ]
-      }
     }
 
     if (is_win && !is_clang) {

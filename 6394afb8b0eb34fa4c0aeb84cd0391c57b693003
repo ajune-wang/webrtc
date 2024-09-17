@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5d26f3e7_0089c050",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-09-17T13:41:43Z",
+      "side": 1,
+      "message": "Rasmus, can you please check api/video change as an owner",
+      "revId": "6394afb8b0eb34fa4c0aeb84cd0391c57b693003",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

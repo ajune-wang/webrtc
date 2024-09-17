@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "edf4611c_908360b0",
+        "filename": "media/base/video_adapter_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2024-09-17T13:24:05Z",
+      "side": 0,
+      "message": "FYI drive-by: this doesn\u0027t actually affect any test results, it just seemed \"wrong\" to set the target pixel count to requested resolution since that\u0027s not what we do outside of testing",
+      "revId": "4b51217ef6d247d03128dedd272ee5f02552fbfd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

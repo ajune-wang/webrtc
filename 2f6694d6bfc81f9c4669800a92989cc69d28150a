@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "64881808_9aa4e710",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2024-09-17T13:24:05Z",
+      "side": 1,
+      "message": "Please take a look, Jonas and Ilya",
+      "revId": "2f6694d6bfc81f9c4669800a92989cc69d28150a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0dab4f75_96f79e06",
+        "filename": "media/base/video_adapter.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 413,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2024-09-17T13:24:05Z",
+      "side": 1,
+      "message": "FYI: clearing is important for the stashing use case tested by existing tests in UseRequestedResolutionInsteadOfOnOutputFormatRequest but not something that is used by Chrome, only non-Chrome",
+      "revId": "2f6694d6bfc81f9c4669800a92989cc69d28150a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

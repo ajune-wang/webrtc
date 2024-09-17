@@ -36,6 +36,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5418b7a8_fb72f0c2",
+        "filename": "pc/media_session.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 2083,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-09-17T12:30:38Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "6c56454b_bba274c4",
+      "revId": "044ccacf1daaae3df502e70ca39776e2c29b0022",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "944bc093_4d6bd949",
@@ -49,6 +67,24 @@
       "writtenOn": "2024-09-13T08:01:07Z",
       "side": 1,
       "message": "Raw pointer... should we say anything about lifetime assumptions here?",
+      "revId": "044ccacf1daaae3df502e70ca39776e2c29b0022",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "73ba36e2_071f2a83",
+        "filename": "pc/media_session.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 324,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-09-17T12:30:38Z",
+      "side": 1,
+      "message": "This class has so many pointers ... it must live longer than the object.\nAdded a comment indicating that.",
+      "parentUuid": "944bc093_4d6bd949",
       "revId": "044ccacf1daaae3df502e70ca39776e2c29b0022",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

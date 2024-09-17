@@ -54,8 +54,14 @@ struct RTC_EXPORT CryptoOptions {
     bool enable_aes128_sha1_80_crypto_cipher = true;
 
     // If set to true, encrypted RTP header extensions as defined in RFC 6904
-    // will be negotiated. They will only be used if both peers support them.
-    bool enable_encrypted_rtp_header_extensions = false;
+    // can be negotiated if specified by the user. They will only be used if
+    // both peers support them. If one of them do not support encryption in that
+    // header, it's non-encrypted version will not be used during the call
+    // either. Observe, however, the user needs to specify which header to be
+    // encrypted in the file `media/engine/webrtc_video_engine.cc`. Currently,
+    // the default for all the headers is false.
+    // TODO(vardar) Look how to turn this flag off using kill-switch.
+    bool enable_encrypted_rtp_header_extensions = true;
   } srtp;
 
   // Options to be used when the FrameEncryptor / FrameDecryptor APIs are used.

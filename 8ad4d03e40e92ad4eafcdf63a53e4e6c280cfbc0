@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e9d4c553_83f73c96",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-09-17T15:51:34Z",
+      "side": 1,
+      "message": "can you check internal usage please? Hopefully we can go straight to \"remove\" after the Chromium roll ;-)",
+      "revId": "8ad4d03e40e92ad4eafcdf63a53e4e6c280cfbc0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

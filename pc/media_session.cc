@@ -2073,7 +2073,7 @@ RTCError MediaSessionDescriptionFactory::AddRtpContentForOffer(
       // This should only happen if WebRTC-PayloadTypesInTransport field trial
       // is enabled.
       RTC_CHECK(pt_suggester_);
-      RTC_CHECK(transport_desc_factory_->trials().IsEnabled(
+      RTC_CHECK(!transport_desc_factory_->trials().IsDisabled(
           "WebRTC-PayloadTypesInTransport"));
       auto result = pt_suggester_->SuggestPayloadType(
           media_description_options.mid, codec);
@@ -2274,7 +2274,7 @@ RTCError MediaSessionDescriptionFactory::AddRtpContentForAnswer(
     if (codec.id == Codec::kIdNotSet) {
       // Add payload types to codecs, if needed
       RTC_CHECK(pt_suggester_);
-      RTC_CHECK(transport_desc_factory_->trials().IsEnabled(
+      RTC_CHECK(!transport_desc_factory_->trials().IsDisabled(
           "WebRTC-PayloadTypesInTransport"));
       auto result = pt_suggester_->SuggestPayloadType(
           media_description_options.mid, codec);

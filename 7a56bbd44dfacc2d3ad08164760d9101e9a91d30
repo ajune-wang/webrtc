@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ab68c16f_e7325852",
+        "filename": "video/corruption_detection/frame_instrumentation_generator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2024-09-17T13:55:13Z",
+      "side": 1,
+      "message": "nit: can be combined into an `else if()`",
+      "range": {
+        "startLine": 129,
+        "startChar": 5,
+        "endLine": 131,
+        "endChar": 48
+      },
+      "revId": "7a56bbd44dfacc2d3ad08164760d9101e9a91d30",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f80e0769_2979fc7d",
+        "filename": "video/corruption_detection/frame_instrumentation_generator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2024-09-17T13:55:13Z",
+      "side": 1,
+      "message": "should \u003e 0x3FFF be silently ignored?",
+      "range": {
+        "startLine": 198,
+        "startChar": 0,
+        "endLine": 198,
+        "endChar": 3
+      },
+      "revId": "7a56bbd44dfacc2d3ad08164760d9101e9a91d30",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cb2a874d_a12f06de",
+        "filename": "video/corruption_detection/frame_instrumentation_generator.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2024-09-17T13:55:13Z",
+      "side": 1,
+      "message": "should this be an `optional\u003cint\u003e` then?",
+      "range": {
+        "startLine": 44,
+        "startChar": 2,
+        "endLine": 44,
+        "endChar": 59
+      },
+      "revId": "7a56bbd44dfacc2d3ad08164760d9101e9a91d30",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3da67670_e83c0db1",
+        "filename": "video/corruption_detection/frame_instrumentation_generator_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 499,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2024-09-17T13:55:13Z",
+      "side": 1,
+      "message": "Either they should:\n1) both have spatial id \u003d 0 and both marked as keyframe \u003d true, but one have simulcast id \u003d 0 and the other simulcast id \u003d 1.\n2) both have simulcast id \u003d 0, but one marked as spatial id \u003d 0 and keyframe \u003d true and the second have spatial id \u003d 1 and keyframe \u003d false.\n\nProbably you want to test both.",
+      "range": {
+        "startLine": 499,
+        "startChar": 2,
+        "endLine": 499,
+        "endChar": 60
+      },
+      "revId": "7a56bbd44dfacc2d3ad08164760d9101e9a91d30",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

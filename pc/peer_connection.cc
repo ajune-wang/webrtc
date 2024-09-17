@@ -760,6 +760,11 @@ RTCError PeerConnection::Initialize(
   }
 
   configuration_ = configuration;
+  // Kill-switch to deactivate the negotiation of RTP encryption headers.
+  if (configuration_.crypto_options) {
+    configuration_.crypto_options->srtp.enable_encrypted_rtp_header_extensions =
+        !trials().IsDisabled("WebRTC-EncryptedRtpHeaderExtensions");
+  }
 
   legacy_stats_ = std::make_unique<LegacyStatsCollector>(this);
   stats_collector_ = RTCStatsCollector::Create(this);

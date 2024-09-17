@@ -31,7 +31,7 @@ void TransportFeedbackDemuxer::RegisterStreamFeedbackObserver(
     StreamFeedbackObserver* observer) {
   RTC_DCHECK_RUN_ON(&observer_checker_);
   RTC_DCHECK(observer);
-  RTC_DCHECK(absl::c_find_if(observers_, [=](const auto& pair) {
+  RTC_DCHECK(absl::c_find_if(observers_, [observer](const auto& pair) {
                return pair.second == observer;
              }) == observers_.end());
   observers_.push_back({ssrcs, observer});
@@ -41,8 +41,9 @@ void TransportFeedbackDemuxer::DeRegisterStreamFeedbackObserver(
     StreamFeedbackObserver* observer) {
   RTC_DCHECK_RUN_ON(&observer_checker_);
   RTC_DCHECK(observer);
-  const auto it = absl::c_find_if(
-      observers_, [=](const auto& pair) { return pair.second == observer; });
+  const auto it = absl::c_find_if(observers_, [observer](const auto& pair) {
+    return pair.second == observer;
+  });
   RTC_DCHECK(it != observers_.end());
   observers_.erase(it);
 }

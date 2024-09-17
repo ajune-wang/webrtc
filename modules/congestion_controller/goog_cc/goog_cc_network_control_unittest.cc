@@ -525,11 +525,10 @@ TEST(GoogCcScenario, CongestionWindowPushbackOnNetworkDelay) {
   ScopedFieldTrials trial(
       "WebRTC-CongestionWindow/QueueSize:800,MinBitrate:30000/");
   Scenario s("googcc_unit/cwnd_on_delay", false);
-  auto send_net =
-      s.CreateMutableSimulationNode([=](NetworkSimulationConfig* c) {
-        c->bandwidth = DataRate::KilobitsPerSec(1000);
-        c->delay = TimeDelta::Millis(100);
-      });
+  auto send_net = s.CreateMutableSimulationNode([](NetworkSimulationConfig* c) {
+    c->bandwidth = DataRate::KilobitsPerSec(1000);
+    c->delay = TimeDelta::Millis(100);
+  });
   auto ret_net = s.CreateSimulationNode(
       [](NetworkSimulationConfig* c) { c->delay = TimeDelta::Millis(100); });
   CallClientConfig config;
@@ -559,11 +558,10 @@ TEST(GoogCcScenario, CongestionWindowPushbackDropFrameOnNetworkDelay) {
   ScopedFieldTrials trial(
       "WebRTC-CongestionWindow/QueueSize:800,MinBitrate:30000,DropFrame:true/");
   Scenario s("googcc_unit/cwnd_on_delay", false);
-  auto send_net =
-      s.CreateMutableSimulationNode([=](NetworkSimulationConfig* c) {
-        c->bandwidth = DataRate::KilobitsPerSec(1000);
-        c->delay = TimeDelta::Millis(100);
-      });
+  auto send_net = s.CreateMutableSimulationNode([](NetworkSimulationConfig* c) {
+    c->bandwidth = DataRate::KilobitsPerSec(1000);
+    c->delay = TimeDelta::Millis(100);
+  });
   auto ret_net = s.CreateSimulationNode(
       [](NetworkSimulationConfig* c) { c->delay = TimeDelta::Millis(100); });
   CallClientConfig config;
@@ -591,11 +589,10 @@ TEST(GoogCcScenario, PaddingRateLimitedByCongestionWindowInTrial) {
       "WebRTC-CongestionWindow/QueueSize:200,MinBitrate:30000/");
 
   Scenario s("googcc_unit/padding_limited", false);
-  auto send_net =
-      s.CreateMutableSimulationNode([=](NetworkSimulationConfig* c) {
-        c->bandwidth = DataRate::KilobitsPerSec(1000);
-        c->delay = TimeDelta::Millis(100);
-      });
+  auto send_net = s.CreateMutableSimulationNode([](NetworkSimulationConfig* c) {
+    c->bandwidth = DataRate::KilobitsPerSec(1000);
+    c->delay = TimeDelta::Millis(100);
+  });
   auto ret_net = s.CreateSimulationNode(
       [](NetworkSimulationConfig* c) { c->delay = TimeDelta::Millis(100); });
   CallClientConfig config;
@@ -635,10 +632,11 @@ TEST(GoogCcScenario, LimitsToFloorIfRttIsHighInTrial) {
   const DataRate kLinkCapacity = DataRate::KilobitsPerSec(100);
   const TimeDelta kBufferBloatDuration = TimeDelta::Seconds(10);
   Scenario s("googcc_unit/limit_trial", false);
-  auto send_net = s.CreateSimulationNode([=](NetworkSimulationConfig* c) {
-    c->bandwidth = kLinkCapacity;
-    c->delay = TimeDelta::Millis(100);
-  });
+  auto send_net =
+      s.CreateSimulationNode([kLinkCapacity](NetworkSimulationConfig* c) {
+        c->bandwidth = kLinkCapacity;
+        c->delay = TimeDelta::Millis(100);
+      });
   auto ret_net = s.CreateSimulationNode(
       [](NetworkSimulationConfig* c) { c->delay = TimeDelta::Millis(100); });
   CallClientConfig config;

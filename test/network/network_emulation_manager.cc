@@ -274,7 +274,7 @@ void NetworkEmulationManagerImpl::StopCrossTraffic(
     CrossTrafficGenerator* generator) {
   task_queue_.PostTask([this, generator]() {
     auto it = std::find_if(cross_traffics_.begin(), cross_traffics_.end(),
-                           [=](const CrossTrafficSource& el) {
+                           [generator](const CrossTrafficSource& el) {
                              return el.first.get() == generator;
                            });
     it->second.Stop();

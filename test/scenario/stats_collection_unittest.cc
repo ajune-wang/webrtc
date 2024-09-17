@@ -31,7 +31,7 @@ void CreateAnalyzedStream(Scenario* s,
                       {s->CreateSimulationNode(NetworkSimulationConfig())});
   VideoStreamPair* video = s->CreateVideoStream(route->forward(), config);
   auto* audio = s->CreateAudioStream(route->forward(), AudioStreamConfig());
-  s->Every(TimeDelta::Seconds(1), [=] {
+  s->Every(TimeDelta::Seconds(1), [&] {
     collectors->call.AddStats(caller->GetStats());
 
     VideoSendStream::Stats send_stats;

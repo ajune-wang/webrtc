@@ -43,7 +43,7 @@ void StartIceSignalingForRoute(PeerScenarioClient* caller,
                                PeerScenarioClient* callee,
                                CrossTrafficRoute* send_route) {
   caller->handlers()->on_ice_candidate.push_back(
-      [=](const IceCandidateInterface* candidate) {
+      [&](const IceCandidateInterface* candidate) {
         IceMessage msg(candidate);
         send_route->NetworkDelayedAction(kIcePacketSize, [callee, msg]() {
           callee->thread()->PostTask(
@@ -61,17 +61,17 @@ void StartSdpNegotiation(
     std::function<void(SessionDescriptionInterface*)> modify_offer,
     std::function<void()> callee_remote_description_set,
     std::function<void(const SessionDescriptionInterface&)> exchange_finished) {
-  caller->CreateAndSetSdp(munge_offer, [=](std::string sdp_offer) {
+  caller->CreateAndSetSdp(munge_offer, [&](std::string sdp_offer) {
     if (modify_offer) {
       auto offer = CreateSessionDescription(SdpType::kOffer, sdp_offer);
       modify_offer(offer.get());
       RTC_CHECK(offer->ToString(&sdp_offer));
     }
-    send_route->NetworkDelayedAction(kSdpPacketSize, [=] {
+    send_route->NetworkDelayedAction(kSdpPacketSize, [&] {
       callee->SetSdpOfferAndGetAnswer(
           sdp_offer, std::move(callee_remote_description_set),
-          [=](std::string answer) {
-            ret_route->NetworkDelayedAction(kSdpPacketSize, [=] {
+          [&](std::string answer) {
+            ret_route->NetworkDelayedAction(kSdpPacketSize, [&] {
               caller->SetSdpAnswer(std::move(answer),
                                    std::move(exchange_finished));
             });

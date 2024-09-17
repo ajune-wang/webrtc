@@ -24,7 +24,7 @@ namespace {
 
 void Conjugate(complex<float>* array, size_t complex_length) {
   std::for_each(array, array + complex_length,
-                [=](complex<float>& v) { v = std::conj(v); });
+                [](complex<float>& v) { v = std::conj(v); });
 }
 
 size_t ComputeWorkIpSize(size_t fft_length) {

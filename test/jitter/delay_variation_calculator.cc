@@ -56,7 +56,7 @@ void DelayVariationCalculator::Insert(
 void DelayVariationCalculator::InsertFirstFrame(const Frame& frame,
                                                 Timestamp sample_time,
                                                 MetadataT sample_metadata) {
-  const auto s = [=](double sample_value) {
+  const auto s = [&](double sample_value) {
     return SamplesStatsCounter::StatsSample{.value = sample_value,
                                             .time = sample_time,
                                             .metadata = sample_metadata};
@@ -81,7 +81,7 @@ void DelayVariationCalculator::InsertFrame(const Frame& frame,
   TimeDelta inter_delay_variation = inter_arrival_time - inter_departure_time;
   double inter_size_variation_bytes =
       frame.size.bytes<double>() - prev_frame_->size.bytes<double>();
-  const auto s = [=](double sample_value) {
+  const auto s = [&](double sample_value) {
     return SamplesStatsCounter::StatsSample{.value = sample_value,
                                             .time = sample_time,
                                             .metadata = sample_metadata};

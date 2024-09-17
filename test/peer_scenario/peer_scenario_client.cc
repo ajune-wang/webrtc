@@ -348,7 +348,7 @@ void PeerScenarioClient::CreateAndSetSdp(
   RTC_DCHECK_RUN_ON(signaling_thread_);
   peer_connection_->CreateOffer(
       rtc::make_ref_counted<LambdaCreateSessionDescriptionObserver>(
-          [=](std::unique_ptr<SessionDescriptionInterface> offer) {
+          [&](std::unique_ptr<SessionDescriptionInterface> offer) {
             RTC_DCHECK_RUN_ON(signaling_thread_);
             if (munge_offer) {
               munge_offer(offer.get());
@@ -371,7 +371,7 @@ void PeerScenarioClient::SetSdpOfferAndGetAnswer(
     std::function<void()> remote_description_set,
     std::function<void(std::string)> answer_handler) {
   if (!signaling_thread_->IsCurrent()) {
-    signaling_thread_->PostTask([=] {
+    signaling_thread_->PostTask([&] {
       SetSdpOfferAndGetAnswer(remote_offer, remote_description_set,
                               answer_handler);
     });
@@ -380,7 +380,7 @@ void PeerScenarioClient::SetSdpOfferAndGetAnswer(
   RTC_DCHECK_RUN_ON(signaling_thread_);
   peer_connection_->SetRemoteDescription(
       CreateSessionDescription(SdpType::kOffer, remote_offer),
-      rtc::make_ref_counted<LambdaSetRemoteDescriptionObserver>([=](RTCError) {
+      rtc::make_ref_counted<LambdaSetRemoteDescriptionObserver>([&](RTCError) {
         RTC_DCHECK_RUN_ON(signaling_thread_);
         if (remote_description_set) {
           // Allow the caller to modify transceivers
@@ -389,7 +389,7 @@ void PeerScenarioClient::SetSdpOfferAndGetAnswer(
         }
         peer_connection_->CreateAnswer(
             rtc::make_ref_counted<LambdaCreateSessionDescriptionObserver>(
-                [=](std::unique_ptr<SessionDescriptionInterface> answer) {
+                [&](std::unique_ptr<SessionDescriptionInterface> answer) {
                   RTC_DCHECK_RUN_ON(signaling_thread_);
                   std::string sdp_answer;
                   answer->ToString(&sdp_answer);
@@ -411,7 +411,7 @@ void PeerScenarioClient::SetSdpAnswer(
     std::function<void(const SessionDescriptionInterface&)> done_handler) {
   if (!signaling_thread_->IsCurrent()) {
     signaling_thread_->PostTask(
-        [=] { SetSdpAnswer(remote_answer, done_handler); });
+        [&] { SetSdpAnswer(remote_answer, done_handler); });
     return;
   }
   RTC_DCHECK_RUN_ON(signaling_thread_);

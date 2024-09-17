@@ -15,6 +15,9 @@
 #include <string>
 #include <utility>
 
+// Remove...
+#include "rtc_base/logging.h"
+
 #include "api/video/resolution.h"
 #include "api/video/video_frame.h"
 #include "api/video/video_source_interface.h"
@@ -58,14 +61,18 @@ rtc::VideoSinkWants BuildSinkWants(
   wants.max_framerate_fps = kDefaultFps;
   wants.resolution_alignment = 1;
   wants.is_active = true;
+  // // --- asd asd asd ---
+  // wants.target_pixel_count = kWidth * kHeight;
+  // wants.max_pixel_count = kWidth * kHeight;
+  // // -------------------
   if (requested_resolution) {
-    wants.target_pixel_count = requested_resolution->PixelCount();
-    wants.max_pixel_count = requested_resolution->PixelCount();
+    // wants.target_pixel_count = requested_resolution->PixelCount();
+    // wants.max_pixel_count = requested_resolution->PixelCount();
     wants.requested_resolution.emplace(rtc::VideoSinkWants::FrameSize(
         requested_resolution->width, requested_resolution->height));
   } else {
-    wants.target_pixel_count = kWidth * kHeight;
-    wants.max_pixel_count = kWidth * kHeight;
+    // wants.target_pixel_count = kWidth * kHeight;
+    // wants.max_pixel_count = kWidth * kHeight;
   }
   wants.aggregates.emplace(rtc::VideoSinkWants::Aggregates());
   wants.aggregates->any_active_without_requested_resolution =
@@ -177,6 +184,7 @@ class VideoAdapterTest : public ::testing::Test,
     EXPECT_TRUE(adapter_.AdaptFrameResolution(
         res.width, res.height, timestamp_ns_, &cropped.width, &cropped.height,
         &out.width, &out.height));
+    RTC_LOG(LS_ERROR) << "!!! AdaptVideoFrame = " << out.width << "x" << out.height;
     return std::make_pair(out, cropped);
   }
 

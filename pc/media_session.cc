@@ -1273,7 +1273,7 @@ webrtc::RTCErrorOr<Codecs> GetNegotiatedCodecsForAnswer(
         }
       }
     }
-    // Add other supported video codecs.
+    // Add other supported codecs.
     std::vector<Codec> other_codecs;
     for (const Codec& codec : supported_codecs) {
       if (FindMatchingCodec(supported_codecs, codecs, codec) &&

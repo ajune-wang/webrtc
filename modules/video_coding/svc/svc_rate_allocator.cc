@@ -17,6 +17,8 @@
 #include <vector>
 
 #include "absl/container/inlined_vector.h"
+#include "api/field_trials_view.h"
+#include "api/transport/field_trial_based_config.h"
 #include "modules/video_coding/svc/create_scalability_structure.h"
 #include "rtc_base/checks.h"
 
@@ -236,9 +238,13 @@ SvcRateAllocator::NumLayers SvcRateAllocator::GetNumLayers(
 }
 
 SvcRateAllocator::SvcRateAllocator(const VideoCodec& codec)
+    : SvcRateAllocator(codec, FieldTrialBasedConfig()) {}
+
+SvcRateAllocator::SvcRateAllocator(const VideoCodec& codec,
+                                   const FieldTrialsView& field_trials)
     : codec_(codec),
       num_layers_(GetNumLayers(codec)),
-      experiment_settings_(StableTargetRateExperiment::ParseFromFieldTrials()),
+      experiment_settings_(field_trials),
       cumulative_layer_start_bitrates_(GetLayerStartBitrates(codec)),
       last_active_layer_count_(0) {
   RTC_DCHECK_GT(num_layers_.spatial, 0);

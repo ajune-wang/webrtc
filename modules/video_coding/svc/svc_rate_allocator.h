@@ -17,6 +17,7 @@
 #include <vector>
 
 #include "absl/container/inlined_vector.h"
+#include "api/field_trials_view.h"
 #include "api/video/video_bitrate_allocation.h"
 #include "api/video/video_bitrate_allocator.h"
 #include "api/video/video_codec_constants.h"
@@ -27,7 +28,9 @@ namespace webrtc {
 
 class SvcRateAllocator : public VideoBitrateAllocator {
  public:
-  explicit SvcRateAllocator(const VideoCodec& codec);
+  [[deprecated]] explicit SvcRateAllocator(const VideoCodec& codec);
+  SvcRateAllocator(const VideoCodec& codec,
+                   const FieldTrialsView& field_trials);
 
   VideoBitrateAllocation Allocate(
       VideoBitrateAllocationParameters parameters) override;

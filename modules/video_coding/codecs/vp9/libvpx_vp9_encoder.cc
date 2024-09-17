@@ -229,7 +229,8 @@ void LibvpxVp9Encoder::EncoderOutputCodedPacketCallback(vpx_codec_cx_pkt* pkt,
 LibvpxVp9Encoder::LibvpxVp9Encoder(const Environment& env,
                                    Vp9EncoderSettings settings,
                                    std::unique_ptr<LibvpxInterface> interface)
-    : libvpx_(std::move(interface)),
+    : env_(env),
+      libvpx_(std::move(interface)),
       encoded_image_(),
       encoded_complete_callback_(nullptr),
       profile_(settings.profile),
@@ -793,7 +794,7 @@ int LibvpxVp9Encoder::InitAndSetControlSettings() {
   RTC_DCHECK_EQ(performance_flags_by_spatial_index_.size(),
                 static_cast<size_t>(num_spatial_layers_));
 
-  SvcRateAllocator init_allocator(codec_);
+  SvcRateAllocator init_allocator(codec_, env_.field_trials());
   current_bitrate_allocation_ =
       init_allocator.Allocate(VideoBitrateAllocationParameters(
           codec_.startBitrate * 1000, codec_.maxFramerate));

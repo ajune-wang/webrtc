@@ -61,8 +61,7 @@ float SimulcastRateAllocator::GetTemporalRateAllocation(
 SimulcastRateAllocator::SimulcastRateAllocator(const Environment& env,
                                                const VideoCodec& codec)
     : codec_(codec),
-      stable_rate_settings_(StableTargetRateExperiment::ParseFromKeyValueConfig(
-          &env.field_trials())),
+      stable_rate_settings_(env.field_trials()),
       rate_control_settings_(env.field_trials()),
       legacy_conference_mode_(false) {}
 

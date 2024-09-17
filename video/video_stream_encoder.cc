@@ -892,7 +892,7 @@ void VideoStreamEncoder::ConfigureEncoder(VideoEncoderConfig config,
     }
   }
   const bool signal_requested_resolution =
-      !settings_.use_standard_requested_resolution;
+      !settings_.use_standard_requested_resolution || true;
   if ((signal_requested_resolution &&
        requested_resolution !=
            video_source_sink_controller_.requested_resolution()) ||

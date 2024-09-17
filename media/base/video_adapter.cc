@@ -211,6 +211,28 @@ bool VideoAdapter::AdaptFrameResolution(int in_width,
     return false;
   }
 
+  // Adjust input width and height without modifying aspect ratio as to be less
+  // than or equal to the `requested_resolution_`.
+  if (requested_resolution_.has_value()) {
+    // Make frame and requested resolution have matching orientation.
+    webrtc::Resolution requested_resolution = requested_resolution_.value();
+    if ((in_width < in_height) !=
+        (requested_resolution_->width < requested_resolution_->height)) {
+      requested_resolution = {.width = requested_resolution_->height,
+                              .height = requested_resolution_->width};
+    }
+    // Downscale by smallest scaling factor, if necessary.
+    if (in_width > 0 && in_height > 0 &&
+        (requested_resolution.width < in_width ||
+         requested_resolution.height < in_height)) {
+      double scale_factor = std::min(
+          requested_resolution.width / static_cast<double>(in_width),
+          requested_resolution.height / static_cast<double>(in_height));
+      in_width = std::round(in_width * scale_factor);
+      in_height = std::round(in_height * scale_factor);
+    }
+  }
+
   // Calculate how the input should be cropped.
   if (!target_aspect_ratio || target_aspect_ratio->first <= 0 ||
       target_aspect_ratio->second <= 0) {
@@ -341,6 +363,13 @@ void VideoAdapter::OnSinkWants(const rtc::VideoSinkWants& sink_wants) {
   max_framerate_request_ = sink_wants.max_framerate_fps;
   resolution_alignment_ = cricket::LeastCommonMultiple(
       source_resolution_alignment_, sink_wants.resolution_alignment);
+  // Convert from std::optional<rtc::VideoSinkWants::FrameSize> to
+  // std::optional<webrtc::Resolution>. Both are {int,int}.
+  requested_resolution_ = std::nullopt;
+  if (sink_wants.requested_resolution.has_value()) {
+    requested_resolution_ = {.width = sink_wants.requested_resolution->width,
+                             .height = sink_wants.requested_resolution->height};
+  }
 
   // If requested_resolution is used, and there are no active encoders
   // that are NOT using requested_resolution (aka newapi), then override
@@ -379,7 +408,11 @@ void VideoAdapter::OnSinkWants(const rtc::VideoSinkWants& sink_wants) {
                      << stashed_output_format_request_->ToString();
   }
 
-  auto res = *sink_wants.requested_resolution;
+  // Clear the output format request. Requested resolution will be applied
+  // instead which happens inside AdaptFrameResolution().
+  output_format_request_ = {};
+
+  /*auto res = *sink_wants.requested_resolution;
   if (res.width < res.height) {
     // Adjust `res` to landscape mode.
     res.width = sink_wants.requested_resolution->height;
@@ -394,7 +427,7 @@ void VideoAdapter::OnSinkWants(const rtc::VideoSinkWants& sink_wants) {
   output_format_request_.max_portrait_pixel_count = pixel_count;
   output_format_request_.max_fps = max_framerate_request_;
   RTC_LOG(LS_INFO) << "Setting output_format_request_ based on sink_wants: "
-                   << output_format_request_.ToString();
+                   << output_format_request_.ToString();*/
 }
 
 int VideoAdapter::GetTargetPixels() const {

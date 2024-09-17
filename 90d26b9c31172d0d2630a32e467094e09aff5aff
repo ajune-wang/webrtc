@@ -22,6 +22,30 @@
       },
       "revId": "90d26b9c31172d0d2630a32e467094e09aff5aff",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "946b0513_24aff272",
+        "filename": "video/quality_convergence_controller.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2024-09-17T12:25:43Z",
+      "side": 1,
+      "message": "Moved parsing WebRTC-QCM-Static-{VP8,VP9,AV1} to GetDefaultStaticQpThreshold().\n\nAlso, made static_qp_threshold_override to work as override (it can do both increase or reduce the threshold; before it was only possible to increase the threshold above k{Vp8,Vp9,Av1}DefaultStaticQpThreshold).",
+      "parentUuid": "a93de332_5eab6d6e",
+      "range": {
+        "startLine": 54,
+        "startChar": 0,
+        "endLine": 57,
+        "endChar": 3
+      },
+      "revId": "90d26b9c31172d0d2630a32e467094e09aff5aff",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

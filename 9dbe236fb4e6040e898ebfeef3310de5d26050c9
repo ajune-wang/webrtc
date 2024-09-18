@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "31f10272_9d3173d6",
+        "filename": "api/crypto/crypto_options.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2024-09-18T08:37:27Z",
+      "side": 1,
+      "message": "I think we should change this in a separate cl (and the kill-switch)",
+      "range": {
+        "startLine": 56,
+        "startChar": 0,
+        "endLine": 64,
+        "endChar": 55
+      },
+      "revId": "9dbe236fb4e6040e898ebfeef3310de5d26050c9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

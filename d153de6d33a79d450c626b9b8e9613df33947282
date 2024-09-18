@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b546b9e7_3209112d",
+        "filename": "pc/media_session.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 871,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2024-09-18T08:37:27Z",
+      "side": 0,
+      "message": "Should these really be removed? All we want is that webrtc does not add encrypted versions to the default-generated offer. If a user does SDP munging and adds both encrypted and unencrypted version that should be ok - it would then be up to the other to discard whichever of the two it does not want to use when it creates the answer.\n\nOr am I missing something?",
+      "range": {
+        "startLine": 870,
+        "startChar": 0,
+        "endLine": 871,
+        "endChar": 63
+      },
+      "revId": "d153de6d33a79d450c626b9b8e9613df33947282",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

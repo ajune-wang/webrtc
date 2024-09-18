@@ -1,0 +1,140 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fe3977a1_721c8474",
+        "filename": "video/corruption_detection/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 17594
+      },
+      "writtenOn": "2024-09-18T11:11:00Z",
+      "side": 1,
+      "message": "May you move these so we keep the targets in alphabetical order?",
+      "revId": "671439e8563cb653e46b22f42ffda1575984580f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "00422556_1615156d",
+        "filename": "video/corruption_detection/corruption_classifier.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 17594
+      },
+      "writtenOn": "2024-09-18T11:11:00Z",
+      "side": 1,
+      "message": "Omit `webrtc::` since you are in that namespace. I\u0027m not commenting on all occurrences in the CL, just do a search and replace",
+      "revId": "671439e8563cb653e46b22f42ffda1575984580f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2db2c902_c8103513",
+        "filename": "video/corruption_detection/corruption_classifier.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 17594
+      },
+      "writtenOn": "2024-09-18T11:11:00Z",
+      "side": 1,
+      "message": "Does this function make any sense if the thresholds are zero? If not, add `RTC_CHECK_GT`",
+      "revId": "671439e8563cb653e46b22f42ffda1575984580f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1cd8a274_219663bf",
+        "filename": "video/corruption_detection/corruption_classifier.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 17594
+      },
+      "writtenOn": "2024-09-18T11:11:00Z",
+      "side": 1,
+      "message": "Change to bugs.webrtc.org/358039777.\n\nhttps://webrtc.googlesource.com/src/+/HEAD/g3doc/style-guide.md#comments",
+      "revId": "671439e8563cb653e46b22f42ffda1575984580f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3b682c0f_9821c125",
+        "filename": "video/corruption_detection/corruption_classifier_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 17594
+      },
+      "writtenOn": "2024-09-18T11:11:00Z",
+      "side": 1,
+      "message": "Toy -\u003e fake?",
+      "revId": "671439e8563cb653e46b22f42ffda1575984580f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c2164f69_4f2e276c",
+        "filename": "video/corruption_detection/corruption_classifier_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 17594
+      },
+      "writtenOn": "2024-09-18T11:11:00Z",
+      "side": 1,
+      "message": "You may omit these since the expectation is specified in the `EXPECT_THAT` statement. The more complicated formulas are nice to have though.",
+      "revId": "671439e8563cb653e46b22f42ffda1575984580f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "473ed6bc_54e10c39",
+        "filename": "video/corruption_detection/corruption_classifier_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 17594
+      },
+      "writtenOn": "2024-09-18T11:11:00Z",
+      "side": 1,
+      "message": "I think you may be able to use `Function` instead of the short form in the test names and still keep it under 80 chars",
+      "revId": "671439e8563cb653e46b22f42ffda1575984580f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "048594af_36dab69d",
+        "filename": "video/corruption_detection/corruption_classifier_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 17594
+      },
+      "writtenOn": "2024-09-18T11:11:00Z",
+      "side": 1,
+      "message": "Is this the expected score theoretically (since the one in the expectation is not 0)? In that case, you may elaborate on that in the comment(s)",
+      "revId": "671439e8563cb653e46b22f42ffda1575984580f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

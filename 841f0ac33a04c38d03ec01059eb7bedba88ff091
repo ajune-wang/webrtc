@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "14d6f63a_3f3c4604",
+        "filename": "rtc_base/openssl_stream_adapter.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 309,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-09-18T15:56:33Z",
+      "side": 1,
+      "message": "drive-by fix, DTLS_12 is an alias but TLS_12 but more correct to use here.",
+      "revId": "841f0ac33a04c38d03ec01059eb7bedba88ff091",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

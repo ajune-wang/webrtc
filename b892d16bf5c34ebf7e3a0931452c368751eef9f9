@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0a4a2e2c_fc11191d",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2184,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2024-09-18T08:54:20Z",
+      "side": 1,
+      "message": "nit: You could potentially even get the optional `FrameInstrumentationData` from the generator, and only create a copy of the whole codec specific info if it is populated.",
+      "range": {
+        "startLine": 2183,
+        "startChar": 0,
+        "endLine": 2184,
+        "endChar": 66
+      },
+      "revId": "b892d16bf5c34ebf7e3a0931452c368751eef9f9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

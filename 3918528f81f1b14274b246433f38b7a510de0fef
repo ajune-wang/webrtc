@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d01b6a74_f3481909",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7529
+      },
+      "writtenOn": "2024-09-18T04:25:15Z",
+      "side": 1,
+      "message": "A bit debatable whether to do this for classes that currently only need one member from Environment. We can upstream the field trial if successful in internal testing.",
+      "revId": "3918528f81f1b14274b246433f38b7a510de0fef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

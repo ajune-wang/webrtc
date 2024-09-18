@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c835932f_83b3e881",
+        "filename": "modules/congestion_controller/goog_cc/acknowledged_bitrate_estimator_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-09-18T17:50:55Z",
+      "side": 1,
+      "message": "drop namespace here, this code is already in the webrtc namespace\n```suggestion\n        std::make_unique\u003cBitrateEstimator\u003e(\u0026states.field_trial_config);\n```",
+      "range": {
+        "startLine": 63,
+        "startChar": 25,
+        "endLine": 63,
+        "endChar": 33
+      },
+      "revId": "c421ea24f468b6f9cf6d6126bae90c73b36a60fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e821510d_c3e802ed",
+        "filename": "modules/congestion_controller/goog_cc/acknowledged_bitrate_estimator_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-09-18T17:50:55Z",
+      "side": 1,
+      "message": "word \u0027Correct\u0027 in a test name usually doesn\u0027t help: test almost always verifies that something is correct, so it might be better to describe what that correct is.\n\nThe scenario in the name doesn\u0027t match the test setup:\nbitrate is not queried after the 1st packet, or even after the 2nd packet.\n\nCan you please align test name and test body.\n\ne.g. feed in just one packet or two packets and validate result estimated bitrate doesn\u0027t exceed what would should be estimated.",
+      "range": {
+        "startLine": 152,
+        "startChar": 39,
+        "endLine": 152,
+        "endChar": 46
+      },
+      "revId": "c421ea24f468b6f9cf6d6126bae90c73b36a60fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "47d974d4_15645a7c",
+        "filename": "modules/congestion_controller/goog_cc/acknowledged_bitrate_estimator_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-09-18T17:50:55Z",
+      "side": 1,
+      "message": "prefer int\n\nhttps://google.github.io/styleguide/cppguide.html#Integer_Types\n\n“You should not use the unsigned integer types such as uint32_t, unless there is a valid reason such as representing a bit pattern rather than a number, or you need defined overflow modulo 2^N.”\n\n\n```suggestion\n  for (int i \u003d 1; i \u003c\u003d 6; ++i) {\n```",
+      "range": {
+        "startLine": 160,
+        "startChar": 7,
+        "endLine": 160,
+        "endChar": 14
+      },
+      "revId": "c421ea24f468b6f9cf6d6126bae90c73b36a60fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a730afc0_e729d0f7",
+        "filename": "modules/congestion_controller/goog_cc/acknowledged_bitrate_estimator_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-09-18T17:50:55Z",
+      "side": 1,
+      "message": "you probably do not need an extra variable here\n```suggestion\n    states.acknowledged_bitrate_estimator-\u003eIncomingPacketFeedbackVector(\n        {packet_feedback});\n```",
+      "range": {
+        "startLine": 166,
+        "startChar": 0,
+        "endLine": 168,
+        "endChar": 32
+      },
+      "revId": "c421ea24f468b6f9cf6d6126bae90c73b36a60fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6a713ee9_15617bf1",
+        "filename": "modules/congestion_controller/goog_cc/acknowledged_bitrate_estimator_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-09-18T17:50:55Z",
+      "side": 1,
+      "message": "I\u0027m worried this comment delve too much into implementation details, and thus doesn\u0027t explain why that particular behavior is correct.\n\nbased on the test setup I would expect most accurate estimate should be \n1KB/100ms \u003d 10KB/s \u003d 80Kbps\n\nwhy expect it to be exactly 64kbps?",
+      "range": {
+        "startLine": 172,
+        "startChar": 0,
+        "endLine": 175,
+        "endChar": 60
+      },
+      "revId": "c421ea24f468b6f9cf6d6126bae90c73b36a60fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "af59d027_072baff9",
+        "filename": "modules/congestion_controller/goog_cc/acknowledged_bitrate_estimator_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-09-18T17:50:55Z",
+      "side": 1,
+      "message": "prefer not to introduce one-time variables to use in expectations\n```suggestion\n  EXPECT_EQ(states.acknowledged_bitrate_estimator-\u003ebitrate(),\n            DataRate::KilobitsPerSec(64));\n```",
+      "range": {
+        "startLine": 176,
+        "startChar": 0,
+        "endLine": 179,
+        "endChar": 54
+      },
+      "revId": "c421ea24f468b6f9cf6d6126bae90c73b36a60fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

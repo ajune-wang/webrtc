@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6402b5ad_8d3e1622",
+        "filename": "modules/congestion_controller/goog_cc/acknowledged_bitrate_estimator_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2024-09-18T20:42:20Z",
+      "side": 1,
+      "message": "Note , per default RobustThroughputEstimator is used. \nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/modules/congestion_controller/goog_cc/acknowledged_bitrate_estimator_interface.cc;l\u003d92;drc\u003da150b50c0ff706af12c449c7fccd3cf2745e2061;bpv\u003d1;bpt\u003d1\n\nAnd I think \"BitrateEstimator\" is unused.",
+      "range": {
+        "startLine": 58,
+        "startChar": 39,
+        "endLine": 58,
+        "endChar": 55
+      },
+      "revId": "c421ea24f468b6f9cf6d6126bae90c73b36a60fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c835932f_83b3e881",
         "filename": "modules/congestion_controller/goog_cc/acknowledged_bitrate_estimator_unittest.cc",
         "patchSetId": 4

@@ -16,6 +16,24 @@
       "message": "Is NACL still supported even?",
       "revId": "8702411075d565e8d5df84f850fff5eae7085e28",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5fdc8693_dad83377",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2024-09-18T09:20:22Z",
+      "side": 1,
+      "message": "I remember there was something in Chromium (years ago) that still used the NaCl compiler but I agree, let\u0027s try to remove this and see if it flies!",
+      "parentUuid": "705d5e56_02acb2bf",
+      "revId": "8702411075d565e8d5df84f850fff5eae7085e28",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

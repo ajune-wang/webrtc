@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4afc15c9_8351068e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2024-09-18T20:44:10Z",
+      "side": 1,
+      "message": "@terelius@webrtc.org is there a plan to remove BitrateEstimator and old AcknowledgedBitrateEstimator?",
+      "revId": "c421ea24f468b6f9cf6d6126bae90c73b36a60fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6402b5ad_8d3e1622",

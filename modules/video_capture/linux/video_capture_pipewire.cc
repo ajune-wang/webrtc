@@ -109,22 +109,27 @@ static spa_pod* BuildFormat(spa_pod_builder* builder,
     spa_pod_builder_pop(builder, &frames[1]);
   }
 
-  spa_rectangle preferred_size = spa_rectangle{width, height};
-  spa_rectangle min_size = spa_rectangle{1, 1};
-  spa_rectangle max_size = spa_rectangle{4096, 4096};
-  spa_pod_builder_add(
-      builder, SPA_FORMAT_VIDEO_size,
-      SPA_POD_CHOICE_RANGE_Rectangle(&preferred_size, &min_size, &max_size), 0);
+  spa_rectangle resolution = spa_rectangle{width, height};
+  spa_pod_builder_add(builder, SPA_FORMAT_VIDEO_size,
+                      SPA_POD_Rectangle(&resolution), 0);
 
-  spa_fraction preferred_frame_rate =
-      spa_fraction{static_cast<uint32_t>(frame_rate), 1};
-  spa_fraction min_frame_rate = spa_fraction{0, 1};
-  spa_fraction max_frame_rate = spa_fraction{INT32_MAX, 1};
-  spa_pod_builder_add(
-      builder, SPA_FORMAT_VIDEO_framerate,
-      SPA_POD_CHOICE_RANGE_Fraction(&preferred_frame_rate, &min_frame_rate,
-                                    &max_frame_rate),
-      0);
+  // Framerate can be also set to 0 to be unspecified
+  if (frame_rate) {
+    spa_fraction framerate = spa_fraction{static_cast<uint32_t>(frame_rate), 1};
+    spa_pod_builder_add(builder, SPA_FORMAT_VIDEO_framerate,
+                        SPA_POD_Fraction(&framerate), 0);
+  } else {
+    // Default to some reasonable values
+    spa_fraction preferred_frame_rate =
+        spa_fraction{static_cast<uint32_t>(30), 1};
+    spa_fraction min_frame_rate = spa_fraction{1, 1};
+    spa_fraction max_frame_rate = spa_fraction{30, 1};
+    spa_pod_builder_add(
+        builder, SPA_FORMAT_VIDEO_framerate,
+        SPA_POD_CHOICE_RANGE_Fraction(&preferred_frame_rate, &min_frame_rate,
+                                      &max_frame_rate),
+        0);
+  }
 
   return static_cast<spa_pod*>(spa_pod_builder_pop(builder, &frames[0]));
 }

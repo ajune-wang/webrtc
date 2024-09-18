@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "94e3add1_a7b03aad",
+        "filename": "video/corruption_detection/frame_instrumentation_generator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 17594
+      },
+      "writtenOn": "2024-09-18T08:47:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ab68c16f_e7325852",
+      "range": {
+        "startLine": 129,
+        "startChar": 5,
+        "endLine": 131,
+        "endChar": 48
+      },
+      "revId": "7a56bbd44dfacc2d3ad08164760d9101e9a91d30",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f80e0769_2979fc7d",
@@ -47,6 +71,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0f6d2181_274d9221",
+        "filename": "video/corruption_detection/frame_instrumentation_generator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 17594
+      },
+      "writtenOn": "2024-09-18T08:47:23Z",
+      "side": 1,
+      "message": "No it should not",
+      "parentUuid": "f80e0769_2979fc7d",
+      "range": {
+        "startLine": 198,
+        "startChar": 0,
+        "endLine": 198,
+        "endChar": 3
+      },
+      "revId": "7a56bbd44dfacc2d3ad08164760d9101e9a91d30",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cb2a874d_a12f06de",
@@ -60,6 +108,30 @@
       "writtenOn": "2024-09-17T13:55:13Z",
       "side": 1,
       "message": "should this be an `optional\u003cint\u003e` then?",
+      "range": {
+        "startLine": 44,
+        "startChar": 2,
+        "endLine": 44,
+        "endChar": 59
+      },
+      "revId": "7a56bbd44dfacc2d3ad08164760d9101e9a91d30",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "52861efb_72ed1842",
+        "filename": "video/corruption_detection/frame_instrumentation_generator.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 17594
+      },
+      "writtenOn": "2024-09-18T08:47:23Z",
+      "side": 1,
+      "message": "Yes it should",
+      "parentUuid": "cb2a874d_a12f06de",
       "range": {
         "startLine": 44,
         "startChar": 2,
@@ -107,6 +179,30 @@
       "side": 1,
       "message": "Ok, it was mostly this comment that confused me, so just remove it.\n\nIt you want to be on the safe side, update or make a version of `ReturnsInstrumentationDataForUpperLayerOfASecondSvcKeyFrame` that validates independent incineration of sequence indexes for the two layers.",
       "parentUuid": "3da67670_e83c0db1",
+      "range": {
+        "startLine": 499,
+        "startChar": 2,
+        "endLine": 499,
+        "endChar": 60
+      },
+      "revId": "7a56bbd44dfacc2d3ad08164760d9101e9a91d30",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "62210803_a7d00a3a",
+        "filename": "video/corruption_detection/frame_instrumentation_generator_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 499,
+      "author": {
+        "id": 17594
+      },
+      "writtenOn": "2024-09-18T08:47:23Z",
+      "side": 1,
+      "message": "I\u0027ve updated the test and added a new one.",
+      "parentUuid": "3e3c8863_643f3523",
       "range": {
         "startLine": 499,
         "startChar": 2,

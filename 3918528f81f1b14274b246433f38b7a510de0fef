@@ -16,6 +16,64 @@
       "message": "A bit debatable whether to do this for classes that currently only need one member from Environment. We can upstream the field trial if successful in internal testing.",
       "revId": "3918528f81f1b14274b246433f38b7a510de0fef",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b4e11629_a41be6b7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-09-18T09:32:20Z",
+      "side": 1,
+      "message": "My ultimate goal is to provide Environment to all classes with active logic (rule of  thumb - if it use text logging, then probably it is active enough to have an Environment).\nSame time I do not hurry to propagate Environment before I have some use for it.\nBut based on the description I see you do have a use for it, so I welcome this change.",
+      "parentUuid": "d01b6a74_f3481909",
+      "revId": "3918528f81f1b14274b246433f38b7a510de0fef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "257e17c3_d803df1c",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_history_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 632,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-09-18T09:32:20Z",
+      "side": 1,
+      "message": "https://abseil.io/tips/88\n\"Use assignment syntax when ... doing copy construction.\"\n\n```suggestion\n  Environment env \u003d CreateEnvironment(\u0026fake_clock);\n```",
+      "revId": "3918528f81f1b14274b246433f38b7a510de0fef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b5f79f08_54ab0e86",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_history_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 654,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-09-18T09:32:20Z",
+      "side": 1,
+      "message": "Alternatively you may skip creating the `env` variable.\nIn theory that would be brittle because RtpPacketHistory doesn\u0027t keep a copy of it (yet?), but in practice would be fine because RtpPacketHistory keeps just the pointer to clock, and that one still will be valid after this Environment is destroyed.\n\n```suggestion\n  RtpPacketHistory history(CreateEnvironment(\u0026fake_clock),\n```",
+      "range": {
+        "startLine": 653,
+        "startChar": 0,
+        "endLine": 654,
+        "endChar": 31
+      },
+      "revId": "3918528f81f1b14274b246433f38b7a510de0fef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

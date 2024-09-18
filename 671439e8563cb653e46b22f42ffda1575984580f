@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "869f9236_061eb61c",
+        "filename": "video/corruption_detection/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 3485001
+      },
+      "writtenOn": "2024-09-18T12:03:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fe3977a1_721c8474",
+      "revId": "671439e8563cb653e46b22f42ffda1575984580f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "00422556_1615156d",
@@ -31,6 +49,24 @@
       "writtenOn": "2024-09-18T11:11:00Z",
       "side": 1,
       "message": "Omit `webrtc::` since you are in that namespace. I\u0027m not commenting on all occurrences in the CL, just do a search and replace",
+      "revId": "671439e8563cb653e46b22f42ffda1575984580f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b6aada0b_8fec7624",
+        "filename": "video/corruption_detection/corruption_classifier.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 3485001
+      },
+      "writtenOn": "2024-09-18T12:03:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "00422556_1615156d",
       "revId": "671439e8563cb653e46b22f42ffda1575984580f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -52,6 +88,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7f7dcf27_c50d3e88",
+        "filename": "video/corruption_detection/corruption_classifier.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 3485001
+      },
+      "writtenOn": "2024-09-18T12:03:28Z",
+      "side": 1,
+      "message": "There is already a check in `CalculateCorruptionProbablility` for this. `GetScore` is a private func and only called by this method. So I think we do not need the same check here again.",
+      "parentUuid": "2db2c902_c8103513",
+      "revId": "671439e8563cb653e46b22f42ffda1575984580f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1cd8a274_219663bf",
@@ -65,6 +119,24 @@
       "writtenOn": "2024-09-18T11:11:00Z",
       "side": 1,
       "message": "Change to bugs.webrtc.org/358039777.\n\nhttps://webrtc.googlesource.com/src/+/HEAD/g3doc/style-guide.md#comments",
+      "revId": "671439e8563cb653e46b22f42ffda1575984580f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "20541d2d_1d00ac50",
+        "filename": "video/corruption_detection/corruption_classifier.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 3485001
+      },
+      "writtenOn": "2024-09-18T12:03:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1cd8a274_219663bf",
       "revId": "671439e8563cb653e46b22f42ffda1575984580f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -86,6 +158,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "14382553_5921d987",
+        "filename": "video/corruption_detection/corruption_classifier_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 3485001
+      },
+      "writtenOn": "2024-09-18T12:03:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3b682c0f_9821c125",
+      "revId": "671439e8563cb653e46b22f42ffda1575984580f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c2164f69_4f2e276c",
@@ -99,6 +189,24 @@
       "writtenOn": "2024-09-18T11:11:00Z",
       "side": 1,
       "message": "You may omit these since the expectation is specified in the `EXPECT_THAT` statement. The more complicated formulas are nice to have though.",
+      "revId": "671439e8563cb653e46b22f42ffda1575984580f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2ea40a0b_5831006e",
+        "filename": "video/corruption_detection/corruption_classifier_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 3485001
+      },
+      "writtenOn": "2024-09-18T12:03:28Z",
+      "side": 1,
+      "message": "As indicated in the comment and as an answer to the following comment you had this score is not the same as the one given in the `DoubleNear`. Added an explanation",
+      "parentUuid": "c2164f69_4f2e276c",
       "revId": "671439e8563cb653e46b22f42ffda1575984580f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -120,6 +228,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "36cb26d6_7faf9c41",
+        "filename": "video/corruption_detection/corruption_classifier_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 3485001
+      },
+      "writtenOn": "2024-09-18T12:03:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "473ed6bc_54e10c39",
+      "revId": "671439e8563cb653e46b22f42ffda1575984580f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "048594af_36dab69d",
@@ -133,6 +259,24 @@
       "writtenOn": "2024-09-18T11:11:00Z",
       "side": 1,
       "message": "Is this the expected score theoretically (since the one in the expectation is not 0)? In that case, you may elaborate on that in the comment(s)",
+      "revId": "671439e8563cb653e46b22f42ffda1575984580f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4403a548_ad1bf662",
+        "filename": "video/corruption_detection/corruption_classifier_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 3485001
+      },
+      "writtenOn": "2024-09-18T12:03:28Z",
+      "side": 1,
+      "message": "Good catch. This might be misleading as you say, even I needed to remember what it was. Added an explanation.",
+      "parentUuid": "048594af_36dab69d",
       "revId": "671439e8563cb653e46b22f42ffda1575984580f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

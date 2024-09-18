@@ -91,6 +91,30 @@
       },
       "revId": "7a56bbd44dfacc2d3ad08164760d9101e9a91d30",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3e3c8863_643f3523",
+        "filename": "video/corruption_detection/frame_instrumentation_generator_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 499,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2024-09-18T07:57:10Z",
+      "side": 1,
+      "message": "Ok, it was mostly this comment that confused me, so just remove it.\n\nIt you want to be on the safe side, update or make a version of `ReturnsInstrumentationDataForUpperLayerOfASecondSvcKeyFrame` that validates independent incineration of sequence indexes for the two layers.",
+      "parentUuid": "3da67670_e83c0db1",
+      "range": {
+        "startLine": 499,
+        "startChar": 2,
+        "endLine": 499,
+        "endChar": 60
+      },
+      "revId": "7a56bbd44dfacc2d3ad08164760d9101e9a91d30",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

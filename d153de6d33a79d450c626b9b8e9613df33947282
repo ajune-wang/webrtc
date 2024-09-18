@@ -22,6 +22,30 @@
       },
       "revId": "d153de6d33a79d450c626b9b8e9613df33947282",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dcb82a4b_955c6928",
+        "filename": "pc/media_session.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 871,
+      "author": {
+        "id": 3485001
+      },
+      "writtenOn": "2024-09-18T11:19:23Z",
+      "side": 0,
+      "message": "Yes sure. That is what the user can do with this change.\n\nThese vectors are not used for that. These are only used to by default make it possible to negotiate both the encrypted and unencrypted headers at the same time. One can still by SDP munging add encrypted AND unecrypted options if so desired.",
+      "parentUuid": "b546b9e7_3209112d",
+      "range": {
+        "startLine": 870,
+        "startChar": 0,
+        "endLine": 871,
+        "endChar": 63
+      },
+      "revId": "d153de6d33a79d450c626b9b8e9613df33947282",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

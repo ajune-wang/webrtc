@@ -22,6 +22,30 @@
       },
       "revId": "9dbe236fb4e6040e898ebfeef3310de5d26050c9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d3826d75_590e3f8a",
+        "filename": "api/crypto/crypto_options.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 3485001
+      },
+      "writtenOn": "2024-09-18T11:19:23Z",
+      "side": 1,
+      "message": "Yes, agreed. I was thinking the same but just for making the whole idea easier to grab, I did an initial PR like this. It also makes the manual testing easier :) Will remove it later on.",
+      "parentUuid": "31f10272_9d3173d6",
+      "range": {
+        "startLine": 56,
+        "startChar": 0,
+        "endLine": 64,
+        "endChar": 55
+      },
+      "revId": "9dbe236fb4e6040e898ebfeef3310de5d26050c9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

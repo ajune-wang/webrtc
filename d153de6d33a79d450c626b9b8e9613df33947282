@@ -46,6 +46,30 @@
       },
       "revId": "d153de6d33a79d450c626b9b8e9613df33947282",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "65f29e5c_cf0a9da8",
+        "filename": "pc/media_session.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 871,
+      "author": {
+        "id": 3485001
+      },
+      "writtenOn": "2024-09-18T13:01:06Z",
+      "side": 0,
+      "message": "So looking into this a little more, I might am wrong but not for the reason you mentioned above. At least the `regular_extensions` are needed for distinguishing the audio and video RTP headers. But overall the idea should not be different for our purpose.",
+      "parentUuid": "dcb82a4b_955c6928",
+      "range": {
+        "startLine": 870,
+        "startChar": 0,
+        "endLine": 871,
+        "endChar": 63
+      },
+      "revId": "d153de6d33a79d450c626b9b8e9613df33947282",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

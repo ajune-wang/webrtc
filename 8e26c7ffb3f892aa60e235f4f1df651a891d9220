@@ -33,6 +33,24 @@
       "message": "davidben@: since I need a second +1 and you know most about this stuff...\n\nAnd I have a question:\nFor DTLS 1.3 it looks like we will need to use SSL_CTX_set_num_tickets(0) to disable tickets:https://docs.openssl.org/1.1.1/man3/SSL_CTX_set_options/#notes\nBut that can be done after rolling this one out.",
       "revId": "8e26c7ffb3f892aa60e235f4f1df651a891d9220",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0a68681b_86da1c9d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5602
+      },
+      "writtenOn": "2024-09-18T16:25:11Z",
+      "side": 1,
+      "message": "DTLS 1.3 doesn\u0027t exist in either OpenSSL or BoringSSL yet (though we\u0027re working on it). But no, you shouldn\u0027t need to call `SSL_CTX_set_num_tickets` for DTLS 1.3. BoringSSL servers already will not send tickets if you `SSL_OP_NO_TICKET`. Possibly we should also have the client not send `psk_key_exchange_mode` so the server won\u0027t send one, but `SSL_CTX_set_num_tickets` won\u0027t help with that anyway. *shrug*",
+      "parentUuid": "f9ec35b6_5a99d8a4",
+      "revId": "8e26c7ffb3f892aa60e235f4f1df651a891d9220",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

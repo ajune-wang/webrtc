@@ -16,6 +16,24 @@
       "message": "I don\u0027t suppose you have a pointer to the downstream test? (I\u0027m curious.)",
       "revId": "4595711bf590f71a693579a6a7b01a76e2988173",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "385fd3f6_8e306d13",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-09-19T21:32:49Z",
+      "side": 1,
+      "message": "I would not be surprised if it was the equivalent of https://webrtc-review.googlesource.com/c/src/+/354940 where I removed tests which used one adapter to test the other.\n\nBut I can\u0027t see them ;-)",
+      "parentUuid": "35eb5f9c_5d3cfb7d",
+      "revId": "4595711bf590f71a693579a6a7b01a76e2988173",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

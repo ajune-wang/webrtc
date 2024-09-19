@@ -16,6 +16,23 @@
       "message": "Drive-by fixup.",
       "revId": "2ad8162b4d501946e5badd699927c3fe842bcc6f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1473537f_3782e072",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 13704
+      },
+      "writtenOn": "2024-09-19T12:04:53Z",
+      "side": 1,
+      "message": "Nice!",
+      "revId": "2ad8162b4d501946e5badd699927c3fe842bcc6f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

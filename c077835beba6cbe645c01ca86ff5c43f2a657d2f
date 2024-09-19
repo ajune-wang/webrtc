@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "48c50286_bc85a7c5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-09-19T08:52:28Z",
+      "side": 1,
+      "message": "If defining an RTC_ concept for this: just for style, I\u0027d prefer to add an RTC_HARDENING_CHECK macro in rtc_base/checks.h that expands to ABSL_HARDENING_ASSERT when RTC_HARDENING_MODE is enabled. I guess defining RTC_HARDENING_MODE involves BUILD file manipulation - should I write the C++ part and reassign the bug to Mirko for BUILD file manipulations?",
+      "parentUuid": "69535ba2_d2ec43c7",
+      "revId": "c077835beba6cbe645c01ca86ff5c43f2a657d2f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2fae563c_f7f3a732",
         "filename": "api/array_view.h",
         "patchSetId": 1

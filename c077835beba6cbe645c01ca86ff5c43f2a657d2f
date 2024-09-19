@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "deae777c_7deb4517",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-09-19T07:03:29Z",
+      "side": 1,
+      "message": "How should we try to evaluate if this has performance impact? Release and hope?",
+      "revId": "c077835beba6cbe645c01ca86ff5c43f2a657d2f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

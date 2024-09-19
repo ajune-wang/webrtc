@@ -16,6 +16,47 @@
       "message": "How should we try to evaluate if this has performance impact? Release and hope?",
       "revId": "c077835beba6cbe645c01ca86ff5c43f2a657d2f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "69535ba2_d2ec43c7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2024-09-19T07:18:58Z",
+      "side": 1,
+      "message": "Since this is centralised to an absl option that needs to be checked in (not configurable at build time), it makes it hard to evaluate.\n\nI think we might want to still land ABSL_HARDENING_ASSERT but keep it wrapped into (yet) another macro, something like:\n\n```\n#ifdef RTC_HARDENING_MODE\nABSL_HARDENING_ASSERT(idx \u003c this-\u003esize());\nABSL_HARDENING_ASSERT(this-\u003edata());\n#else\nRTC_DCHECK_LT(idx, this-\u003esize());\nRTC_DCHECK(this-\u003edata());\n#endif\n```\n\nThis way, I can configure some perf tests and wait for the results for a few days.",
+      "parentUuid": "deae777c_7deb4517",
+      "revId": "c077835beba6cbe645c01ca86ff5c43f2a657d2f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2fae563c_f7f3a732",
+        "filename": "api/array_view.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2024-09-19T07:18:58Z",
+      "side": 1,
+      "message": "I think we need to add an #include for absl/base/macros.h.\n\nUsing ABSL_HARDENING_ASSERT is OK to make this hardened when WebRTC is built as part of Chromium. But I wonder if the long term this should be a WebRTC option (e.g. in https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/webrtc.gni).\n\nWhen WebRTC will switch to C++20, we should move to std::span, so maybe this is OK as a temporary fix.\n\nDanil, FYI \u0026 what do you think?",
+      "range": {
+        "startLine": 264,
+        "startChar": 4,
+        "endLine": 264,
+        "endChar": 25
+      },
+      "revId": "c077835beba6cbe645c01ca86ff5c43f2a657d2f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

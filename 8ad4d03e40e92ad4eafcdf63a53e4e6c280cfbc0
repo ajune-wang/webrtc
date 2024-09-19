@@ -51,6 +51,23 @@
       "message": "hbos: delete delete ;-)",
       "revId": "8ad4d03e40e92ad4eafcdf63a53e4e6c280cfbc0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "860babe3_4c01fe4e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2024-09-19T10:40:07Z",
+      "side": 1,
+      "message": "Delete!",
+      "revId": "8ad4d03e40e92ad4eafcdf63a53e4e6c280cfbc0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

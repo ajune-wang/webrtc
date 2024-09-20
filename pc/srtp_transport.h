@@ -121,21 +121,15 @@ class SrtpTransport : public RtpTransport {
   // Override the RtpTransport::OnWritableState.
   void OnWritableState(rtc::PacketTransportInternal* packet_transport) override;
 
-  bool ProtectRtp(void* data, int in_len, int max_len, int* out_len);
-
+  bool ProtectRtp(rtc::CopyOnWriteBuffer& buffer);
   // Overloaded version, outputs packet index.
-  bool ProtectRtp(void* data,
-                  int in_len,
-                  int max_len,
-                  int* out_len,
-                  int64_t* index);
-  bool ProtectRtcp(void* data, int in_len, int max_len, int* out_len);
+  bool ProtectRtp(rtc::CopyOnWriteBuffer& buffer, int64_t* index);
+  bool ProtectRtcp(rtc::CopyOnWriteBuffer& buffer);
 
   // Decrypts/verifies an invidiual RTP/RTCP packet.
   // If an HMAC is used, this will decrease the packet size.
-  bool UnprotectRtp(void* data, int in_len, int* out_len);
-
-  bool UnprotectRtcp(void* data, int in_len, int* out_len);
+  bool UnprotectRtp(rtc::CopyOnWriteBuffer& buffer);
+  bool UnprotectRtcp(rtc::CopyOnWriteBuffer& buffer);
 
   const std::string content_name_;
 

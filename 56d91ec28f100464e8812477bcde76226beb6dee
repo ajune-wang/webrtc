@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7557ba08_4fa327a7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2024-09-20T09:13:27Z",
+      "side": 1,
+      "message": "I would like to see a test case reproducing the issue before deciding if this CL should be reverted.",
+      "revId": "56d91ec28f100464e8812477bcde76226beb6dee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

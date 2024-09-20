@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ff363884_b5ad981d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-09-20T21:52:42Z",
+      "side": 1,
+      "message": "I\u0027ll need a hand to remove the dependencies on those first ;-)",
+      "revId": "bb8572a5b02aa3a21640ed3a07ddc8d2494078d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

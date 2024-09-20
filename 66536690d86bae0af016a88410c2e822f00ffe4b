@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "003858e1_37315127",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2024-09-20T04:56:26Z",
+      "side": 1,
+      "message": "This change is now complete and confirmed to work with a bunch of cameras, where some of them didn\u0027t work or used low resolution.",
+      "revId": "66536690d86bae0af016a88410c2e822f00ffe4b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

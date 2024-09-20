@@ -140,6 +140,24 @@
       "parentUuid": "f6c22290_f8c8668d",
       "revId": "56d91ec28f100464e8812477bcde76226beb6dee",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fabf6ec6_8a49b351",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-09-20T16:08:47Z",
+      "side": 1,
+      "message": "now attached to the bug. AUD was implicitly considered first packet in frame previously, it needs to be added explicitly. I do not see how a bitstream with this was passing previously though.\n\n(I think packetizing AUD is not needed but RFC6184 lacks such a consideration)",
+      "parentUuid": "bdabb64a_0d0be618",
+      "revId": "56d91ec28f100464e8812477bcde76226beb6dee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ],
   "submitRequirementResults": [

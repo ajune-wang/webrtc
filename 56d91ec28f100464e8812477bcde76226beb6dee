@@ -16,6 +16,24 @@
       "message": "I would like to see a test case reproducing the issue before deciding if this CL should be reverted.",
       "revId": "56d91ec28f100464e8812477bcde76226beb6dee",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f6c22290_f8c8668d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3645764
+      },
+      "writtenOn": "2024-09-20T12:42:39Z",
+      "side": 1,
+      "message": "The issue can be reproduced with webrtc offical sample app: https://webrtc.github.io/samples/src/content/peerconnection/change-codecs/\n\nI\u0027ve posted the reproduce steps and video to https://issues.webrtc.org/issues/368335257#comment3",
+      "parentUuid": "7557ba08_4fa327a7",
+      "revId": "56d91ec28f100464e8812477bcde76226beb6dee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

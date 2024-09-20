@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "494d7564_d1fd1dd4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3485001
+      },
+      "writtenOn": "2024-09-20T14:13:52Z",
+      "side": 1,
+      "message": "I believe this should fix the issue you flagged over the chat.",
+      "revId": "5a8e0aec522bb01afe11997fb214fb5184e873e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

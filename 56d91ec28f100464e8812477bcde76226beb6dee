@@ -34,6 +34,24 @@
       "parentUuid": "7557ba08_4fa327a7",
       "revId": "56d91ec28f100464e8812477bcde76226beb6dee",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e0e0d000_c0b76dce",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2024-09-20T13:10:03Z",
+      "side": 1,
+      "message": "+1 for test. From the description in https://g-issues.webrtc.org/issues/368335257, it is not obvious to me how STAP-A with the first NALU being not a first-slice/SPS can cause the problem.",
+      "parentUuid": "f6c22290_f8c8668d",
+      "revId": "56d91ec28f100464e8812477bcde76226beb6dee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

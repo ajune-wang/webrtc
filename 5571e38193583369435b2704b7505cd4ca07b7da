@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "026aa5c1_3959a899",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2024-09-20T10:31:42Z",
+      "side": 1,
+      "message": "\u003e is a spec-compliance bug and doesn\u0027t make much sense\n\nIt\u0027s an important workaround of a spec oversight. We tried to remove it multiple times but failed. The issue is that if the App is using ScaleDownBy API, or relies on the default behavior, when adaptaion kicks-in it will result in a ridiculously small lower stream. Apps don\u0027t want that. They would rather just have the upper stream disabled.",
+      "revId": "5571e38193583369435b2704b7505cd4ca07b7da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "679cca10_1c7a5223",
+        "filename": "pc/peer_connection_encodings_integrationtest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 2423,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2024-09-20T10:31:42Z",
+      "side": 1,
+      "message": "nit: remove this comment.",
+      "range": {
+        "startLine": 2421,
+        "startChar": 45,
+        "endLine": 2423,
+        "endChar": 19
+      },
+      "revId": "5571e38193583369435b2704b7505cd4ca07b7da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -104,6 +104,24 @@
       "message": "rs LGTM for ownership",
       "revId": "56d91ec28f100464e8812477bcde76226beb6dee",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "51c070b9_4f084588",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 22924
+      },
+      "writtenOn": "2024-09-20T13:46:30Z",
+      "side": 1,
+      "message": "Please refer to the attachments in this post: https://issues.webrtc.org/issues/368335257#comment6",
+      "parentUuid": "38018b6b_f8690d56",
+      "revId": "56d91ec28f100464e8812477bcde76226beb6dee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

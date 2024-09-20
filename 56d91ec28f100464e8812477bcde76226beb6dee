@@ -87,6 +87,23 @@
       "message": "+1 on tentative revert but this will break multislice. Whether that is more important...",
       "revId": "56d91ec28f100464e8812477bcde76226beb6dee",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a438be58_685574dc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-09-20T13:13:46Z",
+      "side": 1,
+      "message": "rs LGTM for ownership",
+      "revId": "56d91ec28f100464e8812477bcde76226beb6dee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

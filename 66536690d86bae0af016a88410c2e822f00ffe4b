@@ -16,6 +16,40 @@
       "message": "This change is now complete and confirmed to work with a bunch of cameras, where some of them didn\u0027t work or used low resolution.",
       "revId": "66536690d86bae0af016a88410c2e822f00ffe4b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8fbfd83c_43f1ccd3",
+        "filename": "modules/video_capture/linux/video_capture_pipewire.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 8178
+      },
+      "writtenOn": "2024-09-20T07:43:52Z",
+      "side": 1,
+      "message": "`LS_WARNING`?\nAlso maybe \"video type\" instead of \"pixel format\"?",
+      "revId": "66536690d86bae0af016a88410c2e822f00ffe4b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "92fc6f36_ee3d3e21",
+        "filename": "modules/video_capture/linux/video_capture_pipewire.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 8178
+      },
+      "writtenOn": "2024-09-20T07:43:52Z",
+      "side": 1,
+      "message": "You could just do the conversion with `VideoTypeToPipeWireRawFormat` here and below check whether `format !\u003d SPA_MEDIA_SUBTYPE_mjpg`.\n\nDo you need an exit guard if we end up with `SPA_VIDEO_FORMAT_UNKNOWN` ? I.e. signal upwards that we don\u0027t support this format. Of if it can\u0027t happen, an `RTC_CHECK`/`DCHECK` perhaps.",
+      "revId": "66536690d86bae0af016a88410c2e822f00ffe4b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

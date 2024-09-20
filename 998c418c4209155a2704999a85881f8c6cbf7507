@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d33d1c0f_d0beb616",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 27
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2024-09-20T09:07:53Z",
+      "side": 1,
+      "message": "Some preliminary comments\n\n1) a DTLS packet should not be transmitted if it already has been received at other side.\n\ncase a) when a STUN binding with an embedded DTLS packet gets a STUN BINDING SUCCESS response, we should clear the p2p-transport-channel dtls buffer.\n\na.1) if peer *does* support the feature, it should signal that back\nand that signal is missing, no more embedded DTLS packets should be sent.\n\n\u003d\u003e maybe we need an attribute for this too! (META_DTLS_PACKET_ACK or similar?)\n\ncase b) not sure about how to do this for embedding into RESPONSE\n(maybe we skip that in first submit?) ?\n\n2) only DTLS setup up packets should ever be embedded,\ni.e when DTLS handshake is complete \u003d\u003e no more embedded packets \n\n---\n\n3) I think P2PTransportChannel should send an (optional) DTLS packed explicitly \nwhen calling Connection::SendPing (rather that storing the buffer in Connection as done in patch)\n\n4) I think Connection should have a new Signal\u003c\u003e for an embedded DTLS packet received...rather than calling ReadPacket\n\n---\n\nMore generally: I\u0027m more happy doing the simple first...making the code great\neven if that does not solve the full problem.",
+      "revId": "998c418c4209155a2704999a85881f8c6cbf7507",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "14b22c2b_6cb70b65",
+        "filename": "p2p/base/dtls_transport.cc",
+        "patchSetId": 27
+      },
+      "lineNbr": 784,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2024-09-20T09:07:53Z",
+      "side": 1,
+      "message": "we must handle DTLS handshake timeout/resend\n1) a proper timeout should be set once IceTransport connects\n2) there should be *no* DTLS retransmit (due to timeout) in the logs\nwhen we are in fact piggy backing in STUN.\n\n\u003d\u003e I think the dtls transport needs to keep a state for this.\n\n3) I think it\u0027s feasible to keep embedding even after IceTransport is connected\nbut then the DTLS initiated retransmit (due to timeout) should work as usual.",
+      "revId": "998c418c4209155a2704999a85881f8c6cbf7507",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2b63b826_d0152fbc",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 27
+      },
+      "lineNbr": 926,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2024-09-20T09:07:53Z",
+      "side": 1,
+      "message": "we should not check RSA vs. EC vs. SomeNewCrypt here,\nthe check should only be if the DTSL packet fits into the STUN ping,\nwhich can only be checked lower in the stack.",
+      "revId": "998c418c4209155a2704999a85881f8c6cbf7507",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

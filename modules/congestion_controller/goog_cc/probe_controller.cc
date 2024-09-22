@@ -608,9 +608,8 @@ std::vector<ProbeClusterConfig> ProbeController::InitiateProbing(
   std::vector<ProbeClusterConfig> pending_probes;
   for (DataRate bitrate : bitrates_to_probe) {
     RTC_DCHECK(!bitrate.IsZero());
-    bitrate = std::min(bitrate, estimate_capped_bitrate);
-    if (bitrate > max_probe_bitrate) {
-      bitrate = max_probe_bitrate;
+    if (bitrate > max_probe_bitrate || bitrate > estimate_capped_bitrate) {
+      bitrate = std::min(bitrate, estimate_capped_bitrate);
       probe_further = false;
     }
 

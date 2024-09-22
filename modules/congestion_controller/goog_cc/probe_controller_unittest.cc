@@ -1268,6 +1268,45 @@ TEST(ProbeControllerTest,
   EXPECT_TRUE(probes.empty());
 }
 
+TEST(ProbeControllerTest, SkipProbeFurtherIfAlreadyProbedToMaxRate) {
+  ProbeControllerFixture fixture(
+      "WebRTC-Bwe-ProbingConfiguration/"
+      "network_state_interval:2s,skip_if_est_larger_than_fraction_of_max:0.9/");
+  std::unique_ptr<ProbeController> probe_controller =
+      fixture.CreateController();
+  ASSERT_THAT(
+      probe_controller->OnNetworkAvailability({.network_available = true}),
+      IsEmpty());
+  auto probes = probe_controller->SetBitrates(
+      kMinBitrate, kStartBitrate, kMaxBitrate, fixture.CurrentTime());
+  ASSERT_FALSE(probes.empty());
+
+  probe_controller->SetNetworkStateEstimate(
+      {.link_capacity_upper = 2 * kMaxBitrate});
+
+  // Attempt to probe up to max rate.
+  probes = probe_controller->SetEstimatedBitrate(
+      kMaxBitrate * 0.8, BandwidthLimitedCause::kDelayBasedLimited,
+      fixture.CurrentTime());
+  ASSERT_FALSE(probes.empty());
+  EXPECT_EQ(probes[0].target_data_rate, kMaxBitrate);
+
+  // If the probe result arrives, dont expect a new probe immediately since we
+  // already tried to probe at the max rate.
+  probes = probe_controller->SetEstimatedBitrate(
+      kMaxBitrate * 0.8, BandwidthLimitedCause::kDelayBasedLimited,
+      fixture.CurrentTime());
+  EXPECT_TRUE(probes.empty());
+
+  fixture.AdvanceTime(TimeDelta::Millis(1000));
+  probes = probe_controller->Process(fixture.CurrentTime());
+  EXPECT_THAT(probes, IsEmpty());
+  // But when enough time has passed, expect a new probe.
+  fixture.AdvanceTime(TimeDelta::Millis(1000));
+  probes = probe_controller->Process(fixture.CurrentTime());
+  EXPECT_THAT(probes, Not(IsEmpty()));
+}
+
 TEST(ProbeControllerTest, MaxAllocatedBitrateNotReset) {
   ProbeControllerFixture fixture;
   std::unique_ptr<ProbeController> probe_controller =

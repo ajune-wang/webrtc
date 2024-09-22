@@ -2877,7 +2877,8 @@ void PeerConnection::ReportNegotiatedCiphers(
   if (!dtls_enabled || stats.channel_stats.empty()) {
     return;
   }
-
+  // TODO(fippo): do we care enough to keep around the numeric cipher suite just
+  // for this?
   int srtp_crypto_suite = stats.channel_stats[0].srtp_crypto_suite;
   int ssl_cipher_suite = stats.channel_stats[0].ssl_cipher_suite;
   if (srtp_crypto_suite == rtc::kSrtpInvalidCryptoSuite &&

@@ -65,6 +65,54 @@ static bool IsDtlsClientHelloPacket(rtc::ArrayView<const uint8_t> payload) {
   const uint8_t* u = payload.data();
   return payload.size() > 17 && u[0] == 22 && u[13] == 1;
 }
+
+static bool IsDtlsHandshakePacket(rtc::ArrayView<const uint8_t> payload) {
+  if (!IsDtlsPacket(payload)) {
+    return false;
+  }
+  const uint8_t* u = payload.data();
+  return payload.size() > 17 && u[0] == 22;
+}
+
+static std::string DtlsHandshakeToString(
+    rtc::ArrayView<const uint8_t> payload) {
+  const uint8_t* u = payload.data();
+  switch (u[13]) {
+    case 0:
+      return "hello_request";
+    case 1:
+      return "client_hello";
+    case 2:
+      return "server_hello";
+    case 3:
+      return "hello_verify_request";
+    case 4:
+      return "new_sesssion_ticket";
+    case 5:
+      return "end_of_early_data";
+    case 8:
+      return "encrypted_extensions";
+    case 11:
+      return "certificate";
+    case 12:
+      return "server_key_exchange";
+    case 13:
+      return "certificate_request";
+    case 14:
+      return "server_hello_done";
+    case 15:
+      return "certificate_verify";
+    case 16:
+      return "client_key_exchange";
+    case 20:
+      return "finished";
+    case 254:
+      return "message_hash";
+    default:
+      return std::string("unknown=") + std::to_string(u[13]);
+  }
+}
+
 static bool IsRtpPacket(rtc::ArrayView<const uint8_t> payload) {
   const uint8_t* u = payload.data();
   return (payload.size() >= kMinRtpPacketLen && (u[0] & 0xC0) == 0x80);
@@ -101,6 +149,12 @@ rtc::StreamResult StreamInterfaceChannel::Write(
   // Always succeeds, since this is an unreliable transport anyway.
   // TODO(zhihuang): Should this block if ice_transport_'s temporarily
   // unwritable?
+
+  if (IsDtlsHandshakePacket(data)) {
+    RTC_LOG(LS_INFO) << "KESO: SEND DTLS Handshake: "
+                     << DtlsHandshakeToString(data) << " size: " << data.size();
+    ice_transport_->SetDtlsDataToPiggyback(data);
+  }
   rtc::PacketOptions packet_options;
   ice_transport_->SendPacket(reinterpret_cast<const char*>(data.data()),
                              data.size(), packet_options);
@@ -152,6 +206,7 @@ DtlsTransport::DtlsTransport(IceTransportInternal* ice_transport,
 
 DtlsTransport::~DtlsTransport() {
   if (ice_transport_) {
+    ice_transport_->SetPiggybackDtlsDataCallback(nullptr);
     ice_transport_->DeregisterReceivedPacketCallback(this);
   }
 }
@@ -535,6 +590,21 @@ void DtlsTransport::ConnectToIceTransport() {
       this, &DtlsTransport::OnReceivingState);
   ice_transport_->SignalNetworkRouteChanged.connect(
       this, &DtlsTransport::OnNetworkRouteChanged);
+
+  ice_transport_->SetPiggybackDtlsDataCallback(
+      [this](rtc::PacketTransportInternal* transport,
+             const rtc::ReceivedPacket& packet) {
+        RTC_DCHECK(dtls_active_);
+        RTC_DCHECK(IsDtlsHandshakePacket(packet.payload()));
+        if (!dtls_active_) {
+          // Not doing DTLS.
+          return;
+        }
+        if (!IsDtlsHandshakePacket(packet.payload())) {
+          return;
+        }
+        OnReadPacket(transport, packet);
+      });
 }
 
 // The state transition logic here is as follows:
@@ -612,6 +682,12 @@ void DtlsTransport::OnReadPacket(rtc::PacketTransportInternal* transport,
     // Not doing DTLS.
     NotifyPacketReceived(packet);
     return;
+  }
+
+  if (IsDtlsHandshakePacket(packet.payload())) {
+    RTC_LOG(LS_INFO) << "KESO: RECV DTLS Handshake: "
+                     << DtlsHandshakeToString(packet.payload())
+                     << " size: " << packet.payload().size();
   }
 
   switch (dtls_state()) {
@@ -708,6 +784,7 @@ void DtlsTransport::OnDtlsEvent(int sig, int err) {
       // sure we don't accidentally frob the state if it's closed.
       set_dtls_state(webrtc::DtlsTransportState::kConnected);
       set_writable(true);
+      ice_transport_->SetDtlsHandshakeComplete();
     }
   }
   if (sig & rtc::SE_READ) {
@@ -765,9 +842,15 @@ void DtlsTransport::OnNetworkRouteChanged(
 }
 
 void DtlsTransport::MaybeStartDtls() {
-  if (dtls_ && ice_transport_->writable()) {
-    ConfigureHandshakeTimeout();
+  if (!dtls_) {
+    return;
+  }
 
+  if (ice_transport_->writable()) {
+    ConfigureHandshakeTimeout();
+  }
+
+  if (dtls_state() == webrtc::DtlsTransportState::kNew) {
     if (dtls_->StartSSL()) {
       // This should never fail:
       // Because we are operating in a nonblocking mode and all

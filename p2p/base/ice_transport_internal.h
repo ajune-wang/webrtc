@@ -383,6 +383,15 @@ class RTC_EXPORT IceTransportInternal : public rtc::PacketTransportInternal {
     dictionary_writer_synced_callback_list_.RemoveReceivers(tag);
   }
 
+  void SetPiggybackDtlsDataCallback(
+      absl::AnyInvocable<void(rtc::PacketTransportInternal* transport,
+                              const rtc::ReceivedPacket& packet)> callback) {
+    RTC_DCHECK(callback == nullptr || !piggybacked_dtls_callback_);
+    piggybacked_dtls_callback_ = std::move(callback);
+  }
+  virtual void SetDtlsDataToPiggyback(rtc::ArrayView<const uint8_t>) {}
+  virtual void SetDtlsHandshakeComplete() {}
+
  protected:
   void SendGatheringStateEvent() {
     gathering_state_callback_list_.Send(this);
@@ -405,6 +414,10 @@ class RTC_EXPORT IceTransportInternal : public rtc::PacketTransportInternal {
 
   absl::AnyInvocable<void(const cricket::CandidatePairChangeEvent&)>
       candidate_pair_change_callback_;
+
+  absl::AnyInvocable<void(rtc::PacketTransportInternal*,
+                          const rtc::ReceivedPacket&)>
+      piggybacked_dtls_callback_;
 };
 
 }  // namespace cricket

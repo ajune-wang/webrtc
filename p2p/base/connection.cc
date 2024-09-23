@@ -621,6 +621,14 @@ void Connection::HandleStunBindingOrGoogPingRequest(IceMessage* msg) {
   LogCandidatePairEvent(webrtc::IceCandidatePairEventType::kCheckReceived,
                         msg->reduced_transaction_id());
 
+  const StunByteStringAttribute* dtls_piggyback_attr =
+      msg->GetByteString(STUN_ATTR_META_DTLS_PIGGYBACK);
+  if (dtls_piggyback_attr && dtls_stun_piggyback_consumer_) {
+    RTC_LOG(LS_INFO) << "KESO RECV REQ piggy backed dtls: "
+                     << dtls_piggyback_attr->length();
+    dtls_stun_piggyback_consumer_(dtls_piggyback_attr);
+  }
+
   // This is a validated stun request from remote peer.
   if (msg->type() == STUN_BINDING_REQUEST) {
     SendStunBindingResponse(msg);
@@ -746,6 +754,19 @@ void Connection::SendStunBindingResponse(const StunMessage* message) {
                           << " goog_delta_consumer_ = "
                           << goog_delta_consumer_.has_value();
     }
+  }
+
+  std::optional<absl::string_view> dtls_piggyback_attr =
+      dtls_stun_piggyback_producer_
+          ? dtls_stun_piggyback_producer_(STUN_BINDING_RESPONSE)
+          : std::nullopt;
+  if (dtls_piggyback_attr &&
+      (response.length() + dtls_piggyback_attr->length()) <
+          kMaxStunBindingLength) {
+    RTC_LOG(LS_INFO) << "KESO: CONF Piggy backing dtls: "
+                     << dtls_piggyback_attr->length();
+    response.AddAttribute(std::make_unique<StunByteStringAttribute>(
+        STUN_ATTR_META_DTLS_PIGGYBACK, *dtls_piggyback_attr));
   }
 
   response.AddMessageIntegrity(local_candidate().password());
@@ -1082,6 +1103,19 @@ std::unique_ptr<IceMessage> Connection::BuildPingRequest(
     RTC_DCHECK(delta->type() == STUN_ATTR_GOOG_DELTA);
     RTC_LOG(LS_INFO) << "Sending GOOG_DELTA: len: " << delta->length();
     message->AddAttribute(std::move(delta));
+  }
+
+  std::optional<absl::string_view> dtls_piggyback_attr =
+      dtls_stun_piggyback_producer_
+          ? dtls_stun_piggyback_producer_(STUN_BINDING_REQUEST)
+          : std::nullopt;
+  if (dtls_piggyback_attr &&
+      (message->length() + dtls_piggyback_attr->length()) <
+          kMaxStunBindingLength) {
+    RTC_LOG(LS_INFO) << "KESO: REQ Piggy backing dtls: "
+                     << dtls_piggyback_attr->length();
+    message->AddAttribute(std::make_unique<StunByteStringAttribute>(
+        STUN_ATTR_META_DTLS_PIGGYBACK, *dtls_piggyback_attr));
   }
 
   message->AddMessageIntegrity(remote_candidate_.password());
@@ -1483,6 +1517,22 @@ void Connection::OnConnectionRequestResponse(StunRequest* request,
     }
   } else if (delta_ack) {
     RTC_LOG(LS_ERROR) << "Discard GOOG_DELTA_ACK, no consumer";
+  }
+
+  const bool sent_dtls_piggyback =
+      request->msg()->GetByteString(STUN_ATTR_META_DTLS_PIGGYBACK) != nullptr;
+  const StunByteStringAttribute* dtls_piggyback_attr =
+      response->GetByteString(STUN_ATTR_META_DTLS_PIGGYBACK);
+
+  if (dtls_stun_piggyback_consumer_) {
+    if (dtls_piggyback_attr) {
+      RTC_LOG(LS_INFO) << "KESO: RECV CONF Piggy backed dtls: "
+                       << dtls_piggyback_attr->length();
+      dtls_stun_piggyback_consumer_(dtls_piggyback_attr);
+    } else if (sent_dtls_piggyback) {
+      RTC_LOG(LS_INFO) << "KESO: RECV CONF missing dtls ";
+      dtls_stun_piggyback_consumer_(nullptr);
+    }
   }
 }
 

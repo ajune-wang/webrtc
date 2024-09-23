@@ -171,7 +171,16 @@ P2PTransportChannel::P2PTransportChannel(
               STRONG_AND_STABLE_WRITABLE_CONNECTION_PING_INTERVAL,
               true /* presume_writable_when_fully_relayed */,
               REGATHER_ON_FAILED_NETWORKS_INTERVAL,
-              RECEIVING_SWITCHING_DELAY) {
+              RECEIVING_SWITCHING_DELAY),
+      dtls_stun_piggyback_controller_(
+          [this](rtc::ArrayView<const uint8_t> piggybacked_dtls_packet) {
+            if (piggybacked_dtls_callback_ == nullptr) {
+              return;
+            }
+            piggybacked_dtls_callback_(
+                this, rtc::ReceivedPacket(piggybacked_dtls_packet,
+                                          rtc::SocketAddress()));
+          }) {
   TRACE_EVENT0("webrtc", "P2PTransportChannel::P2PTransportChannel");
   RTC_DCHECK(allocator_ != nullptr);
   // Validate IceConfig even for mostly built-in constant default values in case
@@ -281,6 +290,16 @@ void P2PTransportChannel::AddConnection(Connection* connection) {
       [this](webrtc::RTCErrorOr<const StunUInt64Attribute*> delta_ack) {
         GoogDeltaAckReceived(std::move(delta_ack));
       });
+
+  connection->RegisterDtlsPiggyback(
+      [this](StunMessageType stun_message_type) {
+        return dtls_stun_piggyback_controller_.GetDataToPiggyback(
+            stun_message_type);
+      },
+      [this](const StunByteStringAttribute* data) {
+        dtls_stun_piggyback_controller_.ReportDataPiggybacked(data);
+      });
+
   LogCandidatePairConfig(connection,
                          webrtc::IceCandidatePairConfigType::kAdded);
 
@@ -2121,6 +2140,7 @@ void P2PTransportChannel::RemoveConnection(Connection* connection) {
   connection->DeregisterReceivedPacketCallback();
   connections_.erase(it);
   connection->ClearStunDictConsumer();
+  connection->DeregisterDtlsPiggyback();
   ice_controller_->OnConnectionDestroyed(connection);
 }
 

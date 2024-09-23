@@ -48,6 +48,7 @@
 #include "p2p/base/active_ice_controller_factory_interface.h"
 #include "p2p/base/candidate_pair_interface.h"
 #include "p2p/base/connection.h"
+#include "p2p/base/dtls_stun_piggyback_controller.h"
 #include "p2p/base/ice_agent_interface.h"
 #include "p2p/base/ice_controller_factory_interface.h"
 #include "p2p/base/ice_controller_interface.h"
@@ -248,6 +249,13 @@ class RTC_EXPORT P2PTransportChannel : public IceTransportInternal,
   std::optional<std::reference_wrapper<StunDictionaryWriter>>
   GetDictionaryWriter() override {
     return stun_dict_writer_;
+  }
+
+  void SetDtlsDataToPiggyback(rtc::ArrayView<const uint8_t> data) override {
+    dtls_stun_piggyback_controller_.SetDataToPiggyback(data);
+  }
+  void SetDtlsHandshakeComplete() override {
+    dtls_stun_piggyback_controller_.SetDtlsHandshakeComplete();
   }
 
  private:
@@ -511,6 +519,9 @@ class RTC_EXPORT P2PTransportChannel : public IceTransportInternal,
 
   // A dictionary that tracks attributes from peer.
   StunDictionaryView stun_dict_view_;
+
+  // A controller for piggybacking DTLS in STUN.
+  DtlsStunPiggybackController dtls_stun_piggyback_controller_;
 };
 
 }  // namespace cricket

@@ -760,9 +760,15 @@ void VideoSendStreamImpl::OnBitrateAllocationUpdated(
 
 void VideoSendStreamImpl::OnVideoLayersAllocationUpdated(
     VideoLayersAllocation allocation) {
-  // OnVideoLayersAllocationUpdated is handled on the encoder task queue in
-  // order to not race with OnEncodedImage callbacks.
-  rtp_video_sender_->OnVideoLayersAllocationUpdated(allocation);
+  if (!worker_queue_->IsCurrent()) {
+    worker_queue_->PostTask(SafeTask(
+        worker_queue_safety_.flag(),
+        [this, allocation = std::move(allocation)] {
+          rtp_video_sender_->OnVideoLayersAllocationUpdated(allocation);
+        }));
+  } else {
+    rtp_video_sender_->OnVideoLayersAllocationUpdated(allocation);
+  }
 }
 
 void VideoSendStreamImpl::SignalEncoderActive() {

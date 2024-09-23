@@ -173,6 +173,8 @@ class RtpVideoSender : public RtpVideoSenderInterface,
                                  DataSize packet_size,
                                  DataSize overhead_per_packet,
                                  Frequency framerate) const;
+  void SetModuleIsActive(bool sending, RtpRtcpInterface& rtp_module)
+      RTC_RUN_ON(transport_checker_);
 
   const Environment env_;
   const bool use_frame_rate_for_overhead_;

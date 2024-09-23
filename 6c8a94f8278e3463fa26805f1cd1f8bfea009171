@@ -16,6 +16,23 @@
       "message": "running internal integration tests revealed that \u0027DeregisterSendingRtpStream\u0027 must be called on the same thread as packet are sending. Otherwise there is logical race: Deregister is called while batch is processing and fails the `RTC_CHECK(modules_used_in_current_batch_.empty());`\n\nSo I\u0027ve moved VLA handling to the worker thread. integration tests were ok with that.",
       "revId": "6c8a94f8278e3463fa26805f1cd1f8bfea009171",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dfb682b0_266c8e40",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2024-09-23T15:12:37Z",
+      "side": 1,
+      "message": "I wonder if there are cases where we need to request a keyframe from the encoder when we reactivate it? Wouldn\u0027t be a new problem though, so probably outside the scope of this cl.",
+      "revId": "6c8a94f8278e3463fa26805f1cd1f8bfea009171",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

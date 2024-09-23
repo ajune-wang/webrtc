@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "00f9dfe8_80035f60",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-09-23T21:46:51Z",
+      "side": 1,
+      "message": "Suggested rephrase:\n\"Make encrypted versions of RTP extension headers be stopped by default\"",
+      "revId": "7f4f853e6a2498504460e48faf239fcf9c8c08fc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "e58916c4_d925ec29",
@@ -32,6 +49,40 @@
       "side": 1,
       "message": "The idea is to enable RFC 6904 to be used, but needs to be enabled via SDP munging. This is a stop-gap solution until RFC 9335 is actually implemented, which appears to be some way off still.",
       "parentUuid": "e58916c4_d925ec29",
+      "revId": "7f4f853e6a2498504460e48faf239fcf9c8c08fc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9a79ba88_2a8445e2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-09-23T21:46:51Z",
+      "side": 1,
+      "message": "Some suggestions.",
+      "revId": "7f4f853e6a2498504460e48faf239fcf9c8c08fc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "025bd556_cf5693a5",
+        "filename": "api/rtp_parameters.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-09-23T21:46:51Z",
+      "side": 1,
+      "message": "Suggest, rather than introducing the preferred_encrypt flag in the API, to add \"urn:ietf:params:rtp-hdrext:encrypt\" in front of the URI string for each extension we want to negotiate encrypted support for. This makes the rest of the SDP negotiation code able to treat the encrypted extensions exactly the same as other extensions.",
       "revId": "7f4f853e6a2498504460e48faf239fcf9c8c08fc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

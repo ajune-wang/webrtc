@@ -72,6 +72,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8e3c78a8_b8501c3e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-09-23T13:09:39Z",
+      "side": 1,
+      "message": "Updated according to discussion (I think I did it right).",
+      "parentUuid": "de8ce522_a4a3ce07",
+      "revId": "c077835beba6cbe645c01ca86ff5c43f2a657d2f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2fae563c_f7f3a732",
@@ -85,6 +103,30 @@
       "writtenOn": "2024-09-19T07:18:58Z",
       "side": 1,
       "message": "I think we need to add an #include for absl/base/macros.h.\n\nUsing ABSL_HARDENING_ASSERT is OK to make this hardened when WebRTC is built as part of Chromium. But I wonder if the long term this should be a WebRTC option (e.g. in https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/webrtc.gni).\n\nWhen WebRTC will switch to C++20, we should move to std::span, so maybe this is OK as a temporary fix.\n\nDanil, FYI \u0026 what do you think?",
+      "range": {
+        "startLine": 264,
+        "startChar": 4,
+        "endLine": 264,
+        "endChar": 25
+      },
+      "revId": "c077835beba6cbe645c01ca86ff5c43f2a657d2f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "07f05600_dbfec858",
+        "filename": "api/array_view.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-09-23T13:09:39Z",
+      "side": 1,
+      "message": "absl/base/checks.h seems to be the right place - already included. PTAL.",
+      "parentUuid": "2fae563c_f7f3a732",
       "range": {
         "startLine": 264,
         "startChar": 4,

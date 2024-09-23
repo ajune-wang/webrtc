@@ -493,8 +493,7 @@ RtpVideoSender::RtpVideoSender(
 
 RtpVideoSender::~RtpVideoSender() {
   RTC_DCHECK_RUN_ON(&transport_checker_);
-  SetActiveModulesLocked(
-      /*sending=*/false);
+  SetActiveModulesLocked(/*sending=*/false);
 }
 
 void RtpVideoSender::SetSending(bool enabled) {
@@ -512,21 +511,29 @@ void RtpVideoSender::SetActiveModulesLocked(bool sending) {
     return;
   }
   active_ = sending;
-  for (size_t i = 0; i < rtp_streams_.size(); ++i) {
-    RtpRtcpInterface& rtp_module = *rtp_streams_[i].rtp_rtcp;
-    rtp_module.SetSendingStatus(sending);
-    rtp_module.SetSendingMediaStatus(sending);
-    if (sending) {
-      transport_->RegisterSendingRtpStream(rtp_module);
-    } else {
-      transport_->DeRegisterSendingRtpStream(rtp_module);
-    }
+  for (const RtpStreamSender& stream : rtp_streams_) {
+    SetModuleIsActive(sending, *stream.rtp_rtcp);
   }
   auto* feedback_provider = transport_->GetStreamFeedbackProvider();
   if (!sending) {
     feedback_provider->DeRegisterStreamFeedbackObserver(this);
   } else {
     feedback_provider->RegisterStreamFeedbackObserver(rtp_config_.ssrcs, this);
+  }
+}
+
+void RtpVideoSender::SetModuleIsActive(bool sending,
+                                       RtpRtcpInterface& rtp_module) {
+  if (rtp_module.SendingMedia() == sending) {
+    return;
+  }
+
+  rtp_module.SetSendingStatus(sending);
+  rtp_module.SetSendingMediaStatus(sending);
+  if (sending) {
+    transport_->RegisterSendingRtpStream(rtp_module);
+  } else {
+    transport_->DeRegisterSendingRtpStream(rtp_module);
   }
 }
 
@@ -654,6 +661,7 @@ void RtpVideoSender::OnBitrateAllocationUpdated(
     }
   }
 }
+
 void RtpVideoSender::OnVideoLayersAllocationUpdated(
     const VideoLayersAllocation& allocation) {
   MutexLock lock(&mutex_);
@@ -666,11 +674,12 @@ void RtpVideoSender::OnVideoLayersAllocationUpdated(
       // Only send video frames on the rtp module if the encoder is configured
       // to send. This is to prevent stray frames to be sent after an encoder
       // has been reconfigured.
-      rtp_streams_[i].rtp_rtcp->SetSendingMediaStatus(
+      SetModuleIsActive(
           absl::c_any_of(allocation.active_spatial_layers,
                          [&i](const VideoLayersAllocation::SpatialLayer layer) {
                            return layer.rtp_stream_index == static_cast<int>(i);
-                         }));
+                         }),
+          *rtp_streams_[i].rtp_rtcp);
     }
   }
 }

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e4bcb112_b466f607",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2024-09-23T13:03:28Z",
+      "side": 1,
+      "message": "Hi @hta and @phancke@meta.com\n\nI looked at your original https://webrtc-review.googlesource.com/c/src/+/362480\nand think that it was hard to test (that we got behavior we want) and that\nthe behavior change was unclear, and that the implementation was too subtle.\n\nI applied your patch, and tested on \"my\" app, and got errors...\nthat I did not debug.\n\nMost of this I wrote as review comments, and I also wrote the doc about how I think it would work.\n\nThis being a boring Monday, I also wrote an implementation.\n\"Sorry\" about that. It is almost 100% complete...but not quite.\n\nObviously I like my implementation :) and I can complete it if you like it too.\nBut I can also abandon it if you think that is better.\nHow do you think we should proceed ?",
+      "revId": "463682ba233a53cfb48cf7103c562d3e4ecfa3af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

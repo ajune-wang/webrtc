@@ -35,6 +35,58 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "49f1b53a_019ee20b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-09-23T20:02:20Z",
+      "side": 1,
+      "message": "i can take a stab at updating my CL with this pattern, this will make things much easier to test!",
+      "parentUuid": "21345e5e_16aea9c2",
+      "revId": "463682ba233a53cfb48cf7103c562d3e4ecfa3af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b1d9e7cf_4f145d52",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-09-23T20:02:20Z",
+      "side": 1,
+      "message": "The controller is going to make the decision whether to send the DTLS packet normally or piggyback it?\n\nIt can also easily enforce things like \"only handshake packets\" in the future.",
+      "revId": "463682ba233a53cfb48cf7103c562d3e4ecfa3af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e265f51f_2f27b616",
+        "filename": "p2p/base/connection.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-09-23T20:02:20Z",
+      "side": 1,
+      "message": "we always assume a magic 1200 as MTU for RTP and DTLS (but IIRC for RTP that excludes the SRTP overhead)",
+      "revId": "463682ba233a53cfb48cf7103c562d3e4ecfa3af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "904337f9_691a5a8c",

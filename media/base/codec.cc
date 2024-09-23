@@ -122,7 +122,7 @@ bool IsSameCodecSpecific(const std::string& name1,
            AV1IsSameLevelIdx(params1, params2);
 #ifdef RTC_ENABLE_H265
   if (either_name_matches(kH265CodecName)) {
-    return webrtc::H265IsSameProfileTierLevel(params1, params2) &&
+    return webrtc::H265IsSameProfileTier(params1, params2) &&
            IsSameH265TxMode(params1, params2);
   }
 #endif

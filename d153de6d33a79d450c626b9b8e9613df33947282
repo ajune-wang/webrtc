@@ -70,6 +70,30 @@
       },
       "revId": "d153de6d33a79d450c626b9b8e9613df33947282",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ad976186_e52da43a",
+        "filename": "pc/media_session.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 871,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2024-09-23T17:33:44Z",
+      "side": 0,
+      "message": "Ack, so maybe I\u0027m just confused by the CL title: \"Remove option to negotiate both encrypted and unencrypted...\" - should that say \"Remove the option to add both encrypted and unencrypted version of the same header extension to the default offer\"?",
+      "parentUuid": "65f29e5c_cf0a9da8",
+      "range": {
+        "startLine": 870,
+        "startChar": 0,
+        "endLine": 871,
+        "endChar": 63
+      },
+      "revId": "d153de6d33a79d450c626b9b8e9613df33947282",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

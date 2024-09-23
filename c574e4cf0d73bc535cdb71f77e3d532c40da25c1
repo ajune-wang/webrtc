@@ -22,6 +22,30 @@
       },
       "revId": "c574e4cf0d73bc535cdb71f77e3d532c40da25c1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1b501d54_0c4669aa",
+        "filename": "api/video_codecs/h265_profile_tier_level.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 18005
+      },
+      "writtenOn": "2024-09-23T13:14:22Z",
+      "side": 1,
+      "message": "I plan to keep it till this issue: https://github.com/ietf-wg-avtcore/draft-ietf-avtcore-hevc-webrtc/issues/27 gets clarified in either TPAC this week, or Oct AVTCore WG meeting.",
+      "parentUuid": "851fc592_fa34830b",
+      "range": {
+        "startLine": 112,
+        "startChar": 16,
+        "endLine": 112,
+        "endChar": 42
+      },
+      "revId": "c574e4cf0d73bc535cdb71f77e3d532c40da25c1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

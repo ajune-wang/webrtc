@@ -86,6 +86,24 @@
       "parentUuid": "92fc6f36_ee3d3e21",
       "revId": "66536690d86bae0af016a88410c2e822f00ffe4b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d5cbd57f_01d74d48",
+        "filename": "modules/video_capture/linux/video_capture_pipewire.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 8178
+      },
+      "writtenOn": "2024-09-23T08:05:19Z",
+      "side": 1,
+      "message": "Ah. Would it help to have a `VideoTypeToPipeWireSubTypeAndVideoFormat` that returns a 2-tuple? Seems like you can\u0027t get a full mapping otherwise. If yes, also note there\u0027s some sugar to destructure a tuple https://en.cppreference.com/w/cpp/language/structured_binding#Case_2:_binding_a_type_implementing_the_tuple_operations",
+      "parentUuid": "1440502d_67f1552a",
+      "revId": "66536690d86bae0af016a88410c2e822f00ffe4b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

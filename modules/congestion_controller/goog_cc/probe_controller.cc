@@ -554,7 +554,7 @@ std::vector<ProbeClusterConfig> ProbeController::InitiateProbing(
     DataRate max_probe_rate =
         max_total_allocated_bitrate_.IsZero()
             ? max_bitrate_
-            : std::min(max_total_allocated_bitrate_, max_bitrate_);
+            : std::min(2 * max_total_allocated_bitrate_, max_bitrate_);
     if (std::min(network_estimate, estimated_bitrate_) >
         config_.skip_if_estimate_larger_than_fraction_of_max * max_probe_rate) {
       UpdateState(State::kProbingComplete);

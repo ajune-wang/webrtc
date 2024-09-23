@@ -16,6 +16,23 @@
       "message": "I believe this should fix the issue you flagged over the chat.",
       "revId": "5a8e0aec522bb01afe11997fb214fb5184e873e7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "12fcb22e_fab77165",
+        "filename": "video/corruption_detection/corruption_classifier.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 17594
+      },
+      "writtenOn": "2024-09-23T09:13:26Z",
+      "side": 1,
+      "message": "I think this should still be a RTC_CHECK (otherwise the loop below may index out of bounds)",
+      "revId": "5a8e0aec522bb01afe11997fb214fb5184e873e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

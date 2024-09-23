@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c3465ae5_76f715a1",
+        "filename": "video/video_send_stream_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 763,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-09-23T16:04:48Z",
+      "side": 0,
+      "message": "This wasn\u0027t a good idea...\nnow I hit an error where VLA is not attached to the key frames [as setting allocation runs on a different queue and thus not in sync with creating packets for the key frames]...\n\nso would need to introduce task queue hop differentely to satisfy packet router threading requirements.",
+      "revId": "a8829eb5f32e85a99ed889fa987f58be2f980933",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

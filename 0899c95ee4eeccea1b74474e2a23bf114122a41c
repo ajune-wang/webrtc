@@ -34,6 +34,24 @@
       "parentUuid": "8edb8536_980a95d9",
       "revId": "0899c95ee4eeccea1b74474e2a23bf114122a41c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d746edf0_9925b0c5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2024-09-23T09:35:45Z",
+      "side": 1,
+      "message": "The CL is ready to land with no changes (mentioned in the CL desc).",
+      "parentUuid": "e9e1205f_b02075f1",
+      "revId": "0899c95ee4eeccea1b74474e2a23bf114122a41c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

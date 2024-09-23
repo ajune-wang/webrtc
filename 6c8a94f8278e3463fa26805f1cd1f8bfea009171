@@ -33,6 +33,24 @@
       "message": "I wonder if there are cases where we need to request a keyframe from the encoder when we reactivate it? Wouldn\u0027t be a new problem though, so probably outside the scope of this cl.",
       "revId": "6c8a94f8278e3463fa26805f1cd1f8bfea009171",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "33c360f2_fc15fda8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-09-23T16:21:32Z",
+      "side": 1,
+      "message": "Yep, I do not worry about keyframe at least for now.\n\n(it could be be when encoder is restarted via non-zero allocation it would start with a key frame anyway, thus explicit request probably won\u0027t be needed).",
+      "parentUuid": "dfb682b0_266c8e40",
+      "revId": "6c8a94f8278e3463fa26805f1cd1f8bfea009171",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

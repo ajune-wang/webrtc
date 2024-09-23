@@ -161,6 +161,28 @@ rtc_library("h264_sprop_parameter_sets") {
   ]
 }
 
+rtc_library("black_frame_decoder") {
+  sources = [
+    "black_frame_decoder.cc",
+    "black_frame_decoder.h",
+  ]
+  deps = [
+    ":video_codec_interface",
+    ":video_coding_utility",
+    "../../api:array_view",
+    "../../api:scoped_refptr",
+    "../../api/video:encoded_image",
+    "../../api/video:video_frame",
+    "../../api/video:video_frame_type",
+    "../../api/video_codecs:video_codecs_api",
+    "../../common_video",
+    "../../rtc_base:logging",
+  ]
+  if (build_with_chromium) {
+    deps += [ "//third_party/dav1d" ]
+  }
+}
+
 rtc_library("video_coding") {
   visibility = [ "*" ]
   sources = [
@@ -271,6 +293,9 @@ rtc_library("video_coding") {
     "//third_party/abseil-cpp/absl/container:inlined_vector",
     "//third_party/abseil-cpp/absl/types:variant",
   ]
+  if (build_with_chromium) {
+    deps += [ ":black_frame_decoder" ]
+  }
 }
 
 rtc_library("video_codec_interface") {
@@ -1089,6 +1114,7 @@ if (rtc_include_tests) {
     testonly = true
 
     sources = [
+      "black_frame_decoder_unittest.cc",
       "chain_diff_calculator_unittest.cc",
       "codecs/test/videocodec_test_fixture_config_unittest.cc",
       "codecs/test/videocodec_test_stats_impl_unittest.cc",
@@ -1134,6 +1160,7 @@ if (rtc_include_tests) {
     }
 
     deps = [
+      ":black_frame_decoder",
       ":chain_diff_calculator",
       ":codec_globals_headers",
       ":encoded_frame",

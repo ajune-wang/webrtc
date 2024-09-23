@@ -16,6 +16,74 @@
       "message": "Hi @hta and @phancke@meta.com\n\nI looked at your original https://webrtc-review.googlesource.com/c/src/+/362480\nand think that it was hard to test (that we got behavior we want) and that\nthe behavior change was unclear, and that the implementation was too subtle.\n\nI applied your patch, and tested on \"my\" app, and got errors...\nthat I did not debug.\n\nMost of this I wrote as review comments, and I also wrote the doc about how I think it would work.\n\nThis being a boring Monday, I also wrote an implementation.\n\"Sorry\" about that. It is almost 100% complete...but not quite.\n\nObviously I like my implementation :) and I can complete it if you like it too.\nBut I can also abandon it if you think that is better.\nHow do you think we should proceed ?",
       "revId": "463682ba233a53cfb48cf7103c562d3e4ecfa3af",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "21345e5e_16aea9c2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-09-23T18:39:20Z",
+      "side": 1,
+      "message": "just shipping some comments on first readthrough - I still haven\u0027t delved into exactly how this ties into the DTLS machinery.",
+      "revId": "463682ba233a53cfb48cf7103c562d3e4ecfa3af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "904337f9_691a5a8c",
+        "filename": "p2p/base/dtls_stun_piggyback_controller.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-09-23T18:39:20Z",
+      "side": 1,
+      "message": "Should you document this using a SequenceChecker?",
+      "revId": "463682ba233a53cfb48cf7103c562d3e4ecfa3af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8ad1c1e3_11d778ac",
+        "filename": "p2p/base/dtls_stun_piggyback_controller.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-09-23T18:39:20Z",
+      "side": 1,
+      "message": "If this never changes, mark it with a const marker (I think it goes right before the name).",
+      "revId": "463682ba233a53cfb48cf7103c562d3e4ecfa3af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6cc13eac_ac17dcaf",
+        "filename": "p2p/base/dtls_transport.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-09-23T18:39:20Z",
+      "side": 1,
+      "message": "Is KESO the local variant of DEBUG?",
+      "revId": "463682ba233a53cfb48cf7103c562d3e4ecfa3af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

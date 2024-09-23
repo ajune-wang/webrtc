@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e58916c4_d925ec29",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-09-23T19:02:59Z",
+      "side": 1,
+      "message": "AFAIK, the default offer has no encrypted headers, and there\u0027s no code in Chrome that enables encrypted headers.\n\nThe encrypted RTP header mechanism has fallen out of favor - 11 years down the road from RFC 6904, there are no active deployments (AFAIK) that use this feature; the cryptex mechanism (RFC 9335) was developed to define a simpler mechanism that might see deployemnt. It hasn\u0027t seen that yet.\n\nSo I have trouble figuring out what this CL is actually seeking to accomplish.",
+      "revId": "7f4f853e6a2498504460e48faf239fcf9c8c08fc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -104,6 +104,24 @@
       "parentUuid": "1440502d_67f1552a",
       "revId": "66536690d86bae0af016a88410c2e822f00ffe4b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ae33808_f2441524",
+        "filename": "modules/video_capture/linux/video_capture_pipewire.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2024-09-23T08:49:19Z",
+      "side": 1,
+      "message": "That would work, obviously, but I would prefer keeping it the way it\u0027s implemented now, to have just mapping for the raw formats as exist in the `kSupportedFormats` structure.",
+      "parentUuid": "d5cbd57f_01d74d48",
+      "revId": "66536690d86bae0af016a88410c2e822f00ffe4b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

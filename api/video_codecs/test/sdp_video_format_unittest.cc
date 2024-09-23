@@ -107,7 +107,7 @@ TEST(SdpVideoFormatTest, SameCodecNameDifferentParameters) {
           .IsSameCodec(Sdp("H265", Params{{"profile-id", "1"},
                                           {"tier-flag", "0"},
                                           {"level-id", "120"}})));
-  EXPECT_FALSE(
+  EXPECT_TRUE(
       Sdp("H265",
           Params{{"profile-id", "1"}, {"tier-flag", "0"}, {"level-id", "93"}})
           .IsSameCodec(Sdp("H265", Params{{"profile-id", "1"},

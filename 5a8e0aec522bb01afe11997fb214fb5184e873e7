@@ -33,6 +33,24 @@
       "message": "I think this should still be a RTC_CHECK (otherwise the loop below may index out of bounds)",
       "revId": "5a8e0aec522bb01afe11997fb214fb5184e873e7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ccd5b64f_3f6e1614",
+        "filename": "video/corruption_detection/corruption_classifier.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 3485001
+      },
+      "writtenOn": "2024-09-24T07:53:18Z",
+      "side": 1,
+      "message": "Agreed.",
+      "parentUuid": "12fcb22e_fab77165",
+      "revId": "5a8e0aec522bb01afe11997fb214fb5184e873e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

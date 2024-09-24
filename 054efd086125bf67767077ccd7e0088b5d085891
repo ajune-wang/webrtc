@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bf4ee182_65ffa8f0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3485001
+      },
+      "writtenOn": "2024-09-24T07:53:18Z",
+      "side": 1,
+      "message": "Thanks for the review. \n\nAlso updated to accept 0 as a threshold as discussed over the chat.",
+      "revId": "054efd086125bf67767077ccd7e0088b5d085891",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

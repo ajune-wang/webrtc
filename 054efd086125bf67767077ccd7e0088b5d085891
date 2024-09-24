@@ -33,6 +33,24 @@
       "message": "You\u0027ll need to wrap this in `#if GTEST_HAS_DEATH_TEST` and `#endif  // GTEST_HAS_DEATH_TEST`",
       "revId": "054efd086125bf67767077ccd7e0088b5d085891",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "477c1a99_54c15efc",
+        "filename": "video/corruption_detection/corruption_classifier_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 3485001
+      },
+      "writtenOn": "2024-09-24T08:11:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "90bcffc3_f6d2c311",
+      "revId": "054efd086125bf67767077ccd7e0088b5d085891",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -16,6 +16,29 @@
       "message": "Thanks again.",
       "revId": "203fa8a28d845d4e209f960a94c86f309373822d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c818a92d_f8700a23",
+        "filename": "video/corruption_detection/corruption_classifier_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2024-09-24T10:31:59Z",
+      "side": 1,
+      "message": "Or maybe \nconst std::vector\u003cFilteredSample\u003e filtered_compressed_samples \u003d\n    {{.value \u003d 1.0, .plane \u003d ImagePlane::kLuma}};",
+      "range": {
+        "startLine": 73,
+        "startChar": 0,
+        "endLine": 74,
+        "endChar": 78
+      },
+      "revId": "203fa8a28d845d4e209f960a94c86f309373822d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

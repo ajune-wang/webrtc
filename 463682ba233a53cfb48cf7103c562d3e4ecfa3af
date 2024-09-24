@@ -70,6 +70,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8ce16a0c_25ea3d85",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2024-09-24T11:37:01Z",
+      "side": 1,
+      "message": "UPDATE: found 2 non functional aspect (after more closely monitored manual testing)\n\n1) the timeout thing *needs* to be fixed, it not just a nice-to-have\nI.e\n- there should be NO timeout when in piggy-back-only-mode\n- the timeout needs to turn on then getting writable first time\n\nThis is not theoretically hard to do...but from first glance\nmy impression is that it cuts across layers\n\n2) The cl need to be updated to track which packets are send/received.\nI\u0027ll probably do that this afternoon.",
+      "revId": "463682ba233a53cfb48cf7103c562d3e4ecfa3af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e265f51f_2f27b616",

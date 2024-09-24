@@ -94,6 +94,30 @@
       },
       "revId": "d153de6d33a79d450c626b9b8e9613df33947282",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1f7b00d3_6821925b",
+        "filename": "pc/media_session.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 871,
+      "author": {
+        "id": 3485001
+      },
+      "writtenOn": "2024-09-24T08:33:06Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "ad976186_e52da43a",
+      "range": {
+        "startLine": 870,
+        "startChar": 0,
+        "endLine": 871,
+        "endChar": 63
+      },
+      "revId": "d153de6d33a79d450c626b9b8e9613df33947282",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

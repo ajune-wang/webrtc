@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "bb63feab_a7a205bd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 3485001
+      },
+      "writtenOn": "2024-09-24T08:33:06Z",
+      "side": 1,
+      "message": "I dont really agree. Because encrypted versions of the RTP extensions are already stopped by default. But with this change we remove the option (by e.g. using the flag https://source.chromium.org/chromium/chromium/src/+/main:content/public/common/content_switches.cc;l\u003d878?q\u003d%22kEnableWebRtcSrtpEncryptedHeaders%22\u0026ss\u003dchromium%2Fchromium%2Fsrc) that the user could activate sending the encrypted version of the extension headers at the same time. \n\nThis is the first CL of many to remove the flag in the link above. At the end of the journey we will have removed this flag (or more correctly we will have given it another meaning) and only the unencrypted versions of a specific header will be negotiated by default. Then the plan is to do what you suggest in the following comment. \n\nE.g. in https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/media/engine/webrtc_video_engine.cc;l\u003d836?q\u003dmedia%2Fengine%2Fwebrtc_video_engine.cc\u0026ss\u003dchromium%2Fchromium%2Fsrc we are going to be able to do \n```\n  result.emplace_back(webrtc::RtpExtension::kTransportSequenceNumberUri, id++,\n                      /*preferred_encrypt\u003d*/true,\n                      webrtc::RtpTransceiverDirection::kSendRecv);\n```\nfor the header we want to encrypt. \n\nFeel free also to have a look on https://webrtc-review.googlesource.com/c/src/+/362581. If we remove the flag and set it as true by default after we have removed the parts shown in this PR, we will be able to skip all the parts regarding \"at_least_one_header_needs_encryption\" in that PR, which IMO makes the code clearer.",
+      "parentUuid": "00f9dfe8_80035f60",
+      "revId": "7f4f853e6a2498504460e48faf239fcf9c8c08fc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "e58916c4_d925ec29",
@@ -101,6 +119,24 @@
       "side": 1,
       "message": "The flag isn\u0027t new (https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/api/rtp_parameters.h;l\u003d216), just the ability to set it in the constructor.\n\nI\u0027m not entirely sure what we want here. I feel like the `prefer_encrypt` flag would generalize better so we can reuse this logic when we move to rfc 9335/cryptex - which does not make use of the \"urn:ietf:params:rtp-hdrext:encrypt\" string.\n\nThis isn\u0027t my home turf so I might be missing something though.",
       "parentUuid": "025bd556_cf5693a5",
+      "revId": "7f4f853e6a2498504460e48faf239fcf9c8c08fc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1d004041_b636b672",
+        "filename": "api/rtp_parameters.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 3485001
+      },
+      "writtenOn": "2024-09-24T08:33:06Z",
+      "side": 1,
+      "message": "I agree with @sprang@webrtc.org here. \"urn:ietf:params:rtp-hdrext:encrypt\" will be added by itself if we do the changes I explained in the comment above (aka keeping the `preferred_encrypt` flag)",
+      "parentUuid": "31dc720a_eeb6c85f",
       "revId": "7f4f853e6a2498504460e48faf239fcf9c8c08fc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

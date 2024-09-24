@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8453d11e_80d626c6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 17594
+      },
+      "writtenOn": "2024-09-24T13:43:33Z",
+      "side": 1,
+      "message": "I realize now that this should probably take a absl::variant\u003cFrameInstrumentationSyncData, FrameInstrumentationData\u003e instead of a message",
+      "revId": "bda5be9354507fd9001e0c2af2ab1ab158ee7bbb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

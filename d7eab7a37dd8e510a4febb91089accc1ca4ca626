@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0e0a3030_fb55ffb6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2024-09-24T16:34:08Z",
+      "side": 1,
+      "message": "nit: think this should say `chromium:40623740` to make it a working link",
+      "range": {
+        "startLine": 11,
+        "startChar": 5,
+        "endLine": 11,
+        "endChar": 10
+      },
+      "revId": "d7eab7a37dd8e510a4febb91089accc1ca4ca626",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "adf5b3e1_73114fc9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2024-09-24T16:34:08Z",
+      "side": 1,
+      "message": "lgtm, but please await hta@\u0027s approval too",
+      "revId": "d7eab7a37dd8e510a4febb91089accc1ca4ca626",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

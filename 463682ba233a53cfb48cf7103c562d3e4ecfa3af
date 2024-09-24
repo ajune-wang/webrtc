@@ -89,6 +89,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f00fa49e_7cc58b1c",
+        "filename": "p2p/base/connection.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-09-24T04:49:49Z",
+      "side": 1,
+      "message": "The IPv6 minimum MTU is 1280 (modulo details). I guess 1200 was chosen to give some leeway to SRTP overhead and other weirdness. In one particular SCTP/DTLS case, we had to go down to 1190, I think.",
+      "parentUuid": "e265f51f_2f27b616",
+      "revId": "463682ba233a53cfb48cf7103c562d3e4ecfa3af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "904337f9_691a5a8c",
         "filename": "p2p/base/dtls_stun_piggyback_controller.h",
         "patchSetId": 1

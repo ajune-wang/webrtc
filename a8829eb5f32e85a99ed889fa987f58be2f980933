@@ -16,6 +16,24 @@
       "message": "This wasn\u0027t a good idea...\nnow I hit an error where VLA is not attached to the key frames [as setting allocation runs on a different queue and thus not in sync with creating packets for the key frames]...\n\nso would need to introduce task queue hop differentely to satisfy packet router threading requirements.",
       "revId": "a8829eb5f32e85a99ed889fa987f58be2f980933",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d279e5dd_6674bf95",
+        "filename": "video/video_send_stream_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 763,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-09-24T10:22:58Z",
+      "side": 0,
+      "message": "Setting VLA in RTP module should happen on the encoder queue to avoid race with attaching VLA to the key frame;\nbut disabling RTP module due to VLA should happen on the transport queue to avoid race with sending batches of packets (even if tsan won\u0027t complain, there is is risk rtp module would be attempted to get disabled in the middle of sending batch of packets. There is a CHECK against that.)\n\nNow both integration and unit tests look happy.",
+      "parentUuid": "c3465ae5_76f715a1",
+      "revId": "a8829eb5f32e85a99ed889fa987f58be2f980933",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

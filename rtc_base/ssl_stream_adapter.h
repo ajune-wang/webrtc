@@ -184,7 +184,10 @@ class SSLStreamAdapter : public StreamInterface {
 
   // Retrieves the IANA registration id of the cipher suite used for the
   // connection (e.g. 0x2F for "TLS_RSA_WITH_AES_128_CBC_SHA").
+  // Prefer GetTlsCipherSuiteName where possible. This will return the OpenSSL
+  // cipher id, not the IANA one returned by SSL_CIPHER_get_protocol_id.
   virtual bool GetSslCipherSuite(int* cipher_suite);
+  virtual std::optional<absl::string_view> GetTlsCipherSuiteName() const = 0;
 
   // Retrieves the enum value for SSL version.
   // Will return -1 until the version has been negotiated.
@@ -235,11 +238,6 @@ class SSLStreamAdapter : public StreamInterface {
   // TODO(torbjorng): Consider removing the KeyType argument.
   static bool IsAcceptableCipher(int cipher, KeyType key_type);
   static bool IsAcceptableCipher(absl::string_view cipher, KeyType key_type);
-
-  // TODO(guoweis): Move this away from a static class method. Currently this is
-  // introduced such that any caller could depend on sslstreamadapter.h without
-  // depending on specific SSL implementation.
-  static std::string SslCipherSuiteToName(int cipher_suite);
 
   ////////////////////////////////////////////////////////////////////////////
   // Testing only member functions

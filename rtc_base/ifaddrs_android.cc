@@ -11,6 +11,7 @@
 #if defined(WEBRTC_ANDROID)
 #include "rtc_base/ifaddrs_android.h"
 
+#include <arpa/inet.h>
 #include <errno.h>
 #include <linux/netlink.h>
 #include <linux/rtnetlink.h>
@@ -20,11 +21,13 @@
 #include <string.h>
 #include <sys/ioctl.h>
 #include <sys/socket.h>  // no-presubmit-check
+#include <sys/system_properties.h>
 #include <sys/types.h>
 #include <sys/utsname.h>
 #include <unistd.h>
 
 #include "absl/cleanup/cleanup.h"
+#include "rtc_base/logging.h"
 
 namespace {
 
@@ -34,6 +37,53 @@ struct netlinkrequest {
 };
 
 const int kMaxReadSize = 4096;
+
+// Helper function to extract IPv4 address and prefix length from CIDR strings
+// CIDR format example: "192.1.1.34/24", where 24 is prefix length
+bool ParseCidrString(const std::string& cidr_string,
+                     in_addr* ip_address,
+                     int* prefix_length) {
+  size_t slash_pos = cidr_string.find('/');
+  if (slash_pos == std::string::npos) {
+    return false;
+  }
+
+  std::string ip_string = cidr_string.substr(0, slash_pos);
+  std::string prefix_string = cidr_string.substr(slash_pos + 1);
+
+  if (inet_aton(ip_string.c_str(), ip_address) == 0) {
+    return false;
+  }
+
+  *prefix_length = std::stoi(prefix_string);
+  return true;
+}
+
+// Function to check for and return the ARC++ system property on ChromeOS for
+// the IPv4 addresses, which are not otherwise visible to the network stack.
+// Example properties values:
+//   [vendor.arc.net.ipv4.host_eth4_address]: [100.127.127.229/24]
+//   [vendor.arc.net.ipv4.host_eth5_address]: [100.87.84.74/24]
+// Returns true if the property was found and parsed, false otherwise.
+bool GetOverrideIpAddress(char* interface_name,
+                          in_addr* ip_address,
+                          int* prefix_length) {
+  rtc::StringBuilder ss;
+  ss << "vendor.arc.net.ipv4.host_" << interface_name << "_address";
+  std::string property_name = ss.Release();
+
+  const prop_info* pi = __system_property_find(property_name.c_str());
+  if (pi != nullptr) {
+    char* property_value = new char[PROP_VALUE_MAX];
+    __system_property_get(property_name.c_str(), property_value);
+    RTC_LOG(LS_INFO) << "Overridden IPv4 address for " << interface_name << ": "
+                     << property_value << ".";
+    bool result = ParseCidrString(property_value, ip_address, prefix_length);
+    delete[] property_value;
+    return result;
+  }
+  return false;
+}
 
 }  // namespace
 
@@ -71,6 +121,23 @@ int set_addresses(struct ifaddrs* ifaddr,
                   ifaddrmsg* msg,
                   void* data,
                   size_t len) {
+  // On ChromeOS devices with ARC++, check if the IPv4 address should
+  // be overriden with the value contained in the Android system property
+  if (msg->ifa_family == AF_INET) {
+    in_addr override_ip;
+    int override_prefix_length;
+    if (GetOverrideIpAddress(ifaddr->ifa_name, &override_ip,
+                             &override_prefix_length)) {
+      sockaddr_in* sa = new sockaddr_in;
+      sa->sin_family = AF_INET;
+      sa->sin_addr = override_ip;  // Override IP address
+      ifaddr->ifa_addr = reinterpret_cast<sockaddr*>(sa);
+      msg->ifa_prefixlen = override_prefix_length;  // Override prefix length
+      return 0;
+    }
+  }
+
+  // Default behavior if no override property is found
   if (msg->ifa_family == AF_INET) {
     sockaddr_in* sa = new sockaddr_in;
     sa->sin_family = AF_INET;

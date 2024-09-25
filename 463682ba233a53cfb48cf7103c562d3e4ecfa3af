@@ -125,6 +125,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5d726ae2_5b481fed",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2024-09-25T07:36:25Z",
+      "side": 1,
+      "message": "restating currently unsolved problem with timeouts.\n\n1) current DTLS timeout is computed based on RTT\n2) If we start DTLS before STUN PING RESPONSE, we don\u0027t have a RTT\n\n3) My idea was to update the DTLS timeout after we have received the STUN PING RESPONSE\nThis will also be the normal case when remote does not support piggybacked DTLS.\n\n3.1) OpenSSL (incl. boringssl) does not have a function to update the timeout\n\n3.2 We can either\na) add/modify OpenSSL to support this\nnot hard...but might need 10 billion approvals!\n\nb) we can modify openssl_stream_adapter.cc to handle the timeout\n\"outside\" of OpenSSL (i.e open-ssl will run with 0 timeout, but we will only call ssl-functions on \"our\" timeout), not super hard, but also not super great.",
+      "parentUuid": "0a4570a1_fadebf20",
+      "revId": "463682ba233a53cfb48cf7103c562d3e4ecfa3af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e265f51f_2f27b616",
         "filename": "p2p/base/connection.h",
         "patchSetId": 1

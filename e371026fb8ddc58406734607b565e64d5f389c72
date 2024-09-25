@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aa8ac2cd_3e881a74",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 14
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-09-25T18:32:32Z",
+      "side": 1,
+      "message": "Who uses the function you\u0027re replacing?",
+      "revId": "e371026fb8ddc58406734607b565e64d5f389c72",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a4719ee8_6058b654",
+        "filename": "p2p/base/dtls_transport.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-09-25T18:32:32Z",
+      "side": 1,
+      "message": "[[deprecate]] this method?",
+      "revId": "e371026fb8ddc58406734607b565e64d5f389c72",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "41f6fa14_6596c0e0",
+        "filename": "rtc_base/openssl_stream_adapter.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 341,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-09-25T18:32:32Z",
+      "side": 1,
+      "message": "What does \"this\" refer to? If it\u0027s this function, it should be in the .h file, not here. If it\u0027s SSL_CIPHER_get_id, say so.",
+      "revId": "e371026fb8ddc58406734607b565e64d5f389c72",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d962aa26_edb97134",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 27
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-09-25T18:36:49Z",
+      "side": 1,
+      "message": "1) good point. Currently it gets automatically overwritten by the next packet (if any). Clearing explictly should allow us to enforce \"there is no packet here\" (but timeouts...) and also simplify the clearing once we are done with the last flight (but I still have questions about when we can clear that for the case where there is no further step; possibly an empty packet with the attribute?)\n\na.1) The ack is implicit by piggybacking the DTLS response on the STUN response. Still needs to disable this if receiving a STUN binding response without the attribute. This is a bit complicated due to the lack of state which is why we need a controller.\n\nb) yeah. The case here is the DTLS server sending a STUN binding request but it does not have any data to send. This should not un-negotiate the feature. Empty attribute to signal support should solve this.\n\n3) Does Connection have a good way to get its P2PTC right now? Solved by your controller probably\n\n4) Yeah, it is a bit scary that this worked",
+      "parentUuid": "d33d1c0f_d0beb616",
+      "revId": "998c418c4209155a2704999a85881f8c6cbf7507",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "14b22c2b_6cb70b65",
         "filename": "p2p/base/dtls_transport.cc",
         "patchSetId": 27
@@ -31,6 +49,24 @@
       "writtenOn": "2024-09-20T09:07:53Z",
       "side": 1,
       "message": "we must handle DTLS handshake timeout/resend\n1) a proper timeout should be set once IceTransport connects\n2) there should be *no* DTLS retransmit (due to timeout) in the logs\nwhen we are in fact piggy backing in STUN.\n\n\u003d\u003e I think the dtls transport needs to keep a state for this.\n\n3) I think it\u0027s feasible to keep embedding even after IceTransport is connected\nbut then the DTLS initiated retransmit (due to timeout) should work as usual.",
+      "revId": "998c418c4209155a2704999a85881f8c6cbf7507",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "be5d4edd_39c42c14",
+        "filename": "p2p/base/dtls_transport.cc",
+        "patchSetId": 27
+      },
+      "lineNbr": 784,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-09-25T18:36:49Z",
+      "side": 1,
+      "message": "discussion happening in https://webrtc-review.googlesource.com/c/src/+/363340",
+      "parentUuid": "14b22c2b_6cb70b65",
       "revId": "998c418c4209155a2704999a85881f8c6cbf7507",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -48,6 +84,24 @@
       "writtenOn": "2024-09-20T09:07:53Z",
       "side": 1,
       "message": "we should not check RSA vs. EC vs. SomeNewCrypt here,\nthe check should only be if the DTSL packet fits into the STUN ping,\nwhich can only be checked lower in the stack.",
+      "revId": "998c418c4209155a2704999a85881f8c6cbf7507",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c90ec75e_0835b264",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 27
+      },
+      "lineNbr": 926,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-09-25T18:36:49Z",
+      "side": 1,
+      "message": "Agree, low-level length check and falling back is better indeed.",
+      "parentUuid": "2b63b826_d0152fbc",
       "revId": "998c418c4209155a2704999a85881f8c6cbf7507",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

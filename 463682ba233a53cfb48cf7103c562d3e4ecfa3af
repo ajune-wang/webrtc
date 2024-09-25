@@ -107,6 +107,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0a4570a1_fadebf20",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-09-25T00:53:48Z",
+      "side": 1,
+      "message": "yeah, we need an API to *reset* the timeout or we are regressing the still-default  case of this not being supported.\n\nIf we \"flush\" the cached DTLS packets (which for the backward compat should just be the client hello) once ICE establishes that should mitigate some of the impact but if that DTLS packet is lost the resend will happen with the much higher exponential backoff.\n\nJust found https://source.chromium.org/chromium/chromium/src/+/main:third_party/boringssl/src/include/openssl/ssl.h;l\u003d335 which does not bode well for the overall plan of caching...\n\nI think we can *not* read from the SSL session at that point to give us the packet which would be sent next regardless of timeout. DTLSv1_handle_timeout almost does that but returns early if the timer did not expire.",
+      "parentUuid": "c4cb8198_a8e18a7d",
+      "revId": "463682ba233a53cfb48cf7103c562d3e4ecfa3af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e265f51f_2f27b616",
         "filename": "p2p/base/connection.h",
         "patchSetId": 1

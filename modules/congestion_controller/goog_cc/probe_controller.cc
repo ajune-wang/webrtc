@@ -116,32 +116,35 @@ ProbeControllerConfig::ProbeControllerConfig(
       loss_limited_probe_scale("loss_limited_scale", 1.5),
       skip_if_estimate_larger_than_fraction_of_max(
           "skip_if_est_larger_than_fraction_of_max",
-          0.0) {
-  ParseFieldTrial({&first_exponential_probe_scale,
-                   &second_exponential_probe_scale,
-                   &further_exponential_probe_scale,
-                   &further_probe_threshold,
-                   &abort_further_probe_if_max_lower_than_current,
-                   &repeated_initial_probing_time_period,
-                   &initial_probe_duration,
-                   &alr_probing_interval,
-                   &alr_probe_scale,
-                   &probe_on_max_allocated_bitrate_change,
-                   &first_allocation_probe_scale,
-                   &second_allocation_probe_scale,
-                   &allocation_probe_limit_by_current_scale,
-                   &min_probe_duration,
-                   &min_probe_delta,
-                   &initial_min_probe_delta,
-                   &network_state_estimate_probing_interval,
-                   &probe_if_estimate_lower_than_network_state_estimate_ratio,
-                   &estimate_lower_than_network_state_estimate_probing_interval,
-                   &network_state_probe_scale,
-                   &network_state_probe_duration,
-                   &min_probe_packets_sent,
-                   &loss_limited_probe_scale,
-                   &skip_if_estimate_larger_than_fraction_of_max},
-                  key_value_config->Lookup("WebRTC-Bwe-ProbingConfiguration"));
+          0.0),
+      skip_probe_max_allocated_scale("skip_max_allocated_scale", 1.0) {
+  ParseFieldTrial(
+      {&first_exponential_probe_scale,
+       &second_exponential_probe_scale,
+       &further_exponential_probe_scale,
+       &further_probe_threshold,
+       &abort_further_probe_if_max_lower_than_current,
+       &repeated_initial_probing_time_period,
+       &initial_probe_duration,
+       &alr_probing_interval,
+       &alr_probe_scale,
+       &probe_on_max_allocated_bitrate_change,
+       &first_allocation_probe_scale,
+       &second_allocation_probe_scale,
+       &allocation_probe_limit_by_current_scale,
+       &min_probe_duration,
+       &min_probe_delta,
+       &initial_min_probe_delta,
+       &network_state_estimate_probing_interval,
+       &probe_if_estimate_lower_than_network_state_estimate_ratio,
+       &estimate_lower_than_network_state_estimate_probing_interval,
+       &network_state_probe_scale,
+       &network_state_probe_duration,
+       &min_probe_packets_sent,
+       &loss_limited_probe_scale,
+       &skip_if_estimate_larger_than_fraction_of_max,
+       &skip_if_estimate_larger_than_fraction_of_max_allocation_scale},
+      key_value_config->Lookup("WebRTC-Bwe-ProbingConfiguration"));
 
   // Specialized keys overriding subsets of WebRTC-Bwe-ProbingConfiguration
   ParseFieldTrial(
@@ -554,7 +557,9 @@ std::vector<ProbeClusterConfig> ProbeController::InitiateProbing(
     DataRate max_probe_rate =
         max_total_allocated_bitrate_.IsZero()
             ? max_bitrate_
-            : std::min(max_total_allocated_bitrate_, max_bitrate_);
+            : std::min(config_.skip_probe_max_allocated_scale *
+                           max_total_allocated_bitrate_,
+                       max_bitrate_);
     if (std::min(network_estimate, estimated_bitrate_) >
         config_.skip_if_estimate_larger_than_fraction_of_max * max_probe_rate) {
       UpdateState(State::kProbingComplete);

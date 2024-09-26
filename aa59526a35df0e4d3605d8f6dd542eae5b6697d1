@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ae680bc5_119ccb75",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 15
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-09-26T15:48:10Z",
+      "side": 1,
+      "message": "Approving! Just commentary.",
+      "revId": "aa59526a35df0e4d3605d8f6dd542eae5b6697d1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "05b5bdb8_e073396c",
+        "filename": "rtc_base/ssl_stream_adapter.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-09-26T15:48:10Z",
+      "side": 1,
+      "message": "uint32_t SSL_CIPHER_get_id(const SSL_CIPHER *c);\n uint32_t SSL_CIPHER_get_protocol_id(const SSL_CIPHER *c);\n\nBoth are 32 bits, which is an oddity, since the IANA registry contains only 16-bit values (and I think the field in the protocol is 2 bytes long).\n\nhttps://www.iana.org/assignments/tls-parameters/tls-parameters.xhtml#tls-parameters-4 is the correct reference for the IANA registry.",
+      "revId": "aa59526a35df0e4d3605d8f6dd542eae5b6697d1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

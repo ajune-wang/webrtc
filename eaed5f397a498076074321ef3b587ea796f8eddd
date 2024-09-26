@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d2ee736d_c3790662",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2024-09-26T07:22:24Z",
+      "side": 1,
+      "message": "Hi, I\u0027m proposing a change to make the `VideoFrame`\u0027s `id` field optional. More detailed background information is available in the referenced bug.  \nSince this change impacts the public API, I will issue a PSA and notify the relevant users, although this field is generally considered DVQA-specific.  \nPlease take a look at the change and let me know if you have any concerns or suggestions. Thanks!",
+      "revId": "eaed5f397a498076074321ef3b587ea796f8eddd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

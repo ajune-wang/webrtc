@@ -414,6 +414,24 @@
       "parentUuid": "2e4f8d46_b6a6e53a",
       "revId": "d829f347745dbe79ddca6091226459adf5169cc7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "28b48fef_49aa30a2",
+        "filename": "rtc_base/ssl_stream_adapter_unittest.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 1173,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-09-26T20:09:37Z",
+      "side": 1,
+      "message": "contentious ifdef was wrong and is gone",
+      "parentUuid": "53267630_fce1d8e6",
+      "revId": "d829f347745dbe79ddca6091226459adf5169cc7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

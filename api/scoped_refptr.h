@@ -22,13 +22,13 @@
 //   };
 //
 //   void some_function() {
-//     scoped_refptr<MyFoo> foo = new MyFoo();
+//     scoped_refptr<MyFoo> foo = make_ref_counted<MyFoo>();
 //     foo->Method(param);
 //     // `foo` is released when this function returns
 //   }
 //
 //   void some_other_function() {
-//     scoped_refptr<MyFoo> foo = new MyFoo();
+//     scoped_refptr<MyFoo> foo = make_ref_counted<MyFoo>();
 //     ...
 //     foo = nullptr;  // explicitly releases `foo`
 //     ...
@@ -41,7 +41,7 @@
 // references between the two objects, like so:
 //
 //   {
-//     scoped_refptr<MyFoo> a = new MyFoo();
+//     scoped_refptr<MyFoo> a = make_ref_counted<MyFoo>();
 //     scoped_refptr<MyFoo> b;
 //
 //     b.swap(a);
@@ -52,7 +52,7 @@
 // object, simply use the assignment operator:
 //
 //   {
-//     scoped_refptr<MyFoo> a = new MyFoo();
+//     scoped_refptr<MyFoo> a = make_ref_counted<MyFoo>();
 //     scoped_refptr<MyFoo> b;
 //
 //     b = a;
@@ -66,12 +66,15 @@
 #include <cstddef>
 #include <utility>
 
+#include "absl/base/nullability.h"
+
 namespace webrtc {
 
 template <class T>
-class scoped_refptr {
+class ABSL_NULLABILITY_COMPATIBLE scoped_refptr {
  public:
-  typedef T element_type;
+  using absl_nullability_compatible = void;
+  using element_type = T;
 
   scoped_refptr() : ptr_(nullptr) {}
   scoped_refptr(std::nullptr_t) : ptr_(nullptr) {}  // NOLINT(runtime/explicit)
@@ -86,7 +89,8 @@ class scoped_refptr {
       ptr_->AddRef();
   }
 
-  template <typename U>
+  template <typename U,
+            typename = std::enable_if_t<std::is_convertible_v<U*, T*>>>
   scoped_refptr(const scoped_refptr<U>& r) : ptr_(r.get()) {
     if (ptr_)
       ptr_->AddRef();
@@ -95,7 +99,8 @@ class scoped_refptr {
   // Move constructors.
   scoped_refptr(scoped_refptr<T>&& r) noexcept : ptr_(r.release()) {}
 
-  template <typename U>
+  template <typename U,
+            typename = std::enable_if_t<std::is_convertible_v<U*, T*>>>
   scoped_refptr(scoped_refptr<U>&& r) noexcept : ptr_(r.release()) {}
 
   ~scoped_refptr() {
@@ -133,7 +138,8 @@ class scoped_refptr {
     return *this = r.ptr_;
   }
 
-  template <typename U>
+  template <typename U,
+            typename = std::enable_if_t<std::is_convertible_v<U*, T*>>>
   scoped_refptr<T>& operator=(const scoped_refptr<U>& r) {
     return *this = r.get();
   }
@@ -143,7 +149,8 @@ class scoped_refptr {
     return *this;
   }
 
-  template <typename U>
+  template <typename U,
+            typename = std::enable_if_t<std::is_convertible_v<U*, T*>>>
   scoped_refptr<T>& operator=(scoped_refptr<U>&& r) noexcept {
     scoped_refptr<T>(std::move(r)).swap(*this);
     return *this;
@@ -219,9 +226,8 @@ bool operator<(const scoped_refptr<T>& a, const scoped_refptr<U>& b) {
 
 namespace rtc {
 // Backwards compatible alias.
-// TODO(bugs.webrtc.org/15622): Deprecate and remove.
-template <typename T>
-using scoped_refptr = webrtc::scoped_refptr<T>;
+// TODO: bugs.webrtc.org/42225969 - Deprecate and remove.
+using ::webrtc::scoped_refptr;
 }  // namespace rtc
 
 #endif  // API_SCOPED_REFPTR_H_

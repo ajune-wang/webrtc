@@ -14,9 +14,10 @@
 #include <utility>
 #include <vector>
 
+#include "api/make_ref_counted.h"
 #include "test/gtest.h"
 
-namespace rtc {
+namespace webrtc {
 namespace {
 
 struct FunctionsCalled {
@@ -108,5 +109,46 @@ TEST(ScopedRefptrTest, MovableDuringVectorReallocation) {
   EXPECT_EQ(called.release, 0);
 }
 
+TEST(ScopedRefptrTest, SupportsNullablityAnnotation) {
+  FunctionsCalled called;
+  // Expect this test compiles.
+  absl::Nonnull<scoped_refptr<ScopedRefCounted>> a =
+      make_ref_counted<ScopedRefCounted>(&called);
+  absl::Nullable<scoped_refptr<ScopedRefCounted>> b;
+}
+
+class A : public RefCountInterface {};
+class B : public RefCountInterface {};
+class DerivedFromA : public A {};
+
+class UsesOverlads {
+ public:
+  void Set(scoped_refptr<A> value) { a_ = std::move(value); }
+  void Set(scoped_refptr<B> value) { b_ = std::move(value); }
+
+  A* a() const { return a_.get(); }
+  B* b() const { return b_.get(); }
+
+ private:
+  scoped_refptr<A> a_;
+  scoped_refptr<B> b_;
+};
+
+TEST(ScopedRefptrTest, SupportsOverloadResolution) {
+  UsesOverlads test;
+  scoped_refptr<A> a = make_ref_counted<A>();
+  scoped_refptr<B> b = make_ref_counted<B>();
+  scoped_refptr<DerivedFromA> derived_from_a = make_ref_counted<DerivedFromA>();
+
+  test.Set(a);
+  EXPECT_EQ(test.a(), a.get());
+
+  test.Set(b);
+  EXPECT_EQ(test.b(), b.get());
+
+  test.Set(derived_from_a);
+  EXPECT_EQ(test.a(), derived_from_a.get());
+}
+
 }  // namespace
-}  // namespace rtc
+}  // namespace webrtc

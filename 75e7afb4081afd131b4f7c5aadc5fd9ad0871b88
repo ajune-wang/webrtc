@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a335f4a4_78f71794",
+        "filename": "rtc_base/openssl_stream_adapter.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 5602
+      },
+      "writtenOn": "2024-09-26T20:21:24Z",
+      "side": 1,
+      "message": "Oh! I didn\u0027t realize you were already doing `static_cast\u003cuint16_t\u003e`. That means this API already simply returns the IANA ID and not the OpenSSL ID. (The OpenSSL ID would be without the cast.)\n\nOpenSSL apparently did not promise that is the relation between the two, but it is and I can\u0027t imagine them ever changing that. More importantly, `static_cast\u003cuint16_\u003e` is already incompatible with heeding OpenSSL\u0027s lack-of-promise here.\n\nSo I think you can just revert the advice to \"Prefer GetTlsCipherSuiteName where possible. This will return the OpenSSL cipher id, not the IANA one returned by SSL_CIPHER_get_protocol_id.\" because this actually does return the IANA ID. Both APIs are fine. One gives you the string and one gives you the ID.\n\n(If you wanted to make it more obvious it\u0027s the IANA ID, you can use `SSL_CIPHER_get_protocol_id`, which it sounded like you were looking to do in a follow-up.)",
+      "revId": "75e7afb4081afd131b4f7c5aadc5fd9ad0871b88",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

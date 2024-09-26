@@ -82,7 +82,7 @@ class QualityAnalyzingVideoDecoder : public VideoDecoder {
                  std::optional<int32_t> decode_time_ms,
                  std::optional<uint8_t> qp) override;
 
-    int32_t IrrelevantSimulcastStreamDecoded(uint16_t frame_id,
+    int32_t IrrelevantSimulcastStreamDecoded(std::optional<uint16_t> frame_id,
                                              uint32_t timestamp_ms);
 
    private:

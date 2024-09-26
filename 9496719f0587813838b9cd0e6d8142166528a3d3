@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5c2edf47_48d3534b",
+        "filename": "rtc_base/ifaddrs_android.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2024-09-26T07:36:57Z",
+      "side": 1,
+      "message": "We also need to add a dependency on \":logging\" here https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/rtc_base/BUILD.gn;l\u003d1099;drc\u003d1bd331f102377969e708e47f9fa8dc3cb90fe599.",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 29
+      },
+      "revId": "9496719f0587813838b9cd0e6d8142166528a3d3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

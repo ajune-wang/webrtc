@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "feb04a2a_dc02d644",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 14
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 3485001
+      },
+      "writtenOn": "2024-09-26T15:02:46Z",
+      "side": 1,
+      "message": "I dont think it is wrong because it removes the option adding both version by \"default\". However, changed it to your suggestion because it is shorter and perhaps clearer.",
+      "parentUuid": "1c322772_22a718b4",
+      "revId": "0d4e7ef837ea791f66b467c02e93f155ceac3c5c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c903c7a4_9dc7037b",
@@ -31,6 +49,24 @@
       "writtenOn": "2024-09-26T14:38:35Z",
       "side": 1,
       "message": "This is a bad plan.\n1) Reusing names is a Bad Idea.\n2) We should be using field trials, not command line flags, when introducing new experimental features.",
+      "revId": "0d4e7ef837ea791f66b467c02e93f155ceac3c5c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aeb9f6d8_b4e80c3a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 14
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 3485001
+      },
+      "writtenOn": "2024-09-26T15:02:46Z",
+      "side": 1,
+      "message": "Ack. Lets remove the flag. Yes the idea was to use field trails. The idea was more that the flag would became an inverse-field trial. But lets redefine everything from stracth to not allow any misconceptions. This should not affect anyhting in this CL though but I will keep it in mind when doing the later CLs.",
+      "parentUuid": "c903c7a4_9dc7037b",
       "revId": "0d4e7ef837ea791f66b467c02e93f155ceac3c5c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

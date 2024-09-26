@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d1271dd1_bc085e4c",
+        "filename": "modules/audio_coding/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 734,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2024-09-26T10:48:18Z",
+      "side": 1,
+      "message": "It would probably be easier to move this to api/neteq now, before we have any external dependencies on it. Although I understand that it would mean more work...",
+      "range": {
+        "startLine": 734,
+        "startChar": 0,
+        "endLine": 734,
+        "endChar": 41
+      },
+      "revId": "7aceae51ed07abf8af8acacd57f118eebd2ae536",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

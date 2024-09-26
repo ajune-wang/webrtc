@@ -22,6 +22,30 @@
       },
       "revId": "558b51ae3e881a004020fe580dc4809f6b1a276d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5850550f_c8be1ae8",
+        "filename": "pc/legacy_stats_collector.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 1018,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-09-26T20:04:56Z",
+      "side": 1,
+      "message": "Fixed with a better string constructor, thank you!\n We will not change the legacy stats collector api, trying to get rid of it (and should really stop building it in Chromium already)",
+      "parentUuid": "a43f810a_bcac9dbd",
+      "range": {
+        "startLine": 1017,
+        "startChar": 34,
+        "endLine": 1018,
+        "endChar": 78
+      },
+      "revId": "558b51ae3e881a004020fe580dc4809f6b1a276d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

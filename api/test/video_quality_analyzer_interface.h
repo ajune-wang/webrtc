@@ -106,7 +106,7 @@ class VideoQualityAnalyzerInterface
   // have id from VideoFrame.
   // `peer_name` is name of the peer on which side frame was encoded.
   virtual void OnFrameEncoded(absl::string_view peer_name,
-                              uint16_t frame_id,
+                              std::optional<uint16_t> frame_id,
                               const EncodedImage& encoded_image,
                               const EncoderStats& stats,
                               bool discarded) {}
@@ -117,7 +117,7 @@ class VideoQualityAnalyzerInterface
   // Will be called before calling the decoder.
   // `peer_name` is name of the peer on which side frame was received.
   virtual void OnFramePreDecode(absl::string_view peer_name,
-                                uint16_t frame_id,
+                                std::optional<uint16_t> frame_id,
                                 const EncodedImage& encoded_image) {}
   // Will be called after decoding the frame.
   // `peer_name` is name of the peer on which side frame was decoded.
@@ -140,7 +140,7 @@ class VideoQualityAnalyzerInterface
   // modules/video_coding/include/video_error_codes.h
   // `peer_name` is name of the peer on which side error acquired.
   virtual void OnDecoderError(absl::string_view peer_name,
-                              uint16_t frame_id,
+                              std::optional<uint16_t> frame_id,
                               int32_t error_code,
                               const DecoderStats& stats) {}
   // Will be called every time new stats reports are available for the

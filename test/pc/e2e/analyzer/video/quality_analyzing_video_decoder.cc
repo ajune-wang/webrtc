@@ -75,7 +75,7 @@ int32_t QualityAnalyzingVideoDecoder::Decode(const EncodedImage& input_image,
     //
     // For more details see QualityAnalyzingVideoEncoder.
     return analyzing_callback_->IrrelevantSimulcastStreamDecoded(
-        out.id.value_or(VideoFrame::kNotSetId), input_image.RtpTimestamp());
+        out.id, input_image.RtpTimestamp());
   }
 
   EncodedImage* origin_image;
@@ -94,8 +94,7 @@ int32_t QualityAnalyzingVideoDecoder::Decode(const EncodedImage& input_image,
   // the map only after `delegate_` Decode method will be invoked. Image will
   // be removed inside DecodedImageCallback, which can be done on separate
   // thread.
-  analyzer_->OnFramePreDecode(
-      peer_name_, out.id.value_or(VideoFrame::kNotSetId), *origin_image);
+  analyzer_->OnFramePreDecode(peer_name_, out.id, *origin_image);
   int32_t result = delegate_->Decode(*origin_image, render_time_ms);
   if (result != WEBRTC_VIDEO_CODEC_OK) {
     // If delegate decoder failed, then cleanup data for this image.
@@ -106,8 +105,7 @@ int32_t QualityAnalyzingVideoDecoder::Decode(const EncodedImage& input_image,
       decoding_images_.erase(input_image.RtpTimestamp());
       stats.decoder_name = codec_name_;
     }
-    analyzer_->OnDecoderError(
-        peer_name_, out.id.value_or(VideoFrame::kNotSetId), result, stats);
+    analyzer_->OnDecoderError(peer_name_, out.id, result, stats);
   }
   return result;
 }
@@ -187,7 +185,7 @@ void QualityAnalyzingVideoDecoder::DecoderCallback::Decoded(
 
 int32_t
 QualityAnalyzingVideoDecoder::DecoderCallback::IrrelevantSimulcastStreamDecoded(
-    uint16_t frame_id,
+    std::optional<uint16_t> frame_id,
     uint32_t timestamp_ms) {
   webrtc::VideoFrame dummy_frame =
       webrtc::VideoFrame::Builder()
@@ -235,7 +233,7 @@ void QualityAnalyzingVideoDecoder::OnFrameDecoded(
   }
   // Set frame id to the value, that was extracted from corresponding encoded
   // image.
-  frame->set_id(frame_id.value_or(VideoFrame::kNotSetId));
+  frame->set_id(frame_id);
   VideoQualityAnalyzerInterface::DecoderStats stats;
   stats.decoder_name = codec_name;
   stats.decode_time_ms = decode_time_ms;

@@ -241,7 +241,7 @@ VideoFrame::Builder& VideoFrame::Builder::set_color_space(
   return *this;
 }
 
-VideoFrame::Builder& VideoFrame::Builder::set_id(uint16_t id) {
+VideoFrame::Builder& VideoFrame::Builder::set_id(std::optional<uint16_t> id) {
   id_ = id;
   return *this;
 }
@@ -279,7 +279,7 @@ VideoFrame::VideoFrame(const rtc::scoped_refptr<VideoFrameBuffer>& buffer,
   RTC_DCHECK(buffer);
 }
 
-VideoFrame::VideoFrame(uint16_t id,
+VideoFrame::VideoFrame(std::optional<uint16_t> id,
                        const rtc::scoped_refptr<VideoFrameBuffer>& buffer,
                        int64_t timestamp_us,
                        const std::optional<Timestamp>& capture_time_identifier,

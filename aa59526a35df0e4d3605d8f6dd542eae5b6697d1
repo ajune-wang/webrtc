@@ -68,6 +68,24 @@
       "parentUuid": "05b5bdb8_e073396c",
       "revId": "aa59526a35df0e4d3605d8f6dd542eae5b6697d1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d192dd78_6451c36e",
+        "filename": "rtc_base/ssl_stream_adapter.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 5602
+      },
+      "writtenOn": "2024-09-26T17:09:36Z",
+      "side": 1,
+      "message": "BoringSSL returns `uint16_t` in `SSL_CIPHER_get_protocol_id` because cipher suites are 16-bit in TLS.\n\nI don\u0027t know why `SSL_CIPHER_get_protocol_id` returns `uint32_t` in OpenSSL. They\u0027re pretty haphazard about return values. Their own API docs say it returns a two-byte ID.\n\n\u003e SSL_CIPHER_get_protocol_id() returns the two-byte ID used in the TLS protocol of the given cipher c.\n\nhttps://docs.openssl.org/3.3/man3/SSL_CIPHER_get_name/#description:~:text\u003dSSL_CIPHER_get_protocol_id()%20returns%20the%20two%2Dbyte%20ID%20used%20in%20the%20TLS%20protocol%20of%20the%20given%20cipher%20c.\n\nAs for `SSL_CIPHER_get_id` vs `SSL_CIPHER_get_protocol_id`, the history here is that SSL 2.0 and SSL 3.0 had completely different cipher suite number spaces. SSL 2.0 used 24-bit integers and SSL 3.0 used 16-bit integers. But OpenSSL wanted to use the same `SSL_CIPHER` objects between the two, so they used 32-bit integers and stuck a 2 or 3 in the high byte to differentiate. This leaked all the way out into the public API.\n\nFast forward to today, SSL 2.0 is long dead, SSL 3.0 became TLS 1.x, but because of this `SSL_CIPHER_get_id` still returns those leading 0x03s and you get the actual cipher suite ID by chopping them off. (Though I see OpenSSL wasn\u0027t willing to promise that in its docs? Pfft. We promised it in BoringSSL because this is silly.)\n\nTo that end, since the cipher suite ID is more efficient (16 bits) and actually what is sent over the wire, I would say that the number is probably a better API surface than the string. I don\u0027t know if the IETF has ever renamed cipher suites, but it have renamed extensions before. Whereas the numerical IDs have to be stable because they\u0027re what go on the wire.",
+      "parentUuid": "0faa8141_dedfa4d5",
+      "revId": "aa59526a35df0e4d3605d8f6dd542eae5b6697d1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

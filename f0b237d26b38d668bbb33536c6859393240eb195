@@ -16,6 +16,24 @@
       "message": "Beware, this makes a string view to the const char* returned from the SSL library.\nFrom what I have seen this is ok (always returns the same pointer) but maybe making a std::string out of it is safer (at the expense of a strcpy)",
       "revId": "f0b237d26b38d668bbb33536c6859393240eb195",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3fba8183_873d8b95",
+        "filename": "rtc_base/openssl_stream_adapter.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 329,
+      "author": {
+        "id": 5602
+      },
+      "writtenOn": "2024-09-26T17:09:36Z",
+      "side": 1,
+      "message": "At least for BoringSSL, you can safely assume those strings have static lifetime.",
+      "parentUuid": "9d040322_70e1f578",
+      "revId": "f0b237d26b38d668bbb33536c6859393240eb195",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

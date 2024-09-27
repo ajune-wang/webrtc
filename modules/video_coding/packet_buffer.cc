@@ -250,6 +250,10 @@ std::vector<std::unique_ptr<PacketBuffer::Packet>> PacketBuffer::FindFrames(
     }
 
     if (!PotentialNewFrame(seq_num)) {
+      RTC_LOG(LS_ERROR) << "BAIL HERE " << seq_num << " found "
+                        << found_frames.size() << " "
+                        << (!found_frames.empty() ? found_frames[0]->timestamp
+                                                  : -1);
       break;
     }
 

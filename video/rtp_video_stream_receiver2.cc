@@ -759,10 +759,15 @@ void RtpVideoStreamReceiver2::OnInsertedPacket(
     // PacketBuffer promisses frame boundaries are correctly set on each
     // packet. Document that assumption with the DCHECKs.
     RTC_DCHECK_EQ(frame_boundary, packet->is_first_packet_in_frame());
+    RTC_LOG(LS_ERROR) << "BAIL FB=" << frame_boundary
+                      << " FIRST=" << packet->is_first_packet_in_frame()
+                      << " LAST=" << packet->is_last_packet_in_frame()
+                      << " SEQ=" << packet->sequence_number;
     int64_t unwrapped_rtp_seq_num = packet->sequence_number;
     RTC_DCHECK_GT(packet_infos_.count(unwrapped_rtp_seq_num), 0);
     RtpPacketInfo& packet_info = packet_infos_[unwrapped_rtp_seq_num];
     if (packet->is_first_packet_in_frame()) {
+      RTC_LOG(LS_ERROR) << "BAIL SETTING FIRST " << packet->sequence_number;
       first_packet = packet.get();
       max_nack_count = packet->times_nacked;
       min_recv_time = packet_info.receive_time().ms();
@@ -781,14 +786,19 @@ void RtpVideoStreamReceiver2::OnInsertedPacket(
       RTC_CHECK(depacketizer_it != payload_type_map_.end());
       RTC_CHECK(depacketizer_it->second);
 
+      RTC_LOG(LS_ERROR) << "BAIL DEPACK FIRST=" << first_packet->sequence_number
+                        << " LAST=" << packet->sequence_number;
       rtc::scoped_refptr<EncodedImageBuffer> bitstream =
           depacketizer_it->second->AssembleFrame(payloads);
       if (!bitstream) {
         // Failed to assemble a frame. Discard and continue.
+        RTC_LOG(LS_ERROR) << "BAIL SILENT FAIL";
         continue;
       }
 
       const video_coding::PacketBuffer::Packet& last_packet = *packet;
+      RTC_LOG(LS_ERROR) << "BAIL ASSEMBLED " << first_packet->seq_num() << " "
+                        << last_packet.seq_num();
       OnAssembledFrame(std::make_unique<RtpFrameObject>(
           first_packet->seq_num(),                           //
           last_packet.seq_num(),                             //

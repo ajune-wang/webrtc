@@ -331,7 +331,8 @@ void H264BitstreamParser::ParseSlice(rtc::ArrayView<const uint8_t> slice) {
     default:
       Result res = ParseNonParameterSetNalu(slice, nalu_type);
       if (res != kOk)
-        RTC_DLOG(LS_INFO) << "Failed to parse bitstream. Error: " << res;
+        RTC_DLOG(LS_INFO) << "Failed to parse bitstream. NAL type "
+                          << static_cast<int>(nalu_type) << " error: " << res;
       break;
   }
 }

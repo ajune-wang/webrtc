@@ -33,6 +33,24 @@
       "message": "Do the many iterations on this CL mean that we don\u0027t have a trybot that tries to compile for an Android target?",
       "revId": "55057824326044c36eb78086a395c0831633bbd2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b8804c7b_369c590e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3634092
+      },
+      "writtenOn": "2024-09-27T13:56:22Z",
+      "side": 1,
+      "message": "I think this means that I don\u0027t know how to use the trybots like I should. I just compiled locally with ninja, tested, submitted the patch here, and put CQ-1. I was trying to learn how to use trybot just now and looks like I scheduled another dryrun here through the CL :) What I still need to understand is why doesn\u0027t it compile and link fine locally but not within the dryrun environment? Anyway, sorry for the churn here.",
+      "parentUuid": "4a406d19_3de703a5",
+      "revId": "55057824326044c36eb78086a395c0831633bbd2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

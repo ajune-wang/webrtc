@@ -18,6 +18,7 @@
 #include <optional>
 #include <string>
 #include <unordered_map>
+#include <unordered_set>
 #include <utility>
 #include <vector>
 
@@ -400,7 +401,8 @@ RTCError CreateContentOffer(
   RtpHeaderExtensions extensions;
   for (auto extension_with_id : rtp_extensions) {
     for (const auto& extension : media_description_options.header_extensions) {
-      if (extension_with_id.uri == extension.uri) {
+      if (extension_with_id.uri == extension.uri &&
+          extension_with_id.encrypt == extension.preferred_encrypt) {
         // TODO(crbug.com/1051821): Configure the extension direction from
         // the information in the media_description_options extension
         // capability.
@@ -953,7 +955,7 @@ void NegotiateRtpHeaderExtensions(const RtpHeaderExtensions& local_extensions,
     const webrtc::RtpExtension* theirs =
         FindHeaderExtensionByUriDiscardUnsupported(offered_extensions, ours.uri,
                                                    filter);
-    if (theirs) {
+    if (theirs && theirs->encrypt == ours.encrypt) {
       // We respond with their RTP header extension id.
       negotiated_extensions->push_back(*theirs);
     }
@@ -1040,7 +1042,8 @@ bool CreateMediaContentAnswer(
   RtpHeaderExtensions local_rtp_extensions_to_reply_with;
   for (auto extension_with_id : local_rtp_extensions) {
     for (const auto& extension : media_description_options.header_extensions) {
-      if (extension_with_id.uri == extension.uri) {
+      if (extension_with_id.uri == extension.uri &&
+          extension_with_id.encrypt == extension.preferred_encrypt) {
         // TODO(crbug.com/1051821): Configure the extension direction from
         // the information in the media_description_options extension
         // capability. For now, do not include stopped extensions.

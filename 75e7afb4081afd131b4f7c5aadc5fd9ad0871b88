@@ -69,6 +69,24 @@
       "parentUuid": "806ac6b1_d6dcaf8b",
       "revId": "75e7afb4081afd131b4f7c5aadc5fd9ad0871b88",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "111490dc_9b68c0d7",
+        "filename": "rtc_base/openssl_stream_adapter.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-09-27T18:42:11Z",
+      "side": 1,
+      "message": "True, updated the comment and will try getting rid of all but the UMA usage next while switching to the more clear API.",
+      "parentUuid": "70a4d781_428db1f6",
+      "revId": "75e7afb4081afd131b4f7c5aadc5fd9ad0871b88",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

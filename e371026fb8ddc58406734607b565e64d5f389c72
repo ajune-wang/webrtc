@@ -104,6 +104,24 @@
       "parentUuid": "41f6fa14_6596c0e0",
       "revId": "e371026fb8ddc58406734607b565e64d5f389c72",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d738a40f_12644c56",
+        "filename": "rtc_base/openssl_stream_adapter.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 341,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-09-27T18:42:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c2359921_ba4ed11f",
+      "revId": "e371026fb8ddc58406734607b565e64d5f389c72",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

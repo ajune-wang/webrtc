@@ -2417,6 +2417,70 @@ TEST_P(PeerConnectionEncodingsIntegrationParameterizedTest,
   EXPECT_THAT(*outbound_rtps[2]->scalability_mode, StrEq("L1T3"));
 }
 
+// Simulcast {180p, 360p, 540p}, i.e. not 4:2:1. This should become more common
+// with the `requested_resolution` API, e.g. due to CPU adaptation not affecting
+// every encoding equally or app taking advantage of the API's flexibility.
+TEST_P(PeerConnectionEncodingsIntegrationParameterizedTest,
+       SimulcastWithRequestedResolutionAndTopLayer540p) {
+  rtc::scoped_refptr<PeerConnectionTestWrapper> local_pc_wrapper = CreatePc();
+  if (SkipTestDueToAv1Missing(local_pc_wrapper)) {
+    return;
+  }
+  rtc::scoped_refptr<PeerConnectionTestWrapper> remote_pc_wrapper = CreatePc();
+  ExchangeIceCandidates(local_pc_wrapper, remote_pc_wrapper);
+
+  std::vector<cricket::SimulcastLayer> layers =
+      CreateLayers({"q", "h", "f"}, /*active=*/true);
+  rtc::scoped_refptr<RtpTransceiverInterface> transceiver =
+      AddTransceiverWithSimulcastLayers(local_pc_wrapper, remote_pc_wrapper,
+                                        layers);
+  std::vector<RtpCodecCapability> codecs =
+      GetCapabilitiesAndRestrictToCodec(remote_pc_wrapper, codec_name_);
+  transceiver->SetCodecPreferences(codecs);
+
+  rtc::scoped_refptr<RtpSenderInterface> sender = transceiver->sender();
+  RtpParameters parameters = sender->GetParameters();
+  ASSERT_THAT(parameters.encodings, SizeIs(3));
+  parameters.encodings[0].scalability_mode = "L1T3";
+  parameters.encodings[0].requested_resolution = {.width = 320, .height = 180};
+  parameters.encodings[1].scalability_mode = "L1T3";
+  parameters.encodings[1].requested_resolution = {.width = 640, .height = 360};
+  parameters.encodings[2].scalability_mode = "L1T3";
+  parameters.encodings[2].requested_resolution = {.width = 960, .height = 540};
+  sender->SetParameters(parameters);
+
+  NegotiateWithSimulcastTweaks(local_pc_wrapper, remote_pc_wrapper);
+  local_pc_wrapper->WaitForConnection();
+  remote_pc_wrapper->WaitForConnection();
+
+  // asdadsadasda
+  while (true) {
+    rtc::Thread::Current()->SleepMs(100);
+    rtc::scoped_refptr<const RTCStatsReport> report =
+        GetStats(local_pc_wrapper);
+    std::vector<const RTCOutboundRtpStreamStats*> outbound_rtps =
+        report->GetStatsOfType<RTCOutboundRtpStreamStats>();
+    if (outbound_rtps.size() != 3u) {
+      continue;
+    }
+    auto* outbound_q = FindOutboundRtpByRid(outbound_rtps, "q");
+    auto* outbound_h = FindOutboundRtpByRid(outbound_rtps, "h");
+    auto* outbound_f = FindOutboundRtpByRid(outbound_rtps, "f");
+    const RTCOutboundRtpStreamStats* sorted_outbounds[] = {
+        outbound_q, outbound_h, outbound_f};
+    std::stringstream str;
+    for (const auto* outbound_rtp : sorted_outbounds) {
+      if (!outbound_rtp) {
+        str << "\nnull";
+        continue;
+      }
+      str << "\n" << outbound_rtp->rid.value() << ": ";
+      str << outbound_rtp->frames_per_second.value_or(0) << " fps";
+    }
+    RTC_LOG(LS_ERROR) << str.str();
+  }
+}
+
 // The code path that disables layers based on resolution size should NOT run
 // when `requested_resolution` is specified. (It shouldn't run in any case but
 // that is an existing legacy code and non-compliance problem that we don't have

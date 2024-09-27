@@ -87,6 +87,30 @@
       },
       "revId": "f21fc90550b5c34d6f6f0bea403edc80d7a77847",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2867d2ba_687bd0a0",
+        "filename": "modules/rtp_rtcp/source/video_rtp_depacketizer_h264.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-09-27T17:52:41Z",
+      "side": 1,
+      "message": "bear with me... the difference in behavior is in the packet buffer. If you run video_replay with additional\n  --start_timestamp 3177567468 --stop_timestamp 3177598968\nadd this piece of code\nRTC_LOG(LS_ERROR) \u003c\u003c \"BAIL HERE \" \u003c\u003c seq_num \u003c\u003c \" found \" \u003c\u003c found_frames.size() \u003c\u003c \" \" \u003c\u003c (!found_frames.empty() ? found_frames[0]-\u003etimestamp : -1);\nhere\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/modules/video_coding/packet_buffer.cc;l\u003d253;bpv\u003d1;bpt\u003d1\nthere is a difference in behavior since with this CL you get this:\n(packet_buffer.cc:253): BAIL HERE 17169 found 56 3177567468\nand not setting the first_packet_in_frame flag you get\n (packet_buffer.cc:253): BAIL HERE 17165 found 52 3177567468\n \nthe timestamp is the timestamp of the IDR which has 52 packets so the additional delta is delivered in addition by FindFrames.\n\nSubsequently RtpVideoStreamReceiver2::OnInsertedPacket calls the depacketizer with the IDR and delta frame. Which works (it should not?!) and then calls OnAssembledFrame with a frame spanning from 17113 (start of the IDR) to 17164 (end of the delta).\n\nAlso on main so something is pretty broken here.\nWill try to turn that into another unit test...",
+      "parentUuid": "fc9f39f4_57c56cb3",
+      "range": {
+        "startLine": 213,
+        "startChar": 7,
+        "endLine": 213,
+        "endChar": 68
+      },
+      "revId": "f21fc90550b5c34d6f6f0bea403edc80d7a77847",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

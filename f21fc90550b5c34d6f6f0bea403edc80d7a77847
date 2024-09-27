@@ -16,6 +16,29 @@
       "message": "Reland did not work (\"identical tree\") so a revert of the revert.\nPS1..2 contains the changes necessary to fix the issue while restoring multislice support.",
       "revId": "f21fc90550b5c34d6f6f0bea403edc80d7a77847",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "01db7cf7_925d1fe1",
+        "filename": "modules/rtp_rtcp/source/video_rtp_depacketizer_h264.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2024-09-27T08:58:40Z",
+      "side": 1,
+      "message": "I agree that settings is_first_packet_in_frame\u003dtrue at AUD is the right thing to do. But I do not think it is absolutely necessary. Identifying frame border by first_mb_in_slice\u003d\u003d0 should be sufficient (should probably include preceding SEI). Do we understand why it is not working? In theory, video from provided pcap should still be decodable if all AUDs will be removed.",
+      "range": {
+        "startLine": 213,
+        "startChar": 7,
+        "endLine": 213,
+        "endChar": 68
+      },
+      "revId": "f21fc90550b5c34d6f6f0bea403edc80d7a77847",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

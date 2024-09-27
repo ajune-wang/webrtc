@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7e20af44_aadc931b",
+        "filename": "video/corruption_detection/frame_instrumentation_evaluator.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2024-09-27T00:38:11Z",
+      "side": 1,
+      "message": "Starting to wonder about this, will this initialization become more and more CPU intensive the longer the stream runs?",
+      "revId": "672dbee3655887c758c25a91df1174882fdcb663",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "07eaf118_537b3c8c",
+        "filename": "modules/audio_coding/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 748,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2024-09-27T07:05:05Z",
+      "side": 0,
+      "message": "I think we should keep part of this, e.g.:\n\n```\nrtc_source_set(\"default_neteq_factory\") {\n  visibility +\u003d webrtc_default_visibility\n  sources \u003d [\n    \"neteq/default_neteq_factory.h\",\n  ]\n  deps \u003d [\n    \"../../api/neteq:default_neteq_factory\",\n  ]\n}\n```\n\nWith the content of `neteq/default_neteq_factory.h` being:\n\n```\n#include \"api/neteq/default_neteq_factory.h\"\n```",
+      "range": {
+        "startLine": 734,
+        "startChar": 0,
+        "endLine": 748,
+        "endChar": 1
+      },
+      "revId": "d27945667990bd75fec2402fc61d48ede4d912c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

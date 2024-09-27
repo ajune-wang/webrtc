@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "45b3f774_82aa348b",
+        "filename": "pc/media_session.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2024-09-27T16:42:55Z",
+      "side": 1,
+      "message": "Do we really want to do this in same CL?\n\nI suggest create a separate cl where you add a `const FieldTrialsView\u0026 field_trials` parameter to the `MediaSessionDescriptionFactory` ctor and intstead of setting the value here, set it in the initializer list of that constructor, e.g. `enable_encrypted_rtp_header_extensions_(field_trials.IsEnabled(\"WebRTC-EncryptedHeaderExtension\"));` - also remember to update `experiments/field_trials.py` in that cl (see g3doc/field-trials.md for more info).\n\nOne that CL has landed, you can if you want negate that expression to `enable_encrypted_rtp_header_extensions_(!field_trials.IsDisabled(\"WebRTC-EncryptedHeaderExtension\"));` and update all test code that relies on the new default.\n\nIf there\u0027s code we want to maintain that should work with this flag both on and off (and isn\u0027t otherwise covered in both scenarios) then it\u0027s a good idea to add test cases that explicitly override the field trial as well.",
+      "revId": "cc41976f59ac40664691c182e3a30b4e017b2d80",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

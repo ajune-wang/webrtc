@@ -144,6 +144,22 @@ const RtpExtension kAudioRtpExtension3[] = {
     RtpExtension("http://google.com/testing/both_audio_and_video", 3),
 };
 
+const RtpExtension kAudioRtpExtensionCombined1[] = {
+    RtpExtension("urn:ietf:params:rtp-hdrext:ssrc-audio-level", 8),
+    RtpExtension("http://google.com/testing/audio_something", 9),
+    RtpExtension("urn:ietf:params:rtp-hdrext:ssrc-audio-level", 10, true),
+    RtpExtension("http://google.com/testing/audio_something", 11, true),
+    RtpExtension("http://google.com/testing/audio_something_else", 12, true),
+};
+
+const RtpExtension kAudioRtpExtensionCombined2[] = {
+    RtpExtension("urn:ietf:params:rtp-hdrext:ssrc-audio-level", 5),
+    RtpExtension("http://google.com/testing/audio_something", 6),
+    RtpExtension("urn:ietf:params:rtp-hdrext:ssrc-audio-level", 7, true),
+    RtpExtension("http://google.com/testing/audio_something", 8, true),
+    RtpExtension("http://google.com/testing/audio_something_else", 9),
+};
+
 const RtpExtension kAudioRtpExtensionAnswer[] = {
     RtpExtension("urn:ietf:params:rtp-hdrext:ssrc-audio-level", 8),
 };
@@ -151,6 +167,16 @@ const RtpExtension kAudioRtpExtensionAnswer[] = {
 const RtpExtension kAudioRtpExtensionEncryptedAnswer[] = {
     RtpExtension("urn:ietf:params:rtp-hdrext:ssrc-audio-level", 8),
     RtpExtension("http://google.com/testing/audio_something", 11, true),
+};
+
+const RtpExtension kAudioRtpExtensionCombinedAnswerEncrypted[] = {
+    RtpExtension("urn:ietf:params:rtp-hdrext:ssrc-audio-level", 10, true),
+    RtpExtension("http://google.com/testing/audio_something", 11, true),
+};
+
+const RtpExtension kAudioRtpExtensionCombinedAnswerNotEncrypted[] = {
+    RtpExtension("urn:ietf:params:rtp-hdrext:ssrc-audio-level", 8),
+    RtpExtension("http://google.com/testing/audio_something", 9),
 };
 
 const RtpExtension kVideoRtpExtension1[] = {
@@ -180,6 +206,13 @@ const RtpExtension kVideoRtpExtension3[] = {
     RtpExtension("http://google.com/testing/both_audio_and_video", 5),
 };
 
+const RtpExtension kVideoRtpExtensionCombined[] = {
+    RtpExtension("urn:ietf:params:rtp-hdrext:toffset", 14),
+    RtpExtension("http://google.com/testing/video_something", 13),
+    RtpExtension("urn:ietf:params:rtp-hdrext:toffset", 15, true),
+    RtpExtension("http://google.com/testing/video_something", 16, true),
+};
+
 const RtpExtension kVideoRtpExtensionAnswer[] = {
     RtpExtension("urn:ietf:params:rtp-hdrext:toffset", 14),
 };
@@ -187,6 +220,16 @@ const RtpExtension kVideoRtpExtensionAnswer[] = {
 const RtpExtension kVideoRtpExtensionEncryptedAnswer[] = {
     RtpExtension("urn:ietf:params:rtp-hdrext:toffset", 14),
     RtpExtension("http://google.com/testing/video_something", 7, true),
+};
+
+const RtpExtension kVideoRtpExtensionCombinedAnswerNotEncrypted[] = {
+    RtpExtension("urn:ietf:params:rtp-hdrext:toffset", 14),
+    RtpExtension("http://google.com/testing/video_something", 13),
+};
+
+const RtpExtension kVideoRtpExtensionCombinedAnswerEncrypted[] = {
+    RtpExtension("urn:ietf:params:rtp-hdrext:toffset", 15, true),
+    RtpExtension("http://google.com/testing/video_something", 16, true),
 };
 
 const RtpExtension kRtpExtensionTransportSequenceNumber01[] = {
@@ -1578,36 +1621,6 @@ TEST_F(MediaSessionDescriptionFactoryTest, AudioOfferAnswerWithCryptoDisabled) {
   EXPECT_EQ(kMediaProtocolAvpf, answer_acd->protocol());
 }
 
-// Create a video offer and answer and ensure the RTP header extensions
-// matches what we expect.
-TEST_F(MediaSessionDescriptionFactoryTest, TestOfferAnswerWithRtpExtensions) {
-  MediaSessionOptions opts;
-  AddAudioVideoSections(RtpTransceiverDirection::kRecvOnly, &opts);
-  SetAudioVideoRtpHeaderExtensions(MAKE_VECTOR(kAudioRtpExtension1),
-                                   MAKE_VECTOR(kVideoRtpExtension1), &opts);
-
-  std::unique_ptr<SessionDescription> offer =
-      f1_.CreateOfferOrError(opts, nullptr).MoveValue();
-  ASSERT_TRUE(offer.get());
-  SetAudioVideoRtpHeaderExtensions(MAKE_VECTOR(kAudioRtpExtension2),
-                                   MAKE_VECTOR(kVideoRtpExtension2), &opts);
-  std::unique_ptr<SessionDescription> answer =
-      f2_.CreateAnswerOrError(offer.get(), opts, nullptr).MoveValue();
-
-  EXPECT_EQ(
-      MAKE_VECTOR(kAudioRtpExtension1),
-      GetFirstAudioContentDescription(offer.get())->rtp_header_extensions());
-  EXPECT_EQ(
-      MAKE_VECTOR(kVideoRtpExtension1),
-      GetFirstVideoContentDescription(offer.get())->rtp_header_extensions());
-  EXPECT_EQ(
-      MAKE_VECTOR(kAudioRtpExtensionAnswer),
-      GetFirstAudioContentDescription(answer.get())->rtp_header_extensions());
-  EXPECT_EQ(
-      MAKE_VECTOR(kVideoRtpExtensionAnswer),
-      GetFirstVideoContentDescription(answer.get())->rtp_header_extensions());
-}
-
 // Create a audio/video offer and answer and ensure that the
 // TransportSequenceNumber RTP v1 and v2 header extensions are handled
 // correctly.
@@ -2023,15 +2036,41 @@ TEST_F(MediaSessionDescriptionFactoryTest,
                            ElementsAre(Field(&RtpExtension::uri, "uri1")))))));
 }
 
+// Create a video offer and answer and ensure the RTP header extensions
+// matches what we expect.
 TEST_F(MediaSessionDescriptionFactoryTest,
-       TestOfferAnswerWithEncryptedRtpExtensionsBoth) {
+       TestOfferAnswerWithRtpExtensionHeadersWithNoEncryption) {
   MediaSessionOptions opts;
   AddAudioVideoSections(RtpTransceiverDirection::kRecvOnly, &opts);
+  SetAudioVideoRtpHeaderExtensions(MAKE_VECTOR(kAudioRtpExtension1),
+                                   MAKE_VECTOR(kVideoRtpExtension1), &opts);
 
-  // TODO: bugs.webrtc.org/358039777 - Reverse all the tests since the default
-  // value will be set to true in the future.
-  f1_.set_enable_encrypted_rtp_header_extensions(true);
-  f2_.set_enable_encrypted_rtp_header_extensions(true);
+  std::unique_ptr<SessionDescription> offer =
+      f1_.CreateOfferOrError(opts, nullptr).MoveValue();
+  ASSERT_TRUE(offer.get());
+  SetAudioVideoRtpHeaderExtensions(MAKE_VECTOR(kAudioRtpExtension2),
+                                   MAKE_VECTOR(kVideoRtpExtension2), &opts);
+  std::unique_ptr<SessionDescription> answer =
+      f2_.CreateAnswerOrError(offer.get(), opts, nullptr).MoveValue();
+
+  EXPECT_EQ(
+      MAKE_VECTOR(kAudioRtpExtension1),
+      GetFirstAudioContentDescription(offer.get())->rtp_header_extensions());
+  EXPECT_EQ(
+      MAKE_VECTOR(kVideoRtpExtension1),
+      GetFirstVideoContentDescription(offer.get())->rtp_header_extensions());
+  EXPECT_EQ(
+      MAKE_VECTOR(kAudioRtpExtensionAnswer),
+      GetFirstAudioContentDescription(answer.get())->rtp_header_extensions());
+  EXPECT_EQ(
+      MAKE_VECTOR(kVideoRtpExtensionAnswer),
+      GetFirstVideoContentDescription(answer.get())->rtp_header_extensions());
+}
+
+TEST_F(MediaSessionDescriptionFactoryTest,
+       TestOfferAnswerWithRtpExtensionHeadersWithEncryption) {
+  MediaSessionOptions opts;
+  AddAudioVideoSections(RtpTransceiverDirection::kRecvOnly, &opts);
 
   SetAudioVideoRtpHeaderExtensions(MAKE_VECTOR(kAudioRtpExtensionEncrypted1),
                                    MAKE_VECTOR(kVideoRtpExtensionEncrypted1),
@@ -2060,13 +2099,11 @@ TEST_F(MediaSessionDescriptionFactoryTest,
 }
 
 TEST_F(MediaSessionDescriptionFactoryTest,
-       TestOfferAnswerWithEncryptedRtpExtensionsOffer) {
+       TestOfferAnswerWithEncryptedRtpExtensionHeadersDisabledInAnswer) {
   MediaSessionOptions opts;
   AddAudioVideoSections(RtpTransceiverDirection::kRecvOnly, &opts);
 
-  // TODO: bugs.webrtc.org/358039777 - Reverse all the tests since the default
-  // value will be true.
-  f1_.set_enable_encrypted_rtp_header_extensions(true);
+  f2_.set_enable_encrypted_rtp_header_extensions(false);
 
   SetAudioVideoRtpHeaderExtensions(MAKE_VECTOR(kAudioRtpExtensionEncrypted1),
                                    MAKE_VECTOR(kVideoRtpExtensionEncrypted1),
@@ -2095,13 +2132,11 @@ TEST_F(MediaSessionDescriptionFactoryTest,
 }
 
 TEST_F(MediaSessionDescriptionFactoryTest,
-       TestOfferAnswerWithEncryptedRtpExtensionsAnswer) {
+       TestOfferAnswerWithEncryptedRtpExtensionHeadersDisabledInOffer) {
   MediaSessionOptions opts;
   AddAudioVideoSections(RtpTransceiverDirection::kRecvOnly, &opts);
 
-  // TODO: bugs.webrtc.org/358039777 - Reverse all the tests since the default
-  // value will be true.
-  f2_.set_enable_encrypted_rtp_header_extensions(true);
+  f1_.set_enable_encrypted_rtp_header_extensions(false);
 
   SetAudioVideoRtpHeaderExtensions(MAKE_VECTOR(kAudioRtpExtensionEncrypted1),
                                    MAKE_VECTOR(kVideoRtpExtensionEncrypted1),
@@ -2126,6 +2161,74 @@ TEST_F(MediaSessionDescriptionFactoryTest,
       GetFirstAudioContentDescription(answer.get())->rtp_header_extensions());
   EXPECT_EQ(
       MAKE_VECTOR(kVideoRtpExtensionAnswer),
+      GetFirstVideoContentDescription(answer.get())->rtp_header_extensions());
+}
+
+TEST_F(MediaSessionDescriptionFactoryTest,
+       TestOfferAnswerPreferEncryptedRtpHeaderExtensionsWhenEncryptionEnabled) {
+  MediaSessionOptions opts;
+  AddAudioVideoSections(RtpTransceiverDirection::kRecvOnly, &opts);
+
+  SetAudioVideoRtpHeaderExtensions(MAKE_VECTOR(kAudioRtpExtensionCombined1),
+                                   MAKE_VECTOR(kVideoRtpExtensionCombined),
+                                   &opts);
+  std::unique_ptr<SessionDescription> offer =
+      f1_.CreateOfferOrError(opts, nullptr).MoveValue();
+  ASSERT_TRUE(offer.get());
+  SetAudioVideoRtpHeaderExtensions(MAKE_VECTOR(kAudioRtpExtensionCombined2),
+                                   MAKE_VECTOR(kVideoRtpExtensionCombined),
+                                   &opts);
+  std::unique_ptr<SessionDescription> answer =
+      f2_.CreateAnswerOrError(offer.get(), opts, nullptr).MoveValue();
+  ASSERT_TRUE(answer.get());
+
+  EXPECT_EQ(
+      MAKE_VECTOR(kAudioRtpExtensionCombined1),
+      GetFirstAudioContentDescription(offer.get())->rtp_header_extensions());
+  EXPECT_EQ(
+      MAKE_VECTOR(kVideoRtpExtensionCombined),
+      GetFirstVideoContentDescription(offer.get())->rtp_header_extensions());
+  EXPECT_EQ(
+      MAKE_VECTOR(kAudioRtpExtensionCombinedAnswerEncrypted),
+      GetFirstAudioContentDescription(answer.get())->rtp_header_extensions());
+  EXPECT_EQ(
+      MAKE_VECTOR(kVideoRtpExtensionCombinedAnswerEncrypted),
+      GetFirstVideoContentDescription(answer.get())->rtp_header_extensions());
+}
+
+TEST_F(
+    MediaSessionDescriptionFactoryTest,
+    TestOfferAnswerPreferEncryptedRtpHeaderExtensionsWhenEncryptionDisabled) {
+  MediaSessionOptions opts;
+  AddAudioVideoSections(RtpTransceiverDirection::kRecvOnly, &opts);
+
+  f1_.set_enable_encrypted_rtp_header_extensions(false);
+  f2_.set_enable_encrypted_rtp_header_extensions(false);
+
+  SetAudioVideoRtpHeaderExtensions(MAKE_VECTOR(kAudioRtpExtensionCombined1),
+                                   MAKE_VECTOR(kVideoRtpExtensionCombined),
+                                   &opts);
+  std::unique_ptr<SessionDescription> offer =
+      f1_.CreateOfferOrError(opts, nullptr).MoveValue();
+  ASSERT_TRUE(offer.get());
+  SetAudioVideoRtpHeaderExtensions(MAKE_VECTOR(kAudioRtpExtensionCombined2),
+                                   MAKE_VECTOR(kVideoRtpExtensionCombined),
+                                   &opts);
+  std::unique_ptr<SessionDescription> answer =
+      f2_.CreateAnswerOrError(offer.get(), opts, nullptr).MoveValue();
+  ASSERT_TRUE(answer.get());
+
+  EXPECT_EQ(
+      MAKE_VECTOR(kAudioRtpExtensionCombinedAnswerNotEncrypted),
+      GetFirstAudioContentDescription(offer.get())->rtp_header_extensions());
+  EXPECT_EQ(
+      MAKE_VECTOR(kVideoRtpExtensionCombinedAnswerNotEncrypted),
+      GetFirstVideoContentDescription(offer.get())->rtp_header_extensions());
+  EXPECT_EQ(
+      MAKE_VECTOR(kAudioRtpExtensionCombinedAnswerNotEncrypted),
+      GetFirstAudioContentDescription(answer.get())->rtp_header_extensions());
+  EXPECT_EQ(
+      MAKE_VECTOR(kVideoRtpExtensionCombinedAnswerNotEncrypted),
       GetFirstVideoContentDescription(answer.get())->rtp_header_extensions());
 }
 

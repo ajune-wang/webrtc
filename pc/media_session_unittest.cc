@@ -1578,36 +1578,6 @@ TEST_F(MediaSessionDescriptionFactoryTest, AudioOfferAnswerWithCryptoDisabled) {
   EXPECT_EQ(kMediaProtocolAvpf, answer_acd->protocol());
 }
 
-// Create a video offer and answer and ensure the RTP header extensions
-// matches what we expect.
-TEST_F(MediaSessionDescriptionFactoryTest, TestOfferAnswerWithRtpExtensions) {
-  MediaSessionOptions opts;
-  AddAudioVideoSections(RtpTransceiverDirection::kRecvOnly, &opts);
-  SetAudioVideoRtpHeaderExtensions(MAKE_VECTOR(kAudioRtpExtension1),
-                                   MAKE_VECTOR(kVideoRtpExtension1), &opts);
-
-  std::unique_ptr<SessionDescription> offer =
-      f1_.CreateOfferOrError(opts, nullptr).MoveValue();
-  ASSERT_TRUE(offer.get());
-  SetAudioVideoRtpHeaderExtensions(MAKE_VECTOR(kAudioRtpExtension2),
-                                   MAKE_VECTOR(kVideoRtpExtension2), &opts);
-  std::unique_ptr<SessionDescription> answer =
-      f2_.CreateAnswerOrError(offer.get(), opts, nullptr).MoveValue();
-
-  EXPECT_EQ(
-      MAKE_VECTOR(kAudioRtpExtension1),
-      GetFirstAudioContentDescription(offer.get())->rtp_header_extensions());
-  EXPECT_EQ(
-      MAKE_VECTOR(kVideoRtpExtension1),
-      GetFirstVideoContentDescription(offer.get())->rtp_header_extensions());
-  EXPECT_EQ(
-      MAKE_VECTOR(kAudioRtpExtensionAnswer),
-      GetFirstAudioContentDescription(answer.get())->rtp_header_extensions());
-  EXPECT_EQ(
-      MAKE_VECTOR(kVideoRtpExtensionAnswer),
-      GetFirstVideoContentDescription(answer.get())->rtp_header_extensions());
-}
-
 // Create a audio/video offer and answer and ensure that the
 // TransportSequenceNumber RTP v1 and v2 header extensions are handled
 // correctly.
@@ -2023,15 +1993,41 @@ TEST_F(MediaSessionDescriptionFactoryTest,
                            ElementsAre(Field(&RtpExtension::uri, "uri1")))))));
 }
 
+// Create a video offer and answer and ensure the RTP header extensions
+// matches what we expect.
+TEST_F(MediaSessionDescriptionFactoryTest,
+       TestOfferAnswerWithRtpExtensionsWithNoEncryption) {
+  MediaSessionOptions opts;
+  AddAudioVideoSections(RtpTransceiverDirection::kRecvOnly, &opts);
+  SetAudioVideoRtpHeaderExtensions(MAKE_VECTOR(kAudioRtpExtension1),
+                                   MAKE_VECTOR(kVideoRtpExtension1), &opts);
+
+  std::unique_ptr<SessionDescription> offer =
+      f1_.CreateOfferOrError(opts, nullptr).MoveValue();
+  ASSERT_TRUE(offer.get());
+  SetAudioVideoRtpHeaderExtensions(MAKE_VECTOR(kAudioRtpExtension2),
+                                   MAKE_VECTOR(kVideoRtpExtension2), &opts);
+  std::unique_ptr<SessionDescription> answer =
+      f2_.CreateAnswerOrError(offer.get(), opts, nullptr).MoveValue();
+
+  EXPECT_EQ(
+      MAKE_VECTOR(kAudioRtpExtension1),
+      GetFirstAudioContentDescription(offer.get())->rtp_header_extensions());
+  EXPECT_EQ(
+      MAKE_VECTOR(kVideoRtpExtension1),
+      GetFirstVideoContentDescription(offer.get())->rtp_header_extensions());
+  EXPECT_EQ(
+      MAKE_VECTOR(kAudioRtpExtensionAnswer),
+      GetFirstAudioContentDescription(answer.get())->rtp_header_extensions());
+  EXPECT_EQ(
+      MAKE_VECTOR(kVideoRtpExtensionAnswer),
+      GetFirstVideoContentDescription(answer.get())->rtp_header_extensions());
+}
+
 TEST_F(MediaSessionDescriptionFactoryTest,
        TestOfferAnswerWithEncryptedRtpExtensionsBoth) {
   MediaSessionOptions opts;
   AddAudioVideoSections(RtpTransceiverDirection::kRecvOnly, &opts);
-
-  // TODO: bugs.webrtc.org/358039777 - Reverse all the tests since the default
-  // value will be set to true in the future.
-  f1_.set_enable_encrypted_rtp_header_extensions(true);
-  f2_.set_enable_encrypted_rtp_header_extensions(true);
 
   SetAudioVideoRtpHeaderExtensions(MAKE_VECTOR(kAudioRtpExtensionEncrypted1),
                                    MAKE_VECTOR(kVideoRtpExtensionEncrypted1),
@@ -2064,9 +2060,7 @@ TEST_F(MediaSessionDescriptionFactoryTest,
   MediaSessionOptions opts;
   AddAudioVideoSections(RtpTransceiverDirection::kRecvOnly, &opts);
 
-  // TODO: bugs.webrtc.org/358039777 - Reverse all the tests since the default
-  // value will be true.
-  f1_.set_enable_encrypted_rtp_header_extensions(true);
+  f2_.set_enable_encrypted_rtp_header_extensions(false);
 
   SetAudioVideoRtpHeaderExtensions(MAKE_VECTOR(kAudioRtpExtensionEncrypted1),
                                    MAKE_VECTOR(kVideoRtpExtensionEncrypted1),
@@ -2099,9 +2093,7 @@ TEST_F(MediaSessionDescriptionFactoryTest,
   MediaSessionOptions opts;
   AddAudioVideoSections(RtpTransceiverDirection::kRecvOnly, &opts);
 
-  // TODO: bugs.webrtc.org/358039777 - Reverse all the tests since the default
-  // value will be true.
-  f2_.set_enable_encrypted_rtp_header_extensions(true);
+  f1_.set_enable_encrypted_rtp_header_extensions(false);
 
   SetAudioVideoRtpHeaderExtensions(MAKE_VECTOR(kAudioRtpExtensionEncrypted1),
                                    MAKE_VECTOR(kVideoRtpExtensionEncrypted1),

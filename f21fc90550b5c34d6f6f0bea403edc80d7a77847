@@ -63,6 +63,30 @@
       },
       "revId": "f21fc90550b5c34d6f6f0bea403edc80d7a77847",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fc9f39f4_57c56cb3",
+        "filename": "modules/rtp_rtcp/source/video_rtp_depacketizer_h264.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2024-09-27T10:54:32Z",
+      "side": 1,
+      "message": "I agree with @ssilkin@webrtc.org and @phancke@meta.com\n\nsetting the first packet in frame to true on an AUD is the right thing to do, although it is unclear why the issue is solved. Previously we had issues when incorrect detection of the first packet caused to drop packets needed for decoding (for example, in multislice encoding). \n\nNot setting the flag for AUD, should only cause the AUD to be dropped, but not cause any decoding issues. So maybe there is a different underlying issue that we need still to fix.\n\nAnyway, this lgtm, would be great to get confirmation that this solves the hw encoding issue.\n\nI plan to submit a couple of CLs doing some long standing TODO cleanups of the h264 code that maybe help identify any other issue.",
+      "parentUuid": "00e61d1f_8714afea",
+      "range": {
+        "startLine": 213,
+        "startChar": 7,
+        "endLine": 213,
+        "endChar": 68
+      },
+      "revId": "f21fc90550b5c34d6f6f0bea403edc80d7a77847",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -39,6 +39,30 @@
       },
       "revId": "f21fc90550b5c34d6f6f0bea403edc80d7a77847",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "00e61d1f_8714afea",
+        "filename": "modules/rtp_rtcp/source/video_rtp_depacketizer_h264.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 22924
+      },
+      "writtenOn": "2024-09-27T09:32:56Z",
+      "side": 1,
+      "message": "I think the input and output requirements for different modules are not the same.\nFor frame assembly lookup based on sequence number continuity, the required input and output are the start and end markers of a frame, which are independent of the frame content. \nFor the decoding module, it does not matter how the encoded frames were generated; as long as they are continuous and decodable, it is acceptable, regardless of whether they were transmitted continuously.\nThe main issue this PR aims to address is that the frame assembly module can cause connectivity detection to fail in certain situations after frame assembly, which in turn leads to subsequent frame loss issues.\nMaybe others can explain it more clearly.",
+      "parentUuid": "01db7cf7_925d1fe1",
+      "range": {
+        "startLine": 213,
+        "startChar": 7,
+        "endLine": 213,
+        "endChar": 68
+      },
+      "revId": "f21fc90550b5c34d6f6f0bea403edc80d7a77847",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

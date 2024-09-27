@@ -51,6 +51,24 @@
       "parentUuid": "a335f4a4_78f71794",
       "revId": "75e7afb4081afd131b4f7c5aadc5fd9ad0871b88",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "70a4d781_428db1f6",
+        "filename": "rtc_base/openssl_stream_adapter.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 5602
+      },
+      "writtenOn": "2024-09-27T15:59:07Z",
+      "side": 1,
+      "message": "Please address all comments before landing CLs. Specifically, please remove the following additions from ssl_stream_adapter.h as they are not accurate. I\u0027ll wait until this is done to restore CR+1.\n\n```\n   // Prefer GetTlsCipherSuiteName where possible. This will return the OpenSSL\n   // cipher id, not the IANA one returned by SSL_CIPHER_get_protocol_id.\n```\n\nThe reason is what I said above. This comment is false. Because of the `static_cast\u003cuint16_t\u003e`, it *does not return the OpenSSL cipher ID*. The OpenSSL cipher ID is the full 32-bit integer, in both OpenSSL and BoringSSL. By casting away the upper half, *you are not returning the OpenSSL cipher ID and should not claim that you are*.\n\nIn BoringSSL, we document that the casting away the upper half gives you the IANA ID. This is because, until fairly recently, `SSL_CIPHER_get_protocol_id` did not exist at all, and the cast *WAS* how you did it in BoringSSL or OpenSSL.\n\nOpenSSL seems not to document this. That is unfortunate, but it doesn\u0027t make your added comment true because this function still does not return the OpenSSL cipher ID. It returns either the IANA ID (if you believe BoringSSL\u0027s documentation) or an arbitrary undefined value (if you believe OpenSSL\u0027s lack of documentation).\n\nObviously the latter interpretation would be unhelpful and bad. But the way to fix that is to switch this to `SSL_CIPHER_get_protocol_id`. Leaving it as-is and documenting something not true doesn\u0027t improve things. It is clear that this API, in both intent and de facto behavior, returns the IANA ID *today*.",
+      "parentUuid": "806ac6b1_d6dcaf8b",
+      "revId": "75e7afb4081afd131b4f7c5aadc5fd9ad0871b88",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

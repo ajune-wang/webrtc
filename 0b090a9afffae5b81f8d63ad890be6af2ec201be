@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5d6f29c9_a0e741c1",
+        "filename": "video/corruption_detection/frame_instrumentation_evaluator.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 17594
+      },
+      "writtenOn": "2024-09-27T09:33:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f9b008c7_00a55cfe",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 75
+      },
+      "revId": "0b090a9afffae5b81f8d63ad890be6af2ec201be",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d751d662_d728991b",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-09-27T00:38:11Z",
       "side": 1,
       "message": "looks like both of these could be const references",
+      "range": {
+        "startLine": 23,
+        "startChar": 41,
+        "endLine": 24,
+        "endChar": 57
+      },
+      "revId": "0b090a9afffae5b81f8d63ad890be6af2ec201be",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c9392bdd_dba0b1eb",
+        "filename": "video/corruption_detection/frame_instrumentation_evaluator.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 17594
+      },
+      "writtenOn": "2024-09-27T09:33:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d751d662_d728991b",
       "range": {
         "startLine": 23,
         "startChar": 41,

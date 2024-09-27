@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3d1962b5_f9c01f49",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-09-27T13:10:29Z",
+      "side": 1,
+      "message": "Happy and surprised you could get rid of all my kluges (I could have *sworn* I tried those simpler constructs...)",
+      "revId": "a9e6ac64fa49a365dd8a0cec60a79a681a578b7d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

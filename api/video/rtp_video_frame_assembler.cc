@@ -161,6 +161,7 @@ RtpVideoFrameAssembler::Impl::AssembleFrames(
   for (auto& packet : insert_result.packets) {
     if (packet->is_first_packet_in_frame()) {
       first_packet = packet.get();
+      RTC_LOG(LS_ERROR) << "CLEARING " << payloads.size();
       payloads.clear();
     }
     payloads.emplace_back(packet->video_payload);

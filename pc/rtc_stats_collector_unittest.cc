@@ -3311,7 +3311,8 @@ TEST_P(RTCStatsCollectorTestWithParamKind,
     report_block.SetCumulativeLost(7);
     report_block.SetFractionLost(kFractionLost);
     ReportBlockData report_block_data;
-    report_block_data.SetReportBlock(0, report_block, kReportBlockTimestampUtc);
+    report_block_data.SetReportBlock(0, report_block, kReportBlockTimestampUtc,
+                                     kReportBlockTimestampUtc);
     report_block_data.AddRoundTripTimeSample(kRoundTripTimeSample1);
     // Only the last sample should be exposed as the
     // `RTCRemoteInboundRtpStreamStats::round_trip_time`.
@@ -3367,7 +3368,8 @@ TEST_P(RTCStatsCollectorTestWithParamKind,
   // `source_ssrc`, "SSRC of the RTP packet sender".
   report_block.SetMediaSsrc(12);
   ReportBlockData report_block_data;  // AddRoundTripTimeSample() not called.
-  report_block_data.SetReportBlock(0, report_block, kReportBlockTimestampUtc);
+  report_block_data.SetReportBlock(0, report_block, kReportBlockTimestampUtc,
+                                   kReportBlockTimestampUtc);
 
   AddSenderInfoAndMediaChannel("TransportName", {report_block_data},
                                std::nullopt);
@@ -3394,7 +3396,8 @@ TEST_P(RTCStatsCollectorTestWithParamKind,
   // `source_ssrc`, "SSRC of the RTP packet sender".
   report_block.SetMediaSsrc(12);
   ReportBlockData report_block_data;
-  report_block_data.SetReportBlock(0, report_block, kReportBlockTimestampUtc);
+  report_block_data.SetReportBlock(0, report_block, kReportBlockTimestampUtc,
+                                   kReportBlockTimestampUtc);
 
   AddSenderInfoAndMediaChannel("TransportName", {report_block_data},
                                std::nullopt);
@@ -3427,7 +3430,8 @@ TEST_P(RTCStatsCollectorTestWithParamKind,
   report_block.SetMediaSsrc(12);
   report_block.SetJitter(5000);
   ReportBlockData report_block_data;
-  report_block_data.SetReportBlock(0, report_block, kReportBlockTimestampUtc);
+  report_block_data.SetReportBlock(0, report_block, kReportBlockTimestampUtc,
+                                   kReportBlockTimestampUtc);
 
   RtpCodecParameters codec;
   codec.payload_type = 3;
@@ -3462,7 +3466,8 @@ TEST_P(RTCStatsCollectorTestWithParamKind,
   // `source_ssrc`, "SSRC of the RTP packet sender".
   report_block.SetMediaSsrc(12);
   ReportBlockData report_block_data;
-  report_block_data.SetReportBlock(0, report_block, kReportBlockTimestampUtc);
+  report_block_data.SetReportBlock(0, report_block, kReportBlockTimestampUtc,
+                                   kReportBlockTimestampUtc);
 
   cricket::TransportChannelStats rtp_transport_channel_stats;
   rtp_transport_channel_stats.component = cricket::ICE_CANDIDATE_COMPONENT_RTP;

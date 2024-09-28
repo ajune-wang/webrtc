@@ -21,9 +21,11 @@ TimeDelta ReportBlockData::jitter(int rtp_clock_rate_hz) const {
   return TimeDelta::Seconds(jitter()) / rtp_clock_rate_hz;
 }
 
+// TODO(): When () is fixed, we don't need the utc timestamp.
 void ReportBlockData::SetReportBlock(uint32_t sender_ssrc,
                                      const rtcp::ReportBlock& report_block,
-                                     Timestamp report_block_timestamp_utc) {
+                                     Timestamp report_block_timestamp_utc,
+                                     Timestamp report_block_timestamp) {
   sender_ssrc_ = sender_ssrc;
   source_ssrc_ = report_block.source_ssrc();
   fraction_lost_raw_ = report_block.fraction_lost();
@@ -31,6 +33,7 @@ void ReportBlockData::SetReportBlock(uint32_t sender_ssrc,
   extended_highest_sequence_number_ = report_block.extended_high_seq_num();
   jitter_ = report_block.jitter();
   report_block_timestamp_utc_ = report_block_timestamp_utc;
+  report_block_timestamp_ = report_block_timestamp;
 }
 
 void ReportBlockData::AddRoundTripTimeSample(TimeDelta rtt) {

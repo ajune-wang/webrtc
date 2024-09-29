@@ -177,6 +177,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2c76259a_a4137a7a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-09-29T19:50:58Z",
+      "side": 1,
+      "message": "If like me you end up scratching your head why it no longer works as it did a week ago, the recent https://chromiumdash.appspot.com/commit/518de1673ed411ba84b417377751ca7603a89bc1 changes behavior in quite subtle ways. There is some record aggregation happing at the DTLS layer. Sometimes you get a change cipher spec (type\u003d20) so the \"is handshake packet\" logic needs to be extended (for my old CL at least, I think this one too)\n\nIt also seems that setting the handshake complete from DtlsTransport::OnDtlsEvent is too early as this clears / sets the state before the final response flight of ~75 bytes is sent yet (it is set though!). This causes a resend.\n\nI will update my CL monday morning, integrating the controller approach is nice!",
+      "revId": "463682ba233a53cfb48cf7103c562d3e4ecfa3af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e265f51f_2f27b616",

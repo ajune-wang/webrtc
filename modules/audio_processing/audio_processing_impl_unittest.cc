@@ -959,4 +959,35 @@ INSTANTIATE_TEST_SUITE_P(
                                  .input_volume_controller = {.enabled = true},
                                  .adaptive_digital = {.enabled = true}}}));
 
+class ApmVoiceDetectedParametrizedTest
+    : public ::testing::TestWithParam<AudioProcessing::Config> {};
+
+TEST_P(ApmVoiceDetectedParametrizedTest,
+       VoiceDetectedHasValueWhenAgc2IsEnabled) {
+  auto config = GetParam();
+  auto apm = AudioProcessingBuilder().SetConfig(config).Create();
+
+  constexpr int16_t kAudioLevel = 1000;
+  constexpr int kSampleRateHz = 16000;
+  constexpr size_t kNumChannels = 1;
+  std::array<int16_t, kNumChannels * kSampleRateHz / 100> frame;
+  StreamConfig stream_config(kSampleRateHz, kNumChannels);
+  frame.fill(kAudioLevel);
+  apm->ProcessStream(frame.data(), stream_config, stream_config, frame.data());
+
+  EXPECT_EQ(apm->GetStatistics().voice_detected.has_value(),
+            config.gain_controller2.enabled);
+}
+
+INSTANTIATE_TEST_SUITE_P(
+    AudioProcessingImplTest,
+    ApmVoiceDetectedParametrizedTest,
+    ::testing::Values(
+        AudioProcessing::Config{.gain_controller1 = {.enabled = false},
+                                .gain_controller2 = {.enabled = false}},
+        AudioProcessing::Config{.gain_controller1 = {.enabled = true},
+                                .gain_controller2 = {.enabled = false}},
+        AudioProcessing::Config{.gain_controller1 = {.enabled = false},
+                                .gain_controller2 = {.enabled = true}}));
+
 }  // namespace webrtc

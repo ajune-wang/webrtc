@@ -1448,6 +1448,18 @@ int AudioProcessingImpl::ProcessCaptureStreamLocked() {
       submodules_.gain_controller2->Process(
           /*speech_probability=*/std::nullopt,
           capture_.applied_input_volume_changed, capture_buffer);
+      if (submodules_.gain_controller2->speech_probability() >
+          kVadConfidenceThreshold) {
+        if (++capture_.num_adjacent_speech_frames >=
+            kAdjacentSpeechFramesThreshold) {
+          capture_.stats.voice_detected = true;
+        } else {
+          capture_.stats.voice_detected = false;
+        }
+      } else {
+        capture_.num_adjacent_speech_frames = 0;
+        capture_.stats.voice_detected = false;
+      }
     }
 
     if (submodules_.capture_post_processor) {
@@ -2256,7 +2268,8 @@ AudioProcessingImpl::ApmCaptureState::ApmCaptureState()
       prev_pre_adjustment_gain(-1.0f),
       playout_volume(-1),
       prev_playout_volume(-1),
-      applied_input_volume_changed(false) {}
+      applied_input_volume_changed(false),
+      num_adjacent_speech_frames(0) {}
 
 AudioProcessingImpl::ApmCaptureState::~ApmCaptureState() = default;
 

@@ -16,6 +16,23 @@
       "message": "custom sinks are not supported by AbslStringify, so need to use through some \u0027official\u0027 sink. StrCat is the simplest.\n\nSo proposing to allow StrCat as RTC_LOG and RTC_CHECK implementation detail.\n(however I do not see how to use it as implementation detail without leaking it in the popular header files)",
       "revId": "c4c4196160ea40134706cda1ffd0dc32e986a974",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a92e5d79_b34943a5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-09-30T13:50:34Z",
+      "side": 1,
+      "message": "That was actually a lot smaller than I thought it would be!\nThe sticky point may be StrCat - the argument against StrCat is \"Even StrCat calls with a modest number of arguments can easily add several hundred bytes to the binary.\"\n\nHere we have StrCat with one argument. Does the same fear apply for that case? Or is it irrelevant?\nIf it\u0027s irrelevant, I suggest we modify abseil-in-webrtc.md to say \"absl::StrCat with multiple arguments\" is disallowed.",
+      "revId": "c4c4196160ea40134706cda1ffd0dc32e986a974",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

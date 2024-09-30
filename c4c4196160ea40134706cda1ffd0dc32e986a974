@@ -33,6 +33,24 @@
       "message": "That was actually a lot smaller than I thought it would be!\nThe sticky point may be StrCat - the argument against StrCat is \"Even StrCat calls with a modest number of arguments can easily add several hundred bytes to the binary.\"\n\nHere we have StrCat with one argument. Does the same fear apply for that case? Or is it irrelevant?\nIf it\u0027s irrelevant, I suggest we modify abseil-in-webrtc.md to say \"absl::StrCat with multiple arguments\" is disallowed.",
       "revId": "c4c4196160ea40134706cda1ffd0dc32e986a974",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a6ea04bb_56780d12",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-09-30T14:09:05Z",
+      "side": 1,
+      "message": "allowing absl::StrCat generally I think we agreed to be a separate discussion, thus here I\u0027ve narrowed it\u0027s usage through local deps and silence about it in abseil-in-webrtc.md\n\nI haven\u0027t re-investigate StrCat binary size lately, but I suspect generally some concern applies to single-parameter StrCat too, though less that to multi-parameter StrCat.\n\nThe binary size of absl::StrCat(const T\u0026) is likely comparable to T::ToString function. however T::ToString can be forced to be not inlined, where usage of absl::StrCat is in the header and thus it is up to the compiler to decide if it should or shouldn\u0027t be inlined.\n\nMirko, your are usually concerned about binary size.\nCan you suggest how much should I investigate to weight usability of AbslStringify vs binary size of StrCat.",
+      "parentUuid": "a92e5d79_b34943a5",
+      "revId": "c4c4196160ea40134706cda1ffd0dc32e986a974",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

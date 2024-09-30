@@ -18,6 +18,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "51b5c26d_e1b83094",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-09-30T15:54:22Z",
+      "side": 1,
+      "message": "RS LGTM as OWNER",
+      "revId": "f21fc90550b5c34d6f6f0bea403edc80d7a77847",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "01db7cf7_925d1fe1",

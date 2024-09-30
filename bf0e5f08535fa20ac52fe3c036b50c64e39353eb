@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "697ca422_8701ff29",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-09-30T12:36:44Z",
+      "side": 1,
+      "message": "Are any behavior changes expected from this? (no changes in tests)\nIf the answer is \"these weren\u0027t tested before either\", that\u0027s OK, given the long neglect of encrypted header extensions.",
+      "revId": "bf0e5f08535fa20ac52fe3c036b50c64e39353eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

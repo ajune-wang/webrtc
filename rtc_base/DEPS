@@ -6,6 +6,9 @@ include_rules = [
 ]
 
 specific_include_rules = {
+  "string_encode.h": [
+    "+absl/strings/str_cat.h"
+  ],
   "protobuf_utils.h": [
     "+third_party/protobuf",
   ],

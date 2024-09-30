@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "39af7742_9c929e3d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-09-30T20:57:22Z",
+      "side": 1,
+      "message": "am I too optimistic about this being feasible without a deprecation?",
+      "revId": "ee747a5b10091c1daeb4cc51214d6029720ca248",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

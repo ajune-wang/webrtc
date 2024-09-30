@@ -66,6 +66,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "47559602_e81fdd1b",
+        "filename": "api/video/video_frame.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2024-09-30T15:46:47Z",
+      "side": 1,
+      "message": "I wasn\u0027t aware of the usage of this API in downstream projects, as I obviously can\u0027t access google-internal repo.\n\nDo you think the following signatures are okay for migration? I don\u0027t think the setters need migration either.\n\n```\n// unchanged signature\nuint16_t id() const {\n  return id_.value_or(kNotSetId);\n}\n\n// TODO(bugs.webrtc.org/369432528): Remove when migration is complete \nstd::optional\u003cuint16_t\u003e id_or_nullopt() const;\n\nvoid set_id(std::optional\u003cuint16_t\u003e id);\n```",
+      "parentUuid": "e1162689_b0d5735a",
+      "range": {
+        "startLine": 167,
+        "startChar": 26,
+        "endLine": 167,
+        "endChar": 28
+      },
+      "revId": "eaed5f397a498076074321ef3b587ea796f8eddd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "eced71fb_e86ab814",
         "filename": "test/pc/e2e/analyzer/video/analyzing_video_sink.cc",
         "patchSetId": 3

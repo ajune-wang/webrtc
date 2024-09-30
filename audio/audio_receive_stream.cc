@@ -257,13 +257,6 @@ webrtc::AudioReceiveStreamInterface::Stats AudioReceiveStreamImpl::GetStats(
 
   webrtc::CallReceiveStatistics call_stats =
       channel_receive_->GetRTCPStatistics();
-  // TODO(solenberg): Don't return here if we can't get the codec - return the
-  //                  stats we *can* get.
-  auto receive_codec = channel_receive_->GetReceiveCodec();
-  if (!receive_codec) {
-    return stats;
-  }
-
   stats.payload_bytes_received = call_stats.payload_bytes_received;
   stats.header_and_padding_bytes_received =
       call_stats.header_and_padding_bytes_received;
@@ -272,6 +265,23 @@ webrtc::AudioReceiveStreamInterface::Stats AudioReceiveStreamImpl::GetStats(
   stats.nacks_sent = call_stats.nacks_sent;
   stats.capture_start_ntp_time_ms = call_stats.capture_start_ntp_time_ms_;
   stats.last_packet_received = call_stats.last_packet_received;
+  stats.last_sender_report_timestamp_ms =
+      call_stats.last_sender_report_timestamp_ms;
+  stats.last_sender_report_remote_timestamp_ms =
+      call_stats.last_sender_report_remote_timestamp_ms;
+  stats.sender_reports_packets_sent = call_stats.sender_reports_packets_sent;
+  stats.sender_reports_bytes_sent = call_stats.sender_reports_bytes_sent;
+  stats.sender_reports_reports_count = call_stats.sender_reports_reports_count;
+  stats.round_trip_time = call_stats.round_trip_time;
+  stats.round_trip_time_measurements = call_stats.round_trip_time_measurements;
+  stats.total_round_trip_time = call_stats.total_round_trip_time;
+
+  // TODO(solenberg): Don't return here if we can't get the codec - return the
+  //                  stats we *can* get.
+  auto receive_codec = channel_receive_->GetReceiveCodec();
+  if (!receive_codec) {
+    return stats;
+  }
   stats.codec_name = receive_codec->second.name;
   stats.codec_payload_type = receive_codec->first;
   int clockrate_khz = receive_codec->second.clockrate_hz / 1000;
@@ -335,17 +345,6 @@ webrtc::AudioReceiveStreamInterface::Stats AudioReceiveStreamImpl::GetStats(
   stats.decoding_cng = ds.decoded_cng;
   stats.decoding_plc_cng = ds.decoded_plc_cng;
   stats.decoding_muted_output = ds.decoded_muted_output;
-
-  stats.last_sender_report_timestamp_ms =
-      call_stats.last_sender_report_timestamp_ms;
-  stats.last_sender_report_remote_timestamp_ms =
-      call_stats.last_sender_report_remote_timestamp_ms;
-  stats.sender_reports_packets_sent = call_stats.sender_reports_packets_sent;
-  stats.sender_reports_bytes_sent = call_stats.sender_reports_bytes_sent;
-  stats.sender_reports_reports_count = call_stats.sender_reports_reports_count;
-  stats.round_trip_time = call_stats.round_trip_time;
-  stats.round_trip_time_measurements = call_stats.round_trip_time_measurements;
-  stats.total_round_trip_time = call_stats.total_round_trip_time;
 
   return stats;
 }

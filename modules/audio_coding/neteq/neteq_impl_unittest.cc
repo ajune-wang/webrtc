@@ -11,6 +11,7 @@
 #include "modules/audio_coding/neteq/neteq_impl.h"
 
 #include <memory>
+#include <numeric>
 #include <utility>
 #include <vector>
 
@@ -382,6 +383,35 @@ TEST_F(NetEqImplTest, InsertPacket) {
   rtp_header.sequenceNumber += 1;
   neteq_->InsertPacket(rtp_header, payload,
                        /*receive_time=*/clock_.CurrentTime());
+}
+
+TEST_F(NetEqImplTest, Stats) {
+  UseNoMocks();
+  CreateInstance();
+  const uint8_t kPayloadType = 17;  // Just an arbitrary number.
+  EXPECT_TRUE(neteq_->RegisterPayloadType(kPayloadType,
+                                          SdpAudioFormat("l16", 8000, 1)));
+  const size_t kPayloadLengthSamples = 80;
+  const size_t kPayloadLengthBytes = 2 * kPayloadLengthSamples;  // PCM 16-bit.
+  uint8_t payload[kPayloadLengthBytes] = {0};
+  std::iota(std::begin(payload), std::end(payload), 0);
+  RTPHeader rtp_header;
+  rtp_header.payloadType = kPayloadType;
+  rtp_header.sequenceNumber = 0x1234;
+  rtp_header.timestamp = 0x12345678;
+  rtp_header.ssrc = 0x87654321;
+  AudioFrame frame;
+  neteq_->GetAudio(&frame);
+  EXPECT_EQ(neteq_->GetLifetimeStatistics().concealed_samples, 0u);
+  EXPECT_EQ(neteq_->GetLifetimeStatistics().total_samples_received, 0u);
+  neteq_->GetAudio(&frame);
+  EXPECT_EQ(neteq_->GetLifetimeStatistics().concealed_samples, 0u);
+  EXPECT_EQ(neteq_->GetLifetimeStatistics().total_samples_received, 0u);
+  neteq_->InsertPacket(rtp_header, payload, clock_.CurrentTime());
+  neteq_->GetAudio(&frame);
+  EXPECT_EQ(neteq_->GetLifetimeStatistics().concealed_samples, 0u);
+  EXPECT_EQ(neteq_->GetLifetimeStatistics().total_samples_received,
+            kPayloadLengthSamples);
 }
 
 TEST_F(NetEqImplTest, InsertPacketsUntilBufferIsFull) {

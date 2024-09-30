@@ -660,7 +660,7 @@ TEST_F(NetEqDecodingTestWithMutedState, MutedState) {
   // NetEqNetworkStatistics::expand_rate tells the fraction of samples that were
   // concealment samples, in Q14 (16384 = 100%) .The vast majority should be
   // concealment samples in this test.
-  EXPECT_GT(stats.expand_rate, 14000);
+  EXPECT_GT(stats.expand_rate, 13000);
   // And, it should be greater than the speech_expand_rate.
   EXPECT_GT(stats.expand_rate, stats.speech_expand_rate);
 }

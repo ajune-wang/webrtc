@@ -16,6 +16,24 @@
       "message": "Are any behavior changes expected from this? (no changes in tests)\nIf the answer is \"these weren\u0027t tested before either\", that\u0027s OK, given the long neglect of encrypted header extensions.",
       "revId": "bf0e5f08535fa20ac52fe3c036b50c64e39353eb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6a1bac23_55bbf294",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3485001
+      },
+      "writtenOn": "2024-09-30T12:52:37Z",
+      "side": 1,
+      "message": "No, there are no behavior changes expected with this. As you say this part of the code has been neglected for a while so trying to update according to the changes made with the previous linked CL for easier readability. \n\nThese functions are tested indirectly by the same tests which were in focus in https://webrtc-review.googlesource.com/c/src/+/362740.",
+      "parentUuid": "697ca422_8701ff29",
+      "revId": "bf0e5f08535fa20ac52fe3c036b50c64e39353eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

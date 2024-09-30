@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4f70ce60_002436f6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2024-09-30T09:52:29Z",
+      "side": 1,
+      "message": "LGTM with one nit.",
+      "revId": "0e4db2487db90f6ce125c804270581e6e2384172",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2d094bf8_d08af6ed",
+        "filename": "modules/audio_coding/neteq/neteq_impl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2024-09-30T09:52:29Z",
+      "side": 1,
+      "message": "Delete this?",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 57
+      },
+      "revId": "0e4db2487db90f6ce125c804270581e6e2384172",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

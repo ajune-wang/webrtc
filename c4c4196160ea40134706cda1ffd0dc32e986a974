@@ -51,6 +51,24 @@
       "parentUuid": "a92e5d79_b34943a5",
       "revId": "c4c4196160ea40134706cda1ffd0dc32e986a974",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cad18a6a_58f86c04",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2024-09-30T14:17:36Z",
+      "side": 1,
+      "message": "This adds only 68 bytes (noise level) to the binary. It\u0027d be interesting to try to migrate custom string converter to AbslStringify and then measure the cost.",
+      "parentUuid": "a6ea04bb_56780d12",
+      "revId": "c4c4196160ea40134706cda1ffd0dc32e986a974",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

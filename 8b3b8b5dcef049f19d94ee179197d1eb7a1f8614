@@ -41,6 +41,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7192fd97_2ba0ea2e",
+        "filename": "modules/audio_coding/neteq/neteq_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 967,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2024-09-30T14:21:19Z",
+      "side": 1,
+      "message": "That\u0027s much better 👍",
+      "parentUuid": "fdf2538d_9e08645e",
+      "range": {
+        "startLine": 967,
+        "startChar": 2,
+        "endLine": 967,
+        "endChar": 56
+      },
+      "revId": "8b3b8b5dcef049f19d94ee179197d1eb7a1f8614",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "763d992a_0746fe00",
@@ -54,6 +78,30 @@
       "writtenOn": "2024-09-30T14:08:52Z",
       "side": 1,
       "message": "Maybe call GetAudio more than once before inserting the packet? Will it make it more clear that total_samples_received remain zero \"forever\"?",
+      "range": {
+        "startLine": 402,
+        "startChar": 2,
+        "endLine": 402,
+        "endChar": 27
+      },
+      "revId": "8b3b8b5dcef049f19d94ee179197d1eb7a1f8614",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "22434358_470e624f",
+        "filename": "modules/audio_coding/neteq/neteq_impl_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 402,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2024-09-30T14:21:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "763d992a_0746fe00",
       "range": {
         "startLine": 402,
         "startChar": 2,

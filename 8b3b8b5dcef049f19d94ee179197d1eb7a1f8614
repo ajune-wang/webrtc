@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d9212c40_44743d6a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2024-09-30T14:08:52Z",
+      "side": 1,
+      "message": "LGTM with two questions/suggestions.",
+      "revId": "8b3b8b5dcef049f19d94ee179197d1eb7a1f8614",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fdf2538d_9e08645e",
+        "filename": "modules/audio_coding/neteq/neteq_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 967,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2024-09-30T14:08:52Z",
+      "side": 1,
+      "message": "An alternative could be to call IncreaseCounter in NetEqImpl::GetAudio(), after it has been established that GetAudioInteral returned with success. Will that be different? The benefit is doing it in one place instead of two.",
+      "range": {
+        "startLine": 967,
+        "startChar": 2,
+        "endLine": 967,
+        "endChar": 56
+      },
+      "revId": "8b3b8b5dcef049f19d94ee179197d1eb7a1f8614",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "763d992a_0746fe00",
+        "filename": "modules/audio_coding/neteq/neteq_impl_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 402,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2024-09-30T14:08:52Z",
+      "side": 1,
+      "message": "Maybe call GetAudio more than once before inserting the packet? Will it make it more clear that total_samples_received remain zero \"forever\"?",
+      "range": {
+        "startLine": 402,
+        "startChar": 2,
+        "endLine": 402,
+        "endChar": 27
+      },
+      "revId": "8b3b8b5dcef049f19d94ee179197d1eb7a1f8614",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7aef2609_06762795",
+        "filename": "modules/audio_coding/neteq/neteq_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 661,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2024-09-30T14:08:52Z",
+      "side": 1,
+      "message": "\"Vast majority\" is getting smaller 😄",
+      "range": {
+        "startLine": 661,
+        "startChar": 53,
+        "endLine": 661,
+        "endChar": 66
+      },
+      "revId": "8b3b8b5dcef049f19d94ee179197d1eb7a1f8614",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

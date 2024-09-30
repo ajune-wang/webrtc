@@ -69,6 +69,23 @@
       "parentUuid": "a6ea04bb_56780d12",
       "revId": "c4c4196160ea40134706cda1ffd0dc32e986a974",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dd68b7e2_5e121289",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-09-30T14:25:37Z",
+      "side": 1,
+      "message": "Let\u0027s land this. Next step is modifying / extending a couple of our enum converters and measuring the size cost of that.\n\nUltimately, I think (I hope) we should retire our AsString guidance in docs and point at AbslStringify as the Right Way instead.",
+      "revId": "c4c4196160ea40134706cda1ffd0dc32e986a974",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

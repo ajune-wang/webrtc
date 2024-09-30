@@ -22,6 +22,18 @@ struct MediaConfig {
   // and delete this flag.
   bool enable_dscp = true;
 
+  // Timestamps for RTSStat objects where set as UTC timestamps. Either by an
+  // non monotonic clock, or by a monotonic clock with a WebRTC specific epoch.
+  // Both solutions where bad. The clock should be monotonic, and if it is, the
+  // clock can't have an (for the users of WebRTC) unknown offset.
+  // The fix is to change the timestamps in RTSStat objects to an enviroment
+  // monotonic clock, so that the users of WebRTC can convert them to whatever
+  // epoch they want.
+  // To be backwards compatible, we hide this change behind a flag.
+  // TODO(webrtc:370535296): remote the flag once chromium and google3 code is
+  // updated.
+  bool stats_timestamp_with_enviroment_clock = false;
+
   // Video-specific config.
   struct Video {
     // Enable WebRTC CPU Overuse Detection. This flag comes from the

@@ -427,10 +427,12 @@ rtc::scoped_refptr<MockRtpReceiverInternal> CreateMockReceiver(
 class RTCStatsCollectorWrapper {
  public:
   explicit RTCStatsCollectorWrapper(
-      rtc::scoped_refptr<FakePeerConnectionForStats> pc)
+      rtc::scoped_refptr<FakePeerConnectionForStats> pc,
+      const Environment& env)
       : pc_(pc),
         stats_collector_(
             RTCStatsCollector::Create(pc.get(),
+                                      env,
                                       50 * rtc::kNumMicrosecsPerMillisec)) {}
 
   rtc::scoped_refptr<RTCStatsCollector> stats_collector() {
@@ -662,7 +664,7 @@ class RTCStatsCollectorTest : public ::testing::Test {
  public:
   RTCStatsCollectorTest()
       : pc_(rtc::make_ref_counted<FakePeerConnectionForStats>()),
-        stats_(new RTCStatsCollectorWrapper(pc_)),
+        stats_(new RTCStatsCollectorWrapper(pc_, CreateEnvironment())),
         data_channel_controller_(
             new FakeDataChannelController(pc_->network_thread())) {}
 
@@ -3311,7 +3313,8 @@ TEST_P(RTCStatsCollectorTestWithParamKind,
     report_block.SetCumulativeLost(7);
     report_block.SetFractionLost(kFractionLost);
     ReportBlockData report_block_data;
-    report_block_data.SetReportBlock(0, report_block, kReportBlockTimestampUtc);
+    report_block_data.SetReportBlock(0, report_block, kReportBlockTimestampUtc,
+                                     kReportBlockTimestampUtc);
     report_block_data.AddRoundTripTimeSample(kRoundTripTimeSample1);
     // Only the last sample should be exposed as the
     // `RTCRemoteInboundRtpStreamStats::round_trip_time`.
@@ -3367,7 +3370,8 @@ TEST_P(RTCStatsCollectorTestWithParamKind,
   // `source_ssrc`, "SSRC of the RTP packet sender".
   report_block.SetMediaSsrc(12);
   ReportBlockData report_block_data;  // AddRoundTripTimeSample() not called.
-  report_block_data.SetReportBlock(0, report_block, kReportBlockTimestampUtc);
+  report_block_data.SetReportBlock(0, report_block, kReportBlockTimestampUtc,
+                                   kReportBlockTimestampUtc);
 
   AddSenderInfoAndMediaChannel("TransportName", {report_block_data},
                                std::nullopt);
@@ -3394,7 +3398,8 @@ TEST_P(RTCStatsCollectorTestWithParamKind,
   // `source_ssrc`, "SSRC of the RTP packet sender".
   report_block.SetMediaSsrc(12);
   ReportBlockData report_block_data;
-  report_block_data.SetReportBlock(0, report_block, kReportBlockTimestampUtc);
+  report_block_data.SetReportBlock(0, report_block, kReportBlockTimestampUtc,
+                                   kReportBlockTimestampUtc);
 
   AddSenderInfoAndMediaChannel("TransportName", {report_block_data},
                                std::nullopt);
@@ -3427,7 +3432,8 @@ TEST_P(RTCStatsCollectorTestWithParamKind,
   report_block.SetMediaSsrc(12);
   report_block.SetJitter(5000);
   ReportBlockData report_block_data;
-  report_block_data.SetReportBlock(0, report_block, kReportBlockTimestampUtc);
+  report_block_data.SetReportBlock(0, report_block, kReportBlockTimestampUtc,
+                                   kReportBlockTimestampUtc);
 
   RtpCodecParameters codec;
   codec.payload_type = 3;
@@ -3462,7 +3468,8 @@ TEST_P(RTCStatsCollectorTestWithParamKind,
   // `source_ssrc`, "SSRC of the RTP packet sender".
   report_block.SetMediaSsrc(12);
   ReportBlockData report_block_data;
-  report_block_data.SetReportBlock(0, report_block, kReportBlockTimestampUtc);
+  report_block_data.SetReportBlock(0, report_block, kReportBlockTimestampUtc,
+                                   kReportBlockTimestampUtc);
 
   cricket::TransportChannelStats rtp_transport_channel_stats;
   rtp_transport_channel_stats.component = cricket::ICE_CANDIDATE_COMPONENT_RTP;
@@ -3747,9 +3754,10 @@ class FakeRTCStatsCollector : public RTCStatsCollector,
  public:
   static rtc::scoped_refptr<FakeRTCStatsCollector> Create(
       PeerConnectionInternal* pc,
+      const Environment& env,
       int64_t cache_lifetime_us) {
     return rtc::scoped_refptr<FakeRTCStatsCollector>(
-        new rtc::RefCountedObject<FakeRTCStatsCollector>(pc,
+        new rtc::RefCountedObject<FakeRTCStatsCollector>(pc, env,
                                                          cache_lifetime_us));
   }
 
@@ -3794,8 +3802,10 @@ class FakeRTCStatsCollector : public RTCStatsCollector,
   }
 
  protected:
-  FakeRTCStatsCollector(PeerConnectionInternal* pc, int64_t cache_lifetime)
-      : RTCStatsCollector(pc, cache_lifetime),
+  FakeRTCStatsCollector(PeerConnectionInternal* pc,
+                        const Environment& env,
+                        int64_t cache_lifetime)
+      : RTCStatsCollector(pc, env, cache_lifetime),
         signaling_thread_(pc->signaling_thread()),
         worker_thread_(pc->worker_thread()),
         network_thread_(pc->network_thread()) {}
@@ -3845,7 +3855,7 @@ TEST(RTCStatsCollectorTestWithFakeCollector, ThreadUsageAndResultsMerging) {
   rtc::AutoThread main_thread_;
   auto pc = rtc::make_ref_counted<FakePeerConnectionForStats>();
   rtc::scoped_refptr<FakeRTCStatsCollector> stats_collector(
-      FakeRTCStatsCollector::Create(pc.get(),
+      FakeRTCStatsCollector::Create(pc.get(), CreateEnvironment(),
                                     50 * rtc::kNumMicrosecsPerMillisec));
   stats_collector->VerifyThreadUsageAndResultsMerging();
 }

@@ -843,14 +843,19 @@ ProduceRemoteInboundRtpStreamStatsFromReportBlockData(
     const ReportBlockData& report_block,
     cricket::MediaType media_type,
     const std::map<std::string, RTCOutboundRtpStreamStats*>& outbound_rtps,
-    const RTCStatsReport& report) {
+    const RTCStatsReport& report,
+    PeerConnectionInterface::RTCConfiguration configuration) {
   // RTCStats' timestamp generally refers to when the metric was sampled, but
   // for "remote-[outbound/inbound]-rtp" it refers to the local time when the
   // Report Block was received.
+  Timestamp arrival_timestamp =
+      configuration.stats_timestamp_with_enviroment_clock()
+          ? report_block.report_block_timestamp()
+          : report_block.report_block_timestamp_utc();
   auto remote_inbound = std::make_unique<RTCRemoteInboundRtpStreamStats>(
       RTCRemoteInboundRtpStreamStatsIdFromSourceSsrc(
           media_type, report_block.source_ssrc()),
-      report_block.report_block_timestamp_utc());
+      arrival_timestamp);
   remote_inbound->ssrc = report_block.source_ssrc();
   remote_inbound->kind =
       media_type == cricket::MEDIA_TYPE_AUDIO ? "audio" : "video";
@@ -1114,13 +1119,16 @@ RTCStatsCollector::RequestInfo::RequestInfo(
 
 rtc::scoped_refptr<RTCStatsCollector> RTCStatsCollector::Create(
     PeerConnectionInternal* pc,
+    const Environment& env,
     int64_t cache_lifetime_us) {
-  return rtc::make_ref_counted<RTCStatsCollector>(pc, cache_lifetime_us);
+  return rtc::make_ref_counted<RTCStatsCollector>(pc, env, cache_lifetime_us);
 }
 
 RTCStatsCollector::RTCStatsCollector(PeerConnectionInternal* pc,
+                                     const Environment& env,
                                      int64_t cache_lifetime_us)
     : pc_(pc),
+      env_(env),
       signaling_thread_(pc->signaling_thread()),
       worker_thread_(pc->worker_thread()),
       network_thread_(pc->network_thread()),
@@ -1179,10 +1187,16 @@ void RTCStatsCollector::GetStatsReportInternal(
     // case of already gathering stats, `callback_` will be invoked when there
     // are no more pending partial reports.
 
-    // "Now" using a system clock, relative to the UNIX epoch (Jan 1, 1970,
-    // UTC), in microseconds. The system clock could be modified and is not
-    // necessarily monotonically increasing.
-    Timestamp timestamp = Timestamp::Micros(rtc::TimeUTCMicros());
+    Timestamp timestamp =
+        pc_->GetConfiguration().stats_timestamp_with_enviroment_clock()
+            ?
+            // "Now" using a monotonically increasing timer.
+            env_.clock().CurrentTime()
+            :
+            // "Now" using a system clock, relative to the UNIX epoch (Jan 1,
+            // 1970, UTC), in microseconds. The system clock could be modified
+            // and is not necessarily monotonically increasing.
+            Timestamp::Micros(rtc::TimeUTCMicros());
 
     num_pending_partial_reports_ = 2;
     partial_report_timestamp_us_ = cache_now_us;
@@ -1767,7 +1781,7 @@ void RTCStatsCollector::ProduceAudioRTPStreamStats_n(
     for (const auto& report_block_data : voice_sender_info.report_block_datas) {
       report->AddStats(ProduceRemoteInboundRtpStreamStatsFromReportBlockData(
           transport_id, report_block_data, cricket::MEDIA_TYPE_AUDIO,
-          audio_outbound_rtps, *report));
+          audio_outbound_rtps, *report, pc_->GetConfiguration()));
     }
   }
 }
@@ -1861,7 +1875,7 @@ void RTCStatsCollector::ProduceVideoRTPStreamStats_n(
     for (const auto& report_block_data : video_sender_info.report_block_datas) {
       report->AddStats(ProduceRemoteInboundRtpStreamStatsFromReportBlockData(
           transport_id, report_block_data, cricket::MEDIA_TYPE_VIDEO,
-          video_outbound_rtps, *report));
+          video_outbound_rtps, *report, pc_->GetConfiguration()));
     }
   }
 }

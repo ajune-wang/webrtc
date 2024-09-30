@@ -539,7 +539,12 @@ void Connection::OnReadPacket(const rtc::ReceivedPacket& packet) {
       RTC_LOG_V(sev) << ToString() << ": Received "
                      << StunMethodToString(msg->type())
                      << ", id=" << rtc::hex_encode(msg->transaction_id());
-      if (remote_ufrag == remote_candidate_.username()) {
+      if (remote_ufrag == remote_candidate_.username() &&
+          dtls_stun_piggyback_consumer_) {
+        if (auto dtls_attribute =
+                msg->GetByteString(STUN_ATTR_META_DTLS_IN_STUN)) {
+          dtls_stun_piggyback_consumer_(dtls_attribute);
+        }
         HandleStunBindingOrGoogPingRequest(msg.get());
       } else {
         // The packet had the right local username, but the remote username
@@ -557,6 +562,13 @@ void Connection::OnReadPacket(const rtc::ReceivedPacket& packet) {
       // This doesn't just check, it makes callbacks if transaction
       // id's match.
     case STUN_BINDING_RESPONSE:
+      if (dtls_stun_piggyback_consumer_) {
+        if (auto dtls_attribute =
+                msg->GetByteString(STUN_ATTR_META_DTLS_IN_STUN)) {
+          dtls_stun_piggyback_consumer_(dtls_attribute);
+        }
+      }
+      ABSL_FALLTHROUGH_INTENDED;
     case STUN_BINDING_ERROR_RESPONSE:
       requests_.CheckResponse(msg.get());
       break;
@@ -746,6 +758,21 @@ void Connection::SendStunBindingResponse(const StunMessage* message) {
                           << " goog_delta_consumer_ = "
                           << goog_delta_consumer_.has_value();
     }
+  }
+
+  std::optional<absl::string_view> dtls_piggyback_attr =
+      dtls_stun_piggyback_producer_
+          ? dtls_stun_piggyback_producer_(STUN_BINDING_RESPONSE)
+          : std::nullopt;
+  RTC_LOG(LS_ERROR) << "DTLS PONG BINDING RESPONSE"
+                    << " attr=" << !!dtls_piggyback_attr << " " << this;
+
+  // TODO: need to subtract M-I and FP here.
+  if (dtls_piggyback_attr &&
+      (response.length() + dtls_piggyback_attr->length()) <
+          kMaxStunBindingLength) {
+    response.AddAttribute(std::make_unique<StunByteStringAttribute>(
+        STUN_ATTR_META_DTLS_IN_STUN, *dtls_piggyback_attr));
   }
 
   response.AddMessageIntegrity(local_candidate().password());
@@ -1082,6 +1109,21 @@ std::unique_ptr<IceMessage> Connection::BuildPingRequest(
     RTC_DCHECK(delta->type() == STUN_ATTR_GOOG_DELTA);
     RTC_LOG(LS_INFO) << "Sending GOOG_DELTA: len: " << delta->length();
     message->AddAttribute(std::move(delta));
+  }
+
+  std::optional<absl::string_view> dtls_piggyback_attr =
+      dtls_stun_piggyback_producer_
+          ? dtls_stun_piggyback_producer_(STUN_BINDING_REQUEST)
+          : std::nullopt;
+  RTC_LOG(LS_ERROR) << "DTLS PING" << " attr=" << !!dtls_piggyback_attr << " "
+                    << this;
+
+  // TODO: need to subtract M-I and FP here.
+  if (dtls_piggyback_attr &&
+      (message->length() + dtls_piggyback_attr->length()) <
+          kMaxStunBindingLength) {
+    message->AddAttribute(std::make_unique<StunByteStringAttribute>(
+        STUN_ATTR_META_DTLS_IN_STUN, *dtls_piggyback_attr));
   }
 
   message->AddMessageIntegrity(remote_candidate_.password());
@@ -1483,6 +1525,18 @@ void Connection::OnConnectionRequestResponse(StunRequest* request,
     }
   } else if (delta_ack) {
     RTC_LOG(LS_ERROR) << "Discard GOOG_DELTA_ACK, no consumer";
+  }
+
+  if (dtls_stun_piggyback_consumer_) {
+    const bool sent_dtls_piggyback =
+        request->msg()->GetByteString(STUN_ATTR_META_DTLS_IN_STUN) != nullptr;
+    const StunByteStringAttribute* dtls_piggyback_attr =
+        response->GetByteString(STUN_ATTR_META_DTLS_IN_STUN);
+    if (dtls_piggyback_attr) {
+      dtls_stun_piggyback_consumer_(dtls_piggyback_attr);
+    } else if (sent_dtls_piggyback) {
+      dtls_stun_piggyback_consumer_(nullptr);
+    }
   }
 }
 

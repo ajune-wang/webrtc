@@ -733,7 +733,6 @@ int NetEqImpl::GetAudioInternal(AudioFrame* audio_frame,
   bool play_dtmf;
   last_decoded_packet_infos_.clear();
   tick_timer_->Increment();
-  stats_->IncreaseCounter(output_size_samples_, fs_hz_);
 
   // Check for muted state.
   if (enable_muted_state_ && expand_->Muted() && packet_buffer_->Empty()) {
@@ -755,6 +754,7 @@ int NetEqImpl::GetAudioInternal(AudioFrame* audio_frame,
                   static_cast<uint32_t>(audio_frame->samples_per_channel_);
     audio_frame->num_channels_ = sync_buffer_->Channels();
     stats_->ExpandedNoiseSamples(output_size_samples_, false);
+    stats_->IncreaseCounter(output_size_samples_, fs_hz_);
     controller_->NotifyMutedState();
     return 0;
   }
@@ -963,6 +963,8 @@ int NetEqImpl::GetAudioInternal(AudioFrame* audio_frame,
         last_mode_ == Mode::kCodecPlc)) {
     generated_noise_stopwatch_.reset();
   }
+
+  stats_->IncreaseCounter(output_size_samples_, fs_hz_);
 
   if (decode_return_value)
     return decode_return_value;

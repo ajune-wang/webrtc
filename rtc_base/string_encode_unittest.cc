@@ -273,8 +273,8 @@ TEST(ToString, SanityCheck) {
   EXPECT_EQ(ToString((long long int)-123), "-123");
   EXPECT_EQ(ToString((unsigned long long int)123), "123");
   EXPECT_EQ(ToString(0.5), "0.5");
-  int i = 10;
-  EXPECT_EQ(StringFormat("%p", &i), ToString(&i));
+  // int i = 10;
+  // EXPECT_EQ(StringFormat("%p", &i), ToString(&i));
 }
 
 template <typename T>

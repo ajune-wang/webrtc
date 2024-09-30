@@ -600,6 +600,7 @@ rtc_library("stringutils") {
     ":safe_minmax",
     "../api:array_view",
     "//third_party/abseil-cpp/absl/strings:string_view",
+    "//third_party/abseil-cpp/absl/strings:strings",
   ]
 }
 

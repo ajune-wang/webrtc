@@ -187,6 +187,7 @@ std::vector<absl::string_view> split(absl::string_view source, char delimiter) {
   return fields;
 }
 
+/*
 std::string ToString(const bool b) {
   return b ? "true" : "false";
 }
@@ -254,20 +255,21 @@ std::string ToString(const double d) {
   RTC_DCHECK_LE(len, arraysize(buf));
   return std::string(&buf[0], len);
 }
-
+*/
 std::string ToString(const long double d) {
   char buf[32];
   const int len = std::snprintf(&buf[0], arraysize(buf), "%Lg", d);
   RTC_DCHECK_LE(len, arraysize(buf));
   return std::string(&buf[0], len);
 }
-
+/*
 std::string ToString(const void* const p) {
   char buf[32];
   const int len = std::snprintf(&buf[0], arraysize(buf), "%p", p);
   RTC_DCHECK_LE(len, arraysize(buf));
   return std::string(&buf[0], len);
 }
+*/
 
 bool FromString(absl::string_view s, bool* b) {
   if (s == "false") {

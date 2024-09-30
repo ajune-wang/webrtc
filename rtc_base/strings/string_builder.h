@@ -136,11 +136,12 @@ class StringBuilder {
     str_ += rtc::ToString(f);
     return *this;
   }
-
+  /*
   StringBuilder& operator<<(long double f) {
-    str_ += rtc::ToString(f);
+    //    str_ += rtc::ToString(f);
     return *this;
   }
+  */
 
   const std::string& str() const { return str_; }
 

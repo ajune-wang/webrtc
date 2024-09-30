@@ -18,6 +18,7 @@
 #include <type_traits>
 #include <vector>
 
+#include "absl/strings/str_cat.h"
 #include "absl/strings/string_view.h"
 #include "api/array_view.h"
 #include "rtc_base/checks.h"
@@ -62,6 +63,11 @@ bool tokenize_first(absl::string_view source,
                     std::string* token,
                     std::string* rest);
 
+template <typename T>
+std::string ToString(const T& value) {
+  return {absl::StrCat(value)};
+}
+/*
 // Convert arbitrary values to/from a string.
 // TODO(jonasolsson): Remove these when absl::StrCat becomes available.
 std::string ToString(bool b);
@@ -84,7 +90,7 @@ std::string ToString(double t);
 std::string ToString(long double t);
 
 std::string ToString(const void* p);
-
+*/
 template <typename T,
           typename std::enable_if<std::is_arithmetic<T>::value &&
                                       !std::is_same<T, bool>::value,

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a6fad3f1_bee33a25",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-09-30T20:58:06Z",
+      "side": 1,
+      "message": "Delete delete? It has been deprecated since 2022!",
+      "revId": "226c6f7ee9e5430bfa6bcc58335b49efe738e94d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

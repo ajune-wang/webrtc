@@ -30,7 +30,8 @@ TEST(Expand, CreateAndDestroy) {
   BackgroundNoise bgn(channels);
   SyncBuffer sync_buffer(1, 1000);
   RandomVector random_vector;
-  StatisticsCalculator statistics;
+  TickTimer timer;
+  StatisticsCalculator statistics(&timer);
   Expand expand(&bgn, &sync_buffer, &random_vector, &statistics, fs, channels);
 }
 
@@ -40,7 +41,8 @@ TEST(Expand, CreateUsingFactory) {
   BackgroundNoise bgn(channels);
   SyncBuffer sync_buffer(1, 1000);
   RandomVector random_vector;
-  StatisticsCalculator statistics;
+  TickTimer timer;
+  StatisticsCalculator statistics(&timer);
   ExpandFactory expand_factory;
   Expand* expand = expand_factory.Create(&bgn, &sync_buffer, &random_vector,
                                          &statistics, fs, channels);
@@ -51,6 +53,8 @@ TEST(Expand, CreateUsingFactory) {
 namespace {
 class FakeStatisticsCalculator : public StatisticsCalculator {
  public:
+  FakeStatisticsCalculator() : StatisticsCalculator(&timer_) {}
+
   void LogDelayedPacketOutageEvent(int num_samples, int fs_hz) override {
     last_outage_duration_samples_ = num_samples;
   }
@@ -60,6 +64,7 @@ class FakeStatisticsCalculator : public StatisticsCalculator {
   }
 
  private:
+  TickTimer timer_;
   int last_outage_duration_samples_ = 0;
 };
 

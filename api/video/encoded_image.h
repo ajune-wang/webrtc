@@ -28,6 +28,7 @@
 #include "api/video/video_frame_type.h"
 #include "api/video/video_rotation.h"
 #include "api/video/video_timing.h"
+#include "rtc_base/buffer.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/system/rtc_export.h"
 
@@ -55,6 +56,7 @@ class RTC_EXPORT EncodedImageBuffer : public EncodedImageBufferInterface {
   static rtc::scoped_refptr<EncodedImageBuffer> Create(size_t size);
   static rtc::scoped_refptr<EncodedImageBuffer> Create(const uint8_t* data,
                                                        size_t size);
+  static rtc::scoped_refptr<EncodedImageBuffer> Create(rtc::Buffer&& buffer);
 
   const uint8_t* data() const override;
   uint8_t* data() override;
@@ -64,6 +66,7 @@ class RTC_EXPORT EncodedImageBuffer : public EncodedImageBufferInterface {
  protected:
   explicit EncodedImageBuffer(size_t size);
   EncodedImageBuffer(const uint8_t* data, size_t size);
+  explicit EncodedImageBuffer(rtc::Buffer&& buffer);
   ~EncodedImageBuffer();
 
   size_t size_;

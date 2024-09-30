@@ -32,6 +32,11 @@ EncodedImageBuffer::EncodedImageBuffer(const uint8_t* data, size_t size)
   std::copy_n(data, size, buffer_);
 }
 
+EncodedImageBuffer::EncodedImageBuffer(rtc::Buffer&& buffer) {
+  buffer_ = buffer.data();
+  size_ = buffer.size();
+}
+
 EncodedImageBuffer::~EncodedImageBuffer() {
   free(buffer_);
 }
@@ -45,6 +50,11 @@ rtc::scoped_refptr<EncodedImageBuffer> EncodedImageBuffer::Create(
     const uint8_t* data,
     size_t size) {
   return rtc::make_ref_counted<EncodedImageBuffer>(data, size);
+}
+// static
+rtc::scoped_refptr<EncodedImageBuffer> EncodedImageBuffer::Create(
+    rtc::Buffer&& buffer) {
+  return rtc::make_ref_counted<EncodedImageBuffer>(std::move(buffer));
 }
 
 const uint8_t* EncodedImageBuffer::data() const {

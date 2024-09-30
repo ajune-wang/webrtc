@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fb39725c_0218f436",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2024-09-30T13:52:56Z",
+      "side": 1,
+      "message": "Hi, an alternative to this change is https://webrtc-review.googlesource.com/c/src/+/364160, the expand stats will still be counted before the first packet, but not returned until after the decoder has been created (0s will be returned instead).",
+      "revId": "cad19dbc0820cae9d5b089fa383fa4c75b9b1971",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

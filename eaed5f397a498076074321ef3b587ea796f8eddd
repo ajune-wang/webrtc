@@ -16,6 +16,502 @@
       "message": "Hi, I\u0027m proposing a change to make the `VideoFrame`\u0027s `id` field optional. More detailed background information is available in the referenced bug.  \nSince this change impacts the public API, I will issue a PSA and notify the relevant users, although this field is generally considered DVQA-specific.  \nPlease take a look at the change and let me know if you have any concerns or suggestions. Thanks!",
       "revId": "eaed5f397a498076074321ef3b587ea796f8eddd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "791e4439_b8f7dd37",
+        "filename": "api/video/video_frame.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2024-09-30T11:31:43Z",
+      "side": 1,
+      "message": "nit: please remove extra space",
+      "range": {
+        "startLine": 161,
+        "startChar": 60,
+        "endLine": 161,
+        "endChar": 61
+      },
+      "revId": "eaed5f397a498076074321ef3b587ea796f8eddd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e1162689_b0d5735a",
+        "filename": "api/video/video_frame.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2024-09-30T11:31:43Z",
+      "side": 1,
+      "message": "Instead of replacing old method, please add a new getter for backward compatibility to allow downstream projects to perform a migration first.",
+      "range": {
+        "startLine": 167,
+        "startChar": 26,
+        "endLine": 167,
+        "endChar": 28
+      },
+      "revId": "eaed5f397a498076074321ef3b587ea796f8eddd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eced71fb_e86ab814",
+        "filename": "test/pc/e2e/analyzer/video/analyzing_video_sink.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2024-09-30T11:31:43Z",
+      "side": 1,
+      "message": "Please prefer *frame.id()",
+      "range": {
+        "startLine": 93,
+        "startChar": 57,
+        "endLine": 93,
+        "endChar": 75
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "c21fdca3_ba8a268d",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "test/pc/e2e/analyzer/video/analyzing_video_sink.cc",
+              "range": {
+                "startLine": 93,
+                "startChar": 0,
+                "endLine": 94,
+                "endChar": 0
+              },
+              "replacement": "    std::string stream_label \u003d analyzer_-\u003eGetStreamLabel(*frame.id());\n"
+            }
+          ]
+        }
+      ],
+      "revId": "eaed5f397a498076074321ef3b587ea796f8eddd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bf414601_bb7fb77f",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 286,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2024-09-30T11:31:43Z",
+      "side": 1,
+      "message": "Let\u0027s add a message that DVQA requires frame id set for frames passed into OnFramePreEncode",
+      "range": {
+        "startLine": 286,
+        "startChar": 36,
+        "endLine": 286,
+        "endChar": 37
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "976fabb0_cddbb283",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.cc",
+              "range": {
+                "startLine": 286,
+                "startChar": 0,
+                "endLine": 287,
+                "endChar": 0
+              },
+              "replacement": "  RTC_DCHECK(frame.id().has_value())\n      \u003c\u003c \"DefaultVideoQualityAnalyzer requires frame id set for frames passed \"\n         \"into OnFramePreEncode\";\n"
+            }
+          ]
+        }
+      ],
+      "revId": "eaed5f397a498076074321ef3b587ea796f8eddd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "04b66d9b_65f54b7f",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 287,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2024-09-30T11:31:43Z",
+      "side": 1,
+      "message": "Here and in other places please prefer *frame.id() instead of frame.id().value() to get optional value.",
+      "range": {
+        "startLine": 287,
+        "startChar": 22,
+        "endLine": 287,
+        "endChar": 40
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "f0bfc929_128b19ff",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.cc",
+              "range": {
+                "startLine": 287,
+                "startChar": 0,
+                "endLine": 288,
+                "endChar": 0
+              },
+              "replacement": "  uint16_t frame_id \u003d *frame.id();\n"
+            },
+            {
+              "path": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.cc",
+              "range": {
+                "startLine": 371,
+                "startChar": 0,
+                "endLine": 373,
+                "endChar": 0
+              },
+              "replacement": "  size_t stream_index \u003d encoded_image.SpatialIndex().value_or(0);\n  if (stream_index \u003d\u003d 0) {\n    stream_index \u003d encoded_image.SimulcastIndex().value_or(0);\n  }\n"
+            },
+            {
+              "path": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.cc",
+              "range": {
+                "startLine": 407,
+                "startChar": 0,
+                "endLine": 408,
+                "endChar": 0
+              },
+              "replacement": "  auto it \u003d captured_frames_in_flight_.find(*frame_id);\n"
+            },
+            {
+              "path": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.cc",
+              "range": {
+                "startLine": 460,
+                "startChar": 0,
+                "endLine": 461,
+                "endChar": 0
+              },
+              "replacement": "  auto it \u003d captured_frames_in_flight_.find(*frame.id());\n"
+            },
+            {
+              "path": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.cc",
+              "range": {
+                "startLine": 506,
+                "startChar": 0,
+                "endLine": 507,
+                "endChar": 0
+              },
+              "replacement": "  auto frame_it \u003d captured_frames_in_flight_.find(*frame.id());\n"
+            },
+            {
+              "path": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.cc",
+              "range": {
+                "startLine": 527,
+                "startChar": 0,
+                "endLine": 528,
+                "endChar": 0
+              },
+              "replacement": "        \u003c\u003c *frame.id() \u003c\u003c \" which was \" \u003c\u003c reason \u003c\u003c \" before\";\n"
+            },
+            {
+              "path": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.cc",
+              "range": {
+                "startLine": 534,
+                "startChar": 0,
+                "endLine": 535,
+                "endChar": 0
+              },
+              "replacement": "      frames_storage_.Get(*frame.id());\n"
+            },
+            {
+              "path": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.cc",
+              "range": {
+                "startLine": 551,
+                "startChar": 0,
+                "endLine": 552,
+                "endChar": 0
+              },
+              "replacement": "      peer_index, *frame.id(), stats_key, *state);\n"
+            },
+            {
+              "path": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.cc",
+              "range": {
+                "startLine": 596,
+                "startChar": 0,
+                "endLine": 597,
+                "endChar": 0
+              },
+              "replacement": "  RTC_LOG(LS_ERROR) \u003c\u003c \"Encoder error for frame.id\u003d\" \u003c\u003c frame.id().value_or(0)\n"
+            },
+            {
+              "path": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.cc",
+              "range": {
+                "startLine": 605,
+                "startChar": 0,
+                "endLine": 606,
+                "endChar": 0
+              },
+              "replacement": "  RTC_LOG(LS_ERROR) \u003c\u003c \"Decoder error for frame_id\u003d\" \u003c\u003c frame_id.value_or(0)\n"
+            },
+            {
+              "path": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.cc",
+              "range": {
+                "startLine": 621,
+                "startChar": 0,
+                "endLine": 622,
+                "endChar": 0
+              },
+              "replacement": "  auto it \u003d captured_frames_in_flight_.find(*frame_id);\n"
+            },
+            {
+              "path": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.cc",
+              "range": {
+                "startLine": 638,
+                "startChar": 0,
+                "endLine": 640,
+                "endChar": 0
+              },
+              "replacement": "  used_decoder.first_frame_id \u003d *frame_id;\n  used_decoder.last_frame_id \u003d *frame_id;\n"
+            }
+          ]
+        }
+      ],
+      "revId": "eaed5f397a498076074321ef3b587ea796f8eddd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9e495b05_fe089d24",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 315,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2024-09-30T11:31:43Z",
+      "side": 1,
+      "message": "As we check that frame id is set, let\u0027s actually remove optional from API here and do a check on the caller side instead.",
+      "range": {
+        "startLine": 315,
+        "startChar": 4,
+        "endLine": 315,
+        "endChar": 37
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "a3802a3f_bdc4b50c",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.cc",
+              "range": {
+                "startLine": 315,
+                "startChar": 0,
+                "endLine": 316,
+                "endChar": 0
+              },
+              "replacement": "    uint16_t frame_id,\n"
+            },
+            {
+              "path": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.cc",
+              "range": {
+                "startLine": 326,
+                "startChar": 0,
+                "endLine": 328,
+                "endChar": 0
+              },
+              "replacement": "  auto it \u003d captured_frames_in_flight_.find(frame_id);\n"
+            },
+            {
+              "path": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.cc",
+              "range": {
+                "startLine": 330,
+                "startChar": 0,
+                "endLine": 331,
+                "endChar": 0
+              },
+              "replacement": "        \u003c\u003c \"The encoding of video frame with id [\" \u003c\u003c frame_id\n"
+            },
+            {
+              "path": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.cc",
+              "range": {
+                "startLine": 363,
+                "startChar": 0,
+                "endLine": 365,
+                "endChar": 0
+              },
+              "replacement": "  used_encoder.first_frame_id \u003d frame_id;\n  used_encoder.last_frame_id \u003d frame_id;\n"
+            }
+          ]
+        }
+      ],
+      "revId": "eaed5f397a498076074321ef3b587ea796f8eddd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "80e23a5e_cbca89b3",
+        "filename": "test/pc/e2e/analyzer/video/dvqa/frames_storage.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2024-09-30T11:31:43Z",
+      "side": 1,
+      "message": "Please prefer *frame.id() instead of frame.id().value()",
+      "range": {
+        "startLine": 26,
+        "startChar": 18,
+        "endLine": 26,
+        "endChar": 36
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "d8cc3ae6_f45bd8d3",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "test/pc/e2e/analyzer/video/dvqa/frames_storage.cc",
+              "range": {
+                "startLine": 26,
+                "startChar": 0,
+                "endLine": 27,
+                "endChar": 0
+              },
+              "replacement": "  frame_id_index_[*frame.id()] \u003d heap_.size() - 1;\n"
+            }
+          ]
+        }
+      ],
+      "revId": "eaed5f397a498076074321ef3b587ea796f8eddd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "80a4e32e_8b44f946",
+        "filename": "test/pc/e2e/analyzer/video/dvqa/frames_storage_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2024-09-30T11:31:43Z",
+      "side": 1,
+      "message": "Please prefer *frame.id() instead of frame.id().value()",
+      "range": {
+        "startLine": 104,
+        "startChar": 17,
+        "endLine": 104,
+        "endChar": 36
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "1590d56c_6ab62668",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "test/pc/e2e/analyzer/video/dvqa/frames_storage_test.cc",
+              "range": {
+                "startLine": 104,
+                "startChar": 0,
+                "endLine": 107,
+                "endChar": 0
+              },
+              "replacement": "  storage.Remove(*frame1.id());\n  storage.Remove(*frame2.id());\n  storage.Remove(*frame3.id());\n"
+            }
+          ]
+        }
+      ],
+      "revId": "eaed5f397a498076074321ef3b587ea796f8eddd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cde5a72b_9d09b232",
+        "filename": "test/pc/e2e/analyzer/video/quality_analyzing_video_encoder.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2024-09-30T11:31:43Z",
+      "side": 1,
+      "message": "Please prefer *frame.id() instead of frame.id().value()",
+      "range": {
+        "startLine": 147,
+        "startChar": 32,
+        "endLine": 147,
+        "endChar": 50
+      },
+      "revId": "eaed5f397a498076074321ef3b587ea796f8eddd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8b82a074_f3a24c34",
+        "filename": "test/testsupport/fixed_fps_video_frame_writer_adapter_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2024-09-30T11:31:43Z",
+      "side": 1,
+      "message": "Please prefer *frame.id() instead of frame.id().value()",
+      "range": {
+        "startLine": 67,
+        "startChar": 18,
+        "endLine": 67,
+        "endChar": 36
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "77d97345_03c183c8",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "test/testsupport/fixed_fps_video_frame_writer_adapter_test.cc",
+              "range": {
+                "startLine": 67,
+                "startChar": 0,
+                "endLine": 68,
+                "endChar": 0
+              },
+              "replacement": "    out.push_back(*frame.id());\n"
+            }
+          ]
+        }
+      ],
+      "revId": "eaed5f397a498076074321ef3b587ea796f8eddd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

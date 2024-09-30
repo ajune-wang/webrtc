@@ -128,6 +128,30 @@
       },
       "revId": "f21fc90550b5c34d6f6f0bea403edc80d7a77847",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e4564608_8f665cad",
+        "filename": "modules/rtp_rtcp/source/video_rtp_depacketizer_h264.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2024-09-30T16:40:52Z",
+      "side": 1,
+      "message": "I have started working on cleaning up the h264 depacketizer so it is easier to merge current h26x_pacekt_buffer logic into the main packet_buffer.\n\nhttps://webrtc-review.googlesource.com/c/src/+/364240\n\nHopefully this makes it easier to debug",
+      "parentUuid": "2867d2ba_687bd0a0",
+      "range": {
+        "startLine": 213,
+        "startChar": 7,
+        "endLine": 213,
+        "endChar": 68
+      },
+      "revId": "f21fc90550b5c34d6f6f0bea403edc80d7a77847",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -194,6 +194,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b8b501ed_e71ec1e2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2024-09-30T13:06:39Z",
+      "side": 1,
+      "message": "Hi\nI invited you to a chat group (with hta@) on this!\nLong story short: I (we) need to pause this a bit, resolving some \"internal\" things. Hopefully they will resolve quickly, let\u0027s keep meeting Thursday.\n/Jonas",
+      "parentUuid": "2c76259a_a4137a7a",
+      "revId": "463682ba233a53cfb48cf7103c562d3e4ecfa3af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e265f51f_2f27b616",

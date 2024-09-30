@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9eb67f09_85f507b0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-09-30T13:17:06Z",
+      "side": 1,
+      "message": "custom sinks are not supported by AbslStringify, so need to use through some \u0027official\u0027 sink. StrCat is the simplest.\n\nSo proposing to allow StrCat as RTC_LOG and RTC_CHECK implementation detail.\n(however I do not see how to use it as implementation detail without leaking it in the popular header files)",
+      "revId": "c4c4196160ea40134706cda1ffd0dc32e986a974",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

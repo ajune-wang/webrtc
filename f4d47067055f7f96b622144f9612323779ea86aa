@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e80919b8_3564aaf2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-09-30T23:44:21Z",
+      "side": 1,
+      "message": "can I remove this? (without breaking your internal build which is the constraint)",
+      "revId": "f4d47067055f7f96b622144f9612323779ea86aa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

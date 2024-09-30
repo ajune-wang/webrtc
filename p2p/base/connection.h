@@ -39,6 +39,7 @@
 #include "p2p/base/stun_request.h"
 #include "p2p/base/transport_description.h"
 #include "rtc_base/async_packet_socket.h"
+#include "rtc_base/copy_on_write_buffer.h"
 #include "rtc_base/network.h"
 #include "rtc_base/network/received_packet.h"
 #include "rtc_base/numerics/event_based_exponential_moving_average.h"
@@ -53,6 +54,7 @@ namespace cricket {
 // Version number for GOOG_PING, this is added to have the option of
 // adding other flavors in the future.
 constexpr int kGoogPingVersion = 1;
+constexpr int kMaxStunBindingLength = 1200;
 
 // Forward declaration so that a ConnectionRequest can contain a Connection.
 class Connection;
@@ -359,6 +361,19 @@ class RTC_EXPORT Connection : public CandidatePairInterface {
     goog_delta_ack_consumer_ = std::nullopt;
   }
 
+  void RegisterDtlsPiggyback(
+      absl::AnyInvocable<std::optional<absl::string_view>(StunMessageType)>
+          producer,
+      absl::AnyInvocable<void(const StunByteStringAttribute*)> consumer) {
+    dtls_stun_piggyback_producer_ = std::move(producer);
+    dtls_stun_piggyback_consumer_ = std::move(consumer);
+  }
+  void DeregisterDtlsPiggyback() {
+    RTC_LOG(LS_ERROR) << "DEREGISTER PIGGYBACK";
+    dtls_stun_piggyback_consumer_ = nullptr;
+    dtls_stun_piggyback_producer_ = nullptr;
+  }
+
  protected:
   // A ConnectionRequest is a simple STUN ping used to determine writability.
   class ConnectionRequest;
@@ -511,6 +526,11 @@ class RTC_EXPORT Connection : public CandidatePairInterface {
       goog_delta_ack_consumer_;
   absl::AnyInvocable<void(Connection*, const rtc::ReceivedPacket&)>
       received_packet_callback_;
+
+  absl::AnyInvocable<std::optional<absl::string_view>(StunMessageType)>
+      dtls_stun_piggyback_producer_ = nullptr;
+  absl::AnyInvocable<void(const StunByteStringAttribute*)>
+      dtls_stun_piggyback_consumer_ = nullptr;
 };
 
 // ProxyConnection defers all the interesting work to the port.

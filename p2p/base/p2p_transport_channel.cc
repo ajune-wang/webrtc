@@ -97,6 +97,12 @@ rtc::RouteEndpoint CreateRouteEndpointFromCandidate(
                             uses_turn);
 }
 
+// https://datatracker.ietf.org/doc/html/rfc5246#appendix-A.1
+// Handshake packets have a type 0x16 / 22.
+bool IsDtlsHandshakePacket(const char* payload, size_t size) {
+  return size > 0 && payload[0] == 0x16;
+}
+
 }  // unnamed namespace
 
 bool IceCredentialsChanged(absl::string_view old_ufrag,
@@ -171,7 +177,16 @@ P2PTransportChannel::P2PTransportChannel(
               STRONG_AND_STABLE_WRITABLE_CONNECTION_PING_INTERVAL,
               true /* presume_writable_when_fully_relayed */,
               REGATHER_ON_FAILED_NETWORKS_INTERVAL,
-              RECEIVING_SWITCHING_DELAY) {
+              RECEIVING_SWITCHING_DELAY),
+      dtls_stun_piggyback_controller_(
+          [this](rtc::ArrayView<const uint8_t> piggybacked_dtls_packet) {
+            if (piggybacked_dtls_callback_ == nullptr) {
+              return;
+            }
+            piggybacked_dtls_callback_(
+                this, rtc::ReceivedPacket(piggybacked_dtls_packet,
+                                          rtc::SocketAddress()));
+          }) {
   TRACE_EVENT0("webrtc", "P2PTransportChannel::P2PTransportChannel");
   RTC_DCHECK(allocator_ != nullptr);
   // Validate IceConfig even for mostly built-in constant default values in case
@@ -281,6 +296,18 @@ void P2PTransportChannel::AddConnection(Connection* connection) {
       [this](webrtc::RTCErrorOr<const StunUInt64Attribute*> delta_ack) {
         GoogDeltaAckReceived(std::move(delta_ack));
       });
+  if (config_.dtls_handshake_in_stun) {
+    RTC_LOG(LS_ERROR) << "CREATED " << this;
+    connection->RegisterDtlsPiggyback(
+        [this](StunMessageType stun_message_type) {
+          return dtls_stun_piggyback_controller_.GetDataToPiggyback(
+              stun_message_type);
+        },
+        [this](const StunByteStringAttribute* data) {
+          dtls_stun_piggyback_controller_.ReportDataPiggybacked(data);
+        });
+  }
+
   LogCandidatePairConfig(connection,
                          webrtc::IceCandidatePairConfigType::kAdded);
 
@@ -657,6 +684,12 @@ void P2PTransportChannel::SetIceConfig(const IceConfig& config) {
                      << config.stun_keepalive_interval_or_default();
   }
 
+  if (config_.dtls_handshake_in_stun != config.dtls_handshake_in_stun) {
+    config_.dtls_handshake_in_stun = config.dtls_handshake_in_stun;
+    RTC_LOG(LS_INFO) << "Set DTLS handshake in STUN to"
+                     << config.dtls_handshake_in_stun;
+  }
+
   webrtc::BasicRegatheringController::Config regathering_config;
   regathering_config.regather_on_failed_networks_interval =
       config_.regather_on_failed_networks_interval_or_default();
@@ -987,6 +1020,7 @@ void P2PTransportChannel::OnUnknownAddress(PortInterface* port,
                                            const std::string& remote_username,
                                            bool port_muxed) {
   RTC_DCHECK_RUN_ON(network_thread_);
+  RTC_DCHECK(stun_msg);
 
   // Port has received a valid stun packet from an address that no Connection
   // is currently available for. See if we already have a candidate with the
@@ -1116,6 +1150,15 @@ void P2PTransportChannel::OnUnknownAddress(PortInterface* port,
                                                : "resurrected")
                    << " candidate: " << remote_candidate.ToSensitiveString();
   AddConnection(connection);
+
+  // Process DTLS before sending the binding response.
+  if (config_.dtls_handshake_in_stun) {
+    if (const auto dtls_attribute =
+            stun_msg->GetByteString(STUN_ATTR_META_DTLS_IN_STUN)) {
+      RTC_LOG(LS_ERROR) << "REPORT PRFLX";
+      dtls_stun_piggyback_controller_.ReportDataPiggybacked(dtls_attribute);
+    }
+  }
   connection->HandleStunBindingOrGoogPingRequest(stun_msg);
 
   // Update the list of connections since we just added another.  We do this
@@ -1573,12 +1616,25 @@ int P2PTransportChannel::SendPacket(const char* data,
     error_ = EINVAL;
     return -1;
   }
+  if (config_.dtls_handshake_in_stun && IsDtlsHandshakePacket(data, len)) {
+    RTC_LOG(LS_ERROR) << "SHOULD BE DTLS-ing " << len;
+  }
   // If we don't think the connection is working yet, return ENOTCONN
   // instead of sending a packet that will probably be dropped.
   if (!ReadyToSend(selected_connection_)) {
+    RTC_LOG(LS_ERROR) << "NOT READY " << len;
     error_ = ENOTCONN;
     return -1;
   }
+  /*
+   * TODO: this is fun for demos but should not be required.
+   * Doing this harms fallback to non-supporting browsers.
+   * But it may be good to still call set_dtls_data for resiliency?
+  if (IsDtlsHandshakePacket(data, len)) {
+    RTC_LOG(LS_ERROR) << "Dropping explicit handshake " << writable_;
+    return len;
+  }
+  */
 
   packets_sent_++;
   last_sent_packet_id_ = options.packet_id;
@@ -2121,6 +2177,7 @@ void P2PTransportChannel::RemoveConnection(Connection* connection) {
   connection->DeregisterReceivedPacketCallback();
   connections_.erase(it);
   connection->ClearStunDictConsumer();
+  connection->DeregisterDtlsPiggyback();
   ice_controller_->OnConnectionDestroyed(connection);
 }
 
@@ -2242,6 +2299,22 @@ void P2PTransportChannel::SetWritable(bool writable) {
     SignalReadyToSend(this);
   }
   SignalWritableState(this);
+
+  if (config_.dtls_handshake_in_stun) {
+    // Need to STUN ping here to get the last bit of the DTLS handshake across
+    // (which we explicitly drop right now)
+    // Unless we decide we just let DTLS handle this normally and send a "raw"
+    // DTLS packet.
+    RTC_LOG(LS_ERROR) << "WRITABLE! " << selected_connection_;
+    SendPingRequestInternal(selected_connection_);
+    // TODO: we should be clearing the dtls_buffer_ once we successfully
+    // unprotect a SRTP packet or decrypt a DTLS packet (or receiving a binding
+    // response without a DTLS attribute after we previously saw one?). This
+    // currently clears the final server flight too early and should resend
+    // more. Works ok but how do we ensure it does not get set again? E.g. by
+    // making it a optional that gets unset.
+    dtls_stun_piggyback_controller_.SetDtlsHandshakeComplete();
+  }
 }
 
 void P2PTransportChannel::SetReceiving(bool receiving) {

@@ -195,6 +195,9 @@ struct RTC_EXPORT IceConfig {
 
   webrtc::VpnPreference vpn_preference = webrtc::VpnPreference::kDefault;
 
+  // Experimental feature to transport the DTLS handshake in STUN packets.
+  bool dtls_handshake_in_stun = false;
+
   IceConfig();
   IceConfig(int receiving_timeout_ms,
             int backup_connection_ping_interval,
@@ -274,6 +277,7 @@ class RTC_EXPORT IceTransportInternal : public rtc::PacketTransportInternal {
   virtual void SetRemoteIceMode(IceMode mode) = 0;
 
   virtual void SetIceConfig(const IceConfig& config) = 0;
+  virtual const IceConfig& config() const = 0;
 
   // Start gathering candidates if not already started, or if an ICE restart
   // occurred.
@@ -383,6 +387,15 @@ class RTC_EXPORT IceTransportInternal : public rtc::PacketTransportInternal {
     dictionary_writer_synced_callback_list_.RemoveReceivers(tag);
   }
 
+  void SetPiggybackDtlsDataCallback(
+      absl::AnyInvocable<void(rtc::PacketTransportInternal* transport,
+                              const rtc::ReceivedPacket& packet)> callback) {
+    RTC_DCHECK(callback == nullptr || !piggybacked_dtls_callback_);
+    piggybacked_dtls_callback_ = std::move(callback);
+  }
+  virtual void SetDtlsDataToPiggyback(rtc::ArrayView<const uint8_t>) {}
+  virtual void SetDtlsHandshakeComplete() {}
+
  protected:
   void SendGatheringStateEvent() {
     gathering_state_callback_list_.Send(this);
@@ -405,6 +418,9 @@ class RTC_EXPORT IceTransportInternal : public rtc::PacketTransportInternal {
 
   absl::AnyInvocable<void(const cricket::CandidatePairChangeEvent&)>
       candidate_pair_change_callback_;
+  absl::AnyInvocable<void(rtc::PacketTransportInternal*,
+                          const rtc::ReceivedPacket&)>
+      piggybacked_dtls_callback_;
 };
 
 }  // namespace cricket

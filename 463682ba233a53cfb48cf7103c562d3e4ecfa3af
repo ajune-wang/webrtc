@@ -214,6 +214,40 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e3174858_f05e1e60",
+        "filename": "p2p/base/connection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 629,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-09-30T18:18:59Z",
+      "side": 1,
+      "message": "This intentionally checks whether the attribute exists to avoid going into the controllers \"not supported\" when receiving the initial stun binding request from the DTLS server?",
+      "revId": "463682ba233a53cfb48cf7103c562d3e4ecfa3af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6ee245f1_c01c5208",
+        "filename": "p2p/base/connection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 765,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-09-30T18:18:59Z",
+      "side": 1,
+      "message": "nit: needs to account for overhead from MI (4+20) and FP (4+4), also below.",
+      "revId": "463682ba233a53cfb48cf7103c562d3e4ecfa3af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e265f51f_2f27b616",
         "filename": "p2p/base/connection.h",
         "patchSetId": 1
@@ -294,6 +328,23 @@
       "writtenOn": "2024-09-23T18:39:20Z",
       "side": 1,
       "message": "Is KESO the local variant of DEBUG?",
+      "revId": "463682ba233a53cfb48cf7103c562d3e4ecfa3af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "93b2c175_98049e14",
+        "filename": "p2p/base/dtls_transport.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 787,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-09-30T18:18:59Z",
+      "side": 1,
+      "message": "this is too early. On the server, at this point the last flight is in the outgoing buffer but gets cleared before it is sent.\n\n\"When to stop\" is a tricky question, I am not sure how packet loss of that flight is handled in DTLS. I *assume* the client resends flight #3 which causes the server to resend the last flight. Which could be a reason for significant delays in lossy networks.",
       "revId": "463682ba233a53cfb48cf7103c562d3e4ecfa3af",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

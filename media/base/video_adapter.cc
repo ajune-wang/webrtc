@@ -214,6 +214,8 @@ bool VideoAdapter::AdaptFrameResolution(int in_width,
   // Adjust input width and height without modifying aspect ratio as to be less
   // than or equal to the `requested_resolution_`.
   if (requested_resolution_.has_value()) {
+    int adjusted_width = in_width;
+    int adjusted_height = in_height;
     // Make frame and requested resolution have matching orientation.
     webrtc::Resolution requested_resolution = requested_resolution_.value();
     if ((in_width < in_height) !=
@@ -228,8 +230,16 @@ bool VideoAdapter::AdaptFrameResolution(int in_width,
       double scale_factor = std::min(
           requested_resolution.width / static_cast<double>(in_width),
           requested_resolution.height / static_cast<double>(in_height));
-      in_width = std::round(in_width * scale_factor);
-      in_height = std::round(in_height * scale_factor);
+      adjusted_width = std::round(in_width * scale_factor);
+      adjusted_height = std::round(in_height * scale_factor);
+    }
+    if (!target_aspect_ratio) {
+      target_aspect_ratio = std::make_pair(adjusted_width, adjusted_height);
+    } else {
+      target_aspect_ratio->first =
+          std::min(target_aspect_ratio->first, adjusted_width);
+      target_aspect_ratio->second =
+          std::min(target_aspect_ratio->second, adjusted_height);
     }
   }
 

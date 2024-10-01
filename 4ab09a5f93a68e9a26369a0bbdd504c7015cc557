@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4c950869_ae35f87e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-10-01T15:44:07Z",
+      "side": 1,
+      "message": "can PPS ever come in its own packet (theoretically it can but in practice)?\n\nsoft +1",
+      "revId": "4ab09a5f93a68e9a26369a0bbdd504c7015cc557",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

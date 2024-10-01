@@ -780,6 +780,8 @@ void RtpVideoStreamReceiver2::OnInsertedPacket(
       auto depacketizer_it = payload_type_map_.find(first_packet->payload_type);
       RTC_CHECK(depacketizer_it != payload_type_map_.end());
       RTC_CHECK(depacketizer_it->second);
+      RTC_DCHECK(first_packet);
+      RTC_DCHECK(first_packet->timestamp == packet->timestamp);
 
       rtc::scoped_refptr<EncodedImageBuffer> bitstream =
           depacketizer_it->second->AssembleFrame(payloads);

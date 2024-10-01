@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "661f2627_0885a009",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2024-10-01T20:16:17Z",
+      "side": 1,
+      "message": "This CL just modernizes use of raw pointers by ArrayViews, no functionality should have changed.",
+      "revId": "50955ebf9a1389b8cc0813bafb1a19b823ef492c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

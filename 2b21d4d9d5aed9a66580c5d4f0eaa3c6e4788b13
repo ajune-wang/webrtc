@@ -35,6 +35,41 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "73ed15a2_83333df6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2024-10-01T15:58:10Z",
+      "side": 1,
+      "message": "seems like a wise approach, let me split it into several CLs for easier review",
+      "parentUuid": "4afc0953_f1e306b6",
+      "revId": "2b21d4d9d5aed9a66580c5d4f0eaa3c6e4788b13",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2130b0ab_baa47c05",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2024-10-01T15:58:10Z",
+      "side": 1,
+      "message": "will keep this CL around just for reference",
+      "revId": "2b21d4d9d5aed9a66580c5d4f0eaa3c6e4788b13",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "370ff28a_73d80380",

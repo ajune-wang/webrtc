@@ -16,6 +16,69 @@
       "message": "I still have pending add move some unit tests to the h264 depacketizer, but would be great to have an early review before doing more work.",
       "revId": "2b21d4d9d5aed9a66580c5d4f0eaa3c6e4788b13",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4afc0953_f1e306b6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-01T12:29:19Z",
+      "side": 1,
+      "message": "I\u0027m not familiar enough with the problem to give good general overview of the approach. Smells like a right approach to me: moving SpsRewriter out of the parser, and implementing AssembleFrame as it is not-trivial - both look like good steps.\n\nI\u0027ve started with some readability comments, but then realize that those are probably too early to make.\n\nTo make it submittable it would help to split it into multiple steps.\nSince I\u0027m mostly familiar with modules/rtp_rtcp, I can propose some suggestion there:\n\nIt might be good idea to add a VideoRtpDepacketizer constructor with a flag that controls if SpsRewriter should or shouldn\u0027t be used, mostly to make it\u0027s removal stand alone change that can be tested without breaking code that depends on it.\n\nImplementing AssembleFrame with the InsertSpsPps  can be another stand alone change.\n\nSome changes (like using rtc::ArrayView more) look like can be submitted before functional changes, so that they won\u0027t distract while reviewing how functionality moved.\n\nhttps://google.github.io/eng-practices/review/developer/small-cls.html",
+      "revId": "2b21d4d9d5aed9a66580c5d4f0eaa3c6e4788b13",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "370ff28a_73d80380",
+        "filename": "api/video/encoded_image.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-01T12:29:19Z",
+      "side": 1,
+      "message": "buffer.data() gives pointer to the buffer without ownership,\nbut EncodedImageBuffer owns memory in buffer_\n(moreover, it fully controls how it is allocated and deallocated)",
+      "range": {
+        "startLine": 35,
+        "startChar": 39,
+        "endLine": 38,
+        "endChar": 1
+      },
+      "revId": "2b21d4d9d5aed9a66580c5d4f0eaa3c6e4788b13",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "86b28bd3_e01e4134",
+        "filename": "api/video/encoded_image.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-01T12:29:19Z",
+      "side": 1,
+      "message": "https://google.github.io/styleguide/cppguide.html#Forwarding_references\n\n“Do not use rvalue references”\n\nThere are few exception, but none applies here",
+      "range": {
+        "startLine": 59,
+        "startChar": 55,
+        "endLine": 59,
+        "endChar": 68
+      },
+      "revId": "2b21d4d9d5aed9a66580c5d4f0eaa3c6e4788b13",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

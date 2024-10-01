@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5e64cd99_f6746905",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2024-10-01T17:15:10Z",
+      "side": 1,
+      "message": "This is the second CL for spliting the changes  https://webrtc-review.googlesource.com/c/src/+/364240\n\nIt just adds helper methods to be able to write buffers and reuse the written buffer into the EncodedImageBuffer",
+      "revId": "654dc9519f8f541e87d04dcbedb1907757086c72",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

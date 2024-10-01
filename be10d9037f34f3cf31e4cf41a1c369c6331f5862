@@ -18,6 +18,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c45e5b3f_fe27fac2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-10-01T11:01:44Z",
+      "side": 1,
+      "message": "Thanks! Merged suggestions - char* was indeed an issue.",
+      "revId": "be10d9037f34f3cf31e4cf41a1c369c6331f5862",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "84105d79_16a1f904",
@@ -43,6 +60,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "5c0d18bb_76bf608f",
+        "filename": "rtc_base/string_encode.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-10-01T11:01:44Z",
+      "side": 1,
+      "message": "is_convertible sounds better. Adding a couple of tests seems good too.",
+      "parentUuid": "84105d79_16a1f904",
+      "range": {
+        "startLine": 69,
+        "startChar": 50,
+        "endLine": 69,
+        "endChar": 61
+      },
+      "revId": "be10d9037f34f3cf31e4cf41a1c369c6331f5862",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "55dbe44f_d76d9f97",
         "filename": "rtc_base/string_encode.h",
         "patchSetId": 7
@@ -54,6 +95,30 @@
       "writtenOn": "2024-10-01T10:29:14Z",
       "side": 1,
       "message": "may be swap `arraysize` to `std::size` while moving this code (and thus avoid arraysize include and dependency)",
+      "range": {
+        "startLine": 90,
+        "startChar": 21,
+        "endLine": 90,
+        "endChar": 30
+      },
+      "revId": "be10d9037f34f3cf31e4cf41a1c369c6331f5862",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "af8482ed_5214cf78",
+        "filename": "rtc_base/string_encode.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-10-01T11:01:44Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "55dbe44f_d76d9f97",
       "range": {
         "startLine": 90,
         "startChar": 21,

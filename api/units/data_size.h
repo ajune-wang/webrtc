@@ -30,6 +30,9 @@ class DataSize final : public rtc_units_impl::RelativeUnit<DataSize> {
 
   DataSize() = delete;
 
+  template <typename Sink>
+  friend void AbslStringify(Sink& sink, DataSize self);
+
   template <typename T = int64_t>
   constexpr T bytes() const {
     return ToValue<T>();
@@ -46,8 +49,13 @@ class DataSize final : public rtc_units_impl::RelativeUnit<DataSize> {
 };
 
 std::string ToString(DataSize value);
-inline std::string ToLogString(DataSize value) {
+[[deprecated]] inline std::string ToLogString(DataSize value) {
   return ToString(value);
+}
+
+template <typename Sink>
+void AbslStringify(Sink& sink, DataSize self) {
+  sink.Append(ToString(self));
 }
 
 }  // namespace webrtc

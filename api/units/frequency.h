@@ -42,6 +42,9 @@ class Frequency final : public rtc_units_impl::RelativeUnit<Frequency> {
 
   Frequency() = delete;
 
+  template <typename Sink>
+  friend void AbslStringify(Sink& sink, Frequency self);
+
   template <typename T = int64_t>
   constexpr T hertz() const {
     return ToFraction<1000, T>();
@@ -83,8 +86,13 @@ inline constexpr double operator*(TimeDelta time_delta, Frequency frequency) {
 }
 
 std::string ToString(Frequency value);
-inline std::string ToLogString(Frequency value) {
+[[deprecated]] inline std::string ToLogString(Frequency value) {
   return ToString(value);
+}
+
+template <typename Sink>
+void AbslStringify(Sink& sink, Frequency self) {
+  sink.Append(ToString(self));
 }
 
 }  // namespace webrtc

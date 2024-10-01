@@ -3,6 +3,46 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "388ee64d_6c7637d8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-01T16:42:13Z",
+      "side": 1,
+      "message": "May be add some motivation, explain why make the change.\n\nhttps://google.github.io/eng-practices/review/developer/cl-descriptions.html\n\nBased on the linked CL I understand that plan is to allow to build Buffer by another utility and pass it into EncodedImageBuffer without memcpy",
+      "revId": "0a670876f25ee46206eaff068eb40f5d3f378d95",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "203426a3_380fa26b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-01T16:42:13Z",
+      "side": 1,
+      "message": "42223344\n\n(all issues numbers were updated with issue tracker migration)",
+      "range": {
+        "startLine": 9,
+        "startChar": 12,
+        "endLine": 9,
+        "endChar": 17
+      },
+      "revId": "0a670876f25ee46206eaff068eb40f5d3f378d95",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "0ed3d846_75ae4459",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 1
@@ -14,6 +54,115 @@
       "writtenOn": "2024-10-01T16:20:47Z",
       "side": 1,
       "message": "This is the first CL for https://webrtc-review.googlesource.com/c/src/+/364240",
+      "revId": "0a670876f25ee46206eaff068eb40f5d3f378d95",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dd223d1d_951113f3",
+        "filename": "api/video/encoded_image.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-01T16:42:13Z",
+      "side": 1,
+      "message": "add `#include \"rtc_base/buffer.h\"`",
+      "revId": "0a670876f25ee46206eaff068eb40f5d3f378d95",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "838ccd51_cee3e4d3",
+        "filename": "api/video/encoded_image.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-01T16:42:13Z",
+      "side": 1,
+      "message": "ditto,\n`make_ref_counted` also was moved to `webrtc`",
+      "range": {
+        "startLine": 47,
+        "startChar": 9,
+        "endLine": 47,
+        "endChar": 14
+      },
+      "revId": "0a670876f25ee46206eaff068eb40f5d3f378d95",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1b15f9ef_9c7f7880",
+        "filename": "api/video/encoded_image.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-01T16:42:13Z",
+      "side": 1,
+      "message": "consider dropping `rtc::` namespace here:\nprimary namespace for `scoped_refptr` is now `webrtc`\n\nhttps://webrtc.googlesource.com/src/+/refs/heads/main/api/scoped_refptr.h#225",
+      "range": {
+        "startLine": 59,
+        "startChar": 8,
+        "endLine": 59,
+        "endChar": 14
+      },
+      "revId": "0a670876f25ee46206eaff068eb40f5d3f378d95",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "06146005_e62e4a46",
+        "filename": "api/video/encoded_image.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-01T16:42:13Z",
+      "side": 1,
+      "message": "https://google.github.io/styleguide/cppguide.html#Forwarding_references\n\n“Do not use rvalue references”\n\npass by value instead.\n```suggestion\n  static rtc::scoped_refptr\u003cEncodedImageBuffer\u003e Create(rtc::Buffer buffer);\n```",
+      "range": {
+        "startLine": 59,
+        "startChar": 55,
+        "endLine": 59,
+        "endChar": 69
+      },
+      "revId": "0a670876f25ee46206eaff068eb40f5d3f378d95",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3f30ac4b_736c909f",
+        "filename": "api/video/encoded_image.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-01T16:42:13Z",
+      "side": 1,
+      "message": "```suggestion\n  explicit EncodedImageBuffer(rtc::Buffer buffer);\n```",
+      "range": {
+        "startLine": 69,
+        "startChar": 41,
+        "endLine": 69,
+        "endChar": 43
+      },
       "revId": "0a670876f25ee46206eaff068eb40f5d3f378d95",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

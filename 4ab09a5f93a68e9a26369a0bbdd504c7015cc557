@@ -16,6 +16,24 @@
       "message": "can PPS ever come in its own packet (theoretically it can but in practice)?\n\nsoft +1",
       "revId": "4ab09a5f93a68e9a26369a0bbdd504c7015cc557",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "766ed68d_10ee77ef",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2024-10-01T15:57:03Z",
+      "side": 1,
+      "message": "theoretically, it can, it won\u0027t cause any harm if it never happens",
+      "parentUuid": "4c950869_ae35f87e",
+      "revId": "4ab09a5f93a68e9a26369a0bbdd504c7015cc557",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

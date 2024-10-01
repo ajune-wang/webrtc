@@ -77,6 +77,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "a33836af_bfdd6eaf",
+        "filename": "api/video/encoded_image.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2024-10-01T17:04:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dd223d1d_951113f3",
+      "revId": "0a670876f25ee46206eaff068eb40f5d3f378d95",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "838ccd51_cee3e4d3",
         "filename": "api/video/encoded_image.cc",
         "patchSetId": 1
@@ -144,6 +162,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ce26e68f_57912714",
+        "filename": "api/video/encoded_image.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2024-10-01T17:04:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "06146005_e62e4a46",
+      "range": {
+        "startLine": 59,
+        "startChar": 55,
+        "endLine": 59,
+        "endChar": 69
+      },
+      "revId": "0a670876f25ee46206eaff068eb40f5d3f378d95",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3f30ac4b_736c909f",
@@ -157,6 +199,30 @@
       "writtenOn": "2024-10-01T16:42:13Z",
       "side": 1,
       "message": "```suggestion\n  explicit EncodedImageBuffer(rtc::Buffer buffer);\n```",
+      "range": {
+        "startLine": 69,
+        "startChar": 41,
+        "endLine": 69,
+        "endChar": 43
+      },
+      "revId": "0a670876f25ee46206eaff068eb40f5d3f378d95",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a0fd5fbb_448d9bdc",
+        "filename": "api/video/encoded_image.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2024-10-01T17:04:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3f30ac4b_736c909f",
       "range": {
         "startLine": 69,
         "startChar": 41,

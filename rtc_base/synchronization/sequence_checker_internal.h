@@ -59,8 +59,8 @@ class RTC_EXPORT SequenceCheckerImpl {
 // right version for your build configuration.
 class SequenceCheckerDoNothing {
  public:
-  explicit SequenceCheckerDoNothing(bool attach_to_current_thread) {}
-  explicit SequenceCheckerDoNothing(TaskQueueBase* attached_queue) {}
+  explicit SequenceCheckerDoNothing(bool /* attach_to_current_thread */) {}
+  explicit SequenceCheckerDoNothing(TaskQueueBase* /* attached_queue */) {}
   bool IsCurrent() const { return true; }
   void Detach() {}
 };
@@ -72,6 +72,7 @@ ExpectationToString(const ThreadLikeObject* checker) {
 #if RTC_DCHECK_IS_ON
   return checker->ExpectationToString();
 #else
+  (void)checker;
   return std::string();
 #endif
 }

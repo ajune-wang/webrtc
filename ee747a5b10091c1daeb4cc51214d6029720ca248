@@ -16,6 +16,23 @@
       "message": "am I too optimistic about this being feasible without a deprecation?",
       "revId": "ee747a5b10091c1daeb4cc51214d6029720ca248",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "26099040_a3af3ba5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-10-01T07:25:44Z",
+      "side": 1,
+      "message": "If anyone is inappropriately overriding these functions, it will be a compile-time error, And \"downstream\" did not do so. Clear to submit.",
+      "revId": "ee747a5b10091c1daeb4cc51214d6029720ca248",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f64b7ed4_08cfa455",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-10-01T07:42:25Z",
+      "side": 1,
+      "message": "Another old deprecation.",
+      "revId": "83fdb009c777a0be334e7a1a57d968fe693e3e82",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

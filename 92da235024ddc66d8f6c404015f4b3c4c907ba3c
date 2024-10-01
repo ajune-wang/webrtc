@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "04228db4_fda7de5d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-10-01T19:43:37Z",
+      "side": 1,
+      "message": "Actually the style guide agrees about leaving the name in: https://google.github.io/styleguide/cppguide.html#Function_Declarations_and_Definitions",
+      "revId": "92da235024ddc66d8f6c404015f4b3c4c907ba3c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "40d3e8bf_38f861bb",
+        "filename": "rtc_base/string_to_number.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-10-01T19:43:37Z",
+      "side": 1,
+      "message": "extra space (how did git cl format miss that?)",
+      "revId": "92da235024ddc66d8f6c404015f4b3c4c907ba3c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1772d110_8a95db4b",
+        "filename": "rtc_base/synchronization/sequence_checker_internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-10-01T19:43:37Z",
+      "side": 1,
+      "message": "This is an odd construct. What does it do?",
+      "revId": "92da235024ddc66d8f6c404015f4b3c4c907ba3c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

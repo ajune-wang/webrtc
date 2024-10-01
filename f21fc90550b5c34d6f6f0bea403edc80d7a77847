@@ -152,6 +152,30 @@
       },
       "revId": "f21fc90550b5c34d6f6f0bea403edc80d7a77847",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "947c87f4_e24a5492",
+        "filename": "modules/rtp_rtcp/source/video_rtp_depacketizer_h264.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2024-10-01T12:12:37Z",
+      "side": 1,
+      "message": "RtpVideoStreamReceiver2::OnInsertedPacket will split the InsertResult into multiple frames based on packet-\u003eis_last_packet_in_frame() so the 56 will be split into 52 + 4.\n\nI have been checking the pcap and this are the order of the received packets for both idr and delta frame:\n\nidr - 13 - stap-a aud sps pps\nidr - 14 - FU-astart idr\nidr - 15 to 63 - FU-a (missing 29, 31, 35, 44, 50, 59)\nidr - 64 - FU-a end mark\nidr - 29 - FU-a\nidr - 31 - FU-a\nidr - 35 - FU-a\nidr - 44 - FU-a\ndelta - 65 - aud\ndelta - 66 - FU-a start non-idr\ndelta - 67 - FU-a\ndelta - 68 - FU-a end mark\nidr - 50 - FU-a\nidr - 59 - FU-a\n\n\nThe weird thing is why the delta frame is not detected on when the AUD is no set as fist packet in frame in packet 65.",
+      "parentUuid": "e4564608_8f665cad",
+      "range": {
+        "startLine": 213,
+        "startChar": 7,
+        "endLine": 213,
+        "endChar": 68
+      },
+      "revId": "f21fc90550b5c34d6f6f0bea403edc80d7a77847",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ],
   "submitRequirementResults": [

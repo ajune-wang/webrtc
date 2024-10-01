@@ -105,7 +105,7 @@ class OpenSSLStreamAdapter final : public SSLStreamAdapter,
 
   std::optional<absl::string_view> GetTlsCipherSuiteName() const override;
 
-  bool GetSslCipherSuite(int* cipher) override;
+  bool GetSslCipherSuite(int* cipher) const override;
   [[deprecated("Use GetSslVersionBytes")]] SSLProtocolVersion GetSslVersion()
       const override;
   bool GetSslVersionBytes(int* version) const override;
@@ -121,7 +121,7 @@ class OpenSSLStreamAdapter final : public SSLStreamAdapter,
 
   // DTLS-SRTP interface
   bool SetDtlsSrtpCryptoSuites(const std::vector<int>& crypto_suites) override;
-  bool GetDtlsSrtpCryptoSuite(int* crypto_suite) override;
+  bool GetDtlsSrtpCryptoSuite(int* crypto_suite) const override;
 
   bool IsTlsConnected() override;
 

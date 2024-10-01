@@ -12,10 +12,13 @@
 
 #include <string.h>
 
+#include <optional>
 #include <utility>
 
+#include "absl/types/variant.h"
 #include "api/video/encoded_image.h"
 #include "api/video/video_timing.h"
+#include "common_video/frame_instrumentation_data.h"
 #include "rtc_base/checks.h"
 
 namespace webrtc {
@@ -35,9 +38,13 @@ RtpFrameObject::RtpFrameObject(
     VideoContentType content_type,
     const RTPVideoHeader& video_header,
     const std::optional<webrtc::ColorSpace>& color_space,
+    const std::optional<
+        absl::variant<FrameInstrumentationSyncData, FrameInstrumentationData>>&
+        frame_instrumentation_data,
     RtpPacketInfos packet_infos,
     rtc::scoped_refptr<EncodedImageBuffer> image_buffer)
     : image_buffer_(image_buffer),
+      frame_instrumentation_data_(frame_instrumentation_data),
       first_seq_num_(first_seq_num),
       last_seq_num_(last_seq_num),
       last_packet_received_time_(last_packet_received_time),

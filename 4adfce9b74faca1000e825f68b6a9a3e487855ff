@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c0daaf01_fef8eeee",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-10-01T10:01:53Z",
+      "side": 1,
+      "message": "I\u0027m sure there are more elegant ways to do it.\nBut this seems to compile.",
+      "revId": "4adfce9b74faca1000e825f68b6a9a3e487855ff",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

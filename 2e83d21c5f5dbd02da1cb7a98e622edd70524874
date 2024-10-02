@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d96a8809_187efba1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-10-02T19:02:47Z",
+      "side": 1,
+      "message": "Begone sigslot! (I suspect it was solved by adding the AnyInvocable)",
+      "revId": "2e83d21c5f5dbd02da1cb7a98e622edd70524874",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

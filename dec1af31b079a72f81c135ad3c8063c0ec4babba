@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2feff885_f3a339ee",
+        "filename": "rtc_base/openssl_stream_adapter.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-10-02T19:02:47Z",
+      "side": 0,
+      "message": "the include path here is a BoringSSL one so it should have been \u003c\u003e? Removing it was easier.",
+      "revId": "dec1af31b079a72f81c135ad3c8063c0ec4babba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

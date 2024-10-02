@@ -144,6 +144,24 @@
       "parentUuid": "974f4d79_353e8b08",
       "revId": "2c01db9bb269a4f9519bc42d6b1e55312d16a181",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0ac653f3_15b8cc9b",
+        "filename": "pc/rtc_stats_collector.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 1192,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2024-10-02T13:18:52Z",
+      "side": 1,
+      "message": "What Harald describes is what \"performance.timeOrigin + performace.now()\" does.\n\nIn the perfect world, `env_.clock().CurrentTime()` would give us this value directly. But as per Chrome\u0027s implementation of the Clock, it only gives us the \"monotonically increasing\" part with some unknown offset that has to be converted as per Johannes comment.\n\nSadly WebRTC is currently a mix of global function clock (`rtc::TimeMicros()`) and Environment clock time and I don\u0027t think its safe to change them to have different offsets because then different parts of the code will have different offsets. And the global clock can\u0027t be relative to \"performance.timeOrigin\" because the blink process could contain multiple Documents using webrtc.\n\nTo fix https://crbug.com/369369568, the plan is to use the environment clock\u0027s current time and to convert it using `time_converter.MonotonicTimeToPseudoWallTime()` as part of exposing this to JS as is done for RTCRtpContributingSources timestamps.\n\nThe bridge from C++ to JS is here:\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/blink/renderer/modules/peerconnection/rtc_stats_report.cc;l\u003d1003;drc\u003d60703ec6d9524e35dc25f8133fefa2ebb518fdf2",
+      "parentUuid": "5b0a482a_36b3537b",
+      "revId": "2c01db9bb269a4f9519bc42d6b1e55312d16a181",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

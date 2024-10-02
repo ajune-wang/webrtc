@@ -139,10 +139,12 @@ int32_t QualityAnalyzingVideoEncoder::Release() {
 int32_t QualityAnalyzingVideoEncoder::Encode(
     const VideoFrame& frame,
     const std::vector<VideoFrameType>* frame_types) {
+  RTC_DCHECK(frame.id_or_nullopt().has_value());
   {
     MutexLock lock(&mutex_);
     // Store id to be able to retrieve it in analyzing callback.
-    timestamp_to_frame_id_list_.push_back({frame.rtp_timestamp(), frame.id()});
+    timestamp_to_frame_id_list_.push_back(
+        {frame.rtp_timestamp(), *frame.id_or_nullopt()});
     // If this list is growing, it means that we are not receiving new encoded
     // images from encoder. So it should be a bug in setup on in the encoder.
     RTC_DCHECK_LT(timestamp_to_frame_id_list_.size(), kMaxFrameInPipelineCount);

@@ -185,7 +185,7 @@ class SvcVideoQualityAnalyzer : public DefaultVideoQualityAnalyzer {
   }
 
   void OnFramePreDecode(absl::string_view peer_name,
-                        uint16_t frame_id,
+                        std::optional<uint16_t> frame_id,
                         const EncodedImage& input_image) override {
     std::optional<int> spatial_id = input_image.SpatialIndex();
     std::optional<int> temporal_id = input_image.TemporalIndex();

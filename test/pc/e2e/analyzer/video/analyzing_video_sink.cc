@@ -85,12 +85,13 @@ void AnalyzingVideoSink::OnFrame(const VideoFrame& frame) {
     return;
   }
 
-  if (frame.id() == VideoFrame::kNotSetId) {
+  if (!frame.id_or_nullopt().has_value()) {
     // If frame ID is unknown we can't get required render resolution, so pass
     // to the analyzer in the actual resolution of the frame.
     AnalyzeFrame(frame);
   } else {
-    std::string stream_label = analyzer_->GetStreamLabel(frame.id());
+    std::string stream_label =
+        analyzer_->GetStreamLabel(*frame.id_or_nullopt());
     MutexLock lock(&mutex_);
     Timestamp processing_started = clock_->CurrentTime();
     SinksDescriptor* sinks_descriptor = PopulateSinks(stream_label);

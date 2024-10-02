@@ -29,9 +29,6 @@ uint16_t ExampleVideoQualityAnalyzer::OnFrameCaptured(
     const webrtc::VideoFrame& frame) {
   MutexLock lock(&lock_);
   uint16_t frame_id = next_frame_id_++;
-  if (frame_id == VideoFrame::kNotSetId) {
-    frame_id = next_frame_id_++;
-  }
   stream_label_to_peer_name_[stream_label] = std::string(peer_name);
   auto it = frames_in_flight_.find(frame_id);
   if (it == frames_in_flight_.end()) {
@@ -78,7 +75,7 @@ void ExampleVideoQualityAnalyzer::OnFrameDropped(
 
 void ExampleVideoQualityAnalyzer::OnFramePreDecode(
     absl::string_view peer_name,
-    uint16_t frame_id,
+    std::optional<uint16_t> frame_id,
     const webrtc::EncodedImage& encoded_image) {
   MutexLock lock(&lock_);
   ++frames_received_;
@@ -96,7 +93,7 @@ void ExampleVideoQualityAnalyzer::OnFrameRendered(
     absl::string_view peer_name,
     const webrtc::VideoFrame& frame) {
   MutexLock lock(&lock_);
-  frames_in_flight_.erase(frame.id());
+  frames_in_flight_.erase(*frame.id_or_nullopt());
   ++frames_rendered_;
 }
 
@@ -104,15 +101,17 @@ void ExampleVideoQualityAnalyzer::OnEncoderError(
     absl::string_view peer_name,
     const webrtc::VideoFrame& frame,
     int32_t error_code) {
-  RTC_LOG(LS_ERROR) << "Failed to encode frame " << frame.id()
+  RTC_LOG(LS_ERROR) << "Failed to encode frame "
+                    << frame.id_or_nullopt().value_or(-1)
                     << ". Code: " << error_code;
 }
 
-void ExampleVideoQualityAnalyzer::OnDecoderError(absl::string_view peer_name,
-                                                 uint16_t frame_id,
-                                                 int32_t error_code,
-                                                 const DecoderStats& stats) {
-  RTC_LOG(LS_ERROR) << "Failed to decode frame " << frame_id
+void ExampleVideoQualityAnalyzer::OnDecoderError(
+    absl::string_view peer_name,
+    std::optional<uint16_t> frame_id,
+    int32_t error_code,
+    const DecoderStats& stats) {
+  RTC_LOG(LS_ERROR) << "Failed to decode frame " << frame_id.value_or(-1)
                     << ". Code: " << error_code;
 }
 

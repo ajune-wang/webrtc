@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0667af14_9bfacf6d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-02T13:29:54Z",
+      "side": 1,
+      "message": "42225170 might be a better fit for this change\nor you can attach it to both.",
+      "range": {
+        "startLine": 10,
+        "startChar": 12,
+        "endLine": 10,
+        "endChar": 20
+      },
+      "revId": "bdf9197b29f1d885a20b8b7dceb1a171e7593979",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "78a88cb9_38182e0e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-02T13:29:54Z",
+      "side": 1,
+      "message": "+Sergey for a 2nd +1 to follow the process.",
+      "revId": "bdf9197b29f1d885a20b8b7dceb1a171e7593979",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

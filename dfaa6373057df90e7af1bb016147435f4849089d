@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "85e1537c_4dbd07ef",
+        "filename": "rtc_base/byte_buffer.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2024-10-02T20:29:59Z",
+      "side": 1,
+      "message": "good catch!",
+      "parentUuid": "e1eb9bf9_409db0b2",
+      "range": {
+        "startLine": 104,
+        "startChar": 13,
+        "endLine": 104,
+        "endChar": 34
+      },
+      "revId": "dfaa6373057df90e7af1bb016147435f4849089d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1ae29033_5c360a2d",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-10-02T14:16:54Z",
       "side": 1,
       "message": "```suggestion\nTEST(ByteBufferTest, TestWriteArrayView) {\n  const uint8_t write_data[3] \u003d {3, 2, 1};\n  ByteBufferWriter buffer;\n  buffer.Write(write_data);\n```",
+      "range": {
+        "startLine": 236,
+        "startChar": 0,
+        "endLine": 241,
+        "endChar": 27
+      },
+      "revId": "dfaa6373057df90e7af1bb016147435f4849089d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dc0dbb62_104e6698",
+        "filename": "rtc_base/byte_buffer_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2024-10-02T20:29:59Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "1ae29033_5c360a2d",
       "range": {
         "startLine": 236,
         "startChar": 0,

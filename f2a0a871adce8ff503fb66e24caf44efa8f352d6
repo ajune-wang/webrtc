@@ -16,6 +16,24 @@
       "message": "Seems that https://webrtc.googlesource.com/src/+/ecbdbf6ee83864502daa6d0a1aa07ab3432eec1e/sdk/objc/unittests/RTCEncodedImage_xctest.mm#50 \n\nexpects the data() to be not null when created with a 0 size. According to the C standard, the malloc(0) can either return nullptr or a pointer that can be freed. \n\nWe could either modify the Create() to call buffer(0,1), to always allocate 1 byte or just modify the test to not use the Create() method and use a non-0 size.",
       "revId": "f2a0a871adce8ff503fb66e24caf44efa8f352d6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "482bba53_00ea5e0a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-02T11:25:27Z",
+      "side": 1,
+      "message": "Looking at the test (that verifies \u0027RetainsNativeEncodedImage\u0027) I think test is wrong - it should create non-empty image to assume GetData() returns not-nullptr.",
+      "parentUuid": "8eb26f49_27da1be1",
+      "revId": "f2a0a871adce8ff503fb66e24caf44efa8f352d6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

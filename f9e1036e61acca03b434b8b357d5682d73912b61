@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f6064b1c_05a5f709",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2024-10-02T11:59:08Z",
+      "side": 1,
+      "message": "thank you very much for your feedback, code is much better now. Uploaded new version with the suggested changes",
+      "revId": "f9e1036e61acca03b434b8b357d5682d73912b61",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7b50a9ac_bd2d7cdd",
@@ -14,6 +31,30 @@
       "writtenOn": "2024-10-02T08:56:53Z",
       "side": 1,
       "message": "would it work to have instead single function taking ArrayView?\nit is really ArrayView job to be type erasure from various arrays into a view\n```suggestion\n  void WriteBytes(rtc::ArrayView\u003cconst uint8_t\u003e data) {\n    WriteBytesInternal(reinterpret_cast\u003cconst value_type*\u003e(data.data()),\n                       data.size());\n  }\n```",
+      "range": {
+        "startLine": 104,
+        "startChar": 0,
+        "endLine": 115,
+        "endChar": 3
+      },
+      "revId": "f9e1036e61acca03b434b8b357d5682d73912b61",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d4836aa2_a8310471",
+        "filename": "rtc_base/byte_buffer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2024-10-02T11:59:08Z",
+      "side": 1,
+      "message": "good idea, seems to work perfectly",
+      "parentUuid": "7b50a9ac_bd2d7cdd",
       "range": {
         "startLine": 104,
         "startChar": 0,
@@ -77,6 +118,66 @@
       "writtenOn": "2024-10-02T08:56:53Z",
       "side": 1,
       "message": "Does this work for any `BufferClassT` ?\nmay be return BufferClassT instead",
+      "revId": "f9e1036e61acca03b434b8b357d5682d73912b61",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "553f4ef1_3d7f62a5",
+        "filename": "rtc_base/byte_buffer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2024-10-02T11:59:08Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "983320ba_3da5f146",
+      "revId": "f9e1036e61acca03b434b8b357d5682d73912b61",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b878faae_f7c36cb0",
+        "filename": "rtc_base/byte_buffer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2024-10-02T11:59:08Z",
+      "side": 1,
+      "message": "I was not aware that that was a thing, thank you for pointing that out.",
+      "parentUuid": "39a555b9_7adbc649",
+      "range": {
+        "startLine": 131,
+        "startChar": 16,
+        "endLine": 131,
+        "endChar": 19
+      },
+      "revId": "f9e1036e61acca03b434b8b357d5682d73912b61",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b77eb676_aec704f1",
+        "filename": "rtc_base/byte_buffer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2024-10-02T11:59:08Z",
+      "side": 1,
+      "message": "How about `Consume()` ? it is already used in the reader",
+      "parentUuid": "d38bb0a5_367eab60",
       "revId": "f9e1036e61acca03b434b8b357d5682d73912b61",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

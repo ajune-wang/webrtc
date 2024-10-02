@@ -16,6 +16,161 @@
       "message": "This CL just modernizes use of raw pointers by ArrayViews, no functionality should have changed.",
       "revId": "50955ebf9a1389b8cc0813bafb1a19b823ef492c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bbb7a4f9_f72b7779",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-02T09:30:12Z",
+      "side": 1,
+      "message": "Looks much cleaner than before!\n\nfew additional suggestions, though good looks like an improvement even without them.",
+      "revId": "50955ebf9a1389b8cc0813bafb1a19b823ef492c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "11a4235c_e2b71478",
+        "filename": "modules/rtp_rtcp/source/video_rtp_depacketizer_h264.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-02T09:30:12Z",
+      "side": 1,
+      "message": "while at it, consider use reference instead of pointer.\n(Existent function was written when style guide rules were different and banned non-const references, but these days are gone)\n\nhttps://google.github.io/styleguide/cppguide.html#Inputs_and_Outputs\n“non-optional output and input/output parameters should usually be references (which cannot be null)”",
+      "range": {
+        "startLine": 42,
+        "startChar": 58,
+        "endLine": 42,
+        "endChar": 59
+      },
+      "revId": "50955ebf9a1389b8cc0813bafb1a19b823ef492c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b0723ab7_77eb1775",
+        "filename": "modules/rtp_rtcp/source/video_rtp_depacketizer_h264.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-02T09:30:12Z",
+      "side": 1,
+      "message": "You removed the minimum size check from the call site, so would be good to add it here. (and here it looks more natural)\n\n```suggestion\n  if (!reader.Consume(kNalHeaderSize)) {\n    return false;\n  }\n```",
+      "range": {
+        "startLine": 44,
+        "startChar": 2,
+        "endLine": 44,
+        "endChar": 33
+      },
+      "revId": "50955ebf9a1389b8cc0813bafb1a19b823ef492c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "10eef9a7_1b18c803",
+        "filename": "modules/rtp_rtcp/source/video_rtp_depacketizer_h264.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-02T09:30:12Z",
+      "side": 1,
+      "message": "https://abseil.io/tips/141\n“conversions to bool can be unclear, so consider writing more explicit code”\n\n```suggestion\n    if (nalu_size \u003d\u003d 0 || nalu_size \u003e reader.Length())\n```",
+      "range": {
+        "startLine": 51,
+        "startChar": 8,
+        "endLine": 51,
+        "endChar": 18
+      },
+      "revId": "50955ebf9a1389b8cc0813bafb1a19b823ef492c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c435f063_4b1ffe3a",
+        "filename": "modules/rtp_rtcp/source/video_rtp_depacketizer_h264.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-02T09:30:12Z",
+      "side": 1,
+      "message": "if nal_units.empty() treated the same as failed parse,\nmay be ParseStrapA should just return nal_units:\n\n`std::vector\u003crtc::ArrayView\u003cconst uint8_t\u003e\u003e ParseStapA(rtc::ArrayView\u003cconst uint8_t\u003e data)`\n\n\nhttps://google.github.io/styleguide/cppguide.html#Inputs_and_Outputs\n“Prefer using return values over output parameters: they improve readability, and often provide the same or better performance.”",
+      "range": {
+        "startLine": 78,
+        "startChar": 46,
+        "endLine": 78,
+        "endChar": 66
+      },
+      "revId": "50955ebf9a1389b8cc0813bafb1a19b823ef492c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8083107d_6c7ae169",
+        "filename": "modules/rtp_rtcp/source/video_rtp_depacketizer_h264.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-02T09:30:12Z",
+      "side": 1,
+      "message": "https://google.github.io/styleguide/cppguide.html#Type_deduction\n\n“Use type deduction only if it makes the code clearer to readers who aren\u0027t familiar with the project, or if it makes the code safer. Do not use it merely to avoid the inconvenience of writing an explicit type.”\n\n\n```suggestion\n  for (rtc::ArrayView\u003cconst uint8_t\u003e nal_unit : nal_units) {\n```\nor\n```suggestion\n  for (const rtc::ArrayView\u003cconst uint8_t\u003e\u0026 nal_unit : nal_units) {\n```\n\n(ArrayView is small - it has size of two pointers, so making a copy of it is neglitable. Thus I consider both alternatives valid)",
+      "range": {
+        "startLine": 92,
+        "startChar": 7,
+        "endLine": 92,
+        "endChar": 12
+      },
+      "revId": "50955ebf9a1389b8cc0813bafb1a19b823ef492c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "76abfd5e_07d2a904",
+        "filename": "modules/rtp_rtcp/source/video_rtp_depacketizer_h264.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-02T09:30:12Z",
+      "side": 1,
+      "message": "```suggestion\n            parsed_payload-\u003evideo_payload.AppendData(\n            \tpayload_data.subview(end_offset));\n```",
+      "range": {
+        "startLine": 143,
+        "startChar": 0,
+        "endLine": 144,
+        "endChar": 77
+      },
+      "revId": "50955ebf9a1389b8cc0813bafb1a19b823ef492c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

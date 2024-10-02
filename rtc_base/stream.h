@@ -118,19 +118,9 @@ class RTC_EXPORT StreamInterface {
   // unlike Write, the argument 'written' is always set, and may be non-zero
   // on results other than SR_SUCCESS.  The remaining arguments have the
   // same semantics as Write.
-  [[deprecated("Use version with ArrayView")]] StreamResult
-  WriteAll(const void* data, size_t data_len, size_t* written, int* error);
-
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-  // TODO(bugs.webrc.org/14632): Remove pragmas and change underlying
-  // implementation when downstream code is converted.
   StreamResult WriteAll(ArrayView<const uint8_t> data,
                         size_t& written,
-                        int& error) {
-    return WriteAll(data.data(), data.size(), &written, &error);
-  }
-#pragma clang diagnostic pop
+                        int& error);
 
  protected:
   StreamInterface();

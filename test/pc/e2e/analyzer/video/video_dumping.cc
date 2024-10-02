@@ -40,7 +40,8 @@ class VideoFrameIdsWriter final : public test::VideoFrameWriter {
 
   bool WriteFrame(const VideoFrame& frame) override {
     RTC_CHECK(output_file_ != nullptr) << "Writer is already closed";
-    int chars_written = fprintf(output_file_, "%d\n", frame.id());
+    int chars_written =
+        fprintf(output_file_, "%d\n", frame.id_or_nullopt().value_or(-1));
     if (chars_written < 2) {
       RTC_LOG(LS_ERROR) << "Failed to write frame id to the output file: "
                         << file_name_;

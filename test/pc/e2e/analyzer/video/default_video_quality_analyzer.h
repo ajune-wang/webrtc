@@ -58,14 +58,14 @@ class DefaultVideoQualityAnalyzer : public VideoQualityAnalyzerInterface {
   void OnFramePreEncode(absl::string_view peer_name,
                         const VideoFrame& frame) override;
   void OnFrameEncoded(absl::string_view peer_name,
-                      uint16_t frame_id,
+                      std::optional<uint16_t> frame_id,
                       const EncodedImage& encoded_image,
                       const EncoderStats& stats,
                       bool discarded) override;
   void OnFrameDropped(absl::string_view peer_name,
                       EncodedImageCallback::DropReason reason) override;
   void OnFramePreDecode(absl::string_view peer_name,
-                        uint16_t frame_id,
+                        std::optional<uint16_t> frame_id,
                         const EncodedImage& input_image) override;
   void OnFrameDecoded(absl::string_view peer_name,
                       const VideoFrame& frame,
@@ -76,7 +76,7 @@ class DefaultVideoQualityAnalyzer : public VideoQualityAnalyzerInterface {
                       const VideoFrame& frame,
                       int32_t error_code) override;
   void OnDecoderError(absl::string_view peer_name,
-                      uint16_t frame_id,
+                      std::optional<uint16_t> frame_id,
                       int32_t error_code,
                       const DecoderStats& stats) override;
 
@@ -116,8 +116,7 @@ class DefaultVideoQualityAnalyzer : public VideoQualityAnalyzerInterface {
  private:
   enum State { kNew, kActive, kStopped };
 
-  // Returns next frame id to use. Frame ID can't be `VideoFrame::kNotSetId`,
-  // because this value is reserved by `VideoFrame` as "ID not set".
+  // Returns next frame id to use.
   uint16_t GetNextFrameId() RTC_EXCLUSIVE_LOCKS_REQUIRED(mutex_);
 
   void AddExistingFramesInFlightForStreamToComparator(size_t stream_index,
@@ -154,8 +153,6 @@ class DefaultVideoQualityAnalyzer : public VideoQualityAnalyzerInterface {
   std::string GetStreamLabelInternal(uint16_t frame_id) const
       RTC_EXCLUSIVE_LOCKS_REQUIRED(mutex_);
 
-  static const uint16_t kStartingFrameId = 1;
-
   const DefaultVideoQualityAnalyzerOptions options_;
   webrtc::Clock* const clock_;
   test::MetricsLogger* const metrics_logger_;
@@ -163,7 +160,7 @@ class DefaultVideoQualityAnalyzer : public VideoQualityAnalyzerInterface {
   std::string test_label_;
 
   mutable Mutex mutex_;
-  uint16_t next_frame_id_ RTC_GUARDED_BY(mutex_) = kStartingFrameId;
+  uint16_t next_frame_id_ RTC_GUARDED_BY(mutex_) = 0;
   std::unique_ptr<NamesCollection> peers_ RTC_GUARDED_BY(mutex_);
   State state_ RTC_GUARDED_BY(mutex_) = State::kNew;
   Timestamp start_time_ RTC_GUARDED_BY(mutex_) = Timestamp::MinusInfinity();

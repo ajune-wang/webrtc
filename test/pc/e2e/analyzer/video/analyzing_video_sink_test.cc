@@ -448,8 +448,10 @@ TEST_F(AnalyzingVideoSinkTest, VideoFramesIdsAreDumpedWhenRequested) {
                             subscription, /*report_infra_stats=*/false);
     for (int i = 0; i < 10; ++i) {
       VideoFrame frame = CreateFrame(*frame_generator);
-      frame.set_id(analyzer.OnFrameCaptured("alice", "alice_video", frame));
-      expected_frame_ids.push_back(std::to_string(frame.id()));
+      uint16_t frame_id =
+          analyzer.OnFrameCaptured("alice", "alice_video", frame);
+      frame.set_id(frame_id);
+      expected_frame_ids.push_back(std::to_string(frame_id));
       sink.OnFrame(frame);
     }
   }
@@ -528,12 +530,17 @@ TEST_F(AnalyzingVideoSinkTest,
   AssertFrameIdsAre(
       test::JoinFilename(test_directory_,
                          "alice_video_bob_320x240_10.frame_ids.txt"),
-      {std::to_string(frame1.id()), std::to_string(frame1.id()),
-       std::to_string(frame1.id()), std::to_string(frame1.id()),
-       std::to_string(frame1.id()), std::to_string(frame1.id()),
-       std::to_string(frame1.id()), std::to_string(frame1.id()),
-       std::to_string(frame1.id()), std::to_string(frame1.id()),
-       std::to_string(frame2.id())});
+      {std::to_string(*frame1.id_or_nullopt()),
+       std::to_string(*frame1.id_or_nullopt()),
+       std::to_string(*frame1.id_or_nullopt()),
+       std::to_string(*frame1.id_or_nullopt()),
+       std::to_string(*frame1.id_or_nullopt()),
+       std::to_string(*frame1.id_or_nullopt()),
+       std::to_string(*frame1.id_or_nullopt()),
+       std::to_string(*frame1.id_or_nullopt()),
+       std::to_string(*frame1.id_or_nullopt()),
+       std::to_string(*frame1.id_or_nullopt()),
+       std::to_string(*frame2.id_or_nullopt())});
 
   ExpectOutputFilesCount(2);
 }

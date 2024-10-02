@@ -225,10 +225,11 @@ TEST(DefaultVideoQualityAnalyzerTest, NormalScenario) {
   std::vector<uint16_t> frames_order;
   for (int i = 0; i < 10; ++i) {
     VideoFrame frame = NextFrame(frame_generator.get(), i);
-    frame.set_id(
-        analyzer.OnFrameCaptured(kSenderPeerName, kStreamLabel, frame));
-    frames_order.push_back(frame.id());
-    captured_frames.insert({frame.id(), frame});
+    uint16_t frame_id =
+        analyzer.OnFrameCaptured(kSenderPeerName, kStreamLabel, frame);
+    frame.set_id(frame_id);
+    frames_order.push_back(frame_id);
+    captured_frames.insert({frame_id, frame});
     analyzer.OnFramePreEncode(kSenderPeerName, frame);
     analyzer.OnFrameEncoded(kSenderPeerName, frame.id(), FakeEncode(frame),
                             VideoQualityAnalyzerInterface::EncoderStats(),
@@ -341,9 +342,11 @@ TEST(DefaultVideoQualityAnalyzerTest, NormalScenario2Receivers) {
   std::vector<uint16_t> frames_order;
   for (int i = 0; i < 10; ++i) {
     VideoFrame frame = NextFrame(frame_generator.get(), i);
-    frame.set_id(analyzer.OnFrameCaptured(kAlice, kStreamLabel, frame));
-    frames_order.push_back(frame.id());
-    captured_frames.insert({frame.id(), frame});
+    uint16_t frame_id =
+        analyzer.OnFrameCaptured(kSenderPeerName, kStreamLabel, frame);
+    frame.set_id(frame_id);
+    frames_order.push_back(frame_id);
+    captured_frames.insert({frame_id, frame});
     analyzer.OnFramePreEncode(kAlice, frame);
     SleepMs(20);
     analyzer.OnFrameEncoded(kAlice, frame.id(), FakeEncode(frame),
@@ -651,10 +654,11 @@ TEST(DefaultVideoQualityAnalyzerTest, CpuUsage) {
   std::vector<uint16_t> frames_order;
   for (int i = 0; i < 10; ++i) {
     VideoFrame frame = NextFrame(frame_generator.get(), i);
-    frame.set_id(
-        analyzer.OnFrameCaptured(kSenderPeerName, kStreamLabel, frame));
-    frames_order.push_back(frame.id());
-    captured_frames.insert({frame.id(), frame});
+    uint16_t frame_id =
+        analyzer.OnFrameCaptured(kSenderPeerName, kStreamLabel, frame);
+    frame.set_id(frame_id);
+    frames_order.push_back(frame_id);
+    captured_frames.insert({frame_id, frame});
     analyzer.OnFramePreEncode(kSenderPeerName, frame);
     analyzer.OnFrameEncoded(kSenderPeerName, frame.id(), FakeEncode(frame),
                             VideoQualityAnalyzerInterface::EncoderStats(),
@@ -718,9 +722,11 @@ TEST(DefaultVideoQualityAnalyzerTest, RuntimeParticipantsAdding) {
   // Alice is sending frames.
   for (int i = 0; i < kFramesCount; ++i) {
     VideoFrame frame = NextFrame(frame_generator.get(), i);
-    frame.set_id(analyzer.OnFrameCaptured(kAlice, kStreamLabel, frame));
-    frames_order.push_back(frame.id());
-    captured_frames.insert({frame.id(), frame});
+    uint16_t frame_id =
+        analyzer.OnFrameCaptured(kSenderPeerName, kStreamLabel, frame);
+    frame.set_id(frame_id);
+    frames_order.push_back(frame_id);
+    captured_frames.insert({frame_id, frame});
     analyzer.OnFramePreEncode(kAlice, frame);
     analyzer.OnFrameEncoded(kAlice, frame.id(), FakeEncode(frame),
                             VideoQualityAnalyzerInterface::EncoderStats(),
@@ -2333,10 +2339,11 @@ TEST_F(DefaultVideoQualityAnalyzerSimulatedTimeTest,
   std::vector<uint16_t> frames_order;
   for (int i = 0; i < 5; ++i) {
     VideoFrame frame = NextFrame(frame_generator.get(), i);
-    frame.set_id(
-        analyzer.OnFrameCaptured(kSenderPeerName, kStreamLabel, frame));
-    frames_order.push_back(frame.id());
-    captured_frames.insert({frame.id(), frame});
+    uint16_t frame_id =
+        analyzer.OnFrameCaptured(kSenderPeerName, kStreamLabel, frame);
+    frame.set_id(frame_id);
+    frames_order.push_back(frame_id);
+    captured_frames.insert({frame_id, frame});
     analyzer.OnFramePreEncode(kSenderPeerName, frame);
     analyzer.OnFrameEncoded(kSenderPeerName, frame.id(), FakeEncode(frame),
                             VideoQualityAnalyzerInterface::EncoderStats(),
@@ -2345,10 +2352,11 @@ TEST_F(DefaultVideoQualityAnalyzerSimulatedTimeTest,
   AdvanceTime(kMaxFramesInFlightStorageDuration + TimeDelta::Millis(1));
   for (int i = 0; i < 5; ++i) {
     VideoFrame frame = NextFrame(frame_generator.get(), i);
-    frame.set_id(
-        analyzer.OnFrameCaptured(kSenderPeerName, kStreamLabel, frame));
-    frames_order.push_back(frame.id());
-    captured_frames.insert({frame.id(), frame});
+    uint16_t frame_id =
+        analyzer.OnFrameCaptured(kSenderPeerName, kStreamLabel, frame);
+    frame.set_id(frame_id);
+    frames_order.push_back(frame_id);
+    captured_frames.insert({frame_id, frame});
     analyzer.OnFramePreEncode(kSenderPeerName, frame);
     analyzer.OnFrameEncoded(kSenderPeerName, frame.id(), FakeEncode(frame),
                             VideoQualityAnalyzerInterface::EncoderStats(),
@@ -2395,8 +2403,10 @@ TEST(DefaultVideoQualityAnalyzerTest, CheckFrameSenderPeerName) {
   frame_alice.set_id(
       analyzer.OnFrameCaptured(kAlice, kAliceStreamLabel, frame_alice));
   frame_bob.set_id(analyzer.OnFrameCaptured(kBob, kBobStreamLabel, frame_bob));
-  std::string sender_alice = analyzer.GetSenderPeerName(frame_alice.id());
-  std::string sender_bob = analyzer.GetSenderPeerName(frame_bob.id());
+  std::string sender_alice =
+      analyzer.GetSenderPeerName(*frame_alice.id_or_nullopt());
+  std::string sender_bob =
+      analyzer.GetSenderPeerName(*frame_alice.id_or_nullopt());
 
   // Give analyzer some time to process frames on async thread. The computations
   // have to be fast (heavy metrics are disabled!), so if doesn't fit 100ms it

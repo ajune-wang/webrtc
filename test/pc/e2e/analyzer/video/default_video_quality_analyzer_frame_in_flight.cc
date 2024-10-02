@@ -179,8 +179,6 @@ bool FrameInFlight::IsDropped(size_t peer) const {
 }
 
 FrameStats FrameInFlight::GetStatsForPeer(size_t peer) const {
-  RTC_DCHECK_NE(frame_id_, VideoFrame::kNotSetId)
-      << "Frame id isn't initialized";
   RTC_DCHECK(!IsSuperfluous(peer))
       << "This frame is superfluous for peer " << peer;
   FrameStats stats(frame_id_, captured_time_);

@@ -16,12 +16,14 @@
 
 #include "api/units/timestamp.h"
 #include "api/video/video_frame.h"
+#include "rtc_base/checks.h"
 
 namespace webrtc {
 
 void FramesStorage::Add(const VideoFrame& frame, Timestamp captured_time) {
   heap_.push_back(HeapNode{.frame = frame, .captured_time = captured_time});
-  frame_id_index_[frame.id()] = heap_.size() - 1;
+  RTC_DCHECK(frame.id_or_nullopt().has_value());
+  frame_id_index_[*frame.id_or_nullopt()] = heap_.size() - 1;
   Heapify(heap_.size() - 1);
   RemoveTooOldFrames();
 }
@@ -53,7 +55,7 @@ void FramesStorage::RemoveInternal(uint16_t frame_id) {
   // with element to remove.
   if (index != heap_.size() - 1) {
     heap_[index] = std::move(heap_[heap_.size() - 1]);
-    frame_id_index_[heap_[index].frame.id()] = index;
+    frame_id_index_[*heap_[index].frame.id_or_nullopt()] = index;
   }
 
   // Remove the last element.
@@ -82,8 +84,8 @@ void FramesStorage::HeapifyUp(size_t index) {
   heap_[index] = std::move(heap_[parent]);
   heap_[parent] = std::move(tmp);
 
-  frame_id_index_[heap_[index].frame.id()] = index;
-  frame_id_index_[heap_[parent].frame.id()] = parent;
+  frame_id_index_[*heap_[index].frame.id_or_nullopt()] = index;
+  frame_id_index_[*heap_[parent].frame.id_or_nullopt()] = parent;
 
   HeapifyUp(parent);
 }
@@ -112,8 +114,9 @@ void FramesStorage::HeapifyDown(size_t index) {
   heap_[index] = std::move(heap_[smallest_child]);
   heap_[smallest_child] = std::move(tmp);
 
-  frame_id_index_[heap_[index].frame.id()] = index;
-  frame_id_index_[heap_[smallest_child].frame.id()] = smallest_child;
+  frame_id_index_[*heap_[index].frame.id_or_nullopt()] = index;
+  frame_id_index_[*heap_[smallest_child].frame.id_or_nullopt()] =
+      smallest_child;
 
   HeapifyDown(smallest_child);
 }
@@ -122,7 +125,7 @@ void FramesStorage::RemoveTooOldFrames() {
   Timestamp now = clock_->CurrentTime();
   while (!heap_.empty() &&
          (heap_[0].captured_time + max_storage_duration_) < now) {
-    RemoveInternal(heap_[0].frame.id());
+    RemoveInternal(*heap_[0].frame.id_or_nullopt());
   }
 }
 

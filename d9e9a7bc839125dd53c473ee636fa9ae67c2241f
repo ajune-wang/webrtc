@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b76520e1_801c291d",
+        "filename": "rtc_base/stream.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2024-10-02T07:02:24Z",
+      "side": 0,
+      "message": "Looks like this was used in a transitive way, I see some build failures caused by removing this.\n\nThis looks something IWYU should fix.",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 28
+      },
+      "revId": "d9e9a7bc839125dd53c473ee636fa9ae67c2241f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

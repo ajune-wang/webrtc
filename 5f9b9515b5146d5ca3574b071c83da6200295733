@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "58f0e04d_8f7a2575",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 22359
+      },
+      "writtenOn": "2024-10-02T09:11:51Z",
+      "side": 1,
+      "message": "Since modifying the existing fields in RtpConfig would result in a wide range of changes, I have left the existing fields as they are and added new ones. Additionally, based on the feedback in https://webrtc-review.googlesource.com/c/src/+/360600/1/call/rtp_config.h#111, I have incorporated the video stream information into a structure called RtpStreamConfig.",
+      "revId": "5f9b9515b5146d5ca3574b071c83da6200295733",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

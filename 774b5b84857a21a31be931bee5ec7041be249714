@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "214c499a_cd3b8c6e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3485001
+      },
+      "writtenOn": "2024-10-02T08:51:09Z",
+      "side": 1,
+      "message": "Hi, so from the discussion this is my take. Please have a look and let me know what you think.",
+      "revId": "774b5b84857a21a31be931bee5ec7041be249714",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

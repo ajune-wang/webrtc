@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "98acbc7f_4d9ba02f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-10-02T06:56:17Z",
+      "side": 1,
+      "message": "Procrastination work - removing old [[deprecated]].",
+      "revId": "b209e4df685e6b0b7b93b77d0777d95de8ca652f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

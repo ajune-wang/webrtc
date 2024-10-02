@@ -163,7 +163,7 @@ class FrameInFlight {
   // any peer or can be safely deleted. It is responsibility of the user of this
   // object to decide when it should be deleted.
   std::set<size_t> expected_receivers_;
-  uint16_t frame_id_ = VideoFrame::kNotSetId;
+  uint16_t frame_id_;
 
   // Frame events timestamp.
   Timestamp captured_time_;

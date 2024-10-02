@@ -170,7 +170,7 @@ uint16_t DefaultVideoQualityAnalyzer::OnFrameCaptured(
   size_t peer_index = -1;
   size_t peers_count = -1;
   size_t stream_index;
-  uint16_t frame_id = VideoFrame::kNotSetId;
+  uint16_t frame_id;
   {
     MutexLock lock(&mutex_);
     frame_id = GetNextFrameId();
@@ -283,12 +283,16 @@ void DefaultVideoQualityAnalyzer::OnFramePreEncode(
   MutexLock lock(&mutex_);
   RTC_CHECK_EQ(state_, State::kActive)
       << "DefaultVideoQualityAnalyzer has to be started before use";
+  RTC_DCHECK(frame.id_or_nullopt().has_value())
+      << "DefaultVideoQualityAnalyzer requires frame id set for frames passed "
+         "into OnFramePreEncode";
+  uint16_t frame_id = *frame.id_or_nullopt();
 
-  auto it = captured_frames_in_flight_.find(frame.id());
+  auto it = captured_frames_in_flight_.find(frame_id);
   if (it == captured_frames_in_flight_.end()) {
     // If the frame is not found, it is possible that it has been encoded twice
     // and that it was received by all the participants the first time.
-    RTC_LOG(LS_WARNING) << "Frame id=" << frame.id() << " not found.";
+    RTC_LOG(LS_WARNING) << "Frame id=" << frame_id << " not found.";
     return;
   }
   FrameInFlight& frame_in_flight = it->second;
@@ -321,7 +325,6 @@ void DefaultVideoQualityAnalyzer::OnFrameEncoded(
   MutexLock lock(&mutex_);
   RTC_CHECK_EQ(state_, State::kActive)
       << "DefaultVideoQualityAnalyzer has to be started before use";
-
   auto it = captured_frames_in_flight_.find(frame_id);
   if (it == captured_frames_in_flight_.end()) {
     RTC_LOG(LS_WARNING)
@@ -386,7 +389,7 @@ void DefaultVideoQualityAnalyzer::OnFrameDropped(
 
 void DefaultVideoQualityAnalyzer::OnFramePreDecode(
     absl::string_view peer_name,
-    uint16_t frame_id,
+    std::optional<uint16_t> frame_id,
     const webrtc::EncodedImage& input_image) {
   Timestamp processing_started = Now();
   MutexLock lock(&mutex_);
@@ -395,13 +398,13 @@ void DefaultVideoQualityAnalyzer::OnFramePreDecode(
 
   size_t peer_index = peers_->index(peer_name);
 
-  if (frame_id == VideoFrame::kNotSetId) {
+  if (!frame_id.has_value()) {
     frame_counters_.received++;
     unknown_sender_frame_counters_[std::string(peer_name)].received++;
     return;
   }
 
-  auto it = captured_frames_in_flight_.find(frame_id);
+  auto it = captured_frames_in_flight_.find(*frame_id);
   if (it == captured_frames_in_flight_.end() ||
       it->second.HasReceivedTime(peer_index)) {
     // It means this frame was predecoded before, so we can skip it. It may
@@ -448,13 +451,13 @@ void DefaultVideoQualityAnalyzer::OnFrameDecoded(
 
   size_t peer_index = peers_->index(peer_name);
 
-  if (frame.id() == VideoFrame::kNotSetId) {
+  if (!frame.id_or_nullopt().has_value()) {
     frame_counters_.decoded++;
     unknown_sender_frame_counters_[std::string(peer_name)].decoded++;
     return;
   }
 
-  auto it = captured_frames_in_flight_.find(frame.id());
+  auto it = captured_frames_in_flight_.find(*frame.id_or_nullopt());
   if (it == captured_frames_in_flight_.end() ||
       it->second.HasDecodeEndTime(peer_index)) {
     // It means this frame was decoded before, so we can skip it. It may happen
@@ -471,8 +474,8 @@ void DefaultVideoQualityAnalyzer::OnFrameDecoded(
   Timestamp now = Now();
   StreamCodecInfo used_decoder;
   used_decoder.codec_name = stats.decoder_name;
-  used_decoder.first_frame_id = frame.id();
-  used_decoder.last_frame_id = frame.id();
+  used_decoder.first_frame_id = *frame.id_or_nullopt();
+  used_decoder.last_frame_id = *frame.id_or_nullopt();
   used_decoder.switched_on_at = now;
   used_decoder.switched_from_at = now;
   it->second.OnFrameDecoded(peer_index, now, frame.width(), frame.height(),
@@ -494,13 +497,13 @@ void DefaultVideoQualityAnalyzer::OnFrameRendered(
 
   size_t peer_index = peers_->index(peer_name);
 
-  if (frame.id() == VideoFrame::kNotSetId) {
+  if (!frame.id_or_nullopt().has_value()) {
     frame_counters_.rendered++;
     unknown_sender_frame_counters_[std::string(peer_name)].rendered++;
     return;
   }
 
-  auto frame_it = captured_frames_in_flight_.find(frame.id());
+  auto frame_it = captured_frames_in_flight_.find(*frame.id_or_nullopt());
   if (frame_it == captured_frames_in_flight_.end() ||
       frame_it->second.HasRenderedTime(peer_index) ||
       frame_it->second.IsDropped(peer_index)) {
@@ -521,13 +524,14 @@ void DefaultVideoQualityAnalyzer::OnFrameRendered(
     RTC_LOG(LS_WARNING)
         << "Peer " << peer_name
         << "; Received frame out of order: received frame with id "
-        << frame.id() << " which was " << reason << " before";
+        << *frame.id_or_nullopt() << " which was " << reason << " before";
     return;
   }
 
   // Find corresponding captured frame.
   FrameInFlight* frame_in_flight = &frame_it->second;
-  std::optional<VideoFrame> captured_frame = frames_storage_.Get(frame.id());
+  std::optional<VideoFrame> captured_frame =
+      frames_storage_.Get(*frame.id_or_nullopt());
 
   const size_t stream_index = frame_in_flight->stream();
   StreamState* state = &stream_states_.at(stream_index);
@@ -543,8 +547,8 @@ void DefaultVideoQualityAnalyzer::OnFrameRendered(
   // After we received frame here we need to check if there are any dropped
   // frames between this one and last one, that was rendered for this video
   // stream.
-  int dropped_count = ProcessNotSeenFramesBeforeRendered(peer_index, frame.id(),
-                                                         stats_key, *state);
+  int dropped_count = ProcessNotSeenFramesBeforeRendered(
+      peer_index, *frame.id_or_nullopt(), stats_key, *state);
   RTC_DCHECK(!state->IsEmpty(peer_index));
   state->PopFront(peer_index);
 
@@ -589,15 +593,17 @@ void DefaultVideoQualityAnalyzer::OnEncoderError(
     absl::string_view peer_name,
     const webrtc::VideoFrame& frame,
     int32_t error_code) {
-  RTC_LOG(LS_ERROR) << "Encoder error for frame.id=" << frame.id()
+  RTC_LOG(LS_ERROR) << "Encoder error for frame.id="
+                    << frame.id_or_nullopt().value_or(-1)
                     << ", code=" << error_code;
 }
 
-void DefaultVideoQualityAnalyzer::OnDecoderError(absl::string_view peer_name,
-                                                 uint16_t frame_id,
-                                                 int32_t error_code,
-                                                 const DecoderStats& stats) {
-  RTC_LOG(LS_ERROR) << "Decoder error for frame_id=" << frame_id
+void DefaultVideoQualityAnalyzer::OnDecoderError(
+    absl::string_view peer_name,
+    std::optional<uint16_t> frame_id,
+    int32_t error_code,
+    const DecoderStats& stats) {
+  RTC_LOG(LS_ERROR) << "Decoder error for frame_id=" << frame_id.value_or(-1)
                     << ", code=" << error_code;
 
   Timestamp processing_started = Now();
@@ -607,13 +613,13 @@ void DefaultVideoQualityAnalyzer::OnDecoderError(absl::string_view peer_name,
 
   size_t peer_index = peers_->index(peer_name);
 
-  if (frame_id == VideoFrame::kNotSetId) {
+  if (!frame_id.has_value()) {
     frame_counters_.failed_to_decode++;
     unknown_sender_frame_counters_[std::string(peer_name)].failed_to_decode++;
     return;
   }
 
-  auto it = captured_frames_in_flight_.find(frame_id);
+  auto it = captured_frames_in_flight_.find(*frame_id);
   if (it == captured_frames_in_flight_.end() ||
       it->second.HasDecodeEndTime(peer_index)) {
     // It means this frame was decoded before, so we can skip it. It may happen
@@ -630,8 +636,8 @@ void DefaultVideoQualityAnalyzer::OnDecoderError(absl::string_view peer_name,
   Timestamp now = Now();
   StreamCodecInfo used_decoder;
   used_decoder.codec_name = stats.decoder_name;
-  used_decoder.first_frame_id = frame_id;
-  used_decoder.last_frame_id = frame_id;
+  used_decoder.first_frame_id = *frame_id;
+  used_decoder.last_frame_id = *frame_id;
   used_decoder.switched_on_at = now;
   used_decoder.switched_from_at = now;
   it->second.OnDecoderError(peer_index, used_decoder);
@@ -941,11 +947,7 @@ AnalyzerStats DefaultVideoQualityAnalyzer::GetAnalyzerStats() const {
 }
 
 uint16_t DefaultVideoQualityAnalyzer::GetNextFrameId() {
-  uint16_t frame_id = next_frame_id_++;
-  if (next_frame_id_ == VideoFrame::kNotSetId) {
-    next_frame_id_ = 1;
-  }
-  return frame_id;
+  return next_frame_id_++;
 }
 
 void DefaultVideoQualityAnalyzer::

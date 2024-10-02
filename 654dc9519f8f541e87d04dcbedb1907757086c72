@@ -16,6 +16,29 @@
       "message": "This is the second CL for spliting the changes  https://webrtc-review.googlesource.com/c/src/+/364240\n\nIt just adds helper methods to be able to write buffers and reuse the written buffer into the EncodedImageBuffer",
       "revId": "654dc9519f8f541e87d04dcbedb1907757086c72",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a8379e0f_e37ff23f",
+        "filename": "rtc_base/byte_buffer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2024-10-02T07:18:03Z",
+      "side": 1,
+      "message": "I think this should be `onMovedFrom` (https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/rtc_base/buffer.h;l\u003d424;drc\u003d7103e7085fdb146af8a7878a6dc0615b9b800deb), right?",
+      "range": {
+        "startLine": 132,
+        "startChar": 35,
+        "endLine": 132,
+        "endChar": 48
+      },
+      "revId": "654dc9519f8f541e87d04dcbedb1907757086c72",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

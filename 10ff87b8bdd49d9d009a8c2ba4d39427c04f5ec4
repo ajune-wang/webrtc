@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bbcf9c46_3c23e8b1",
+        "filename": "rtc_base/byte_buffer_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-02T13:54:51Z",
+      "side": 1,
+      "message": "https://abseil.io/tips/119\n\"Declare namespace aliases and using-declarations inside the innermost namespace, whether named or anonymous. \"",
+      "revId": "10ff87b8bdd49d9d009a8c2ba4d39427c04f5ec4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

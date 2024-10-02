@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "da17ef3c_440be20f",
+        "filename": "video/corruption_detection/frame_pair_corruption_score.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2024-10-02T03:45:56Z",
+      "side": 1,
+      "message": "nit: this name makes it sound like it\u0027s a class that contains a score, but it\u0027s actually a class that contains the state needed to calculate a score. Minimum change to make the class frame reflect what it does I guess would be `FramePairCorruptionScorer` - but up to you what you choose, I won\u0027t block in either case :)",
+      "range": {
+        "startLine": 42,
+        "startChar": 6,
+        "endLine": 42,
+        "endChar": 30
+      },
+      "revId": "85a7bd0fc1f55c8af679713286ed3641f3898762",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -51,6 +51,52 @@
       "message": "would it be possible to get this merged? We use SEI messages extensively for metadata passing and drm and it is being quite impact full.",
       "revId": "4ab09a5f93a68e9a26369a0bbdd504c7015cc557",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "23c67d79_c3dd570b",
+        "filename": "modules/rtp_rtcp/source/video_rtp_depacketizer_h264.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2024-10-02T15:47:49Z",
+      "side": 1,
+      "message": "Could you please add test for this?",
+      "range": {
+        "startLine": 191,
+        "startChar": 37,
+        "endLine": 191,
+        "endChar": 61
+      },
+      "revId": "4ab09a5f93a68e9a26369a0bbdd504c7015cc557",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0591bc17_b8d23328",
+        "filename": "modules/rtp_rtcp/source/video_rtp_depacketizer_h264.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2024-10-02T15:47:49Z",
+      "side": 1,
+      "message": "Could you please add test for this?",
+      "range": {
+        "startLine": 217,
+        "startChar": 37,
+        "endLine": 217,
+        "endChar": 61
+      },
+      "revId": "4ab09a5f93a68e9a26369a0bbdd504c7015cc557",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

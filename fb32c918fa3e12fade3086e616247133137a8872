@@ -20,6 +20,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "52f3450d_cec22a44",
+        "filename": "rtc_base/byte_buffer.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-02T12:17:12Z",
+      "side": 1,
+      "message": "ArrayView designed to be passed by value\n\nhttps://abseil.io/tips/93\n\n“As with string_view, it is usually better to pass Span by value when used as a function parameter - this form is slightly faster, and produces smaller code.”\n\n(and ArrayView is basically the same type as absl::Span or c++20 std::span)",
+      "range": {
+        "startLine": 104,
+        "startChar": 13,
+        "endLine": 104,
+        "endChar": 41
+      },
+      "revId": "fb32c918fa3e12fade3086e616247133137a8872",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "108dd060_fa621a66",
         "filename": "rtc_base/byte_buffer_unittest.cc",
         "patchSetId": 3
@@ -31,6 +54,75 @@
       "writtenOn": "2024-10-02T12:05:15Z",
       "side": 1,
       "message": "Please don\u0027t continue the bad tradition of wrapping all the tests into a single TEST macro. One test at a time, please.",
+      "revId": "fb32c918fa3e12fade3086e616247133137a8872",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "17c8c111_54cedba5",
+        "filename": "rtc_base/byte_buffer_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-02T12:17:12Z",
+      "side": 1,
+      "message": "prefer to put value under test 1st, constant - 2nd parameter\nSame as you would write `if (buffer.Length() \u003d\u003d 3)`, not `if (3 \u003d\u003d buffer.Length())`\n```suggestion\n  EXPECT_EQ(buffer.Length(), 3U);\n```",
+      "range": {
+        "startLine": 215,
+        "startChar": 2,
+        "endLine": 215,
+        "endChar": 33
+      },
+      "revId": "fb32c918fa3e12fade3086e616247133137a8872",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b24982f9_ef3c21a0",
+        "filename": "rtc_base/byte_buffer_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-02T12:17:12Z",
+      "side": 1,
+      "message": "can be merged into single expectation:\n`EXPECT_THAT(read_bytes, ElementsAreArray(write_data));`",
+      "range": {
+        "startLine": 219,
+        "startChar": 0,
+        "endLine": 221,
+        "endChar": 3
+      },
+      "revId": "fb32c918fa3e12fade3086e616247133137a8872",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d5843298_4e4d699d",
+        "filename": "rtc_base/byte_buffer_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-02T12:17:12Z",
+      "side": 1,
+      "message": "may be you do not need to use Reader to verify content of the buffer (test suppose to check just the Writer, right?)\nDoes it work to write?\n\n`EXPECT_THAT(consumed, ElementsAre(wu8));`\n(we might need to add some accessors and aliases to Buffer if statement above doesn\u0027t work)",
+      "range": {
+        "startLine": 258,
+        "startChar": 0,
+        "endLine": 261,
+        "endChar": 36
+      },
       "revId": "fb32c918fa3e12fade3086e616247133137a8872",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

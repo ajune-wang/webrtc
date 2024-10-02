@@ -16,6 +16,155 @@
       "message": "Since modifying the existing fields in RtpConfig would result in a wide range of changes, I have left the existing fields as they are and added new ones. Additionally, based on the feedback in https://webrtc-review.googlesource.com/c/src/+/360600/1/call/rtp_config.h#111, I have incorporated the video stream information into a structure called RtpStreamConfig.",
       "revId": "5f9b9515b5146d5ca3574b071c83da6200295733",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7e72a033_3bdd8a82",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-02T10:14:44Z",
+      "side": 1,
+      "message": "bunch of stylish comments and suggestions, but nothing blocking,\ncall/ lgtm",
+      "revId": "5f9b9515b5146d5ca3574b071c83da6200295733",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "804bcca9_f028f0bd",
+        "filename": "call/rtp_config.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-02T10:14:44Z",
+      "side": 1,
+      "message": "may be do not add default constructors and destructors.\n\ne.g. this way there is no move constructor, and thus compiler might be forced to use copies instead of moves that could be more efficient.\n\nWithout explicit constructors and destructors compiler would generate default based on members and would have put all right attributes to them.",
+      "range": {
+        "startLine": 72,
+        "startChar": 0,
+        "endLine": 74,
+        "endChar": 21
+      },
+      "revId": "5f9b9515b5146d5ca3574b071c83da6200295733",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d031135a_bb5f3ca0",
+        "filename": "call/rtp_config.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-02T10:14:44Z",
+      "side": 1,
+      "message": "same as you have default value for payload_type I suggest to add default value for ssrc to avoid it accidentally left uninitialized.\n\n\n```suggestion\n  uint32_t ssrc \u003d 0;\n```",
+      "range": {
+        "startLine": 77,
+        "startChar": 0,
+        "endLine": 77,
+        "endChar": 16
+      },
+      "revId": "5f9b9515b5146d5ca3574b071c83da6200295733",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "810cabc2_b7fa3482",
+        "filename": "call/rtp_config.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-02T10:14:44Z",
+      "side": 1,
+      "message": "since empty rid has same meaning as no rid, may be use simpler representation:\n`std::string rid;`",
+      "range": {
+        "startLine": 78,
+        "startChar": 2,
+        "endLine": 78,
+        "endChar": 33
+      },
+      "revId": "5f9b9515b5146d5ca3574b071c83da6200295733",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c24cf545_62be86a9",
+        "filename": "call/rtp_config.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-02T10:14:44Z",
+      "side": 1,
+      "message": "rather than have optional ssrc, it smells it would be more natural to have optional rtx:\n\n```\nstruct Rtx { uint32_t ssrc \u003d 0; int payload_type \u003d -1; }\nstd::optional\u003cRtx\u003e rtx;\n```",
+      "range": {
+        "startLine": 82,
+        "startChar": 0,
+        "endLine": 92,
+        "endChar": 8
+      },
+      "revId": "5f9b9515b5146d5ca3574b071c83da6200295733",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dd631987_d15a8505",
+        "filename": "call/rtp_config.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-02T10:14:44Z",
+      "side": 1,
+      "message": "I think this member deserve a comment, or a different name.\nas it is now it looks too vague to me.",
+      "revId": "5f9b9515b5146d5ca3574b071c83da6200295733",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "97341d63_d1172d28",
+        "filename": "media/engine/webrtc_video_engine_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 8884,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-02T10:14:44Z",
+      "side": 1,
+      "message": "```suggestion\n  ASSERT_THAT(config.rtp.streams, SizeIs(3);\n  EXPECT_EQ(config.rtp.streams[0].rid, \"f\");\n```",
+      "range": {
+        "startLine": 8883,
+        "startChar": 0,
+        "endLine": 8884,
+        "endChar": 44
+      },
+      "revId": "5f9b9515b5146d5ca3574b071c83da6200295733",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

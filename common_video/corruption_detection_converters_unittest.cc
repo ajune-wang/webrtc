@@ -34,7 +34,7 @@ TEST(FrameInstrumentationDataToCorruptionDetectionMessageTest,
                                    .sample_values = {1.0, 2.0, 3.0, 4.0, 5.0}};
 
   std::optional<CorruptionDetectionMessage> message =
-      ConvertFrameInstrumentationDataToCorruptionDetectionMessage(data);
+      ToCorruptionDetectionMessage(data);
   ASSERT_TRUE(message.has_value());
   EXPECT_EQ(message->sequence_index(), 1);
   EXPECT_FALSE(message->interpret_sequence_index_as_most_significant_bits());
@@ -54,7 +54,7 @@ TEST(FrameInstrumentationDataToCorruptionDetectionMessageTest,
                                    .sample_values = {1.0, 2.0, 3.0, 4.0, 5.0}};
 
   std::optional<CorruptionDetectionMessage> message =
-      ConvertFrameInstrumentationDataToCorruptionDetectionMessage(data);
+      ToCorruptionDetectionMessage(data);
   ASSERT_FALSE(message.has_value());
 }
 
@@ -69,7 +69,7 @@ TEST(FrameInstrumentationDataToCorruptionDetectionMessageTest,
                                    .sample_values = {1.0, 2.0, 3.0, 4.0, 5.0}};
 
   std::optional<CorruptionDetectionMessage> message =
-      ConvertFrameInstrumentationDataToCorruptionDetectionMessage(data);
+      ToCorruptionDetectionMessage(data);
   ASSERT_FALSE(message.has_value());
 }
 
@@ -84,7 +84,7 @@ TEST(FrameInstrumentationDataToCorruptionDetectionMessageTest,
                                    .sample_values = {}};
 
   std::optional<CorruptionDetectionMessage> message =
-      ConvertFrameInstrumentationDataToCorruptionDetectionMessage(data);
+      ToCorruptionDetectionMessage(data);
   ASSERT_FALSE(message.has_value());
 }
 
@@ -97,7 +97,7 @@ TEST(FrameInstrumentationDataToCorruptionDetectionMessageTest,
                                    .chroma_error_threshold = 5};
 
   std::optional<CorruptionDetectionMessage> message =
-      ConvertFrameInstrumentationDataToCorruptionDetectionMessage(data);
+      ToCorruptionDetectionMessage(data);
   ASSERT_FALSE(message.has_value());
 }
 
@@ -111,7 +111,7 @@ TEST(FrameInstrumentationDataToCorruptionDetectionMessageTest,
                                    .sample_values = {1.0, 2.0, 3.0, 4.0, 5.0}};
 
   std::optional<CorruptionDetectionMessage> message =
-      ConvertFrameInstrumentationDataToCorruptionDetectionMessage(data);
+      ToCorruptionDetectionMessage(data);
   ASSERT_TRUE(message.has_value());
   EXPECT_EQ(message->sequence_index(), 0b0000'1100);
   EXPECT_TRUE(message->interpret_sequence_index_as_most_significant_bits());
@@ -131,7 +131,7 @@ TEST(FrameInstrumentationDataToCorruptionDetectionMessageTest,
                                    .sample_values = {1.0, 2.0, 3.0, 4.0, 5.0}};
 
   std::optional<CorruptionDetectionMessage> message =
-      ConvertFrameInstrumentationDataToCorruptionDetectionMessage(data);
+      ToCorruptionDetectionMessage(data);
   ASSERT_TRUE(message.has_value());
   EXPECT_EQ(message->sequence_index(), 0b0000'0101);
   EXPECT_FALSE(message->interpret_sequence_index_as_most_significant_bits());
@@ -147,7 +147,7 @@ TEST(FrameInstrumentationSyncDataToCorruptionDetectionMessageTest,
                                        .communicate_upper_bits = true};
 
   std::optional<CorruptionDetectionMessage> message =
-      ConvertFrameInstrumentationSyncDataToCorruptionDetectionMessage(data);
+      ToCorruptionDetectionMessage(data);
   ASSERT_TRUE(message.has_value());
   EXPECT_EQ(message->sequence_index(), 0);
   EXPECT_TRUE(message->interpret_sequence_index_as_most_significant_bits());
@@ -159,8 +159,7 @@ TEST(FrameInstrumentationSyncDataToCorruptionDetectionMessageTest,
   FrameInstrumentationSyncData data = {.sequence_index = 1,
                                        .communicate_upper_bits = false};
 
-  EXPECT_DEATH(
-      ConvertFrameInstrumentationSyncDataToCorruptionDetectionMessage(data), _);
+  EXPECT_DEATH(ToCorruptionDetectionMessage(data), _);
 }
 #endif  // GTEST_HAS_DEATH_TEST
 
@@ -170,7 +169,7 @@ TEST(FrameInstrumentationSyncDataToCorruptionDetectionMessageTest,
                                        .communicate_upper_bits = true};
 
   std::optional<CorruptionDetectionMessage> message =
-      ConvertFrameInstrumentationSyncDataToCorruptionDetectionMessage(data);
+      ToCorruptionDetectionMessage(data);
   ASSERT_FALSE(message.has_value());
 }
 
@@ -180,7 +179,7 @@ TEST(FrameInstrumentationSyncDataToCorruptionDetectionMessageTest,
                                        .communicate_upper_bits = true};
 
   std::optional<CorruptionDetectionMessage> message =
-      ConvertFrameInstrumentationSyncDataToCorruptionDetectionMessage(data);
+      ToCorruptionDetectionMessage(data);
   ASSERT_FALSE(message.has_value());
 }
 

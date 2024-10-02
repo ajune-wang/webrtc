@@ -22,11 +22,11 @@ std::optional<FrameInstrumentationData>
 ConvertCorruptionDetectionMessageToFrameInstrumentationData(
     const CorruptionDetectionMessage& message,
     int previous_sequence_index);
-std::optional<CorruptionDetectionMessage>
-ConvertFrameInstrumentationDataToCorruptionDetectionMessage(
+
+std::optional<CorruptionDetectionMessage> ToCorruptionDetectionMessage(
     const FrameInstrumentationData& frame_instrumentation_data);
-std::optional<CorruptionDetectionMessage>
-ConvertFrameInstrumentationSyncDataToCorruptionDetectionMessage(
+
+std::optional<CorruptionDetectionMessage> ToCorruptionDetectionMessage(
     const FrameInstrumentationSyncData& frame_instrumentation_sync_data);
 }  // namespace webrtc
 

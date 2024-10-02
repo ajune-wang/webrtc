@@ -78,8 +78,7 @@ ConvertCorruptionDetectionMessageToFrameInstrumentationData(
       .sample_values = sample_values};
 }
 
-std::optional<CorruptionDetectionMessage>
-ConvertFrameInstrumentationDataToCorruptionDetectionMessage(
+std::optional<CorruptionDetectionMessage> ToCorruptionDetectionMessage(
     const FrameInstrumentationData& data) {
   if (data.sequence_index < 0 || data.sequence_index > 0b0011'1111'1111'1111) {
     return std::nullopt;
@@ -100,8 +99,7 @@ ConvertFrameInstrumentationDataToCorruptionDetectionMessage(
       .Build();
 }
 
-std::optional<CorruptionDetectionMessage>
-ConvertFrameInstrumentationSyncDataToCorruptionDetectionMessage(
+std::optional<CorruptionDetectionMessage> ToCorruptionDetectionMessage(
     const FrameInstrumentationSyncData& data) {
   RTC_DCHECK(data.communicate_upper_bits)
       << "FrameInstrumentationSyncData data must always send the upper bits.";

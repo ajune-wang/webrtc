@@ -482,18 +482,9 @@ void RTPSenderVideo::AddRtpHeaderExtensions(const RTPVideoHeader& video_header,
   }
 
   if (last_packet && video_header.frame_instrumentation_data) {
-    std::optional<CorruptionDetectionMessage> message;
-    if (absl::holds_alternative<FrameInstrumentationData>(
-            *video_header.frame_instrumentation_data)) {
-      message = ConvertFrameInstrumentationDataToCorruptionDetectionMessage(
-          absl::get<FrameInstrumentationData>(
-              *video_header.frame_instrumentation_data));
-    } else if (absl::holds_alternative<FrameInstrumentationSyncData>(
-                   *video_header.frame_instrumentation_data)) {
-      message = ConvertFrameInstrumentationSyncDataToCorruptionDetectionMessage(
-          absl::get<FrameInstrumentationSyncData>(
-              *video_header.frame_instrumentation_data));
-    }
+    std::optional<CorruptionDetectionMessage> message = absl::visit(
+        [](const auto& data) { return ToCorruptionDetectionMessage(data); },
+        *video_header.frame_instrumentation_data);
 
     if (message.has_value()) {
       packet->SetExtension<CorruptionDetectionExtension>(*message);

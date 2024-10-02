@@ -33,6 +33,24 @@
       "message": "I think this will fail when we run on the trybots. Wrap this and `using ::testing::_;` with `#if GTEST_HAS_DEATH_TEST`",
       "revId": "49364de04d4c285efedd3a117a9b247256bf9088",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7a8a01ba_6f5a2bc7",
+        "filename": "video/corruption_detection/utils_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 3485001
+      },
+      "writtenOn": "2024-10-02T12:00:49Z",
+      "side": 1,
+      "message": "Right, the thing we discussed last time as well :)",
+      "parentUuid": "a89b71c3_6745c597",
+      "revId": "49364de04d4c285efedd3a117a9b247256bf9088",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

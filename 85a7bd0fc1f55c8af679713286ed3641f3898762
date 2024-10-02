@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "79ac6f74_e5ce8558",
+        "filename": "video/corruption_detection/frame_pair_corruption_score.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 3485001
+      },
+      "writtenOn": "2024-10-02T11:16:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3360428b_2375ee60",
+      "revId": "85a7bd0fc1f55c8af679713286ed3641f3898762",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "da17ef3c_440be20f",
@@ -31,6 +49,30 @@
       "writtenOn": "2024-10-02T03:45:56Z",
       "side": 1,
       "message": "nit: this name makes it sound like it\u0027s a class that contains a score, but it\u0027s actually a class that contains the state needed to calculate a score. Minimum change to make the class frame reflect what it does I guess would be `FramePairCorruptionScorer` - but up to you what you choose, I won\u0027t block in either case :)",
+      "range": {
+        "startLine": 42,
+        "startChar": 6,
+        "endLine": 42,
+        "endChar": 30
+      },
+      "revId": "85a7bd0fc1f55c8af679713286ed3641f3898762",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4bf5de5c_7213a594",
+        "filename": "video/corruption_detection/frame_pair_corruption_score.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 3485001
+      },
+      "writtenOn": "2024-10-02T11:16:39Z",
+      "side": 1,
+      "message": "Make sense.",
+      "parentUuid": "da17ef3c_440be20f",
       "range": {
         "startLine": 42,
         "startChar": 6,
@@ -58,6 +100,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d69b1949_caa54635",
+        "filename": "video/corruption_detection/frame_pair_corruption_score.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 3485001
+      },
+      "writtenOn": "2024-10-02T11:16:39Z",
+      "side": 1,
+      "message": "Making it more general! Good idea. Lets go with reference and test then.\n\nBut I will keep the constraint regarding the size of `reference_buffer`. It should be larger than or eqaul to the size of `test_buffer`.",
+      "parentUuid": "c48b0152_e13662e4",
+      "revId": "85a7bd0fc1f55c8af679713286ed3641f3898762",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cdc7c280_a30ecf72",
@@ -71,6 +131,24 @@
       "writtenOn": "2024-10-02T07:57:54Z",
       "side": 1,
       "message": "Remove the namespace qualifier: rtc::scoped_refptr is a backwards compatible alias for webrtc::scoped_refptr (see api/scoped_refptr.h)",
+      "revId": "85a7bd0fc1f55c8af679713286ed3641f3898762",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a3f5432f_e2207d9f",
+        "filename": "video/corruption_detection/frame_pair_corruption_score_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 3485001
+      },
+      "writtenOn": "2024-10-02T11:16:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cdc7c280_a30ecf72",
       "revId": "85a7bd0fc1f55c8af679713286ed3641f3898762",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -94,6 +172,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "d650bdde_5077dd9a",
+        "filename": "video/corruption_detection/frame_pair_corruption_score_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 3485001
+      },
+      "writtenOn": "2024-10-02T11:16:39Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "e00c8a14_239e3a95",
+      "revId": "85a7bd0fc1f55c8af679713286ed3641f3898762",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "91a15845_2b8c8dcb",
         "filename": "video/corruption_detection/utils.cc",
         "patchSetId": 1
@@ -105,6 +201,24 @@
       "writtenOn": "2024-10-02T07:57:54Z",
       "side": 1,
       "message": "Maybe add some test that shows the functionality (string contains, not string equal to)",
+      "revId": "85a7bd0fc1f55c8af679713286ed3641f3898762",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "93943f7a_ac54851a",
+        "filename": "video/corruption_detection/utils.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 3485001
+      },
+      "writtenOn": "2024-10-02T11:16:39Z",
+      "side": 1,
+      "message": "Added.",
+      "parentUuid": "91a15845_2b8c8dcb",
       "revId": "85a7bd0fc1f55c8af679713286ed3641f3898762",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -126,6 +240,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e5af169b_f5931679",
+        "filename": "video/corruption_detection/utils.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 3485001
+      },
+      "writtenOn": "2024-10-02T11:16:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0a23e367_a31d4a73",
+      "revId": "85a7bd0fc1f55c8af679713286ed3641f3898762",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a912eac6_b52bff79",
@@ -139,6 +271,24 @@
       "writtenOn": "2024-10-02T07:57:54Z",
       "side": 1,
       "message": "GetI420Buffers -\u003e GetAsI420Buffer? (or at least remove the \"s\" in the end)",
+      "revId": "85a7bd0fc1f55c8af679713286ed3641f3898762",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "52a7b4df_8fdfdd47",
+        "filename": "video/corruption_detection/utils.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 3485001
+      },
+      "writtenOn": "2024-10-02T11:16:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a912eac6_b52bff79",
       "revId": "85a7bd0fc1f55c8af679713286ed3641f3898762",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

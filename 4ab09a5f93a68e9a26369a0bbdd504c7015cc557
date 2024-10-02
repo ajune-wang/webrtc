@@ -34,6 +34,23 @@
       "parentUuid": "4c950869_ae35f87e",
       "revId": "4ab09a5f93a68e9a26369a0bbdd504c7015cc557",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cc775460_da34e818",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2024-10-02T13:52:10Z",
+      "side": 1,
+      "message": "would it be possible to get this merged? We use SEI messages extensively for metadata passing and drm and it is being quite impact full.",
+      "revId": "4ab09a5f93a68e9a26369a0bbdd504c7015cc557",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

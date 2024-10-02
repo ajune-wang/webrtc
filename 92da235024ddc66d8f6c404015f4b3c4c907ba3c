@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b3fe6e42_b69299be",
+        "filename": "rtc_base/string_to_number.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 19769
+      },
+      "writtenOn": "2024-10-02T04:47:46Z",
+      "side": 1,
+      "message": "Thanks. I guess this might be treated as a comment, so it might not go through clang\u0027s formatting?",
+      "parentUuid": "40d3e8bf_38f861bb",
+      "revId": "92da235024ddc66d8f6c404015f4b3c4c907ba3c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1772d110_8a95db4b",
         "filename": "rtc_base/synchronization/sequence_checker_internal.h",
         "patchSetId": 1

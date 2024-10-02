@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d7d17dd5_b5589d19",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-10-02T10:23:15Z",
+      "side": 1,
+      "message": "Drive-by comment.",
+      "revId": "5eea2f28e69543897dd6b3554381234fe3ed8ccd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "56b27b78_c8ca12f1",
+        "filename": "pc/sdp_offer_answer_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 685,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-10-02T10:23:15Z",
+      "side": 1,
+      "message": "Please use a valid but meaningless IP address in tests, such as 127.0.0.1 or 0.0.0.0 as recommended in the spec (RFC 8829 section 5.2.1)",
+      "revId": "5eea2f28e69543897dd6b3554381234fe3ed8ccd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

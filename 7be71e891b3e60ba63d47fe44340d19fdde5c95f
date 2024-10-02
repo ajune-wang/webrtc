@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "af0317fe_7ca5bb69",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-02T17:25:19Z",
+      "side": 1,
+      "message": "Side note: I\u0027ve discovered chromium has its own implementation of the RTC_LOG, so would need to be updated separately to support AbslStringify instead of the ToLogString before ToLogString helpers can be removed.",
+      "revId": "7be71e891b3e60ba63d47fe44340d19fdde5c95f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -16,6 +16,23 @@
       "message": "Begone sigslot! (I suspect it was solved by adding the AnyInvocable)",
       "revId": "2e83d21c5f5dbd02da1cb7a98e622edd70524874",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dfcd8040_e6b78031",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-10-02T19:05:55Z",
+      "side": 1,
+      "message": "We managed to stop using it without noticing - hooray!",
+      "revId": "2e83d21c5f5dbd02da1cb7a98e622edd70524874",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -52,6 +52,9 @@ class TimeDelta final : public rtc_units_impl::RelativeUnit<TimeDelta> {
 
   TimeDelta() = delete;
 
+  template <typename Sink>
+  friend void AbslStringify(Sink& sink, TimeDelta value);
+
   template <typename T = int64_t>
   constexpr T seconds() const {
     return ToFraction<1000000, T>();
@@ -90,8 +93,13 @@ class TimeDelta final : public rtc_units_impl::RelativeUnit<TimeDelta> {
 };
 
 std::string ToString(TimeDelta value);
-inline std::string ToLogString(TimeDelta value) {
+[[deprecated]] inline std::string ToLogString(TimeDelta value) {
   return ToString(value);
+}
+
+template <typename Sink>
+void AbslStringify(Sink& sink, TimeDelta value) {
+  sink.Append(ToString(value));
 }
 
 }  // namespace webrtc

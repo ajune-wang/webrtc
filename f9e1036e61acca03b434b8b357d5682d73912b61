@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7b50a9ac_bd2d7cdd",
+        "filename": "rtc_base/byte_buffer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-02T08:56:53Z",
+      "side": 1,
+      "message": "would it work to have instead single function taking ArrayView?\nit is really ArrayView job to be type erasure from various arrays into a view\n```suggestion\n  void WriteBytes(rtc::ArrayView\u003cconst uint8_t\u003e data) {\n    WriteBytesInternal(reinterpret_cast\u003cconst value_type*\u003e(data.data()),\n                       data.size());\n  }\n```",
+      "range": {
+        "startLine": 104,
+        "startChar": 0,
+        "endLine": 115,
+        "endChar": 3
+      },
+      "revId": "f9e1036e61acca03b434b8b357d5682d73912b61",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "39a555b9_7adbc649",
+        "filename": "rtc_base/byte_buffer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-02T08:56:53Z",
+      "side": 1,
+      "message": "Here is one of the approved use cases for the rvalue references:\nhttps://google.github.io/styleguide/cppguide.html#Forwarding_references\n“You may use them to define \u0026\u0026-qualified methods that logically \"consume\" *this, leaving it in an unusable or empty state.”\n\n\n```suggestion\n  Buffer Finish() \u0026\u0026 { return std::move(buffer_); }\n```\n\nThat would force user to call std::move before calling this function:\n`rtc::Buffer result \u003d std::move(writer).Finish();`\nAnd help compiler to issue a warning if `writer` is used after that",
+      "range": {
+        "startLine": 131,
+        "startChar": 16,
+        "endLine": 131,
+        "endChar": 19
+      },
+      "revId": "f9e1036e61acca03b434b8b357d5682d73912b61",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d38bb0a5_367eab60",
+        "filename": "rtc_base/byte_buffer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-02T08:56:53Z",
+      "side": 1,
+      "message": "May be `Extract`\nThat verb is known to std:: (e.g. https://en.cppreference.com/w/cpp/container/map/extract )",
+      "revId": "f9e1036e61acca03b434b8b357d5682d73912b61",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "983320ba_3da5f146",
+        "filename": "rtc_base/byte_buffer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-02T08:56:53Z",
+      "side": 1,
+      "message": "Does this work for any `BufferClassT` ?\nmay be return BufferClassT instead",
+      "revId": "f9e1036e61acca03b434b8b357d5682d73912b61",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

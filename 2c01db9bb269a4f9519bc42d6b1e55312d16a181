@@ -18,6 +18,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "eb1dc5f9_c57fe0e9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 14
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-10-02T12:01:26Z",
+      "side": 1,
+      "message": "Commenting on overall logic in the middle of the CL.",
+      "revId": "2c01db9bb269a4f9519bc42d6b1e55312d16a181",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4438ce70_f2ca3f71",
@@ -48,6 +65,24 @@
       "writtenOn": "2024-10-02T11:43:59Z",
       "side": 1,
       "message": "The pc\u0027s config can change throughout its lifetime - don\u0027t worry, it can\u0027t change in any way that we care about - but for this reason I don\u0027t want us to keep copies of configs around outside of the pc object without good reason. And here we only care about a const bool, not the rest of the config.\n\nCan we instead of passing down the entire config just set a `const bool stats_timestamp_with_environment_clock_` at construction time?",
+      "revId": "2c01db9bb269a4f9519bc42d6b1e55312d16a181",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "974f4d79_353e8b08",
+        "filename": "pc/rtc_stats_collector.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 1192,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-10-02T12:01:26Z",
+      "side": 1,
+      "message": "According to the logic in webrtc-stats the API, the PC should take a timestamp as an initialization parameter, read the monotonic clock at startup, store the difference and always timestamp things as \"monotonic clock at startup + offset\".",
+      "parentUuid": "a24e96f3_ada8f431",
       "revId": "2c01db9bb269a4f9519bc42d6b1e55312d16a181",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

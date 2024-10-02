@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f9ec02fc_f6f0b009",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 14
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2024-10-02T11:43:59Z",
+      "side": 1,
+      "message": "Looks good! Just nits",
+      "revId": "2c01db9bb269a4f9519bc42d6b1e55312d16a181",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4438ce70_f2ca3f71",
+        "filename": "media/base/media_config.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2024-10-02T11:43:59Z",
+      "side": 1,
+      "message": "I suggest rephrasing this as:\n```\n// If true, RTCStats timestamps are sourced from the monotonically increasing\n// environment Clock, where the epoch is unspecified (i.e. up to the Clock\n// implementation). If false, RTCStats timestamps are sourced from system clock\n// via rtc::TimeUTCMicros() which is relative to 1970 but not necessarily\n// monotonically increasing.\n// TODO(webrtc:370535296): Change default value to true and delete this flag\n// once downstream projects have migrated.\n```",
+      "revId": "2c01db9bb269a4f9519bc42d6b1e55312d16a181",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a24e96f3_ada8f431",
+        "filename": "pc/rtc_stats_collector.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 1192,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2024-10-02T11:43:59Z",
+      "side": 1,
+      "message": "The pc\u0027s config can change throughout its lifetime - don\u0027t worry, it can\u0027t change in any way that we care about - but for this reason I don\u0027t want us to keep copies of configs around outside of the pc object without good reason. And here we only care about a const bool, not the rest of the config.\n\nCan we instead of passing down the entire config just set a `const bool stats_timestamp_with_environment_clock_` at construction time?",
+      "revId": "2c01db9bb269a4f9519bc42d6b1e55312d16a181",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

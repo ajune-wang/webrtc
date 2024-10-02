@@ -105,6 +105,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "063267dc_adaa87fa",
+        "filename": "api/video_codecs/video_encoder.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 19769
+      },
+      "writtenOn": "2024-10-02T18:02:22Z",
+      "side": 1,
+      "message": "Sounds good.",
+      "parentUuid": "d3cafc95_85661ab3",
+      "revId": "92da235024ddc66d8f6c404015f4b3c4c907ba3c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "40d3e8bf_38f861bb",
@@ -172,6 +190,24 @@
       "side": 1,
       "message": "new patch set looks missing (forgot to upload?)",
       "parentUuid": "f8e11783_9c8ac59a",
+      "revId": "92da235024ddc66d8f6c404015f4b3c4c907ba3c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eb0e417c_c49867af",
+        "filename": "rtc_base/string_to_number.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 19769
+      },
+      "writtenOn": "2024-10-02T18:02:22Z",
+      "side": 1,
+      "message": "Doing so right now, just marked resolved on the fly :P",
+      "parentUuid": "85cdc925_934bc6a0",
       "revId": "92da235024ddc66d8f6c404015f4b3c4c907ba3c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

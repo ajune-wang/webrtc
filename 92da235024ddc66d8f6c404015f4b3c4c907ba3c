@@ -87,6 +87,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d3cafc95_85661ab3",
+        "filename": "api/video_codecs/video_encoder.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-02T17:58:09Z",
+      "side": 1,
+      "message": "style guide recommends comments, not the attribute, so lets keep that.\n\nhttp://go/cstyle#Function_Declarations_and_Definitions\n“Unused parameters that might not be obvious should comment out the variable name in the function definition:”",
+      "parentUuid": "a5b629d1_a049c2f0",
+      "revId": "92da235024ddc66d8f6c404015f4b3c4c907ba3c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "40d3e8bf_38f861bb",

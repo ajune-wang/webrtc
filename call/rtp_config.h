@@ -68,6 +68,30 @@ struct UlpfecConfig {
   int red_rtx_payload_type;
 };
 
+struct RtpStreamConfig {
+  RtpStreamConfig();
+  RtpStreamConfig(const RtpStreamConfig&);
+  ~RtpStreamConfig();
+  std::string ToString() const;
+
+  uint32_t ssrc;
+  std::optional<std::string> rid;
+  std::string payload_name;
+  int payload_type = -1;
+  bool raw_payload = false;
+  struct Rtx {
+    Rtx();
+    Rtx(const Rtx&);
+    ~Rtx();
+    std::string ToString() const;
+    // SSRC to use for the RTX stream.
+    std::optional<uint32_t> ssrc;
+
+    // Payload type to use for the RTX stream.
+    int payload_type = -1;
+  } rtx;
+};
+
 static const size_t kDefaultMaxPacketSize = 1500 - 40;  // TCP over IPv4.
 struct RtpConfig {
   RtpConfig();
@@ -114,6 +138,8 @@ struct RtpConfig {
   // not be added, additional meta data is expected to be present in generic
   // frame descriptor RTP header extension).
   bool raw_payload = false;
+
+  std::vector<RtpStreamConfig> streams;
 
   // See LntfConfig for description.
   LntfConfig lntf;

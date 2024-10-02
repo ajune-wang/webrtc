@@ -70,6 +70,35 @@ bool UlpfecConfig::operator==(const UlpfecConfig& other) const {
          red_rtx_payload_type == other.red_rtx_payload_type;
 }
 
+RtpStreamConfig::RtpStreamConfig() = default;
+RtpStreamConfig::RtpStreamConfig(const RtpStreamConfig&) = default;
+RtpStreamConfig::~RtpStreamConfig() = default;
+std::string RtpStreamConfig::ToString() const {
+  char buf[1024];
+  rtc::SimpleStringBuilder ss(buf);
+  ss << "{ssrc: " << ssrc;
+  ss << ", rid: " << (rid ? *rid : "none");
+  ss << ", payload_name: " << payload_name;
+  ss << ", payload_type: " << payload_type;
+  ss << ", raw_payload: " << (raw_payload ? "true" : "false");
+  ss << ", rtx: " << rtx.ToString();
+  ss << '}';
+  return ss.str();
+}
+
+RtpStreamConfig::Rtx::Rtx() = default;
+RtpStreamConfig::Rtx::Rtx(const Rtx&) = default;
+RtpStreamConfig::Rtx::~Rtx() = default;
+
+std::string RtpStreamConfig::Rtx::ToString() const {
+  char buf[1024];
+  rtc::SimpleStringBuilder ss(buf);
+  ss << "{ssrc: " << (ssrc ? std::to_string(*ssrc) : "none");
+  ss << ", payload_type: " << payload_type;
+  ss << '}';
+  return ss.str();
+}
+
 RtpConfig::RtpConfig() = default;
 RtpConfig::RtpConfig(const RtpConfig&) = default;
 RtpConfig::~RtpConfig() = default;

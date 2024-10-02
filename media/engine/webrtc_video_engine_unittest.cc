@@ -8844,6 +8844,54 @@ TEST_F(WebRtcVideoChannelTest,
   EXPECT_TRUE(send_channel_->SetVideoSend(last_ssrc_, nullptr, nullptr));
 }
 
+TEST_F(WebRtcVideoChannelTest, SetMixedCodecSimulcastStreamConfig) {
+  webrtc::test::ScopedKeyValueConfig field_trials(
+      field_trials_, "WebRTC-MixedCodecSimulcast/Enabled/");
+
+  StreamParams sp = CreateSimStreamParams("cname", {123, 456, 789});
+
+  std::vector<cricket::RidDescription> rid_descriptions;
+  rid_descriptions.emplace_back("f", cricket::RidDirection::kSend);
+  rid_descriptions.emplace_back("h", cricket::RidDirection::kSend);
+  rid_descriptions.emplace_back("q", cricket::RidDirection::kSend);
+  sp.set_rids(rid_descriptions);
+
+  ASSERT_TRUE(send_channel_->AddSendStream(sp));
+
+  webrtc::RtpParameters rtp_parameters =
+      send_channel_->GetRtpSendParameters(last_ssrc_);
+  EXPECT_EQ(3UL, rtp_parameters.encodings.size());
+  cricket::Codec vp8 = GetEngineCodec("VP8");
+  cricket::Codec vp9 = GetEngineCodec("VP9");
+  rtp_parameters.encodings[0].codec = vp8.ToCodecParameters();
+  rtp_parameters.encodings[1].codec = vp8.ToCodecParameters();
+  rtp_parameters.encodings[2].codec = vp9.ToCodecParameters();
+  EXPECT_TRUE(
+      send_channel_->SetRtpSendParameters(last_ssrc_, rtp_parameters).ok());
+
+  cricket::VideoSenderParameters parameters;
+  parameters.codecs.push_back(vp8);
+  parameters.codecs.push_back(vp9);
+  EXPECT_TRUE(send_channel_->SetSenderParameters(parameters));
+
+  const auto& streams = fake_call_->GetVideoSendStreams();
+  ASSERT_EQ(1u, streams.size());
+  auto stream = streams[0];
+  ASSERT_NE(stream, nullptr);
+  const auto& config = stream->GetConfig();
+  // RtpStreamConfig should have the correct codec name and payload type.
+  ASSERT_EQ(3u, config.rtp.streams.size());
+  ASSERT_EQ("f", config.rtp.streams[0].rid);
+  ASSERT_EQ("h", config.rtp.streams[1].rid);
+  ASSERT_EQ("q", config.rtp.streams[2].rid);
+  ASSERT_EQ(vp8.name, config.rtp.streams[0].payload_name);
+  ASSERT_EQ(vp8.name, config.rtp.streams[1].payload_name);
+  ASSERT_EQ(vp9.name, config.rtp.streams[2].payload_name);
+  ASSERT_EQ(vp8.id, config.rtp.streams[0].payload_type);
+  ASSERT_EQ(vp8.id, config.rtp.streams[1].payload_type);
+  ASSERT_EQ(vp9.id, config.rtp.streams[2].payload_type);
+}
+
 // Test that min and max bitrate values set via RtpParameters are correctly
 // propagated to the underlying encoder for a single stream.
 TEST_F(WebRtcVideoChannelTest, MinAndMaxBitratePropagatedToEncoder) {

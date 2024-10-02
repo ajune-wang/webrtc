@@ -101,6 +101,19 @@ class ByteBufferWriterT {
     WriteBytesInternal(reinterpret_cast<const value_type*>(val), len);
   }
 
+  // Copy from BufferClassT or rtc::ArrayView
+  template <class D>
+  void WriteData(const D& data) {
+    WriteBytesInternal(reinterpret_cast<const value_type*>(data.data()),
+                       data.size());
+  }
+
+  // Copy from ArrayView from a C-style array.
+  template <typename U, size_t N>
+  void WriteData(U (&array)[N]) {
+    WriteBytesInternal(reinterpret_cast<const value_type*>(array), N);
+  }
+
   // Reserves the given number of bytes and returns a value_type* that can be
   // written into. Useful for functions that require a value_type* buffer and
   // not a ByteBufferWriter.
@@ -114,6 +127,8 @@ class ByteBufferWriterT {
 
   // Clears the contents of the buffer. After this, Length() will be 0.
   void Clear() { buffer_.Clear(); }
+
+  Buffer Finish() { return std::move(buffer_); }
 
  private:
   static constexpr size_t kDefaultCapacity = 4096;

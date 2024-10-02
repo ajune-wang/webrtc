@@ -44,6 +44,9 @@ class Timestamp final : public rtc_units_impl::UnitBase<Timestamp> {
 
   Timestamp() = delete;
 
+  template <typename Sink>
+  friend void AbslStringify(Sink& sink, Timestamp value);
+
   template <typename T = int64_t>
   constexpr T seconds() const {
     return ToFraction<1000000, T>();
@@ -119,8 +122,13 @@ class Timestamp final : public rtc_units_impl::UnitBase<Timestamp> {
 };
 
 std::string ToString(Timestamp value);
-inline std::string ToLogString(Timestamp value) {
-  return ToString(value);
+[[deprecated]] inline std::string ToLogString(Timestamp value) {
+  return absl::StrCat(value);
+}
+
+template <typename Sink>
+void AbslStringify(Sink& sink, Timestamp value) {
+  sink.Append(ToString(value));
 }
 
 }  // namespace webrtc

@@ -47,6 +47,9 @@ class DataRate final : public rtc_units_impl::RelativeUnit<DataRate> {
 
   DataRate() = delete;
 
+  template <typename Sink>
+  friend void AbslStringify(Sink& sink, DataRate value);
+
   template <typename T = int64_t>
   constexpr T bps() const {
     return ToValue<T>();
@@ -135,8 +138,13 @@ inline constexpr DataRate operator*(const Frequency frequency,
 }
 
 std::string ToString(DataRate value);
-inline std::string ToLogString(DataRate value) {
+[[deprecated]] inline std::string ToLogString(DataRate value) {
   return ToString(value);
+}
+
+template <typename Sink>
+void AbslStringify(Sink& sink, DataRate value) {
+  sink.Append(ToString(value));
 }
 
 }  // namespace webrtc

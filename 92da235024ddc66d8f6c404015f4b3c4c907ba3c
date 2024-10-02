@@ -37,6 +37,23 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "81940982_bab02fe3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19769
+      },
+      "writtenOn": "2024-10-02T17:42:50Z",
+      "side": 1,
+      "message": "Adding the warning to the repo build surfaces much more cases (which we probably just weren\u0027t including/reaching in our context)\nI\u0027ll split the changes for multiple CLs and open a proper issue for it.\nIn the last CL I\u0027ll also add in the cflag after I made sure to eliminate all such instances of unused variables.",
+      "revId": "92da235024ddc66d8f6c404015f4b3c4c907ba3c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "94d4abeb_bed53af1",
         "filename": "api/video_codecs/video_encoder.h",
         "patchSetId": 1
@@ -48,6 +65,24 @@
       "writtenOn": "2024-10-02T07:59:34Z",
       "side": 1,
       "message": "Does warning still trigger when parameter is unused when function both declaration and definition like here?\nPersonally I found commented out name in declaration less readable.\nBut if compiler still issues a warning, then yes, comment out the name or add the c++17 attribute.",
+      "revId": "92da235024ddc66d8f6c404015f4b3c4c907ba3c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a5b629d1_a049c2f0",
+        "filename": "api/video_codecs/video_encoder.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 19769
+      },
+      "writtenOn": "2024-10-02T17:42:50Z",
+      "side": 1,
+      "message": "Seem like it does. I\u0027m ok with both, but I feel like when the variable might be unused (e.t code is preprocessed out) we should indeed use the annotation, where its clearly unused we should definitely comment out the var name. Its a matter of style and semantics, so up to the conventions of the repo if there are such about this case, and if not - up to you guys.",
+      "parentUuid": "94d4abeb_bed53af1",
       "revId": "92da235024ddc66d8f6c404015f4b3c4c907ba3c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -87,6 +122,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f8e11783_9c8ac59a",
+        "filename": "rtc_base/string_to_number.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 19769
+      },
+      "writtenOn": "2024-10-02T17:42:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b3fe6e42_b69299be",
+      "revId": "92da235024ddc66d8f6c404015f4b3c4c907ba3c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1772d110_8a95db4b",
@@ -118,6 +171,24 @@
       "side": 1,
       "message": "This is a classic way to suppress unused warning.\nHowever c+17 adds are more readable way: \nhttps://en.cppreference.com/w/cpp/language/attributes/maybe_unused\nHave you consider using that one?\n`ExpecatationToString([[maybe_unused]] const ThreadLikeObject* checker) {`",
       "parentUuid": "1772d110_8a95db4b",
+      "revId": "92da235024ddc66d8f6c404015f4b3c4c907ba3c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a710f87b_40be9440",
+        "filename": "rtc_base/synchronization/sequence_checker_internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 19769
+      },
+      "writtenOn": "2024-10-02T17:42:50Z",
+      "side": 1,
+      "message": "Yeah, the annotation is much better for cases like this. Thanks!",
+      "parentUuid": "3a14b53e_5070eb2f",
       "revId": "92da235024ddc66d8f6c404015f4b3c4c907ba3c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

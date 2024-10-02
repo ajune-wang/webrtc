@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': 'edc87224c0b39339aab2ecee586c853f1ab12908',
+  'chromium_revision': '57d17b561ee3bc5d56088d11da0a0b621a648860',
 
   # Fetch the prebuilt binaries for llvm-cov and llvm-profdata. Needed to
   # process the raw profiles produced by instrumented targets (built with
@@ -234,11 +234,11 @@ deps = {
   },
 
   'src/third_party/boringssl/src':
-    'https://boringssl.googlesource.com/boringssl.git@81345b84505e9c23c156b2c7a1e655a204bd3e9a',
+    'https://boringssl.googlesource.com/boringssl.git@0eda639cb78a5cf0b479910d8c9a039e47ad36fe',
   'src/third_party/breakpad/breakpad':
     'https://chromium.googlesource.com/breakpad/breakpad.git@6b0c5b7ee1988a14a4af94564e8ae8bba8a94374',
   'src/third_party/catapult':
-    'https://chromium.googlesource.com/catapult.git@b952ef48c38e2a78bdc8761b6ecab0e6bfaf0e8b',
+    'https://chromium.googlesource.com/catapult.git@ffa948a18ef8bd4c49b1edbe1274f2431bcf2b94',
   'src/third_party/ced/src': {
     'url': 'https://chromium.googlesource.com/external/github.com/google/compact_enc_det.git@ba412eaaacd3186085babcd901679a48863c7dd5',
   },
@@ -279,7 +279,7 @@ deps = {
       'condition': 'checkout_android',
   },
   'src/third_party/googletest/src':
-    'https://chromium.googlesource.com/external/github.com/google/googletest.git@6dae7eb4a5c3a169f3e298392bff4680224aa94a',
+    'https://chromium.googlesource.com/external/github.com/google/googletest.git@a1e255a582377e1006bb88a408ac3f933ba7c916',
   'src/third_party/icu': {
     'url': 'https://chromium.googlesource.com/chromium/deps/icu.git@9408c6fd4a39e6fef0e1c4077602e1c83b15f3fb',
   },
@@ -542,11 +542,11 @@ deps = {
       'packages': [
         {
           'package': 'infra/tools/luci/isolate/${{platform}}',
-          'version': 'git_revision:cb4b10bea51ea74dbdfeb6d377481c884ab23db8',
+          'version': 'git_revision:825ada410ecdfd314f075a609b46ceb61dfa6442',
         },
         {
           'package': 'infra/tools/luci/swarming/${{platform}}',
-          'version': 'git_revision:cb4b10bea51ea74dbdfeb6d377481c884ab23db8',
+          'version': 'git_revision:825ada410ecdfd314f075a609b46ceb61dfa6442',
         },
       ],
       'dep_type': 'cipd',

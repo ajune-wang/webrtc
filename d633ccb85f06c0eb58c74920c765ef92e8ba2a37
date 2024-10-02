@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a012502e_7939e918",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2024-10-02T06:21:26Z",
+      "side": 1,
+      "message": "Super nit: I first read this as \"c_str\" (as in `std::string.c_str()`) as opposed to \"constructor\". I often use \"ctor\" as an abbreviation for the latter.",
+      "range": {
+        "startLine": 7,
+        "startChar": 61,
+        "endLine": 7,
+        "endChar": 65
+      },
+      "revId": "d633ccb85f06c0eb58c74920c765ef92e8ba2a37",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

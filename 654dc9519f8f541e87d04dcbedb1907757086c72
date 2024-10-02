@@ -39,6 +39,30 @@
       },
       "revId": "654dc9519f8f541e87d04dcbedb1907757086c72",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3254265b_956b1200",
+        "filename": "rtc_base/byte_buffer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2024-10-02T08:00:56Z",
+      "side": 1,
+      "message": "yes, although after reading it twice this comment seems a bit meaningless, will remove",
+      "parentUuid": "a8379e0f_e37ff23f",
+      "range": {
+        "startLine": 132,
+        "startChar": 35,
+        "endLine": 132,
+        "endChar": 48
+      },
+      "revId": "654dc9519f8f541e87d04dcbedb1907757086c72",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

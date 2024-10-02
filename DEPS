@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': '5722d823555d7db595c78de2d7272978be43029b',
+  'chromium_revision': '953579d66a1fa7c80e5d2be2c13f6ee42cdec1d7',
 
   # Fetch the prebuilt binaries for llvm-cov and llvm-profdata. Needed to
   # process the raw profiles produced by instrumented targets (built with
@@ -128,7 +128,7 @@ deps = {
   'src/third_party/libc++/src':
     'https://chromium.googlesource.com/external/github.com/llvm/llvm-project/libcxx.git@e2d898ca22f1d5863d8f6a7a0df849109483e05f',
   'src/third_party/libc++abi/src':
-    'https://chromium.googlesource.com/external/github.com/llvm/llvm-project/libcxxabi.git@ae0729a01204f2cdf7304b69590c9606539520c6',
+    'https://chromium.googlesource.com/external/github.com/llvm/llvm-project/libcxxabi.git@829f51051ce2b51be14f7853cca71be98083df6b',
   'src/third_party/libunwind/src':
     'https://chromium.googlesource.com/external/github.com/llvm/llvm-project/libunwind.git@37c7d984b0b8520a0f99c6e6bbb0514e9996edc8',
 
@@ -265,7 +265,7 @@ deps = {
       'condition': 'checkout_linux',
   },
   'src/third_party/freetype/src':
-    'https://chromium.googlesource.com/chromium/src/third_party/freetype2.git@83af801b552111e37d9466a887e1783a0fb5f196',
+    'https://chromium.googlesource.com/chromium/src/third_party/freetype2.git@c82745878da1acef2ce6bd7e17a8d59b8612d509',
   'src/third_party/harfbuzz-ng/src':
     'https://chromium.googlesource.com/external/github.com/harfbuzz/harfbuzz.git@1da053e87f0487382404656edca98b85fe51f2fd',
   'src/third_party/google_benchmark/src': {
@@ -351,7 +351,7 @@ deps = {
       'condition': 'checkout_android',
   },
   'src/third_party/perfetto':
-    'https://android.googlesource.com/platform/external/perfetto.git@136de5ccd7163261020064db944bb07bf5f5cf12',
+    'https://android.googlesource.com/platform/external/perfetto.git@439821ec0bdb2a7ee9971e10a6fc1f0bec317e9b',
   'src/third_party/protobuf-javascript/src':
     Var('chromium_git') + '/external/github.com/protocolbuffers/protobuf-javascript' + '@' + 'e34549db516f8712f678fcd4bc411613b5cc5295',
   'src/third_party/libvpx/source/libvpx':

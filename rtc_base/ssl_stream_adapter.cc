@@ -91,15 +91,6 @@ bool SSLStreamAdapter::GetSslCipherSuite(int* cipher_suite) {
   return false;
 }
 
-bool SSLStreamAdapter::ExportKeyingMaterial(absl::string_view label,
-                                            const uint8_t* context,
-                                            size_t context_len,
-                                            bool use_context,
-                                            uint8_t* result,
-                                            size_t result_len) {
-  return false;  // Default is unsupported
-}
-
 bool SSLStreamAdapter::SetDtlsSrtpCryptoSuites(
     const std::vector<int>& crypto_suites) {
   return false;

@@ -37,6 +37,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "471ae850_0708079d",
+        "filename": "api/peer_connection_interface.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 354,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2024-10-02T12:59:36Z",
+      "side": 1,
+      "message": "Here and in a few other places: Missing n in environment",
+      "range": {
+        "startLine": 354,
+        "startChar": 30,
+        "endLine": 354,
+        "endChar": 40
+      },
+      "revId": "2c01db9bb269a4f9519bc42d6b1e55312d16a181",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4438ce70_f2ca3f71",
         "filename": "media/base/media_config.h",
         "patchSetId": 14
@@ -48,6 +71,24 @@
       "writtenOn": "2024-10-02T11:43:59Z",
       "side": 1,
       "message": "I suggest rephrasing this as:\n```\n// If true, RTCStats timestamps are sourced from the monotonically increasing\n// environment Clock, where the epoch is unspecified (i.e. up to the Clock\n// implementation). If false, RTCStats timestamps are sourced from system clock\n// via rtc::TimeUTCMicros() which is relative to 1970 but not necessarily\n// monotonically increasing.\n// TODO(webrtc:370535296): Change default value to true and delete this flag\n// once downstream projects have migrated.\n```",
+      "revId": "2c01db9bb269a4f9519bc42d6b1e55312d16a181",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "30e3653e_9bede1db",
+        "filename": "media/base/media_config.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2024-10-02T12:59:36Z",
+      "side": 1,
+      "message": "Isn\u0027t there a mixture of timestamps for \"If false\"?",
+      "parentUuid": "4438ce70_f2ca3f71",
       "revId": "2c01db9bb269a4f9519bc42d6b1e55312d16a181",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -83,6 +124,24 @@
       "side": 1,
       "message": "According to the logic in webrtc-stats the API, the PC should take a timestamp as an initialization parameter, read the monotonic clock at startup, store the difference and always timestamp things as \"monotonic clock at startup + offset\".",
       "parentUuid": "a24e96f3_ada8f431",
+      "revId": "2c01db9bb269a4f9519bc42d6b1e55312d16a181",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5b0a482a_36b3537b",
+        "filename": "pc/rtc_stats_collector.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 1192,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2024-10-02T12:59:36Z",
+      "side": 1,
+      "message": "CurrentTime() in combination with MonotonicTimeToPseudoWallTime() as is done [here](https://source.chromium.org/chromium/chromium/src/+/main:third_party/blink/renderer/modules/peerconnection/rtp_contributing_source_cache.cc;l\u003d76) will give a timestamp relative to Performance.timeOrigin + Performance.now(). Is that what you mean?",
+      "parentUuid": "974f4d79_353e8b08",
       "revId": "2c01db9bb269a4f9519bc42d6b1e55312d16a181",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

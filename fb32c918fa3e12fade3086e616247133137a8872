@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "80aef306_b0fe7a95",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-10-02T12:05:15Z",
+      "side": 1,
+      "message": "Drive-by comment.",
+      "revId": "fb32c918fa3e12fade3086e616247133137a8872",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "108dd060_fa621a66",
+        "filename": "rtc_base/byte_buffer_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-10-02T12:05:15Z",
+      "side": 1,
+      "message": "Please don\u0027t continue the bad tradition of wrapping all the tests into a single TEST macro. One test at a time, please.",
+      "revId": "fb32c918fa3e12fade3086e616247133137a8872",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "32e4c73c_31ebb132",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-10-02T19:55:10Z",
+      "side": 1,
+      "message": "https://webrtc-review.googlesource.com/c/src/+/318881\nAnyInvocable replaced the usage. But\nhttps://webrtc-review.googlesource.com/c/src/+/318885\nspecifically moved it to the OpenSSL stream adapter? Might be some internal test that still needs it?",
+      "revId": "cb02035d06e109e3f9d77d1798aeedf109540711",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

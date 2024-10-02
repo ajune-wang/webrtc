@@ -208,6 +208,57 @@ TEST(ByteBufferTest, TestReadWriteBuffer) {
   EXPECT_EQ(wu64, ru64);
   EXPECT_EQ(0U, read_buf9.Length());
   buffer.Clear();
+
+  // Write and read data
+  uint8_t write_data[3] = {3, 2, 1};
+  buffer.Write(write_data);
+  EXPECT_EQ(3U, buffer.Length());
+  ByteBufferReader read_buf10(buffer);
+  memset(read_bytes, 0, 3);
+  EXPECT_TRUE(read_buf10.ReadBytes(read_bytes));
+  for (int i = 0; i < 3; ++i) {
+    EXPECT_EQ(write_data[i], read_bytes[i]);
+  }
+  EXPECT_EQ(0U, read_buf10.Length());
+  buffer.Clear();
+
+  // Write and read buffer
+  Buffer write_buffer(write_data);
+  buffer.Write(write_buffer);
+  ByteBufferReader read_buf11(buffer);
+  memset(read_bytes, 0, 3);
+  EXPECT_TRUE(read_buf11.ReadBytes(read_bytes));
+  for (int i = 0; i < 3; ++i) {
+    EXPECT_EQ(write_buffer[i], read_bytes[i]);
+  }
+  EXPECT_EQ(0U, read_buf11.Length());
+  buffer.Clear();
+
+  // Write and read arrayview
+  ArrayView<uint8_t> write_view(write_buffer);
+  buffer.Write(write_view);
+  ByteBufferReader read_buf12(buffer);
+  memset(read_bytes, 0, 3);
+  EXPECT_TRUE(read_buf12.ReadBytes(read_bytes));
+  for (int i = 0; i < 3; ++i) {
+    EXPECT_EQ(write_buffer[i], read_bytes[i]);
+  }
+  EXPECT_EQ(0U, read_buf12.Length());
+  buffer.Clear();
+}
+
+TEST(ByteBufferTest, TestWriteConsume) {
+  ByteBufferWriter writer;
+  // Write and read uint8_t.
+  uint8_t ru8;
+  uint8_t wu8 = 1;
+  writer.WriteUInt8(wu8);
+  Buffer consumed = std::move(writer).Consume();
+
+  ByteBufferReader read_buf1(consumed);
+  EXPECT_TRUE(read_buf1.ReadUInt8(&ru8));
+  EXPECT_EQ(wu8, ru8);
+  EXPECT_EQ(0U, read_buf1.Length());
 }
 
 TEST(ByteBufferTest, TestReadStringView) {

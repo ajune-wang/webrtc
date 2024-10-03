@@ -187,6 +187,12 @@ class RTC_EXPORT SessionDescriptionInterface {
 
   // Serializes the description to SDP.
   virtual bool ToString(std::string* out) const = 0;
+  // As above, but for debugging
+  std::string AsString() {
+    std::string temp;
+    ToString(&temp);
+    return temp;
+  }
 };
 
 // Creates a SessionDescriptionInterface based on the SDP string and the type.

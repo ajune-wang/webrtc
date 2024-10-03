@@ -1,6 +1,29 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "5d94956e_65f0bb03",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-03T08:40:43Z",
+      "side": 1,
+      "message": "chromium:371054866\n\n(to avoid extra redirect)",
+      "range": {
+        "startLine": 9,
+        "startChar": 5,
+        "endLine": 9,
+        "endChar": 11
+      },
+      "revId": "0762155b57ebf7aebf37df1cad978fd627428520",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "f6c55b38_fc30cb96",
@@ -67,6 +90,23 @@
       "side": 1,
       "message": "unfortunately it doesn\u0027t seem possible as the SpsVuiRewriter::ParseAndRewriteSps() requires an rtc::Buffer for outputting data",
       "parentUuid": "7bbb0497_67879bae",
+      "revId": "0762155b57ebf7aebf37df1cad978fd627428520",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2d992122_7770557f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-03T08:40:43Z",
+      "side": 1,
+      "message": "The linked issue still reproduces with this patch",
       "revId": "0762155b57ebf7aebf37df1cad978fd627428520",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

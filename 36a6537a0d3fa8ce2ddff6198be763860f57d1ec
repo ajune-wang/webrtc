@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6fb03b9c_98831cbd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-10-03T12:07:50Z",
+      "side": 1,
+      "message": "Let\u0027s land this and [[deprecate]] later, if that\u0027s appropriate.",
+      "revId": "36a6537a0d3fa8ce2ddff6198be763860f57d1ec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "55c032a7_e0a48cc7",
+        "filename": "api/video/encoded_image.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-10-03T12:07:50Z",
+      "side": 1,
+      "message": "Is the plan to [[deprecate]] this version in another CL?\n(not necessarily this one - it can be a PITA)",
+      "revId": "36a6537a0d3fa8ce2ddff6198be763860f57d1ec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8c06657d_26542334",
+        "filename": "api/video/encoded_image.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-10-03T12:07:50Z",
+      "side": 1,
+      "message": "This one too should go away.",
+      "revId": "36a6537a0d3fa8ce2ddff6198be763860f57d1ec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -16,6 +16,74 @@
       "message": "Hi, so from the discussion this is my take. Please have a look and let me know what you think.",
       "revId": "774b5b84857a21a31be931bee5ec7041be249714",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9f5512e3_8486d71f",
+        "filename": "pc/media_session_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2024-10-03T12:17:02Z",
+      "side": 1,
+      "message": "Is there a more descriptive name than \"Combined\"?",
+      "revId": "774b5b84857a21a31be931bee5ec7041be249714",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0e9aa78d_bd597fbb",
+        "filename": "pc/media_session_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2024-10-03T12:17:02Z",
+      "side": 1,
+      "message": "Is the idea that by listing ssrc-audio-level twice, both encrypted and non-encrypted, we have a fallback plan in the event that the remote endpoint removes the encrypted version?",
+      "revId": "774b5b84857a21a31be931bee5ec7041be249714",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a6770b28_31137a8a",
+        "filename": "pc/media_session_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2024-10-03T12:17:02Z",
+      "side": 1,
+      "message": "While in this case we only use audio_something_else if encryption is supported, since here we don\u0027t have a fallback non-encrypted version?",
+      "revId": "774b5b84857a21a31be931bee5ec7041be249714",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1186fb9a_e5cede24",
+        "filename": "pc/media_session_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 2171,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2024-10-03T12:17:02Z",
+      "side": 1,
+      "message": "Is it true that by default we don\u0027t encrypt anything and so for most apps this CL does not change anything. But for the apps that do opt-in to use encryption, this simplifies creating the answer by defaulting to preferring what was offered?",
+      "revId": "774b5b84857a21a31be931bee5ec7041be249714",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

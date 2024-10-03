@@ -245,6 +245,24 @@
       "parentUuid": "503662dc_29cdf166",
       "revId": "774b5b84857a21a31be931bee5ec7041be249714",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d7a4bda2_cd45fd8c",
+        "filename": "pc/media_session_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 2171,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2024-10-03T15:33:35Z",
+      "side": 1,
+      "message": "We don\u0027t want to add new API surfaces for this encryption scheme (RFC6904), it is just a stop-gap solution, so forcing users to specify e.g. `urn:ietf:params:rtp-hdrext:encrypt urn:ietf:params:rtp-hdrext:toffset` is fine for now. I think that is preferred to hard cording ACD as being the only encrypted extension.\n\nThere already exists an API surface to enable encryption based on RFC9335, which is what we want to move to once that is actually implemented. See\nhttps://w3c.github.io/webrtc-extensions/#rtp-header-extension-encryption-policy\n\nAlso, see doc I just shared with you.",
+      "parentUuid": "e737faf6_7021f39e",
+      "revId": "774b5b84857a21a31be931bee5ec7041be249714",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

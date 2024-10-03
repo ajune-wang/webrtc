@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f6c55b38_fc30cb96",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2024-10-03T06:44:45Z",
+      "side": 1,
+      "message": "Newbie mistake from my side. I was rewriting the payload and then using ArrayViews pointing to the previous payload for doing the rest of the parsing.\n\nThis changes delays the modification of the payload until the parsing is done.",
+      "revId": "0762155b57ebf7aebf37df1cad978fd627428520",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

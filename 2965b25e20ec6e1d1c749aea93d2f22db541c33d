@@ -16,6 +16,24 @@
       "message": "This too shows (presumably independent) 40K increase...",
       "revId": "2965b25e20ec6e1d1c749aea93d2f22db541c33d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "70753781_1c9ade0a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-03T10:13:43Z",
+      "side": 1,
+      "message": "Too as in?\nhttps://webrtc-review.googlesource.com/c/src/+/364505 ?\n(but that other has practically no binary size change)\n\nlinux_compile_rel binary size I do no find too trusty.\ne.g. in a noop https://webrtc-review.googlesource.com/c/src/+/364483 it shows -10k improvement.\nI suspect linux_compile_rel doesn\u0027t involve linker optimizations.\n\nandroid binary size do show more binary usage. Those I trust more. I\u0027ll investigate if using AbslStringify more directly can reduce that.\n\nUntil then I\u0027ve updated this CL to keep and prefer ToLogString, but still allow AbslStringify - this way gtest and downstream can take advantage of absl way of debug printing.",
+      "parentUuid": "76363647_b1f1cd20",
+      "revId": "2965b25e20ec6e1d1c749aea93d2f22db541c33d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -64,6 +64,7 @@ std::optional<VideoRtpDepacketizer::ParsedRtpPayload> ProcessStapAOrSingleNalu(
   std::optional<VideoRtpDepacketizer::ParsedRtpPayload> parsed_payload(
       std::in_place);
   bool modified_buffer = false;
+  rtc::Buffer output_buffer;
   parsed_payload->video_payload = rtp_payload;
   parsed_payload->video_header.width = 0;
   parsed_payload->video_header.height = 0;
@@ -105,7 +106,7 @@ std::optional<VideoRtpDepacketizer::ParsedRtpPayload> ProcessStapAOrSingleNalu(
         // avoid excessive decoder latency.
 
         // Copy any previous data first (likely just the first header).
-        rtc::Buffer output_buffer;
+        output_buffer.Clear();
         size_t start_offset = nalu_data.data() - payload_data.data();
         size_t end_offset = start_offset + nalu_data.size();
         if (start_offset)
@@ -139,11 +140,8 @@ std::optional<VideoRtpDepacketizer::ParsedRtpPayload> ProcessStapAOrSingleNalu(
                   &output_buffer[length_field_offset], rewritten_size);
             }
 
-            parsed_payload->video_payload.SetData(output_buffer.data(),
-                                                  output_buffer.size());
             // Append rest of packet.
-            parsed_payload->video_payload.AppendData(
-                payload_data.subview(end_offset));
+            output_buffer.AppendData(payload_data.subview(end_offset));
 
             modified_buffer = true;
             [[fallthrough]];
@@ -209,6 +207,10 @@ std::optional<VideoRtpDepacketizer::ParsedRtpPayload> ProcessStapAOrSingleNalu(
     h264_header.nalus.push_back(nalu);
   }
 
+  if (modified_buffer) {
+    parsed_payload->video_payload.SetData(output_buffer.data(),
+                                          output_buffer.size());
+  }
   return parsed_payload;
 }
 

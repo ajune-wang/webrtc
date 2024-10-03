@@ -16,6 +16,24 @@
       "message": "I would need some assistance here, the failing tests seems to be completely unrelated to h264 at all:\n\n../../pc/peer_connection_encodings_integrationtest.cc:1376: Failure\nValue of: IsCodecIdDifferentWithScalabilityMode(local_pc_wrapper, 0, \"\", \"L3T3\")\n  Actual: false\nExpected: true\nStack trace:\n  0x560584f6958f: webrtc::PeerConnectionEncodingsIntegrationTest_EncodingParameterCodecIsSetByAddTransceiverVideo_Test::TestBody()\n  0x560585c003de: testing::Test::Run()\n  0x560585c0193a: testing::TestInfo::Run()\n... Google Test internal frames ...",
       "revId": "720a5b50373b54edb88c8d22f82be086ab789993",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8fd7c45b_44d596c4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-03T18:27:07Z",
+      "side": 1,
+      "message": "Looks like a flake - test passed on rerun.",
+      "parentUuid": "9601afe2_2418d232",
+      "revId": "720a5b50373b54edb88c8d22f82be086ab789993",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

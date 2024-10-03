@@ -8,12 +8,9 @@
 
 import("../../webrtc.gni")
 
-rtc_library("data_rate") {
+rtc_source_set("data_rate") {
   visibility = [ "*" ]
-  sources = [
-    "data_rate.cc",
-    "data_rate.h",
-  ]
+  sources = [ "data_rate.h" ]
 
   deps = [
     ":data_size",

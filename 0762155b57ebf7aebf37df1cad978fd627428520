@@ -16,6 +16,23 @@
       "message": "Newbie mistake from my side. I was rewriting the payload and then using ArrayViews pointing to the previous payload for doing the rest of the parsing.\n\nThis changes delays the modification of the payload until the parsing is done.",
       "revId": "0762155b57ebf7aebf37df1cad978fd627428520",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "162bfc03_fb91fc29",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2024-10-03T06:46:33Z",
+      "side": 1,
+      "message": "This could be further improved by allowing to move the Buffer to the rtc::CopyOnWriteBuffer, not sure if you would like me to add that as well in this CL.",
+      "revId": "0762155b57ebf7aebf37df1cad978fd627428520",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

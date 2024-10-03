@@ -88,6 +88,8 @@ using RtcpMuxPolicy = PeerConnectionInterface::RtcpMuxPolicy;
 using rtc::SocketAddress;
 using ::testing::Combine;
 using ::testing::ElementsAre;
+using ::testing::Gt;
+using ::testing::NotNull;
 using ::testing::UnorderedElementsAre;
 using ::testing::Values;
 
@@ -1047,6 +1049,7 @@ TEST_F(PeerConnectionBundleTestUnifiedPlan, AddNonBundledSection) {
       caller->SetLocalDescription(CloneSessionDescription(offer.get())));
   EXPECT_TRUE(callee->SetRemoteDescription(std::move(offer)));
   answer = callee->CreateAnswer();
+  ASSERT_THAT(answer.get(), NotNull());
   EXPECT_TRUE(
       callee->SetLocalDescription(CloneSessionDescription(answer.get())));
   EXPECT_TRUE(caller->SetRemoteDescription(std::move(answer)));

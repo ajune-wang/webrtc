@@ -72,6 +72,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "97500833_b84c4707",
+        "filename": "pc/media_session_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2024-10-03T12:51:04Z",
+      "side": 1,
+      "message": "That works for me",
+      "parentUuid": "a05f6785_84ed28df",
+      "revId": "774b5b84857a21a31be931bee5ec7041be249714",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0e9aa78d_bd597fbb",
         "filename": "pc/media_session_unittest.cc",
         "patchSetId": 8
@@ -101,6 +119,24 @@
       "side": 1,
       "message": "Yes, exactly. You can think of it as the local endpoint \"allows\" to also send it unecrypted.",
       "parentUuid": "0e9aa78d_bd597fbb",
+      "revId": "774b5b84857a21a31be931bee5ec7041be249714",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c86102c8_3d44fac4",
+        "filename": "pc/media_session_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2024-10-03T12:51:04Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "d9cfb5ec_76e41945",
       "revId": "774b5b84857a21a31be931bee5ec7041be249714",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -140,6 +176,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7b6d6460_f1440b35",
+        "filename": "pc/media_session_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2024-10-03T12:51:04Z",
+      "side": 1,
+      "message": "That makes sense: if the sensitive thing cannot be encrypted, we don\u0027t use it. Both backwards compatible and safe starting point going forward.",
+      "parentUuid": "ed2f0cba_66324d79",
+      "revId": "774b5b84857a21a31be931bee5ec7041be249714",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1186fb9a_e5cede24",
@@ -171,6 +225,24 @@
       "side": 1,
       "message": "Yes the default is that we dont encrypt anything. See chromium:40623740. To encrypt one needs to activate this flag. Trying to remove that in https://chromium-review.googlesource.com/c/chromium/src/+/5866212. It will be replaced with a field trial.\n\nHowever, even if the default was true it would not affect anything YET. Because we have not added any code that specifies which headers to be encrypted. This will come in a later CL.\n\n\u003e this simplifies creating the answer by defaulting to preferring what was offered\nYes.",
       "parentUuid": "1186fb9a_e5cede24",
+      "revId": "774b5b84857a21a31be931bee5ec7041be249714",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e737faf6_7021f39e",
+        "filename": "pc/media_session_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 2171,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2024-10-03T12:51:04Z",
+      "side": 1,
+      "message": "SGTM to default to accepting what is offered and that we support by default.\n\n\u003e Because we have not added any code that specifies which headers to be encrypted. This will come in a later CL.\n\nThis is the part that interest me from an API and standards perspective.\n\nIt sounds to me if the corruption metric header extension API is shipped as \"encrypt\u003dtrue\" then things will Just Work from an API perspective: the app will either opt-in to use the extension or it won\u0027t, but if it does encryption will be negotiated and as per previous comment only if encryption is supported do we go ahead and use this header extension.\n\nBut if there is a more general goal to be able to turn encryption on or off on a per header extension basis (or session wide for that matter) then I wonder if we need new APIs for \"encrypt \u003d true or false?\". That\u0027s why I raised the question.",
+      "parentUuid": "503662dc_29cdf166",
       "revId": "774b5b84857a21a31be931bee5ec7041be249714",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c0361288_3442e42e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-03T10:36:32Z",
+      "side": 1,
+      "message": "call lgtm with an optional suggestion",
+      "revId": "3697863097523120c3bf25633456b944828ffca5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "63f3e5cb_144cca1d",
+        "filename": "call/rtp_config.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-03T10:36:32Z",
+      "side": 1,
+      "message": "```suggestion\n  if (rtx.has_value()) {\n    ss \u003c\u003c \", rtx: \" \u003c\u003c rtx-\u003eToString();\n  }\n```",
+      "revId": "3697863097523120c3bf25633456b944828ffca5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

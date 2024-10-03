@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9c293994_d2219267",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-10-03T22:06:47Z",
+      "side": 1,
+      "message": "can I add two tiny files (one for ipv6, another for pcapng) to resources/ myself or will I need help?",
+      "revId": "233cfc1760425e3cfcda08837547dc0c6e2c9fa5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

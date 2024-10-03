@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9b3d7af3_2dea0b24",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-03T08:27:16Z",
+      "side": 1,
+      "message": "one of the `const` didn\u0027t have a definition in .cc, so when I tried to use it by reference, linker complain. Solution is to switch it to constexpr and thus make implicitly inline.\nWhile at it checked all other constants and made them consistent",
+      "revId": "793e0311c3ca1545b8da779d653a58695954ea7c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

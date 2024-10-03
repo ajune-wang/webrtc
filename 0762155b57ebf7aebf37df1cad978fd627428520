@@ -51,6 +51,24 @@
       "parentUuid": "162bfc03_fb91fc29",
       "revId": "0762155b57ebf7aebf37df1cad978fd627428520",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b94decbc_4d14c313",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2024-10-03T07:08:27Z",
+      "side": 1,
+      "message": "unfortunately it doesn\u0027t seem possible as the SpsVuiRewriter::ParseAndRewriteSps() requires an rtc::Buffer for outputting data",
+      "parentUuid": "7bbb0497_67879bae",
+      "revId": "0762155b57ebf7aebf37df1cad978fd627428520",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -39,8 +39,10 @@ enum {
   kBsdNullLoopback1 = 0x00000002,
   kBsdNullLoopback2 = 0x02000000,
   kEthernetIIHeaderMacSkip = 12,
-  kEthertypeIp = 0x0800,
+  kEthertypeIpv4 = 0x0800,
+  kEthertypeIpv6 = 0x86dd,
   kIpVersion4 = 4,
+  kIpVersion6 = 6,
   kMinIpHeaderLength = 20,
   kFragmentOffsetClear = 0x0000,
   kFragmentOffsetDoNotFragment = 0x4000,
@@ -596,14 +598,23 @@ class PcapReader : public RtpFileReaderImpl {
 
     TRY_PCAP(fseek(file_, file_pos, SEEK_SET));
 
-    // Check for Ethernet II, IP frame header.
+    // Check for Ethernet II, IP frame header. IPv4.
     uint16_t type;
     TRY_PCAP(Skip(kEthernetIIHeaderMacSkip));  // Source+destination MAC.
     TRY_PCAP(Read(&type, true));
-    if (type == kEthertypeIp) {
+    if (type == kEthertypeIpv4) {
       int result = ReadXxpIpHeader(marker);
       if (result != kResultSkip) {
         return result;
+      }
+    } else {
+      // Try another read for IPv6.
+      TRY_PCAP(Read(&type, true));
+      if (type == kEthertypeIpv6) {
+        int result = ReadXxpIpHeader6(marker);
+        if (result != kResultSkip) {
+          return result;
+        }
       }
     }
 
@@ -673,6 +684,40 @@ class PcapReader : public RtpFileReaderImpl {
       return kResultSkip;
     }
 
+    return kResultSuccess;
+  }
+
+  int ReadXxpIpHeader6(RtpPacketMarker* marker) {
+    RTC_DCHECK(marker);
+
+    uint32_t version;
+    uint16_t length;
+    uint8_t next_header;
+    TRY_PCAP(Read(&version, true));
+
+    if (((version >> 28) & 0x000f) != kIpVersion6) {
+      RTC_LOG(LS_INFO) << "IP header is not IPv6";
+      return kResultSkip;
+    }
+    TRY_PCAP(Read(&length, true));
+    TRY_PCAP(Read(&next_header, true));
+    // Skip remaining header (Hop Limit and source/dest address.
+    TRY_PCAP(Skip(1 + 16 + 16));
+    if (next_header == kProtocolTcp) {
+      RTC_LOG(LS_INFO) << "TCP packets are not handled";
+      return kResultSkip;
+    } else if (next_header == kProtocolUdp) {
+      uint16_t length;
+      uint16_t checksum;
+      TRY_PCAP(Read(&marker->source_port, true));
+      TRY_PCAP(Read(&marker->dest_port, true));
+      TRY_PCAP(Read(&length, true));
+      TRY_PCAP(Read(&checksum, true));
+      marker->payload_length = length - kUdpHeaderLength;
+    } else {
+      RTC_LOG(LS_INFO) << "Unknown transport (expected UDP or TCP)";
+      return kResultSkip;
+    }
     return kResultSuccess;
   }
 

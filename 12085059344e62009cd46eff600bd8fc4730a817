@@ -16,6 +16,24 @@
       "message": "This change is a +0.06% size increase (40 KiB on Linux), so it is clearly less compact than what it changes from. Is this something we need to worry about, given that it is a new pattern we\u0027re introducing, so it will reoccur multiple times?",
       "revId": "12085059344e62009cd46eff600bd8fc4730a817",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c6b30ba1_2e40899b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-03T09:42:42Z",
+      "side": 1,
+      "message": "there is practically no binary size for this change.",
+      "parentUuid": "3f0082ae_2b33ee92",
+      "revId": "12085059344e62009cd46eff600bd8fc4730a817",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d5931b43_711ecab8",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 597,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2024-10-03T08:59:01Z",
+      "side": 1,
+      "message": "Here and in other places: because id_or_nullopt() returns optional\u003cuint_16\u003e, when we pass -1, it\u0027s actually converted to 65535 here, so maybe better to use a string literal explicitly. We can use either -1 or \"\u003cnot set\u003e\" to be more clear",
+      "range": {
+        "startLine": 597,
+        "startChar": 45,
+        "endLine": 597,
+        "endChar": 57
+      },
+      "revId": "1f57fb671f24f3747c89cd77f42983191be065c3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

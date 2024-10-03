@@ -217,6 +217,7 @@ class PeerConnectionEncodingsIntegrationTest : public ::testing::Test {
     // receiving singlecast.
     cricket::SimulcastDescription simulcast_description =
         RemoveSimulcast(offer.get());
+    RTC_LOG(LS_ERROR) << "DEBUG: Offer " << offer->AsString();
     rtc::scoped_refptr<MockSetSessionDescriptionObserver> p2 =
         SetRemoteDescription(remote_pc_wrapper, offer.get());
     EXPECT_TRUE(Await({p1, p2}));
@@ -225,6 +226,7 @@ class PeerConnectionEncodingsIntegrationTest : public ::testing::Test {
     std::unique_ptr<SessionDescriptionInterface> answer =
         CreateAnswer(remote_pc_wrapper);
     EXPECT_TRUE(answer);
+    RTC_LOG(LS_ERROR) << "DEBUG: Answer before munge " << answer->AsString();
     p1 = SetLocalDescription(remote_pc_wrapper, answer.get());
     // Modify the answer before handoff because `local_pc_wrapper` should still
     // send simulcast.
@@ -238,8 +240,15 @@ class PeerConnectionEncodingsIntegrationTest : public ::testing::Test {
     for (const auto& layer : simulcast_layers) {
       receive_layers.AddLayer(layer);
     }
+    RTC_LOG(LS_ERROR) << "DEBUG: Answer after munge " << answer->AsString();
     p2 = SetRemoteDescription(local_pc_wrapper, answer.get());
     EXPECT_TRUE(Await({p1, p2}));
+    // Check receive codecs at remote
+    auto recv_parameters = remote_pc_wrapper->pc()
+                               ->GetTransceivers()[0]
+                               ->receiver()
+                               ->GetParameters();
+    RTC_LOG(LS_ERROR) << "DEBUG: Codec size " << recv_parameters.codecs.size();
   }
 
   rtc::scoped_refptr<const RTCStatsReport> GetStats(

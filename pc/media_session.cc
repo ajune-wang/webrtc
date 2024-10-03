@@ -524,6 +524,8 @@ std::optional<Codec> FindMatchingCodec(const std::vector<Codec>& codecs1,
     return &codec == &codec_to_match;
   }));
   for (const Codec& potential_match : codecs2) {
+    // RTC_LOG(LS_ERROR) << "DEBUG: match " << codec_to_match.ToString()
+    //                  << " against " << potential_match.ToString();
     if (potential_match.Matches(codec_to_match)) {
       if (codec_to_match.GetResiliencyType() == Codec::ResiliencyType::kRtx) {
         int apt_value_1 = 0;
@@ -548,6 +550,20 @@ std::optional<Codec> FindMatchingCodec(const std::vector<Codec>& codecs1,
         bool has_parameters_1 = red_parameters_1 != codec_to_match.params.end();
         bool has_parameters_2 =
             red_parameters_2 != potential_match.params.end();
+        RTC_LOG(LS_ERROR) << "DEBUG: Matching RED "
+                          << (has_parameters_1 ? red_parameters_1->second
+                                               : "(empty)")
+                          << " to "
+                          << (has_parameters_2 ? red_parameters_2->second
+                                               : "(empty)");
+        // If codec_to_match has unassigned PT and no parameter,
+        // we assume that it'll be assigned later and return a match.
+        if (potential_match.id == Codec::kIdNotSet && !has_parameters_2) {
+          return potential_match;
+        }
+        if (codec_to_match.id == Codec::kIdNotSet && !has_parameters_1) {
+          return potential_match;
+        }
         if (has_parameters_1 && has_parameters_2) {
           // Mixed reference codecs (i.e. 111/112) are not supported.
           // Different levels of redundancy between offer and answer are
@@ -1238,12 +1254,21 @@ webrtc::RTCErrorOr<Codecs> GetNegotiatedCodecsForAnswer(
     const std::vector<Codec>& supported_codecs) {
   std::vector<Codec> filtered_codecs;
 
+  for (auto& codec : codecs) {
+    RTC_LOG(LS_ERROR) << "DEBUG: Codec " << codec.ToString();
+  }
+  for (auto& codec : supported_codecs) {
+    RTC_LOG(LS_ERROR) << "DEBUG: Supported codec " << codec.ToString();
+  }
   if (!media_description_options.codec_preferences.empty()) {
+    RTC_LOG(LS_ERROR) << "DEBUG: Has codec preferences";
     filtered_codecs = MatchCodecPreference(
         media_description_options.codec_preferences, codecs, supported_codecs);
   } else {
     // Add the codecs from current content if it exists and is not rejected nor
     // recycled.
+    RTC_LOG(LS_ERROR) << "DEBUG: Adding from current content "
+                      << current_content;
     if (current_content && !current_content->rejected &&
         current_content->name == media_description_options.mid) {
       if (!IsMediaContentOfType(current_content,
@@ -1256,18 +1281,24 @@ webrtc::RTCErrorOr<Codecs> GetNegotiatedCodecsForAnswer(
       }
       const MediaContentDescription* mcd = current_content->media_description();
       for (const Codec& codec : mcd->codecs()) {
+        RTC_LOG(LS_ERROR) << "DEBUG: remote contains " << codec.ToString();
         if (FindMatchingCodec(mcd->codecs(), codecs, codec)) {
           filtered_codecs.push_back(codec);
         }
       }
     }
     // Add other supported codecs.
+    for (auto& codec : codecs) {
+      RTC_LOG(LS_ERROR) << "DEBUG: Existing codec " << codec.ToString();
+    }
     std::vector<Codec> other_codecs;
     for (const Codec& codec : supported_codecs) {
+      RTC_LOG(LS_ERROR) << "DEBUG: Checking codec " << codec.ToString();
       if (FindMatchingCodec(supported_codecs, codecs, codec) &&
           !FindMatchingCodec(supported_codecs, filtered_codecs, codec)) {
         // We should use the local codec with local parameters and the codec id
         // would be correctly mapped in `NegotiateCodecs`.
+        RTC_LOG(LS_ERROR) << "DEBUG: Adding codec 'other' " << codec.ToString();
         other_codecs.push_back(codec);
       }
     }
@@ -1635,6 +1666,8 @@ MediaSessionDescriptionFactory::CreateAnswerOrError(
     switch (media_description_options.type) {
       case MEDIA_TYPE_AUDIO:
       case MEDIA_TYPE_VIDEO:
+        RTC_LOG(LS_ERROR) << "DEBUG: Size of answer_audio_codecs "
+                          << answer_audio_codecs.size();
         error = AddRtpContentForAnswer(
             media_description_options, session_options, offer_content, offer,
             current_content, current_description, bundle_transport,
@@ -1877,10 +1910,14 @@ void MediaSessionDescriptionFactory::GetCodecsForAnswer(
     if (IsMediaContentOfType(&content, MEDIA_TYPE_AUDIO)) {
       std::vector<Codec> offered_codecs = content.media_description()->codecs();
       for (const Codec& offered_audio_codec : offered_codecs) {
+        RTC_LOG(LS_ERROR) << "DEBUG: Filtering codec "
+                          << offered_audio_codec.ToString();
         if (!FindMatchingCodec(offered_codecs, filtered_offered_audio_codecs,
                                offered_audio_codec) &&
             FindMatchingCodec(offered_codecs, all_audio_codecs_,
                               offered_audio_codec)) {
+          RTC_LOG(LS_ERROR)
+              << "DEBUG: Accepting codec " << offered_audio_codec.ToString();
           filtered_offered_audio_codecs.push_back(offered_audio_codec);
         }
       }
@@ -1899,8 +1936,14 @@ void MediaSessionDescriptionFactory::GetCodecsForAnswer(
 
   // Add codecs that are not in the current description but were in
   // `remote_offer`.
+  RTC_LOG(LS_ERROR) << "DEBUG: Size of filtered_offered_audio_codecs "
+                    << filtered_offered_audio_codecs.size();
+  RTC_LOG(LS_ERROR) << "DEBUG: Size of audio_codecs " << audio_codecs->size();
+
   MergeCodecs(filtered_offered_audio_codecs, audio_codecs, &used_pltypes);
   MergeCodecs(filtered_offered_video_codecs, video_codecs, &used_pltypes);
+  RTC_LOG(LS_ERROR) << "DEBUG: Size of audio_codecs after merge "
+                    << audio_codecs->size();
 }
 
 MediaSessionDescriptionFactory::AudioVideoRtpHeaderExtensions
@@ -2202,10 +2245,14 @@ RTCError MediaSessionDescriptionFactory::AddRtpContentForAnswer(
   std::vector<Codec> codecs_to_include;
   bool negotiate;
   if (media_description_options.codecs_to_include.empty()) {
+    RTC_LOG(LS_ERROR) << "DEBUG: No media description options";
     const std::vector<Codec>& supported_codecs =
         media_description_options.type == MEDIA_TYPE_AUDIO
             ? GetAudioCodecsForAnswer(offer_rtd, answer_rtd)
             : GetVideoCodecsForAnswer(offer_rtd, answer_rtd);
+    RTC_LOG(LS_ERROR) << "DEBUG: Supported codecs count "
+                      << supported_codecs.size();
+    RTC_LOG(LS_ERROR) << "DEBUG: codecs count " << codecs.size();
     webrtc::RTCErrorOr<std::vector<Codec>> error_or_filtered_codecs =
         GetNegotiatedCodecsForAnswer(media_description_options, session_options,
                                      current_content, codecs, supported_codecs);
@@ -2217,6 +2264,9 @@ RTCError MediaSessionDescriptionFactory::AddRtpContentForAnswer(
   } else {
     codecs_to_include = media_description_options.codecs_to_include;
     negotiate = false;  // Don't filter against remote codecs
+  }
+  for (auto& codec : codecs_to_include) {
+    RTC_LOG(LS_ERROR) << "DEBUG: Codec after first block " << codec.ToString();
   }
   // Determine if we have media codecs in common.
   bool has_usable_media_codecs =
@@ -2242,6 +2292,9 @@ RTCError MediaSessionDescriptionFactory::AddRtpContentForAnswer(
   }
   AssignCodecIdsAndLinkRed(pt_suggester_, media_description_options.mid,
                            codecs_to_include);
+  for (auto& codec : codecs_to_include) {
+    RTC_LOG(LS_ERROR) << "DEBUG: Codec after PT assign " << codec.ToString();
+  }
 
   if (!SetCodecsInAnswer(offer_content_description, codecs_to_include,
                          media_description_options, session_options,

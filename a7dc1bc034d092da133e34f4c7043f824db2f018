@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "68cab9c2_b40152a2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-10-03T11:25:08Z",
+      "side": 1,
+      "message": "After discussing the size issue, I\u0027ve stopped worrying and love AbslStringify.",
+      "revId": "a7dc1bc034d092da133e34f4c7043f824db2f018",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

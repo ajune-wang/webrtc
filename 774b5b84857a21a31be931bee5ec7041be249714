@@ -18,6 +18,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0f92d14a_d3676eb1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3485001
+      },
+      "writtenOn": "2024-10-03T12:36:41Z",
+      "side": 1,
+      "message": "Thanks for the review.",
+      "revId": "774b5b84857a21a31be931bee5ec7041be249714",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9f5512e3_8486d71f",
@@ -31,6 +48,24 @@
       "writtenOn": "2024-10-03T12:17:02Z",
       "side": 1,
       "message": "Is there a more descriptive name than \"Combined\"?",
+      "revId": "774b5b84857a21a31be931bee5ec7041be249714",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a05f6785_84ed28df",
+        "filename": "pc/media_session_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 3485001
+      },
+      "writtenOn": "2024-10-03T12:36:41Z",
+      "side": 1,
+      "message": "Sure can find something better. Maybe \"MixedEncryption\".",
+      "parentUuid": "9f5512e3_8486d71f",
       "revId": "774b5b84857a21a31be931bee5ec7041be249714",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -54,6 +89,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d9cfb5ec_76e41945",
+        "filename": "pc/media_session_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 3485001
+      },
+      "writtenOn": "2024-10-03T12:36:41Z",
+      "side": 1,
+      "message": "Yes, exactly. You can think of it as the local endpoint \"allows\" to also send it unecrypted.",
+      "parentUuid": "0e9aa78d_bd597fbb",
+      "revId": "774b5b84857a21a31be931bee5ec7041be249714",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a6770b28_31137a8a",
         "filename": "pc/media_session_unittest.cc",
         "patchSetId": 8
@@ -71,6 +124,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ed2f0cba_66324d79",
+        "filename": "pc/media_session_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 3485001
+      },
+      "writtenOn": "2024-10-03T12:36:41Z",
+      "side": 1,
+      "message": "Yes exactly. In this case the local endpoint \"does not allow\" to send this header unecrypted. \n\nThis is probably what we will do for the corruption detection header extension. It should only be sent encrypted since it will contain sensetive data. This imo will hinder man in the middle atacks.",
+      "parentUuid": "a6770b28_31137a8a",
+      "revId": "774b5b84857a21a31be931bee5ec7041be249714",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1186fb9a_e5cede24",
         "filename": "pc/media_session_unittest.cc",
         "patchSetId": 8
@@ -82,6 +153,24 @@
       "writtenOn": "2024-10-03T12:17:02Z",
       "side": 1,
       "message": "Is it true that by default we don\u0027t encrypt anything and so for most apps this CL does not change anything. But for the apps that do opt-in to use encryption, this simplifies creating the answer by defaulting to preferring what was offered?",
+      "revId": "774b5b84857a21a31be931bee5ec7041be249714",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "503662dc_29cdf166",
+        "filename": "pc/media_session_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 2171,
+      "author": {
+        "id": 3485001
+      },
+      "writtenOn": "2024-10-03T12:36:41Z",
+      "side": 1,
+      "message": "Yes the default is that we dont encrypt anything. See chromium:40623740. To encrypt one needs to activate this flag. Trying to remove that in https://chromium-review.googlesource.com/c/chromium/src/+/5866212. It will be replaced with a field trial.\n\nHowever, even if the default was true it would not affect anything YET. Because we have not added any code that specifies which headers to be encrypted. This will come in a later CL.\n\n\u003e this simplifies creating the answer by defaulting to preferring what was offered\nYes.",
+      "parentUuid": "1186fb9a_e5cede24",
       "revId": "774b5b84857a21a31be931bee5ec7041be249714",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

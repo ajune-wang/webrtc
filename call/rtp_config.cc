@@ -70,6 +70,28 @@ bool UlpfecConfig::operator==(const UlpfecConfig& other) const {
          red_rtx_payload_type == other.red_rtx_payload_type;
 }
 
+std::string RtpStreamConfig::ToString() const {
+  char buf[1024];
+  rtc::SimpleStringBuilder ss(buf);
+  ss << "{ssrc: " << ssrc;
+  ss << ", rid: " << rid;
+  ss << ", payload_name: " << payload_name;
+  ss << ", payload_type: " << payload_type;
+  ss << ", raw_payload: " << (raw_payload ? "true" : "false");
+  ss << ", rtx: " << (rtx ? rtx->ToString() : "none");
+  ss << '}';
+  return ss.str();
+}
+
+std::string RtpStreamConfig::Rtx::ToString() const {
+  char buf[1024];
+  rtc::SimpleStringBuilder ss(buf);
+  ss << "{ssrc: " << ssrc;
+  ss << ", payload_type: " << payload_type;
+  ss << '}';
+  return ss.str();
+}
+
 RtpConfig::RtpConfig() = default;
 RtpConfig::RtpConfig(const RtpConfig&) = default;
 RtpConfig::~RtpConfig() = default;
@@ -113,6 +135,14 @@ std::string RtpConfig::ToString() const {
   ss << ", payload_name: " << payload_name;
   ss << ", payload_type: " << payload_type;
   ss << ", raw_payload: " << (raw_payload ? "true" : "false");
+
+  ss << ", stream_configs: [";
+  for (size_t i = 0; i < stream_configs.size(); ++i) {
+    ss << stream_configs[i].ToString();
+    if (i != stream_configs.size() - 1)
+      ss << ", ";
+  }
+  ss << ']';
 
   ss << ", flexfec: {payload_type: " << flexfec.payload_type;
   ss << ", ssrc: " << flexfec.ssrc;

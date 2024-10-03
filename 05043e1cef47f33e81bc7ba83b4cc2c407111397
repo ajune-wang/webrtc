@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "93b51084_d5546368",
+        "filename": "rtc_base/sanitizer.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-03T11:31:46Z",
+      "side": 1,
+      "message": "This file is included from some .c files\n(e.g. common_audio/signal_processing/resample_by_2_internal.c )\nand thus using c++ attribute breaks its compilation.",
+      "range": {
+        "startLine": 54,
+        "startChar": 34,
+        "endLine": 54,
+        "endChar": 50
+      },
+      "revId": "05043e1cef47f33e81bc7ba83b4cc2c407111397",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

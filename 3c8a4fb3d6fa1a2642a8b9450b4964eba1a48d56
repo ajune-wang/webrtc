@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "528dfe37_2a969ce8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-10-03T12:10:19Z",
+      "side": 1,
+      "message": "One issue at a time. Hopefully a lot of this will go away when I don\u0027t have to support both modes any more.",
+      "revId": "3c8a4fb3d6fa1a2642a8b9450b4964eba1a48d56",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

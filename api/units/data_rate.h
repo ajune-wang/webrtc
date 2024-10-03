@@ -20,7 +20,7 @@
 #include "api/units/frequency.h"
 #include "api/units/time_delta.h"
 #include "rtc_base/checks.h"
-#include "rtc_base/system/rtc_export.h"
+#include "rtc_base/string_encode.h"
 #include "rtc_base/units/unit_base.h"  // IWYU pragma: export
 
 namespace webrtc {
@@ -138,14 +138,28 @@ inline constexpr DataRate operator*(const Frequency frequency,
   return size * frequency;
 }
 
-RTC_EXPORT std::string ToString(DataRate value);
-inline std::string ToLogString(DataRate value) {
-  return ToString(value);
-}
 
 template <typename Sink>
 void AbslStringify(Sink& sink, DataRate value) {
-  sink.Append(ToString(value));
+  if (value.IsPlusInfinity()) {
+    sink.Append("+inf bps");
+  } else if (value.IsMinusInfinity()) {
+    sink.Append("-inf bps");
+  } else if (value.bps() == 0 || value.bps() % 1000 != 0) {
+    sink.Append(rtc::ToString(value.bps()));
+    sink.Append(" bps");
+  } else {
+    sink.Append(rtc::ToString(value.kbps()));
+    sink.Append(" kbps");
+  }
+}
+
+inline std::string ToString(DataRate value) {
+  return rtc::ToString(value);
+}
+
+inline std::string ToLogString(DataRate value) {
+  return rtc::ToString(value);
 }
 
 }  // namespace webrtc

@@ -69,7 +69,10 @@ class GenericDecoderTest : public ::testing::Test {
         clock_(time_controller_.GetClock()),
         timing_(time_controller_.GetClock(), field_trials_),
         decoder_(time_controller_.GetTaskQueueFactory()),
-        vcm_callback_(&timing_, time_controller_.GetClock(), field_trials_),
+        vcm_callback_(&timing_,
+                      time_controller_.GetClock(),
+                      field_trials_,
+                      /*corruption_score_calculator=*/nullptr),
         generic_decoder_(&decoder_) {}
 
   void SetUp() override {

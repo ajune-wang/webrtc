@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5a53821f_f8c4849a",
+        "filename": "modules/rtp_rtcp/source/video_rtp_depacketizer_h264_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 522,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-03T13:56:30Z",
+      "side": 1,
+      "message": "not sure turning clang-format off here is helpful here",
+      "range": {
+        "startLine": 522,
+        "startChar": 6,
+        "endLine": 522,
+        "endChar": 25
+      },
+      "revId": "0bd662ddc7f18cbf09785aa6b6896dc8cceee65c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0bc59275_030cde68",
+        "filename": "modules/rtp_rtcp/source/video_rtp_depacketizer_h264_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 537,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-03T13:56:30Z",
+      "side": 1,
+      "message": "if you enable clang-format here, it would keep existent format",
+      "revId": "0bd662ddc7f18cbf09785aa6b6896dc8cceee65c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

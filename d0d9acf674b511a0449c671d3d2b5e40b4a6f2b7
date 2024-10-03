@@ -50,6 +50,24 @@
       "message": "This one is called externally, so needs a [[deprecated]] version. If that has all the info you need - not sure about that; it\u0027s arcane.\n\nOTOH, the call is as follows:\n\n  if (!dtls_-\u003eExportKeyingMaterial(kDtlsSrtpExporterLabel, /*context\u003d*/nullptr,\n                                   /*context_len\u003d*/0, /*use_context\u003d*/false,\n                                   dtls_buffer.data(), dtls_buffer.size())) {\n\nwhere dtls_buffer is an rtc::ZeroOnFreeBuffer, and the kDtlsSrtpExporterLabel is \"EXTRACTOR-dtls_srtp\". Is that compatible?\n\nIf so, we can cross that chasm in three steps (add the simplified API + [[deprecated]], fix the reference, remove the [[deprecated]] one).",
       "revId": "d0d9acf674b511a0449c671d3d2b5e40b4a6f2b7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "41883fab_278bcfc2",
+        "filename": "p2p/base/dtls_transport.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-10-03T17:00:03Z",
+      "side": 1,
+      "message": "Very ugly but it will be less arcane soon!",
+      "parentUuid": "a2192188_4b85fc7d",
+      "revId": "d0d9acf674b511a0449c671d3d2b5e40b4a6f2b7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

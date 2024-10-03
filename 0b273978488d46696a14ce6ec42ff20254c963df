@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a054bcd1_26b906e3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2024-10-03T16:00:57Z",
+      "side": 1,
+      "message": "Overall looks good. Any tests that could be added? I\u0027m thinking that perhaps `video_receiver2_unittest.cc` could have a test where we provide a mock corruption score calculator and pass in a frame with instrumentation data, then just verify it was called as expected.",
+      "revId": "0b273978488d46696a14ce6ec42ff20254c963df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "66502927_9057bc08",
+        "filename": "common_video/include/corruption_score_calculator.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2024-10-03T16:00:57Z",
+      "side": 1,
+      "message": "nit: Add a short comment explaining what this interface does.",
+      "revId": "0b273978488d46696a14ce6ec42ff20254c963df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a5fe283a_fa974b3f",
+        "filename": "common_video/include/corruption_score_calculator.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2024-10-03T16:00:57Z",
+      "side": 1,
+      "message": "nit: I think this should be above the `CalculateCorruptionScore` method.",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 49
+      },
+      "revId": "0b273978488d46696a14ce6ec42ff20254c963df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "90e3e2a8_4a555a93",
+        "filename": "modules/video_coding/generic_decoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2024-10-03T16:00:57Z",
+      "side": 1,
+      "message": "Also check that `corruption_score_calculator_` is not null",
+      "revId": "0b273978488d46696a14ce6ec42ff20254c963df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

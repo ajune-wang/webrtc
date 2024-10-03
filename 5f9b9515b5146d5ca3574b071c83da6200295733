@@ -60,6 +60,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "c913af4a_4ba96261",
+        "filename": "call/rtp_config.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 22359
+      },
+      "writtenOn": "2024-10-03T03:44:07Z",
+      "side": 1,
+      "message": "I also don\u0027t think it\u0027s necessary to add them. I was aligning with the other implementations of this class, thinking there might be some meaning to it.\nI\u0027ll remove them. Thank you.",
+      "parentUuid": "804bcca9_f028f0bd",
+      "range": {
+        "startLine": 72,
+        "startChar": 0,
+        "endLine": 74,
+        "endChar": 21
+      },
+      "revId": "5f9b9515b5146d5ca3574b071c83da6200295733",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "d031135a_bb5f3ca0",
         "filename": "call/rtp_config.h",
         "patchSetId": 1
@@ -129,6 +153,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "4e13bba8_e9fbc351",
+        "filename": "call/rtp_config.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 22359
+      },
+      "writtenOn": "2024-10-03T03:44:07Z",
+      "side": 1,
+      "message": "I think so too. I\u0027ll fix it.",
+      "parentUuid": "c24cf545_62be86a9",
+      "range": {
+        "startLine": 82,
+        "startChar": 0,
+        "endLine": 92,
+        "endChar": 8
+      },
+      "revId": "5f9b9515b5146d5ca3574b071c83da6200295733",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "dd631987_d15a8505",
         "filename": "call/rtp_config.h",
         "patchSetId": 1
@@ -140,6 +188,24 @@
       "writtenOn": "2024-10-02T10:14:44Z",
       "side": 1,
       "message": "I think this member deserve a comment, or a different name.\nas it is now it looks too vague to me.",
+      "revId": "5f9b9515b5146d5ca3574b071c83da6200295733",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1b6763bd_a8bca6ac",
+        "filename": "call/rtp_config.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 22359
+      },
+      "writtenOn": "2024-10-03T03:44:07Z",
+      "side": 1,
+      "message": "I agree. I\u0027ll rename to stream_configs.",
+      "parentUuid": "dd631987_d15a8505",
       "revId": "5f9b9515b5146d5ca3574b071c83da6200295733",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

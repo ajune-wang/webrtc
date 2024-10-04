@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3e0bfa01_82c9fb54",
+        "filename": "modules/video_coding/OWNERS",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2024-10-04T11:38:37Z",
+      "side": 0,
+      "message": "I don\u0027t really want to, but when doing `git cl upload` I got a presubmit warning `Suggested missing target path OWNERS` so I was not sure if it was safe to ignore it, or I should add the suggested owners. Happy to revert and ignore warning.",
+      "parentUuid": "33705b0c_a0eedd0d",
+      "revId": "be34b055eeb30364a8d5214f8aaa0354e50efa33",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7f7b2076_dd67fd8e",
         "filename": "modules/video_coding/h264_sps_pps_tracker.cc",
         "patchSetId": 3
@@ -31,6 +49,30 @@
       "writtenOn": "2024-10-04T11:00:43Z",
       "side": 0,
       "message": "here Drop would also be returned when segment_length is too large,\nin new code result of nalu.Consume(seglemt_length) is not checked",
+      "range": {
+        "startLine": 179,
+        "startChar": 0,
+        "endLine": 182,
+        "endChar": 7
+      },
+      "revId": "be34b055eeb30364a8d5214f8aaa0354e50efa33",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b18ece67_e4476c54",
+        "filename": "modules/video_coding/h264_sps_pps_tracker.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2024-10-04T11:38:37Z",
+      "side": 0,
+      "message": "rigth",
+      "parentUuid": "7f7b2076_dd67fd8e",
       "range": {
         "startLine": 179,
         "startChar": 0,
@@ -54,6 +96,24 @@
       "writtenOn": "2024-10-04T11:00:43Z",
       "side": 0,
       "message": "Personally I welcome removing and thus defaulting various constructors for structs, but not for classes.\n\nI would suggest to keep existent conststurctors (but won\u0027t mind if you move `\u003d default` to the header from .cc file.\n\nIf you want to improve the constructors, then you may fix this class to follow \nhttps://google.github.io/styleguide/cppguide.html#Copyable_Movable_Types\n\n\"Every class\u0027s public interface must make clear which copy and move operations the class supports. This should usually take the form of explicitly declaring and/or deleting the appropriate operations in the public section of the declaration.\"\n...\nThese declarations/deletions can be omitted only if they are obvious:\n\nIf the class has no private section, like a struct or an interface-only base class, then the copyability/movability can be determined by the copyability/movability of any public data members.",
+      "revId": "be34b055eeb30364a8d5214f8aaa0354e50efa33",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "573ba76f_df936e53",
+        "filename": "modules/video_coding/h264_sps_pps_tracker.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2024-10-04T11:38:37Z",
+      "side": 0,
+      "message": "Done, and thank you very much for your detailed explanations when reviewing the bugs. Learning a lot!",
+      "parentUuid": "7bc76440_e1b2bb9e",
       "revId": "be34b055eeb30364a8d5214f8aaa0354e50efa33",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

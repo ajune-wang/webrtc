@@ -16,6 +16,23 @@
       "message": "I have fixed  the fuzzing failure. There was a missing check for emptu nal unit data missing.",
       "revId": "e04d4d8c844234c86d7ee912806632efc59c4238",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "859e3cf1_a98bd8a3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-04T09:18:01Z",
+      "side": 1,
+      "message": "I\u0027ve double checked fuzzer sample pass, and same fuzzer didn\u0027t found anything new after few minutes of running.",
+      "revId": "e04d4d8c844234c86d7ee912806632efc59c4238",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

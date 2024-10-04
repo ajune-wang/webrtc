@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "22fdfdf3_17ae83eb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-10-04T17:34:45Z",
+      "side": 1,
+      "message": "Attached to the bug linked from the CL description. After you add them I can add the .sha1 and then it will get pulled, correct?",
+      "parentUuid": "d88ba1b2_3e071a7e",
+      "revId": "233cfc1760425e3cfcda08837547dc0c6e2c9fa5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "64c10947_55a99e60",
         "filename": "test/rtp_file_reader.cc",
         "patchSetId": 1
@@ -49,6 +67,30 @@
       "writtenOn": "2024-10-04T08:22:24Z",
       "side": 1,
       "message": "Not a PCAP expert so I am going to ask 😊\n\nIsn\u0027t the type already read? Does this mean that if IPv6 the type is stored in the next 2 bytes?",
+      "range": {
+        "startLine": 611,
+        "startChar": 6,
+        "endLine": 612,
+        "endChar": 34
+      },
+      "revId": "233cfc1760425e3cfcda08837547dc0c6e2c9fa5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d30b1e75_64527298",
+        "filename": "test/rtp_file_reader.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 612,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-10-04T17:34:45Z",
+      "side": 1,
+      "message": "the position for IPv6 is different than IPv4, at least in the pcaps I have seen (attached to the issue).",
+      "parentUuid": "64c10947_55a99e60",
       "range": {
         "startLine": 611,
         "startChar": 6,

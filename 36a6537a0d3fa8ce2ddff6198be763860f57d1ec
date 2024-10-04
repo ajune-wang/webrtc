@@ -37,6 +37,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "58c8c26b_8cbd3f7f",
+        "filename": "api/video/encoded_image.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2024-10-04T12:39:34Z",
+      "side": 1,
+      "message": "I don\u0027t have plans for that, but can try to create the patch later on.",
+      "parentUuid": "55c032a7_e0a48cc7",
+      "revId": "36a6537a0d3fa8ce2ddff6198be763860f57d1ec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "8c06657d_26542334",
         "filename": "api/video/encoded_image.cc",
         "patchSetId": 5

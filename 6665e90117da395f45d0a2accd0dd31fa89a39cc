@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "217d8b41_c97d0e63",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2024-10-04T15:16:57Z",
+      "side": 1,
+      "message": "Suggest dropping `Args` from the name, otherwise lgtm!",
+      "revId": "6665e90117da395f45d0a2accd0dd31fa89a39cc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "76046dfd_9ef382c5",
+        "filename": "modules/video_coding/include/video_coding_defines.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2024-10-04T15:16:57Z",
+      "side": 1,
+      "message": "Usually, avoid abbreviations. Perhaps we can just call this `FrameToRender`? That would follow the pattern we have with the base `RtpPacket` and the subclasses `RtpPacketToSend` and `RtpPacketReceived` which add extra metadata on the send and receive sides respectively.",
+      "range": {
+        "startLine": 56,
+        "startChar": 22,
+        "endLine": 56,
+        "endChar": 26
+      },
+      "revId": "6665e90117da395f45d0a2accd0dd31fa89a39cc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

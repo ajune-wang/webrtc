@@ -763,7 +763,7 @@ RTCError PeerConnection::Initialize(
 
   if (configuration_.crypto_options) {
     configuration_.crypto_options->srtp.enable_encrypted_rtp_header_extensions =
-        trials().IsEnabled("WebRTC-EncryptedRtpHeaderExtensions");
+        !trials().IsDisabled("WebRTC-EncryptedRtpHeaderExtensions");
   }
 
   legacy_stats_ = std::make_unique<LegacyStatsCollector>(this);
@@ -821,7 +821,7 @@ JsepTransportController* PeerConnection::InitializeTransportController_n(
                               ? *configuration.crypto_options
                               : options_.crypto_options;
   config.crypto_options.srtp.enable_encrypted_rtp_header_extensions =
-      trials().IsEnabled("WebRTC-EncryptedRtpHeaderExtensions");
+      !trials().IsDisabled("WebRTC-EncryptedRtpHeaderExtensions");
   config.transport_observer = this;
   config.rtcp_handler = InitializeRtcpCallback();
   config.un_demuxable_packet_handler = InitializeUnDemuxablePacketHandler();

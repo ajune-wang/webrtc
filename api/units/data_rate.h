@@ -16,6 +16,8 @@
 #include <string>
 #include <type_traits>
 
+#include "absl/strings/string_view.h"
+#include "api/array_view.h"
 #include "api/units/data_size.h"
 #include "api/units/frequency.h"
 #include "api/units/time_delta.h"
@@ -27,7 +29,8 @@ namespace webrtc {
 // DataRate is a class that represents a given data rate. This can be used to
 // represent bandwidth, encoding bitrate, etc. The internal storage is bits per
 // second (bps).
-class DataRate final : public rtc_units_impl::RelativeUnit<DataRate> {
+class RTC_EXPORT DataRate final
+    : public rtc_units_impl::RelativeUnit<DataRate> {
  public:
   template <typename T>
   static constexpr DataRate BitsPerSec(T value) {
@@ -71,6 +74,9 @@ class DataRate final : public rtc_units_impl::RelativeUnit<DataRate> {
   }
 
  private:
+  friend std::string ToString(DataRate value);
+  absl::string_view ToString(rtc::ArrayView<char, 64> buffer) const;
+
   // Bits per second used internally to simplify debugging by making the value
   // more recognizable.
   friend class rtc_units_impl::UnitBase<DataRate>;
@@ -138,14 +144,15 @@ inline constexpr DataRate operator*(const Frequency frequency,
   return size * frequency;
 }
 
-RTC_EXPORT std::string ToString(DataRate value);
-inline std::string ToLogString(DataRate value) {
-  return ToString(value);
+inline std::string ToString(DataRate value) {
+  char buffer[64];
+  return std::string(value.ToString(buffer));
 }
 
 template <typename Sink>
 void AbslStringify(Sink& sink, DataRate value) {
-  sink.Append(ToString(value));
+  char buffer[64];
+  sink.Append(value.ToString(buffer));
 }
 
 }  // namespace webrtc

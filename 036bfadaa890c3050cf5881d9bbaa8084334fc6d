@@ -16,6 +16,24 @@
       "message": "I wonder if this should SetSize() on the buffer. The calculation is arcane, see GetSrtpKeyAndSaltLengths. We have all the information here but the srtp transport needs to calculate them anyway since it needs to get the right offsets of the keys in this buffer.\n\nLets land this first and do this API improvement when cleaning up the old stuff?",
       "revId": "036bfadaa890c3050cf5881d9bbaa8084334fc6d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "39ebbbff_1adc9a84",
+        "filename": "rtc_base/openssl_stream_adapter.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 394,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-10-04T20:29:42Z",
+      "side": 1,
+      "message": "SetSize on rtc::Buffer and derived classes is a pure optimization. If the ncalculation is arcane, and the computation is rare, just computing it as we go along is probably better (only calculate once).",
+      "parentUuid": "18a6ce18_eb4dfdbf",
+      "revId": "036bfadaa890c3050cf5881d9bbaa8084334fc6d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

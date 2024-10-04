@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "38cf18c8_83d8033e",
+        "filename": "modules/video_coding/DEPS",
+        "patchSetId": 4
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-04T11:52:11Z",
+      "side": 1,
+      "message": "are you sure you need these?\nrtc_base is included by the root deps.\n\nlooking that copy_on_write_buffer.h is included without a rule here I suspect these two rules are not needed either.\n\nbut if presubmit during `git cl upload` complains, then yes, keep them.",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 4
+      },
+      "revId": "a5625e030740ad4ea18f762983ab2c376a9b7dc6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

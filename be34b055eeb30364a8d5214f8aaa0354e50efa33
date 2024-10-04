@@ -36,6 +36,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "057bf686_18e1f526",
+        "filename": "modules/video_coding/OWNERS",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-04T11:52:11Z",
+      "side": 0,
+      "message": "yes, that warning is a suggestion who to add as a reviewer.\nYou can safely ignore it. Presubmit would verify an owner reviewe the change.\nand gerrit shows which files are covered by owners.",
+      "parentUuid": "3e0bfa01_82c9fb54",
+      "revId": "be34b055eeb30364a8d5214f8aaa0354e50efa33",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7f7b2076_dd67fd8e",

@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d1be48e3_23bd7256",
+        "filename": "modules/video_coding/codecs/vp9/test/vp9_impl_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 511,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2024-10-04T15:16:36Z",
+      "side": 1,
+      "message": "simulcastStream[].active\u003dtrue?\n\nYou may also need to configure {max|min|target}Bitrate, like EncoderAcceptsSvcLikeSimulcast does.",
+      "parentUuid": "79fe2aa4_d9a203e0",
+      "revId": "262c42b3885e9696537686de0bd20b71e825ad29",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a109abde_6d92e3a4",
         "filename": "pc/peer_connection_encodings_integrationtest.cc",
         "patchSetId": 6

@@ -16,6 +16,29 @@
       "message": "one of the `const` didn\u0027t have a definition in .cc, so when I tried to use it by reference, linker complain. Solution is to switch it to constexpr and thus make implicitly inline.\nWhile at it checked all other constants and made them consistent",
       "revId": "793e0311c3ca1545b8da779d653a58695954ea7c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a0a1a197_8d102b7b",
+        "filename": "modules/rtp_rtcp/source/rtp_format_video_generic.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 13704
+      },
+      "writtenOn": "2024-10-04T11:44:10Z",
+      "side": 1,
+      "message": "```suggestion\ninline constexpr uint8_t kKeyFrameBit \u003d 0x01;\ninline constexpr uint8_t kFirstPacketBit \u003d 0x02;\n// If this bit is set, there will be an extended header contained in this\n// packet. This was added later so old clients will not send this.\ninline constexpr uint8_t kExtendedHeaderBit \u003d 0x04;\n```",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 51
+      },
+      "revId": "793e0311c3ca1545b8da779d653a58695954ea7c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

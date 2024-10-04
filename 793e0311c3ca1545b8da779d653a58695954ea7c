@@ -39,6 +39,30 @@
       },
       "revId": "793e0311c3ca1545b8da779d653a58695954ea7c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ffbd04f1_1e5ac051",
+        "filename": "modules/rtp_rtcp/source/rtp_format_video_generic.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-04T11:54:22Z",
+      "side": 1,
+      "message": "Fix applied.",
+      "parentUuid": "a0a1a197_8d102b7b",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 51
+      },
+      "revId": "793e0311c3ca1545b8da779d653a58695954ea7c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

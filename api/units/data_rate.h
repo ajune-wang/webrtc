@@ -16,11 +16,12 @@
 #include <string>
 #include <type_traits>
 
+#include "absl/strings/string_view.h"
 #include "api/units/data_size.h"
 #include "api/units/frequency.h"
 #include "api/units/time_delta.h"
 #include "rtc_base/checks.h"
-#include "rtc_base/system/rtc_export.h"
+#include "rtc_base/strings/string_builder.h"
 #include "rtc_base/units/unit_base.h"  // IWYU pragma: export
 
 namespace webrtc {
@@ -138,14 +139,31 @@ inline constexpr DataRate operator*(const Frequency frequency,
   return size * frequency;
 }
 
-RTC_EXPORT std::string ToString(DataRate value);
-inline std::string ToLogString(DataRate value) {
-  return ToString(value);
-}
 
 template <typename Sink>
 void AbslStringify(Sink& sink, DataRate value) {
-  sink.Append(ToString(value));
+  if (value.IsPlusInfinity()) {
+    sink.Append("+inf bps");
+  } else if (value.IsMinusInfinity()) {
+    sink.Append("-inf bps");
+  } else {
+    char buf[64];
+    rtc::SimpleStringBuilder sb(buf);
+    if (value.bps() == 0 || value.bps() % 1000 != 0) {
+      sb << value.bps() << " bps";
+    } else {
+      sb << value.kbps() << " kbps";
+    }
+    sink.Append(absl::string_view(sb.str(), sb.size()));
+  }
+}
+
+inline std::string ToString(DataRate value) {
+  return rtc::ToString(value);
+}
+
+inline std::string ToLogString(DataRate value) {
+  return rtc::ToString(value);
 }
 
 }  // namespace webrtc

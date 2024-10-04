@@ -16,6 +16,29 @@
       "message": "can I add two tiny files (one for ipv6, another for pcapng) to resources/ myself or will I need help?",
       "revId": "233cfc1760425e3cfcda08837547dc0c6e2c9fa5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "64c10947_55a99e60",
+        "filename": "test/rtp_file_reader.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 612,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2024-10-04T08:22:24Z",
+      "side": 1,
+      "message": "Not a PCAP expert so I am going to ask 😊\n\nIsn\u0027t the type already read? Does this mean that if IPv6 the type is stored in the next 2 bytes?",
+      "range": {
+        "startLine": 611,
+        "startChar": 6,
+        "endLine": 612,
+        "endChar": 34
+      },
+      "revId": "233cfc1760425e3cfcda08837547dc0c6e2c9fa5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

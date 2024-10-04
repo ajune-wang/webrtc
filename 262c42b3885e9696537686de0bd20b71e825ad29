@@ -33,6 +33,29 @@
       "message": "I would have thought this would produce 3 encoded images per frame (180p, 360p, 720p) but I couldn\u0027t get this test to produce more than 1 encoded image for the first layer. While producing 3 encoded images is not necessary in order to repro the bug, it would be nice to verify index 1 and 2 are also set correctly while we\u0027re at it.\n\nBut I\u0027m stuck. Any ideas?",
       "revId": "262c42b3885e9696537686de0bd20b71e825ad29",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a109abde_6d92e3a4",
+        "filename": "pc/peer_connection_encodings_integrationtest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 2556,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2024-10-04T14:46:17Z",
+      "side": 1,
+      "message": "nit: while you are at it, check that all 3 layers keep flowing. I know the specific bug resulted in the lowest layer to not work, but better to make the test more generic.",
+      "range": {
+        "startLine": 2553,
+        "startChar": 2,
+        "endLine": 2556,
+        "endChar": 49
+      },
+      "revId": "262c42b3885e9696537686de0bd20b71e825ad29",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

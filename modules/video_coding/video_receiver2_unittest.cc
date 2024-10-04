@@ -10,12 +10,18 @@
 
 #include "modules/video_coding/video_receiver2.h"
 
+#include <cstdint>
 #include <memory>
+#include <optional>
 #include <utility>
 
 #include "api/test/mock_video_decoder.h"
+#include "api/units/time_delta.h"
 #include "api/units/timestamp.h"
 #include "api/video/encoded_frame.h"
+#include "api/video/video_content_type.h"
+#include "api/video/video_frame.h"
+#include "api/video/video_frame_type.h"
 #include "common_video/test/utilities.h"
 #include "modules/video_coding/decoder_database.h"
 #include "modules/video_coding/timing/timing.h"
@@ -43,6 +49,7 @@ class MockVCMReceiveCallback : public VCMReceiveCallback {
                VideoContentType,
                VideoFrameType),
               (override));
+  MOCK_METHOD(int32_t, FrameToRender, (const FrameToRenderArgs&), (override));
   MOCK_METHOD(void, OnIncomingPayloadType, (int), (override));
   MOCK_METHOD(void,
               OnDecoderInfoChanged,

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e6dcd493_3cfb8725",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2024-10-04T09:32:29Z",
+      "side": 1,
+      "message": "I am not sure if I did the DEPS and OWNERS changes properly, could you advice me if how to change them if this is not right?",
+      "revId": "3fc9a917e4c919645d7fbc2af059d933048005ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

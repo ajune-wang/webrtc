@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c044884b_2bc2e949",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2024-10-04T14:09:23Z",
+      "side": 1,
+      "message": "PTAL Ilya and Sergey",
+      "revId": "262c42b3885e9696537686de0bd20b71e825ad29",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "79fe2aa4_d9a203e0",
+        "filename": "modules/video_coding/codecs/vp9/test/vp9_impl_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 511,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2024-10-04T14:09:23Z",
+      "side": 1,
+      "message": "I would have thought this would produce 3 encoded images per frame (180p, 360p, 720p) but I couldn\u0027t get this test to produce more than 1 encoded image for the first layer. While producing 3 encoded images is not necessary in order to repro the bug, it would be nice to verify index 1 and 2 are also set correctly while we\u0027re at it.\n\nBut I\u0027m stuck. Any ideas?",
+      "revId": "262c42b3885e9696537686de0bd20b71e825ad29",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

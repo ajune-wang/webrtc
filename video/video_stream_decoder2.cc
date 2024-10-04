@@ -10,6 +10,13 @@
 
 #include "video/video_stream_decoder2.h"
 
+#include <cstdint>
+#include <optional>
+
+#include "api/units/time_delta.h"
+#include "api/video/video_content_type.h"
+#include "api/video/video_frame.h"
+#include "api/video/video_frame_type.h"
 #include "api/video_codecs/video_decoder.h"
 #include "modules/video_coding/video_receiver2.h"
 #include "rtc_base/checks.h"
@@ -48,9 +55,17 @@ int32_t VideoStreamDecoder::FrameToRender(VideoFrame& video_frame,
                                           TimeDelta decode_time,
                                           VideoContentType content_type,
                                           VideoFrameType frame_type) {
-  receive_stats_callback_->OnDecodedFrame(video_frame, qp, decode_time,
-                                          content_type, frame_type);
-  incoming_video_stream_->OnFrame(video_frame);
+  return FrameToRender(FrameToRenderArgs{.video_frame = video_frame,
+                                         .qp = qp,
+                                         .decode_time = decode_time,
+                                         .content_type = content_type,
+                                         .frame_type = frame_type});
+}
+int32_t VideoStreamDecoder::FrameToRender(const FrameToRenderArgs& args) {
+  receive_stats_callback_->OnDecodedFrame(args.video_frame, args.qp,
+                                          args.decode_time, args.content_type,
+                                          args.frame_type);
+  incoming_video_stream_->OnFrame(args.video_frame);
   return 0;
 }
 

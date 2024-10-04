@@ -2201,7 +2201,10 @@ if (is_android) {
       "java/src/org/webrtc/Size.java",
       "java/src/org/webrtc/ThreadUtils.java",
     ]
-    deps = [ "//third_party/androidx:androidx_annotation_annotation_java" ]
+    deps = [ 
+      "//third_party/android_deps:com_google_errorprone_error_prone_annotations_java",
+      "//third_party/androidx:androidx_annotation_annotation_java",
+    ]
   }
   java_cpp_enum("network_monitor_enums") {
     sources = [ "network_monitor.h" ]

@@ -21,6 +21,7 @@ if (is_android) {
       "//sdk/android:surfaceviewrenderer_java",
       "//sdk/android:video_api_java",
       "//sdk/android:video_java",
+      "//third_party/android_deps:com_google_errorprone_error_prone_annotations_java",
       "//third_party/androidx:androidx_annotation_annotation_java",
     ]
 

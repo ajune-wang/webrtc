@@ -155,6 +155,7 @@ if (is_android) {
       "../sdk/android:video_api_java",
       "../sdk/android:video_java",
       "androidapp/third_party/autobanh:autobanh_java",
+      "//third_party/android_deps:com_google_errorprone_error_prone_annotations_java",
       "//third_party/androidx:androidx_annotation_annotation_java",
     ]
   }

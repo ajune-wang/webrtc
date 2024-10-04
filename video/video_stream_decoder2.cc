@@ -10,6 +10,8 @@
 
 #include "video/video_stream_decoder2.h"
 
+#include <cstdint>
+
 #include "api/video_codecs/video_decoder.h"
 #include "modules/video_coding/video_receiver2.h"
 #include "rtc_base/checks.h"
@@ -43,14 +45,11 @@ VideoStreamDecoder::~VideoStreamDecoder() {
 // callback won't necessarily be called from the decoding thread. The decoding
 // thread may have held the lock when calling VideoDecoder::Decode, Reset, or
 // Release. Acquiring the same lock in the path of decode callback can deadlock.
-int32_t VideoStreamDecoder::FrameToRender(VideoFrame& video_frame,
-                                          std::optional<uint8_t> qp,
-                                          TimeDelta decode_time,
-                                          VideoContentType content_type,
-                                          VideoFrameType frame_type) {
-  receive_stats_callback_->OnDecodedFrame(video_frame, qp, decode_time,
-                                          content_type, frame_type);
-  incoming_video_stream_->OnFrame(video_frame);
+int32_t VideoStreamDecoder::FrameToRender(const FrameToRenderArgs& args) {
+  receive_stats_callback_->OnDecodedFrame(args.video_frame, args.qp,
+                                          args.decode_time, args.content_type,
+                                          args.frame_type);
+  incoming_video_stream_->OnFrame(args.video_frame);
   return 0;
 }
 

@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "33705b0c_a0eedd0d",
+        "filename": "modules/video_coding/OWNERS",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-04T11:00:43Z",
+      "side": 0,
+      "message": "Why do you want to change owners?",
+      "revId": "be34b055eeb30364a8d5214f8aaa0354e50efa33",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7f7b2076_dd67fd8e",
+        "filename": "modules/video_coding/h264_sps_pps_tracker.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-04T11:00:43Z",
+      "side": 0,
+      "message": "here Drop would also be returned when segment_length is too large,\nin new code result of nalu.Consume(seglemt_length) is not checked",
+      "range": {
+        "startLine": 179,
+        "startChar": 0,
+        "endLine": 182,
+        "endChar": 7
+      },
+      "revId": "be34b055eeb30364a8d5214f8aaa0354e50efa33",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7bc76440_e1b2bb9e",
+        "filename": "modules/video_coding/h264_sps_pps_tracker.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-04T11:00:43Z",
+      "side": 0,
+      "message": "Personally I welcome removing and thus defaulting various constructors for structs, but not for classes.\n\nI would suggest to keep existent conststurctors (but won\u0027t mind if you move `\u003d default` to the header from .cc file.\n\nIf you want to improve the constructors, then you may fix this class to follow \nhttps://google.github.io/styleguide/cppguide.html#Copyable_Movable_Types\n\n\"Every class\u0027s public interface must make clear which copy and move operations the class supports. This should usually take the form of explicitly declaring and/or deleting the appropriate operations in the public section of the declaration.\"\n...\nThese declarations/deletions can be omitted only if they are obvious:\n\nIf the class has no private section, like a struct or an interface-only base class, then the copyability/movability can be determined by the copyability/movability of any public data members.",
+      "revId": "be34b055eeb30364a8d5214f8aaa0354e50efa33",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

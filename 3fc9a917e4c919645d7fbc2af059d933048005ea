@@ -16,6 +16,29 @@
       "message": "I am not sure if I did the DEPS and OWNERS changes properly, could you advice me if how to change them if this is not right?",
       "revId": "3fc9a917e4c919645d7fbc2af059d933048005ea",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c3612862_34b7041e",
+        "filename": "modules/video_coding/h264_sps_pps_tracker.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-04T11:00:43Z",
+      "side": 1,
+      "message": "did you mean\n.subview(0, segment_length)\n\ni.e. take segment_length bytes starting with the 1st one \ninstead of skip segment_length bytes and take the rest",
+      "range": {
+        "startLine": 165,
+        "startChar": 57,
+        "endLine": 165,
+        "endChar": 71
+      },
+      "revId": "3fc9a917e4c919645d7fbc2af059d933048005ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

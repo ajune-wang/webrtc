@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "10785d67_db45bae7",
+        "filename": "video/config/encoder_stream_factory.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 539,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2024-10-04T12:10:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "19c6fd6b_7c0466b1",
+      "range": {
+        "startLine": 539,
+        "startChar": 11,
+        "endLine": 539,
+        "endChar": 19
+      },
+      "revId": "30a5a830d7e2e0bb325df57a4f66ac3c3640219a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "61e06696_fa111b9d",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-10-04T12:04:34Z",
       "side": 1,
       "message": "Mention in the comment that the lowest layer is never disabled.",
+      "range": {
+        "startLine": 554,
+        "startChar": 18,
+        "endLine": 554,
+        "endChar": 23
+      },
+      "revId": "30a5a830d7e2e0bb325df57a4f66ac3c3640219a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "421b5949_ed231c8e",
+        "filename": "video/config/encoder_stream_factory.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 554,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2024-10-04T12:10:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "61e06696_fa111b9d",
       "range": {
         "startLine": 554,
         "startChar": 18,

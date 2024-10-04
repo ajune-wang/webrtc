@@ -89,7 +89,6 @@ class OpenSSLStreamAdapter final : public SSLStreamAdapter {
   // Goes from state SSL_NONE to either SSL_CONNECTING or SSL_WAIT, depending
   // on whether the underlying stream is already open or not.
   int StartSSL() override;
-  [[deprecated]] void SetMode(SSLMode mode) override;
   void SetMaxProtocolVersion(SSLProtocolVersion version) override;
   void SetInitialRetransmissionTimeout(int timeout_ms) override;
 
@@ -238,9 +237,6 @@ class OpenSSLStreamAdapter final : public SSLStreamAdapter {
 
   // The DtlsSrtp ciphers
   std::string srtp_ciphers_;
-
-  // Do DTLS or not
-  SSLMode ssl_mode_;
 
   // Max. allowed protocol version
   SSLProtocolVersion ssl_max_version_;

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bf317698_68aa28c2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3485001
+      },
+      "writtenOn": "2024-10-04T12:38:30Z",
+      "side": 1,
+      "message": "If we don\u0027t want to query `trials().IsEnabled(\"WebRTC-EncryptedRtpHeaderExtensions\")` twice we need either:\n1. To make https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/api/crypto/crypto_options.h;l\u003d58;bpv\u003d1;bpt\u003d0 `mutable`\n2. To define a field trial in chromium instead of webrtc.\n\nSo I think this is the best, but please have a look and let me know :)",
+      "revId": "bd404bf1ddaf966100bf066e5fb2f39890866bb6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

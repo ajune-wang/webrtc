@@ -16,6 +16,24 @@
       "message": "Argh, I\u0027m surprised this wasn\u0027t caught by the bots\nAny chance to attach a failure / repro here?",
       "revId": "678607501c032065e3176d0ebc6019f9c979d196",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7206ded7_53e978d7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-04T08:39:12Z",
+      "side": 1,
+      "message": "I\u0027m surprised too, \n\nsample error message:\n```\nIn file included from third_party/webrtc/common_audio/signal_processing/levinson_durbin.c:19:\n./third_party/webrtc/rtc_base/sanitizer.h:54:36: error: expected expression\nstatic inline void rtc_AsanPoison([[maybe_unused]] const volatile void* ptr,\n                                   ^\n./third_party/webrtc/rtc_base/sanitizer.h:54:35: error: expected parameter declarator\nstatic inline void rtc_AsanPoison([[maybe_unused]] const volatile void* ptr,\n                                  ^\n...\n```\n\nbut I\u0027m not sure how to reproduce it in open source.",
+      "parentUuid": "68b9662a_c78f9e45",
+      "revId": "678607501c032065e3176d0ebc6019f9c979d196",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

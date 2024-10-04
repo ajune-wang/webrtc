@@ -14,8 +14,11 @@ specific_include_rules = {
   "android_codec_factory_helper\.cc": [
     "+base/android",
   ],
-  "multiplex_encoder_adapter\.cc": [
-    "+media/base",
+  "h264_sps_pps_tracker\.h": [
+    "+rtc_base/buffer.h",
+  ],
+  "h264_sps_pps_tracker\.cc": [
+    "+rtc_base/byte_buffer.h",
   ],
   ".*test.*\.cc": [
      "+media/base",

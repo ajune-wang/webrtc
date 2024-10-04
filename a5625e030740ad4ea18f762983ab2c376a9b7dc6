@@ -22,6 +22,30 @@
       },
       "revId": "a5625e030740ad4ea18f762983ab2c376a9b7dc6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c2ff3458_f91bb352",
+        "filename": "modules/video_coding/DEPS",
+        "patchSetId": 4
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2024-10-04T12:05:54Z",
+      "side": 1,
+      "message": "It complained, but seems that the change in `BUILD.gn` was enough, reverted.",
+      "parentUuid": "38cf18c8_83d8033e",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 4
+      },
+      "revId": "a5625e030740ad4ea18f762983ab2c376a9b7dc6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -242,7 +242,6 @@ OpenSSLStreamAdapter::OpenSSLStreamAdapter(
       permute_extension_(
           !webrtc::field_trial::IsDisabled("WebRTC-PermuteTlsClientHello")),
 #endif
-      ssl_mode_(SSL_MODE_DTLS),
       ssl_max_version_(SSL_PROTOCOL_DTLS_12),
       disable_handshake_ticket_(!webrtc::field_trial::IsDisabled(
           "WebRTC-DisableTlsSessionTicketKillswitch")) {
@@ -355,20 +354,10 @@ SSLProtocolVersion OpenSSLStreamAdapter::GetSslVersion() const {
   }
 
   int ssl_version = SSL_version(ssl_);
-  if (ssl_mode_ == SSL_MODE_DTLS) {
-    if (ssl_version == DTLS1_VERSION) {
-      return SSL_PROTOCOL_DTLS_10;
-    } else if (ssl_version == DTLS1_2_VERSION) {
-      return SSL_PROTOCOL_DTLS_12;
-    }
-  } else {
-    if (ssl_version == TLS1_VERSION) {
-      return SSL_PROTOCOL_TLS_10;
-    } else if (ssl_version == TLS1_1_VERSION) {
-      return SSL_PROTOCOL_TLS_11;
-    } else if (ssl_version == TLS1_2_VERSION) {
-      return SSL_PROTOCOL_TLS_12;
-    }
+  if (ssl_version == DTLS1_VERSION) {
+    return SSL_PROTOCOL_DTLS_10;
+  } else if (ssl_version == DTLS1_2_VERSION) {
+    return SSL_PROTOCOL_DTLS_12;
   }
 
   return SSL_PROTOCOL_NOT_GIVEN;
@@ -487,11 +476,6 @@ int OpenSSLStreamAdapter::StartSSL() {
   return 0;
 }
 
-void OpenSSLStreamAdapter::SetMode(SSLMode mode) {
-  RTC_DCHECK(state_ == SSL_NONE);
-  ssl_mode_ = mode;
-}
-
 void OpenSSLStreamAdapter::SetMaxProtocolVersion(SSLProtocolVersion version) {
   RTC_DCHECK(ssl_ctx_ == nullptr);
   ssl_max_version_ = version;
@@ -604,16 +588,13 @@ StreamResult OpenSSLStreamAdapter::Read(rtc::ArrayView<uint8_t> data,
       RTC_DCHECK_LE(code, data.size());
       read = code;
 
-      if (ssl_mode_ == SSL_MODE_DTLS) {
-        // Enforce atomic reads -- this is a short read
-        unsigned int pending = SSL_pending(ssl_);
+      // Enforce atomic reads -- this is a short read
 
-        if (pending) {
-          RTC_DLOG(LS_INFO) << " -- short DTLS read. flushing";
-          FlushInput(pending);
-          error = SSE_MSG_TRUNC;
-          return SR_ERROR;
-        }
+      if (unsigned int pending = SSL_pending(ssl_)) {
+        RTC_DLOG(LS_INFO) << " -- short DTLS read. flushing";
+        FlushInput(pending);
+        error = SSE_MSG_TRUNC;
+        return SR_ERROR;
       }
       return SR_SUCCESS;
     case SSL_ERROR_WANT_READ:
@@ -808,9 +789,7 @@ int OpenSSLStreamAdapter::BeginSSL() {
 
   SSL_set_bio(ssl_, bio, bio);  // the SSL object owns the bio now.
 #ifdef OPENSSL_IS_BORINGSSL
-  if (ssl_mode_ == SSL_MODE_DTLS) {
-    DTLSv1_set_initial_timeout_duration(ssl_, dtls_handshake_timeout_ms_);
-  }
+  DTLSv1_set_initial_timeout_duration(ssl_, dtls_handshake_timeout_ms_);
 #endif
 
   SSL_set_mode(ssl_, SSL_MODE_ENABLE_PARTIAL_WRITE |
@@ -942,21 +921,16 @@ SSL_CTX* OpenSSLStreamAdapter::SetupSSLContext() {
 #ifdef OPENSSL_IS_BORINGSSL
   // If X509 objects aren't used, we can use these methods to avoid
   // linking the sizable crypto/x509 code, using CRYPTO_BUFFER instead.
-  SSL_CTX* ctx =
-      SSL_CTX_new(ssl_mode_ == SSL_MODE_DTLS ? DTLS_with_buffers_method()
-                                             : TLS_with_buffers_method());
+  SSL_CTX* ctx = SSL_CTX_new(DTLS_with_buffers_method());
 #else
-  SSL_CTX* ctx =
-      SSL_CTX_new(ssl_mode_ == SSL_MODE_DTLS ? DTLS_method() : TLS_method());
+  SSL_CTX* ctx = SSL_CTX_new(DTLS_method());
 #endif
   if (ctx == nullptr) {
     return nullptr;
   }
 
-  SSL_CTX_set_min_proto_version(
-      ctx, ssl_mode_ == SSL_MODE_DTLS ? DTLS1_2_VERSION : TLS1_2_VERSION);
-  SSL_CTX_set_max_proto_version(
-      ctx, ssl_mode_ == SSL_MODE_DTLS ? DTLS1_2_VERSION : TLS1_2_VERSION);
+  SSL_CTX_set_min_proto_version(ctx, DTLS1_2_VERSION);
+  SSL_CTX_set_max_proto_version(ctx, DTLS1_2_VERSION);
 
 #ifdef OPENSSL_IS_BORINGSSL
   // SSL_CTX_set_current_time_cb is only supported in BoringSSL.

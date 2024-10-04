@@ -490,6 +490,50 @@ TEST_F(TestVp9Impl, EncoderAcceptsSvcLikeSimulcast) {
             encoder_->InitEncode(&codec_settings_, kSettings));
 }
 
+TEST_F(TestVp9Impl, SvcSimulcastThenSinglecastWithCorrectSimulcastIndex) {
+  // Configure 720p 4:2:1
+  codec_settings_.VP9()->numberOfTemporalLayers = 1;
+  codec_settings_.VP9()->numberOfSpatialLayers = 1;
+  codec_settings_.numberOfSimulcastStreams = 3;
+  codec_settings_.width = 1280;
+  codec_settings_.height = 720;
+  codec_settings_.simulcastStream[0].width = codec_settings_.width / 4;
+  codec_settings_.simulcastStream[0].height = codec_settings_.height / 4;
+  codec_settings_.simulcastStream[1].width = codec_settings_.width / 2;
+  codec_settings_.simulcastStream[1].height = codec_settings_.height / 2;
+  codec_settings_.simulcastStream[2].width = codec_settings_.width;
+  codec_settings_.simulcastStream[2].height = codec_settings_.height;
+  EXPECT_EQ(WEBRTC_VIDEO_CODEC_OK,
+            encoder_->InitEncode(&codec_settings_, kSettings));
+
+  // Encode a frame and confirm simulcast index is set.
+  {
+    SetWaitForEncodedFramesThreshold(1);
+    std::vector<EncodedImage> encoded_frame;
+    std::vector<CodecSpecificInfo> codec_specific_info;
+    EXPECT_EQ(WEBRTC_VIDEO_CODEC_OK,
+              encoder_->Encode(NextInputFrame(), nullptr));
+    ASSERT_TRUE(WaitForEncodedFrames(&encoded_frame, &codec_specific_info));
+    EXPECT_EQ(encoded_frame[0].SimulcastIndex().value_or(-1), 0);
+  }
+
+  // Reconfigure 720p singlecast.
+  codec_settings_.numberOfSimulcastStreams = 1;
+  EXPECT_EQ(WEBRTC_VIDEO_CODEC_OK,
+            encoder_->InitEncode(&codec_settings_, kSettings));
+
+  // Encode a frame and confirm simulcast index is not set.
+  {
+    SetWaitForEncodedFramesThreshold(1);
+    std::vector<EncodedImage> encoded_frame;
+    std::vector<CodecSpecificInfo> codec_specific_info;
+    EXPECT_EQ(WEBRTC_VIDEO_CODEC_OK,
+              encoder_->Encode(NextInputFrame(), nullptr));
+    ASSERT_TRUE(WaitForEncodedFrames(&encoded_frame, &codec_specific_info));
+    EXPECT_FALSE(encoded_frame[0].SimulcastIndex().has_value());
+  }
+}
+
 TEST_F(TestVp9Impl, EnableDisableSpatialLayers) {
   // Configure encoder to produce N spatial layers. Encode frames of layer 0
   // then enable layer 1 and encode more frames and so on until layer N-1.

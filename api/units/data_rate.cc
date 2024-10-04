@@ -12,25 +12,33 @@
 
 #include <string>
 
+#include "absl/strings/string_view.h"
 #include "api/array_view.h"
 #include "rtc_base/strings/string_builder.h"
 
 namespace webrtc {
 
+absl::string_view DataRate::ToString(rtc::ArrayView<char> buffer) const {
+  if (IsPlusInfinity()) {
+    return "+inf bps";
+  }
+
+  if (IsMinusInfinity()) {
+    return "-inf bps";
+  }
+
+  rtc::SimpleStringBuilder sb(buffer);
+  if (bps() == 0 || bps() % 1000 != 0) {
+    sb << bps() << " bps";
+  } else {
+    sb << kbps() << " kbps";
+  }
+  return absl::string_view(sb.str(), sb.size());
+}
+
 std::string ToString(DataRate value) {
   char buf[64];
-  rtc::SimpleStringBuilder sb(buf);
-  if (value.IsPlusInfinity()) {
-    sb << "+inf bps";
-  } else if (value.IsMinusInfinity()) {
-    sb << "-inf bps";
-  } else {
-    if (value.bps() == 0 || value.bps() % 1000 != 0) {
-      sb << value.bps() << " bps";
-    } else {
-      sb << value.kbps() << " kbps";
-    }
-  }
-  return sb.str();
+  return std::string(value.ToString(buf));
 }
+
 }  // namespace webrtc

@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "14333745_ffeb0129",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-10-05T07:26:12Z",
+      "side": 1,
+      "message": "Looks good to me.\nBefore shipping this, please take a packet trace to ensure that the encryption is in fact applied on the RTP packets. There was a bit of a scandal some years ago when it turned out that libsrtp claimed to encrypt the header extensions but in fact sent them in the clear.....",
+      "revId": "e104a528f7e597a305084957c73fc82aec5384b4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6831ee7b_f2a465c2",
+        "filename": "pc/media_session_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 2195,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-10-05T07:26:12Z",
+      "side": 1,
+      "message": "Can you use EXPECT_THAT(GetFirstAudioCOntentDescription(....),\n    testing::ArrayEquals(kAudioRtpExtensionMixedEncryption))?\nIf you can, that will give better debug printouts on failure than EXPECT_EQ.",
+      "revId": "e104a528f7e597a305084957c73fc82aec5384b4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

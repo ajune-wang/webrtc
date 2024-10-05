@@ -313,10 +313,11 @@ static void rftbsub_128_C(float* a) {
 
 }  // namespace
 
-OouraFft::OouraFft(bool sse2_available) {
+OouraFft::OouraFft([[maybe_unused]] bool sse2_available) {
 #if defined(WEBRTC_ARCH_X86_FAMILY)
   use_sse2_ = sse2_available;
 #else
+  sse2_available;
   use_sse2_ = false;
 #endif
 }

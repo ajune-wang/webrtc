@@ -89,7 +89,7 @@ int64_t GetSocketRecvTimestamp(int socket) {
 
 #else
 
-int64_t GetSocketRecvTimestamp(int socket) {
+int64_t GetSocketRecvTimestamp(int /* socket */) {
   return -1;
 }
 #endif
@@ -1165,7 +1165,7 @@ class Signaler : public Dispatcher {
 
   uint32_t GetRequestedEvents() override { return DE_READ; }
 
-  void OnEvent(uint32_t ff, int err) override {
+  void OnEvent(uint32_t /* ff */, int /* err */) override {
     // It is not possible to perfectly emulate an auto-resetting event with
     // pipes.  This simulates it by resetting before the event is handled.
 
@@ -1347,7 +1347,7 @@ void PhysicalSocketServer::Remove(Dispatcher* pdispatcher) {
 #endif  // WEBRTC_USE_EPOLL
 }
 
-void PhysicalSocketServer::Update(Dispatcher* pdispatcher) {
+void PhysicalSocketServer::Update([[maybe_unused]] Dispatcher* pdispatcher) {
 #if defined(WEBRTC_USE_EPOLL)
   if (epoll_fd_ == INVALID_SOCKET) {
     return;

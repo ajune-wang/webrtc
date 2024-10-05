@@ -33,6 +33,23 @@
       "message": "I\u0027ve retried the failures, but seem unrelated. Those pass on both my linux and mac machines...",
       "revId": "22c877770b59e2ab8d13728ef3aa21c361170ebb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ef4b3113_67161bad",
+        "filename": "rtc_base/sanitizer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-10-05T07:18:12Z",
+      "side": 1,
+      "message": "Add a comment here about why these aren\u0027t [[maybe_unused]], so that nobody else comes in and tries \"fixing\" them?",
+      "revId": "22c877770b59e2ab8d13728ef3aa21c361170ebb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

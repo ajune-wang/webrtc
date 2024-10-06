@@ -101,9 +101,9 @@ TEST_F(FramesStorageTest, CanGetRemainingAddedFramesAfterRemove) {
   storage.Add(frame4, /*captured_time=*/NowPlusSeconds(2));
   storage.Add(frame5, /*captured_time=*/NowPlusSeconds(1));
 
-  storage.Remove(frame1.id());
-  storage.Remove(frame2.id());
-  storage.Remove(frame3.id());
+  storage.Remove(*frame1.id_or_nullopt());
+  storage.Remove(*frame2.id_or_nullopt());
+  storage.Remove(*frame3.id_or_nullopt());
 
   AssertHasFrame(storage, /*frame_id=*/4);
   AssertHasFrame(storage, /*frame_id=*/5);

@@ -31,6 +31,9 @@ namespace webrtc {
 class RTC_EXPORT VideoFrame {
  public:
   // Value used to signal that `VideoFrame::id()` is not set.
+  // Note that we are currently in a migration phase, and this value will be
+  // removed. kNotSetId(=0) will no longer be treated as a special value.
+  // TODO(bugs.webrtc.org/369432528): Remove when migration is complete.
   static constexpr uint16_t kNotSetId = 0;
 
   struct RTC_EXPORT UpdateRect {
@@ -118,12 +121,12 @@ class RTC_EXPORT VideoFrame {
     Builder& set_rotation(VideoRotation rotation);
     Builder& set_color_space(const std::optional<ColorSpace>& color_space);
     Builder& set_color_space(const ColorSpace* color_space);
-    Builder& set_id(uint16_t id);
+    Builder& set_id(std::optional<uint16_t> id);
     Builder& set_update_rect(const std::optional<UpdateRect>& update_rect);
     Builder& set_packet_infos(RtpPacketInfos packet_infos);
 
    private:
-    uint16_t id_ = kNotSetId;
+    std::optional<uint16_t> id_;
     rtc::scoped_refptr<webrtc::VideoFrameBuffer> video_frame_buffer_;
     int64_t timestamp_us_ = 0;
     std::optional<Timestamp> capture_time_identifier_;
@@ -161,14 +164,19 @@ class RTC_EXPORT VideoFrame {
   // Get frame size in pixels.
   uint32_t size() const;
 
-  // Get frame ID. Returns `kNotSetId` if ID is not set. Not guaranteed to be
+  // Get frame ID. Returns `std::nullopt` if ID is not set. Not guaranteed to be
   // transferred from the sender to the receiver, but preserved on the sender
   // side. The id should be propagated between all frame modifications during
   // its lifetime from capturing to sending as encoded image. It is intended to
   // be unique over a time window of a few minutes for the peer connection to
   // which the corresponding video stream belongs to.
-  uint16_t id() const { return id_; }
-  void set_id(uint16_t id) { id_ = id; }
+  // TODO(bugs.webrtc.org/369432528): Remove when migration is complete.
+  std::optional<uint16_t> id_or_nullopt() const { return id_; }
+  // Same as `id_or_nullopt`, but returns `kNotSetId` if the ID is not set.
+  // Downstream code should be migrated to use `id_or_nullopt` or handle the
+  // case where the returned type is `std::optional<uint16_t>`.
+  uint16_t id() const { return id_.value_or(kNotSetId); }
+  void set_id(std::optional<uint16_t> id) { id_ = id; }
 
   // System monotonic clock, same timebase as rtc::TimeMicros().
   int64_t timestamp_us() const { return timestamp_us_; }
@@ -276,7 +284,7 @@ class RTC_EXPORT VideoFrame {
   }
 
  private:
-  VideoFrame(uint16_t id,
+  VideoFrame(std::optional<uint16_t> id,
              const rtc::scoped_refptr<VideoFrameBuffer>& buffer,
              int64_t timestamp_us,
              const std::optional<Timestamp>& capture_time_identifier,
@@ -289,7 +297,7 @@ class RTC_EXPORT VideoFrame {
              const std::optional<UpdateRect>& update_rect,
              RtpPacketInfos packet_infos);
 
-  uint16_t id_;
+  std::optional<uint16_t> id_;
   // An opaque reference counted handle that stores the pixel data.
   rtc::scoped_refptr<webrtc::VideoFrameBuffer> video_frame_buffer_;
   uint32_t timestamp_rtp_;

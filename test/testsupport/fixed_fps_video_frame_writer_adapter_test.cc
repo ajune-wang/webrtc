@@ -64,7 +64,7 @@ VideoFrame EmptyFrameWithId(uint16_t frame_id) {
 std::vector<uint16_t> FrameIds(const std::vector<VideoFrame>& frames) {
   std::vector<uint16_t> out;
   for (const VideoFrame& frame : frames) {
-    out.push_back(frame.id());
+    out.push_back(*frame.id_or_nullopt());
   }
   return out;
 }

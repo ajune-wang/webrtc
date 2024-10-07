@@ -53,6 +53,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7925335a_fed3f34c",
+        "filename": "modules/video_coding/codecs/vp9/test/vp9_impl_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 511,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2024-10-07T10:27:37Z",
+      "side": 1,
+      "message": "That in combination with `encoder_-\u003eSetRates()` did the trick!",
+      "parentUuid": "d1be48e3_23bd7256",
+      "revId": "262c42b3885e9696537686de0bd20b71e825ad29",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a109abde_6d92e3a4",
@@ -66,6 +84,30 @@
       "writtenOn": "2024-10-04T14:46:17Z",
       "side": 1,
       "message": "nit: while you are at it, check that all 3 layers keep flowing. I know the specific bug resulted in the lowest layer to not work, but better to make the test more generic.",
+      "range": {
+        "startLine": 2553,
+        "startChar": 2,
+        "endLine": 2556,
+        "endChar": 49
+      },
+      "revId": "262c42b3885e9696537686de0bd20b71e825ad29",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "95ff9575_c0d07771",
+        "filename": "pc/peer_connection_encodings_integrationtest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 2556,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2024-10-07T10:27:37Z",
+      "side": 1,
+      "message": "Good idea, done.",
+      "parentUuid": "a109abde_6d92e3a4",
       "range": {
         "startLine": 2553,
         "startChar": 2,

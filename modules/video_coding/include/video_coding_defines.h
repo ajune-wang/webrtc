@@ -70,7 +70,9 @@ class VCMReceiveCallback {
                                 VideoFrameType frame_type) = 0;
   // TODO: bugs.webrtc.org/358039777 - Make this pure virtual.
   virtual int32_t FrameToRender(const struct FrameToRender& arguments) {
-    return 0;
+    return FrameToRender(arguments.video_frame, arguments.qp,
+                         arguments.decode_time, arguments.content_type,
+                         arguments.frame_type);
   }
 
   virtual void OnDroppedFrames(uint32_t frames_dropped);

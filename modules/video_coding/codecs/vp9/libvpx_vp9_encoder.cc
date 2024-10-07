@@ -826,6 +826,43 @@ int LibvpxVp9Encoder::InitAndSetControlSettings() {
     return WEBRTC_VIDEO_CODEC_ERR_PARAMETER;
   }
 
+  webrtc::FieldTrialParameter<int> num_threads("num_threads",
+                                               config_->g_threads);
+  webrtc::FieldTrialParameter<int> rc_end_usage("rc_end_usage",
+                                                config_->rc_end_usage);
+  webrtc::FieldTrialParameter<int> rc_min_quantizer("rc_min_quantizer",
+                                                    config_->rc_min_quantizer);
+  webrtc::FieldTrialParameter<int> rc_max_quantizer("rc_max_quantizer",
+                                                    config_->rc_max_quantizer);
+  webrtc::FieldTrialParameter<int> rc_undershoot_pct(
+      "rc_undershoot_pct", config_->rc_undershoot_pct);
+  webrtc::FieldTrialParameter<int> rc_overshoot_pct("rc_overshoot_pct",
+                                                    config_->rc_overshoot_pct);
+  webrtc::FieldTrialParameter<int> rc_buf_initial_sz(
+      "rc_buf_initial_sz", config_->rc_buf_initial_sz);
+  webrtc::FieldTrialParameter<int> rc_buf_optimal_sz(
+      "rc_buf_optimal_sz", config_->rc_buf_optimal_sz);
+  webrtc::FieldTrialParameter<int> rc_buf_sz("rc_buf_sz", config_->rc_buf_sz);
+  webrtc::FieldTrialOptional<int> cpuused("cpuused");
+  webrtc::FieldTrialOptional<int> max_intra_bitrate_pct(
+      "max_intra_bitrate_pct");
+  webrtc::FieldTrialOptional<int> max_consec_drop("max_consec_drop");
+  webrtc::ParseFieldTrial(
+      {&num_threads, &rc_end_usage, &rc_min_quantizer, &rc_max_quantizer,
+       &rc_undershoot_pct, &rc_overshoot_pct, &rc_buf_initial_sz,
+       &rc_buf_optimal_sz, &rc_buf_sz, &cpuused, &max_intra_bitrate_pct,
+       &max_consec_drop},
+      env_.field_trials().Lookup("WebRTC-EncoderSettings"));
+  config_->g_threads = num_threads;
+  config_->rc_end_usage = static_cast<vpx_rc_mode>(rc_end_usage.Get());
+  config_->rc_min_quantizer = rc_min_quantizer;
+  config_->rc_max_quantizer = rc_max_quantizer;
+  config_->rc_undershoot_pct = rc_undershoot_pct;
+  config_->rc_overshoot_pct = rc_overshoot_pct;
+  config_->rc_buf_initial_sz = rc_buf_initial_sz;
+  config_->rc_buf_optimal_sz = rc_buf_optimal_sz;
+  config_->rc_buf_sz = rc_buf_sz;
+
   const vpx_codec_err_t rv = libvpx_->codec_enc_init(
       encoder_, vpx_codec_vp9_cx(), config_,
       config_->g_bit_depth == VPX_BITS_8 ? 0 : VPX_CODEC_USE_HIGHBITDEPTH);
@@ -947,6 +984,24 @@ int LibvpxVp9Encoder::InitAndSetControlSettings() {
   libvpx_->codec_control(encoder_, VP8E_SET_STATIC_THRESHOLD, 1);
   inited_ = true;
   config_changed_ = true;
+
+  if (cpuused.GetOptional().has_value()) {
+    libvpx_->codec_control(encoder_, VP8E_SET_CPUUSED, cpuused.Value());
+    for (int sl_idx = 0; sl_idx < num_spatial_layers_; ++sl_idx) {
+      svc_params_.speed_per_layer[sl_idx] = cpuused.Value();
+    }
+    libvpx_->codec_control(encoder_, VP9E_SET_SVC_PARAMETERS, &svc_params_);
+  }
+  if (max_intra_bitrate_pct.GetOptional().has_value()) {
+    libvpx_->codec_control(encoder_, VP8E_SET_MAX_INTRA_BITRATE_PCT,
+                           max_intra_bitrate_pct.Value());
+  }
+  if (max_consec_drop.GetOptional().has_value()) {
+    svc_drop_frame_.max_consec_drop = 5;
+    libvpx_->codec_control(encoder_, VP9E_SET_SVC_FRAME_DROP_LAYER,
+                           &svc_drop_frame_);
+  }
+
   return WEBRTC_VIDEO_CODEC_OK;
 }
 

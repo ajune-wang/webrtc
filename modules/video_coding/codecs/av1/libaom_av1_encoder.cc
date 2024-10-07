@@ -121,6 +121,7 @@ class LibaomAv1Encoder final : public VideoEncoder {
 
   std::unique_ptr<ScalableVideoController> svc_controller_;
   std::optional<ScalabilityMode> scalability_mode_;
+  const Environment env_;
   bool inited_;
   bool rates_configured_;
   std::optional<aom_svc_params_t> svc_params_;
@@ -168,7 +169,8 @@ int32_t VerifyCodecSettings(const VideoCodec& codec_settings) {
 
 LibaomAv1Encoder::LibaomAv1Encoder(const Environment& env,
                                    LibaomAv1EncoderSettings settings)
-    : inited_(false),
+    : env_(env),
+      inited_(false),
       rates_configured_(false),
       settings_(std::move(settings)),
       frame_for_encode_(nullptr),
@@ -264,6 +266,43 @@ int LibaomAv1Encoder::InitEncode(const VideoCodec* codec_settings,
   // Flag options: AOM_CODEC_USE_PSNR and AOM_CODEC_USE_HIGHBITDEPTH
   aom_codec_flags_t flags = 0;
 
+  webrtc::FieldTrialParameter<int> num_threads("num_threads", cfg_.g_threads);
+  webrtc::FieldTrialParameter<int> rc_end_usage("rc_end_usage",
+                                                cfg_.rc_end_usage);
+  webrtc::FieldTrialParameter<int> rc_min_quantizer("rc_min_quantizer",
+                                                    cfg_.rc_min_quantizer);
+  webrtc::FieldTrialParameter<int> rc_max_quantizer("rc_max_quantizer",
+                                                    cfg_.rc_max_quantizer);
+  webrtc::FieldTrialParameter<int> rc_undershoot_pct("rc_undershoot_pct",
+                                                     cfg_.rc_undershoot_pct);
+  webrtc::FieldTrialParameter<int> rc_overshoot_pct("rc_overshoot_pct",
+                                                    cfg_.rc_overshoot_pct);
+  webrtc::FieldTrialParameter<int> rc_buf_initial_sz("rc_buf_initial_sz",
+                                                     cfg_.rc_buf_initial_sz);
+  webrtc::FieldTrialParameter<int> rc_buf_optimal_sz("rc_buf_optimal_sz",
+                                                     cfg_.rc_buf_optimal_sz);
+  webrtc::FieldTrialParameter<int> rc_buf_sz("rc_buf_sz", cfg_.rc_buf_sz);
+  webrtc::FieldTrialOptional<int> cpuused("cpuused");
+  webrtc::FieldTrialOptional<int> max_intra_bitrate_pct(
+      "max_intra_bitrate_pct");
+  webrtc::FieldTrialOptional<int> palette("palette");
+  webrtc::FieldTrialOptional<int> max_consec_drop("max_consec_drop");
+  webrtc::ParseFieldTrial(
+      {&num_threads, &rc_end_usage, &rc_min_quantizer, &rc_max_quantizer,
+       &rc_undershoot_pct, &rc_overshoot_pct, &rc_buf_initial_sz,
+       &rc_buf_optimal_sz, &rc_buf_sz, &cpuused, &max_intra_bitrate_pct,
+       &palette, &max_consec_drop},
+      env_.field_trials().Lookup("WebRTC-EncoderSettings"));
+  cfg_.g_threads = num_threads;
+  cfg_.rc_end_usage = static_cast<aom_rc_mode>(rc_end_usage.Get());
+  cfg_.rc_min_quantizer = rc_min_quantizer;
+  cfg_.rc_max_quantizer = rc_max_quantizer;
+  cfg_.rc_undershoot_pct = rc_undershoot_pct;
+  cfg_.rc_overshoot_pct = rc_overshoot_pct;
+  cfg_.rc_buf_initial_sz = rc_buf_initial_sz;
+  cfg_.rc_buf_optimal_sz = rc_buf_optimal_sz;
+  cfg_.rc_buf_sz = rc_buf_sz;
+
   // Initialize an encoder instance.
   ret = aom_codec_enc_init(&ctx_, aom_codec_av1_cx(), &cfg_, flags);
   if (ret != AOM_CODEC_OK) {
@@ -297,6 +336,21 @@ int LibaomAv1Encoder::InitEncode(const VideoCodec* codec_settings,
     SET_ENCODER_PARAM_OR_RETURN_ERROR(AV1E_SET_ENABLE_PALETTE, 1);
   } else {
     SET_ENCODER_PARAM_OR_RETURN_ERROR(AV1E_SET_ENABLE_PALETTE, 0);
+  }
+
+  if (cpuused.GetOptional().has_value()) {
+    SET_ENCODER_PARAM_OR_RETURN_ERROR(AOME_SET_CPUUSED, cpuused.Value());
+  }
+  if (max_intra_bitrate_pct.GetOptional().has_value()) {
+    SET_ENCODER_PARAM_OR_RETURN_ERROR(AOME_SET_MAX_INTRA_BITRATE_PCT,
+                                      max_intra_bitrate_pct.Value());
+  }
+  if (palette.GetOptional().has_value()) {
+    SET_ENCODER_PARAM_OR_RETURN_ERROR(AV1E_SET_ENABLE_PALETTE, palette.Value());
+  }
+  if (max_consec_drop.GetOptional().has_value()) {
+    SET_ENCODER_PARAM_OR_RETURN_ERROR(AV1E_SET_MAX_CONSEC_FRAME_DROP_CBR,
+                                      max_consec_drop.Value());
   }
 
   SET_ENCODER_PARAM_OR_RETURN_ERROR(AV1E_SET_AUTO_TILES, 1);

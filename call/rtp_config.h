@@ -193,6 +193,12 @@ struct RtpConfig {
   uint32_t GetMediaSsrcAssociatedWithRtxSsrc(uint32_t rtx_ssrc) const;
   uint32_t GetMediaSsrcAssociatedWithFlexfecSsrc(uint32_t flexfec_ssrc) const;
   std::optional<std::string> GetRidForSsrc(uint32_t ssrc) const;
+
+  // GetStreamConfig function usually returns stream_config[index], but if
+  // stream_config is not initialized (i.e., index >= stream_config.size()), it
+  // creates and returns an RtpStreamConfig using fields such as ssrcs, rids,
+  // payload_name, and payload_type from RtpConfig.
+  RtpStreamConfig GetStreamConfig(size_t index) const;
 };
 }  // namespace webrtc
 #endif  // CALL_RTP_CONFIG_H_

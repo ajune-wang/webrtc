@@ -1,0 +1,159 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "be57726e_536b183e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2024-10-07T11:11:53Z",
+      "side": 1,
+      "message": "Nice. Got some questions and suggestions.",
+      "revId": "a782bd44eb843da71396ff19981f876656f85aee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4e5ea268_e1b0149a",
+        "filename": "modules/audio_coding/neteq/delay_constraints.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2024-10-07T11:11:53Z",
+      "side": 1,
+      "message": "One way to get rid of `packet_len_ms_` from this class is to let it be a parameter into this method, and I guess also to `DelayConstraints::MinimumDelayUpperBound()`. Then you won\u0027t have to save it locally. Also easier for the user of this class, since it can be easy to forget to set a new packet audio length when it changes. Better to just supply the current length exactly when needed.",
+      "range": {
+        "startLine": 31,
+        "startChar": 22,
+        "endLine": 31,
+        "endChar": 27
+      },
+      "revId": "a782bd44eb843da71396ff19981f876656f85aee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8c8b1f1d_acaf860d",
+        "filename": "modules/audio_coding/neteq/delay_constraints.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2024-10-07T11:11:53Z",
+      "side": 1,
+      "message": "You use boolean false/true to signal failure/success below. Use the same here?",
+      "range": {
+        "startLine": 44,
+        "startChar": 0,
+        "endLine": 44,
+        "endChar": 3
+      },
+      "revId": "a782bd44eb843da71396ff19981f876656f85aee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "82ed9dc9_a3adf5bd",
+        "filename": "modules/audio_coding/neteq/delay_constraints.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2024-10-07T11:11:53Z",
+      "side": 1,
+      "message": "```suggestion\n  // `minimum_delay_ms_`, `base_minimum_delay_ms_`, `maximum_delay_ms_`,\n```",
+      "range": {
+        "startLine": 44,
+        "startChar": 51,
+        "endLine": 44,
+        "endChar": 54
+      },
+      "revId": "a782bd44eb843da71396ff19981f876656f85aee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "105aad00_7a576f2c",
+        "filename": "modules/audio_coding/neteq/delay_constraints.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2024-10-07T11:11:53Z",
+      "side": 1,
+      "message": "Add a comment describing this one?",
+      "range": {
+        "startLine": 53,
+        "startChar": 1,
+        "endLine": 53,
+        "endChar": 51
+      },
+      "revId": "a782bd44eb843da71396ff19981f876656f85aee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1c1bc028_5930ef26",
+        "filename": "modules/audio_coding/neteq/delay_constraints.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2024-10-07T11:11:53Z",
+      "side": 1,
+      "message": "Would that allow to get rid of the notion of packet length from this class? That would be a good improvement, imo. Feels like a bit of a leaky abstraction at the moment.",
+      "range": {
+        "startLine": 55,
+        "startChar": 19,
+        "endLine": 55,
+        "endChar": 73
+      },
+      "revId": "a782bd44eb843da71396ff19981f876656f85aee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "659078c0_a0f548d7",
+        "filename": "modules/audio_coding/neteq/delay_constraints.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2024-10-07T11:11:53Z",
+      "side": 1,
+      "message": "Does \u003c\u003d 0 mean that no maximum is enforced? Say so.",
+      "range": {
+        "startLine": 61,
+        "startChar": 39,
+        "endLine": 61,
+        "endChar": 76
+      },
+      "revId": "a782bd44eb843da71396ff19981f876656f85aee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

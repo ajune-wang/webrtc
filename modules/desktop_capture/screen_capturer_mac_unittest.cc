@@ -10,8 +10,9 @@
 
 #include <ApplicationServices/ApplicationServices.h>
 
+#include <chrono>
 #include <memory>
-#include <ostream>
+#include <thread>
 
 #include "modules/desktop_capture/desktop_capture_options.h"
 #include "modules/desktop_capture/desktop_capturer.h"
@@ -20,11 +21,12 @@
 #include "modules/desktop_capture/desktop_region.h"
 #include "modules/desktop_capture/mac/desktop_configuration.h"
 #include "modules/desktop_capture/mock_desktop_capturer_callback.h"
+#include "rtc_base/time_utils.h"
 #include "test/gtest.h"
 
 using ::testing::_;
 using ::testing::AnyNumber;
-using ::testing::Return;
+using ::testing::InSequence;
 
 namespace webrtc {
 
@@ -43,6 +45,18 @@ class ScreenCapturerMacTest : public ::testing::Test {
   void SetUp() override {
     capturer_ = DesktopCapturer::CreateScreenCapturer(
         DesktopCaptureOptions::CreateDefault());
+  }
+
+  std::unique_ptr<DesktopCapturer> capturer_;
+  MockDesktopCapturerCallback callback_;
+};
+
+class ScreenCapturerSckTest : public ScreenCapturerMacTest {
+ protected:
+  void SetUp() override {
+    auto options = DesktopCaptureOptions::CreateDefault();
+    options.set_allow_sck_capturer(true);
+    capturer_ = DesktopCapturer::CreateScreenCapturer(options);
   }
 
   std::unique_ptr<DesktopCapturer> capturer_;
@@ -77,7 +91,7 @@ void ScreenCapturerMacTest::CaptureDoneCallback2(
   EXPECT_TRUE((*frame)->data() != NULL);
   // Depending on the capture method, the screen may be flipped or not, so
   // the stride may be positive or negative.
-  EXPECT_EQ(static_cast<int>(sizeof(uint32_t) * width),
+  EXPECT_LE(static_cast<int>(sizeof(uint32_t) * width),
             abs((*frame)->stride()));
 }
 
@@ -96,6 +110,32 @@ TEST_F(ScreenCapturerMacTest, Capture) {
 
   // Check that subsequent dirty rects are propagated correctly.
   capturer_->CaptureFrame();
+}
+
+TEST_F(ScreenCapturerSckTest, Capture) {
+  std::atomic<bool> done{false};
+  int64_t start = rtc::TimeMillis();
+  InSequence s;
+  EXPECT_CALL(callback_,
+              OnCaptureResultPtr(DesktopCapturer::Result::ERROR_TEMPORARY, _))
+      .Times(AnyNumber());
+  EXPECT_CALL(callback_,
+              OnCaptureResultPtr(DesktopCapturer::Result::SUCCESS, _))
+      .Times(2)
+      .WillOnce(Invoke(this, &ScreenCapturerMacTest::CaptureDoneCallback1))
+      .WillOnce([this, &done](auto result, auto frame) {
+        CaptureDoneCallback2(result, frame);
+        done = true;
+      });
+
+  SCOPED_TRACE("");
+  capturer_->Start(&callback_);
+
+  while (!done && rtc::TimeSince(start) < 10000) {
+    // Check that we get an initial full-screen updated.
+    capturer_->CaptureFrame();
+    std::this_thread::sleep_for(std::chrono::milliseconds(1));
+  }
 }
 
 }  // namespace webrtc

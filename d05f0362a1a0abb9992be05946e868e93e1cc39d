@@ -16,6 +16,24 @@
       "message": "Looks good, but see bot failures",
       "revId": "d05f0362a1a0abb9992be05946e868e93e1cc39d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4114e5a3_6d2d6a7c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7255
+      },
+      "writtenOn": "2024-10-07T12:24:43Z",
+      "side": 1,
+      "message": "Sorry, I got it working in Chromium, and forgot to try to build/CQ dry run before asking for review.",
+      "parentUuid": "d37da2c5_4985e20a",
+      "revId": "d05f0362a1a0abb9992be05946e868e93e1cc39d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

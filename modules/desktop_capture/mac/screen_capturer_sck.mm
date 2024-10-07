@@ -346,6 +346,9 @@ void ScreenCapturerSck::StartOrReconfigureCapturer() {
   // deleted before the block is executed.
   SckHelper* local_helper = helper_;
   auto handler = ^(SCShareableContent* content, NSError* error) {
+    if (error) {
+      RTC_LOG(LS_ERROR) << "getShareableContent error: " << error.code;
+    }
     [local_helper onShareableContentCreated:content];
   };
 

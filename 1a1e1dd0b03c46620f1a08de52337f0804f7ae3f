@@ -16,6 +16,24 @@
       "message": "Looks better?\nWe should add str_cat include to the toplevel DEPS file.....",
       "revId": "1a1e1dd0b03c46620f1a08de52337f0804f7ae3f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "06c7c431_499a35f0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-07T11:27:06Z",
+      "side": 1,
+      "message": "lbtm\n\nI also think str_cat should be allowed globally, but prefer that to be discussed a bit more widely, specially that it was discussed previously with a different decision made.",
+      "parentUuid": "cb91a922_31c04bc9",
+      "revId": "1a1e1dd0b03c46620f1a08de52337f0804f7ae3f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

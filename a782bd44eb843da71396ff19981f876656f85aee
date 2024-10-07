@@ -41,6 +41,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "061163ee_1563e493",
+        "filename": "modules/audio_coding/neteq/delay_constraints.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2024-10-07T11:47:25Z",
+      "side": 1,
+      "message": "We could...but then we would need to store it outside of this class instead, not sure if that is better. Overall I feel like the 75% of buffer size * packet length is not ideal to have, but I don\u0027t intend to fix that in this cl.",
+      "parentUuid": "4e5ea268_e1b0149a",
+      "range": {
+        "startLine": 31,
+        "startChar": 22,
+        "endLine": 31,
+        "endChar": 27
+      },
+      "revId": "a782bd44eb843da71396ff19981f876656f85aee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8c8b1f1d_acaf860d",
@@ -64,6 +88,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f29f5df1_f0b64143",
+        "filename": "modules/audio_coding/neteq/delay_constraints.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2024-10-07T11:47:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8c8b1f1d_acaf860d",
+      "range": {
+        "startLine": 44,
+        "startChar": 0,
+        "endLine": 44,
+        "endChar": 3
+      },
+      "revId": "a782bd44eb843da71396ff19981f876656f85aee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "82ed9dc9_a3adf5bd",
@@ -77,6 +125,30 @@
       "writtenOn": "2024-10-07T11:11:53Z",
       "side": 1,
       "message": "```suggestion\n  // `minimum_delay_ms_`, `base_minimum_delay_ms_`, `maximum_delay_ms_`,\n```",
+      "range": {
+        "startLine": 44,
+        "startChar": 51,
+        "endLine": 44,
+        "endChar": 54
+      },
+      "revId": "a782bd44eb843da71396ff19981f876656f85aee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "70851ebf_352ac621",
+        "filename": "modules/audio_coding/neteq/delay_constraints.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2024-10-07T11:47:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "82ed9dc9_a3adf5bd",
       "range": {
         "startLine": 44,
         "startChar": 51,
@@ -112,6 +184,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "5930f5f2_88509053",
+        "filename": "modules/audio_coding/neteq/delay_constraints.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2024-10-07T11:47:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "105aad00_7a576f2c",
+      "range": {
+        "startLine": 53,
+        "startChar": 1,
+        "endLine": 53,
+        "endChar": 51
+      },
+      "revId": "a782bd44eb843da71396ff19981f876656f85aee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "1c1bc028_5930ef26",
         "filename": "modules/audio_coding/neteq/delay_constraints.h",
         "patchSetId": 2
@@ -123,6 +219,30 @@
       "writtenOn": "2024-10-07T11:11:53Z",
       "side": 1,
       "message": "Would that allow to get rid of the notion of packet length from this class? That would be a good improvement, imo. Feels like a bit of a leaky abstraction at the moment.",
+      "range": {
+        "startLine": 55,
+        "startChar": 19,
+        "endLine": 55,
+        "endChar": 73
+      },
+      "revId": "a782bd44eb843da71396ff19981f876656f85aee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "10663363_33efbd09",
+        "filename": "modules/audio_coding/neteq/delay_constraints.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2024-10-07T11:47:25Z",
+      "side": 1,
+      "message": "Yes I agree. But this cl is just a refactor, so I won\u0027t make any changes to it here.",
+      "parentUuid": "1c1bc028_5930ef26",
       "range": {
         "startLine": 55,
         "startChar": 19,
@@ -146,6 +266,30 @@
       "writtenOn": "2024-10-07T11:11:53Z",
       "side": 1,
       "message": "Does \u003c\u003d 0 mean that no maximum is enforced? Say so.",
+      "range": {
+        "startLine": 61,
+        "startChar": 39,
+        "endLine": 61,
+        "endChar": 76
+      },
+      "revId": "a782bd44eb843da71396ff19981f876656f85aee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f92609d7_3874bb36",
+        "filename": "modules/audio_coding/neteq/delay_constraints.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2024-10-07T11:47:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "659078c0_a0f548d7",
       "range": {
         "startLine": 61,
         "startChar": 39,

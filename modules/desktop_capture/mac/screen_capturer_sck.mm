@@ -73,6 +73,9 @@ class API_AVAILABLE(macos(14.0)) ScreenCapturerSck final : public DesktopCapture
   void CaptureFrame() override;
   bool SelectSource(SourceId id) override;
 
+  // Called after a SCStreamDelegate stop notification.
+  void NotifyCaptureStopped(SCStream* stream);
+
   // Called by SckHelper when shareable content is returned by ScreenCaptureKit. `content` will be
   // nil if an error occurred. May run on an arbitrary thread.
   void OnShareableContentCreated(SCShareableContent* content, NSError* error);
@@ -207,6 +210,15 @@ void ScreenCapturerSck::CaptureFrame() {
     RTC_LOG(LS_VERBOSE) << "ScreenCapturerSck " << this << " CaptureFrame() -> ERROR_TEMPORARY";
     callback_->OnCaptureResult(Result::ERROR_TEMPORARY, nullptr);
   }
+}
+
+void ScreenCapturerSck::NotifyCaptureStopped(SCStream* stream) {
+  MutexLock lock(&lock_);
+  if (stream_ != stream) {
+    return;
+  }
+  RTC_LOG(LS_INFO) << "ScreenCapturerSck " << this << " " << __func__ << ".";
+  permanent_error_ = true;
 }
 
 bool ScreenCapturerSck::SelectSource(SourceId id) {
@@ -430,6 +442,23 @@ std::unique_ptr<DesktopCapturer> CreateScreenCapturerSck(const DesktopCaptureOpt
   webrtc::MutexLock lock(&_capturer_lock);
   if (_capturer) {
     _capturer->OnShareableContentCreated(content, error);
+  }
+}
+
+- (void)stream:(SCStream*)stream didStopWithError:(NSError*)error {
+  webrtc::MutexLock lock(&_capturer_lock);
+  RTC_LOG(LS_INFO) << "ScreenCapturerSck " << _capturer << " " << __func__ << ".";
+  if (_capturer) {
+    _capturer->NotifyCaptureStopped(stream);
+  }
+}
+
+- (void)userDidStopStream:(SCStream*)stream NS_SWIFT_NAME(userDidStopStream(_:))
+                              API_AVAILABLE(macos(14.4)) {
+  webrtc::MutexLock lock(&_capturer_lock);
+  RTC_LOG(LS_INFO) << "ScreenCapturerSck " << _capturer << " " << __func__ << ".";
+  if (_capturer) {
+    _capturer->NotifyCaptureStopped(stream);
   }
 }
 

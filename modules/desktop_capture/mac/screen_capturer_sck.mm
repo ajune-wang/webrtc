@@ -81,7 +81,7 @@ class API_AVAILABLE(macos(14.0)) ScreenCapturerSck final : public DesktopCapture
   void OnShareableContentCreated(SCShareableContent* content);
 
   // Called by SckHelper to notify of a newly captured frame. May run on an arbitrary thread.
-  void OnNewIOSurface(IOSurfaceRef io_surface, CFDictionaryRef attachment);
+  void OnNewIOSurface(IOSurfaceRef io_surface, NSDictionary* attachment);
 
  private:
   // Called when starting the capturer or the configuration has changed (either from a
@@ -136,6 +136,12 @@ class API_AVAILABLE(macos(14.0)) ScreenCapturerSck final : public DesktopCapture
   // TODO: crbug.com/327458809 - Replace this flag with ScreenCapturerHelper to more accurately
   // track the dirty rectangles from the SCStreamFrameInfoDirtyRects attachment.
   bool frame_is_dirty_ RTC_GUARDED_BY(latest_frame_lock_) = true;
+
+  // Tracks whether a reconfigure is needed.
+  bool frame_needs_reconfigure_ RTC_GUARDED_BY(latest_frame_lock_) = false;
+  // If a reconfigure is needed, this will be set to the size in pixels required to fit the entire
+  // source without downscaling.
+  std::optional<CGSize> frame_reconfigure_img_size_ RTC_GUARDED_BY(latest_frame_lock_);
 };
 
 ScreenCapturerSck::ScreenCapturerSck(const DesktopCaptureOptions& options)
@@ -191,6 +197,7 @@ void ScreenCapturerSck::CaptureFrame() {
   }
 
   std::unique_ptr<DesktopFrame> frame;
+  bool needs_reconfigure = false;
   {
     MutexLock lock(&latest_frame_lock_);
     if (latest_frame_) {
@@ -200,6 +207,8 @@ void ScreenCapturerSck::CaptureFrame() {
         frame_is_dirty_ = false;
       }
     }
+    needs_reconfigure = frame_needs_reconfigure_;
+    frame_needs_reconfigure_ = false;
   }
 
   if (frame) {
@@ -209,6 +218,10 @@ void ScreenCapturerSck::CaptureFrame() {
   } else {
     RTC_LOG(LS_VERBOSE) << "ScreenCapturerSck " << this << " CaptureFrame() -> ERROR_TEMPORARY";
     callback_->OnCaptureResult(Result::ERROR_TEMPORARY, nullptr);
+  }
+
+  if (needs_reconfigure) {
+    StartOrReconfigureCapturer();
   }
 }
 
@@ -295,6 +308,7 @@ void ScreenCapturerSck::OnShareableContentCreated(SCShareableContent* content) {
   {
     MutexLock lock(&latest_frame_lock_);
     latest_frame_dpi_ = filter.pointPixelScale * kStandardDPI;
+    frame_reconfigure_img_size_ = std::nullopt;
   }
 
   if (stream_) {
@@ -335,17 +349,80 @@ void ScreenCapturerSck::OnShareableContentCreated(SCShareableContent* content) {
   }
 }
 
-void ScreenCapturerSck::OnNewIOSurface(IOSurfaceRef io_surface, CFDictionaryRef attachment) {
-  RTC_LOG(LS_VERBOSE) << "ScreenCapturerSck " << this << " " << __func__
-                      << " width=" << IOSurfaceGetWidth(io_surface)
-                      << ", height=" << IOSurfaceGetHeight(io_surface) << ".";
+void ScreenCapturerSck::OnNewIOSurface(IOSurfaceRef io_surface, NSDictionary* attachment) {
+  double scaleFactor = 1;
+  double contentScale = 1;
+  CGRect contentRect = {};
+  CGRect boundingRect = {};
+  CGRect overlayRect = {};
+  SCFrameStatus status = SCFrameStatusStopped;
+  const auto* dirty_rects = (NSArray*)attachment[SCStreamFrameInfoDirtyRects];
+  if (auto factor = (NSNumber*)attachment[SCStreamFrameInfoScaleFactor]) {
+    scaleFactor = [factor floatValue];
+  }
+  if (auto scale = (NSNumber*)attachment[SCStreamFrameInfoContentScale]) {
+    contentScale = [scale floatValue];
+  }
+  if (const auto* rectDict = (__bridge CFDictionaryRef)attachment[SCStreamFrameInfoContentRect]) {
+    if (!CGRectMakeWithDictionaryRepresentation(rectDict, &contentRect)) {
+      contentRect = CGRect();
+    }
+  }
+  if (const auto* rectDict = (__bridge CFDictionaryRef)attachment[SCStreamFrameInfoBoundingRect]) {
+    if (!CGRectMakeWithDictionaryRepresentation(rectDict, &boundingRect)) {
+      boundingRect = CGRect();
+    }
+  }
+  if (@available(macOS 14.2, *)) {
+    if (const auto* rectDict =
+            (__bridge CFDictionaryRef)attachment[SCStreamFrameInfoPresenterOverlayContentRect]) {
+      if (!CGRectMakeWithDictionaryRepresentation(rectDict, &overlayRect)) {
+        overlayRect = CGRect();
+      }
+    }
+  }
+
+  if (auto statusNr = (NSNumber*)attachment[SCStreamFrameInfoStatus]) {
+    status = (SCFrameStatus)[statusNr integerValue];
+  }
+
+  switch (status) {
+    case SCFrameStatusBlank:
+    case SCFrameStatusIdle:
+    case SCFrameStatusSuspended:
+    case SCFrameStatusStopped:
+      // No new frame. Ignore.
+      return;
+    case SCFrameStatusComplete:
+    case SCFrameStatusStarted:
+      // New frame. Process it.
+      break;
+  }
+
+  auto imgBoundingRect = CGRectMake(scaleFactor * boundingRect.origin.x,
+                                    scaleFactor * boundingRect.origin.y,
+                                    scaleFactor * boundingRect.size.width,
+                                    scaleFactor * boundingRect.size.height);
+
   rtc::ScopedCFTypeRef<IOSurfaceRef> scoped_io_surface(io_surface, rtc::RetainPolicy::RETAIN);
   std::unique_ptr<DesktopFrameIOSurface> desktop_frame_io_surface =
-      DesktopFrameIOSurface::Wrap(scoped_io_surface);
+      DesktopFrameIOSurface::Wrap(scoped_io_surface, imgBoundingRect);
   if (!desktop_frame_io_surface) {
     RTC_LOG(LS_ERROR) << "Failed to lock IOSurface.";
     return;
   }
+
+  const size_t width = IOSurfaceGetWidth(io_surface);
+  const size_t height = IOSurfaceGetHeight(io_surface);
+
+  RTC_LOG(LS_VERBOSE) << "ScreenCapturerSck " << this << " " << __func__
+                      << ". New surface: width=" << width << ", height=" << height
+                      << ", contentRect=" << NSStringFromRect(contentRect).UTF8String
+                      << ", boundingRect=" << NSStringFromRect(boundingRect).UTF8String
+                      << ", overlayRect=(" << NSStringFromRect(overlayRect).UTF8String
+                      << ", scaleFactor=" << scaleFactor << ", contentScale=" << contentScale
+                      << ". Cropping to rect " << NSStringFromRect(imgBoundingRect).UTF8String
+                      << ".";
 
   std::unique_ptr<SharedDesktopFrame> frame =
       SharedDesktopFrame::Wrap(std::move(desktop_frame_io_surface));
@@ -360,28 +437,20 @@ void ScreenCapturerSck::OnNewIOSurface(IOSurfaceRef io_surface, CFDictionaryRef 
   }
 
   if (!dirty) {
-    const void* dirty_rects_ptr =
-        CFDictionaryGetValue(attachment, (__bridge CFStringRef)SCStreamFrameInfoDirtyRects);
-    if (!dirty_rects_ptr) {
+    if (!dirty_rects) {
       // This is never expected to happen - SCK attaches a non-empty dirty-rects list to every
       // frame, even when nothing has changed.
       return;
     }
-    if (CFGetTypeID(dirty_rects_ptr) != CFArrayGetTypeID()) {
-      return;
-    }
-
-    CFArrayRef dirty_rects_array = static_cast<CFArrayRef>(dirty_rects_ptr);
-    int size = CFArrayGetCount(dirty_rects_array);
-    for (int i = 0; i < size; i++) {
-      const void* rect_ptr = CFArrayGetValueAtIndex(dirty_rects_array, i);
+    for (NSUInteger i = 0; i < dirty_rects.count; i++) {
+      const auto* rect_ptr = (__bridge CFDictionaryRef)dirty_rects[i];
       if (CFGetTypeID(rect_ptr) != CFDictionaryGetTypeID()) {
         // This is never expected to happen - the dirty-rects attachment should always be an array
         // of dictionaries.
         return;
       }
       CGRect rect{};
-      CGRectMakeWithDictionaryRepresentation(static_cast<CFDictionaryRef>(rect_ptr), &rect);
+      CGRectMakeWithDictionaryRepresentation(rect_ptr, &rect);
       if (!CGRectIsEmpty(rect)) {
         dirty = true;
         break;
@@ -389,8 +458,13 @@ void ScreenCapturerSck::OnNewIOSurface(IOSurfaceRef io_surface, CFDictionaryRef 
     }
   }
 
+  MutexLock lock(&latest_frame_lock_);
+  if (contentScale > 0 && contentScale < 1) {
+    frame_needs_reconfigure_ = true;
+    double scale = 1 / contentScale;
+    frame_reconfigure_img_size_ = CGSizeMake(std::ceil(scale * width), std::ceil(scale * height));
+  }
   if (dirty) {
-    MutexLock lock(&latest_frame_lock_);
     frame->set_dpi(DesktopVector(latest_frame_dpi_, latest_frame_dpi_));
     frame->set_may_contain_cursor(capture_options_.prefer_cursor_embedded());
 
@@ -488,7 +562,7 @@ std::unique_ptr<DesktopCapturer> CreateScreenCapturerSck(const DesktopCaptureOpt
 
   webrtc::MutexLock lock(&_capturer_lock);
   if (_capturer) {
-    _capturer->OnNewIOSurface(ioSurface, attachment);
+    _capturer->OnNewIOSurface(ioSurface, (__bridge NSDictionary*)attachment);
   }
 }
 

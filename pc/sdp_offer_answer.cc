@@ -592,8 +592,7 @@ RTCError ValidatePayloadTypes(const cricket::SessionDescription& description) {
     if (type == cricket::MEDIA_TYPE_AUDIO ||
         type == cricket::MEDIA_TYPE_VIDEO) {
       for (const auto& codec : media_description->codecs()) {
-        if (!cricket::UsedPayloadTypes::IsIdValid(
-                codec, media_description->rtcp_mux())) {
+        if (!PayloadType::IsValid(codec.id, media_description->rtcp_mux())) {
           LOG_AND_RETURN_ERROR(
               RTCErrorType::INVALID_PARAMETER,
               "The media section with MID='" + content.mid() +
@@ -3629,6 +3628,8 @@ RTCError SdpOfferAnswerHandler::ValidateSessionDescription(
 
   // Validate that there are no collisions of bundled payload types.
   error = ValidateBundledPayloadTypes(*sdesc->description());
+  RTC_CHECK(error.ok()) << "DEBUG: Break on payload type collision, message="
+                        << error.message();
   // TODO(bugs.webrtc.org/14420): actually reject.
   RTC_HISTOGRAM_BOOLEAN("WebRTC.PeerConnection.ValidBundledPayloadTypes",
                         error.ok());

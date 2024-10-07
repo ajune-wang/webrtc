@@ -51,6 +51,24 @@
       "message": "Are there A/B plans for this or is this just an opt-in? We can use field trials for experimentations but we should not use it as a flag to turn something on or off, for that we can add booleans to RTCConfiguration or just change the default behavior.\n\nFor the code that says \"if offer was encrypt, answer is also encrypt\" I think we can just change this behavior to default true. It is then up to the offerer about whether or not to turn on encryption.\n\nAs for how the offerer controls this, the app already controls which header extensions to negotiate (either via `setHeaderExtensionsToNegotiate` or via SDP munging) and this decision happens on a per-peer connection basis (not a global config).\n\nSo what is the field trial doing? Is it affecting default behavior of the peer connection?",
       "revId": "bd404bf1ddaf966100bf066e5fb2f39890866bb6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2d49e2a3_4ddb1940",
+        "filename": "experiments/field_trials.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2024-10-07T21:16:11Z",
+      "side": 1,
+      "message": "This is intended mostly as a kill-switch. \nEven the \"if offer was encrypt, answer is also encrypt\" behavior has some risk since it\u0027s exposing a rather large code path that has never seen production use.\n\nThe idea is to land the flag default-off, and then turn it default on in a CL where we also update some tests to cover that behavior.",
+      "parentUuid": "c3a56663_1d33de8c",
+      "revId": "bd404bf1ddaf966100bf066e5fb2f39890866bb6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

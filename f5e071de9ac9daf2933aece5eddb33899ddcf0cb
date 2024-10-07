@@ -16,6 +16,24 @@
       "message": "while working on chromium change I\u0027ve discovered these two variants do not add much value: in release mode compiler is smart enough to optimize away reference for arithmetic types.\nin debug mode this hides issue where a constant can be declared with value, but not defined (I\u0027ve hit one such issue and fixed it in https://webrtc-review.googlesource.com/c/src/+/364483 )\n\nhaving single variant is just a bit simpler.",
       "revId": "f5e071de9ac9daf2933aece5eddb33899ddcf0cb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5734a3c1_ba55af19",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2024-10-07T19:34:17Z",
+      "side": 1,
+      "message": "Nice work.",
+      "parentUuid": "9a537bea_e2fdec7a",
+      "revId": "f5e071de9ac9daf2933aece5eddb33899ddcf0cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

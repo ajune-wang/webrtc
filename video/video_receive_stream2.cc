@@ -157,8 +157,8 @@ bool IsKeyFrameAndUnspecifiedResolution(const EncodedFrame& frame) {
          frame.EncodedImage()._encodedHeight == 0;
 }
 
-std::string OptionalDelayToLogString(const std::optional<TimeDelta> opt) {
-  return opt.has_value() ? ToLogString(*opt) : "<unset>";
+std::string OptionalDelayToLogString(std::optional<TimeDelta> opt) {
+  return opt.has_value() ? absl::StrCat(*opt) : "<unset>";
 }
 
 }  // namespace

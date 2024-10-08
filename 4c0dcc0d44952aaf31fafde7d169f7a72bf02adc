@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c683301b_85340bec",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-10-08T13:12:12Z",
+      "side": 1,
+      "message": "Looks good to me. Do stay away from the codecs, the PT redesign uncovers more issues there.",
+      "revId": "4c0dcc0d44952aaf31fafde7d169f7a72bf02adc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

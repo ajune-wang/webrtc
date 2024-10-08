@@ -69,6 +69,24 @@
       "parentUuid": "c3a56663_1d33de8c",
       "revId": "bd404bf1ddaf966100bf066e5fb2f39890866bb6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "50771063_3dc3208e",
+        "filename": "experiments/field_trials.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2024-10-08T07:47:47Z",
+      "side": 1,
+      "message": "OK kill switch is fine by me.",
+      "parentUuid": "2d49e2a3_4ddb1940",
+      "revId": "bd404bf1ddaf966100bf066e5fb2f39890866bb6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

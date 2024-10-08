@@ -179,22 +179,23 @@ void AudioBuffer::CopyTo(AudioBuffer* buffer) const {
   RTC_DCHECK_EQ(buffer->num_frames(), output_num_frames_);
 
   const bool resampling_needed = output_num_frames_ != buffer_num_frames_;
+  DeinterleavedView<float> destination = buffer->channels();
   if (resampling_needed) {
     for (size_t i = 0; i < num_channels_; ++i) {
-      output_resamplers_[i]->Resample(data_->channels()[i], buffer_num_frames_,
-                                      buffer->channels()[i],
-                                      buffer->num_frames());
+      output_resamplers_[i]->Resample(data_->channels_v()[i], destination[i]);
     }
   } else {
     for (size_t i = 0; i < num_channels_; ++i) {
-      memcpy(buffer->channels()[i], data_->channels()[i],
-             buffer_num_frames_ * sizeof(**buffer->channels()));
+      MonoView<float> channel = destination[i];
+      CopySamples(channel, data_->channels_v()[i]);
     }
   }
 
-  for (size_t i = num_channels_; i < buffer->num_channels(); ++i) {
-    memcpy(buffer->channels()[i], buffer->channels()[0],
-           output_num_frames_ * sizeof(**buffer->channels()));
+  // If our source, `data_`, didn't have enough channels, fill the remaining
+  // destination channels with the first destination channel.
+  for (size_t i = num_channels_; i < NumChannels(destination); ++i) {
+    MonoView<float> channel = destination[i];
+    CopySamples(channel, destination[0]);
   }
 }
 

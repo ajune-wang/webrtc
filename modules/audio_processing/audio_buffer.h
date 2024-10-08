@@ -61,14 +61,19 @@ class AudioBuffer {
 
   // Returns a DeinterleavedView<> over the channel data.
   DeinterleavedView<float> view() {
+    // TODO(tommi): Use data_->channels_v() instead? Eventually remove the
+    // `view()` method once `channel()` returns `DeinterleavedView<>`.
     return DeinterleavedView<float>(
-        num_channels_ && buffer_num_frames_ ? channels()[0] : nullptr,
+        num_channels_ && buffer_num_frames_ ? data_->channels()[0] : nullptr,
         buffer_num_frames_, num_channels_);
   }
 
   DeinterleavedView<const float> view() const {
+    RTC_DCHECK_EQ(num_channels_, data_->num_channels());
+    RTC_DCHECK_EQ(buffer_num_frames_, data_->num_channels());
+    return data_->channels_v();
     return DeinterleavedView<const float>(
-        num_channels_ && buffer_num_frames_ ? channels_const()[0] : nullptr,
+        num_channels_ && buffer_num_frames_ ? data_->channels()[0] : nullptr,
         buffer_num_frames_, num_channels_);
   }
 
@@ -83,8 +88,10 @@ class AudioBuffer {
   // Where:
   // 0 <= channel < `buffer_num_channels_`
   // 0 <= sample < `buffer_num_frames_`
-  float* const* channels() { return data_->channels(); }
-  const float* const* channels_const() const { return data_->channels(); }
+  DeinterleavedView<float> channels() { return data_->channels_v(); }
+  DeinterleavedView<const float> channels_const() const {
+    return data_->channels_v();
+  }
 
   // Returns pointer arrays to the bands for a specific channel.
   // Usage:
@@ -150,12 +157,12 @@ class AudioBuffer {
   // Deprecated methods, will be removed soon.
   [[deprecated("Use DeinterleavedView<> based methods instead")]] float* const*
   channels_f() {
-    return channels();
+    return data_->channels();
   }
   [[deprecated(
       "Use DeinterleavedView<> based methods instead")]] const float* const*
   channels_const_f() const {
-    return channels_const();
+    return data_->channels();
   }
   const float* const* split_bands_const_f(size_t channel) const {
     return split_bands_const(channel);

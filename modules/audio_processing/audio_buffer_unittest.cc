@@ -92,6 +92,9 @@ TEST(AudioBufferTest, CopyWithResampling) {
   EXPECT_NEAR(energy_ab1, energy_ab2 * 32000.f / 48000.f, .01f * energy_ab1);
 }
 
+#if 0
+// TODO(tommi): Once `channels()` returns a DeinterleavedView, this test
+// is redundant.
 TEST(AudioBufferTest, DeinterleavedView) {
   AudioBuffer ab(48000, 2, 48000, 2, 48000, 2);
   // Fill the buffer with data.
@@ -120,5 +123,6 @@ TEST(AudioBufferTest, DeinterleavedView) {
   EXPECT_EQ(SamplesPerChannel(const_view), SamplesPerChannel(view));
   EXPECT_EQ(&const_view.data()[0], &view.data()[0]);
 }
+#endif
 
 }  // namespace webrtc

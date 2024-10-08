@@ -62,11 +62,13 @@ class VCMReceiveCallback {
   };
 
   // TODO: bugs.webrtc.org/358039777 - Delete this function.
-  virtual int32_t FrameToRender(VideoFrame& videoFrame,  // NOLINT
-                                std::optional<uint8_t> qp,
-                                TimeDelta decode_time,
-                                VideoContentType content_type,
-                                VideoFrameType frame_type) = 0;
+  [[deprecated(
+      "Use FrameToRender(FrameToRenderArgs) instead.")]] virtual int32_t
+  FrameToRender(VideoFrame& videoFrame,  // NOLINT
+                std::optional<uint8_t> qp,
+                TimeDelta decode_time,
+                VideoContentType content_type,
+                VideoFrameType frame_type) = 0;
   // TODO: bugs.webrtc.org/358039777 - Make this pure virtual.
   virtual int32_t FrameToRender(const struct FrameToRender& arguments) {
     return FrameToRender(arguments.video_frame, arguments.qp,

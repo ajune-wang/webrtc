@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "103c7cce_cccb6f48",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-10-08T05:10:09Z",
+      "side": 1,
+      "message": "remember the 6xxx bugs? Those were the days!",
+      "revId": "a703ec57f5495cc9c156ef76e639bc46ddf27878",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

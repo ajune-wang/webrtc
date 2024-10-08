@@ -18,6 +18,41 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e60f3a3d_8aa51e69",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3485001
+      },
+      "writtenOn": "2024-10-08T09:35:21Z",
+      "side": 1,
+      "message": "Thank you for your review and help.",
+      "revId": "e104a528f7e597a305084957c73fc82aec5384b4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9b514899_3751d805",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3485001
+      },
+      "writtenOn": "2024-10-08T09:35:21Z",
+      "side": 1,
+      "message": "Encyrption is applied on the specified header extension(s) with this CL when e.g. tested on SDP munge [https://webrtc.github.io/samples/src/content/peerconnection/munge-sdp/]. Nevertheless, for an actuall Meet call e.g. this is not true because of MR not supporting encyrption yet, which is WIP.",
+      "parentUuid": "14333745_ffeb0129",
+      "revId": "e104a528f7e597a305084957c73fc82aec5384b4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6831ee7b_f2a465c2",
@@ -31,6 +66,24 @@
       "writtenOn": "2024-10-05T07:26:12Z",
       "side": 1,
       "message": "Can you use EXPECT_THAT(GetFirstAudioCOntentDescription(....),\n    testing::ArrayEquals(kAudioRtpExtensionMixedEncryption))?\nIf you can, that will give better debug printouts on failure than EXPECT_EQ.",
+      "revId": "e104a528f7e597a305084957c73fc82aec5384b4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "86d7e16c_7a68b769",
+        "filename": "pc/media_session_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 2195,
+      "author": {
+        "id": 3485001
+      },
+      "writtenOn": "2024-10-08T09:35:21Z",
+      "side": 1,
+      "message": "Yes, Something similar can be used. But I believe this is out of the scope of this CL since this approach is used in other places as well. Let me create a new CL reagarding this.",
+      "parentUuid": "6831ee7b_f2a465c2",
       "revId": "e104a528f7e597a305084957c73fc82aec5384b4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

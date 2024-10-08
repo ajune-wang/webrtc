@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a365f08a_0540f6c3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3485001
+      },
+      "writtenOn": "2024-10-08T13:08:38Z",
+      "side": 1,
+      "message": "As discussed in the previous CL, updating for better error message. I guess same thing can be done for the codec arrays as well. Nevertheless, since I am not familiar with how the codec negotiation should be done, I refrained from it.",
+      "revId": "68150af89f5157b8524f3029e7511b6f5fe74e09",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

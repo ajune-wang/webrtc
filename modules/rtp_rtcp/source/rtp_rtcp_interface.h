@@ -146,7 +146,11 @@ class RtpRtcpInterface : public RtcpFeedbackSenderInterface {
   // Stats for RTCP sender reports (SR) for a specific SSRC.
   // Refer to https://tools.ietf.org/html/rfc3550#section-6.4.1.
   struct SenderReportStats {
+    // Arrival timestamp (enviroment clock) for the last received RTCP SR.
+    Timestamp last_arrival_timestamp = Timestamp::Zero();
     // Arrival NTP timestamp for the last received RTCP SR.
+    // TODO(webrtc:370535296): When (webrtc:370535296) is fixed, we don't need
+    // the ntp arrival timestamp.
     NtpTime last_arrival_ntp_timestamp;
     // Received (a.k.a., remote) NTP timestamp for the last received RTCP SR.
     NtpTime last_remote_ntp_timestamp;

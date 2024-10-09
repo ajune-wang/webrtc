@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a42fede4_654082b3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8178
+      },
+      "writtenOn": "2024-10-09T09:10:47Z",
+      "side": 1,
+      "message": "Would love some feedback on that presubmit error -- is it a bug in the script or is it saying the check failed because of the warnings?\nI tried to shake those warnings but git cl format insisted on wrapping those lines at 100 or so columns, while git cl lint complained that they\u0027re over 80 columns. Might it be related to them being headers of mm files (which are ignored by linting)?",
+      "revId": "a7ab2caad298671ef452c948ec059053023fc727",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

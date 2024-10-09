@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d1e663df_ca7366f5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 6092
+      },
+      "writtenOn": "2024-10-09T22:17:36Z",
+      "side": 1,
+      "message": "To use this Picker in Chrome Remote Desktop, we will need to report the real `SourceId` that is being captured.\n\nIf you need it to be constant, you could maybe clear the `allowsChangingSelectedContent` flag on the `SCContentSharingPickerConfiguration`?\n\nOtherwise, you could maybe call `OnSelection()` on the `DelegatedSourceListController` every time the `SourceId` changes - and then the consumer can get the new ID by calling `GetSourceList()`?\n\nThe selected screen ID is not documented in the SCK API, but Apple told us we can get it from the `display` attribute of the `SCContentFilter` property that\u0027s with the `SCContentSharingPicker`.\n\nI think this CL is fine for now, but we will eventually need to access the actual `SourceId` for Chrome Remote Desktop.\n\nFor now, I\u0027m not too concerned about the value of `allowsChangingSelectedContent`. We could always add a `DesktopCaptureOptions` setting for this later, if we need to change it?",
+      "range": {
+        "startLine": 15,
+        "startChar": 10,
+        "endLine": 17,
+        "endChar": 53
+      },
+      "revId": "966d97bb0ec1b69e98b5f05750170c6424a346fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4a17f134_d562a874",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6092
+      },
+      "writtenOn": "2024-10-09T22:17:36Z",
+      "side": 1,
+      "message": "Thank you for doing this work, it\u0027s much appreciated! 😊",
+      "revId": "966d97bb0ec1b69e98b5f05750170c6424a346fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

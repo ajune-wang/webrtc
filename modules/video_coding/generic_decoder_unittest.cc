@@ -37,6 +37,8 @@
 #include "test/scoped_key_value_config.h"
 #include "test/time_controller/simulated_time_controller.h"
 
+using ::testing::Return;
+
 namespace webrtc {
 namespace video_coding {
 
@@ -65,6 +67,7 @@ class ReceiveCallback : public VCMReceiveCallback {
 
   int32_t OnFrameToRender(const struct FrameToRender& arguments) override {
     frames_.push_back(arguments.video_frame);
+    last_corruption_score_ = arguments.corruption_score;
     return 0;
   }
 
@@ -84,9 +87,14 @@ class ReceiveCallback : public VCMReceiveCallback {
 
   uint32_t frames_dropped() const { return frames_dropped_; }
 
+  std::optional<double> last_corruption_score() const {
+    return last_corruption_score_;
+  }
+
  private:
   std::vector<VideoFrame> frames_;
   uint32_t frames_dropped_ = 0;
+  std::optional<double> last_corruption_score_;
 };
 
 class GenericDecoderTest : public ::testing::Test {
@@ -220,7 +228,10 @@ TEST_F(GenericDecoderTest, IsLowLatencyStreamActivatedByPlayoutDelay) {
 }
 
 TEST_F(GenericDecoderTest, CallCalculateCorruptionScoreInDecoded) {
-  EXPECT_CALL(corruption_score_calculator_, CalculateCorruptionScore);
+  std::optional<double> corruption_score = 0.76;
+
+  EXPECT_CALL(corruption_score_calculator_, CalculateCorruptionScore)
+      .WillOnce(Return(corruption_score));
 
   uint32_t rtp_timestamp = 1;
   FrameInfo frame_info;
@@ -236,6 +247,11 @@ TEST_F(GenericDecoderTest, CallCalculateCorruptionScoreInDecoded) {
   vcm_callback_.Map(std::move(frame_info));
 
   vcm_callback_.Decoded(video_frame);
+
+  std::optional<double> last_corruption_score =
+      user_callback_.last_corruption_score();
+  ASSERT_TRUE(last_corruption_score.has_value());
+  EXPECT_EQ(*last_corruption_score, *corruption_score);
 }
 
 }  // namespace video_coding

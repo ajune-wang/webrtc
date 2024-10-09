@@ -16,6 +16,23 @@
       "message": "I think this is blocked on something internal too... possibly similar to the tests used in https://webrtc-review.googlesource.com/c/src/+/354940",
       "revId": "cfb55c426aa640558b0419a433c248a363856189",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d0d7c976_fbf6619a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-10-09T07:13:56Z",
+      "side": 1,
+      "message": "Has to wait for downstream to adapt (3 places do set SSL_MODE_TLS; what\u0027s their migration strategy? The 2 that set SSL_MODE_DTLS can just be deleted, I suppose)",
+      "revId": "cfb55c426aa640558b0419a433c248a363856189",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

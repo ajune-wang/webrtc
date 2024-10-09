@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c7cecbef_723f4872",
+        "filename": "modules/video_coding/generic_decoder_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2024-10-09T14:30:11Z",
+      "side": 1,
+      "message": "nit: I think you can simplify this a bit. Change `corruption_score` to a plain `constexpr double kCorruptionScore \u003d 0.75;` and then \n`EXPECT_EQ(user_callback_.last_corruption_score(), kCorruptionScore);`\n\nThe expect should fail if either the optional is nullopt or the value it contains does not match.",
+      "range": {
+        "startLine": 251,
+        "startChar": 0,
+        "endLine": 254,
+        "endChar": 55
+      },
+      "revId": "d7fc89798c5dfe2f0cc07c8fec23d14b94df6c84",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

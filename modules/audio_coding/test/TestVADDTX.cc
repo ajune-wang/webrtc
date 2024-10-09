@@ -16,8 +16,6 @@
 #include "absl/strings/string_view.h"
 #include "api/audio_codecs/audio_decoder_factory_template.h"
 #include "api/audio_codecs/audio_encoder_factory_template.h"
-#include "api/audio_codecs/ilbc/audio_decoder_ilbc.h"
-#include "api/audio_codecs/ilbc/audio_encoder_ilbc.h"
 #include "api/audio_codecs/opus/audio_decoder_opus.h"
 #include "api/audio_codecs/opus/audio_encoder_opus.h"
 #include "api/environment/environment_factory.h"
@@ -70,9 +68,9 @@ void MonitoringAudioPacketizationCallback::GetStatistics(uint32_t* counter) {
 TestVadDtx::TestVadDtx()
     : env_(CreateEnvironment()),
       encoder_factory_(
-          CreateAudioEncoderFactory<AudioEncoderIlbc, AudioEncoderOpus>()),
+          CreateAudioEncoderFactory<AudioEncoderOpus>()),
       decoder_factory_(
-          CreateAudioDecoderFactory<AudioDecoderIlbc, AudioDecoderOpus>()),
+          CreateAudioDecoderFactory<AudioDecoderOpus>()),
       acm_send_(AudioCodingModule::Create()),
       neteq_(DefaultNetEqFactory().Create(env_,
                                           NetEq::Config(),
@@ -182,10 +180,6 @@ void TestVadDtx::Run(absl::string_view in_filename,
 TestWebRtcVadDtx::TestWebRtcVadDtx() : output_file_num_(0) {}
 
 void TestWebRtcVadDtx::Perform() {
-// TODO(bugs.webrtc.org/345525069): Either fix/enable or remove iLBC.
-#if defined(__has_feature) && !__has_feature(undefined_behavior_sanitizer)
-  RunTestCases({"ILBC", 8000, 1});
-#endif
   RunTestCases({"opus", 48000, 2});
 }
 

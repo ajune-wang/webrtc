@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0e291ed1_cb5a28c2",
+        "filename": "audio/channel_receive.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2024-10-09T08:56:43Z",
+      "side": 1,
+      "message": "I know there\u0027s a consistency argument to use int64 here since the other timestamps are int64_t, but I would prefer using Timestamp since ultimately everything should be updated to Timestamp.\n\nBut I\u0027ll leave this up to you",
+      "revId": "4b1e0fc0ee3752e0b807653d8ba5ab02367beca5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

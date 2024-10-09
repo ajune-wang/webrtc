@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': 'ccf648df915eadad3d27653c32709dfc5b3e5254',
+  'chromium_revision': '8cfe5d9d7b00a6e587f24977ae5cecaffd3fe2e5',
 
   # Fetch the prebuilt binaries for llvm-cov and llvm-profdata. Needed to
   # process the raw profiles produced by instrumented targets (built with
@@ -45,7 +45,7 @@ vars = {
   # RBE instance to use for running remote builds
   'rbe_instance': 'projects/rbe-webrtc-developer/instances/default_instance',
   # reclient CIPD package version
-  'reclient_version': 're_client_version:0.164.0.76480e37-gomaip',
+  'reclient_version': 're_client_version:0.168.0.c46e68bc-gomaip',
 
   # ninja CIPD package.
   'ninja_package': 'infra/3pp/tools/ninja/',
@@ -61,9 +61,9 @@ vars = {
 deps = {
   # TODO(kjellander): Move this to be Android-only.
   'src/base':
-    'https://chromium.googlesource.com/chromium/src/base@006d78d70b321239c8953bec055e37638e04d900',
+    'https://chromium.googlesource.com/chromium/src/base@07f45b0472180503c48608992befdd3b9136682f',
   'src/build':
-    'https://chromium.googlesource.com/chromium/src/build@f2790bfa3238410fbb4bb74b6282f6edb3c1e089',
+    'https://chromium.googlesource.com/chromium/src/build@9061d30e63a0358a1588209479220d9a7883be70',
   'src/buildtools':
     'https://chromium.googlesource.com/chromium/src/buildtools@0a905dcb6d88dbfe4b9b169bf367da9371f72ae3',
   # Gradle 6.6.1. Used for testing Android Studio project generation for WebRTC.
@@ -72,13 +72,13 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': 'https://chromium.googlesource.com/chromium/src/ios@26dfb6e15c33512e9ce695d5ed9ea8bcfc2ef8ce',
+    'url': 'https://chromium.googlesource.com/chromium/src/ios@5f92d8675e275d778ab24f93db9d7f6fba739f5f',
     'condition': 'checkout_ios',
   },
   'src/testing':
-    'https://chromium.googlesource.com/chromium/src/testing@3ef5641e1fbbd8fbf2fba9fb0aac929dc3b04d97',
+    'https://chromium.googlesource.com/chromium/src/testing@cf581b88227de35f6b9ba9d000b5fd321bb61acb',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@c8056c18ac5999093ce3c9aa25286d6787e9c6d0',
+    'https://chromium.googlesource.com/chromium/src/third_party@b6a0aa60b1b5e216775dfbf5a014d50e5fc4bd3e',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -128,7 +128,7 @@ deps = {
   'src/third_party/libc++/src':
     'https://chromium.googlesource.com/external/github.com/llvm/llvm-project/libcxx.git@f1144730714608f01d6904037977dce8c15a49b7',
   'src/third_party/libc++abi/src':
-    'https://chromium.googlesource.com/external/github.com/llvm/llvm-project/libcxxabi.git@829f51051ce2b51be14f7853cca71be98083df6b',
+    'https://chromium.googlesource.com/external/github.com/llvm/llvm-project/libcxxabi.git@975ef56df0f09388b3012b51e8c57bb1fd4a57c0',
   'src/third_party/libunwind/src':
     'https://chromium.googlesource.com/external/github.com/llvm/llvm-project/libunwind.git@71735e82a6fda4af58f68b9028a7c5ac49898884',
 
@@ -234,7 +234,7 @@ deps = {
   },
 
   'src/third_party/boringssl/src':
-    'https://boringssl.googlesource.com/boringssl.git@fa0214602cc5502c2d1e12cc4692d1045a993aba',
+    'https://boringssl.googlesource.com/boringssl.git@d0a175601b9e180ce58cb1e33649057f5c484146',
   'src/third_party/breakpad/breakpad':
     'https://chromium.googlesource.com/breakpad/breakpad.git@6b0c5b7ee1988a14a4af94564e8ae8bba8a94374',
   'src/third_party/catapult':
@@ -251,7 +251,7 @@ deps = {
   'src/third_party/crc32c/src':
     'https://chromium.googlesource.com/external/github.com/google/crc32c.git@d3d60ac6e0f16780bcfcc825385e1d338801a558',
   'src/third_party/depot_tools':
-    'https://chromium.googlesource.com/chromium/tools/depot_tools.git@c109945e729cb3d8c17f306c9cae9d3f98d7d323',
+    'https://chromium.googlesource.com/chromium/tools/depot_tools.git@cd2f5c45b2f6cc06fa22fa9a572e018e4c240e06',
   'src/third_party/ffmpeg':
     'https://chromium.googlesource.com/chromium/third_party/ffmpeg.git@686d6944501a6ee9c849581e3fe343273d4af3f6',
   'src/third_party/flatbuffers/src':
@@ -351,11 +351,11 @@ deps = {
       'condition': 'checkout_android',
   },
   'src/third_party/perfetto':
-    'https://android.googlesource.com/platform/external/perfetto.git@5361e5909e80f71900ba231872fe0cc008d1e3cb',
+    'https://android.googlesource.com/platform/external/perfetto.git@0044e3c439405e25a6b11ca055d123d5666ef02a',
   'src/third_party/protobuf-javascript/src':
     Var('chromium_git') + '/external/github.com/protocolbuffers/protobuf-javascript' + '@' + 'e34549db516f8712f678fcd4bc411613b5cc5295',
   'src/third_party/libvpx/source/libvpx':
-    'https://chromium.googlesource.com/webm/libvpx.git@09b3d5fc5aa48752f95f4c0c37b0bd4ff55c0ba1',
+    'https://chromium.googlesource.com/webm/libvpx.git@906334ac1de2b0afa666472dce5545b82c1251fb',
   'src/third_party/libyuv':
     'https://chromium.googlesource.com/libyuv/libyuv.git@77f3acade492a41a11a07a55b58a6f8180b898eb',
   'src/third_party/lss': {
@@ -399,7 +399,7 @@ deps = {
       'packages': [
           {
               'package': 'chromium/third_party/r8',
-              'version': 'yEomA-IPmb_JtuiEvwgtxRHtSEaICkDY1sDko_rQGO0C',
+              'version': '3KCj5eRYCvGGYs5i90pRaeihkzsqgUGc4OkICT8AOlIC',
           },
       ],
       'condition': 'checkout_android',
@@ -410,7 +410,7 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@8c5814c8d24ad90987b4cbd3c69947fc2e461f0e',
+    'https://chromium.googlesource.com/chromium/src/tools@1d6709a5c244d3424745904ae9e265c961b35c77',
 
   'src/third_party/espresso': {
       'packages': [
@@ -449,7 +449,7 @@ deps = {
     'packages': [
       {
           'package': 'chromium/third_party/androidx',
-          'version': 'yhwW_7P0l18P6ykZSqwXqx6HFyhPIcUGNcebIIppU-IC',
+          'version': 'KJwYCitzLAFldyhTY6Df1G_-GUxytBP9TkoajTPq-lwC',
       },
     ],
     'condition': 'checkout_android and non_git_source',

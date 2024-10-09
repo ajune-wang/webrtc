@@ -16,6 +16,24 @@
       "message": "@pbommana@google.com asked me to LGTM, even though I don\u0027t believe I am an owner.",
       "revId": "fdf93b80324f30fb3c85a6115193a04cffcd450d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cdfddbb6_c8cde641",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2024-10-09T19:25:09Z",
+      "side": 1,
+      "message": "Sorry, @pbommana@google.com - no impact, as expected.",
+      "parentUuid": "ca6bf7bb_61b74df6",
+      "revId": "fdf93b80324f30fb3c85a6115193a04cffcd450d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

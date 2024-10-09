@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0de501fc_f72ee736",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6092
+      },
+      "writtenOn": "2024-10-09T18:52:41Z",
+      "side": 1,
+      "message": "LGTM from me - I\u0027m not a committer so I can\u0027t actually vote +1, sorry!",
+      "revId": "da82d3bab35f7c67eda9b7ce02e15369ad128bf9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

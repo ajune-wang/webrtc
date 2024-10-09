@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "96120ad4_f7253773",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8178
+      },
+      "writtenOn": "2024-10-09T13:01:30Z",
+      "side": 1,
+      "message": "The test will now be marked SKIPPED on a TCC authorization error (and on other permanent errors).",
+      "revId": "8312376b602d13e6ea0c91b989801425587d1677",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

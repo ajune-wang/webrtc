@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b74df325_443ef351",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-09T09:24:43Z",
+      "side": 1,
+      "message": "minor bypasser comments",
+      "revId": "4b1e0fc0ee3752e0b807653d8ba5ab02367beca5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0e291ed1_cb5a28c2",
@@ -14,6 +31,24 @@
       "writtenOn": "2024-10-09T08:56:43Z",
       "side": 1,
       "message": "I know there\u0027s a consistency argument to use int64 here since the other timestamps are int64_t, but I would prefer using Timestamp since ultimately everything should be updated to Timestamp.\n\nBut I\u0027ll leave this up to you",
+      "revId": "4b1e0fc0ee3752e0b807653d8ba5ab02367beca5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "95db51fc_fcef6a44",
+        "filename": "audio/channel_receive.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-09T09:24:43Z",
+      "side": 1,
+      "message": "I would slightly push towards Timestamp: http://bugs.webrtc.org/42223979\n\nas for consistency there is counter-argument in the style guide:\nhttps://google.github.io/styleguide/cppguide.html#Goals\n\n“Consistency should not generally be used as a justification to do things in an old style without considering the benefits of the new style, or the tendency of the codebase to converge on newer styles over time.”",
+      "parentUuid": "0e291ed1_cb5a28c2",
       "revId": "4b1e0fc0ee3752e0b807653d8ba5ab02367beca5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -49,6 +84,29 @@
       "side": 1,
       "message": "Ah nevermind you renamed this!",
       "parentUuid": "b79cd66d_e52cadd0",
+      "revId": "4b1e0fc0ee3752e0b807653d8ba5ab02367beca5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f960cce5_3c2fac69",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_interface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-09T09:24:43Z",
+      "side": 1,
+      "message": "can you please prefer most recent recommended form of TODO\nhttps://webrtc.googlesource.com/src/+/refs/heads/main/g3doc/style-guide.md#comments\n\ne.g.,\n```suggestion\n    // TODO: bugs.webrtc.org/370535296: Remove the ntp arrival timestamp when\n    // linked issue is fixed.\n```",
+      "range": {
+        "startLine": 152,
+        "startChar": 0,
+        "endLine": 153,
+        "endChar": 33
+      },
       "revId": "4b1e0fc0ee3752e0b807653d8ba5ab02367beca5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

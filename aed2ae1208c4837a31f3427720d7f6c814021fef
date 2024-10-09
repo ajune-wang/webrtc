@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "21f00665_3b5028fb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6092
+      },
+      "writtenOn": "2024-10-09T21:28:41Z",
+      "side": 1,
+      "message": "LGTM",
+      "revId": "aed2ae1208c4837a31f3427720d7f6c814021fef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c4bdba42_327002a9",
+        "filename": "modules/desktop_capture/mac/screen_capturer_sck.mm",
+        "patchSetId": 4
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 6092
+      },
+      "writtenOn": "2024-10-09T21:28:41Z",
+      "side": 1,
+      "message": "Would it make sense to do this before running the `callback_` methods? It\u0027s better to return immediately after running arbitrary callbacks, because the callback might do unexpected things such as, calling other methods on `this` or deleting `this`.",
+      "revId": "aed2ae1208c4837a31f3427720d7f6c814021fef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

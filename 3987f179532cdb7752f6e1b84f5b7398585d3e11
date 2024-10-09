@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d08d31a6_e99977d5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6092
+      },
+      "writtenOn": "2024-10-09T21:35:48Z",
+      "side": 1,
+      "message": "LGTM - I have no objections, as long as any per-frame logging is done at VERBOSE level or higher 😊",
+      "revId": "3987f179532cdb7752f6e1b84f5b7398585d3e11",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

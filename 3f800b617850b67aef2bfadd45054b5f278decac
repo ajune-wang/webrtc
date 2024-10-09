@@ -16,6 +16,23 @@
       "message": "Concentrating the difficulties in one place?",
       "revId": "3f800b617850b67aef2bfadd45054b5f278decac",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0b7afc88_545a7003",
+        "filename": "media/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 359,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2024-10-09T11:34:19Z",
+      "side": 1,
+      "message": "nit: I don\u0027t think it\u0027s necessary to add a comment on why those files are in the same target as they seem to be naturally entangled. It\u0027d be different if it had been a very different file name maybe.\nWe don\u0027t do that for other targets, so feel free to remove it if you want.",
+      "revId": "3f800b617850b67aef2bfadd45054b5f278decac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

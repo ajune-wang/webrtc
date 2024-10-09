@@ -53,6 +53,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fa9cf66e_e6e626eb",
+        "filename": "audio/channel_receive.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 7255
+      },
+      "writtenOn": "2024-10-09T09:52:58Z",
+      "side": 1,
+      "message": "I added a todo for this. This is a part of a chain of changes I\u0027ve build and tested on Chromium. I\u0027ll get back to this when the chromium change have landed.",
+      "parentUuid": "95db51fc_fcef6a44",
+      "revId": "4b1e0fc0ee3752e0b807653d8ba5ab02367beca5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b79cd66d_e52cadd0",
@@ -101,6 +119,30 @@
       "writtenOn": "2024-10-09T09:24:43Z",
       "side": 1,
       "message": "can you please prefer most recent recommended form of TODO\nhttps://webrtc.googlesource.com/src/+/refs/heads/main/g3doc/style-guide.md#comments\n\ne.g.,\n```suggestion\n    // TODO: bugs.webrtc.org/370535296: Remove the ntp arrival timestamp when\n    // linked issue is fixed.\n```",
+      "range": {
+        "startLine": 152,
+        "startChar": 0,
+        "endLine": 153,
+        "endChar": 33
+      },
+      "revId": "4b1e0fc0ee3752e0b807653d8ba5ab02367beca5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bcf0e79c_f90f2362",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_interface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 7255
+      },
+      "writtenOn": "2024-10-09T09:52:58Z",
+      "side": 1,
+      "message": "Fixed here, and all other added todos in this CL. I added todos with the old style in https://webrtc-review.googlesource.com/c/src/+/363946, so I\u0027ll make a new CL to correct that.",
+      "parentUuid": "f960cce5_3c2fac69",
       "range": {
         "startLine": 152,
         "startChar": 0,

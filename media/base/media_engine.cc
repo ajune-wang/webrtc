@@ -23,6 +23,21 @@
 #include "rtc_base/string_encode.h"
 
 namespace cricket {
+namespace {
+bool IncludesMode(const cricket::Codec& codec,
+                  std::optional<std::string> scalability_mode) {
+  if (!scalability_mode.has_value()) {
+    return true;
+  }
+  for (const webrtc::ScalabilityMode& mode : codec.scalability_modes) {
+    if (ScalabilityModeToString(mode) == *scalability_mode) {
+      return true;
+    }
+  }
+  return false;
+}
+
+}  // namespace
 
 RtpCapabilities::RtpCapabilities() = default;
 RtpCapabilities::~RtpCapabilities() = default;
@@ -82,7 +97,8 @@ webrtc::RTCError CheckScalabilityModeValues(
     if (rtp_parameters.encodings[i].codec) {
       bool codecFound = false;
       for (const cricket::Codec& codec : send_codecs) {
-        if (codec.MatchesRtpCodec(*rtp_parameters.encodings[i].codec)) {
+        if (codec.IsSameRtpCodec(*rtp_parameters.encodings[i].codec) &&
+            IncludesMode(codec, rtp_parameters.encodings[i].scalability_mode)) {
           codecFound = true;
           send_codec = codec;
           break;

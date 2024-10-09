@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ca6bf7bb_61b74df6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2024-10-09T19:24:48Z",
+      "side": 1,
+      "message": "@pbommana@google.com asked me to LGTM, even though I don\u0027t believe I am an owner.",
+      "revId": "fdf93b80324f30fb3c85a6115193a04cffcd450d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

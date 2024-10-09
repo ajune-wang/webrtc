@@ -33,6 +33,24 @@
       "message": "Has to wait for downstream to adapt (3 places do set SSL_MODE_TLS; what\u0027s their migration strategy? The 2 that set SSL_MODE_DTLS can just be deleted, I suppose)",
       "revId": "cfb55c426aa640558b0419a433c248a363856189",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4a00350b_b0e12a9b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-10-09T18:02:56Z",
+      "side": 1,
+      "message": "That depends what those downstream places do.\nWhat the test in https://webrtc-review.googlesource.com/c/src/+/354940 was doing was to switch this adapter to TLS to test the TLS adapter. Which makes no sense since these stacks differ in how they configure DTLS but was ok for the scenario under test.\n\nIf those places need TLS instead of DTLS they should switch to SSLAdapter.",
+      "parentUuid": "d0d7c976_fbf6619a",
+      "revId": "cfb55c426aa640558b0419a433c248a363856189",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

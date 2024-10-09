@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c6945c3d_1d918aa6",
+        "filename": "media/base/media_config.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 7255
+      },
+      "writtenOn": "2024-10-09T13:50:57Z",
+      "side": 1,
+      "message": "Fix applied.",
+      "parentUuid": "9eefcfce_f59bea54",
+      "range": {
+        "startLine": 32,
+        "startChar": 5,
+        "endLine": 32,
+        "endChar": 9
+      },
+      "revId": "25c3e902ea939af0a071401eec2daea8c7877fce",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f55b66e7_81fd1925",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-10-09T13:24:02Z",
       "side": 1,
       "message": "```suggestion\n// TODO: bugs.webrtc.org/370535296 - Remove the utc timestamp when linked\n```",
+      "range": {
+        "startLine": 24,
+        "startChar": 34,
+        "endLine": 24,
+        "endChar": 35
+      },
+      "revId": "25c3e902ea939af0a071401eec2daea8c7877fce",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1af23409_c05cb70c",
+        "filename": "modules/rtp_rtcp/include/report_block_data.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 7255
+      },
+      "writtenOn": "2024-10-09T13:50:57Z",
+      "side": 1,
+      "message": "Fix applied.",
+      "parentUuid": "f55b66e7_81fd1925",
       "range": {
         "startLine": 24,
         "startChar": 34,
@@ -70,6 +118,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9e40083d_50a63afe",
+        "filename": "modules/rtp_rtcp/include/report_block_data.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 7255
+      },
+      "writtenOn": "2024-10-09T13:50:57Z",
+      "side": 1,
+      "message": "Fix applied.",
+      "parentUuid": "f2dcec78_b59abe91",
+      "range": {
+        "startLine": 75,
+        "startChar": 36,
+        "endLine": 75,
+        "endChar": 38
+      },
+      "revId": "25c3e902ea939af0a071401eec2daea8c7877fce",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6e08eefd_8a493636",
@@ -93,6 +165,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6045aa6a_309a9cc2",
+        "filename": "modules/rtp_rtcp/include/report_block_data.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 7255
+      },
+      "writtenOn": "2024-10-09T13:50:57Z",
+      "side": 1,
+      "message": "Fix applied.",
+      "parentUuid": "6e08eefd_8a493636",
+      "range": {
+        "startLine": 99,
+        "startChar": 36,
+        "endLine": 99,
+        "endChar": 37
+      },
+      "revId": "25c3e902ea939af0a071401eec2daea8c7877fce",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4bf58fed_d8cc5c2e",
@@ -106,6 +202,30 @@
       "writtenOn": "2024-10-09T13:24:02Z",
       "side": 1,
       "message": "```suggestion\n  // TODO: bugs.webrtc.org/370535296 - Remove the utc timestamp when linked\n```",
+      "range": {
+        "startLine": 121,
+        "startChar": 36,
+        "endLine": 121,
+        "endChar": 37
+      },
+      "revId": "25c3e902ea939af0a071401eec2daea8c7877fce",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5c888556_06d3eae3",
+        "filename": "modules/rtp_rtcp/include/report_block_data.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 7255
+      },
+      "writtenOn": "2024-10-09T13:50:57Z",
+      "side": 1,
+      "message": "Fix applied.",
+      "parentUuid": "4bf58fed_d8cc5c2e",
       "range": {
         "startLine": 121,
         "startChar": 36,

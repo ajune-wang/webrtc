@@ -16,6 +16,23 @@
       "message": "requires downstream update, let me know when I can \"delete delete\"",
       "revId": "c0d60748644699c2f1e68e5fac7e1dfd9862aef9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9b79ca76_89176aaf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-10-09T07:11:01Z",
+      "side": 1,
+      "message": "Has to wait a byte until the new API has rolled into \"downstream\" - the importer is broken on an unrelated issue.",
+      "revId": "c0d60748644699c2f1e68e5fac7e1dfd9862aef9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

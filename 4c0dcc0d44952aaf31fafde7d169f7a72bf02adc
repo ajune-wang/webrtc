@@ -50,6 +50,24 @@
       "message": "+1 but why did we go from orderer to unordererd expectations? Does the order not matter?",
       "revId": "4c0dcc0d44952aaf31fafde7d169f7a72bf02adc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "adba35e2_cd56da0c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3485001
+      },
+      "writtenOn": "2024-10-09T09:37:09Z",
+      "side": 1,
+      "message": "I have often seen scenarios such as:\n```\na\u003dextmap:13 urn:3gpp:video-orientation\na\u003dextmap:3 http://www.ietf.org/id/draft-holmer-rmcat-transport-wide-cc-extensions-01\na\u003dextmap:5 http://www.webrtc.org/experiments/rtp-hdrext/playout-delay\n```\nin practice. Actually, I got this rn from SDP munge. And digging deeper there is no rule that force these to be in order (at least what I could find)",
+      "parentUuid": "8a6f713a_a9f581b9",
+      "revId": "4c0dcc0d44952aaf31fafde7d169f7a72bf02adc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

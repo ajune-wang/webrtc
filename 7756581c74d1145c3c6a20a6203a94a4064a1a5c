@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e3fc91f9_ce7c53bb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-09T13:55:00Z",
+      "side": 1,
+      "message": "add `Bug: None`\n(or link to some issue)",
+      "revId": "7756581c74d1145c3c6a20a6203a94a4064a1a5c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

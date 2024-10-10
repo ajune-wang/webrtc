@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "29ad9e06_351d2873",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2024-10-10T08:20:31Z",
+      "side": 1,
+      "message": "Please, note that this CL caused SRTP encryption problems in WebRTC products.",
+      "revId": "65ae3245f9380e46b1d755f3f452ba63ab6cdf8d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

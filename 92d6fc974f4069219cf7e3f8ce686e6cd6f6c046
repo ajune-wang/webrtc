@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a333753e_5a081e74",
+        "filename": "webrtc.gni",
+        "patchSetId": 2
+      },
+      "lineNbr": 964,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2024-10-10T08:40:03Z",
+      "side": 1,
+      "message": "Nit: `the //third_party/abseil-cpp:absl doesn\u0027t`.",
+      "range": {
+        "startLine": 964,
+        "startChar": 58,
+        "endLine": 964,
+        "endChar": 79
+      },
+      "revId": "92d6fc974f4069219cf7e3f8ce686e6cd6f6c046",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

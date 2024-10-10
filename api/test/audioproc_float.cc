@@ -14,6 +14,7 @@
 #include <utility>
 
 #include "api/audio/audio_processing.h"
+#include "api/audio/builtin_audio_processing_factory.h"
 #include "api/scoped_refptr.h"
 #include "modules/audio_processing/test/audioproc_float_impl.h"
 
@@ -26,7 +27,7 @@ int AudioprocFloat(rtc::scoped_refptr<AudioProcessing> audio_processing,
   return AudioprocFloatImpl(std::move(audio_processing), argc, argv);
 }
 
-int AudioprocFloat(std::unique_ptr<AudioProcessingBuilder> ap_builder,
+int AudioprocFloat(std::unique_ptr<BuiltinAudioProcessingFactory> ap_builder,
                    int argc,
                    char* argv[]) {
   return AudioprocFloatImpl(std::move(ap_builder), argc, argv,

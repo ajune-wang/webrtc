@@ -19,6 +19,7 @@
 #include <string>
 
 #include "api/audio/audio_processing.h"
+#include "api/audio/builtin_audio_processing_factory.h"
 #include "common_audio/channel_buffer.h"
 #include "common_audio/include/audio_util.h"
 #include "modules/audio_processing/test/api_call_statistics.h"
@@ -158,9 +159,9 @@ struct SimulationSettings {
 // Provides common functionality for performing audioprocessing simulations.
 class AudioProcessingSimulator {
  public:
-  AudioProcessingSimulator(const SimulationSettings& settings,
-                           rtc::scoped_refptr<AudioProcessing> audio_processing,
-                           std::unique_ptr<AudioProcessingBuilder> ap_builder);
+  AudioProcessingSimulator(
+      const SimulationSettings& settings,
+      absl::Nonnull<scoped_refptr<AudioProcessing>> audio_processing);
 
   AudioProcessingSimulator() = delete;
   AudioProcessingSimulator(const AudioProcessingSimulator&) = delete;
@@ -204,7 +205,7 @@ class AudioProcessingSimulator {
                                     int capture_frames_since_init) const;
 
   const SimulationSettings settings_;
-  rtc::scoped_refptr<AudioProcessing> ap_;
+  scoped_refptr<AudioProcessing> ap_;
 
   std::unique_ptr<ChannelBuffer<float>> in_buf_;
   std::unique_ptr<ChannelBuffer<float>> out_buf_;

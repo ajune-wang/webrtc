@@ -13,6 +13,9 @@
 #include <memory>
 #include <utility>
 
+#include "absl/base/nullability.h"
+#include "api/audio/audio_processing.h"
+#include "api/environment/environment.h"
 #include "api/media_types.h"
 #include "api/rtc_error.h"
 #include "api/rtp_parameters.h"
@@ -117,6 +120,25 @@ RtpCapabilities PeerConnectionFactoryInterface::GetRtpSenderCapabilities(
 RtpCapabilities PeerConnectionFactoryInterface::GetRtpReceiverCapabilities(
     cricket::MediaType kind) const {
   return {};
+}
+
+absl::Nonnull<std::unique_ptr<AudioProcessingFactory>> PrebuiltAudioProcessing(
+    absl::Nullable<scoped_refptr<AudioProcessing>> audio_processing) {
+  class PrebuiltAudioProcessingFactory : public AudioProcessingFactory {
+   public:
+    explicit PrebuiltAudioProcessingFactory(scoped_refptr<AudioProcessing> ap)
+        : ap_(std::move(ap)) {}
+    ~PrebuiltAudioProcessingFactory() = default;
+
+    scoped_refptr<AudioProcessing> Create(const Environment& /*env*/) {
+      return ap_;
+    }
+
+   private:
+    scoped_refptr<AudioProcessing> ap_;
+  };
+  return std::make_unique<PrebuiltAudioProcessingFactory>(
+      std::move(audio_processing));
 }
 
 }  // namespace webrtc

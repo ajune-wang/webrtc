@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d15c8fdd_95d6844c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-10-10T21:25:12Z",
+      "side": 1,
+      "message": "Please consider moving the comparator as a free function to media/base/codec_comparators.cc - I\u0027m trying to collect all the codec comparison functions into one file for easier isolated testing and integration (and hopefully eventually better consistency). Those rules are VERY complex to follow just now.",
+      "revId": "3a320c58dd8cffb7255cacb398954a3eac28284f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

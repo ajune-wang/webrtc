@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "911846c4_be1ee698",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 12299
+      },
+      "writtenOn": "2024-10-10T07:47:59Z",
+      "side": 1,
+      "message": "FYI commit still breaks downstream projects.\nI have hard time understanding the problem, copied the commit in https://webrtc-review.googlesource.com/c/src/+/365280 to investigate further.",
+      "revId": "1a9b08ea5d0f15989124503c47ee2ca40dc52e60",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

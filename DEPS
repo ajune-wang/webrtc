@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': '1f8c3616d878a69cb1fb64f522f5c110895b51e0',
+  'chromium_revision': 'f2a821bd9e7d1501864a7420dd9d2f8cba64a3a0',
 
   # Fetch the prebuilt binaries for llvm-cov and llvm-profdata. Needed to
   # process the raw profiles produced by instrumented targets (built with
@@ -72,13 +72,13 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': 'https://chromium.googlesource.com/chromium/src/ios@d6d7a0ce3d79000551e5426fdd7b46053c86bf5a',
+    'url': 'https://chromium.googlesource.com/chromium/src/ios@e9416d1ac535883af883213c492c2ff963f58982',
     'condition': 'checkout_ios',
   },
   'src/testing':
-    'https://chromium.googlesource.com/chromium/src/testing@3ea4a098a7644171e4327d3873e524da05373ea1',
+    'https://chromium.googlesource.com/chromium/src/testing@0509646d8d66ac15291bd82eeffd6d708fdd2d50',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@c13162c576dbefd5ebbd1f229f6f039ca0306c3d',
+    'https://chromium.googlesource.com/chromium/src/third_party@bbf68661b2128ebc9fb28d1f987eeebb76df2989',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -234,7 +234,7 @@ deps = {
   },
 
   'src/third_party/boringssl/src':
-    'https://boringssl.googlesource.com/boringssl.git@905c3903fd4291a22328346861ddf15599a7c33b',
+    'https://boringssl.googlesource.com/boringssl.git@0f55aa8416787562e57bc962b9c4aeb70261cb7c',
   'src/third_party/breakpad/breakpad':
     'https://chromium.googlesource.com/breakpad/breakpad.git@6b0c5b7ee1988a14a4af94564e8ae8bba8a94374',
   'src/third_party/catapult':
@@ -410,7 +410,7 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@76d842ff5c49dea6f905f674c620c05181bc50bf',
+    'https://chromium.googlesource.com/chromium/src/tools@c4d5a06c52a3bf66ec811d36b39304b44356a73d',
 
   'src/third_party/espresso': {
       'packages': [

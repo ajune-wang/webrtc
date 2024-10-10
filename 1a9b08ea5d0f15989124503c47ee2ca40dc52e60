@@ -36,6 +36,29 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7d4e13f0_d13ecf0b",
+        "filename": "rtc_base/openssl_stream_adapter.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 12299
+      },
+      "writtenOn": "2024-10-10T08:33:20Z",
+      "side": 1,
+      "message": "Maybe use `static constexpr absl::string_view` instead.",
+      "range": {
+        "startLine": 68,
+        "startChar": 0,
+        "endLine": 68,
+        "endChar": 42
+      },
+      "revId": "1a9b08ea5d0f15989124503c47ee2ca40dc52e60",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "60587c23_8b16987e",

@@ -80,6 +80,11 @@ struct RTC_EXPORT SdpVideoFormat {
   static const SdpVideoFormat VP9Profile3();
   static const SdpVideoFormat AV1Profile0();
   static const SdpVideoFormat AV1Profile1();
+
+  // Returns true if the format specific parameters are the same.
+  // Unspecified parameters are treated as default.
+  bool IsSameVP9Profile(const CodecParameterMap& other_parameters) const;
+  bool IsSameAV1Profile(const CodecParameterMap& other_parameters) const;
 };
 
 // For not so good reasons sometimes additional parameters are added to an

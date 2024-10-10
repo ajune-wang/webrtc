@@ -24,6 +24,7 @@
 #include "modules/rtp_rtcp/source/byte_io.h"
 #include "modules/rtp_rtcp/source/rtp_format_h264.h"
 #include "modules/rtp_rtcp/source/video_rtp_depacketizer.h"
+#include "rtc_base/buffer.h"
 #include "rtc_base/byte_buffer.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/copy_on_write_buffer.h"
@@ -32,9 +33,33 @@
 namespace webrtc {
 namespace {
 
+constexpr uint8_t start_code_h264[] = {0, 0, 0, 1};
+
 constexpr size_t kNalHeaderSize = 1;
 constexpr size_t kFuAHeaderSize = 2;
-constexpr size_t kLengthFieldSize = 2;
+
+// The maximum expected growth from adding a VUI to the SPS. It's actually
+// closer to 24 or so, but better safe than sorry.
+constexpr size_t kMaxVuiSpsIncrease = 64;
+
+struct FUAHeader {
+  uint8_t fnri;
+  uint8_t type;
+  uint8_t original_nal_type;
+  bool first_fragment;
+};
+
+std::optional<FUAHeader> ParseFUAHeader(rtc::ArrayView<const uint8_t> data) {
+  if (data.size() < kFuAHeaderSize) {
+    return std::nullopt;
+  }
+  FUAHeader header;
+  header.fnri = data[0] & (kH264FBit | kH264NriMask);
+  header.type = data[1] & kH264TypeMask;
+  header.original_nal_type = data[1] & kH264TypeMask;
+  header.first_fragment = (data[1] & kH264SBit) > 0;
+  return header;
+}
 
 std::vector<rtc::ArrayView<const uint8_t>> ParseStapA(
     rtc::ArrayView<const uint8_t> data) {
@@ -63,8 +88,6 @@ std::optional<VideoRtpDepacketizer::ParsedRtpPayload> ProcessStapAOrSingleNalu(
   rtc::ArrayView<const uint8_t> payload_data(rtp_payload);
   std::optional<VideoRtpDepacketizer::ParsedRtpPayload> parsed_payload(
       std::in_place);
-  bool modified_buffer = false;
-  rtc::Buffer output_buffer;
   parsed_payload->video_payload = rtp_payload;
   parsed_payload->video_header.width = 0;
   parsed_payload->video_header.height = 0;
@@ -107,60 +130,18 @@ std::optional<VideoRtpDepacketizer::ParsedRtpPayload> ProcessStapAOrSingleNalu(
 
     switch (nalu.type) {
       case H264::NaluType::kSps: {
-        // Check if VUI is present in SPS and if it needs to be modified to
-        // avoid excessive decoder latency.
-
-        // Copy any previous data first (likely just the first header).
-        output_buffer.Clear();
-        size_t start_offset = nalu_data.data() - payload_data.data();
-        size_t end_offset = start_offset + nalu_data.size();
-        if (start_offset) {
-          output_buffer.AppendData(payload_data.data(), start_offset);
+        std::optional<SpsParser::SpsState> sps = SpsParser::ParseSps(nalu_data);
+        if (sps) {
+          nalu.sps_id = sps->id;
+          parsed_payload->video_header.width = sps->width;
+          parsed_payload->video_header.height = sps->height;
+          parsed_payload->video_header.frame_type =
+              VideoFrameType::kVideoFrameKey;
+          parsed_payload->video_header.is_first_packet_in_frame = true;
+        } else {
+          RTC_LOG(LS_WARNING) << "Failed to parse SPS NAL unit.";
+          return std::nullopt;
         }
-
-        std::optional<SpsParser::SpsState> sps;
-
-        SpsVuiRewriter::ParseResult result = SpsVuiRewriter::ParseAndRewriteSps(
-            nalu_data, &sps, nullptr, &output_buffer,
-            SpsVuiRewriter::Direction::kIncoming);
-        switch (result) {
-          case SpsVuiRewriter::ParseResult::kFailure:
-            RTC_LOG(LS_WARNING) << "Failed to parse SPS NAL unit.";
-            return std::nullopt;
-          case SpsVuiRewriter::ParseResult::kVuiRewritten:
-            if (modified_buffer) {
-              RTC_LOG(LS_WARNING)
-                  << "More than one H264 SPS NAL units needing "
-                     "rewriting found within a single STAP-A packet. "
-                     "Keeping the first and rewriting the last.";
-            }
-
-            // Rewrite length field to new SPS size.
-            if (h264_header.packetization_type == kH264StapA) {
-              size_t length_field_offset =
-                  start_offset - (H264::kNaluTypeSize + kLengthFieldSize);
-              // Stap-A Length includes payload data and type header.
-              size_t rewritten_size =
-                  output_buffer.size() - start_offset + H264::kNaluTypeSize;
-              ByteWriter<uint16_t>::WriteBigEndian(
-                  &output_buffer[length_field_offset], rewritten_size);
-            }
-
-            // Append rest of packet.
-            output_buffer.AppendData(payload_data.subview(end_offset));
-
-            modified_buffer = true;
-            [[fallthrough]];
-          case SpsVuiRewriter::ParseResult::kVuiOk:
-            RTC_DCHECK(sps);
-            nalu.sps_id = sps->id;
-            parsed_payload->video_header.width = sps->width;
-            parsed_payload->video_header.height = sps->height;
-            parsed_payload->video_header.frame_type =
-                VideoFrameType::kVideoFrameKey;
-            break;
-        }
-        parsed_payload->video_header.is_first_packet_in_frame = true;
         break;
       }
       case H264::NaluType::kPps: {
@@ -190,7 +171,7 @@ std::optional<VideoRtpDepacketizer::ParsedRtpPayload> ProcessStapAOrSingleNalu(
             parsed_payload->video_header.is_first_packet_in_frame = true;
           }
         } else {
-          RTC_LOG(LS_WARNING) << "Failed to parse PPS id from slice of type: "
+          RTC_LOG(LS_WARNING) << "Failed to parse header from slice of type: "
                               << static_cast<int>(nalu.type);
           return std::nullopt;
         }
@@ -215,35 +196,29 @@ std::optional<VideoRtpDepacketizer::ParsedRtpPayload> ProcessStapAOrSingleNalu(
     h264_header.nalus.push_back(nalu);
   }
 
-  if (modified_buffer) {
-    parsed_payload->video_payload.SetData(output_buffer.data(),
-                                          output_buffer.size());
-  }
   return parsed_payload;
 }
 
 std::optional<VideoRtpDepacketizer::ParsedRtpPayload> ParseFuaNalu(
     rtc::CopyOnWriteBuffer rtp_payload) {
-  if (rtp_payload.size() < kFuAHeaderSize) {
+  std::optional<FUAHeader> fua_header = ParseFUAHeader(rtp_payload);
+  if (!fua_header) {
     RTC_LOG(LS_ERROR) << "FU-A NAL units truncated.";
     return std::nullopt;
   }
   std::optional<VideoRtpDepacketizer::ParsedRtpPayload> parsed_payload(
       std::in_place);
-  uint8_t fnri = rtp_payload.cdata()[0] & (kH264FBit | kH264NriMask);
-  uint8_t original_nal_type = rtp_payload.cdata()[1] & kH264TypeMask;
-  bool first_fragment = (rtp_payload.cdata()[1] & kH264SBit) > 0;
   bool is_first_packet_in_frame = false;
   NaluInfo nalu;
-  nalu.type = original_nal_type;
+  nalu.type = fua_header->original_nal_type;
   nalu.sps_id = -1;
   nalu.pps_id = -1;
-  if (first_fragment) {
-    if (original_nal_type == H264::NaluType::kIdr ||
-        original_nal_type == H264::NaluType::kSlice) {
+  if (fua_header->first_fragment) {
+    if (fua_header->original_nal_type == H264::NaluType::kIdr ||
+        fua_header->original_nal_type == H264::NaluType::kSlice) {
       std::optional<PpsParser::SliceHeader> slice_header =
           PpsParser::ParseSliceHeader(rtc::ArrayView<const uint8_t>(rtp_payload)
-                                          .subview(2 * kNalHeaderSize));
+                                          .subview(kFuAHeaderSize));
       if (slice_header) {
         nalu.pps_id = slice_header->pic_parameter_set_id;
         is_first_packet_in_frame = slice_header->first_mb_in_slice == 0;
@@ -252,23 +227,12 @@ std::optional<VideoRtpDepacketizer::ParsedRtpPayload> ParseFuaNalu(
             << "Failed to parse PPS from first fragment of FU-A NAL "
                "unit with original type: "
             << static_cast<int>(nalu.type);
+        return std::nullopt;
       }
     }
-    uint8_t original_nal_header = fnri | original_nal_type;
-    rtp_payload =
-        rtp_payload.Slice(kNalHeaderSize, rtp_payload.size() - kNalHeaderSize);
-    rtp_payload.MutableData()[0] = original_nal_header;
-    parsed_payload->video_payload = std::move(rtp_payload);
-  } else {
-    parsed_payload->video_payload =
-        rtp_payload.Slice(kFuAHeaderSize, rtp_payload.size() - kFuAHeaderSize);
   }
 
-  if (original_nal_type == H264::NaluType::kIdr) {
-    parsed_payload->video_header.frame_type = VideoFrameType::kVideoFrameKey;
-  } else {
-    parsed_payload->video_header.frame_type = VideoFrameType::kVideoFrameDelta;
-  }
+  parsed_payload->video_payload = rtp_payload;
   parsed_payload->video_header.width = 0;
   parsed_payload->video_header.height = 0;
   parsed_payload->video_header.codec = kVideoCodecH264;
@@ -278,8 +242,8 @@ std::optional<VideoRtpDepacketizer::ParsedRtpPayload> ParseFuaNalu(
   auto& h264_header = parsed_payload->video_header.video_type_header
                           .emplace<RTPVideoHeaderH264>();
   h264_header.packetization_type = kH264FuA;
-  h264_header.nalu_type = original_nal_type;
-  if (first_fragment) {
+  h264_header.nalu_type = fua_header->original_nal_type;
+  if (fua_header->first_fragment) {
     h264_header.nalus = {nalu};
   }
   return parsed_payload;
@@ -304,6 +268,293 @@ VideoRtpDepacketizerH264::Parse(rtc::CopyOnWriteBuffer rtp_payload) {
     // will depacketize the STAP-A into NAL units later.
     return ProcessStapAOrSingleNalu(std::move(rtp_payload));
   }
+}
+
+rtc::scoped_refptr<EncodedImageBuffer> VideoRtpDepacketizerH264::AssembleFrame(
+    rtc::ArrayView<const rtc::ArrayView<const uint8_t>> rtp_payloads) {
+  size_t frame_size = 0;
+
+  std::vector<rtc::ArrayView<const uint8_t>> nalus;
+  // Calculate approx frame size to avoid doing extra reallocs, check SPS PPS
+  // presence and collect NAL units excluding STAP-As
+  for (rtc::ArrayView<const uint8_t> rtp_payload : rtp_payloads) {
+    uint8_t nal_type = rtp_payload[0] & kH264TypeMask;
+
+    switch (nal_type) {
+      case H264::NaluType::kFuA: {
+        std::optional<FUAHeader> fua_header = ParseFUAHeader(rtp_payload);
+        if (!fua_header) {
+          RTC_LOG(LS_ERROR) << "FU-A NAL units truncated.";
+          return nullptr;
+        }
+        if (fua_header->first_fragment) {
+          frame_size += sizeof(start_code_h264) + 1;
+        }
+        frame_size += rtp_payload.size() - kFuAHeaderSize;
+        nalus.push_back(rtp_payload);
+        break;
+      }
+      case H264::NaluType::kStapA: {
+        std::vector<rtc::ArrayView<const uint8_t>> stapa_nals =
+            ParseStapA(rtp_payload);
+        if (stapa_nals.empty()) {
+          RTC_LOG(LS_ERROR)
+              << "StapA packet with incorrect NALU packet lengths.";
+          return nullptr;
+        }
+
+        for (rtc::ArrayView<const uint8_t> stapa_nal : stapa_nals) {
+          uint8_t stapa_nal_type = stapa_nal[0] & kH264TypeMask;
+          switch (stapa_nal_type) {
+            case H264::NaluType::kSps: {
+              std::optional<SpsParser::SpsState> sps =
+                  SpsParser::ParseSps(stapa_nal.subview(kNalHeaderSize));
+              if (sps) {
+                sps_data_.try_emplace(sps->id);
+              } else {
+                RTC_LOG(LS_ERROR) << "Failed to parse SPS from STAP-A.";
+                return nullptr;
+              }
+            } break;
+            case H264::NaluType::kPps: {
+              uint32_t pps_id;
+              uint32_t sps_id;
+              if (PpsParser::ParsePpsIds(stapa_nal.subview(kNalHeaderSize),
+                                         &pps_id, &sps_id)) {
+                pps_data_[pps_id].sps_id = sps_id;
+              } else {
+                RTC_LOG(LS_ERROR) << "Failed to parse SPS from STAP-A.";
+                return nullptr;
+              }
+              break;
+            }
+            default:
+              break;
+          }
+
+          frame_size += sizeof(start_code_h264) + rtp_payload.size();
+          nalus.push_back(rtp_payload);
+        }
+        break;
+      }
+      case H264::NaluType::kSps: {
+        std::optional<SpsParser::SpsState> sps =
+            SpsParser::ParseSps(rtp_payload.subview(kNalHeaderSize));
+        if (sps) {
+          sps_data_.try_emplace(sps->id);
+        } else {
+          RTC_LOG(LS_ERROR) << "Failed to parse SPS.";
+          return nullptr;
+        }
+        // Allocate enought size for SPS rewritting.
+        frame_size +=
+            sizeof(start_code_h264) + rtp_payload.size() + kMaxVuiSpsIncrease;
+        nalus.push_back(rtp_payload);
+        break;
+      }
+      case H264::NaluType::kPps: {
+        uint32_t pps_id;
+        uint32_t sps_id;
+        if (PpsParser::ParsePpsIds(rtp_payload.subview(kNalHeaderSize), &pps_id,
+                                   &sps_id)) {
+          pps_data_[pps_id].sps_id = sps_id;
+        } else {
+          RTC_LOG(LS_ERROR) << "Failed to parse PPS from STAP-A.";
+          return nullptr;
+        }
+        frame_size += sizeof(start_code_h264) + rtp_payload.size();
+        nalus.push_back(rtp_payload);
+        break;
+      }
+      default:
+        frame_size += sizeof(start_code_h264) + rtp_payload.size();
+        nalus.push_back(rtp_payload);
+    }
+  }
+
+  for (auto& [sps_id, sps] : sps_data_) {
+    if (!sps.data.empty()) {
+      frame_size += sizeof(start_code_h264) + sps.data.size();
+    }
+  }
+  for (auto& [sps_id, pps] : pps_data_) {
+    if (!pps.data.empty()) {
+      frame_size += sizeof(start_code_h264) + pps.data.size();
+    }
+  }
+
+  // Reserve enought size for full packetized frame.
+  rtc::ByteBufferWriter writer(nullptr, frame_size);
+
+  for (rtc::ArrayView<const uint8_t> nal : nalus) {
+    uint8_t nal_type = nal[0] & kH264TypeMask;
+    switch (nal_type) {
+      case H264::NaluType::kFuA: {
+        std::optional<FUAHeader> fua_header = ParseFUAHeader(nal);
+        if (!fua_header) {
+          RTC_LOG(LS_ERROR) << "FU-A NAL units truncated.";
+          return nullptr;
+        }
+
+        rtc::ArrayView<const uint8_t> nal_data = nal.subview(kFuAHeaderSize);
+
+        if (fua_header->first_fragment) {
+          if (fua_header->original_nal_type == H264::NaluType::kIdr) {
+            // Check if we need to insert out of band data.
+            std::optional<PpsParser::SliceHeader> slice_header =
+                PpsParser::ParseSliceHeader(nal_data);
+            if (slice_header && slice_header->first_mb_in_slice == 0) {
+              auto pps = pps_data_.find(slice_header->pic_parameter_set_id);
+              if (pps == pps_data_.end()) {
+                RTC_LOG(LS_WARNING)
+                    << "No PPS with id << "
+                    << slice_header->pic_parameter_set_id << " received";
+                return nullptr;
+              }
+              auto sps = sps_data_.find(pps->second.sps_id);
+              if (sps == sps_data_.end()) {
+                RTC_LOG(LS_WARNING) << "No SPS with id << "
+                                    << pps->second.sps_id << " received";
+                return nullptr;
+              }
+              if (!sps->second.data.empty()) {
+                writer.Write(start_code_h264);
+                writer.Write(sps->second.data);
+              }
+              if (!pps->second.data.empty()) {
+                writer.Write(start_code_h264);
+                writer.Write(pps->second.data);
+              }
+            }
+
+            // Reconstruct NAL header.
+            uint8_t original_nal_header =
+                fua_header->fnri | fua_header->original_nal_type;
+            writer.Write(start_code_h264);
+            writer.WriteUInt8(original_nal_header);
+          }
+        }
+        writer.Write(nal_data);
+        break;
+      }
+      case H264::NaluType::kSps: {
+        // Check if VUI is present in SPS and if it needs to be modified to
+        // avoid excessive decoder latency.
+        rtc::Buffer output_buffer;
+
+        std::optional<SpsParser::SpsState> sps;
+
+        SpsVuiRewriter::ParseResult result = SpsVuiRewriter::ParseAndRewriteSps(
+            nal.subview(kNalHeaderSize), &sps, nullptr, &output_buffer,
+            SpsVuiRewriter::Direction::kIncoming);
+        switch (result) {
+          case SpsVuiRewriter::ParseResult::kFailure:
+            RTC_LOG(LS_WARNING) << "Failed to parse SPS NAL unit.";
+            return nullptr;
+          case SpsVuiRewriter::ParseResult::kVuiRewritten:
+            // Append modified packet.
+            writer.Write(start_code_h264);
+            writer.Write(output_buffer);
+            break;
+          case SpsVuiRewriter::ParseResult::kVuiOk:
+            // Append modified packet.
+            writer.Write(start_code_h264);
+            writer.Write(nal);
+            break;
+        }
+        break;
+      }
+      case H264::NaluType::kIdr: {
+        // Check if we need to insert out of band data.
+        std::optional<PpsParser::SliceHeader> slice_header =
+            PpsParser::ParseSliceHeader(nal.subview(kNalHeaderSize));
+        if (slice_header && slice_header->first_mb_in_slice == 0) {
+          auto pps = pps_data_.find(slice_header->pic_parameter_set_id);
+          if (pps == pps_data_.end()) {
+            RTC_LOG(LS_WARNING)
+                << "No PPS with id << " << slice_header->pic_parameter_set_id
+                << " received";
+            return nullptr;
+          }
+          auto sps = sps_data_.find(pps->second.sps_id);
+          if (sps == sps_data_.end()) {
+            RTC_LOG(LS_WARNING)
+                << "No SPS with id << " << pps->second.sps_id << " received";
+            return nullptr;
+          }
+          if (!sps->second.data.empty()) {
+            writer.Write(start_code_h264);
+            writer.Write(sps->second.data);
+          }
+          if (!pps->second.data.empty()) {
+            writer.Write(start_code_h264);
+            writer.Write(pps->second.data);
+          }
+        }
+        writer.Write(start_code_h264);
+        writer.Write(nal);
+        break;
+      }
+      default:
+        writer.Write(start_code_h264);
+        writer.Write(nal);
+    }
+  }
+  return webrtc::EncodedImageBuffer::Create(std::move(writer).Extract());
+}
+
+void VideoRtpDepacketizerH264::InsertSpsPpsNalus(
+    const std::vector<uint8_t>& sps,
+    const std::vector<uint8_t>& pps) {
+  constexpr size_t kNaluHeaderOffset = 1;
+  if (sps.size() < kNaluHeaderOffset) {
+    RTC_LOG(LS_WARNING) << "SPS size  " << sps.size() << " is smaller than "
+                        << kNaluHeaderOffset;
+    return;
+  }
+  if ((sps[0] & 0x1f) != H264::NaluType::kSps) {
+    RTC_LOG(LS_WARNING) << "SPS Nalu header missing";
+    return;
+  }
+  if (pps.size() < kNaluHeaderOffset) {
+    RTC_LOG(LS_WARNING) << "PPS size  " << pps.size() << " is smaller than "
+                        << kNaluHeaderOffset;
+    return;
+  }
+  if ((pps[0] & 0x1f) != H264::NaluType::kPps) {
+    RTC_LOG(LS_WARNING) << "SPS Nalu header missing";
+    return;
+  }
+  std::optional<SpsParser::SpsState> parsed_sps = SpsParser::ParseSps(
+      rtc::ArrayView<const uint8_t>(sps).subview(kNaluHeaderOffset));
+  std::optional<PpsParser::PpsState> parsed_pps = PpsParser::ParsePps(
+      rtc::ArrayView<const uint8_t>(pps).subview(kNaluHeaderOffset));
+
+  if (!parsed_sps) {
+    RTC_LOG(LS_WARNING) << "Failed to parse SPS.";
+  }
+
+  if (!parsed_pps) {
+    RTC_LOG(LS_WARNING) << "Failed to parse PPS.";
+  }
+
+  if (!parsed_pps || !parsed_sps) {
+    return;
+  }
+
+  SpsInfo sps_info;
+
+  sps_info.data.SetData(sps);
+  sps_data_[parsed_sps->id] = std::move(sps_info);
+
+  PpsInfo pps_info;
+  pps_info.sps_id = parsed_pps->sps_id;
+  pps_info.data.SetData(pps);
+  pps_data_[parsed_pps->id] = std::move(pps_info);
+
+  RTC_LOG(LS_INFO) << "Inserted SPS id " << parsed_sps->id << " and PPS id "
+                   << parsed_pps->id << " (referencing SPS "
+                   << parsed_pps->sps_id << ")";
 }
 
 }  // namespace webrtc

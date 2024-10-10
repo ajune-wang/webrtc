@@ -11,9 +11,12 @@
 #ifndef MODULES_RTP_RTCP_SOURCE_VIDEO_RTP_DEPACKETIZER_H264_H_
 #define MODULES_RTP_RTCP_SOURCE_VIDEO_RTP_DEPACKETIZER_H264_H_
 
+#include <map>
 #include <optional>
+#include <vector>
 
 #include "modules/rtp_rtcp/source/video_rtp_depacketizer.h"
+#include "rtc_base/buffer.h"
 #include "rtc_base/copy_on_write_buffer.h"
 
 namespace webrtc {
@@ -23,6 +26,26 @@ class VideoRtpDepacketizerH264 : public VideoRtpDepacketizer {
 
   std::optional<ParsedRtpPayload> Parse(
       rtc::CopyOnWriteBuffer rtp_payload) override;
+
+  rtc::scoped_refptr<EncodedImageBuffer> AssembleFrame(
+      rtc::ArrayView<const rtc::ArrayView<const uint8_t>> rtp_payloads)
+      override;
+
+  void InsertSpsPpsNalus(const std::vector<uint8_t>& sps,
+                         const std::vector<uint8_t>& pps);
+
+ private:
+  struct PpsInfo {
+    int sps_id = -1;
+    rtc::Buffer data;
+  };
+
+  struct SpsInfo {
+    rtc::Buffer data;
+  };
+
+  std::map<int, PpsInfo> pps_data_;
+  std::map<int, SpsInfo> sps_data_;
 };
 }  // namespace webrtc
 

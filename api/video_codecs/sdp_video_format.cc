@@ -260,6 +260,18 @@ const SdpVideoFormat SdpVideoFormat::AV1Profile1() {
                          {cricket::kAv1FmtpTier, "0"}});
 }
 
+bool SdpVideoFormat::IsSameVP9Profile(
+    const CodecParameterMap& other_parameters) const {
+  return VP9IsSameProfile(parameters, other_parameters);
+}
+
+bool SdpVideoFormat::IsSameAV1Profile(
+    const CodecParameterMap& other_parameters) const {
+  return AV1IsSameProfile(parameters, other_parameters) &&
+         AV1IsSameTier(parameters, other_parameters) &&
+         AV1IsSameLevelIdx(parameters, other_parameters);
+}
+
 std::optional<SdpVideoFormat> FuzzyMatchSdpVideoFormat(
     rtc::ArrayView<const SdpVideoFormat> supported_formats,
     const SdpVideoFormat& format) {

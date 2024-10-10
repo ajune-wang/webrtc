@@ -9,7 +9,10 @@
  */
 
 #include "api/audio/audio_processing.h"
+
+#include <memory>
 #include <string>
+#include <utility>
 
 #include "rtc_base/checks.h"
 #include "rtc_base/strings/string_builder.h"
@@ -206,6 +209,26 @@ std::string AudioProcessing::Config::ToString() const {
           << " }, input_volume_control : { enabled "
           << gain_controller2.input_volume_controller.enabled << "}}";
   return builder.str();
+}
+
+// Returns factory that returns provided `audio_processing` when requested to
+// create a new one.
+absl::Nonnull<std::unique_ptr<AudioProcessingFactory>> PrebuiltAudioProcessing(
+    absl::Nullable<scoped_refptr<AudioProcessing>> audio_processing) {
+  class Factory : public AudioProcessingFactory {
+   public:
+    explicit Factory(absl::Nullable<scoped_refptr<AudioProcessing>> ap)
+        : ap_(std::move(ap)) {}
+
+    absl::Nullable<scoped_refptr<AudioProcessing>> Create(
+        const Environment& /*env*/) override {
+      return ap_;
+    }
+
+   private:
+    absl::Nullable<scoped_refptr<AudioProcessing>> ap_;
+  };
+  return std::make_unique<Factory>(std::move(audio_processing));
 }
 
 }  // namespace webrtc

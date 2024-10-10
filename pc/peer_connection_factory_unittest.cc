@@ -23,6 +23,7 @@
 #include "api/create_peerconnection_factory.h"
 #include "api/data_channel_interface.h"
 #include "api/enable_media.h"
+#include "api/enable_media_with_defaults.h"
 #include "api/environment/environment_factory.h"
 #include "api/jsep.h"
 #include "api/media_stream_interface.h"
@@ -39,6 +40,7 @@
 #include "api/video_codecs/video_encoder_factory_template_libvpx_vp9_adapter.h"
 #include "api/video_codecs/video_encoder_factory_template_open_h264_adapter.h"
 #include "media/base/fake_frame_source.h"
+#include "modules/audio_processing/include/mock_audio_processing.h"
 #include "p2p/base/fake_port_allocator.h"
 #include "p2p/base/port.h"
 #include "p2p/base/port_allocator.h"
@@ -64,7 +66,9 @@
 namespace webrtc {
 namespace {
 
+using test::MockAudioProcessing;
 using ::testing::_;
+using ::testing::A;
 using ::testing::AtLeast;
 using ::testing::InvokeWithoutArgs;
 using ::testing::NiceMock;
@@ -716,6 +720,24 @@ TEST(PeerConnectionFactoryDependenciesTest, UsesPacketSocketFactory) {
   ASSERT_TRUE(pc.ok());
 
   called.Wait(kWaitTimeout);
+}
+
+TEST(PeerConnectionFactoryDependenciesTest,
+     CreatesAudioProcessingWithProvidedFactory) {
+  auto audio_processing = make_ref_counted<NiceMock<MockAudioProcessing>>();
+  // Validate provided audio_processing is used by expecting request to start
+  // AEC Dump with unnatural size limit is propagated to the `audio_processing`.
+  EXPECT_CALL(*audio_processing, CreateAndAttachAecDump(A<FILE*>(), 24'242, _));
+
+  PeerConnectionFactoryDependencies pcf_dependencies;
+  pcf_dependencies.audio_processing_factory =
+      PrebuiltAudioProcessing(std::move(audio_processing));
+  EnableMediaWithDefaults(pcf_dependencies);
+
+  scoped_refptr<PeerConnectionFactoryInterface> pcf =
+      CreateModularPeerConnectionFactory(std::move(pcf_dependencies));
+
+  pcf->StartAecDump(nullptr, 24'242);
 }
 
 }  // namespace

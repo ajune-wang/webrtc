@@ -13,6 +13,9 @@
 #include <memory>
 #include <utility>
 
+#include "absl/base/nullability.h"
+#include "api/audio/audio_processing.h"
+#include "api/environment/environment.h"
 #include "api/media_types.h"
 #include "api/rtc_error.h"
 #include "api/rtp_parameters.h"

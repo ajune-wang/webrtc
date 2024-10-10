@@ -121,7 +121,6 @@ void TestPeer::Close() {
   signaling_thread_task_safety_->SetNotAlive();
   wrapper_->pc()->Close();
   remote_ice_candidates_.clear();
-  audio_processing_ = nullptr;
   video_sources_.clear();
   wrapper_ = nullptr;
   worker_thread_ = nullptr;
@@ -134,7 +133,6 @@ TestPeer::TestPeer(
     Params params,
     ConfigurableParams configurable_params,
     std::vector<PeerConfigurer::VideoSource> video_sources,
-    rtc::scoped_refptr<AudioProcessing> audio_processing,
     std::unique_ptr<rtc::Thread> worker_thread)
     : params_(std::move(params)),
       configurable_params_(std::move(configurable_params)),
@@ -142,8 +140,7 @@ TestPeer::TestPeer(
       wrapper_(std::make_unique<PeerConnectionWrapper>(std::move(pc_factory),
                                                        std::move(pc),
                                                        std::move(observer))),
-      video_sources_(std::move(video_sources)),
-      audio_processing_(audio_processing) {
+      video_sources_(std::move(video_sources)) {
   signaling_thread_task_safety_ = PendingTaskSafetyFlag::CreateDetached();
 }
 

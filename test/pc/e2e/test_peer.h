@@ -138,9 +138,7 @@ class TestPeer final : public StatsProvider {
 
   void DetachAecDump() {
     RTC_CHECK(wrapper_) << "TestPeer is already closed";
-    if (audio_processing_) {
-      audio_processing_->DetachAecDump();
-    }
+    wrapper_->pc_factory()->StopAecDump();
   }
 
   // Adds provided `candidates` to the owned peer connection.
@@ -159,7 +157,6 @@ class TestPeer final : public StatsProvider {
            Params params,
            ConfigurableParams configurable_params,
            std::vector<PeerConfigurer::VideoSource> video_sources,
-           rtc::scoped_refptr<AudioProcessing> audio_processing,
            std::unique_ptr<rtc::Thread> worker_thread);
 
  private:
@@ -179,7 +176,6 @@ class TestPeer final : public StatsProvider {
   std::unique_ptr<rtc::Thread> worker_thread_;
   std::unique_ptr<PeerConnectionWrapper> wrapper_;
   std::vector<PeerConfigurer::VideoSource> video_sources_;
-  rtc::scoped_refptr<AudioProcessing> audio_processing_;
 
   std::vector<std::unique_ptr<IceCandidateInterface>> remote_ice_candidates_;
 };

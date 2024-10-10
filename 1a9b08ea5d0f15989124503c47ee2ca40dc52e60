@@ -59,6 +59,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8abb034c_4b82bc13",
+        "filename": "rtc_base/openssl_stream_adapter.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-10-10T18:10:39Z",
+      "side": 1,
+      "message": "which avoids the problem in the first place!",
+      "parentUuid": "7d4e13f0_d13ecf0b",
+      "range": {
+        "startLine": 68,
+        "startChar": 0,
+        "endLine": 68,
+        "endChar": 42
+      },
+      "revId": "1a9b08ea5d0f15989124503c47ee2ca40dc52e60",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "60587c23_8b16987e",
@@ -72,6 +96,30 @@
       "writtenOn": "2024-10-10T08:31:55Z",
       "side": 1,
       "message": "This is actually `sizeof(kDtlsSrtpExporterLabel) - 1`.",
+      "range": {
+        "startLine": 396,
+        "startChar": 33,
+        "endLine": 396,
+        "endChar": 63
+      },
+      "revId": "1a9b08ea5d0f15989124503c47ee2ca40dc52e60",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "32f03cad_be984718",
+        "filename": "rtc_base/openssl_stream_adapter.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 396,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-10-10T18:10:39Z",
+      "side": 1,
+      "message": "or strlen(), good catch! added a (temporary) test!\n\nThis leads to a different keys being generated but since it is wrong on both sides the tests can not catch it?",
+      "parentUuid": "60587c23_8b16987e",
       "range": {
         "startLine": 396,
         "startChar": 33,

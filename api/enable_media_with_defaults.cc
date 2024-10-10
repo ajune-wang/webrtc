@@ -34,7 +34,11 @@ void EnableMediaWithDefaults(PeerConnectionFactoryDependencies& deps) {
   if (deps.audio_decoder_factory == nullptr) {
     deps.audio_decoder_factory = CreateBuiltinAudioDecoderFactory();
   }
-  if (deps.audio_processing == nullptr) {
+  if (deps.audio_processing == nullptr &&
+      deps.audio_processing_factory == nullptr) {
+    // TODO: bugs.webrtc.org/369904700 - set `deps.audio_processing_factory`
+    // instead of `deps.audio_processing` where there is an implementation that
+    // can replace default `AudioProcessingBuilder`.
     deps.audio_processing = AudioProcessingBuilder().Create();
   }
 

@@ -14,6 +14,7 @@
 #include <memory>
 
 #include "api/audio/audio_processing.h"
+#include "api/audio/builtin_audio_processing_factory.h"
 
 namespace webrtc {
 namespace test {
@@ -39,11 +40,12 @@ int AudioprocFloatImpl(rtc::scoped_refptr<AudioProcessing> audio_processing,
 // via the `argv` argument. Pass `processed_capture_samples` to write in it the
 // samples processed on the capture side; if `processed_capture_samples` is not
 // passed, the output file can optionally be specified via the `argv` argument.
-int AudioprocFloatImpl(std::unique_ptr<AudioProcessingBuilder> ap_builder,
-                       int argc,
-                       char* argv[],
-                       absl::string_view input_aecdump,
-                       std::vector<float>* processed_capture_samples);
+int AudioprocFloatImpl(
+    std::unique_ptr<BuiltinAudioProcessingFactory> ap_builder,
+    int argc,
+    char* argv[],
+    absl::string_view input_aecdump,
+    std::vector<float>* processed_capture_samples);
 
 }  // namespace test
 }  // namespace webrtc

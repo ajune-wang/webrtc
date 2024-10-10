@@ -13,6 +13,7 @@
 
 #include "absl/memory/memory.h"
 #include "absl/strings/string_view.h"
+#include "api/audio/builtin_audio_processing_factory.h"
 #include "api/enable_media_with_defaults.h"
 #include "api/task_queue/default_task_queue_factory.h"
 #include "api/test/create_time_controller.h"
@@ -210,7 +211,12 @@ PeerConnectionFactoryDependencies CreatePCFDependencies(
 
   // Media dependencies
   pcf_deps.adm = std::move(audio_device_module);
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
   pcf_deps.audio_processing = pcf_dependencies->audio_processing;
+#pragma clang diagnostic pop
+  pcf_deps.audio_processing_factory =
+      std::move(pcf_dependencies->audio_processing_factory);
   pcf_deps.audio_mixer = pcf_dependencies->audio_mixer;
   pcf_deps.video_encoder_factory =
       std::move(pcf_dependencies->video_encoder_factory);
@@ -288,14 +294,15 @@ std::unique_ptr<TestPeer> TestPeerFactory::CreateTestPeer(
   params->rtc_configuration.sdp_semantics = SdpSemantics::kUnifiedPlan;
 
   // Create peer connection factory.
-  if (components->pcf_dependencies->audio_processing == nullptr) {
-    components->pcf_dependencies->audio_processing =
-        webrtc::AudioProcessingBuilder().Create();
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+  if (components->pcf_dependencies->audio_processing == nullptr &&
+      components->pcf_dependencies->audio_processing_factory == nullptr) {
+#pragma clang diagnostic pop
+    components->pcf_dependencies->audio_processing_factory =
+        std::make_unique<BuiltinAudioProcessingFactory>();
   }
-  if (params->aec_dump_path) {
-    components->pcf_dependencies->audio_processing->CreateAndAttachAecDump(
-        *params->aec_dump_path, -1, task_queue_);
-  }
+
   rtc::scoped_refptr<AudioDeviceModule> audio_device_module =
       CreateAudioDeviceModule(params->audio_config, remote_audio_config,
                               echo_emulation_config,
@@ -317,10 +324,6 @@ std::unique_ptr<TestPeer> TestPeerFactory::CreateTestPeer(
     components->worker_thread = owned_worker_thread.get();
   }
 
-  // Store `webrtc::AudioProcessing` into local variable before move of
-  // `components->pcf_dependencies`
-  rtc::scoped_refptr<webrtc::AudioProcessing> audio_processing =
-      components->pcf_dependencies->audio_processing;
   PeerConnectionFactoryDependencies pcf_deps = CreatePCFDependencies(
       std::move(components->pcf_dependencies), time_controller_,
       std::move(audio_device_module), signaling_thread_,
@@ -328,6 +331,12 @@ std::unique_ptr<TestPeer> TestPeerFactory::CreateTestPeer(
   rtc::scoped_refptr<PeerConnectionFactoryInterface> peer_connection_factory =
       CreateModularPeerConnectionFactory(std::move(pcf_deps));
   peer_connection_factory->SetOptions(params->peer_connection_factory_options);
+  if (params->aec_dump_path) {
+    // TODO(danilchap): StartAecDump.
+    // peer_connection_factory->StartAecDump(???, -1);
+    // components->pcf_dependencies->audio_processing->CreateAndAttachAecDump(
+    //    *params->aec_dump_path, -1, task_queue_);
+  }
 
   // Create peer connection.
   PeerConnectionDependencies pc_deps =
@@ -340,11 +349,10 @@ std::unique_ptr<TestPeer> TestPeerFactory::CreateTestPeer(
           .MoveValue();
   peer_connection->SetBitrate(params->bitrate_settings);
 
-  return absl::WrapUnique(
-      new TestPeer(peer_connection_factory, peer_connection,
-                   std::move(observer), std::move(*params),
-                   std::move(*configurable_params), std::move(video_sources),
-                   audio_processing, std::move(owned_worker_thread)));
+  return absl::WrapUnique(new TestPeer(
+      peer_connection_factory, peer_connection, std::move(observer),
+      std::move(*params), std::move(*configurable_params),
+      std::move(video_sources), std::move(owned_worker_thread)));
 }
 
 }  // namespace webrtc_pc_e2e

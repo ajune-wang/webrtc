@@ -24,6 +24,7 @@
 #include "absl/strings/string_view.h"
 #include "api/array_view.h"
 #include "api/audio/audio_frame.h"
+#include "api/field_trials_view.h"
 #include "api/task_queue/task_queue_base.h"
 #include "common_audio/audio_converter.h"
 #include "common_audio/include/audio_util.h"
@@ -413,8 +414,9 @@ bool AudioProcessingImpl::SubmoduleStates::HighPassFilteringRequired() const {
          noise_suppressor_enabled_;
 }
 
-AudioProcessingImpl::AudioProcessingImpl()
-    : AudioProcessingImpl(/*config=*/{},
+AudioProcessingImpl::AudioProcessingImpl(const Environment& env)
+    : AudioProcessingImpl(env,
+                          /*config=*/{},
                           /*capture_post_processor=*/nullptr,
                           /*render_pre_processor=*/nullptr,
                           /*echo_control_factory=*/nullptr,
@@ -424,6 +426,7 @@ AudioProcessingImpl::AudioProcessingImpl()
 std::atomic<int> AudioProcessingImpl::instance_count_(0);
 
 AudioProcessingImpl::AudioProcessingImpl(
+    const Environment& env,
     const AudioProcessing::Config& config,
     std::unique_ptr<CustomProcessing> capture_post_processor,
     std::unique_ptr<CustomProcessing> render_pre_processor,
@@ -446,9 +449,9 @@ AudioProcessingImpl::AudioProcessingImpl(
                   std::move(render_pre_processor),
                   std::move(echo_detector),
                   std::move(capture_analyzer)),
-      constants_(!field_trial::IsEnabled(
+      constants_(!env.field_trials().IsEnabled(
                      "WebRTC-ApmExperimentalMultiChannelRenderKillSwitch"),
-                 !field_trial::IsEnabled(
+                 !env.field_trials().IsEnabled(
                      "WebRTC-ApmExperimentalMultiChannelCaptureKillSwitch"),
                  EnforceSplitBandHpf(),
                  MinimizeProcessingForUnusedOutput()),

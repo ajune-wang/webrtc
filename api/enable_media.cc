@@ -45,11 +45,16 @@ class MediaFactoryImpl : public MediaFactory {
   std::unique_ptr<MediaEngineInterface> CreateMediaEngine(
       const Environment& env,
       PeerConnectionFactoryDependencies& deps) override {
+    scoped_refptr<AudioProcessing> audio_processing =
+        deps.audio_processing_factory != nullptr
+            ? deps.audio_processing_factory->Create(env)
+            : std::move(deps.audio_processing);
+
     auto audio_engine = std::make_unique<WebRtcVoiceEngine>(
         &env.task_queue_factory(), deps.adm.get(),
         std::move(deps.audio_encoder_factory),
         std::move(deps.audio_decoder_factory), std::move(deps.audio_mixer),
-        std::move(deps.audio_processing), std::move(deps.audio_frame_processor),
+        std::move(audio_processing), std::move(deps.audio_frame_processor),
         env.field_trials());
     auto video_engine = std::make_unique<WebRtcVideoEngine>(
         std::move(deps.video_encoder_factory),

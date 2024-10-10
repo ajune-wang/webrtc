@@ -135,6 +135,11 @@ struct RTC_EXPORT Codec {
   // generated, done e.g. by setCodecPreferences or setParameters.
   bool MatchesRtpCodec(const webrtc::RtpCodec& capability) const;
 
+  // Similar to `MatchesRtpCodec` but not an exact match of parameters.
+  // Unspecified parameters are treated as default (for well-known codecs and
+  // their format parameters in sdp_video_format.h).
+  bool IsSameRtpCodec(const webrtc::RtpCodec& capability) const;
+
   // Find the parameter for `name` and write the value to `out`.
   bool GetParam(const std::string& name, std::string* out) const;
   bool GetParam(const std::string& name, int* out) const;

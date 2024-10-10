@@ -23,6 +23,19 @@
 #include "rtc_base/string_encode.h"
 
 namespace cricket {
+namespace {
+bool SupportsMode(const cricket::Codec& codec,
+                  std::optional<std::string> scalability_mode) {
+  if (!scalability_mode.has_value()) {
+    return true;
+  }
+  return absl::c_any_of(
+      codec.scalability_modes, [&](webrtc::ScalabilityMode mode) {
+        return ScalabilityModeToString(mode) == *scalability_mode;
+      });
+}
+
+}  // namespace
 
 RtpCapabilities::RtpCapabilities() = default;
 RtpCapabilities::~RtpCapabilities() = default;
@@ -71,7 +84,6 @@ webrtc::RTCError CheckScalabilityModeValues(
     rtc::ArrayView<cricket::Codec> send_codecs,
     std::optional<cricket::Codec> send_codec) {
   using webrtc::RTCErrorType;
-
   if (send_codecs.empty()) {
     // This is an audio sender or an extra check in the stack where the codec
     // list is not available and we can't check the scalability_mode values.
@@ -82,7 +94,8 @@ webrtc::RTCError CheckScalabilityModeValues(
     if (rtp_parameters.encodings[i].codec) {
       bool codecFound = false;
       for (const cricket::Codec& codec : send_codecs) {
-        if (codec.MatchesRtpCodec(*rtp_parameters.encodings[i].codec)) {
+        if (codec.IsSameRtpCodec(*rtp_parameters.encodings[i].codec) &&
+            SupportsMode(codec, rtp_parameters.encodings[i].scalability_mode)) {
           codecFound = true;
           send_codec = codec;
           break;

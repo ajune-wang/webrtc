@@ -62,7 +62,7 @@ TEST(PayloadTypePicker, ModifyingPtIsIgnored) {
   EXPECT_TRUE(error.ok());
   auto result = recorder.LookupCodec(a_payload_type);
   // Redefinition should be accepted.
-  EXPECT_EQ(result.value(), b_codec);
+  EXPECT_EQ(result.value(), b_codec) << result.value() << b_codec;
 }
 
 TEST(PayloadTypePicker, RollbackAndCommit) {

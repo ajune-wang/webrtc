@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3cbd7874_efc4eb66",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3485001
+      },
+      "writtenOn": "2024-10-11T09:17:07Z",
+      "side": 1,
+      "message": "Will be submitted after https://chromium-review.googlesource.com/c/chromium/src/+/5923863 has been submitted.",
+      "revId": "ddda96c5f858e3839b76bedd711f8dc0f101df96",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

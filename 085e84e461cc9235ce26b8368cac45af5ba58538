@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6c4bdb14_e9a046c0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-10-11T09:11:54Z",
+      "side": 1,
+      "message": "I need a function that behaves like FindMatchingCodec, but without the codec lists.\nI\u0027ll write that on Monday.",
+      "revId": "085e84e461cc9235ce26b8368cac45af5ba58538",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

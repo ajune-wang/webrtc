@@ -8,6 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
+#include "pc/webrtc_sdp.h"
+
 #include <stdio.h>
 #include <string.h>
 
@@ -54,7 +56,6 @@
 #ifdef WEBRTC_ANDROID
 #include "pc/test/android_test_initializer.h"
 #endif
-#include "pc/webrtc_sdp.h"
 
 using cricket::AudioContentDescription;
 using cricket::Candidate;

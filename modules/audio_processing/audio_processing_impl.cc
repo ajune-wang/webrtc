@@ -1443,11 +1443,34 @@ int AudioProcessingImpl::ProcessCaptureStreamLocked() {
     }
 
     if (submodules_.gain_controller2) {
+      std::optional<float> speech_probability = std::nullopt;
+      if (config_.gain_controller2.voice_activity_detector
+              .use_fake_speech_probabilities_for_testing) {
+        speech_probability =
+            config_.gain_controller2.voice_activity_detector
+                .speech_probabilities_for_testing
+                    [capture_.speech_probabilities_index_for_testing++];
+        capture_.speech_probabilities_index_for_testing %=
+            config_.gain_controller2.voice_activity_detector
+                .speech_probabilities_for_testing.size();
+      }
       // TODO(bugs.webrtc.org/7494): Let AGC2 detect applied input volume
       // changes.
       submodules_.gain_controller2->Process(
-          /*speech_probability=*/std::nullopt,
-          capture_.applied_input_volume_changed, capture_buffer);
+          speech_probability, capture_.applied_input_volume_changed,
+          capture_buffer);
+      if (submodules_.gain_controller2->speech_probability() >=
+          kVadConfidenceThreshold) {
+        if (++capture_.num_adjacent_speech_frames >=
+            kAdjacentSpeechFramesThreshold) {
+          capture_.stats.voice_detected = true;
+        } else {
+          capture_.stats.voice_detected = false;
+        }
+      } else {
+        capture_.num_adjacent_speech_frames = 0;
+        capture_.stats.voice_detected = false;
+      }
     }
 
     if (submodules_.capture_post_processor) {
@@ -2031,6 +2054,11 @@ void AudioProcessingImpl::InitializeGainController2() {
     submodules_.gain_controller2.reset();
     return;
   }
+  if (config_.gain_controller2.voice_activity_detector
+          .use_fake_speech_probabilities_for_testing) {
+    RTC_CHECK(
+        !config_.gain_controller2.voice_activity_detector.use_internal_vad);
+  }
   // Input volume controller configuration if the AGC2 is running
   // and its parameters require to fully switch the gain control to
   // AGC2.
@@ -2039,7 +2067,7 @@ void AudioProcessingImpl::InitializeGainController2() {
   submodules_.gain_controller2 = std::make_unique<GainController2>(
       config_.gain_controller2, input_volume_controller_config,
       proc_fullband_sample_rate_hz(), num_output_channels(),
-      /*use_internal_vad=*/true);
+      config_.gain_controller2.voice_activity_detector.use_internal_vad);
   submodules_.gain_controller2->SetCaptureOutputUsed(
       capture_.capture_output_used);
 }
@@ -2256,7 +2284,9 @@ AudioProcessingImpl::ApmCaptureState::ApmCaptureState()
       prev_pre_adjustment_gain(-1.0f),
       playout_volume(-1),
       prev_playout_volume(-1),
-      applied_input_volume_changed(false) {}
+      applied_input_volume_changed(false),
+      num_adjacent_speech_frames(0),
+      speech_probabilities_index_for_testing(0) {}
 
 AudioProcessingImpl::ApmCaptureState::~ApmCaptureState() = default;
 

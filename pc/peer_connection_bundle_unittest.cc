@@ -10,18 +10,14 @@
 
 #include <stddef.h>
 
-#include <cstdint>
 #include <memory>
 #include <ostream>
 #include <string>
 #include <tuple>
-#include <type_traits>
 #include <utility>
 #include <vector>
 
 #include "api/audio/audio_device.h"
-#include "api/audio/audio_mixer.h"
-#include "api/audio/audio_processing.h"
 #include "api/audio_codecs/builtin_audio_decoder_factory.h"
 #include "api/audio_codecs/builtin_audio_encoder_factory.h"
 #include "api/candidate.h"
@@ -33,7 +29,6 @@
 #include "api/rtp_sender_interface.h"
 #include "api/rtp_transceiver_interface.h"
 #include "api/scoped_refptr.h"
-#include "api/stats/rtc_stats.h"
 #include "api/stats/rtc_stats_report.h"
 #include "api/stats/rtcstats_objects.h"
 #include "api/video_codecs/video_decoder_factory_template.h"
@@ -47,8 +42,8 @@
 #include "api/video_codecs/video_encoder_factory_template_libvpx_vp9_adapter.h"
 #include "api/video_codecs/video_encoder_factory_template_open_h264_adapter.h"
 #include "media/base/stream_params.h"
+#include "p2p/base/basic_packet_socket_factory.h"
 #include "p2p/base/p2p_constants.h"
-#include "p2p/base/port.h"
 #include "p2p/base/port_allocator.h"
 #include "p2p/base/transport_info.h"
 #include "p2p/client/basic_port_allocator.h"
@@ -66,7 +61,6 @@
 #include "rtc_base/logging.h"
 #include "rtc_base/net_helper.h"
 #include "rtc_base/network.h"
-#include "rtc_base/rtc_certificate_generator.h"
 #include "rtc_base/socket_address.h"
 #include "rtc_base/thread.h"
 #include "test/gtest.h"

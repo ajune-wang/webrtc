@@ -11,7 +11,6 @@
 #include <memory>
 #include <optional>
 #include <string>
-#include <type_traits>
 #include <utility>
 #include <vector>
 
@@ -21,10 +20,7 @@
 #include "api/scoped_refptr.h"
 #include "api/sctp_transport_interface.h"
 #include "api/task_queue/default_task_queue_factory.h"
-#include "api/task_queue/task_queue_factory.h"
-#include "api/transport/sctp_transport_factory_interface.h"
 #include "p2p/base/p2p_constants.h"
-#include "p2p/base/port_allocator.h"
 #include "pc/media_session.h"
 #include "pc/peer_connection.h"
 #include "pc/peer_connection_proxy.h"
@@ -36,7 +32,6 @@
 #include "pc/test/mock_peer_connection_observers.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
-#include "rtc_base/rtc_certificate_generator.h"
 #include "rtc_base/thread.h"
 #include "test/gmock.h"
 #include "test/gtest.h"

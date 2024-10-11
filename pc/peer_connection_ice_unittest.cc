@@ -15,24 +15,23 @@
 #include <optional>
 #include <string>
 #include <tuple>
-#include <type_traits>
 #include <utility>
 #include <vector>
 
 #include "api/audio/audio_device.h"
-#include "api/audio/audio_mixer.h"
-#include "api/audio/audio_processing.h"
 #include "api/candidate.h"
 #include "api/ice_transport_interface.h"
 #include "api/jsep.h"
+#include "api/make_ref_counted.h"
 #include "api/media_types.h"
+#include "api/packet_socket_factory.h"
 #include "api/peer_connection_interface.h"
 #include "api/rtc_error.h"
 #include "api/scoped_refptr.h"
+#include "p2p/base/basic_packet_socket_factory.h"
 #include "p2p/base/fake_port_allocator.h"
 #include "p2p/base/ice_transport_internal.h"
 #include "p2p/base/p2p_constants.h"
-#include "p2p/base/port.h"
 #include "p2p/base/port_allocator.h"
 #include "p2p/base/transport_description.h"
 #include "p2p/base/transport_info.h"
@@ -50,8 +49,8 @@
 #include "rtc_base/ip_address.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/net_helper.h"
-#include "rtc_base/rtc_certificate_generator.h"
 #include "rtc_base/socket_address.h"
+#include "rtc_base/socket_server.h"
 #include "rtc_base/thread.h"
 #include "test/gtest.h"
 #include "test/scoped_key_value_config.h"

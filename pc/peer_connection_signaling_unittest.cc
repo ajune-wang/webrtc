@@ -20,18 +20,16 @@
 #include <set>
 #include <string>
 #include <tuple>
-#include <type_traits>
 #include <utility>
 #include <vector>
 
 #include "api/audio/audio_device.h"
-#include "api/audio/audio_mixer.h"
-#include "api/audio/audio_processing.h"
 #include "api/audio_codecs/builtin_audio_decoder_factory.h"
 #include "api/audio_codecs/builtin_audio_encoder_factory.h"
 #include "api/create_peerconnection_factory.h"
 #include "api/dtls_transport_interface.h"
 #include "api/jsep.h"
+#include "api/make_ref_counted.h"
 #include "api/media_types.h"
 #include "api/peer_connection_interface.h"
 #include "api/rtc_error.h"
@@ -39,8 +37,6 @@
 #include "api/rtp_sender_interface.h"
 #include "api/rtp_transceiver_interface.h"
 #include "api/scoped_refptr.h"
-#include "api/set_local_description_observer_interface.h"
-#include "api/set_remote_description_observer_interface.h"
 #include "api/video_codecs/video_decoder_factory_template.h"
 #include "api/video_codecs/video_decoder_factory_template_dav1d_adapter.h"
 #include "api/video_codecs/video_decoder_factory_template_libvpx_vp8_adapter.h"
@@ -52,7 +48,6 @@
 #include "api/video_codecs/video_encoder_factory_template_libvpx_vp9_adapter.h"
 #include "api/video_codecs/video_encoder_factory_template_open_h264_adapter.h"
 #include "media/base/codec.h"
-#include "p2p/base/port_allocator.h"
 #include "pc/peer_connection.h"
 #include "pc/peer_connection_proxy.h"
 #include "pc/peer_connection_wrapper.h"
@@ -60,8 +55,6 @@
 #include "pc/session_description.h"
 #include "pc/test/mock_peer_connection_observers.h"
 #include "rtc_base/checks.h"
-#include "rtc_base/rtc_certificate.h"
-#include "rtc_base/rtc_certificate_generator.h"
 #include "rtc_base/string_encode.h"
 #include "rtc_base/thread.h"
 #include "test/gmock.h"

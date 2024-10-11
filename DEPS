@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': '822a2bcac08b710ed7272760b98476a1d8c83e51',
+  'chromium_revision': '3340cf36db43796b607820f61dc2b78dd4766b59',
 
   # Fetch the prebuilt binaries for llvm-cov and llvm-profdata. Needed to
   # process the raw profiles produced by instrumented targets (built with
@@ -61,9 +61,9 @@ vars = {
 deps = {
   # TODO(kjellander): Move this to be Android-only.
   'src/base':
-    'https://chromium.googlesource.com/chromium/src/base@7129e4d3feb6b0aef7b702bb137db5f4db678ce8',
+    'https://chromium.googlesource.com/chromium/src/base@b5347950c277ffdb7258b909c5c6f377f0385b9e',
   'src/build':
-    'https://chromium.googlesource.com/chromium/src/build@99d8d6ffd90599fa04319e4adf05e326cb2f76e8',
+    'https://chromium.googlesource.com/chromium/src/build@829354cae6287ea24618c86def0e66fa3a82b8b6',
   'src/buildtools':
     'https://chromium.googlesource.com/chromium/src/buildtools@9807e11fd066b39cdf9c36db587494521ac300bb',
   # Gradle 6.6.1. Used for testing Android Studio project generation for WebRTC.
@@ -72,13 +72,13 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': 'https://chromium.googlesource.com/chromium/src/ios@e6bac560fa2b0c44a7beb348a75074cd9ec8a949',
+    'url': 'https://chromium.googlesource.com/chromium/src/ios@4fd783fef208fc6979de41986d41ea31c56f65dd',
     'condition': 'checkout_ios',
   },
   'src/testing':
-    'https://chromium.googlesource.com/chromium/src/testing@b2db8d2685b4bb6f4cfe177fcadff10372926835',
+    'https://chromium.googlesource.com/chromium/src/testing@4c6e4a30ae15d7022f656a7f6c4a89ab60f07e96',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@9eb53188b241f8c10e699fdcb5df367990c8e6a8',
+    'https://chromium.googlesource.com/chromium/src/third_party@8ef2e896738b3f160889d90916a8bc86c3edcb39',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -128,7 +128,7 @@ deps = {
   'src/third_party/libc++/src':
     'https://chromium.googlesource.com/external/github.com/llvm/llvm-project/libcxx.git@6e4ed1972ba9bc35783750d3cde3310fdabc82c0',
   'src/third_party/libc++abi/src':
-    'https://chromium.googlesource.com/external/github.com/llvm/llvm-project/libcxxabi.git@406418bc7b12e557007950b60eba07bc37f9e801',
+    'https://chromium.googlesource.com/external/github.com/llvm/llvm-project/libcxxabi.git@af20f2470f4c11a2433076fd58d2b35804790ea1',
   'src/third_party/libunwind/src':
     'https://chromium.googlesource.com/external/github.com/llvm/llvm-project/libunwind.git@efc3baa2d1ece3630fcfa72bef93ed831bcaec4c',
 
@@ -234,7 +234,7 @@ deps = {
   },
 
   'src/third_party/boringssl/src':
-    'https://boringssl.googlesource.com/boringssl.git@7152433bc570f7abdf06f7da1aec6974bebebae5',
+    'https://boringssl.googlesource.com/boringssl.git@d0b6ca2c64050fe96196fec17632afc650133799',
   'src/third_party/breakpad/breakpad':
     'https://chromium.googlesource.com/breakpad/breakpad.git@6b0c5b7ee1988a14a4af94564e8ae8bba8a94374',
   'src/third_party/catapult':
@@ -351,7 +351,7 @@ deps = {
       'condition': 'checkout_android',
   },
   'src/third_party/perfetto':
-    'https://android.googlesource.com/platform/external/perfetto.git@a5ac928573c3140703d053efd91d30ccbfee4d8d',
+    'https://android.googlesource.com/platform/external/perfetto.git@63610813902488ef7bc9989f0372160cd50031bf',
   'src/third_party/protobuf-javascript/src':
     Var('chromium_git') + '/external/github.com/protocolbuffers/protobuf-javascript' + '@' + 'e34549db516f8712f678fcd4bc411613b5cc5295',
   'src/third_party/libvpx/source/libvpx':
@@ -410,7 +410,7 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@b3413cf8b0cb9aa2a453bb1ed07dbea715ae8a62',
+    'https://chromium.googlesource.com/chromium/src/tools@b932f355697eb32c0145fabb303c96f7bfd62fd4',
 
   'src/third_party/espresso': {
       'packages': [

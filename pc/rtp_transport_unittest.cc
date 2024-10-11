@@ -10,13 +10,19 @@
 
 #include "pc/rtp_transport.h"
 
-#include <utility>
+#include <cerrno>
+#include <cstdint>
+#include <optional>
 
+#include "call/rtp_demuxer.h"
 #include "p2p/base/fake_packet_transport.h"
 #include "pc/test/rtp_transport_test_util.h"
 #include "rtc_base/buffer.h"
 #include "rtc_base/containers/flat_set.h"
 #include "rtc_base/gunit.h"
+#include "rtc_base/network/ecn_marking.h"
+#include "rtc_base/network/sent_packet.h"
+#include "rtc_base/network_route.h"
 #include "rtc_base/third_party/sigslot/sigslot.h"
 #include "test/explicit_key_value_config.h"
 #include "test/gtest.h"

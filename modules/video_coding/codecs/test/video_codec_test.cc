@@ -22,9 +22,6 @@
 #include "api/video/resolution.h"
 #include "api/video_codecs/builtin_video_decoder_factory.h"
 #include "api/video_codecs/builtin_video_encoder_factory.h"
-#if defined(WEBRTC_ANDROID)
-#include "modules/video_coding/codecs/test/android_codec_factory_helper.h"
-#endif
 #include "modules/video_coding/svc/scalability_mode_util.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/strings/string_builder.h"
@@ -34,6 +31,10 @@
 #include "test/test_flags.h"
 #include "test/testsupport/file_utils.h"
 #include "test/video_codec_tester.h"
+
+#if defined(WEBRTC_ANDROID)
+#include "modules/video_coding/codecs/test/android_codec_factory_helper.h"
+#endif
 
 ABSL_FLAG(std::string,
           input_path,

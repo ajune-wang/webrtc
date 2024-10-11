@@ -15,7 +15,6 @@
 #include <memory>
 #include <optional>
 #include <string>
-#include <type_traits>
 #include <utility>
 #include <vector>
 
@@ -35,11 +34,15 @@
 #include "api/audio_options.h"
 #include "api/data_channel_interface.h"
 #include "api/environment/environment.h"
+#include "api/make_ref_counted.h"
 #include "api/media_stream_interface.h"
 #include "api/peer_connection_interface.h"
 #include "api/rtc_error.h"
+#include "api/rtp_parameters.h"
 #include "api/scoped_refptr.h"
 #include "media/sctp/sctp_transport_internal.h"
+#include "pc/test/mock_peer_connection_observers.h"
+#include "pc/test/peer_connection_test_wrapper.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/copy_on_write_buffer.h"
 #include "rtc_base/gunit.h"
@@ -48,16 +51,13 @@
 #include "rtc_base/thread.h"
 #include "test/gmock.h"
 #include "test/gtest.h"
+#include "test/mock_audio_decoder.h"
+#include "test/mock_audio_decoder_factory.h"
+#include "test/mock_audio_encoder_factory.h"
 
 #ifdef WEBRTC_ANDROID
 #include "pc/test/android_test_initializer.h"
 #endif
-#include "pc/test/peer_connection_test_wrapper.h"
-// Notice that mockpeerconnectionobservers.h must be included after the above!
-#include "pc/test/mock_peer_connection_observers.h"
-#include "test/mock_audio_decoder.h"
-#include "test/mock_audio_decoder_factory.h"
-#include "test/mock_audio_encoder_factory.h"
 
 using ::testing::_;
 using ::testing::AtLeast;

@@ -16,6 +16,23 @@
       "message": "our sanitizers complained:\nmember access within misaligned address 0x... for type \u0027timeval\u0027, which requires 8 byte alignment",
       "revId": "2e6b2c70fd3a177ce6a8fac27cb84c6bb5e72fed",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ff39293d_21e96f99",
+        "filename": "rtc_base/physical_socket_server.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 554,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-11T15:53:39Z",
+      "side": 1,
+      "message": "I wonder if c++20 std::bit_cast might be better here (or rather absl::bit_cast until c++20 is available)\n\nbut CMSG_DATA(cmsg) returns a `uint8_t*`, so might not be appropriate.\n(and looking at some unaligned loads memcpy looks most appropriate)",
+      "revId": "2e6b2c70fd3a177ce6a8fac27cb84c6bb5e72fed",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

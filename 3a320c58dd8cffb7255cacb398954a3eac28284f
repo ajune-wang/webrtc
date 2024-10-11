@@ -54,6 +54,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a8b7065d_6eb99373",
+        "filename": "media/base/codec.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2024-10-11T15:09:57Z",
+      "side": 1,
+      "message": "One alternative could maybe be to use IsSameCodecSpecific but then additional parameters would not be matched (e.g. test *WithDifferentParameters would fail).\nBut maybe that would be ok?",
+      "parentUuid": "d43ee6ca_e4f6f2df",
+      "revId": "3a320c58dd8cffb7255cacb398954a3eac28284f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "506c3705_342fab89",
         "filename": "media/base/codec.cc",
         "patchSetId": 9
@@ -65,6 +83,24 @@
       "writtenOn": "2024-10-11T09:38:18Z",
       "side": 1,
       "message": "This accepts all RTX codecs as the same RTP codec. I think this is wrong - RTX codecs are distinguished by the \"apt\u003d\" value in their parameter sets.",
+      "revId": "3a320c58dd8cffb7255cacb398954a3eac28284f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "918c6ec8_e66cab4d",
+        "filename": "media/base/codec.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2024-10-11T15:09:57Z",
+      "side": 1,
+      "message": "This is intended to be the same as MatchesRtpCodec above but with not as exact parameter match. So maybe any change to the RTX codec match could be done separately.",
+      "parentUuid": "506c3705_342fab89",
       "revId": "3a320c58dd8cffb7255cacb398954a3eac28284f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

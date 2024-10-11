@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3989436c_0c9de937",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-10-11T21:03:20Z",
+      "side": 1,
+      "message": "Realized it won\u0027t catch the off-by-one either but who can say \"no\" to more tests?\n\nBeware: it takes the keys from the DtlsSrtp side and uses them in the SRTP side. This would fail if the DTLS client and server ever produced different output for that. Maybe that is too fancy (and already tested by DtlsTransportTest.KeyingMaterialExporter)",
+      "revId": "a8a26a7c99e3a7488db6c4c84e38ef9e03dc4e73",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

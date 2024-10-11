@@ -14,7 +14,11 @@
 #include <limits.h>
 #include <stdlib.h>
 
+#include <string>
+#include <vector>
+
 #include "absl/strings/string_view.h"
+#include "json/writer.h"
 #include "rtc_base/string_encode.h"
 
 namespace rtc {

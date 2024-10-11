@@ -12,11 +12,11 @@
 
 #include <memory>
 #include <optional>
-#include <string>
 
 #include "api/adaptation/resource.h"
 #include "api/audio_codecs/builtin_audio_decoder_factory.h"
 #include "api/audio_codecs/builtin_audio_encoder_factory.h"
+#include "api/make_ref_counted.h"
 #include "api/media_stream_interface.h"
 #include "api/peer_connection_interface.h"
 #include "api/rtc_error.h"

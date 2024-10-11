@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "cd0b46ea_9f1e0df4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 8178
+      },
+      "writtenOn": "2024-10-11T13:03:17Z",
+      "side": 1,
+      "message": "Note that `GetSourceList` was originally for enumerating all sources to let *the application pick* source with `SelectSource`. This doesn\u0027t make sense with the system picker, since the system picker lets the user change source at will. If `DelegatedSourceListController` is implemented it starts making sense since you can track source selection changes. But then Firefox would have to adapt:\n\nIn Firefox if two clients wants to capture the same source they will share one capturer as an optimization. That wouldn\u0027t work if the selected source can change under your feet, which is why I invented unique SourceIds. This was modeled on `BaseCapturerPipeWire` which does something similar.\n\nShould this change we can adapt, assuming that `GetDelegatedSourceListController` can be used as a check for when `GetSourceList` can be changed by the capturer.\n\nAlso note that the unique `SourceId` generation only kicks in when the system picker is enabled in `ScreenCapturerSck`. `GetSourceList` with the system picker disabled is still unimplemented.\n\nAnother issue with using `GetSourceList` and `DelegatedSourceListController` to expose the real captured source with the system picker, is what to do when the `SCContentFilter` contains more than a plain display. It is always tied to a display but can also contain a list of windows to include or exclude. You might want to introduce a mode through `DesktopCaptureOptions` or a dedicated factory function that exposes the captured display, and locks the picker to single displays only, or as you say, prevents changes with `allowsChangingSelectedContent`. Either option here should be fairly trivial to implement. Ideally `GetSourceList` should function consistently across modes, but it can only go so far I guess.",
+      "parentUuid": "d1e663df_ca7366f5",
+      "range": {
+        "startLine": 15,
+        "startChar": 10,
+        "endLine": 17,
+        "endChar": 53
+      },
+      "revId": "966d97bb0ec1b69e98b5f05750170c6424a346fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "4a17f134_d562a874",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 4

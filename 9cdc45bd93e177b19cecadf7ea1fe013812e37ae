@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6eccb4fb_0a66343a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-10-11T15:00:01Z",
+      "side": 1,
+      "message": "i\u0027ll take a stab at a better test but this is not possible to catch unless one replicates or exposes the raw SSL_export_keying_material",
+      "revId": "9cdc45bd93e177b19cecadf7ea1fe013812e37ae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

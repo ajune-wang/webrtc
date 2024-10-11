@@ -959,4 +959,108 @@ INSTANTIATE_TEST_SUITE_P(
                                  .input_volume_controller = {.enabled = true},
                                  .adaptive_digital = {.enabled = true}}}));
 
+class ApmVoiceDetectedHasValueParametrizedTest
+    : public ::testing::TestWithParam<AudioProcessing::Config> {};
+
+TEST_P(ApmVoiceDetectedHasValueParametrizedTest,
+       VoiceDetectedHasValueWhenAgc2IsEnabled) {
+  auto config = GetParam();
+  auto apm = AudioProcessingBuilder().SetConfig(config).Create();
+
+  constexpr int16_t kAudioLevel = 1000;
+  constexpr int kSampleRateHz = 16000;
+  constexpr size_t kNumChannels = 1;
+  std::array<int16_t, kNumChannels * kSampleRateHz / 100> frame;
+  StreamConfig stream_config(kSampleRateHz, kNumChannels);
+  frame.fill(kAudioLevel);
+  apm->ProcessStream(frame.data(), stream_config, stream_config, frame.data());
+
+  EXPECT_EQ(apm->GetStatistics().voice_detected.has_value(),
+            config.gain_controller2.enabled);
+}
+
+INSTANTIATE_TEST_SUITE_P(
+    AudioProcessingImplTest,
+    ApmVoiceDetectedHasValueParametrizedTest,
+    ::testing::Values(
+        AudioProcessing::Config{.gain_controller1 = {.enabled = false},
+                                .gain_controller2 = {.enabled = false}},
+        AudioProcessing::Config{.gain_controller1 = {.enabled = true},
+                                .gain_controller2 = {.enabled = false}},
+        AudioProcessing::Config{.gain_controller1 = {.enabled = false},
+                                .gain_controller2 = {.enabled = true}}));
+
+class ApmVoiceDetectedAccuracyParametrizedTest
+    : public ::testing::TestWithParam<
+          std::pair<std::vector<float>, std::vector<bool>>> {};
+
+TEST_P(ApmVoiceDetectedAccuracyParametrizedTest,
+       VoiceDetectedIfSpeechProbabilityIsHigherThanThreshold) {
+  constexpr int kSampleRateHz = 48000;
+  constexpr int kNumChannels = 1;
+  const int frame_size = kSampleRateHz / 100;
+  StreamConfig stream_config(/*sample_rate_hz=*/kSampleRateHz,
+                             /*num_channels=*/kNumChannels);
+  std::array<int16_t, frame_size> frame;
+  frame.fill(0.0f);
+
+  std::vector<float> speech_probabilities = GetParam().first;
+  std::vector<bool> expected_voice_detected = GetParam().second;
+  EXPECT_EQ(speech_probabilities.size(), expected_voice_detected.size());
+
+  auto apm =
+      AudioProcessingBuilder()
+          .SetConfig(
+              {.gain_controller2 =
+                   {.enabled = true,
+                    .voice_activity_detector =
+                        {
+                            .use_internal_vad = false,
+                            .use_fake_speech_probabilities_for_testing = true,
+                            .speech_probabilities_for_testing =
+                                speech_probabilities,
+                        }}})
+          .Create();
+  for (size_t i = 0; i < speech_probabilities.size(); ++i) {
+    apm->ProcessStream(frame.data(), stream_config, stream_config,
+                       frame.data());
+    EXPECT_TRUE(apm->GetStatistics().voice_detected.has_value());
+    EXPECT_EQ(apm->GetStatistics().voice_detected.value(),
+              expected_voice_detected[i]);
+  }
+}
+
+INSTANTIATE_TEST_SUITE_P(
+    AudioProcessingImplTest,
+    ApmVoiceDetectedAccuracyParametrizedTest,
+    ::testing::Values(std::pair<std::vector<float>, std::vector<bool>>(
+                          {0.98, 0.95, 0.98, 0.98, 0.98, 0.97, 0.97, 0.98, 0.98,
+                           0.98, 0.98, 0.98, 0.98, 0.99, 0.22, 0.99},
+                          {false, false, false, false, false, false, false,
+                           false, false, false, false, true, true, true, false,
+                           false}),
+                      std::pair<std::vector<float>, std::vector<bool>>(
+                          {0.92, 0.98, 0.98, 0.98, 0.95, 0.96, 0.97, 0.98, 0.98,
+                           0.98, 0.98, 0.98, 0.98, 0.98, 0.22, 0.98},
+                          {false, false, false, false, false, false, false,
+                           false, false, false, false, false, true, true, false,
+                           false}),
+                      std::pair<std::vector<float>, std::vector<bool>>(
+                          {0.02, 0.12, 0.02, 0.22, 0.62, 0.02, 0.72, 0.02, 0.02,
+                           0.52, 0.22, 0.02, 0.02, 0.02, 0.22, 0.99},
+                          {false, false, false, false, false, false, false,
+                           false, false, false, false, false, false, false,
+                           false, false}),
+                      std::pair<std::vector<float>, std::vector<bool>>(
+                          {0,     0,     0,     0,     0,     0,
+                           0,     0,     0.951, 0.955, 0.96,  0.995,
+                           0.975, 0.961, 0.966, 0.975, 0.981, 0.975,
+                           0.965, 0.966, 0.986, 0.976, 0.989, 0.102,
+                           0.121, 0.012, 0.012, 0,     0,     0},
+                          {false, false, false, false, false, false,
+                           false, false, false, false, false, false,
+                           false, false, false, false, false, false,
+                           false, true,  true,  true,  true,  false,
+                           false, false, false, false, false, false})));
+
 }  // namespace webrtc

@@ -38,6 +38,7 @@ struct RTC_EXPORT AudioEncoderOpusConfig {
   int frame_size_ms;
   int sample_rate_hz;
   size_t num_channels;
+  bool allow_num_channels_change;
   enum class ApplicationMode { kVoip, kAudio };
   ApplicationMode application;
 

@@ -112,12 +112,19 @@ int CalculateBitrate(int max_playback_rate_hz,
   return default_bitrate;
 }
 
-int GetChannelCount(const SdpAudioFormat& format) {
-  const auto param = GetFormatParameter(format, "stereo");
-  if (param == "1") {
-    return 2;
+struct OpusEncoderChannels {
+  int num_channels;
+  bool stereo_specified;
+};
+
+OpusEncoderChannels GetChannelCount(const SdpAudioFormat& format) {
+  const std::optional<std::string> param = GetFormatParameter(format, "stereo");
+  if (!param.has_value()) {
+    return {.num_channels = 1, .stereo_specified = false};
+  } else if (param == "1") {
+    return {.num_channels = 2, .stereo_specified = true};
   } else {
-    return 1;
+    return {.num_channels = 1, .stereo_specified = true};
   }
 }
 
@@ -236,7 +243,13 @@ std::optional<AudioEncoderOpusConfig> AudioEncoderOpusImpl::SdpToConfig(
   }
 
   AudioEncoderOpusConfig config;
-  config.num_channels = GetChannelCount(format);
+
+  const OpusEncoderChannels channels = GetChannelCount(format);
+  config.num_channels = channels.num_channels;
+  // If `stereo=*` is specified in `format`, then disallow changing the number
+  // of channels.
+  config.allow_num_channels_change = !channels.stereo_specified;
+
   config.frame_size_ms = GetFrameSizeMs(format);
   config.max_playback_rate_hz = GetMaxPlaybackRate(format);
   config.fec_enabled = (GetFormatParameter(format, "useinbandfec") == "1");
@@ -400,6 +413,17 @@ int AudioEncoderOpusImpl::SampleRateHz() const {
 
 size_t AudioEncoderOpusImpl::NumChannels() const {
   return config_.num_channels;
+}
+
+bool AudioEncoderOpusImpl::MaybeChangeNumChannels(int num_channels) {
+  if (num_channels == static_cast<int>(config_.num_channels) ||
+      !config_.allow_num_channels_change) {
+    return false;
+  }
+  RTC_CHECK_EQ(0, WebRtcOpus_SetForceChannels(inst_, num_channels));
+  config_.num_channels = num_channels;
+  num_channels_to_encode_ = num_channels;
+  return true;
 }
 
 int AudioEncoderOpusImpl::RtpTimestampRateHz() const {

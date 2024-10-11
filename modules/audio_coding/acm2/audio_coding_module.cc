@@ -369,9 +369,21 @@ int AudioCodingModuleImpl::Add10MsDataInternal(const AudioFrame& audio_frame,
   }
 
   // Check whether we need an up-mix or down-mix?
+  // TODO: move the block below to a private method to make `same_num_channels`
+  // const.
+  bool same_num_channels;
+  if (ptr_frame->num_channels_ != encoder_stack_->NumChannels()) {
+    // Attempt to reconfigure the encoder.
+    if (encoder_stack_->MaybeChangeNumChannels(ptr_frame->num_channels_)) {
+      RTC_DCHECK_EQ(encoder_stack_->NumChannels(), ptr_frame->num_channels_);
+      same_num_channels = true;
+    } else {
+      same_num_channels = false;
+    }
+  } else {
+    same_num_channels = true;
+  }
   const size_t current_num_channels = encoder_stack_->NumChannels();
-  const bool same_num_channels =
-      ptr_frame->num_channels_ == current_num_channels;
 
   // TODO(yujo): Skip encode of muted frames.
   input_data->input_timestamp = ptr_frame->timestamp_;

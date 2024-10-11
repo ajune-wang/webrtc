@@ -120,10 +120,22 @@ class AudioEncoder {
 
   virtual ~AudioEncoder() = default;
 
-  // Returns the input sample rate in Hz and the number of input channels.
-  // These are constants set at instantiation time.
+  // Returns the input sample rate in Hz.
+  // This is a constant set at instantiation time.
   virtual int SampleRateHz() const = 0;
+
+  // Returns the number of input channels.
   virtual size_t NumChannels() const = 0;
+
+  // Tries to reconfigure the number of channels. Returns false if
+  // `num_channels` is equal to the current number of channels or if the encoder
+  // cannot be reconfigured. Otherwise, returns true and `NumChannels()` returns
+  // `num_channels`.
+  virtual bool MaybeChangeNumChannels(int num_channels) {
+    // This method is overloaded for the encoders that support reconfiguration
+    // of the number of channels.
+    return false;
+  }
 
   // Returns the rate at which the RTP timestamps are updated. The default
   // implementation returns SampleRateHz().

@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "729cedcb_0f257b16",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-11T12:54:44Z",
+      "side": 1,
+      "message": "While working on another change that touches some pc unittests I tried to run iwyu and realized there are some caveats with it (e.g. peerconnection_unittests has to depend on data_channel_controller_unittest to include tests from it, but doesn\u0027t need to include any headers from it. easy to miss.)\n\nThus split that as a dedicated change, and went through more test files.\nTo reduce risk limiting this change to be test only.",
+      "revId": "2c1e3cbdbbd9b8524b5671bd0e7a788d96168a25",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2551792c_f583c189",
+        "filename": "pc/test/srtp_test_util.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-11T12:54:44Z",
+      "side": 1,
+      "message": "iwyu tool complains\n\"error: unused function \u0027rtp_auth_tag_len\u0027\" otherwise\n\nThese functions are used in two test files.",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 6
+      },
+      "revId": "2c1e3cbdbbd9b8524b5671bd0e7a788d96168a25",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

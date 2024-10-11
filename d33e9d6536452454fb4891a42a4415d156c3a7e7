@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "972702d1_ce96a1dc",
+        "filename": "rtc_base/strings/json.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-11T12:54:44Z",
+      "side": 1,
+      "message": "iwyu suggests to add these two includes directly into the test file (rtc_stats_collector_unittest.cc) and remote include on this header.\n\nadding export pragma just to json.h wasn\u0027t enough, thus listing these two files explicitly too.",
+      "revId": "d33e9d6536452454fb4891a42a4415d156c3a7e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

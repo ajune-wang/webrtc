@@ -12,6 +12,7 @@
 
 #include <cstdlib>
 #include <iterator>
+#include <memory>
 #include <optional>
 #include <string>
 #include <tuple>
@@ -20,6 +21,7 @@
 #include "absl/algorithm/container.h"
 #include "api/data_channel_interface.h"
 #include "api/dtls_transport_interface.h"
+#include "api/jsep.h"
 #include "api/peer_connection_interface.h"
 #include "api/scoped_refptr.h"
 #include "api/sctp_transport_interface.h"
@@ -38,6 +40,7 @@
 #include "rtc_base/gunit.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/numerics/safe_conversions.h"
+#include "rtc_base/strings/string_builder.h"
 #include "rtc_base/virtual_socket_server.h"
 #include "test/gmock.h"
 #include "test/gtest.h"

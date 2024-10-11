@@ -10,12 +10,17 @@
 
 #include "pc/rtp_parameters_conversion.h"
 
-#include <cstdint>
 #include <map>
+#include <optional>
 #include <string>
+#include <vector>
 
 #include "api/media_types.h"
+#include "api/rtc_error.h"
+#include "api/rtp_parameters.h"
 #include "media/base/codec.h"
+#include "media/base/stream_params.h"
+#include "pc/session_description.h"
 #include "test/gmock.h"
 #include "test/gtest.h"
 

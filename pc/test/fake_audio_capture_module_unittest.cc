@@ -13,10 +13,13 @@
 #include <string.h>
 
 #include <algorithm>
+#include <cstdint>
 
+#include "api/audio/audio_device_defines.h"
 #include "api/scoped_refptr.h"
 #include "rtc_base/gunit.h"
 #include "rtc_base/synchronization/mutex.h"
+#include "rtc_base/thread.h"
 #include "test/gtest.h"
 
 class FakeAdmTest : public ::testing::Test, public webrtc::AudioTransport {

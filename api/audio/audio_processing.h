@@ -27,6 +27,7 @@
 #include <optional>
 #include <string>
 #include <utility>
+#include <vector>
 
 #include "absl/base/nullability.h"
 #include "absl/strings/string_view.h"
@@ -378,6 +379,17 @@ class RTC_EXPORT AudioProcessing : public RefCountInterface {
         // turned into a compressor that first applies a fixed gain.
         float gain_db = 0.0f;
       } fixed_digital;
+
+      // Parameters for voice activity detection, which may impact input volume
+      // controller and adaptive digital controller.
+      struct VoiceActivityDetector {
+        bool use_internal_vad = true;
+        // If `use_fake_speech_probabilities_for_testing` is true, AGC2 does not
+        // use internal VAD. APM feeds audio frames with faked
+        // `speech_probabilities_for_testing` repeatly.
+        bool use_fake_speech_probabilities_for_testing = false;
+        std::vector<float> speech_probabilities_for_testing;
+      } voice_activity_detector;
     } gain_controller2;
 
     std::string ToString() const;

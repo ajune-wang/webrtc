@@ -80,6 +80,9 @@ class GainController2 {
   std::optional<int> recommended_input_volume() const {
     return recommended_input_volume_;
   }
+  std::optional<float> speech_probability() const {
+    return speech_probability_;
+  }
 
  private:
   static std::atomic<int> instance_count_;
@@ -104,6 +107,9 @@ class GainController2 {
   // `Process()` if input volume controller is enabled and
   // `InputVolumeController::Process()` has returned a non-empty value.
   std::optional<int> recommended_input_volume_;
+
+  // Non-empty after `Process()` if the internal VAD is used.
+  std::optional<float> speech_probability_;
 };
 
 }  // namespace webrtc

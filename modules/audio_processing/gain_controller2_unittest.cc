@@ -525,11 +525,14 @@ TEST(GainController2,
     test::CopyVectorToAudioBuffer(stream_config, frame, &audio_buffer);
     agc2.Process(kSpeechProbabilities[j], /*input_volume_changed=*/false,
                  &audio_buffer);
+    EXPECT_TRUE(agc2.speech_probability().has_value());
+    EXPECT_EQ(agc2.speech_probability().value(), kSpeechProbabilities[j]);
     test::CopyVectorToAudioBuffer(stream_config, frame,
                                   &audio_buffer_reference);
     agc2_reference.Process(/*speech_probability=*/std::nullopt,
                            /*input_volume_changed=*/false,
                            &audio_buffer_reference);
+    EXPECT_TRUE(agc2_reference.speech_probability().has_value());
     // Check the output buffers.
     for (int i = 0; i < kStereo; ++i) {
       for (int j = 0; j < static_cast<int>(audio_buffer.num_frames()); ++j) {
@@ -598,6 +601,12 @@ TEST(GainController2,
     float speech_probability = vad.Analyze(audio_buffer.view());
     agc2.Process(speech_probability, /*input_volume_changed=*/false,
                  &audio_buffer);
+
+    EXPECT_TRUE(agc2.speech_probability().has_value());
+    EXPECT_EQ(agc2.speech_probability().value(), speech_probability);
+    EXPECT_TRUE(agc2_reference.speech_probability().has_value());
+    EXPECT_EQ(agc2_reference.speech_probability().value(), speech_probability);
+
     // Check the output buffer.
     for (int i = 0; i < kStereo; ++i) {
       for (int j = 0; j < static_cast<int>(audio_buffer.num_frames()); ++j) {

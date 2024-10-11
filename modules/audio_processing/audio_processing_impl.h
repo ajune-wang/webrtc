@@ -446,6 +446,8 @@ class AudioProcessingImpl : public AudioProcessing {
     // that audio is acquired. Unspecified when no input volume can be
     // recommended.
     std::optional<int> recommended_input_volume;
+    int num_adjacent_speech_frames;
+    int speech_probabilities_index_for_testing;
   } capture_ RTC_GUARDED_BY(mutex_capture_);
 
   struct ApmCaptureNonLockedState {

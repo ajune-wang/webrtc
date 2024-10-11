@@ -112,7 +112,6 @@ void ReceiveSideCongestionController::OnReceivedPacket(
   if (send_rfc8888_congestion_feedback_) {
     RTC_DCHECK_RUN_ON(&sequence_checker_);
     congestion_control_feedback_generator_.OnReceivedPacket(packet);
-    return;
   }
   bool has_transport_sequence_number =
       packet.HasExtension<TransportSequenceNumber>() ||
@@ -144,16 +143,19 @@ void ReceiveSideCongestionController::OnBitrateChanged(int bitrate_bps) {
 
 TimeDelta ReceiveSideCongestionController::MaybeProcess() {
   Timestamp now = env_.clock().CurrentTime();
+  TimeDelta time_until_cc_rep = TimeDelta::PlusInfinity();
   if (send_rfc8888_congestion_feedback_) {
     RTC_DCHECK_RUN_ON(&sequence_checker_);
-    return congestion_control_feedback_generator_.Process(now);
+    time_until_cc_rep = congestion_control_feedback_generator_.Process(now);
   }
   mutex_.Lock();
   TimeDelta time_until_rbe = rbe_->Process();
   mutex_.Unlock();
+  now = env_.clock().CurrentTime();
   TimeDelta time_until_rep =
       transport_sequence_number_feedback_generator_.Process(now);
-  TimeDelta time_until = std::min(time_until_rbe, time_until_rep);
+  TimeDelta time_until =
+      std::min(std::min(time_until_cc_rep, time_until_rbe), time_until_rep);
   return std::max(time_until, TimeDelta::Zero());
 }
 

@@ -16,6 +16,74 @@
       "message": "Please consider moving the comparator as a free function to media/base/codec_comparators.cc - I\u0027m trying to collect all the codec comparison functions into one file for easier isolated testing and integration (and hopefully eventually better consistency). Those rules are VERY complex to follow just now.",
       "revId": "3a320c58dd8cffb7255cacb398954a3eac28284f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ddb0f50c_abff1cf0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-10-11T09:38:18Z",
+      "side": 1,
+      "message": "Actually reviewing the code.",
+      "revId": "3a320c58dd8cffb7255cacb398954a3eac28284f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d43ee6ca_e4f6f2df",
+        "filename": "media/base/codec.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-10-11T09:38:18Z",
+      "side": 1,
+      "message": "There\u0027s code elsewhere that inserts default parameters for H.264 (and H.265?) - we should prefer to have only one function for this purpose.",
+      "revId": "3a320c58dd8cffb7255cacb398954a3eac28284f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "506c3705_342fab89",
+        "filename": "media/base/codec.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-10-11T09:38:18Z",
+      "side": 1,
+      "message": "This accepts all RTX codecs as the same RTP codec. I think this is wrong - RTX codecs are distinguished by the \"apt\u003d\" value in their parameter sets.",
+      "revId": "3a320c58dd8cffb7255cacb398954a3eac28284f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9a4c8849_5d307500",
+        "filename": "media/base/codec_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 677,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-10-11T09:38:18Z",
+      "side": 1,
+      "message": "Nice way of testing multiple parameter sets!",
+      "revId": "3a320c58dd8cffb7255cacb398954a3eac28284f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

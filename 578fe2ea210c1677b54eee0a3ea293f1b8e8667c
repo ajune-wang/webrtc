@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e9b0e5a8_a978b77e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-11T10:25:09Z",
+      "side": 1,
+      "message": "1st CL that sets direction how to inject field trials into the AudioProcessing at construction.\nFor a bigger picture I have a https://webrtc-review.googlesource.com/c/src/+/365301 large draft. this CL is a 1st part of it.",
+      "revId": "578fe2ea210c1677b54eee0a3ea293f1b8e8667c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

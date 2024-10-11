@@ -1,0 +1,157 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a63a29e3_17098012",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2024-10-11T16:55:35Z",
+      "side": 1,
+      "message": "Thanks for this contribution!",
+      "revId": "f1177818f8319c17a90438dc829410bb1a012894",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f953b11f_3cac693d",
+        "filename": "modules/desktop_capture/mac/desktop_frame_iosurface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2024-10-11T16:55:35Z",
+      "side": 1,
+      "message": "Please document the new parameter.",
+      "revId": "f1177818f8319c17a90438dc829410bb1a012894",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1099efe6_a7e5532d",
+        "filename": "modules/desktop_capture/mac/desktop_frame_iosurface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2024-10-11T16:55:35Z",
+      "side": 1,
+      "message": "Please document the new parameters.  What does `data` point to?",
+      "revId": "f1177818f8319c17a90438dc829410bb1a012894",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e801c339_92c4ad9d",
+        "filename": "modules/desktop_capture/mac/desktop_frame_iosurface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2024-10-11T16:55:35Z",
+      "side": 1,
+      "message": "It\u0027s preferred to pass data buffers with span or span-like objects instead of pointers-and-length to allow checked access to to unowned data.  However `data` is for the DesktopFrame constructor, so that would need to be converted first.",
+      "revId": "f1177818f8319c17a90438dc829410bb1a012894",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2769c5f8_451e60a2",
+        "filename": "modules/desktop_capture/mac/desktop_frame_iosurface.mm",
+        "patchSetId": 4
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2024-10-11T16:55:35Z",
+      "side": 1,
+      "message": "const size_t",
+      "revId": "f1177818f8319c17a90438dc829410bb1a012894",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8e50d150_9720a296",
+        "filename": "modules/desktop_capture/mac/desktop_frame_iosurface.mm",
+        "patchSetId": 4
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2024-10-11T16:55:35Z",
+      "side": 1,
+      "message": "Technically ptrdiff_t since you are using it for pointer arithmetic.",
+      "revId": "f1177818f8319c17a90438dc829410bb1a012894",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "26a4c2f2_6f7c318b",
+        "filename": "modules/desktop_capture/mac/desktop_frame_iosurface.mm",
+        "patchSetId": 4
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2024-10-11T16:55:35Z",
+      "side": 1,
+      "message": "An alternative is to use checked_cast here and declare these values as int32_t since that is how they are going to be consumed (see below).",
+      "revId": "f1177818f8319c17a90438dc829410bb1a012894",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ae48b396_baa6f428",
+        "filename": "modules/desktop_capture/mac/desktop_frame_iosurface.mm",
+        "patchSetId": 4
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2024-10-11T16:55:35Z",
+      "side": 1,
+      "message": "I would recommend sanity checking (RTC_CHECK) that `data + offset` and `data + offset + ((height - 1) * stride) + (width * bytes_per_pixel) - 1` are within the bounds of the IOSurface.  (I.e. the minimum and maximum addresses of the cropped region.)",
+      "revId": "f1177818f8319c17a90438dc829410bb1a012894",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "745c433e_841d3ef5",
+        "filename": "modules/desktop_capture/mac/desktop_frame_iosurface.mm",
+        "patchSetId": 4
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2024-10-11T16:55:35Z",
+      "side": 1,
+      "message": "Because you\u0027re passing size_t values as narrower types, use checked_cast here from rtc_base/numerics/safe_conversions.h to assert there is no overflow.",
+      "revId": "f1177818f8319c17a90438dc829410bb1a012894",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fcaea260_48a53f29",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-10-11T15:40:32Z",
+      "side": 1,
+      "message": "our sanitizers complained:\nmember access within misaligned address 0x... for type \u0027timeval\u0027, which requires 8 byte alignment",
+      "revId": "2e6b2c70fd3a177ce6a8fac27cb84c6bb5e72fed",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

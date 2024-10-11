@@ -198,8 +198,10 @@ void GainController2::Process(std::optional<float> speech_probability,
   }
   // The speech probability may not be defined at this step (e.g., when the
   // fixed digital controller alone is enabled).
-  if (speech_probability.has_value())
+  if (speech_probability.has_value()) {
+    speech_probability_ = speech_probability;
     data_dumper_.DumpRaw("agc2_speech_probability", *speech_probability);
+  }
 
   // Compute audio, noise and speech levels.
   AudioLevels audio_levels = ComputeAudioLevels(float_frame, data_dumper_);

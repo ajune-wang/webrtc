@@ -50,6 +50,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "52d4aa52_d7905221",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 6092
+      },
+      "writtenOn": "2024-10-12T00:36:28Z",
+      "side": 1,
+      "message": "`BaseCapturerPipeWire` is a bit weird, and is maybe not a good example to follow? My understanding is, that capturer itself creates the virtual display that it captures from?\n\nI don\u0027t think it was designed for capturing from real physical displays - it was written when we were implementing Wayland support for Chrome Remote Desktop. I don\u0027t know of anybody else using this code, and it is still very experimental.\n\nWe may change the way it works - I think something else should create the virtual display, and the Wayland capturer should be able to capture from it, or a real display. I have a feeling that the XDG Portal APIs are different for these cases, but I\u0027m no expert! 😊\n\nI\u0027m happy with any combination of DesktopCaptureOptions that lets CRD access the screen ID being captured, without breaking anything that Firefox is doing 😊",
+      "parentUuid": "cd0b46ea_9f1e0df4",
+      "range": {
+        "startLine": 15,
+        "startChar": 10,
+        "endLine": 17,
+        "endChar": 53
+      },
+      "revId": "966d97bb0ec1b69e98b5f05750170c6424a346fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "4a17f134_d562a874",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 4

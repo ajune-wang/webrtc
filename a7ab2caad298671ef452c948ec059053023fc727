@@ -16,6 +16,24 @@
       "message": "Would love some feedback on that presubmit error -- is it a bug in the script or is it saying the check failed because of the warnings?\nI tried to shake those warnings but git cl format insisted on wrapping those lines at 100 or so columns, while git cl lint complained that they\u0027re over 80 columns. Might it be related to them being headers of mm files (which are ignored by linting)?",
       "revId": "a7ab2caad298671ef452c948ec059053023fc727",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aa464a24_478d44ba",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6092
+      },
+      "writtenOn": "2024-10-12T00:36:28Z",
+      "side": 1,
+      "message": "I believe the check failed because of the warnings.\n\nThey are header files, so it should be possible to include them from plain C++ files as well as ObjC files. That means, I think, the headers should follow the 80-char limit? I don\u0027t think we have any .h files that are purely ObjC?\n\nI just tried adding a very long function to `desktop_frame_iosurface.h`. When I run `git cl format`, it wraps it according to 80-char, as I would expect. I\u0027m not sure why you are seeing different behavior?\n\nIf you wrap your .h files at 80-char, the trybots should be OK I think. The .mm files need to be wrapped at 100-char. Even if you get a local warning when you upload your patch, it gives you a choice to upload it anyway.",
+      "parentUuid": "a42fede4_654082b3",
+      "revId": "a7ab2caad298671ef452c948ec059053023fc727",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

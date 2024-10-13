@@ -41,7 +41,8 @@ rtc_library("call_interfaces") {
     ":payload_type",
     ":receive_stream_interface",
     ":rtp_interfaces",
-    ":video_stream_api",
+    ":video_receive_stream_api",
+    ":video_send_stream_api",
     "../api:fec_controller_api",
     "../api:field_trials_view",
     "../api:frame_transformer_interface",
@@ -318,7 +319,8 @@ rtc_library("call") {
     ":rtp_sender",
     ":simulated_network",
     ":version",
-    ":video_stream_api",
+    ":video_receive_stream_api",
+    ":video_send_stream_api",
     "../api:array_view",
     "../api:fec_controller_api",
     "../api:field_trials_view",
@@ -420,28 +422,28 @@ rtc_source_set("receive_stream_interface") {
   ]
 }
 
+# TODO(hta): Remove this when downstream users have updated.
 rtc_library("video_stream_api") {
+  deps = [
+    ":video_receive_stream_api",
+    ":video_send_stream_api",
+  ]
+}
+
+rtc_library("video_send_stream_api") {
   sources = [
-    "video_receive_stream.cc",
-    "video_receive_stream.h",
     "video_send_stream.cc",
     "video_send_stream.h",
   ]
   deps = [
-    ":receive_stream_interface",
     ":rtp_interfaces",
     "../api:frame_transformer_interface",
-    "../api:rtp_headers",
     "../api:rtp_parameters",
     "../api:rtp_sender_interface",
     "../api:scoped_refptr",
     "../api:transport_api",
     "../api/adaptation:resource_adaptation_api",
-    "../api/crypto:frame_decryptor_interface",
-    "../api/crypto:frame_encryptor_interface",
     "../api/crypto:options",
-    "../api/units:time_delta",
-    "../api/video:recordable_encoded_frame",
     "../api/video:video_frame",
     "../api/video:video_rtp_headers",
     "../api/video:video_stream_encoder",
@@ -453,6 +455,30 @@ rtc_library("video_stream_api") {
     "../rtc_base:checks",
     "../rtc_base:stringutils",
     "../video/config:encoder_config",
+  ]
+}
+rtc_library("video_receive_stream_api") {
+  sources = [
+    "video_receive_stream.cc",
+    "video_receive_stream.h",
+  ]
+  deps = [
+    ":receive_stream_interface",
+    ":rtp_interfaces",
+    "../api:frame_transformer_interface",
+    "../api:rtp_headers",
+    "../api:scoped_refptr",
+    "../api:transport_api",
+    "../api/crypto:frame_decryptor_interface",
+    "../api/crypto:options",
+    "../api/units:time_delta",
+    "../api/video:recordable_encoded_frame",
+    "../api/video:video_frame",
+    "../api/video:video_rtp_headers",
+    "../api/video_codecs:video_codecs_api",
+    "../common_video:frame_counts",
+    "../modules/rtp_rtcp:rtp_rtcp_format",
+    "../rtc_base:stringutils",
   ]
 }
 
@@ -525,7 +551,8 @@ if (rtc_include_tests) {
         ":rtp_receiver",
         ":rtp_sender",
         ":simulated_network",
-        ":video_stream_api",
+        ":video_receive_stream_api",
+        ":video_send_stream_api",
         "../api:array_view",
         "../api:bitrate_allocation",
         "../api:create_frame_generator",
@@ -629,7 +656,8 @@ if (rtc_include_tests) {
       deps = [
         ":call_interfaces",
         ":simulated_network",
-        ":video_stream_api",
+        ":video_receive_stream_api",
+        ":video_send_stream_api",
         "../api:array_view",
         "../api:field_trials_view",
         "../api:make_ref_counted",

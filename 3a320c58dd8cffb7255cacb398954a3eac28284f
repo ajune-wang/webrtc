@@ -35,6 +35,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f8bc3b0d_c2a00a94",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-10-13T21:16:53Z",
+      "side": 1,
+      "message": "My main ask is what I said first - that you don\u0027t add more comparators to codec.cc, but rather add them to codec_comparators.cc\n\nI\u0027m trying to collect the matching stuff (and associated tests) in one place.",
+      "revId": "3a320c58dd8cffb7255cacb398954a3eac28284f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d43ee6ca_e4f6f2df",
@@ -72,6 +89,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "02deab53_a6252387",
+        "filename": "media/base/codec.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-10-13T21:16:53Z",
+      "side": 1,
+      "message": "What I\u0027m asking is that you look for those parameter insertions elsewhere and see if you can unify the code.",
+      "parentUuid": "a8b7065d_6eb99373",
+      "revId": "3a320c58dd8cffb7255cacb398954a3eac28284f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "506c3705_342fab89",
         "filename": "media/base/codec.cc",
         "patchSetId": 9
@@ -101,6 +136,24 @@
       "side": 1,
       "message": "This is intended to be the same as MatchesRtpCodec above but with not as exact parameter match. So maybe any change to the RTX codec match could be done separately.",
       "parentUuid": "506c3705_342fab89",
+      "revId": "3a320c58dd8cffb7255cacb398954a3eac28284f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "29ad2ad3_2bada6ea",
+        "filename": "media/base/codec.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-10-13T21:16:53Z",
+      "side": 1,
+      "message": "After reading the bug and the linked design doc, I\u0027m still unclear about what the exact purpose of this function is. Is there some guarantee that it won\u0027t be used on RTX codecs? If so, can we codify that?",
+      "parentUuid": "918c6ec8_e66cab4d",
       "revId": "3a320c58dd8cffb7255cacb398954a3eac28284f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

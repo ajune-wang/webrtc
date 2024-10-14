@@ -63,6 +63,7 @@ rtc_source_set("enable_media_with_defaults") {
     ":scoped_refptr",
     "../rtc_base/system:rtc_export",
     "audio:audio_processing",
+    "audio:builtin_audio_processing_factory",
     "audio_codecs:audio_codecs_api",
     "audio_codecs:audio_codecs_api",
     "audio_codecs:builtin_audio_decoder_factory",
@@ -99,6 +100,7 @@ if (!build_with_chromium) {
       "audio:audio_device",
       "audio:audio_mixer_api",
       "audio:audio_processing",
+      "audio:builtin_audio_processing_factory",
       "audio_codecs:audio_codecs_api",
       "video_codecs:video_codecs_api",
     ]
@@ -365,6 +367,7 @@ rtc_library("libjingle_peerconnection_api") {
     "crypto:frame_decryptor_interface",
     "crypto:frame_encryptor_interface",
     "crypto:options",
+    "environment",
     "metronome",
     "neteq:neteq_api",
     "rtc_event_log",
@@ -385,6 +388,7 @@ rtc_library("libjingle_peerconnection_api") {
     "video_codecs:video_codecs_api",
     "//third_party/abseil-cpp/absl/algorithm:container",
     "//third_party/abseil-cpp/absl/base:core_headers",
+    "//third_party/abseil-cpp/absl/base:nullability",
     "//third_party/abseil-cpp/absl/functional:any_invocable",
     "//third_party/abseil-cpp/absl/memory",
     "//third_party/abseil-cpp/absl/strings:string_view",
@@ -1020,6 +1024,7 @@ if (rtc_include_tests) {
         "../modules/audio_processing",
         "../modules/audio_processing:audioproc_f_impl",
         "audio:audio_processing",
+        "audio:builtin_audio_processing_factory",
       ]
     }
 

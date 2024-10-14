@@ -210,7 +210,10 @@ PeerConnectionFactoryDependencies CreatePCFDependencies(
 
   // Media dependencies
   pcf_deps.adm = std::move(audio_device_module);
-  pcf_deps.audio_processing = pcf_dependencies->audio_processing;
+  if (pcf_dependencies->audio_processing != nullptr) {
+    pcf_deps.audio_processing_factory =
+        PrebuiltAudioProcessing(std::move(pcf_dependencies->audio_processing));
+  }
   pcf_deps.audio_mixer = pcf_dependencies->audio_mixer;
   pcf_deps.video_encoder_factory =
       std::move(pcf_dependencies->video_encoder_factory);
@@ -288,13 +291,9 @@ std::unique_ptr<TestPeer> TestPeerFactory::CreateTestPeer(
   params->rtc_configuration.sdp_semantics = SdpSemantics::kUnifiedPlan;
 
   // Create peer connection factory.
-  if (components->pcf_dependencies->audio_processing == nullptr) {
-    components->pcf_dependencies->audio_processing =
-        webrtc::AudioProcessingBuilder().Create();
-  }
   if (params->aec_dump_path) {
-    components->pcf_dependencies->audio_processing->CreateAndAttachAecDump(
-        *params->aec_dump_path, -1, task_queue_);
+    //    components->pcf_dependencies->audio_processing->CreateAndAttachAecDump(
+    //        *params->aec_dump_path, -1, task_queue_);
   }
   rtc::scoped_refptr<AudioDeviceModule> audio_device_module =
       CreateAudioDeviceModule(params->audio_config, remote_audio_config,

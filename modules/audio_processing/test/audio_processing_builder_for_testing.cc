@@ -13,16 +13,18 @@
 #include <memory>
 #include <utility>
 
+#include "api/audio/builtin_audio_processing_factory.h"
+#include "api/environment/environment_factory.h"
 #include "modules/audio_processing/audio_processing_impl.h"
 
 namespace webrtc {
 
-AudioProcessingBuilderForTesting::AudioProcessingBuilderForTesting() = default;
-AudioProcessingBuilderForTesting::~AudioProcessingBuilderForTesting() = default;
+AudioProcessingFactoryForTesting::AudioProcessingFactoryForTesting() = default;
+AudioProcessingFactoryForTesting::~AudioProcessingFactoryForTesting() = default;
 
 #ifdef WEBRTC_EXCLUDE_AUDIO_PROCESSING_MODULE
 
-rtc::scoped_refptr<AudioProcessing> AudioProcessingBuilderForTesting::Create() {
+rtc::scoped_refptr<AudioProcessing> AudioProcessingFactoryForTesting::Create() {
   return rtc::make_ref_counted<AudioProcessingImpl>(
       config_, std::move(capture_post_processing_),
       std::move(render_pre_processing_), std::move(echo_control_factory_),
@@ -31,21 +33,22 @@ rtc::scoped_refptr<AudioProcessing> AudioProcessingBuilderForTesting::Create() {
 
 #else
 
-rtc::scoped_refptr<AudioProcessing> AudioProcessingBuilderForTesting::Create() {
-  AudioProcessingBuilder builder;
-  TransferOwnershipsToBuilder(&builder);
-  return builder.SetConfig(config_).Create();
+scoped_refptr<AudioProcessing> AudioProcessingFactoryForTesting::Create(
+    const Environment& env) {
+  return BuiltinAudioProcessingFactory()
+      .SetConfig(config_)
+      .SetCapturePostProcessing(std::move(capture_post_processing_))
+      .SetRenderPreProcessing(std::move(render_pre_processing_))
+      .SetEchoControlFactory(std::move(echo_control_factory_))
+      .SetEchoDetector(std::move(echo_detector_))
+      .SetCaptureAnalyzer(std::move(capture_analyzer_))
+      .Create(env);
 }
 
 #endif
 
-void AudioProcessingBuilderForTesting::TransferOwnershipsToBuilder(
-    AudioProcessingBuilder* builder) {
-  builder->SetCapturePostProcessing(std::move(capture_post_processing_));
-  builder->SetRenderPreProcessing(std::move(render_pre_processing_));
-  builder->SetEchoControlFactory(std::move(echo_control_factory_));
-  builder->SetEchoDetector(std::move(echo_detector_));
-  builder->SetCaptureAnalyzer(std::move(capture_analyzer_));
+scoped_refptr<AudioProcessing> AudioProcessingFactoryForTesting::Create() {
+  return Create(CreateEnvironment());
 }
 
 }  // namespace webrtc

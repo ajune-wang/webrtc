@@ -78,6 +78,7 @@
 #include <vector>
 
 #include "absl/base/attributes.h"
+#include "absl/base/nullability.h"
 #include "absl/strings/string_view.h"
 #include "api/adaptation/resource.h"
 #include "api/async_dns_resolver.h"
@@ -1467,7 +1468,7 @@ struct RTC_EXPORT PeerConnectionFactoryDependencies final {
   rtc::scoped_refptr<AudioMixer> audio_mixer;
   // TODO: bugs.webrtc.org/369904700 - Deprecate `audio_processing` in favor
   // of `audio_processing_factory`.
-  rtc::scoped_refptr<AudioProcessing> audio_processing;
+  [[deprecated]] rtc::scoped_refptr<AudioProcessing> audio_processing;
   std::unique_ptr<AudioProcessingFactory> audio_processing_factory;
   std::unique_ptr<AudioFrameProcessor> audio_frame_processor;
   std::unique_ptr<VideoEncoderFactory> video_encoder_factory;

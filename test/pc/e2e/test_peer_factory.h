@@ -75,7 +75,7 @@ class TestPeerFactory {
   rtc::Thread* signaling_thread_;
   TimeController& time_controller_;
   VideoQualityAnalyzerInjectionHelper* video_analyzer_helper_;
-  TaskQueueBase* const task_queue_;
+  [[maybe_unused]] TaskQueueBase* const task_queue_;
 };
 
 }  // namespace webrtc_pc_e2e

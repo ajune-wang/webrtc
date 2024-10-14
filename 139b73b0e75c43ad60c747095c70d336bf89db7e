@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3b42f8a6_a5505f4f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2024-10-14T17:06:07Z",
+      "side": 1,
+      "message": "lg, but there appears to be a use-after-free in the unit test where you call `  EXPECT_FALSE(send_stream-\u003eGetConfig()\n                   .encoder_settings.enable_frame_instrumentation_generator)`. It appears the send stream has already been destroyed in a call to `cricket::FakeCall::DestroyVideoSendStream()` at that point. Might just need to call `GetFakeSendStreams()` instead?",
+      "revId": "139b73b0e75c43ad60c747095c70d336bf89db7e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a5b82780_c24ab981",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-10-14T07:32:08Z",
+      "side": 1,
+      "message": "Testing real functionality, yay!",
+      "revId": "3ce52cde8928e51237a1404e339d23e7354eb2a7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e64b11a9_1178d87c",
+        "filename": "pc/dtls_srtp_transport_integrationtest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-10-14T07:32:08Z",
+      "side": 1,
+      "message": "use uint8_t, not unsigned char, where possible. I think they\u0027re the same thing for all the architectures we support. (9-bit and 7-bit chars are luckily a long way behind us.)",
+      "revId": "3ce52cde8928e51237a1404e339d23e7354eb2a7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b07277fa_a36c2a21",
+        "filename": "pc/dtls_srtp_transport_integrationtest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-10-14T07:32:08Z",
+      "side": 1,
+      "message": "Is there a reason to use memcpy here and not send_key.data \u003d rtc::ArrayView(dtls_buffer, offset, key_len) or whatever the right invocation syntax is?\nMemcpy requires too much attention on the part of the programmer while changing it.",
+      "revId": "3ce52cde8928e51237a1404e339d23e7354eb2a7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

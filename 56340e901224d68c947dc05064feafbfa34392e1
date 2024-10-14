@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d32952d1_aab1fd05",
+        "filename": "api/peer_connection_interface.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 1470,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-14T09:34:28Z",
+      "side": 1,
+      "message": "I plan to [thus TODO], but not yet:\n- New path is not fully ready yet - need to add one or two prod implementations of the new interface.\n- chromium touches that member, so, marking it deprecated would be a compilation error. Needs to migrate chromium before adding the attribute.",
+      "parentUuid": "f825f08b_80f3334b",
+      "revId": "56340e901224d68c947dc05064feafbfa34392e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c26d81f8_e074d6ff",
@@ -52,6 +70,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8b4dfaad_896f8557",
+        "filename": "pc/peer_connection_factory_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 731,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-14T09:34:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c26d81f8_e074d6ff",
+      "revId": "56340e901224d68c947dc05064feafbfa34392e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b6b43e04_9b006488",
@@ -65,6 +101,24 @@
       "writtenOn": "2024-10-14T07:26:18Z",
       "side": 1,
       "message": "```suggestion\n  // audio_processing_factory right away when `EnableMediaWithDefault` would\n```",
+      "revId": "56340e901224d68c947dc05064feafbfa34392e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9721be12_42542d43",
+        "filename": "pc/test/integration_test_helpers.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-14T09:34:28Z",
+      "side": 1,
+      "message": "oops, Done.",
+      "parentUuid": "b6b43e04_9b006488",
       "revId": "56340e901224d68c947dc05064feafbfa34392e1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

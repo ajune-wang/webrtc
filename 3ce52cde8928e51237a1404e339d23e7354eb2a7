@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cc0572a0_e7c3265b",
+        "filename": "pc/dtls_srtp_transport_integrationtest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-10-14T08:16:57Z",
+      "side": 1,
+      "message": "just copying from the other places that use it. Since they are the same types the signature change should be type-compatible, right? And we actually use uint8_t when passing them to SrtpSession... will do as f\u0027up!",
+      "parentUuid": "e64b11a9_1178d87c",
+      "revId": "3ce52cde8928e51237a1404e339d23e7354eb2a7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b07277fa_a36c2a21",
@@ -48,6 +66,24 @@
       "writtenOn": "2024-10-14T07:32:08Z",
       "side": 1,
       "message": "Is there a reason to use memcpy here and not send_key.data \u003d rtc::ArrayView(dtls_buffer, offset, key_len) or whatever the right invocation syntax is?\nMemcpy requires too much attention on the part of the programmer while changing it.",
+      "revId": "3ce52cde8928e51237a1404e339d23e7354eb2a7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0532cae0_8ca67acc",
+        "filename": "pc/dtls_srtp_transport_integrationtest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-10-14T08:16:57Z",
+      "side": 1,
+      "message": "We can\u0027t use a view since the source is managed by OpenSSL and the lifetime is unclear.\n\nWe could be using the ZeroOnFreeBuffer that copies but even then it would have to be the variant that copies *some* and then memcpy\u0027s the salts (the memory layout is clientkey,serverkey,clientsalt,serversalt or the other way round)\n\nStill an improvement, will do in all the places.",
+      "parentUuid": "b07277fa_a36c2a21",
       "revId": "3ce52cde8928e51237a1404e339d23e7354eb2a7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

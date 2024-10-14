@@ -11,6 +11,10 @@
 #ifndef PC_TEST_SRTP_TEST_UTIL_H_
 #define PC_TEST_SRTP_TEST_UTIL_H_
 
+#include <cstdint>
+
+#include "rtc_base/buffer.h"
+#include "rtc_base/checks.h"
 #include "rtc_base/ssl_stream_adapter.h"
 
 namespace rtc {
@@ -20,7 +24,7 @@ static const rtc::ZeroOnFreeBuffer<uint8_t> kTestKey1{
 static const rtc::ZeroOnFreeBuffer<uint8_t> kTestKey2{
     "4321ZYXWVUTSRQPONMLKJIHGFEDCBA", 30};
 
-static int rtp_auth_tag_len(int crypto_suite) {
+inline int rtp_auth_tag_len(int crypto_suite) {
   switch (crypto_suite) {
     case kSrtpAes128CmSha1_32:
       return 4;
@@ -34,7 +38,7 @@ static int rtp_auth_tag_len(int crypto_suite) {
   }
 }
 
-static int rtcp_auth_tag_len(int crypto_suite) {
+inline int rtcp_auth_tag_len(int crypto_suite) {
   switch (crypto_suite) {
     case kSrtpAes128CmSha1_32:
     case kSrtpAes128CmSha1_80:

@@ -9,7 +9,6 @@
  */
 
 #include <stdint.h>
-#include <string.h>
 
 #include <memory>
 #include <optional>
@@ -23,10 +22,12 @@
 #include "api/audio_codecs/builtin_audio_encoder_factory.h"
 #include "api/audio_options.h"
 #include "api/data_channel_interface.h"
+#include "api/make_ref_counted.h"
 #include "api/peer_connection_interface.h"
 #include "api/rtp_receiver_interface.h"
 #include "api/rtp_sender_interface.h"
 #include "api/scoped_refptr.h"
+#include "api/stats/attribute.h"
 #include "api/stats/rtc_stats.h"
 #include "api/stats/rtc_stats_report.h"
 #include "api/stats/rtcstats_objects.h"
@@ -34,7 +35,6 @@
 #include "pc/test/peer_connection_test_wrapper.h"
 #include "pc/test/rtc_stats_obtainer.h"
 #include "rtc_base/checks.h"
-#include "rtc_base/event_tracer.h"
 #include "rtc_base/gunit.h"
 #include "rtc_base/thread.h"
 #include "rtc_base/trace_event.h"

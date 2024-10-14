@@ -128,12 +128,11 @@ class DtlsSrtpTransportIntegrationTest : public ::testing::Test {
                                               &salt_len));
 
     // Extract the keys. The order depends on the role!
-    rtc::ZeroOnFreeBuffer<unsigned char> dtls_buffer(key_len * 2 +
-                                                     salt_len * 2);
+    rtc::ZeroOnFreeBuffer<uint8_t> dtls_buffer(key_len * 2 + salt_len * 2);
     ASSERT_TRUE(server_dtls_transport_->ExportSrtpKeyingMaterial(dtls_buffer));
 
-    rtc::ZeroOnFreeBuffer<unsigned char> send_key(key_len + salt_len);
-    rtc::ZeroOnFreeBuffer<unsigned char> recv_key(key_len + salt_len);
+    rtc::ZeroOnFreeBuffer<uint8_t> send_key(key_len + salt_len);
+    rtc::ZeroOnFreeBuffer<uint8_t> recv_key(key_len + salt_len);
     size_t offset = 0;
     std::memcpy(&recv_key[0], &dtls_buffer[offset], key_len);
     offset += key_len;

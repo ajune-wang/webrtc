@@ -20,6 +20,23 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "5ae9e37b_09237021",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-10-14T10:45:46Z",
+      "side": 1,
+      "message": "Even though I think copying the bytes into an union with a bytes \u003d struct overlap would be cleaner (force alignment that way), getting rid of a static_cast is an improvement even when it requires a memcpy.",
+      "revId": "2e6b2c70fd3a177ce6a8fac27cb84c6bb5e72fed",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "ff39293d_21e96f99",
         "filename": "rtc_base/physical_socket_server.cc",
         "patchSetId": 1

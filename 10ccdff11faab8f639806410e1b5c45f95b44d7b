@@ -1,0 +1,126 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e324e775_778e01e1",
+        "filename": "video/end_to_end_tests/corruption_detection_tests.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 3485001
+      },
+      "writtenOn": "2024-10-15T13:12:40Z",
+      "side": 1,
+      "message": "Variables with static storage duration should be trivially destructable. Maybe better with a C-array.",
+      "fixSuggestions": [
+        {
+          "fixId": "39e31009_dfdde1ed",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "video/end_to_end_tests/corruption_detection_tests.cc",
+              "range": {
+                "startLine": 21,
+                "startChar": 0,
+                "endLine": 24,
+                "endChar": 0
+              },
+              "replacement": "constexpr RtpExtension kCorruptionExtension(\n    RtpExtension::kCorruptionDetectionUri,\n    /*extension_id\u003d*/1,\n    /*encrypted\u003d*/true);\n"
+            }
+          ]
+        }
+      ],
+      "revId": "10ccdff11faab8f639806410e1b5c45f95b44d7b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2f6de735_4356babb",
+        "filename": "video/end_to_end_tests/corruption_detection_tests.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 3485001
+      },
+      "writtenOn": "2024-10-15T13:12:40Z",
+      "side": 1,
+      "message": "nit: Better name",
+      "range": {
+        "startLine": 31,
+        "startChar": 32,
+        "endLine": 31,
+        "endChar": 35
+      },
+      "revId": "10ccdff11faab8f639806410e1b5c45f95b44d7b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4399244e_682f055a",
+        "filename": "video/end_to_end_tests/corruption_detection_tests.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 3485001
+      },
+      "writtenOn": "2024-10-15T13:12:40Z",
+      "side": 1,
+      "message": "Out of curiosity, are we in the future also planning on adding other codecs and specify screenshare vs camera stream?",
+      "range": {
+        "startLine": 54,
+        "startChar": 39,
+        "endLine": 54,
+        "endChar": 42
+      },
+      "revId": "10ccdff11faab8f639806410e1b5c45f95b44d7b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6c6cbed4_73c5ca78",
+        "filename": "video/end_to_end_tests/corruption_detection_tests.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 3485001
+      },
+      "writtenOn": "2024-10-15T13:12:40Z",
+      "side": 1,
+      "message": "Are we sure we even enter this if statement? Because without setting https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/api/crypto/crypto_options.h;l\u003d58;bpv\u003d1;bpt\u003d0?q\u003d%22bool%20enable_encrypted_rtp_header_extensions%20%3D%20false;%22\u0026sq\u003d to `true` it should never calculate the corruption score, since you specify `/*encrypted\u003d*/true` above.",
+      "range": {
+        "startLine": 81,
+        "startChar": 8,
+        "endLine": 81,
+        "endChar": 47
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "5aa95a41_9d8ce690",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "video/end_to_end_tests/corruption_detection_tests.cc",
+              "range": {
+                "startLine": 28,
+                "startChar": 0,
+                "endLine": 29,
+                "endChar": 0
+              },
+              "replacement": "  CorruptionDetectionTest() {\n    RegisterRtpExtension(kCorruptionExtension);\n    crypto_options_.srtp.enable_encrypted_rtp_header_extensions \u003d true;\n  }\n"
+            }
+          ]
+        }
+      ],
+      "revId": "10ccdff11faab8f639806410e1b5c45f95b44d7b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

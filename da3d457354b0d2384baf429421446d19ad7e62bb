@@ -210,6 +210,24 @@
       "message": "Can we get rid of AudioProcessingBuilderForTesting()? (Later CL?)",
       "revId": "da3d457354b0d2384baf429421446d19ad7e62bb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8c8f4bb8_80a01f68",
+        "filename": "modules/audio_processing/audio_processing_impl_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 586,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-15T10:57:30Z",
+      "side": 1,
+      "message": "Yes, that is part of the plan, BuiltinAudioProcessingFactory intends to fully replace AudioProcessingBuilderForTesting in later CLs:\nAudioProcessingBuilder creates ap unless \u0027rtc_exclude_audio_processing_module\u0027\nAudioProcessingBuilderForTesting creates same ap regardless of \u0027rtc_exclude_audio_processing_module\u0027\n\nI choose BuiltinAudioProcessingFactory to create ap regardless the build flag but inject it as a dependency depending on the build flag (that way it should be easier to remove the build flag in the future)",
+      "parentUuid": "65f77562_d14dcc9c",
+      "revId": "da3d457354b0d2384baf429421446d19ad7e62bb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

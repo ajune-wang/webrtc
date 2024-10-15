@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ab763f83_ecd0dc64",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2024-10-15T14:41:14Z",
+      "side": 1,
+      "message": "Please rephrase. E.g.:\n\nVideoRtpDepacketizerH264: avoid postprocessing assembled byte stream.\n\nAlso please add a short description of what\u0027s actually done to avoid it: where the new processing is happening now, where it was.",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 81
+      },
+      "revId": "fd53e4692d3838dde2d8e536f3e62f000642ffce",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

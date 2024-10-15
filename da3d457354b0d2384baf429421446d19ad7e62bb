@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1faed880_6c8afcf9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-10-15T09:17:15Z",
+      "side": 1,
+      "message": "Seems straightforward, except for one functionality point and some design worries. But do add some tests right off the bat - a class without a test is an untested class. (I\u0027ve made classes in the past with crashes in their constructor ... even the simplest test would catch that...)",
+      "revId": "da3d457354b0d2384baf429421446d19ad7e62bb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "81e093a2_8e9396f4",
+        "filename": "api/audio/builtin_audio_processing_factory.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-10-15T09:17:15Z",
+      "side": 1,
+      "message": "Do you really want to have all those setters?\nYou will want to limit the amount of permitted complexity caused by modification - the lowest possible complexity is to have everything initialized at construction time and no way to change it; second lowest is \"set only if unset\" (appropriate for a builder pattern, but perhaps not for a factory). Full changeability at any subsequent time is a means of causing bugs that are hard to debug.",
+      "revId": "da3d457354b0d2384baf429421446d19ad7e62bb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1cbd4650_6d7e10c2",
+        "filename": "api/audio/builtin_audio_processing_factory.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-10-15T09:17:15Z",
+      "side": 1,
+      "message": "This description sounds more like a builder pattern than a factory pattern....",
+      "revId": "da3d457354b0d2384baf429421446d19ad7e62bb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4a57ad82_095e9216",
+        "filename": "api/create_peerconnection_factory.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-10-15T09:17:15Z",
+      "side": 1,
+      "message": "If audio_processing is not set (desired end state) and dependencies.audio_processing_factory is already set, this will overwrite the passed-in factory; that seems contrary to intention.",
+      "revId": "da3d457354b0d2384baf429421446d19ad7e62bb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

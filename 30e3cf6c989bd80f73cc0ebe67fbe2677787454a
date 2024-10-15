@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bce54fbf_962c24d8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3485001
+      },
+      "writtenOn": "2024-10-15T09:19:06Z",
+      "side": 1,
+      "message": "Removing Fanny because of OOO and tight deadline.",
+      "revId": "30e3cf6c989bd80f73cc0ebe67fbe2677787454a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

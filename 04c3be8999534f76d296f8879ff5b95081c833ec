@@ -3,6 +3,29 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "87f25342_cf67e50c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-15T13:51:59Z",
+      "side": 1,
+      "message": "I think beeing more explicit can help here:\n\nIt would allow to use `EncodedImageBufferInterface` with gtest container matchers.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 108
+      },
+      "revId": "04c3be8999534f76d296f8879ff5b95081c833ec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "b50386d8_54e8196a",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 1
@@ -14,6 +37,29 @@
       "writtenOn": "2024-10-15T13:48:09Z",
       "side": 1,
       "message": "Please have a look at this change based on what we have discussed.",
+      "revId": "04c3be8999534f76d296f8879ff5b95081c833ec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0ccd2c20_58ad7875",
+        "filename": "api/video/encoded_image.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-15T13:51:59Z",
+      "side": 1,
+      "message": "I would recommend to keep uint8_t here and below:\n\nMost readers won\u0027t be interested in `value_type` alias, and it takes extra indirection to see what this interface works with.",
+      "range": {
+        "startLine": 44,
+        "startChar": 16,
+        "endLine": 44,
+        "endChar": 26
+      },
       "revId": "04c3be8999534f76d296f8879ff5b95081c833ec",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

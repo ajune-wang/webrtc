@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "200d7b3e_1878d98d",
+        "filename": "pc/rtc_stats_collector_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 848,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-15T12:52:49Z",
+      "side": 1,
+      "message": "may be instead change \n`constexpr int64_t kRemoteOutboundStatsTimestampMs \u003d 123`\nto \n`constexpr Timestamp kRemoteOutboundStatsTimestamp \u003d Timesetamp::Millis(123);`",
+      "revId": "2c33f2ae0ac7d92587db1538cbb04d521dc7eab5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1aea2c4e_0c7c3008",
+        "filename": "video/video_receive_stream2.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 577,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-15T12:52:49Z",
+      "side": 1,
+      "message": "smells like it is about time to add centralized converter\nNtpTime \u003c-\u003e utc timestamp\n\nthough still not that many usages, so doing it manually seems ok too.",
+      "range": {
+        "startLine": 575,
+        "startChar": 4,
+        "endLine": 577,
+        "endChar": 52
+      },
+      "revId": "2c33f2ae0ac7d92587db1538cbb04d521dc7eab5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

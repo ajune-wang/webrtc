@@ -14,19 +14,44 @@
 
 #include <algorithm>
 #include <cmath>
+#include <cstdint>
+#include <limits>
 #include <utility>
-#include <vector>
 
 #include "absl/algorithm/container.h"
+#include "api/units/time_delta.h"
 #include "api/units/timestamp.h"
 #include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
+#include "modules/rtp_rtcp/source/ntp_time_util.h"
+#include "modules/rtp_rtcp/source/rtcp_packet/congestion_control_feedback.h"
 #include "modules/rtp_rtcp/source/rtcp_packet/transport_feedback.h"
+#include "modules/rtp_rtcp/source/rtp_header_extensions.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
+#include "rtc_base/network/ecn_marking.h"
 
 namespace webrtc {
 
 constexpr TimeDelta kSendTimeHistoryWindow = TimeDelta::Seconds(60);
+
+// static
+PacketFeedback TransportFeedbackAdapter::From(
+    const RtpPacketToSend& packet,
+    const PacedPacketInfo& pacing_info,
+    size_t overhead_bytes,
+    Timestamp creation_time) {
+  PacketFeedback feedback;
+
+  feedback.creation_time = creation_time;
+  feedback.sent.sequence_number = *packet.transport_sequence_number();
+  feedback.sent.size = DataSize::Bytes(packet.size() + overhead_bytes);
+  feedback.sent.audio = packet.packet_type() == RtpPacketMediaType::kAudio;
+  feedback.network_route = network_route_;
+  feedback.sent.pacing_info = pacing_info;
+  feedback.ssrc = packet.Ssrc();
+  feedback.rtp_sequence_number = packet.SequenceNumber();
+  return feedback;
+}
 
 void InFlightBytesTracker::AddInFlightPacketBytes(
     const PacketFeedback& packet) {
@@ -86,6 +111,32 @@ bool InFlightBytesTracker::NetworkRouteComparator::operator()(
 
 TransportFeedbackAdapter::TransportFeedbackAdapter() = default;
 
+void TransportFeedbackAdapter::AddPacket(const RtpPacketToSend& packet,
+                                         const PacedPacketInfo& pacing_info,
+                                         size_t overhead_bytes,
+                                         Timestamp creation_time) {
+  PacketFeedback feedback =
+      From(packet, pacing_info, overhead_bytes, creation_time);
+  // Assume transport sequence number header extension is used unless
+  // packet.transport_sequence_number() is set and the packet does not contain
+  // the extension.
+  use_transport_sequence_number_header_extension_ =
+      !(packet.transport_sequence_number() &&
+        !packet.HasExtension<TransportSequenceNumber>());
+
+  if (!use_transport_sequence_number_header_extension_) {
+    RTC_DCHECK(packet.transport_sequence_number())
+        << "Missing transport sequence number.";
+    SsrcRtpSequenceNumberPair ssrc_seq_pair =
+        std::make_pair(packet.Ssrc(), packet.SequenceNumber());
+    // Note that it can happen that the same SSRC and sequence number is sent
+    // again. I.E audio retransmission.
+    rtp_to_transport_sequence_number_.insert(
+        std::make_pair(ssrc_seq_pair, *packet.transport_sequence_number()));
+  }
+  AddPacket(feedback);
+}
+
 void TransportFeedbackAdapter::AddPacket(const RtpPacketSendInfo& packet_info,
                                          size_t overhead_bytes,
                                          Timestamp creation_time) {
@@ -97,9 +148,12 @@ void TransportFeedbackAdapter::AddPacket(const RtpPacketSendInfo& packet_info,
   packet.sent.audio = packet_info.packet_type == RtpPacketMediaType::kAudio;
   packet.network_route = network_route_;
   packet.sent.pacing_info = packet_info.pacing_info;
+  AddPacket(packet);
+}
 
+void TransportFeedbackAdapter::AddPacket(const PacketFeedback& packet) {
   while (!history_.empty() &&
-         creation_time - history_.begin()->second.creation_time >
+         packet.creation_time - history_.begin()->second.creation_time >
              kSendTimeHistoryWindow) {
     // TODO(sprang): Warn if erasing (too many) old items?
     if (history_.begin()->second.sent.sequence_number > last_ack_seq_num_)
@@ -114,8 +168,14 @@ std::optional<SentPacket> TransportFeedbackAdapter::ProcessSentPacket(
   auto send_time = Timestamp::Millis(sent_packet.send_time_ms);
   // TODO(srte): Only use one way to indicate that packet feedback is used.
   if (sent_packet.info.included_in_feedback || sent_packet.packet_id != -1) {
+    // Despite rtc::SentPacket.packet_id beeing 64bit, only 16 bit is used,
+    // if transport sequence number header extension is used,
+    // see RtpSenderEgress::CompleteSendPacket.
     int64_t unwrapped_seq_num =
-        seq_num_unwrapper_.Unwrap(sent_packet.packet_id);
+        use_transport_sequence_number_header_extension_
+            ? seq_num_unwrapper_.Unwrap(sent_packet.packet_id)
+            : sent_packet.packet_id;
+
     auto it = history_.find(unwrapped_seq_num);
     if (it != history_.end()) {
       bool packet_retransmit = it->second.sent.send_time.IsFinite();
@@ -168,6 +228,132 @@ TransportFeedbackAdapter::ProcessTransportFeedback(
   return msg;
 }
 
+std::optional<TransportPacketsFeedback>
+TransportFeedbackAdapter::ProcessCongestionControlFeedback(
+    const rtcp::CongestionControlFeedback& feedback,
+    Timestamp feedback_receive_time) {
+  if (feedback.packets().empty()) {
+    RTC_LOG(LS_INFO) << "Empty transport layer feedback packet received.";
+    return std::nullopt;
+  }
+  TransportPacketsFeedback msg;
+  msg.feedback_time = feedback_receive_time;
+
+  if (current_offset_.IsInfinite()) {
+    current_offset_ =
+        feedback_receive_time;  //.... todo - better use rtt/2 as offset...
+  }
+  TimeDelta feedback_delta =
+      last_feedback_ntp_time_
+          ? CompactNtpRttToTimeDelta(feedback.report_timestamp_compact_ntp() -
+                                     *last_feedback_ntp_time_)
+
+          : TimeDelta::Zero();
+  RTC_LOG(LS_INFO) << "feedback_delta " << feedback_delta;
+  last_feedback_ntp_time_ = feedback.report_timestamp_compact_ntp();
+
+  if (feedback_delta < TimeDelta::Zero()) {
+    RTC_LOG(LS_WARNING) << "Unexpected feedback ntp time delta "
+                        << feedback_delta.ms() << " ms.";
+    current_offset_ = feedback_receive_time;
+  } else {
+    current_offset_ += feedback_delta;
+  }
+
+  int failed_lookups = 0;
+  int ignored = 0;
+  int64_t low_transport_sequence_number = std::numeric_limits<int64_t>::max();
+  int64_t high_transport_sequence_number = -1;
+  for (const rtcp::CongestionControlFeedback::PacketInfo packet_info :
+       feedback.packets()) {
+    SsrcRtpSequenceNumberPair pair =
+        std::make_pair(packet_info.ssrc, packet_info.sequence_number);
+    auto it = rtp_to_transport_sequence_number_.find(pair);
+    if (it == rtp_to_transport_sequence_number_.end()) {
+      RTC_LOG(LS_WARNING) << " Transport sequence number not found for ssrc: "
+                          << packet_info.ssrc
+                          << "rtp sequence_no: " << packet_info.sequence_number;
+      ++failed_lookups;
+      continue;
+    }
+    int64_t transport_sequence_number = it->second;
+    if (transport_sequence_number < low_transport_sequence_number) {
+      low_transport_sequence_number = transport_sequence_number;
+    }
+    if (transport_sequence_number > high_transport_sequence_number) {
+      high_transport_sequence_number = transport_sequence_number;
+      if (high_transport_sequence_number > last_ack_seq_num_) {
+        // Starts at history_.begin() if last_ack_seq_num_ < 0, since any
+        // valid sequence number is >= 0.
+        for (auto it = history_.upper_bound(last_ack_seq_num_);
+             it != history_.upper_bound(high_transport_sequence_number); ++it) {
+          in_flight_.RemoveInFlightPacketBytes(it->second);
+        }
+        last_ack_seq_num_ = high_transport_sequence_number;
+      }
+    }
+    auto feedback_it = history_.find(transport_sequence_number);
+    feedback_it = history_.find(transport_sequence_number);
+    if (feedback_it == history_.end()) {
+      ++failed_lookups;
+      continue;
+    }
+
+    PacketFeedback packet_feedback = feedback_it->second;
+    if (packet_feedback.sent.send_time.IsInfinite()) {
+      RTC_DLOG(LS_ERROR)
+          << "Received feedback before packet was indicated as sent";
+      continue;
+    }
+
+    // Note: Lost packets are not removed from history because they might
+    // be reported as received by a later feedback if packets are reordered.
+    history_.erase(feedback_it);
+    rtp_to_transport_sequence_number_.erase(pair);
+
+    if (packet_feedback.network_route == network_route_) {
+      PacketResult result;
+      result.sent_packet = packet_feedback.sent;
+      RTC_DCHECK(packet_info.arrival_time_offset.IsFinite());
+      result.receive_time = current_offset_ - packet_info.arrival_time_offset;
+      result.ecn = packet_info.ecn;
+      msg.packet_feedbacks.push_back(result);
+    } else {
+      ++ignored;
+    }
+  }
+
+  if (!msg.packet_feedbacks.empty()) {
+    for (int64_t tsn = low_transport_sequence_number + 1;
+         tsn < high_transport_sequence_number; ++tsn) {
+      auto history_it = history_.find(tsn);
+      if (history_it != history_.end()) {
+        // Packet still exist in history, so treet it as lost.
+        PacketResult result;
+        result.sent_packet = history_it->second.sent;
+        msg.packet_feedbacks.push_back(result);
+      }
+    }
+  }
+
+  if (failed_lookups > 0) {
+    RTC_LOG(LS_WARNING) << "Failed to lookup send time for " << failed_lookups
+                        << " packet" << (failed_lookups > 1 ? "s" : "")
+                        << ". Send time history too small?";
+  }
+  if (ignored > 0) {
+    RTC_LOG(LS_INFO) << "Ignoring " << ignored
+                     << " packets because they were sent on a different route.";
+  }
+  std::sort(msg.packet_feedbacks.begin(), msg.packet_feedbacks.end(),
+            [](const PacketResult& lhs, const PacketResult& rhs) {
+              return lhs.sent_packet.sequence_number <
+                     rhs.sent_packet.sequence_number;
+            });
+  msg.data_in_flight = in_flight_.GetOutstandingData(network_route_);
+  return msg;
+}
+
 void TransportFeedbackAdapter::SetNetworkRoute(
     const rtc::NetworkRoute& network_route) {
   network_route_ = network_route;
@@ -203,61 +389,20 @@ TransportFeedbackAdapter::ProcessTransportFeedbackInner(
   std::vector<PacketResult> packet_result_vector;
   packet_result_vector.reserve(feedback.GetPacketStatusCount());
 
-  size_t failed_lookups = 0;
-  size_t ignored = 0;
+  int failed_lookups = 0;
+  int ignored = 0;
 
-  feedback.ForAllPackets(
-      [&](uint16_t sequence_number, TimeDelta delta_since_base) {
-        int64_t seq_num = seq_num_unwrapper_.Unwrap(sequence_number);
-
-        if (seq_num > last_ack_seq_num_) {
-          // Starts at history_.begin() if last_ack_seq_num_ < 0, since any
-          // valid sequence number is >= 0.
-          for (auto it = history_.upper_bound(last_ack_seq_num_);
-               it != history_.upper_bound(seq_num); ++it) {
-            in_flight_.RemoveInFlightPacketBytes(it->second);
-          }
-          last_ack_seq_num_ = seq_num;
-        }
-
-        auto it = history_.find(seq_num);
-        if (it == history_.end()) {
-          ++failed_lookups;
-          return;
-        }
-
-        if (it->second.sent.send_time.IsInfinite()) {
-          // TODO(srte): Fix the tests that makes this happen and make this a
-          // DCHECK.
-          RTC_DLOG(LS_ERROR)
-              << "Received feedback before packet was indicated as sent";
-          return;
-        }
-
-        PacketFeedback packet_feedback = it->second;
-        if (delta_since_base.IsFinite()) {
-          packet_feedback.receive_time =
-              current_offset_ +
-              delta_since_base.RoundDownTo(TimeDelta::Millis(1));
-          // Note: Lost packets are not removed from history because they might
-          // be reported as received by a later feedback.
-          history_.erase(it);
-        }
-        if (packet_feedback.network_route == network_route_) {
-          PacketResult result;
-          result.sent_packet = packet_feedback.sent;
-          result.receive_time = packet_feedback.receive_time;
-          packet_result_vector.push_back(result);
-        } else {
-          ++ignored;
-        }
-      });
+  feedback.ForAllPackets([&](uint16_t sequence_number,
+                             TimeDelta delta_since_base) {
+    int64_t seq_num = seq_num_unwrapper_.Unwrap(sequence_number);
+    ForEachPacketInFeedback(seq_num, delta_since_base, rtc::EcnMarking::kNotEct,
+                            failed_lookups, ignored, packet_result_vector);
+  });
 
   if (failed_lookups > 0) {
-    RTC_LOG(LS_WARNING)
-        << "Failed to lookup send time for " << failed_lookups << " packet"
-        << (failed_lookups > 1 ? "s" : "")
-        << ". Packets reordered or send time history too small?";
+    RTC_LOG(LS_WARNING) << "Failed to lookup send time for " << failed_lookups
+                        << " packet" << (failed_lookups > 1 ? "s" : "")
+                        << ". Send time history too small?";
   }
   if (ignored > 0) {
     RTC_LOG(LS_INFO) << "Ignoring " << ignored
@@ -265,6 +410,56 @@ TransportFeedbackAdapter::ProcessTransportFeedbackInner(
   }
 
   return packet_result_vector;
+}
+
+void TransportFeedbackAdapter::ForEachPacketInFeedback(
+    int64_t seq_num,
+    TimeDelta delta_since_base,
+    rtc::EcnMarking ecn,
+    int& failed_lookups,
+    int& ignored,
+    std::vector<PacketResult>& packet_result_vector) {
+  if (seq_num > last_ack_seq_num_) {
+    // Starts at history_.begin() if last_ack_seq_num_ < 0, since any
+    // valid sequence number is >= 0.
+    for (auto it = history_.upper_bound(last_ack_seq_num_);
+         it != history_.upper_bound(seq_num); ++it) {
+      in_flight_.RemoveInFlightPacketBytes(it->second);
+    }
+    last_ack_seq_num_ = seq_num;
+  }
+
+  auto it = history_.find(seq_num);
+  if (it == history_.end()) {
+    ++failed_lookups;
+    return;
+  }
+
+  if (it->second.sent.send_time.IsInfinite()) {
+    // TODO(srte): Fix the tests that makes this happen and make this a
+    // DCHECK.
+    RTC_DLOG(LS_ERROR)
+        << "Received feedback before packet was indicated as sent";
+    return;
+  }
+
+  PacketFeedback packet_feedback = it->second;
+  if (delta_since_base.IsFinite()) {
+    packet_feedback.receive_time =
+        current_offset_ + delta_since_base.RoundDownTo(TimeDelta::Millis(1));
+    // Note: Lost packets are not removed from history because they might
+    // be reported as received by a later feedback.
+    history_.erase(it);
+  }
+  if (packet_feedback.network_route == network_route_) {
+    PacketResult result;
+    result.sent_packet = packet_feedback.sent;
+    result.receive_time = packet_feedback.receive_time;
+    result.ecn = ecn;
+    packet_result_vector.push_back(result);
+  } else {
+    ++ignored;
+  }
 }
 
 }  // namespace webrtc

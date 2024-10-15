@@ -129,6 +129,9 @@ class RtpTransportControllerSend final
   void OnRttUpdate(Timestamp receive_time, TimeDelta rtt) override;
   void OnTransportFeedback(Timestamp receive_time,
                            const rtcp::TransportFeedback& feedback) override;
+  void OnCongestionControlFeedback(
+      Timestamp receive_time,
+      const rtcp::CongestionControlFeedback& feedback) override;
 
   // Implements NetworkStateEstimateObserver interface
   void OnRemoteNetworkEstimate(NetworkStateEstimate estimate) override;

@@ -11,8 +11,10 @@
 #ifndef MODULES_CONGESTION_CONTROLLER_RTP_TRANSPORT_FEEDBACK_ADAPTER_H_
 #define MODULES_CONGESTION_CONTROLLER_RTP_TRANSPORT_FEEDBACK_ADAPTER_H_
 
+#include <cstdint>
 #include <deque>
 #include <map>
+#include <unordered_map>
 #include <utility>
 #include <vector>
 
@@ -20,6 +22,7 @@
 #include "api/transport/network_types.h"
 #include "api/units/timestamp.h"
 #include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
+#include "modules/rtp_rtcp/source/rtp_packet_to_send.h"
 #include "rtc_base/network/sent_packet.h"
 #include "rtc_base/network_route.h"
 #include "rtc_base/numerics/sequence_number_unwrapper.h"
@@ -29,6 +32,7 @@ namespace webrtc {
 
 struct PacketFeedback {
   PacketFeedback() = default;
+
   // Time corresponding to when this object was created.
   Timestamp creation_time = Timestamp::MinusInfinity();
   SentPacket sent;
@@ -39,6 +43,9 @@ struct PacketFeedback {
 
   // The network route that this packet is associated with.
   rtc::NetworkRoute network_route;
+
+  uint32_t ssrc = 0;
+  uint16_t rtp_sequence_number = 0;
 };
 
 class InFlightBytesTracker {
@@ -55,18 +62,32 @@ class InFlightBytesTracker {
   std::map<rtc::NetworkRoute, DataSize, NetworkRouteComparator> in_flight_data_;
 };
 
+// TransportFeedbackAdapter converts RTCP feedback packets to RTCP agnostic per
+// packet send/receive information.
+// It supports rtcp::TransportLayerFeedback according to RFC 8888 and
+// rtcp::TransportFeedback according to
+// https://datatracker.ietf.org/doc/html/draft-holmer-rmcat-transport-wide-cc-extensions-01
 class TransportFeedbackAdapter {
  public:
   TransportFeedbackAdapter();
 
+  void AddPacket(const RtpPacketToSend& packet,
+                 const PacedPacketInfo& pacing_info,
+                 size_t overhead_bytes,
+                 Timestamp creation_time);
   void AddPacket(const RtpPacketSendInfo& packet_info,
                  size_t overhead_bytes,
                  Timestamp creation_time);
+
   std::optional<SentPacket> ProcessSentPacket(
       const rtc::SentPacket& sent_packet);
 
   std::optional<TransportPacketsFeedback> ProcessTransportFeedback(
       const rtcp::TransportFeedback& feedback,
+      Timestamp feedback_receive_time);
+
+  std::optional<TransportPacketsFeedback> ProcessCongestionControlFeedback(
+      const rtcp::CongestionControlFeedback& feedback,
       Timestamp feedback_receive_time);
 
   void SetNetworkRoute(const rtc::NetworkRoute& network_route);
@@ -76,25 +97,53 @@ class TransportFeedbackAdapter {
  private:
   enum class SendTimeHistoryStatus { kNotAdded, kOk, kDuplicate };
 
+  PacketFeedback From(const RtpPacketToSend& packet,
+                      const PacedPacketInfo& pacing_info,
+                      size_t overhead_bytes,
+                      Timestamp creation_time);
+  void AddPacket(const PacketFeedback& packet);
+
   std::vector<PacketResult> ProcessTransportFeedbackInner(
       const rtcp::TransportFeedback& feedback,
       Timestamp feedback_receive_time);
 
+  void ForEachPacketInFeedback(int64_t seq_num,
+                               TimeDelta delta_since_base,
+                               rtc::EcnMarking ecn,
+                               int& failed_lookups,
+                               int& ignored,
+                               std::vector<PacketResult>& packet_result_vector);
+
   DataSize pending_untracked_size_ = DataSize::Zero();
   Timestamp last_send_time_ = Timestamp::MinusInfinity();
   Timestamp last_untracked_send_time_ = Timestamp::MinusInfinity();
-  RtpSequenceNumberUnwrapper seq_num_unwrapper_;
+
+  bool use_transport_sequence_number_header_extension_ = true;
+
   std::map<int64_t, PacketFeedback> history_;
+
+  // Used by RFC 8888 transport layer feedback.
+  std::optional<uint32_t> last_feedback_ntp_time_;
 
   // Sequence numbers are never negative, using -1 as it always < a real
   // sequence number.
   int64_t last_ack_seq_num_ = -1;
   InFlightBytesTracker in_flight_;
+  rtc::NetworkRoute network_route_;
 
   Timestamp current_offset_ = Timestamp::MinusInfinity();
-  Timestamp last_timestamp_ = Timestamp::MinusInfinity();
 
-  rtc::NetworkRoute network_route_;
+  // The following variables are only valid if rtcp::TransportFeedback is
+  // received.
+  Timestamp last_timestamp_ = Timestamp::MinusInfinity();
+  RtpSequenceNumberUnwrapper seq_num_unwrapper_;
+
+  // Map SSSRC and RTP sequence number to transport sequence number if
+  // rtcp::TransportLayerFeedback (RFC 8888)  is used.
+  using SsrcRtpSequenceNumberPair =
+      std::pair<uint32_t /*ssrc*/, uint16_t /*rtp_sequence_number*/>;
+  std::map<SsrcRtpSequenceNumberPair, uint64_t /*transport_sequence_number*/>
+      rtp_to_transport_sequence_number_;
 };
 
 }  // namespace webrtc

@@ -1106,6 +1106,55 @@ TEST(RtpVideoSenderTest,
   EXPECT_TRUE(sent_packets[1].HasExtension<RtpDependencyDescriptorExtension>());
 }
 
+TEST(RtpVideoSenderTest,
+     SupportsDependencyDescriptorForH264NotProvidedByEncoder) {
+  RtpVideoSenderTestFixture test({kSsrc1}, {}, kPayloadType, {});
+  test.SetSending(true);
+
+  RtpHeaderExtensionMap extensions;
+  extensions.Register<RtpDependencyDescriptorExtension>(
+      kDependencyDescriptorExtensionId);
+  std::vector<RtpPacket> sent_packets;
+  ON_CALL(test.transport(), SendRtp)
+      .WillByDefault([&](rtc::ArrayView<const uint8_t> packet,
+                         const PacketOptions& options) {
+        sent_packets.emplace_back(&extensions);
+        EXPECT_TRUE(sent_packets.back().Parse(packet));
+        return true;
+      });
+
+  const uint8_t kPayload[1] = {'a'};
+  EncodedImage encoded_image;
+  encoded_image.SetRtpTimestamp(1);
+  encoded_image.capture_time_ms_ = 2;
+  encoded_image._frameType = VideoFrameType::kVideoFrameKey;
+  encoded_image._encodedWidth = 320;
+  encoded_image._encodedHeight = 180;
+  encoded_image.SetEncodedData(
+      EncodedImageBuffer::Create(kPayload, sizeof(kPayload)));
+
+  CodecSpecificInfo codec_specific;
+  codec_specific.codecType = VideoCodecType::kVideoCodecH264;
+
+  // Send two tiny images, each mapping to single RTP packet.
+  EXPECT_EQ(test.router()->OnEncodedImage(encoded_image, &codec_specific).error,
+            EncodedImageCallback::Result::OK);
+
+  // Send in 2nd picture.
+  encoded_image._frameType = VideoFrameType::kVideoFrameDelta;
+  encoded_image.SetRtpTimestamp(3000);
+  codec_specific.codecSpecific.VP9.inter_pic_predicted = true;
+  codec_specific.codecSpecific.VP9.num_ref_pics = 1;
+  codec_specific.codecSpecific.VP9.p_diff[0] = 1;
+  EXPECT_EQ(test.router()->OnEncodedImage(encoded_image, &codec_specific).error,
+            EncodedImageCallback::Result::OK);
+
+  test.AdvanceTime(TimeDelta::Millis(33));
+  ASSERT_THAT(sent_packets, SizeIs(2));
+  EXPECT_TRUE(sent_packets[0].HasExtension<RtpDependencyDescriptorExtension>());
+  EXPECT_TRUE(sent_packets[1].HasExtension<RtpDependencyDescriptorExtension>());
+}
+
 TEST(RtpVideoSenderTest, GenerateDependecyDescriptorForGenericCodecs) {
   test::ScopedKeyValueConfig field_trials(
       "WebRTC-GenericCodecDependencyDescriptor/Enabled/");

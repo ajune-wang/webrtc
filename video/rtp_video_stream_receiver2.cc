@@ -41,6 +41,7 @@
 #include "modules/rtp_rtcp/source/rtp_rtcp_config.h"
 #include "modules/rtp_rtcp/source/ulpfec_receiver.h"
 #include "modules/rtp_rtcp/source/video_rtp_depacketizer.h"
+#include "modules/rtp_rtcp/source/video_rtp_depacketizer_h264.h"
 #include "modules/rtp_rtcp/source/video_rtp_depacketizer_raw.h"
 #include "modules/video_coding/h264_sprop_parameter_sets.h"
 #include "modules/video_coding/h264_sps_pps_tracker.h"
@@ -363,6 +364,27 @@ void RtpVideoStreamReceiver2::AddReceiveCodec(
       payload_type, raw_payload ? std::make_unique<VideoRtpDepacketizerRaw>()
                                 : CreateVideoRtpDepacketizer(video_codec));
   pt_codec_params_.emplace(payload_type, codec_params);
+  if (video_codec == kVideoCodecH264) {
+    VideoRtpDepacketizerH264* h264_depacketizer =
+        static_cast<VideoRtpDepacketizerH264*>(
+            payload_type_map_[payload_type].get());
+    RTC_LOG(LS_INFO) << "Found out of band supplied codec parameters for"
+                        " payload type: "
+                     << static_cast<int>(payload_type);
+
+    H264SpropParameterSets sprop_decoder;
+    auto sprop_base64_it =
+        codec_params.find(cricket::kH264FmtpSpropParameterSets);
+
+    if (sprop_base64_it == codec_params.end())
+      return;
+
+    if (!sprop_decoder.DecodeSprop(sprop_base64_it->second.c_str()))
+      return;
+
+    h264_depacketizer->InsertSpsPpsNalus(sprop_decoder.sps_nalu(),
+                                         sprop_decoder.pps_nalu());
+  }
 }
 
 void RtpVideoStreamReceiver2::RemoveReceiveCodecs() {
@@ -666,22 +688,11 @@ bool RtpVideoStreamReceiver2::OnReceivedPayloadData(
   }
 
   if (packet->codec() == kVideoCodecH264) {
-    // Only when we start to receive packets will we know what payload type
-    // that will be used. When we know the payload type insert the correct
-    // sps/pps into the tracker.
-    if (packet->payload_type != last_payload_type_) {
-      last_payload_type_ = packet->payload_type;
-      InsertSpsPpsIntoTracker(packet->payload_type);
-    }
-  }
+    video_coding::H264SpsPpsTracker::PacketAction action = tracker_.Track(
+        rtc::MakeArrayView(codec_payload.cdata(), codec_payload.size()),
+        &packet->video_header);
 
-  if (packet->codec() == kVideoCodecH264 && !h26x_packet_buffer_) {
-    video_coding::H264SpsPpsTracker::FixedBitstream fixed =
-        tracker_.CopyAndFixBitstream(
-            rtc::MakeArrayView(codec_payload.cdata(), codec_payload.size()),
-            &packet->video_header);
-
-    switch (fixed.action) {
+    switch (action) {
       case video_coding::H264SpsPpsTracker::kRequestKeyframe:
         rtcp_feedback_buffer_.RequestKeyFrame();
         rtcp_feedback_buffer_.SendBufferedRtcpFeedback();
@@ -689,13 +700,10 @@ bool RtpVideoStreamReceiver2::OnReceivedPayloadData(
       case video_coding::H264SpsPpsTracker::kDrop:
         return false;
       case video_coding::H264SpsPpsTracker::kInsert:
-        packet->video_payload = std::move(fixed.bitstream);
         break;
     }
-
-  } else {
-    packet->video_payload = std::move(codec_payload);
   }
+  packet->video_payload = std::move(codec_payload);
 
   rtcp_feedback_buffer_.SendBufferedRtcpFeedback();
   frame_counter_.Add(packet->timestamp);
@@ -1291,36 +1299,6 @@ void RtpVideoStreamReceiver2::StopReceive() {
                                         /*remb_candidate=*/false);
   }
   receiving_ = false;
-}
-
-void RtpVideoStreamReceiver2::InsertSpsPpsIntoTracker(uint8_t payload_type) {
-  RTC_DCHECK_RUN_ON(&packet_sequence_checker_);
-  RTC_DCHECK_RUN_ON(&worker_task_checker_);
-
-  auto codec_params_it = pt_codec_params_.find(payload_type);
-  if (codec_params_it == pt_codec_params_.end())
-    return;
-
-  RTC_LOG(LS_INFO) << "Found out of band supplied codec parameters for"
-                      " payload type: "
-                   << static_cast<int>(payload_type);
-
-  H264SpropParameterSets sprop_decoder;
-  auto sprop_base64_it =
-      codec_params_it->second.find(cricket::kH264FmtpSpropParameterSets);
-
-  if (sprop_base64_it == codec_params_it->second.end())
-    return;
-
-  if (!sprop_decoder.DecodeSprop(sprop_base64_it->second.c_str()))
-    return;
-
-  tracker_.InsertSpsPpsNalus(sprop_decoder.sps_nalu(),
-                             sprop_decoder.pps_nalu());
-
-  if (h26x_packet_buffer_) {
-    h26x_packet_buffer_->SetSpropParameterSets(sprop_base64_it->second);
-  }
 }
 
 void RtpVideoStreamReceiver2::UpdatePacketReceiveTimestamps(

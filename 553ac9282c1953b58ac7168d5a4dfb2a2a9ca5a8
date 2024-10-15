@@ -129,6 +129,30 @@
       },
       "revId": "553ac9282c1953b58ac7168d5a4dfb2a2a9ca5a8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "edaead16_c56d9375",
+        "filename": "modules/congestion_controller/receive_side_congestion_controller.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 17589
+      },
+      "writtenOn": "2024-10-15T21:40:45Z",
+      "side": 1,
+      "message": "We should be able to use RFC8888 info, it has almost all details as transport-cc. But our sender side algos are heavily dependent on transport-cc, we want to keep them unchanged for some time.\nWe are being cautious with new format. We understand the concern raised wrt REMB, our expectation is also it should not be triggered.\nAnother option would be to move only transport-cc code inside RFC8888 check. That way if transport sequence number is not present it would not trigger transport-cc and send only RFC8888 feedback.",
+      "parentUuid": "abe207b4_0c4bf927",
+      "range": {
+        "startLine": 131,
+        "startChar": 4,
+        "endLine": 131,
+        "endChar": 8
+      },
+      "revId": "553ac9282c1953b58ac7168d5a4dfb2a2a9ca5a8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

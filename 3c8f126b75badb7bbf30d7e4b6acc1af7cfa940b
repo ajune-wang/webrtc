@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1a2a3aa0_69cbafad",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5310
+      },
+      "writtenOn": "2024-10-15T20:05:34Z",
+      "side": 1,
+      "message": "This is basically https://webrtc-review.googlesource.com/c/src/+/358844 but with a different type.",
+      "revId": "3c8f126b75badb7bbf30d7e4b6acc1af7cfa940b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

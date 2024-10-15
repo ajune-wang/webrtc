@@ -102,6 +102,14 @@ class PeerConfigurer {
   // to the default ones that are presented on the port allocator.
   // For possible values check p2p/base/port_allocator.h.
   PeerConfigurer* SetPortAllocatorExtraFlags(uint32_t extra_flags);
+  // Flags to set on `cricket::PortAllocator`. These flags will override
+  // the default ones that are presented on the port allocator.
+  //
+  // For possible values check p2p/base/port_allocator.h.
+  //
+  // IMPORTANT: if you use WebRTC Network Emulation and set this field, remember
+  // to set cricket::PORTALLOCATOR_DISABLE_TCP to 0.
+  PeerConfigurer* SetPortAllocatorFlags(uint32_t flags);
 
   // Add new video stream to the call that will be sent from this peer.
   // Default implementation of video frames generator will be used.

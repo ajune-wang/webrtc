@@ -42,7 +42,7 @@ enum Nalu {
   kStapA = 24,
   kFuA = 28
 };
-
+constexpr uint8_t start_code_h264[] = {0, 0, 0, 1};
 constexpr uint8_t kOriginalSps[] = {kSps, 0x00, 0x00, 0x03, 0x03,
                                     0xF4, 0x05, 0x03, 0xC7, 0xC0};
 constexpr uint8_t kRewrittenSps[] = {kSps, 0x00, 0x00, 0x03, 0x03,
@@ -172,83 +172,86 @@ TEST(VideoRtpDepacketizerH264Test, EmptyStapARejected) {
       depacketizer.Parse(rtc::CopyOnWriteBuffer(trailing_empty_packet)));
 }
 
-TEST(VideoRtpDepacketizerH264Test, DepacketizeWithRewriting) {
+TEST(VideoRtpDepacketizerH264Test, AssembleWithRewriting) {
   rtc::CopyOnWriteBuffer in_buffer;
   rtc::Buffer out_buffer;
 
   uint8_t kHeader[2] = {kStapA};
   in_buffer.AppendData(kHeader, 1);
-  out_buffer.AppendData(kHeader, 1);
 
   ByteWriter<uint16_t>::WriteBigEndian(kHeader, sizeof(kOriginalSps));
   in_buffer.AppendData(kHeader, 2);
   in_buffer.AppendData(kOriginalSps);
-  ByteWriter<uint16_t>::WriteBigEndian(kHeader, sizeof(kRewrittenSps));
-  out_buffer.AppendData(kHeader, 2);
+
+  out_buffer.AppendData(start_code_h264);
   out_buffer.AppendData(kRewrittenSps);
 
   ByteWriter<uint16_t>::WriteBigEndian(kHeader, sizeof(kIdrOne));
   in_buffer.AppendData(kHeader, 2);
   in_buffer.AppendData(kIdrOne);
-  out_buffer.AppendData(kHeader, 2);
+  out_buffer.AppendData(start_code_h264);
   out_buffer.AppendData(kIdrOne);
 
   ByteWriter<uint16_t>::WriteBigEndian(kHeader, sizeof(kIdrTwo));
   in_buffer.AppendData(kHeader, 2);
   in_buffer.AppendData(kIdrTwo);
-  out_buffer.AppendData(kHeader, 2);
+  out_buffer.AppendData(start_code_h264);
   out_buffer.AppendData(kIdrTwo);
 
   VideoRtpDepacketizerH264 depacketizer;
   auto parsed = depacketizer.Parse(in_buffer);
   ASSERT_TRUE(parsed);
-  EXPECT_THAT(rtc::MakeArrayView(parsed->video_payload.cdata(),
-                                 parsed->video_payload.size()),
+  std::vector<rtc::ArrayView<const uint8_t>> payloads;
+  payloads.emplace_back(parsed->video_payload);
+  auto depacketized = depacketizer.AssembleFrame(payloads);
+  ASSERT_TRUE(depacketized);
+  EXPECT_THAT(rtc::MakeArrayView(depacketized->data(), depacketized->size()),
               ElementsAreArray(out_buffer));
 }
 
-TEST(VideoRtpDepacketizerH264Test, DepacketizeWithDoubleRewriting) {
+TEST(VideoRtpDepacketizerH264Test, AssembleWithDoubleRewriting) {
   rtc::CopyOnWriteBuffer in_buffer;
   rtc::Buffer out_buffer;
 
   uint8_t kHeader[2] = {kStapA};
   in_buffer.AppendData(kHeader, 1);
-  out_buffer.AppendData(kHeader, 1);
 
-  // First SPS will be kept...
+  // First SPS will be rewritten
   ByteWriter<uint16_t>::WriteBigEndian(kHeader, sizeof(kOriginalSps));
   in_buffer.AppendData(kHeader, 2);
   in_buffer.AppendData(kOriginalSps);
-  out_buffer.AppendData(kHeader, 2);
-  out_buffer.AppendData(kOriginalSps);
 
-  // ...only the second one will be rewritten.
+  out_buffer.AppendData(start_code_h264);
+  out_buffer.AppendData(kRewrittenSps);
+
+  // Second SPS will be rewritten
   ByteWriter<uint16_t>::WriteBigEndian(kHeader, sizeof(kOriginalSps));
   in_buffer.AppendData(kHeader, 2);
   in_buffer.AppendData(kOriginalSps);
-  ByteWriter<uint16_t>::WriteBigEndian(kHeader, sizeof(kRewrittenSps));
-  out_buffer.AppendData(kHeader, 2);
+
+  out_buffer.AppendData(start_code_h264);
   out_buffer.AppendData(kRewrittenSps);
 
   ByteWriter<uint16_t>::WriteBigEndian(kHeader, sizeof(kIdrOne));
   in_buffer.AppendData(kHeader, 2);
   in_buffer.AppendData(kIdrOne);
-  out_buffer.AppendData(kHeader, 2);
+  out_buffer.AppendData(start_code_h264);
   out_buffer.AppendData(kIdrOne);
 
   ByteWriter<uint16_t>::WriteBigEndian(kHeader, sizeof(kIdrTwo));
   in_buffer.AppendData(kHeader, 2);
   in_buffer.AppendData(kIdrTwo);
-  out_buffer.AppendData(kHeader, 2);
+  out_buffer.AppendData(start_code_h264);
   out_buffer.AppendData(kIdrTwo);
 
   VideoRtpDepacketizerH264 depacketizer;
   auto parsed = depacketizer.Parse(in_buffer);
   ASSERT_TRUE(parsed);
-  std::vector<uint8_t> expected_packet_payload(
-      out_buffer.data(), &out_buffer.data()[out_buffer.size()]);
-  EXPECT_THAT(rtc::MakeArrayView(parsed->video_payload.cdata(),
-                                 parsed->video_payload.size()),
+  std::vector<rtc::ArrayView<const uint8_t>> payloads;
+  payloads.emplace_back(parsed->video_payload);
+  auto depacketized = depacketizer.AssembleFrame(payloads);
+  ASSERT_TRUE(depacketized);
+  EXPECT_THAT(rtc::MakeArrayView(depacketized->data(), depacketized->size()),
               ElementsAreArray(out_buffer));
 }
 
@@ -277,7 +280,7 @@ TEST(VideoRtpDepacketizerH264Test, StapADelta) {
   EXPECT_EQ(h264.nalu_type, kSlice);
 }
 
-TEST(VideoRtpDepacketizerH264Test, FuA) {
+TEST(VideoRtpDepacketizerH264Test, AssembleFuA) {
   // clang-format off
   uint8_t packet1[] = {
       kFuA,              // F=0, NRI=0, Type=28.
@@ -306,11 +309,6 @@ TEST(VideoRtpDepacketizerH264Test, FuA) {
   std::optional<VideoRtpDepacketizer::ParsedRtpPayload> parsed1 =
       depacketizer.Parse(rtc::CopyOnWriteBuffer(packet1));
   ASSERT_TRUE(parsed1);
-  // We expect that the first packet is one byte shorter since the FU-A header
-  // has been replaced by the original nal header.
-  EXPECT_THAT(rtc::MakeArrayView(parsed1->video_payload.cdata(),
-                                 parsed1->video_payload.size()),
-              ElementsAreArray(kExpected1));
   EXPECT_EQ(parsed1->video_header.frame_type, VideoFrameType::kVideoFrameKey);
   EXPECT_EQ(parsed1->video_header.codec, kVideoCodecH264);
   EXPECT_TRUE(parsed1->video_header.is_first_packet_in_frame);
@@ -325,12 +323,8 @@ TEST(VideoRtpDepacketizerH264Test, FuA) {
     EXPECT_EQ(h264.nalus[0].pps_id, 0);
   }
 
-  // Following packets will be 2 bytes shorter since they will only be appended
-  // onto the first packet.
   auto parsed2 = depacketizer.Parse(rtc::CopyOnWriteBuffer(packet2));
-  EXPECT_THAT(rtc::MakeArrayView(parsed2->video_payload.cdata(),
-                                 parsed2->video_payload.size()),
-              ElementsAreArray(kExpected2));
+  ASSERT_TRUE(parsed2);
   EXPECT_FALSE(parsed2->video_header.is_first_packet_in_frame);
   EXPECT_EQ(parsed2->video_header.codec, kVideoCodecH264);
   {
@@ -343,9 +337,6 @@ TEST(VideoRtpDepacketizerH264Test, FuA) {
   }
 
   auto parsed3 = depacketizer.Parse(rtc::CopyOnWriteBuffer(packet3));
-  EXPECT_THAT(rtc::MakeArrayView(parsed3->video_payload.cdata(),
-                                 parsed3->video_payload.size()),
-              ElementsAreArray(kExpected3));
   EXPECT_FALSE(parsed3->video_header.is_first_packet_in_frame);
   EXPECT_EQ(parsed3->video_header.codec, kVideoCodecH264);
   {
@@ -356,6 +347,21 @@ TEST(VideoRtpDepacketizerH264Test, FuA) {
     // NALU info is only expected for the first FU-A packet.
     EXPECT_THAT(h264.nalus, IsEmpty());
   }
+
+  std::vector<rtc::ArrayView<const uint8_t>> payloads;
+  payloads.emplace_back(parsed1->video_payload);
+  payloads.emplace_back(parsed2->video_payload);
+  payloads.emplace_back(parsed3->video_payload);
+
+  rtc::Buffer out_buffer;
+  out_buffer.AppendData(start_code_h264);
+  out_buffer.AppendData(kExpected1);
+  out_buffer.AppendData(kExpected2);
+  out_buffer.AppendData(kExpected3);
+  auto depacketized = depacketizer.AssembleFrame(payloads);
+  ASSERT_TRUE(depacketized);
+  EXPECT_THAT(rtc::MakeArrayView(depacketized->data(), depacketized->size()),
+              ElementsAreArray(out_buffer));
 }
 
 TEST(VideoRtpDepacketizerH264Test, EmptyPayload) {

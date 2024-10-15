@@ -39,14 +39,16 @@ namespace webrtc {
 // releaseOutputBuffer.
 class EncodedImageBufferInterface : public RefCountInterface {
  public:
-  virtual const uint8_t* data() const = 0;
+  using value_type = uint8_t;
+
+  virtual const value_type* data() const = 0;
   // TODO(bugs.webrtc.org/9378): Make interface essentially read-only, delete
   // this non-const data method.
-  virtual uint8_t* data() = 0;
+  virtual value_type* data() = 0;
   virtual size_t size() const = 0;
 
-  const uint8_t* begin() const { return data(); }
-  const uint8_t* end() const { return data() + size(); }
+  const value_type* begin() const { return data(); }
+  const value_type* end() const { return data() + size(); }
 };
 
 // Basic implementation of EncodedImageBufferInterface.

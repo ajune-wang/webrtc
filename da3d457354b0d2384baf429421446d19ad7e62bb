@@ -89,6 +89,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1426450d_d05dd0c0",
+        "filename": "api/audio/builtin_audio_processing_factory.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-15T10:52:42Z",
+      "side": 1,
+      "message": "But that would be reverse to how it is used:\n1st user inject dependencies like echo control factory, and pass it to the PCF constructor,\nPCF constructor creats an Environment, and calls Create(env) to create the audio_processing.\n\ni.e. builder\u0027s Set functions are used before PCF constructor,\nCreate is called during PCF constructor.",
+      "parentUuid": "7a8ee6ee_871b27b9",
+      "revId": "da3d457354b0d2384baf429421446d19ad7e62bb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1cbd4650_6d7e10c2",

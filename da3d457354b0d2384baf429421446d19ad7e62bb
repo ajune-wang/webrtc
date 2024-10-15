@@ -71,6 +71,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7a8ee6ee_871b27b9",
+        "filename": "api/audio/builtin_audio_processing_factory.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-10-15T10:34:20Z",
+      "side": 1,
+      "message": "I was actually thinking of flipping it the other way - having the Factory\u0027s Create method return an AudioProcessingBuilder where you would set all the pointers, and then having the Builder.Build() function return an AudioProcessing object.\nAgree that there\u0027s not much left for the Factory to do then.",
+      "parentUuid": "96ea2ce3_d80edf85",
+      "revId": "da3d457354b0d2384baf429421446d19ad7e62bb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1cbd4650_6d7e10c2",
@@ -137,6 +155,41 @@
       "side": 1,
       "message": "`dependencies` is a local variable, nothing is set there by default constructor.\n\n`audio_processing` is an input parameter, and there is no `audio_processing_factory` parameter (nor do I plan to add one, instead would rather migrate users of `CreatePeerConnectionFactory` to `CreateModularPeerConnectionFactory`)",
       "parentUuid": "4a57ad82_095e9216",
+      "revId": "da3d457354b0d2384baf429421446d19ad7e62bb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "56cfb72f_4c9cd65b",
+        "filename": "api/create_peerconnection_factory.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-10-15T10:34:20Z",
+      "side": 1,
+      "message": "Ack.",
+      "parentUuid": "7a46dfd8_f693809c",
+      "revId": "da3d457354b0d2384baf429421446d19ad7e62bb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "65f77562_d14dcc9c",
+        "filename": "modules/audio_processing/audio_processing_impl_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 586,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-10-15T10:34:20Z",
+      "side": 1,
+      "message": "Can we get rid of AudioProcessingBuilderForTesting()? (Later CL?)",
       "revId": "da3d457354b0d2384baf429421446d19ad7e62bb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

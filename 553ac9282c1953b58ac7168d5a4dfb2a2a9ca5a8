@@ -105,6 +105,30 @@
       },
       "revId": "553ac9282c1953b58ac7168d5a4dfb2a2a9ca5a8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "abe207b4_0c4bf927",
+        "filename": "modules/congestion_controller/receive_side_congestion_controller.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-10-15T13:00:51Z",
+      "side": 1,
+      "message": "Using RFC 8888 should definitely not trigger sending of REMB. I\u0027d suggest an unit test checking that it doesn\u0027t if there\u0027s any doubt.\n\nDuring RFC 8888 finalization, I asked @holmer about whether 8888 had all the info we needed for transport-cc algorithm to work, and he said \"yes\". So we should only need one of them. (note: Claim not verified....)",
+      "parentUuid": "eb0a8835_1eac90dc",
+      "range": {
+        "startLine": 131,
+        "startChar": 4,
+        "endLine": 131,
+        "endChar": 8
+      },
+      "revId": "553ac9282c1953b58ac7168d5a4dfb2a2a9ca5a8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

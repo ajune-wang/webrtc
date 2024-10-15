@@ -62,6 +62,29 @@
       },
       "revId": "04c3be8999534f76d296f8879ff5b95081c833ec",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5ed1878d_18165beb",
+        "filename": "api/video/encoded_image.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-15T13:53:33Z",
+      "side": 1,
+      "message": "in respect of this comment, \nwould it still work if value_type declared const? \n`using value_type \u003d const uint8_t;`",
+      "range": {
+        "startLine": 45,
+        "startChar": 0,
+        "endLine": 46,
+        "endChar": 32
+      },
+      "revId": "04c3be8999534f76d296f8879ff5b95081c833ec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

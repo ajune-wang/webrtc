@@ -422,8 +422,13 @@ std::optional<FrameDependencyStructure> RtpPayloadParams::GenericStructure(
       }
       return structure;
     }
-    case VideoCodecType::kVideoCodecAV1:
     case VideoCodecType::kVideoCodecH264:
+      // TODO(brennanw@google.com): pass in the number of temporal and spatial layers from the 
+      // encoder, instead of hardcoding to this default.
+      return MinimalisticStructure(
+          /*num_spatial_layers=*/1,
+          /*num_temporal_layers=*/kMaxTemporalStreams);
+    case VideoCodecType::kVideoCodecAV1:
     case VideoCodecType::kVideoCodecH265:
       return std::nullopt;
   }
@@ -471,6 +476,14 @@ void RtpPayloadParams::H264ToGeneric(const CodecSpecificInfoH264& h264_info,
 
   generic.frame_id = frame_id;
   generic.temporal_index = temporal_index;
+
+  // Generate decode target indications.
+  RTC_DCHECK_LT(temporal_index, kMaxTemporalStreams);
+  generic.decode_target_indications.resize(kMaxTemporalStreams);
+  auto it = std::fill_n(generic.decode_target_indications.begin(),
+                        temporal_index, DecodeTargetIndication::kNotPresent);
+  std::fill(it, generic.decode_target_indications.end(),
+            DecodeTargetIndication::kSwitch);
 
   if (is_keyframe) {
     RTC_DCHECK_EQ(temporal_index, 0);

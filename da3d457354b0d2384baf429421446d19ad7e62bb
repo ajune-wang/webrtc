@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2532e82f_93da0b46",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-15T10:22:24Z",
+      "side": 1,
+      "message": "Added two simple tests (when only config is custom provided),\nand migrated some existent tests (where some other components are injected and tested)",
+      "parentUuid": "1faed880_6c8afcf9",
+      "revId": "da3d457354b0d2384baf429421446d19ad7e62bb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "81e093a2_8e9396f4",
@@ -31,6 +49,24 @@
       "writtenOn": "2024-10-15T09:17:15Z",
       "side": 1,
       "message": "Do you really want to have all those setters?\nYou will want to limit the amount of permitted complexity caused by modification - the lowest possible complexity is to have everything initialized at construction time and no way to change it; second lowest is \"set only if unset\" (appropriate for a builder pattern, but perhaps not for a factory). Full changeability at any subsequent time is a means of causing bugs that are hard to debug.",
+      "revId": "da3d457354b0d2384baf429421446d19ad7e62bb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "96ea2ce3_d80edf85",
+        "filename": "api/audio/builtin_audio_processing_factory.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-15T10:22:24Z",
+      "side": 1,
+      "message": "Yes, I want to keep api close to existent AudioProcessingBuilder to minimize upcoming changes (and thus minimize chance of introducing bugs)\n\nThere is a scenario where different dependencies are set by different layers/function: audio processing simulator takes builder with some dependencies, and then set other dependencies, so \u0027set everything at construction\u0027 would require to redesign that use case.\n\nI can instead make this AudioProcessingFactoryBuilder\nwith `Build()` returning std::unique_ptr\u003cAudioProcessingFactory\u003e\nBut to me that smells like extra level of indirection.",
+      "parentUuid": "81e093a2_8e9396f4",
       "revId": "da3d457354b0d2384baf429421446d19ad7e62bb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -52,6 +88,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "23b40d96_e8b8777f",
+        "filename": "api/audio/builtin_audio_processing_factory.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-15T10:22:24Z",
+      "side": 1,
+      "message": "copy pasted from the AudioProcessingBuilder. Rephrased it a bit.\nYes, it is de-facto a builder, but interface I choose to be called Factory for consistency with other injected objects, even if currently it is used just once during PeerConnectionFactory construction.",
+      "parentUuid": "1cbd4650_6d7e10c2",
+      "revId": "da3d457354b0d2384baf429421446d19ad7e62bb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4a57ad82_095e9216",
@@ -65,6 +119,24 @@
       "writtenOn": "2024-10-15T09:17:15Z",
       "side": 1,
       "message": "If audio_processing is not set (desired end state) and dependencies.audio_processing_factory is already set, this will overwrite the passed-in factory; that seems contrary to intention.",
+      "revId": "da3d457354b0d2384baf429421446d19ad7e62bb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7a46dfd8_f693809c",
+        "filename": "api/create_peerconnection_factory.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-15T10:22:24Z",
+      "side": 1,
+      "message": "`dependencies` is a local variable, nothing is set there by default constructor.\n\n`audio_processing` is an input parameter, and there is no `audio_processing_factory` parameter (nor do I plan to add one, instead would rather migrate users of `CreatePeerConnectionFactory` to `CreateModularPeerConnectionFactory`)",
+      "parentUuid": "4a57ad82_095e9216",
       "revId": "da3d457354b0d2384baf429421446d19ad7e62bb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

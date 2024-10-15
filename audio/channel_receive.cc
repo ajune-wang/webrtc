@@ -872,11 +872,10 @@ CallReceiveStatistics ChannelReceive::GetRTCPStatistics() const {
   std::optional<RtpRtcpInterface::SenderReportStats> rtcp_sr_stats =
       rtp_rtcp_->GetSenderReportStats();
   if (rtcp_sr_stats.has_value()) {
-    stats.last_sender_report_timestamp_ms =
-        rtcp_sr_stats->last_arrival_timestamp.ms<int64_t>();
-    stats.last_sender_report_utc_timestamp_ms =
-        rtcp_sr_stats->last_arrival_ntp_timestamp.ToMs() -
-        rtc::kNtpJan1970Millisecs;
+    stats.last_sender_report_timestamp = rtcp_sr_stats->last_arrival_timestamp;
+    stats.last_sender_report_utc_timestamp =
+        Timestamp::Millis(rtcp_sr_stats->last_arrival_ntp_timestamp.ToMs() -
+                          rtc::kNtpJan1970Millisecs);
     stats.last_sender_report_remote_utc_timestamp_ms =
         rtcp_sr_stats->last_remote_ntp_timestamp.ToMs() -
         rtc::kNtpJan1970Millisecs;

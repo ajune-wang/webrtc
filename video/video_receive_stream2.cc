@@ -572,9 +572,9 @@ VideoReceiveStreamInterface::Stats VideoReceiveStream2::GetStats() const {
   std::optional<RtpRtcpInterface::SenderReportStats> rtcp_sr_stats =
       rtp_video_stream_receiver_.GetSenderReportStats();
   if (rtcp_sr_stats) {
-    stats.last_sender_report_utc_timestamp_ms =
-        rtcp_sr_stats->last_arrival_ntp_timestamp.ToMs() -
-        rtc::kNtpJan1970Millisecs;
+    stats.last_sender_report_utc_timestamp =
+        Timestamp::Millis(rtcp_sr_stats->last_arrival_ntp_timestamp.ToMs() -
+                          rtc::kNtpJan1970Millisecs);
     stats.last_sender_report_remote_utc_timestamp_ms =
         rtcp_sr_stats->last_remote_ntp_timestamp.ToMs() -
         rtc::kNtpJan1970Millisecs;

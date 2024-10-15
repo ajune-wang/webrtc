@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c8878868_060fe643",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2024-10-15T12:59:41Z",
+      "side": 1,
+      "message": "This PRs removes the rtp payload modification on the H264VideoDepacketizer::Parse() and moves all rtp packetization and VUI rewritting to the AssembleFrame() call.\n\nAs we only receive the payload bytes on the AssembleFrame, we need to do some NALu parsing twice.\n\nI have also moved the SPS/PPS insertion from the SPS/PPS tracker to the H264VideoDepacketizer while keeping the keyframe request/drop in case of missing SPS/PPS.\n\nThis also allows removing all the special handling in the heew H26XPacketBuffer class.\n\nI still have pending adding back the SPS/PPS insertion tests from the tracker to the depacketizer, but would be great to get some feedback before doing that work.\n\nAlso, if possible it would be great if we could run the tests to see what is currently failing as it is hard to run every test localy and get a detailed report.",
+      "revId": "975b9cce31847df08b119c41c3d030280ba93156",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

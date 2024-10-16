@@ -16,6 +16,64 @@
       "message": "This CL is a continuation of https://webrtc-review.googlesource.com/c/src/+/365601",
       "revId": "5a118ee07429ce05c0dadb243d287bc0cc18d413",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e9ae7830_5733f654",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3485001
+      },
+      "writtenOn": "2024-10-16T09:08:07Z",
+      "side": 1,
+      "message": "LGTM.\n\nDont have permission to give LGTM officially but looks good.",
+      "revId": "5a118ee07429ce05c0dadb243d287bc0cc18d413",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c62b30fa_f9f4a1d0",
+        "filename": "video/end_to_end_tests/corruption_detection_tests.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 3485001
+      },
+      "writtenOn": "2024-10-16T09:08:07Z",
+      "side": 1,
+      "message": "nit: maybe worth also having something like:\n`\nEXPECT_LE((stats.corruption_score_sum/stats.corruption_score_count, 1)\n`\nMaybe it would catch something that we propagate too many times in 1 iteration.",
+      "range": {
+        "startLine": 100,
+        "startChar": 0,
+        "endLine": 101,
+        "endChar": 70
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "e3d992bf_a31f97ca",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "video/end_to_end_tests/corruption_detection_tests.cc",
+              "range": {
+                "startLine": 102,
+                "startChar": 0,
+                "endLine": 102,
+                "endChar": 0
+              },
+              "replacement": "          EXPECT_LE(*stats.corruption_score_sum / stats.corruption_score_count,\n                    1);\n"
+            }
+          ]
+        }
+      ],
+      "revId": "5a118ee07429ce05c0dadb243d287bc0cc18d413",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

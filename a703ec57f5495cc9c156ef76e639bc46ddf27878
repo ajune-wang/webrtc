@@ -16,6 +16,23 @@
       "message": "remember the 6xxx bugs? Those were the days!",
       "revId": "a703ec57f5495cc9c156ef76e639bc46ddf27878",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "be91ab61_e833bbdf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2024-10-16T08:51:02Z",
+      "side": 1,
+      "message": "LGTM, thanks!",
+      "revId": "a703ec57f5495cc9c156ef76e639bc46ddf27878",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

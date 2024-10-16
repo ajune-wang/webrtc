@@ -181,6 +181,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "658e2b2f_e9289f42",
+        "filename": "modules/congestion_controller/receive_side_congestion_controller.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 17589
+      },
+      "writtenOn": "2024-10-16T17:49:01Z",
+      "side": 1,
+      "message": "Correct, this gives enough flexibility. We will follow up code update according to this discussion.",
+      "parentUuid": "43d24d1b_108bdcbb",
+      "range": {
+        "startLine": 131,
+        "startChar": 4,
+        "endLine": 131,
+        "endChar": 8
+      },
+      "revId": "553ac9282c1953b58ac7168d5a4dfb2a2a9ca5a8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "bf6f56cb_c439e27e",
         "filename": "modules/congestion_controller/receive_side_congestion_controller.cc",
         "patchSetId": 4
@@ -192,6 +216,30 @@
       "writtenOn": "2024-10-16T06:57:25Z",
       "side": 1,
       "message": "probably just move the min time check in here too and return.",
+      "range": {
+        "startLine": 149,
+        "startChar": 24,
+        "endLine": 149,
+        "endChar": 62
+      },
+      "revId": "553ac9282c1953b58ac7168d5a4dfb2a2a9ca5a8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dc81a104_efa40dc6",
+        "filename": "modules/congestion_controller/receive_side_congestion_controller.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 17589
+      },
+      "writtenOn": "2024-10-16T17:49:01Z",
+      "side": 1,
+      "message": "Yes, makes sense.",
+      "parentUuid": "bf6f56cb_c439e27e",
       "range": {
         "startLine": 149,
         "startChar": 24,

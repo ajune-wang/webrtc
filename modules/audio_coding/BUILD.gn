@@ -1334,6 +1334,29 @@ if (rtc_include_tests) {
   }
 
   if (!build_with_chromium) {
+    rtc_executable("opus_stereo_decoding_test") {
+      testonly = true
+
+      deps = [
+        ":webrtc_opus",
+        "../../api:array_view",
+        "../../api/audio_codecs:audio_codecs_api",
+        "../../api/audio_codecs/opus:audio_decoder_opus",
+        "../../api/audio_codecs/opus:audio_encoder_opus",
+        "../../api/audio_codecs/opus:audio_encoder_opus_config",
+        "../../api/environment",
+        "../../api/environment:environment_factory",
+        "../../common_audio",
+        "../../rtc_base:buffer",
+        "../../rtc_base:checks",
+        "../../rtc_base:safe_conversions",
+        "//third_party/abseil-cpp/absl/flags:flag",
+        "//third_party/abseil-cpp/absl/flags:parse",
+      ]
+
+      sources = [ "codecs/opus/opus_stereo_decoding_test.cc" ]
+    }
+
     rtc_executable("webrtc_opus_fec_test") {
       testonly = true
 

@@ -49,6 +49,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "0917f70d_c4c9678f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 3345830
+      },
+      "writtenOn": "2024-10-16T19:10:34Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "17e0f9b1_b8280ab6",
+      "range": {
+        "startLine": 11,
+        "startChar": 4,
+        "endLine": 11,
+        "endChar": 8
+      },
+      "revId": "f299e4532c0ab139e7dc3612a18984cf1afbd0af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "7cf102a6_c2aa2214",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 3
@@ -106,6 +130,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "9753fc2d_444844e8",
+        "filename": "call/rtp_payload_params_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1383,
+      "author": {
+        "id": 3345830
+      },
+      "writtenOn": "2024-10-16T19:10:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "54280db1_99673f31",
+      "range": {
+        "startLine": 1379,
+        "startChar": 0,
+        "endLine": 1383,
+        "endChar": 49
+      },
+      "revId": "f299e4532c0ab139e7dc3612a18984cf1afbd0af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "93028f7d_e829b6d4",
         "filename": "call/rtp_video_sender_unittest.cc",
         "patchSetId": 3
@@ -117,6 +165,30 @@
       "writtenOn": "2024-10-16T09:44:16Z",
       "side": 1,
       "message": "Not sure if the fixture verifies the return value of `SendRtp`.\n\n```suggestion\n        return sent_packets.back().Parse(packet);\n```\n\nOtherwise you could at least do this:\n\n```suggestion\n        ASSERT_TRUE(sent_packets.back().Parse(packet));\n        return true;\n```",
+      "range": {
+        "startLine": 1122,
+        "startChar": 0,
+        "endLine": 1123,
+        "endChar": 20
+      },
+      "revId": "f299e4532c0ab139e7dc3612a18984cf1afbd0af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7171ed2c_277a62c9",
+        "filename": "call/rtp_video_sender_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1123,
+      "author": {
+        "id": 3345830
+      },
+      "writtenOn": "2024-10-16T19:10:34Z",
+      "side": 1,
+      "message": "ON_CALL doesn\u0027t verify anything - it just runs the provided function if SendRtp is called.\n\nChanged it to use EXPECT_CALL.Times(2) to verify that we definitely call this function.\n\nCouldn\u0027t get ASSERT_TRUE to work (seems to change the return type of the lambda?) but if the EXPECT_TRUE fails, it will fail the test.",
+      "parentUuid": "93028f7d_e829b6d4",
       "range": {
         "startLine": 1122,
         "startChar": 0,
@@ -164,6 +236,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "c2b3ef4d_f86a6fa7",
+        "filename": "call/rtp_video_sender_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1146,
+      "author": {
+        "id": 3345830
+      },
+      "writtenOn": "2024-10-16T19:10:34Z",
+      "side": 1,
+      "message": "Done. \n\nSet .H264.temporal_idx to kNoTemporalIdx for both frames.",
+      "parentUuid": "ca00c010_5420b660",
+      "revId": "f299e4532c0ab139e7dc3612a18984cf1afbd0af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "4070db1f_9cf70436",
         "filename": "call/rtp_video_sender_unittest.cc",
         "patchSetId": 3
@@ -175,6 +265,30 @@
       "writtenOn": "2024-10-16T09:44:16Z",
       "side": 1,
       "message": "You could also use `GetExtension` and check `.attached_structure`. It should be `nullptr` for delta frames but not `nullptr` for the first packet of a \"key frame\".",
+      "range": {
+        "startLine": 1154,
+        "startChar": 0,
+        "endLine": 1155,
+        "endChar": 80
+      },
+      "revId": "f299e4532c0ab139e7dc3612a18984cf1afbd0af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a6021f53_6559fa50",
+        "filename": "call/rtp_video_sender_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1155,
+      "author": {
+        "id": 3345830
+      },
+      "writtenOn": "2024-10-16T19:10:34Z",
+      "side": 1,
+      "message": "I couldn\u0027t get this to work - the second packet fails with:\n\nValue of: sent_packets[1].GetExtension\u003cRtpDependencyDescriptorExtension\u003e( nullptr, \u0026dd_s1)\n  Actual: false\nExpected: true\n\n\nAm I fetching the dependency descriptor extension correctly?",
+      "parentUuid": "4070db1f_9cf70436",
       "range": {
         "startLine": 1154,
         "startChar": 0,

@@ -17,6 +17,7 @@
 #include "api/audio/audio_processing.h"
 #include "api/audio_codecs/audio_decoder_factory.h"
 #include "api/audio_codecs/audio_encoder_factory.h"
+#include "api/field_trials_view.h"
 #include "api/scoped_refptr.h"
 #include "api/task_queue/task_queue_factory.h"
 #include "api/voip/voip_engine.h"
@@ -40,10 +41,11 @@ struct VoipEngineConfig {
   // to limit the set to reduce application footprint.
   rtc::scoped_refptr<AudioDecoderFactory> decoder_factory;
 
-  // Mandatory (e.g. api/task_queue/default_task_queue_factory).
+  // Optional (e.g. api/task_queue/default_task_queue_factory).
   // TaskQeueuFactory provided for VoipEngine to work asynchronously on its
   // encoding flow.
   std::unique_ptr<TaskQueueFactory> task_queue_factory;
+  std::unique_ptr<FieldTrialsView> field_trials;
 
   // Mandatory (e.g. modules/audio_device/include).
   // AudioDeviceModule that periocally provides audio input samples from
@@ -57,7 +59,8 @@ struct VoipEngineConfig {
   // samples for VoipEngine. When optionally not set, VoipEngine will not have
   // such functionalities to perform on audio input samples received from
   // AudioDeviceModule.
-  rtc::scoped_refptr<AudioProcessing> audio_processing;
+  [[deprecated]] rtc::scoped_refptr<AudioProcessing> audio_processing;
+  std::unique_ptr<AudioProcessingFactory> audio_processing_factory;
 };
 
 // Creates a VoipEngine instance with provided VoipEngineConfig.

@@ -183,7 +183,10 @@ PeerConfigurer* PeerConfigurer::SetNetEqFactory(
 }
 PeerConfigurer* PeerConfigurer::SetAudioProcessing(
     rtc::scoped_refptr<webrtc::AudioProcessing> audio_processing) {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
   components_->pcf_dependencies->audio_processing = audio_processing;
+#pragma clang diagnostic pop
   return this;
 }
 PeerConfigurer* PeerConfigurer::SetAudioMixer(

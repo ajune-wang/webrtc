@@ -22,12 +22,17 @@
 #include "absl/flags/parse.h"
 #include "absl/strings/string_view.h"
 #include "api/audio/audio_processing.h"
+#include "api/audio/echo_canceller3_config.h"
+#include "api/audio/echo_canceller3_factory.h"
+#include "api/audio/echo_detector_creator.h"
+#include "api/environment/environment_factory.h"
+#include "api/field_trials.h"
 #include "modules/audio_processing/test/aec_dump_based_simulator.h"
 #include "modules/audio_processing/test/audio_processing_simulator.h"
+#include "modules/audio_processing/test/echo_canceller3_config_json.h"
 #include "modules/audio_processing/test/wav_based_simulator.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/strings/string_builder.h"
-#include "system_wrappers/include/field_trial.h"
 
 constexpr int kParameterNotSpecifiedValue = -10000;
 
@@ -365,6 +370,32 @@ void SetSettingIfFlagSet(int32_t flag, std::optional<bool>* parameter) {
   } else if (flag == 1) {
     *parameter = true;
   }
+}
+
+// Helper for reading JSON from a file and parsing it to an AEC3 configuration.
+EchoCanceller3Config ReadAec3ConfigFromJsonFile(absl::string_view filename) {
+  std::string json_string;
+  std::string s;
+  std::ifstream f(std::string(filename).c_str());
+  if (f.fail()) {
+    std::cout << "Failed to open the file " << filename << std::endl;
+    RTC_CHECK_NOTREACHED();
+  }
+  while (std::getline(f, s)) {
+    json_string += s;
+  }
+
+  bool parsing_successful;
+  EchoCanceller3Config cfg;
+  Aec3ConfigFromJsonString(json_string, &cfg, &parsing_successful);
+  if (!parsing_successful) {
+    std::cout << "Parsing of json string failed: " << std::endl
+              << json_string << std::endl;
+    RTC_CHECK_NOTREACHED();
+  }
+  RTC_CHECK(EchoCanceller3Config::Validate(&cfg));
+
+  return cfg;
 }
 
 SimulationSettings CreateSettings() {
@@ -746,7 +777,7 @@ void PerformBasicParameterSanityChecks(
 }
 
 int RunSimulation(rtc::scoped_refptr<AudioProcessing> audio_processing,
-                  std::unique_ptr<AudioProcessingBuilder> ap_builder,
+                  std::unique_ptr<BuiltinAudioProcessingFactory> ap_factory,
                   int argc,
                   char* argv[],
                   absl::string_view input_aecdump,
@@ -758,8 +789,8 @@ int RunSimulation(rtc::scoped_refptr<AudioProcessing> audio_processing,
   }
   // InitFieldTrialsFromString stores the char*, so the char array must
   // outlive the application.
-  const std::string field_trials = absl::GetFlag(FLAGS_force_fieldtrials);
-  webrtc::field_trial::InitFieldTrialsFromString(field_trials.c_str());
+  Environment env = CreateEnvironment(
+      std::make_unique<FieldTrials>(absl::GetFlag(FLAGS_force_fieldtrials)));
 
   SimulationSettings settings = CreateSettings();
   if (!input_aecdump.empty()) {
@@ -767,15 +798,55 @@ int RunSimulation(rtc::scoped_refptr<AudioProcessing> audio_processing,
     settings.processed_capture_samples = processed_capture_samples;
     RTC_CHECK(settings.processed_capture_samples);
   }
-  PerformBasicParameterSanityChecks(settings, !!audio_processing, !!ap_builder);
-  std::unique_ptr<AudioProcessingSimulator> processor;
+  PerformBasicParameterSanityChecks(settings, audio_processing != nullptr,
+                                    ap_factory != nullptr);
 
+  if (audio_processing == nullptr) {
+    // Use specied builder if such is provided, otherwise create a new factory.
+    if (ap_factory == nullptr) {
+      ap_factory = std::make_unique<BuiltinAudioProcessingFactory>();
+    }
+
+    // Create and set an EchoCanceller3Factory if needed.
+    if (settings.use_aec.has_value() && *settings.use_aec) {
+      EchoCanceller3Config cfg;
+      if (settings.aec_settings_filename) {
+        if (settings.use_verbose_logging) {
+          std::cout << "Reading AEC Parameters from JSON input." << std::endl;
+        }
+        cfg = ReadAec3ConfigFromJsonFile(*settings.aec_settings_filename);
+      }
+
+      if (settings.linear_aec_output_filename) {
+        cfg.filter.export_linear_aec_output = true;
+      }
+
+      if (settings.print_aec_parameter_values) {
+        if (!settings.use_quiet_output) {
+          std::cout << "AEC settings:" << std::endl;
+        }
+        std::cout << Aec3ConfigToJsonString(cfg) << std::endl;
+      }
+
+      ap_factory->SetEchoControlFactory(
+          std::make_unique<EchoCanceller3Factory>(cfg));
+    }
+
+    if (settings.use_ed.has_value() && *settings.use_ed) {
+      ap_factory->SetEchoDetector(CreateEchoDetector());
+    }
+
+    // Create an audio processing object.
+    audio_processing = ap_factory->Create(env);
+  }
+
+  std::unique_ptr<AudioProcessingSimulator> processor;
   if (settings.aec_dump_input_filename || settings.aec_dump_input_string) {
-    processor.reset(new AecDumpBasedSimulator(
-        settings, std::move(audio_processing), std::move(ap_builder)));
+    processor = std::make_unique<AecDumpBasedSimulator>(
+        settings, std::move(audio_processing));
   } else {
-    processor.reset(new WavBasedSimulator(settings, std::move(audio_processing),
-                                          std::move(ap_builder)));
+    processor = std::make_unique<WavBasedSimulator>(
+        settings, std::move(audio_processing));
   }
 
   if (settings.analysis_only) {
@@ -805,7 +876,7 @@ int RunSimulation(rtc::scoped_refptr<AudioProcessing> audio_processing,
 
 }  // namespace
 
-int AudioprocFloatImpl(rtc::scoped_refptr<AudioProcessing> audio_processing,
+int AudioprocFloatImpl(scoped_refptr<AudioProcessing> audio_processing,
                        int argc,
                        char* argv[]) {
   return RunSimulation(
@@ -813,11 +884,12 @@ int AudioprocFloatImpl(rtc::scoped_refptr<AudioProcessing> audio_processing,
       /*input_aecdump=*/"", /*processed_capture_samples=*/nullptr);
 }
 
-int AudioprocFloatImpl(std::unique_ptr<AudioProcessingBuilder> ap_builder,
-                       int argc,
-                       char* argv[],
-                       absl::string_view input_aecdump,
-                       std::vector<float>* processed_capture_samples) {
+int AudioprocFloatImpl(
+    std::unique_ptr<BuiltinAudioProcessingFactory> ap_builder,
+    int argc,
+    char* argv[],
+    absl::string_view input_aecdump,
+    std::vector<float>* processed_capture_samples) {
   return RunSimulation(/*audio_processing=*/nullptr, std::move(ap_builder),
                        argc, argv, input_aecdump, processed_capture_samples);
 }

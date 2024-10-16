@@ -14,6 +14,7 @@
 #include <utility>
 
 #include "api/environment/environment_factory.h"
+#include "api/field_trials_view.h"
 #include "api/voip/voip_engine.h"
 #include "audio/voip/voip_core.h"
 #include "rtc_base/checks.h"
@@ -24,18 +25,26 @@ namespace webrtc {
 std::unique_ptr<VoipEngine> CreateVoipEngine(VoipEngineConfig config) {
   RTC_CHECK(config.encoder_factory);
   RTC_CHECK(config.decoder_factory);
-  RTC_CHECK(config.task_queue_factory);
   RTC_CHECK(config.audio_device_module);
 
-  if (!config.audio_processing) {
+  Environment env = CreateEnvironment(std::move(config.field_trials),
+                                      std::move(config.task_queue_factory));
+
+  scoped_refptr<AudioProcessing> audio_processing =
+      config.audio_processing_factory != nullptr
+          ? config.audio_processing_factory->Create(env)
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+          : std::move(config.audio_processing);
+#pragma clang diagnostic pop
+
+  if (audio_processing == nullptr) {
     RTC_DLOG(LS_INFO) << "No audio processing functionality provided.";
   }
 
   return std::make_unique<VoipCore>(
-      CreateEnvironment(std::move(config.task_queue_factory)),
-      std::move(config.encoder_factory), std::move(config.decoder_factory),
-      std::move(config.audio_device_module),
-      std::move(config.audio_processing));
+      env, std::move(config.encoder_factory), std::move(config.decoder_factory),
+      std::move(config.audio_device_module), std::move(audio_processing));
 }
 
 }  // namespace webrtc

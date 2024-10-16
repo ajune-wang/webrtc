@@ -39,7 +39,7 @@ using ::testing::NotNull;
 
 class MockInitialize : public AudioProcessingImpl {
  public:
-  MockInitialize() : AudioProcessingImpl() {}
+  MockInitialize() : AudioProcessingImpl(CreateEnvironment()) {}
 
   MOCK_METHOD(void, InitializeLocked, (), (override));
   void RealInitializeLocked() {
@@ -643,7 +643,7 @@ TEST_P(StartupInputVolumeParameterizedTest,
   webrtc::AudioProcessing::Config config;
   config.gain_controller1.enabled = false;
   config.gain_controller2.enabled = false;
-  auto apm = AudioProcessingBuilder().SetConfig(config).Create();
+  auto apm = BuiltinAudioProcessingFactory(config).Create(CreateEnvironment());
 
   int startup_volume = GetParam();
   int recommended_volume = ProcessInputVolume(
@@ -662,7 +662,7 @@ TEST(AudioProcessingImplTest,
   webrtc::AudioProcessing::Config config;
   config.gain_controller1.enabled = false;
   config.gain_controller2.enabled = false;
-  auto apm = AudioProcessingBuilder().SetConfig(config).Create();
+  auto apm = BuiltinAudioProcessingFactory(config).Create(CreateEnvironment());
 
   Random rand_gen(42);
   for (int i = 0; i < 32; ++i) {
@@ -707,7 +707,9 @@ class ApmInputVolumeControllerParametrizedTest
 TEST_P(ApmInputVolumeControllerParametrizedTest,
        EnforceMinInputVolumeAtStartupWithZeroVolume) {
   const StreamConfig stream_config(sample_rate_hz(), num_channels());
-  auto apm = AudioProcessingBuilder().SetConfig(GetConfig()).Create();
+  auto apm =
+      BuiltinAudioProcessingFactory(GetConfig()).Create(CreateEnvironment());
+  ;
 
   apm->set_stream_analog_level(0);
   apm->ProcessStream(channel_pointers(), stream_config, stream_config,
@@ -718,7 +720,9 @@ TEST_P(ApmInputVolumeControllerParametrizedTest,
 TEST_P(ApmInputVolumeControllerParametrizedTest,
        EnforceMinInputVolumeAtStartupWithNonZeroVolume) {
   const StreamConfig stream_config(sample_rate_hz(), num_channels());
-  auto apm = AudioProcessingBuilder().SetConfig(GetConfig()).Create();
+  auto apm =
+      BuiltinAudioProcessingFactory(GetConfig()).Create(CreateEnvironment());
+  ;
 
   constexpr int kStartupVolume = 3;
   apm->set_stream_analog_level(kStartupVolume);
@@ -736,7 +740,9 @@ TEST_P(ApmInputVolumeControllerParametrizedTest,
     GTEST_SKIP() << "Does not apply to AGC1";
   }
   const StreamConfig stream_config(sample_rate_hz(), num_channels());
-  auto apm = AudioProcessingBuilder().SetConfig(GetConfig()).Create();
+  auto apm =
+      BuiltinAudioProcessingFactory(GetConfig()).Create(CreateEnvironment());
+  ;
 
   apm->set_stream_analog_level(20);
   apm->ProcessStream(channel_pointers(), stream_config, stream_config,
@@ -751,7 +757,9 @@ TEST_P(ApmInputVolumeControllerParametrizedTest,
 TEST_P(ApmInputVolumeControllerParametrizedTest,
        DoNotEnforceMinInputVolumeAtStartupWithHighVolume) {
   const StreamConfig stream_config(sample_rate_hz(), num_channels());
-  auto apm = AudioProcessingBuilder().SetConfig(GetConfig()).Create();
+  auto apm =
+      BuiltinAudioProcessingFactory(GetConfig()).Create(CreateEnvironment());
+  ;
 
   constexpr int kStartupVolume = 200;
   apm->set_stream_analog_level(kStartupVolume);
@@ -763,7 +771,9 @@ TEST_P(ApmInputVolumeControllerParametrizedTest,
 TEST_P(ApmInputVolumeControllerParametrizedTest,
        DoNotEnforceMinInputVolumeAfterManualVolumeAdjustmentToZero) {
   const StreamConfig stream_config(sample_rate_hz(), num_channels());
-  auto apm = AudioProcessingBuilder().SetConfig(GetConfig()).Create();
+  auto apm =
+      BuiltinAudioProcessingFactory(GetConfig()).Create(CreateEnvironment());
+  ;
 
   apm->set_stream_analog_level(100);
   apm->ProcessStream(channel_pointers(), stream_config, stream_config,
@@ -801,10 +811,10 @@ INSTANTIATE_TEST_SUITE_P(
 // active, the recommended volume must always be the applied volume.
 TEST(AudioProcessingImplTest,
      RecommendAppliedInputVolumeWithNoAgcWithNoEmulation) {
-  auto apm = AudioProcessingBuilder()
-                 .SetConfig({.capture_level_adjustment = {.enabled = false},
-                             .gain_controller1 = {.enabled = false}})
-                 .Create();
+  auto apm = BuiltinAudioProcessingFactory(
+                 {.capture_level_adjustment = {.enabled = false},
+                  .gain_controller1 = {.enabled = false}})
+                 .Create(CreateEnvironment());
 
   constexpr int kOneFrame = 1;
   EXPECT_EQ(ProcessInputVolume(*apm, kOneFrame, /*initial_volume=*/123), 123);
@@ -818,14 +828,13 @@ TEST(AudioProcessingImplTest,
 // TODO(bugs.webrtc.org/14581): Enable when APM fixed to let this test pass.
 TEST(AudioProcessingImplTest,
      DISABLED_RecommendAppliedInputVolumeWithNoAgcWithEmulation) {
-  auto apm =
-      AudioProcessingBuilder()
-          .SetConfig({.capture_level_adjustment = {.enabled = true,
-                                                   .analog_mic_gain_emulation{
-                                                       .enabled = true,
-                                                       .initial_level = 255}},
-                      .gain_controller1 = {.enabled = false}})
-          .Create();
+  auto apm = BuiltinAudioProcessingFactory(
+                 {.capture_level_adjustment = {.enabled = true,
+                                               .analog_mic_gain_emulation{
+                                                   .enabled = true,
+                                                   .initial_level = 255}},
+                  .gain_controller1 = {.enabled = false}})
+                 .Create(CreateEnvironment());
 
   constexpr int kOneFrame = 1;
   EXPECT_EQ(ProcessInputVolume(*apm, kOneFrame, /*initial_volume=*/123), 123);
@@ -840,16 +849,15 @@ TEST(AudioProcessingImplTest,
 // TODO(bugs.webrtc.org/14581): Enable when APM fixed to let this test pass.
 TEST(AudioProcessingImplTest,
      DISABLED_RecommendAppliedInputVolumeWithAgcWithEmulation) {
-  auto apm =
-      AudioProcessingBuilder()
-          .SetConfig({.capture_level_adjustment = {.enabled = true,
-                                                   .analog_mic_gain_emulation{
-                                                       .enabled = true}},
-                      .gain_controller1 = {.enabled = true,
-                                           .analog_gain_controller{
-                                               .enabled = true,
-                                           }}})
-          .Create();
+  auto apm = BuiltinAudioProcessingFactory(
+                 {.capture_level_adjustment = {.enabled = true,
+                                               .analog_mic_gain_emulation{
+                                                   .enabled = true}},
+                  .gain_controller1 = {.enabled = true,
+                                       .analog_gain_controller{
+                                           .enabled = true,
+                                       }}})
+                 .Create(CreateEnvironment());
 
   constexpr int kOneFrame = 1;
   EXPECT_EQ(ProcessInputVolume(*apm, kOneFrame, /*initial_volume=*/123), 123);
@@ -861,7 +869,8 @@ class Agc2ParametrizedTest
     : public ::testing::TestWithParam<AudioProcessing::Config> {};
 
 TEST_P(Agc2ParametrizedTest, ProcessSucceedsWhenOneAgcEnabled) {
-  auto apm = AudioProcessingBuilder().SetConfig(GetParam()).Create();
+  auto apm =
+      BuiltinAudioProcessingFactory(GetParam()).Create(CreateEnvironment());
   constexpr int kSampleRateHz = 48000;
   constexpr int kNumChannels = 1;
   std::array<float, kSampleRateHz / 100> buffer;
@@ -886,13 +895,13 @@ TEST_P(Agc2ParametrizedTest,
   // Enable transient suppression in the config (expect no effect).
   auto config = GetParam();
   config.transient_suppression.enabled = true;
-  auto apm = AudioProcessingBuilder().SetConfig(config).Create();
+  auto apm = BuiltinAudioProcessingFactory(config).Create(CreateEnvironment());
   ASSERT_EQ(apm->Initialize(), AudioProcessing::kNoError);
   // Disable transient suppression in the config.
   auto config_reference = GetParam();
   config_reference.transient_suppression.enabled = false;
-  auto apm_reference =
-      AudioProcessingBuilder().SetConfig(config_reference).Create();
+  auto apm_reference = BuiltinAudioProcessingFactory(config_reference)
+                           .Create(CreateEnvironment());
   ASSERT_EQ(apm_reference->Initialize(), AudioProcessing::kNoError);
 
   constexpr int kSampleRateHz = 16000;

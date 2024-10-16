@@ -16,6 +16,29 @@
       "message": "Thanks for the review.",
       "revId": "aa48796484583ac06a92b8ac65a22f56d4e090df",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b729049b_cb31e9f1",
+        "filename": "api/video/encoded_image.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-16T14:39:36Z",
+      "side": 1,
+      "message": "would prefer `uint8_t` here too\n\n(in a very generic container this should be `const_iterator` alias, not a pointer to value_type )",
+      "range": {
+        "startLine": 50,
+        "startChar": 8,
+        "endLine": 50,
+        "endChar": 18
+      },
+      "revId": "aa48796484583ac06a92b8ac65a22f56d4e090df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

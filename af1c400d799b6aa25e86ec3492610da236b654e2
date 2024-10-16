@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ea4f07bf_094f3692",
+        "filename": "modules/desktop_capture/mac/screen_capturer_sck.mm",
+        "patchSetId": 4
+      },
+      "lineNbr": 315,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2024-10-16T23:18:55Z",
+      "side": 1,
+      "message": "Feels like a subtle undocumented change here. Why the switch from Nominal to Automatic?",
+      "range": {
+        "startLine": 315,
+        "startChar": 29,
+        "endLine": 315,
+        "endChar": 57
+      },
+      "revId": "af1c400d799b6aa25e86ec3492610da236b654e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

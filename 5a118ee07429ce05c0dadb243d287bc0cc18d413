@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1e21abed_e0f14a07",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 17594
+      },
+      "writtenOn": "2024-10-16T08:55:55Z",
+      "side": 1,
+      "message": "This CL is a continuation of https://webrtc-review.googlesource.com/c/src/+/365601",
+      "revId": "5a118ee07429ce05c0dadb243d287bc0cc18d413",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

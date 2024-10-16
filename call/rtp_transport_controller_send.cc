@@ -48,6 +48,7 @@
 #include "modules/pacing/packet_router.h"
 #include "modules/rtp_rtcp/include/report_block_data.h"
 #include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
+#include "modules/rtp_rtcp/source/rtcp_packet/congestion_control_feedback.h"
 #include "modules/rtp_rtcp/source/rtcp_packet/transport_feedback.h"
 #include "modules/rtp_rtcp/source/rtp_rtcp_interface.h"
 #include "rtc_base/checks.h"
@@ -619,12 +620,15 @@ void RtpTransportControllerSend::NotifyBweOfPacedSentPacket(
     return;
   }
 
-  RtpPacketSendInfo packet_info = RtpPacketSendInfo::From(packet, pacing_info);
   Timestamp creation_time =
       Timestamp::Millis(env_.clock().TimeInMilliseconds());
-  feedback_demuxer_.AddPacket(packet_info);
+  if (packet.HasExtension<TransportSequenceNumber>()) {
+    RtpPacketSendInfo packet_info =
+        RtpPacketSendInfo::From(packet, pacing_info);
+    feedback_demuxer_.AddPacket(packet_info);
+  }
   transport_feedback_adapter_.AddPacket(
-      packet_info, transport_overhead_bytes_per_packet_, creation_time);
+      packet, pacing_info, transport_overhead_bytes_per_packet_, creation_time);
 }
 
 void RtpTransportControllerSend::OnTransportFeedback(
@@ -635,6 +639,25 @@ void RtpTransportControllerSend::OnTransportFeedback(
   std::optional<TransportPacketsFeedback> feedback_msg =
       transport_feedback_adapter_.ProcessTransportFeedback(feedback,
                                                            receive_time);
+  if (feedback_msg) {
+    if (controller_)
+      PostUpdates(controller_->OnTransportPacketsFeedback(*feedback_msg));
+
+    // Only update outstanding data if any packet is first time acked.
+    UpdateCongestedState();
+  }
+}
+
+void RtpTransportControllerSend::OnCongestionControlFeedback(
+    Timestamp receive_time,
+    const rtcp::CongestionControlFeedback& feedback) {
+  RTC_DCHECK_RUN_ON(&sequence_checker_);
+  // TODO(https://bugs.webrtc.org/15368): update feedback demuxer for RFC 8888.
+  // Suggest OnTransportFeedback use TransportPacketFeedback instead.
+  // feedback_demuxer_.OnTransportFeedback(feedback);
+  std::optional<TransportPacketsFeedback> feedback_msg =
+      transport_feedback_adapter_.ProcessCongestionControlFeedback(
+          feedback, receive_time);
   if (feedback_msg) {
     if (controller_)
       PostUpdates(controller_->OnTransportPacketsFeedback(*feedback_msg));

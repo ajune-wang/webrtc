@@ -10,7 +10,7 @@
 
 #include "api/voip/voip_engine_factory.h"
 
-#include <utility>
+#include <memory>
 
 #include "api/make_ref_counted.h"
 #include "api/task_queue/default_task_queue_factory.h"
@@ -24,30 +24,31 @@
 namespace webrtc {
 namespace {
 
+using ::testing::NiceMock;
+using ::testing::NotNull;
+
 // Create voip engine with mock modules as normal use case.
 TEST(VoipEngineFactoryTest, CreateEngineWithMockModules) {
-  VoipEngineConfig config;
-  config.encoder_factory = rtc::make_ref_counted<MockAudioEncoderFactory>();
-  config.decoder_factory = rtc::make_ref_counted<MockAudioDecoderFactory>();
-  config.task_queue_factory = CreateDefaultTaskQueueFactory();
-  config.audio_processing =
-      rtc::make_ref_counted<testing::NiceMock<test::MockAudioProcessing>>();
-  config.audio_device_module = test::MockAudioDeviceModule::CreateNice();
-
-  auto voip_engine = CreateVoipEngine(std::move(config));
-  EXPECT_NE(voip_engine, nullptr);
+  EXPECT_THAT(
+      CreateVoipEngine(
+          {.encoder_factory = make_ref_counted<MockAudioEncoderFactory>(),
+           .decoder_factory = make_ref_counted<MockAudioDecoderFactory>(),
+           .task_queue_factory = CreateDefaultTaskQueueFactory(),
+           .audio_device_module = test::MockAudioDeviceModule::CreateNice(),
+           .audio_processing_factory =
+               std::make_unique<NiceMock<test::MockAudioProcessingFactory>>()}),
+      NotNull());
 }
 
 // Create voip engine without setting audio processing as optional component.
 TEST(VoipEngineFactoryTest, UseNoAudioProcessing) {
-  VoipEngineConfig config;
-  config.encoder_factory = rtc::make_ref_counted<MockAudioEncoderFactory>();
-  config.decoder_factory = rtc::make_ref_counted<MockAudioDecoderFactory>();
-  config.task_queue_factory = CreateDefaultTaskQueueFactory();
-  config.audio_device_module = test::MockAudioDeviceModule::CreateNice();
-
-  auto voip_engine = CreateVoipEngine(std::move(config));
-  EXPECT_NE(voip_engine, nullptr);
+  EXPECT_THAT(
+      CreateVoipEngine(
+          {.encoder_factory = make_ref_counted<MockAudioEncoderFactory>(),
+           .decoder_factory = make_ref_counted<MockAudioDecoderFactory>(),
+           .task_queue_factory = CreateDefaultTaskQueueFactory(),
+           .audio_device_module = test::MockAudioDeviceModule::CreateNice()}),
+      NotNull());
 }
 
 }  // namespace

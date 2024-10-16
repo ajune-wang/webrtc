@@ -157,6 +157,30 @@
       },
       "revId": "04c3be8999534f76d296f8879ff5b95081c833ec",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dcf700e9_91909ba3",
+        "filename": "api/video/encoded_image.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-16T14:41:44Z",
+      "side": 1,
+      "message": "I meant if value_type can be \u0027const uint8_t\u0027 now. (while non-const accessor is still there)\n\nBut likely it doesn\u0027t really matter, so no need to spend time trying it.",
+      "parentUuid": "115c8f8b_39526046",
+      "range": {
+        "startLine": 45,
+        "startChar": 0,
+        "endLine": 46,
+        "endChar": 32
+      },
+      "revId": "04c3be8999534f76d296f8879ff5b95081c833ec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

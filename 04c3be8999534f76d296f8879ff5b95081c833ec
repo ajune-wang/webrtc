@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "910d95fd_d934c0cc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 3485001
+      },
+      "writtenOn": "2024-10-16T14:35:44Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "87f25342_cf67e50c",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 108
+      },
+      "revId": "04c3be8999534f76d296f8879ff5b95081c833ec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "b50386d8_54e8196a",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 1
@@ -66,6 +90,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "875762e6_fccc0e76",
+        "filename": "api/video/encoded_image.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 3485001
+      },
+      "writtenOn": "2024-10-16T14:35:44Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "0ccd2c20_58ad7875",
+      "range": {
+        "startLine": 44,
+        "startChar": 16,
+        "endLine": 44,
+        "endChar": 26
+      },
+      "revId": "04c3be8999534f76d296f8879ff5b95081c833ec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "5ed1878d_18165beb",
         "filename": "api/video/encoded_image.h",
         "patchSetId": 1
@@ -77,6 +125,30 @@
       "writtenOn": "2024-10-15T13:53:33Z",
       "side": 1,
       "message": "in respect of this comment, \nwould it still work if value_type declared const? \n`using value_type \u003d const uint8_t;`",
+      "range": {
+        "startLine": 45,
+        "startChar": 0,
+        "endLine": 46,
+        "endChar": 32
+      },
+      "revId": "04c3be8999534f76d296f8879ff5b95081c833ec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "115c8f8b_39526046",
+        "filename": "api/video/encoded_image.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 3485001
+      },
+      "writtenOn": "2024-10-16T14:35:44Z",
+      "side": 1,
+      "message": "You mean essentially, if we can just remove line 47? Can test that in a CL later on.",
+      "parentUuid": "5ed1878d_18165beb",
       "range": {
         "startLine": 45,
         "startChar": 0,

@@ -12,12 +12,16 @@
 
 #include <stddef.h>
 
+#include <cstdint>
 #include <memory>
 #include <string>
 #include <vector>
 
+#include "api/dtmf_sender_interface.h"
+#include "api/scoped_refptr.h"
 #include "rtc_base/fake_clock.h"
 #include "rtc_base/gunit.h"
+#include "rtc_base/thread.h"
 #include "rtc_base/time_utils.h"
 #include "test/gtest.h"
 

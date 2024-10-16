@@ -14,11 +14,15 @@
 #include <utility>
 
 #include "api/ice_transport_factory.h"
+#include "api/ice_transport_interface.h"
 #include "api/make_ref_counted.h"
 #include "api/scoped_refptr.h"
+#include "p2p/base/basic_packet_socket_factory.h"
 #include "p2p/base/fake_ice_transport.h"
 #include "p2p/base/fake_port_allocator.h"
 #include "rtc_base/internal/default_socket_server.h"
+#include "rtc_base/socket_server.h"
+#include "rtc_base/thread.h"
 #include "test/gtest.h"
 #include "test/scoped_key_value_config.h"
 

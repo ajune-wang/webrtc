@@ -33,6 +33,24 @@
       "message": "Speaking of precision errors, is this the kind of thing that results in precision reduction from microseconds to milliseconds?",
       "revId": "eadbd93df2089381cccb4883c35c8fb1b49f89ac",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ae3745e3_6be7943e",
+        "filename": "video/video_receive_stream2.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 580,
+      "author": {
+        "id": 7255
+      },
+      "writtenOn": "2024-10-16T08:04:47Z",
+      "side": 1,
+      "message": "Yes, this loses precision to milliseconds. This timestamp will not be used when the stats_timestamp_with_environment_clock is set. We could make a NtpTime -\u003e UTC Timestamp function that keep the microsecond precision. I don\u0027t think that\u0027s part of this CL, or maybe never since the correct solution might be to never use UTC times in WebRTC.",
+      "parentUuid": "12c792e7_e8c1ad28",
+      "revId": "eadbd93df2089381cccb4883c35c8fb1b49f89ac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

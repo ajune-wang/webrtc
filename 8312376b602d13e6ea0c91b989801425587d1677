@@ -16,6 +16,69 @@
       "message": "The test will now be marked SKIPPED on a TCC authorization error (and on other permanent errors).",
       "revId": "8312376b602d13e6ea0c91b989801425587d1677",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "21d51b38_b88e4867",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2024-10-16T23:37:21Z",
+      "side": 1,
+      "message": "LGTM with two small modifications",
+      "revId": "8312376b602d13e6ea0c91b989801425587d1677",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "49263a5e_3eb4ebca",
+        "filename": "modules/desktop_capture/screen_capturer_mac_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2024-10-16T23:37:21Z",
+      "side": 1,
+      "message": "Can you update the comment for why LE is okay/needed?",
+      "range": {
+        "startLine": 92,
+        "startChar": 0,
+        "endLine": 93,
+        "endChar": 44
+      },
+      "revId": "8312376b602d13e6ea0c91b989801425587d1677",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "542c960e_010e6b5f",
+        "filename": "modules/desktop_capture/screen_capturer_mac_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2024-10-16T23:37:21Z",
+      "side": 1,
+      "message": "Presumably no way to check this? It feels a little odd that we essentially just skip one of the potentially primary failure cases.",
+      "range": {
+        "startLine": 145,
+        "startChar": 35,
+        "endLine": 145,
+        "endChar": 78
+      },
+      "revId": "8312376b602d13e6ea0c91b989801425587d1677",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

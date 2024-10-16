@@ -3,6 +3,29 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "cd34005a_050d98e5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 13704
+      },
+      "writtenOn": "2024-10-16T09:44:16Z",
+      "side": 1,
+      "message": "Nit: It\u0027s considered good practice to wrap long lines in the commit message to 72 columns.\n\nhttps://chromium.googlesource.com/chromium/src/+/main/docs/contributing.md#uploading-a-change-for-review",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 81
+      },
+      "revId": "f299e4532c0ab139e7dc3612a18984cf1afbd0af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "17e0f9b1_b8280ab6",
         "filename": "/COMMIT_MSG",
         "patchSetId": 3
@@ -81,6 +104,29 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "93028f7d_e829b6d4",
+        "filename": "call/rtp_video_sender_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1123,
+      "author": {
+        "id": 13704
+      },
+      "writtenOn": "2024-10-16T09:44:16Z",
+      "side": 1,
+      "message": "Not sure if the fixture verifies the return value of `SendRtp`.\n\n```suggestion\n        return sent_packets.back().Parse(packet);\n```\n\nOtherwise you could at least do this:\n\n```suggestion\n        ASSERT_TRUE(sent_packets.back().Parse(packet));\n        return true;\n```",
+      "range": {
+        "startLine": 1122,
+        "startChar": 0,
+        "endLine": 1123,
+        "endChar": 20
+      },
+      "revId": "f299e4532c0ab139e7dc3612a18984cf1afbd0af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7e25bbd1_71c595cc",
@@ -94,6 +140,47 @@
       "writtenOn": "2024-10-16T08:32:34Z",
       "side": 1,
       "message": "Do not set vp9 codec specific info for the h264 encoded image",
+      "revId": "f299e4532c0ab139e7dc3612a18984cf1afbd0af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ca00c010_5420b660",
+        "filename": "call/rtp_video_sender_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1146,
+      "author": {
+        "id": 13704
+      },
+      "writtenOn": "2024-10-16T09:44:16Z",
+      "side": 1,
+      "message": "+1 it\u0027s probably sufficient to only set `.H264.temporal_idx`.",
+      "parentUuid": "7e25bbd1_71c595cc",
+      "revId": "f299e4532c0ab139e7dc3612a18984cf1afbd0af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4070db1f_9cf70436",
+        "filename": "call/rtp_video_sender_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1155,
+      "author": {
+        "id": 13704
+      },
+      "writtenOn": "2024-10-16T09:44:16Z",
+      "side": 1,
+      "message": "You could also use `GetExtension` and check `.attached_structure`. It should be `nullptr` for delta frames but not `nullptr` for the first packet of a \"key frame\".",
+      "range": {
+        "startLine": 1154,
+        "startChar": 0,
+        "endLine": 1155,
+        "endChar": 80
+      },
       "revId": "f299e4532c0ab139e7dc3612a18984cf1afbd0af",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

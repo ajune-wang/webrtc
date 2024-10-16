@@ -10,11 +10,12 @@
 
 package org.webrtc;
 
-import java.util.Map;
+import java.nio.ByteBuffer;
 import java.util.HashMap;
+import java.util.Map;
 
 /** Container for static helper functions related to dealing with H264 codecs. */
-class H264Utils {
+public class H264Utils {
   public static final String H264_FMTP_PROFILE_LEVEL_ID = "profile-level-id";
   public static final String H264_FMTP_LEVEL_ASYMMETRY_ALLOWED = "level-asymmetry-allowed";
   public static final String H264_FMTP_PACKETIZATION_MODE = "packetization-mode";
@@ -49,4 +50,10 @@ class H264Utils {
 
   private static native boolean nativeIsSameH264Profile(
       Map<String, String> params1, Map<String, String> params2);
+
+  public static int rewriteVuiSps(ByteBuffer spsBuffer, int offset, int len) {
+    return nativeRewriteVuiSps(spsBuffer, offset, len);
+  }
+
+  private static native int nativeRewriteVuiSps(ByteBuffer spsBuffer, int offset, int len);
 }

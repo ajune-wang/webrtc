@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "81a0ec89_2eadf9cf",
+        "filename": "modules/desktop_capture/mac/screen_capturer_sck.mm",
+        "patchSetId": 4
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2024-10-16T23:10:14Z",
+      "side": 1,
+      "message": "Google style guide (and IIRC not superseded by Chromium or WebRTC styleguide) generally disapproves of macros.\n\nIs there a reason that we can\u0027t just call this function on line 366 below?\n\nThe function could also be simplified (at least in regular C++, but some quick searching leads me to believe in Objective-C as well as:\n```\nstatic bool sonomaOrHigher \u003d @available(macOS 14.0, *);\nreturn sonomaOrHigher\n```\n\nWhich would result in `@available` only being evaluated once.",
+      "range": {
+        "startLine": 53,
+        "startChar": 0,
+        "endLine": 59,
+        "endChar": 1
+      },
+      "revId": "ff4562138c80e939b07ce5e875c285a709e56a8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

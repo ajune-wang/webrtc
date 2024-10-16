@@ -26,8 +26,7 @@ RtpReceiverDelegateAdapter::RtpReceiverDelegateAdapter(RTC_OBJC_TYPE(RTCRtpRecei
   receiver_ = receiver;
 }
 
-void RtpReceiverDelegateAdapter::OnFirstPacketReceived(
-    cricket::MediaType media_type) {
+void RtpReceiverDelegateAdapter::OnFirstPacketReceived(cricket::MediaType media_type) {
   RTCRtpMediaType packet_media_type =
       [RTC_OBJC_TYPE(RTCRtpReceiver) mediaTypeForNativeMediaType:media_type];
   RTC_OBJC_TYPE(RTCRtpReceiver) *receiver = receiver_;
@@ -54,8 +53,7 @@ void RtpReceiverDelegateAdapter::OnFirstPacketReceived(
 }
 
 - (nullable RTC_OBJC_TYPE(RTCMediaStreamTrack) *)track {
-  rtc::scoped_refptr<webrtc::MediaStreamTrackInterface> nativeTrack(
-    _nativeRtpReceiver->track());
+  rtc::scoped_refptr<webrtc::MediaStreamTrackInterface> nativeTrack(_nativeRtpReceiver->track());
   if (nativeTrack) {
     return [RTC_OBJC_TYPE(RTCMediaStreamTrack) mediaTrackForNativeTrack:nativeTrack
                                                                 factory:_factory];
@@ -128,8 +126,7 @@ void RtpReceiverDelegateAdapter::OnFirstPacketReceived(
   return self;
 }
 
-+ (RTCRtpMediaType)mediaTypeForNativeMediaType:
-    (cricket::MediaType)nativeMediaType {
++ (RTCRtpMediaType)mediaTypeForNativeMediaType:(cricket::MediaType)nativeMediaType {
   switch (nativeMediaType) {
     case cricket::MEDIA_TYPE_AUDIO:
       return RTCRtpMediaTypeAudio;

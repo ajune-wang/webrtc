@@ -81,7 +81,7 @@ static const GLsizei kNumTextures = kNumTexturesPerSet * kNumTextureSets;
 
   const uint8_t *uploadPlane = plane;
   if ((size_t)stride != width) {
-   if (_hasUnpackRowLength) {
+    if (_hasUnpackRowLength) {
       // GLES3 allows us to specify stride.
       glPixelStorei(GL_UNPACK_ROW_LENGTH, stride);
       glTexImage2D(GL_TEXTURE_2D,

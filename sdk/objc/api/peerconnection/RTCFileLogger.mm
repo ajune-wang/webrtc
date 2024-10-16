@@ -18,7 +18,7 @@
 #include "rtc_base/logging.h"
 
 NSString *const kDefaultLogDirName = @"webrtc_logs";
-NSUInteger const kDefaultMaxFileSize = 10 * 1024 * 1024; // 10MB.
+NSUInteger const kDefaultMaxFileSize = 10 * 1024 * 1024;  // 10MB.
 const char *kRTCFileLoggerRotatingLogPrefix = "rotating_log";
 
 @implementation RTC_OBJC_TYPE (RTCFileLogger) {
@@ -33,20 +33,14 @@ const char *kRTCFileLoggerRotatingLogPrefix = "rotating_log";
 @synthesize shouldDisableBuffering = _shouldDisableBuffering;
 
 - (instancetype)init {
-  NSArray *paths = NSSearchPathForDirectoriesInDomains(
-      NSDocumentDirectory, NSUserDomainMask, YES);
+  NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
   NSString *documentsDirPath = [paths firstObject];
-  NSString *defaultDirPath =
-      [documentsDirPath stringByAppendingPathComponent:kDefaultLogDirName];
-  return [self initWithDirPath:defaultDirPath
-                   maxFileSize:kDefaultMaxFileSize];
+  NSString *defaultDirPath = [documentsDirPath stringByAppendingPathComponent:kDefaultLogDirName];
+  return [self initWithDirPath:defaultDirPath maxFileSize:kDefaultMaxFileSize];
 }
 
-- (instancetype)initWithDirPath:(NSString *)dirPath
-                    maxFileSize:(NSUInteger)maxFileSize {
-  return [self initWithDirPath:dirPath
-                   maxFileSize:maxFileSize
-                  rotationType:RTCFileLoggerTypeCall];
+- (instancetype)initWithDirPath:(NSString *)dirPath maxFileSize:(NSUInteger)maxFileSize {
+  return [self initWithDirPath:dirPath maxFileSize:maxFileSize rotationType:RTCFileLoggerTypeCall];
 }
 
 - (instancetype)initWithDirPath:(NSString *)dirPath
@@ -89,16 +83,11 @@ const char *kRTCFileLoggerRotatingLogPrefix = "rotating_log";
   }
   switch (_rotationType) {
     case RTCFileLoggerTypeApp:
-      _logSink.reset(
-          new rtc::FileRotatingLogSink(_dirPath.UTF8String,
-                                       kRTCFileLoggerRotatingLogPrefix,
-                                       _maxFileSize,
-                                       _maxFileSize / 10));
+      _logSink.reset(new rtc::FileRotatingLogSink(
+          _dirPath.UTF8String, kRTCFileLoggerRotatingLogPrefix, _maxFileSize, _maxFileSize / 10));
       break;
     case RTCFileLoggerTypeCall:
-      _logSink.reset(
-          new rtc::CallSessionFileRotatingLogSink(_dirPath.UTF8String,
-                                                  _maxFileSize));
+      _logSink.reset(new rtc::CallSessionFileRotatingLogSink(_dirPath.UTF8String, _maxFileSize));
       break;
   }
   if (!_logSink->Init()) {
@@ -129,9 +118,9 @@ const char *kRTCFileLoggerRotatingLogPrefix = "rotating_log";
   if (_hasStarted) {
     return nil;
   }
-  NSMutableData* logData = [NSMutableData data];
+  NSMutableData *logData = [NSMutableData data];
   std::unique_ptr<rtc::FileRotatingStreamReader> stream;
-  switch(_rotationType) {
+  switch (_rotationType) {
     case RTCFileLoggerTypeApp:
       stream = std::make_unique<rtc::FileRotatingStreamReader>(_dirPath.UTF8String,
                                                                kRTCFileLoggerRotatingLogPrefix);
@@ -146,10 +135,9 @@ const char *kRTCFileLoggerRotatingLogPrefix = "rotating_log";
   }
   // Allocate memory using malloc so we can pass it direcly to NSData without
   // copying.
-  std::unique_ptr<uint8_t[]> buffer(static_cast<uint8_t*>(malloc(bufferSize)));
+  std::unique_ptr<uint8_t[]> buffer(static_cast<uint8_t *>(malloc(bufferSize)));
   size_t read = stream->ReadAll(buffer.get(), bufferSize);
-  logData = [[NSMutableData alloc] initWithBytesNoCopy:buffer.release()
-                                                length:read];
+  logData = [[NSMutableData alloc] initWithBytesNoCopy:buffer.release() length:read];
   return logData;
 }
 

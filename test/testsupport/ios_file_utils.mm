@@ -30,8 +30,7 @@ std::string IOSResourcePath(absl::string_view name, absl::string_view extension)
     NSString* fileName = path.lastPathComponent;
     NSString* fileType = [NSString stringForAbslStringView:extension];
     // Get full pathname for the resource identified by the name and extension.
-    NSString* pathString = [[NSBundle mainBundle] pathForResource:fileName
-                                                           ofType:fileType];
+    NSString* pathString = [[NSBundle mainBundle] pathForResource:fileName ofType:fileType];
     return [NSString stdStringForString:pathString];
   }
 }
@@ -46,11 +45,10 @@ std::string IOSRootPath() {
 // For iOS, we don't have access to the output directory. Return the path to the
 // temporary directory instead. This is mostly used by tests that need to write
 // output files to disk.
-std::string IOSOutputPath()  {
+std::string IOSOutputPath() {
   @autoreleasepool {
     NSString* tempDir = NSTemporaryDirectory();
-    if (tempDir == nil)
-        tempDir = @"/tmp";
+    if (tempDir == nil) tempDir = @"/tmp";
     return [NSString stdStringForString:tempDir];
   }
 }

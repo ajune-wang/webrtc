@@ -63,7 +63,7 @@
 }
 
 - (instancetype)initWithNativeDtmfSender:
-        (rtc::scoped_refptr<webrtc::DtmfSenderInterface>)nativeDtmfSender {
+    (rtc::scoped_refptr<webrtc::DtmfSenderInterface>)nativeDtmfSender {
   NSParameterAssert(nativeDtmfSender);
   self = [super init];
   if (self) {

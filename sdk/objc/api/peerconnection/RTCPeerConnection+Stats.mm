@@ -47,10 +47,10 @@ class StatsObserverAdapter : public StatsObserver {
 
   ~StatsObserverAdapter() override { completion_handler_ = nil; }
 
-  void OnComplete(const StatsReports& reports) override {
+  void OnComplete(const StatsReports &reports) override {
     RTC_DCHECK(completion_handler_);
     NSMutableArray *stats = [NSMutableArray arrayWithCapacity:reports.size()];
-    for (const auto* report : reports) {
+    for (const auto *report : reports) {
       RTC_OBJC_TYPE(RTCLegacyStatsReport) *statsReport =
           [[RTC_OBJC_TYPE(RTCLegacyStatsReport) alloc] initWithNativeReport:*report];
       [stats addObject:statsReport];

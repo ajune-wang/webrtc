@@ -92,8 +92,8 @@ typedef NS_ENUM(NSInteger, RTCFileVideoCapturerStatus) {
   NSDictionary *options = @{
     (NSString *)kCVPixelBufferPixelFormatTypeKey : @(kCVPixelFormatType_420YpCbCr8BiPlanarFullRange)
   };
-  _outTrack =
-      [[AVAssetReaderTrackOutput alloc] initWithTrack:allTracks.firstObject outputSettings:options];
+  _outTrack = [[AVAssetReaderTrackOutput alloc] initWithTrack:allTracks.firstObject
+                                               outputSettings:options];
   [_reader addOutput:_outTrack];
 
   [_reader startReading];
@@ -113,8 +113,8 @@ typedef NS_ENUM(NSInteger, RTCFileVideoCapturerStatus) {
     return nil;
   }
 
-  NSString *path =
-      [[NSBundle mainBundle] pathForResource:nameComponents[0] ofType:nameComponents[1]];
+  NSString *path = [[NSBundle mainBundle] pathForResource:nameComponents[0]
+                                                   ofType:nameComponents[1]];
   return path;
 }
 

@@ -3818,7 +3818,6 @@ TEST_F(MediaSessionDescriptionFactoryTest, TestOfferDtlsSavpfCreateAnswer) {
   EXPECT_EQ(kMediaProtocolDtlsSavpf, answer_audio_desc->protocol());
 }
 
-
 // Test that we accept a DTLS offer without SDES and create an appropriate
 // answer.
 TEST_F(MediaSessionDescriptionFactoryTest, TestCryptoOfferDtlsButNotSdes) {

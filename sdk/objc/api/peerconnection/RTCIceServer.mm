@@ -23,9 +23,7 @@
 @synthesize tlsEllipticCurves = _tlsEllipticCurves;
 
 - (instancetype)initWithURLStrings:(NSArray<NSString *> *)urlStrings {
-  return [self initWithURLStrings:urlStrings
-                         username:nil
-                       credential:nil];
+  return [self initWithURLStrings:urlStrings username:nil credential:nil];
 }
 
 - (instancetype)initWithURLStrings:(NSArray<NSString *> *)urlStrings
@@ -134,29 +132,23 @@
     iceServer.tls_elliptic_curves.push_back(curve.stdString);
   }];
 
-  [_urlStrings enumerateObjectsUsingBlock:^(NSString *url,
-                                            NSUInteger idx,
-                                            BOOL *stop) {
+  [_urlStrings enumerateObjectsUsingBlock:^(NSString *url, NSUInteger idx, BOOL *stop) {
     iceServer.urls.push_back(url.stdString);
   }];
 
   switch (_tlsCertPolicy) {
     case RTCTlsCertPolicySecure:
-      iceServer.tls_cert_policy =
-          webrtc::PeerConnectionInterface::kTlsCertPolicySecure;
+      iceServer.tls_cert_policy = webrtc::PeerConnectionInterface::kTlsCertPolicySecure;
       break;
     case RTCTlsCertPolicyInsecureNoCheck:
-      iceServer.tls_cert_policy =
-          webrtc::PeerConnectionInterface::kTlsCertPolicyInsecureNoCheck;
+      iceServer.tls_cert_policy = webrtc::PeerConnectionInterface::kTlsCertPolicyInsecureNoCheck;
       break;
   }
   return iceServer;
 }
 
-- (instancetype)initWithNativeServer:
-    (webrtc::PeerConnectionInterface::IceServer)nativeServer {
-  NSMutableArray *urls =
-      [NSMutableArray arrayWithCapacity:nativeServer.urls.size()];
+- (instancetype)initWithNativeServer:(webrtc::PeerConnectionInterface::IceServer)nativeServer {
+  NSMutableArray *urls = [NSMutableArray arrayWithCapacity:nativeServer.urls.size()];
   for (auto const &url : nativeServer.urls) {
     [urls addObject:[NSString stringForStdString:url]];
   }

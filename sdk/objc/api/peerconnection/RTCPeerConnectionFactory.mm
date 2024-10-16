@@ -322,8 +322,7 @@
   _nativeFactory->SetOptions(options.nativeOptions);
 }
 
-- (BOOL)startAecDumpWithFilePath:(NSString *)filePath
-                  maxSizeInBytes:(int64_t)maxSizeInBytes {
+- (BOOL)startAecDumpWithFilePath:(NSString *)filePath maxSizeInBytes:(int64_t)maxSizeInBytes {
   RTC_DCHECK(filePath.length);
   RTC_DCHECK_GT(maxSizeInBytes, 0);
 

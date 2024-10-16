@@ -324,8 +324,8 @@ constexpr const ToI420WithCropAndScaleSetting kToI420WithCropAndScaleSettings[] 
 
   std::vector<uint8_t> frameScaleBuffer;
   if ([buffer requiresScalingToWidth:outputSize.width height:outputSize.height]) {
-    int size =
-        [buffer bufferSizeForCroppingAndScalingToWidth:outputSize.width height:outputSize.height];
+    int size = [buffer bufferSizeForCroppingAndScalingToWidth:outputSize.width
+                                                       height:outputSize.height];
     frameScaleBuffer.resize(size);
   } else {
     frameScaleBuffer.clear();

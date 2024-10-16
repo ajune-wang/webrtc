@@ -35,8 +35,7 @@ namespace {
 bool IsWindowValid(CGWindowID id) {
   CFArrayRef window_id_array =
       CFArrayCreate(nullptr, reinterpret_cast<const void**>(&id), 1, nullptr);
-  CFArrayRef window_array =
-      CGWindowListCreateDescriptionFromArray(window_id_array);
+  CFArrayRef window_array = CGWindowListCreateDescriptionFromArray(window_id_array);
   bool valid = window_array && CFArrayGetCount(window_array);
   CFRelease(window_id_array);
   CFRelease(window_array);
@@ -92,23 +91,20 @@ bool WindowCapturerMac::GetSourceList(SourceList* sources) {
 }
 
 bool WindowCapturerMac::SelectSource(SourceId id) {
-  if (!IsWindowValid(id))
-    return false;
+  if (!IsWindowValid(id)) return false;
   window_id_ = id;
   return true;
 }
 
 bool WindowCapturerMac::FocusOnSelectedSource() {
-  if (!window_id_)
-    return false;
+  if (!window_id_) return false;
 
   CGWindowID ids[1];
   ids[0] = window_id_;
   CFArrayRef window_id_array =
       CFArrayCreate(nullptr, reinterpret_cast<const void**>(&ids), 1, nullptr);
 
-  CFArrayRef window_array =
-      CGWindowListCreateDescriptionFromArray(window_id_array);
+  CFArrayRef window_array = CGWindowListCreateDescriptionFromArray(window_id_array);
   if (!window_array || 0 == CFArrayGetCount(window_array)) {
     // Could not find the window. It might have been closed.
     RTC_LOG(LS_INFO) << "Window not found";
@@ -116,10 +112,10 @@ bool WindowCapturerMac::FocusOnSelectedSource() {
     return false;
   }
 
-  CFDictionaryRef window = reinterpret_cast<CFDictionaryRef>(
-      CFArrayGetValueAtIndex(window_array, 0));
-  CFNumberRef pid_ref = reinterpret_cast<CFNumberRef>(
-      CFDictionaryGetValue(window, kCGWindowOwnerPID));
+  CFDictionaryRef window =
+      reinterpret_cast<CFDictionaryRef>(CFArrayGetValueAtIndex(window_array, 0));
+  CFNumberRef pid_ref =
+      reinterpret_cast<CFNumberRef>(CFDictionaryGetValue(window, kCGWindowOwnerPID));
 
   int pid;
   CFNumberGetValue(pid_ref, kCFNumberIntType, &pid);
@@ -197,8 +193,7 @@ void WindowCapturerMac::CaptureFrame() {
     return;
   }
 
-  frame->mutable_updated_region()->SetRect(
-      DesktopRect::MakeSize(frame->size()));
+  frame->mutable_updated_region()->SetRect(DesktopRect::MakeSize(frame->size()));
   frame->set_top_left(GetWindowBounds(on_screen_window).top_left());
 
   float scale_factor = GetWindowScaleFactor(window_id_, frame->size());

@@ -103,9 +103,7 @@ typedef NS_ENUM(int, ARDAudioSettingsOptions) {
 
 #pragma mark - Table view delegate helpers
 
-- (void)removeAllAccessories:(UITableView *)tableView
-                   inSection:(int)section
-{
+- (void)removeAllAccessories:(UITableView *)tableView inSection:(int)section {
   for (int i = 0; i < [tableView numberOfRowsInSection:section]; i++) {
     NSIndexPath *rowPath = [NSIndexPath indexPathForRow:i inSection:section];
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:rowPath];
@@ -114,8 +112,8 @@ typedef NS_ENUM(int, ARDAudioSettingsOptions) {
 }
 
 - (void)tableView:(UITableView *)tableView
-updateListSelectionAtIndexPath:(NSIndexPath *)indexPath
-        inSection:(int)section {
+    updateListSelectionAtIndexPath:(NSIndexPath *)indexPath
+                         inSection:(int)section {
   [self removeAllAccessories:tableView inSection:section];
   UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
   cell.accessoryType = UITableViewCellAccessoryCheckmark;
@@ -228,8 +226,8 @@ updateListSelectionAtIndexPath:(NSIndexPath *)indexPath
 - (void)tableView:(UITableView *)tableView
     didSelectVideoCodecCellAtIndexPath:(NSIndexPath *)indexPath {
   [self tableView:tableView
-    updateListSelectionAtIndexPath:indexPath
-        inSection:ARDSettingsSectionVideoCodec];
+      updateListSelectionAtIndexPath:indexPath
+                           inSection:ARDSettingsSectionVideoCodec];
 
   RTC_OBJC_TYPE(RTCVideoCodecInfo) *videoCodec = self.videoCodecArray[indexPath.row];
   [_settingsModel storeVideoCodecSetting:videoCodec];

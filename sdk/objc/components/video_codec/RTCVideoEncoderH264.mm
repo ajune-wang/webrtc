@@ -382,8 +382,8 @@ NSUInteger GetMaxSampleRate(const webrtc::H264ProfileLevelId &profile_level_id) 
   _encoderFrameRate = MIN(settings.maxFramerate, _maxAllowedFrameRate);
   if (settings.maxFramerate > _maxAllowedFrameRate && _maxAllowedFrameRate > 0) {
     RTC_LOG(LS_WARNING) << "Initial encoder frame rate setting " << settings.maxFramerate
-                        << " is larger than the "
-                        << "maximal allowed frame rate " << _maxAllowedFrameRate << ".";
+                        << " is larger than the " << "maximal allowed frame rate "
+                        << _maxAllowedFrameRate << ".";
   }
 
   // TODO(tkchin): Try setting payload size via
@@ -426,8 +426,8 @@ NSUInteger GetMaxSampleRate(const webrtc::H264ProfileLevelId &profile_level_id) 
       int dstWidth = CVPixelBufferGetWidth(pixelBuffer);
       int dstHeight = CVPixelBufferGetHeight(pixelBuffer);
       if ([rtcPixelBuffer requiresScalingToWidth:dstWidth height:dstHeight]) {
-        int size =
-            [rtcPixelBuffer bufferSizeForCroppingAndScalingToWidth:dstWidth height:dstHeight];
+        int size = [rtcPixelBuffer bufferSizeForCroppingAndScalingToWidth:dstWidth
+                                                                   height:dstHeight];
         _frameScaleBuffer.resize(size);
       } else {
         _frameScaleBuffer.clear();

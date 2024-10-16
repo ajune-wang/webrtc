@@ -166,7 +166,13 @@ static const uint8_t SPS_PPS_BUFFER[] = {
 
 - (void)testWriteSingleNalu {
   const uint8_t expected_buffer[] = {
-      0x00, 0x00, 0x00, 0x03, 0xAA, 0xBB, 0xCC,
+      0x00,
+      0x00,
+      0x00,
+      0x03,
+      0xAA,
+      0xBB,
+      0xCC,
   };
   const size_t buffer_size = arraysize(NALU_TEST_DATA_0) + 4;
   std::unique_ptr<uint8_t[]> buffer(new uint8_t[buffer_size]);
@@ -276,8 +282,8 @@ static const uint8_t SPS_PPS_BUFFER[] = {
   // clang-format on
 
   rtc::Buffer annexb_buffer(arraysize(cmsample_data));
-  CMSampleBufferRef sample_buffer =
-      [self createCMSampleBufferRef:(void*)cmsample_data cmsampleSize:arraysize(cmsample_data)];
+  CMSampleBufferRef sample_buffer = [self createCMSampleBufferRef:(void*)cmsample_data
+                                                     cmsampleSize:arraysize(cmsample_data)];
 
   Boolean result = webrtc::H264CMSampleBufferToAnnexBBuffer(sample_buffer,
                                                             /* is_keyframe */ false,
@@ -309,8 +315,8 @@ static const uint8_t SPS_PPS_BUFFER[] = {
   // clang-format on
 
   rtc::Buffer annexb_buffer(arraysize(cmsample_data));
-  CMSampleBufferRef sample_buffer =
-      [self createCMSampleBufferRef:(void*)cmsample_data cmsampleSize:arraysize(cmsample_data)];
+  CMSampleBufferRef sample_buffer = [self createCMSampleBufferRef:(void*)cmsample_data
+                                                     cmsampleSize:arraysize(cmsample_data)];
 
   Boolean result = webrtc::H264CMSampleBufferToAnnexBBuffer(sample_buffer,
                                                             /* is_keyframe */ true,

@@ -65,8 +65,7 @@ rtc::scoped_refptr<AudioEncoderFactory> CreateBuiltinAudioEncoderFactory() {
       AudioEncoderOpus, NotAdvertised<AudioEncoderMultiChannelOpus>,
 #endif
 
-      AudioEncoderG722,
-      AudioEncoderG711, NotAdvertised<AudioEncoderL16>>();
+      AudioEncoderG722, AudioEncoderG711, NotAdvertised<AudioEncoderL16>>();
 }
 
 }  // namespace webrtc

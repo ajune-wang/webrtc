@@ -233,7 +233,7 @@ NSString *const kRTCRtpTransceiverErrorDomain = @"org.webrtc.RTCRtpTranceiver";
 }
 
 + (webrtc::RtpTransceiverDirection)nativeRtpTransceiverDirectionFromDirection:
-        (RTCRtpTransceiverDirection)direction {
+    (RTCRtpTransceiverDirection)direction {
   switch (direction) {
     case RTCRtpTransceiverDirectionSendRecv:
       return webrtc::RtpTransceiverDirection::kSendRecv;
@@ -249,7 +249,7 @@ NSString *const kRTCRtpTransceiverErrorDomain = @"org.webrtc.RTCRtpTranceiver";
 }
 
 + (RTCRtpTransceiverDirection)rtpTransceiverDirectionFromNativeDirection:
-        (webrtc::RtpTransceiverDirection)nativeDirection {
+    (webrtc::RtpTransceiverDirection)nativeDirection {
   switch (nativeDirection) {
     case webrtc::RtpTransceiverDirection::kSendRecv:
       return RTCRtpTransceiverDirectionSendRecv;

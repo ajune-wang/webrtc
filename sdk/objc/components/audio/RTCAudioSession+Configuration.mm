@@ -18,19 +18,13 @@
 
     - (BOOL)setConfiguration : (RTC_OBJC_TYPE(RTCAudioSessionConfiguration) *)configuration error
     : (NSError **)outError {
-  return [self setConfiguration:configuration
-                         active:NO
-                shouldSetActive:NO
-                          error:outError];
+  return [self setConfiguration:configuration active:NO shouldSetActive:NO error:outError];
 }
 
 - (BOOL)setConfiguration:(RTC_OBJC_TYPE(RTCAudioSessionConfiguration) *)configuration
                   active:(BOOL)active
                    error:(NSError **)outError {
-  return [self setConfiguration:configuration
-                         active:active
-                shouldSetActive:YES
-                          error:outError];
+  return [self setConfiguration:configuration active:active shouldSetActive:YES error:outError];
 }
 
 #pragma mark - Private
@@ -65,16 +59,13 @@
 
   if (self.preferredSampleRate != configuration.sampleRate) {
     NSError *sampleRateError = nil;
-    if (![self setPreferredSampleRate:configuration.sampleRate
-                                error:&sampleRateError]) {
-      RTCLogError(@"Failed to set preferred sample rate: %@",
-                  sampleRateError.localizedDescription);
+    if (![self setPreferredSampleRate:configuration.sampleRate error:&sampleRateError]) {
+      RTCLogError(@"Failed to set preferred sample rate: %@", sampleRateError.localizedDescription);
       if (!self.ignoresPreferredAttributeConfigurationErrors) {
         error = sampleRateError;
       }
     } else {
-      RTCLog(@"Set preferred sample rate to: %.2f",
-             configuration.sampleRate);
+      RTCLog(@"Set preferred sample rate to: %.2f", configuration.sampleRate);
     }
   }
 
@@ -88,16 +79,14 @@
         error = bufferDurationError;
       }
     } else {
-      RTCLog(@"Set preferred IO buffer duration to: %f",
-             configuration.ioBufferDuration);
+      RTCLog(@"Set preferred IO buffer duration to: %f", configuration.ioBufferDuration);
     }
   }
 
   if (shouldSetActive) {
     NSError *activeError = nil;
     if (![self setActive:active error:&activeError]) {
-      RTCLogError(@"Failed to setActive to %d: %@",
-                  active, activeError.localizedDescription);
+      RTCLogError(@"Failed to setActive to %d: %@", active, activeError.localizedDescription);
       error = activeError;
     }
   }
@@ -113,14 +102,13 @@
       NSError *inputChannelsError = nil;
       if (![self setPreferredInputNumberOfChannels:inputNumberOfChannels
                                              error:&inputChannelsError]) {
-       RTCLogError(@"Failed to set preferred input number of channels: %@",
-                   inputChannelsError.localizedDescription);
-       if (!self.ignoresPreferredAttributeConfigurationErrors) {
-         error = inputChannelsError;
-       }
+        RTCLogError(@"Failed to set preferred input number of channels: %@",
+                    inputChannelsError.localizedDescription);
+        if (!self.ignoresPreferredAttributeConfigurationErrors) {
+          error = inputChannelsError;
+        }
       } else {
-        RTCLog(@"Set input number of channels to: %ld",
-               (long)inputNumberOfChannels);
+        RTCLog(@"Set input number of channels to: %ld", (long)inputNumberOfChannels);
       }
     }
     NSInteger outputNumberOfChannels = configuration.outputNumberOfChannels;
@@ -134,8 +122,7 @@
           error = outputChannelsError;
         }
       } else {
-        RTCLog(@"Set output number of channels to: %ld",
-               (long)outputNumberOfChannels);
+        RTCLog(@"Set output number of channels to: %ld", (long)outputNumberOfChannels);
       }
     }
   }

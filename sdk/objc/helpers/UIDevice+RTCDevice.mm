@@ -18,8 +18,7 @@
 + (NSString *)machineName {
   struct utsname systemInfo;
   uname(&systemInfo);
-  return [[NSString alloc] initWithCString:systemInfo.machine
-                                  encoding:NSUTF8StringEncoding];
+  return [[NSString alloc] initWithCString:systemInfo.machine encoding:NSUTF8StringEncoding];
 }
 
 @end

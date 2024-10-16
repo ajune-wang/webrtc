@@ -276,7 +276,7 @@
 - (id)debugQuickLookObject {
   CGImageRef cgImage;
   VTCreateCGImageFromCVPixelBuffer(_pixelBuffer, NULL, &cgImage);
-  UIImage *image = [UIImage imageWithCGImage:cgImage scale:1.0 orientation:UIImageOrientationUp];
+  UIImage* image = [UIImage imageWithCGImage:cgImage scale:1.0 orientation:UIImageOrientationUp];
   CGImageRelease(cgImage);
   return image;
 }

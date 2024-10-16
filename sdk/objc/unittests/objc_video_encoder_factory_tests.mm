@@ -36,7 +36,7 @@ id<RTC_OBJC_TYPE(RTCVideoEncoderFactory)> CreateEncoderFactoryReturning(int retu
   OCMStub([encoderMock setBitrate:0 framerate:0]).andReturn(return_code);
 
   id encoderFactoryMock = OCMProtocolMock(@protocol(RTC_OBJC_TYPE(RTCVideoEncoderFactory)));
-  RTC_OBJC_TYPE(RTCVideoCodecInfo)* supported =
+  RTC_OBJC_TYPE(RTCVideoCodecInfo) *supported =
       [[RTC_OBJC_TYPE(RTCVideoCodecInfo) alloc] initWithName:@"H264" parameters:nil];
   OCMStub([encoderFactoryMock supportedCodecs]).andReturn(@[ supported ]);
   OCMStub([encoderFactoryMock implementations]).andReturn(@[ supported ]);
@@ -118,7 +118,7 @@ std::unique_ptr<webrtc::VideoEncoder> GetObjCEncoder(
 - (void)testInitEncodeReturnsOKOnSuccess {
   std::unique_ptr<webrtc::VideoEncoder> encoder = GetObjCEncoder(CreateOKEncoderFactory());
 
-  auto* settings = new webrtc::VideoCodec();
+  auto *settings = new webrtc::VideoCodec();
   const webrtc::VideoEncoder::Capabilities kCapabilities(false);
   EXPECT_EQ(encoder->InitEncode(settings, webrtc::VideoEncoder::Settings(kCapabilities, 1, 0)),
             WEBRTC_VIDEO_CODEC_OK);
@@ -127,7 +127,7 @@ std::unique_ptr<webrtc::VideoEncoder> GetObjCEncoder(
 - (void)testInitEncodeReturnsErrorOnFail {
   std::unique_ptr<webrtc::VideoEncoder> encoder = GetObjCEncoder(CreateErrorEncoderFactory());
 
-  auto* settings = new webrtc::VideoCodec();
+  auto *settings = new webrtc::VideoCodec();
   const webrtc::VideoEncoder::Capabilities kCapabilities(false);
   EXPECT_EQ(encoder->InitEncode(settings, webrtc::VideoEncoder::Settings(kCapabilities, 1, 0)),
             WEBRTC_VIDEO_CODEC_ERROR);

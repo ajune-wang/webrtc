@@ -19,19 +19,16 @@ static dispatch_queue_t kNetworkMonitorQueue = nil;
 + (void)initialize {
   static dispatch_once_t onceToken;
   dispatch_once(&onceToken, ^{
-    kAudioSessionQueue = dispatch_queue_create(
-        "org.webrtc.RTCDispatcherAudioSession",
-        DISPATCH_QUEUE_SERIAL);
-    kCaptureSessionQueue = dispatch_queue_create(
-        "org.webrtc.RTCDispatcherCaptureSession",
-        DISPATCH_QUEUE_SERIAL);
+    kAudioSessionQueue =
+        dispatch_queue_create("org.webrtc.RTCDispatcherAudioSession", DISPATCH_QUEUE_SERIAL);
+    kCaptureSessionQueue =
+        dispatch_queue_create("org.webrtc.RTCDispatcherCaptureSession", DISPATCH_QUEUE_SERIAL);
     kNetworkMonitorQueue =
         dispatch_queue_create("org.webrtc.RTCDispatcherNetworkMonitor", DISPATCH_QUEUE_SERIAL);
   });
 }
 
-+ (void)dispatchAsyncOnType:(RTCDispatcherQueueType)dispatchType
-                      block:(dispatch_block_t)block {
++ (void)dispatchAsyncOnType:(RTCDispatcherQueueType)dispatchType block:(dispatch_block_t)block {
   dispatch_queue_t queue = [self dispatchQueueForType:dispatchType];
   dispatch_async(queue, block);
 }

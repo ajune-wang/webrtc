@@ -27,8 +27,7 @@
   NSParameterAssert(fileName.length);
   NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
   NSString *documentsDirPath = paths.firstObject;
-  NSString *filePath =
-  [documentsDirPath stringByAppendingPathComponent:fileName];
+  NSString *filePath = [documentsDirPath stringByAppendingPathComponent:fileName];
   return filePath;
 }
 

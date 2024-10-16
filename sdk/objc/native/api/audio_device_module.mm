@@ -37,4 +37,4 @@ rtc::scoped_refptr<AudioDeviceModule> CreateMutedDetectAudioDeviceModule(
   return nullptr;
 #endif
 }
-}
+}  // namespace webrtc

@@ -44,8 +44,7 @@
   config.audioJitterBufferFastAccelerate = YES;
   config.iceConnectionReceivingTimeout = timeout;
   config.iceBackupCandidatePairPingInterval = interval;
-  config.continualGatheringPolicy =
-      RTCContinualGatheringPolicyGatherContinually;
+  config.continualGatheringPolicy = RTCContinualGatheringPolicyGatherContinually;
   config.shouldPruneTurnPorts = YES;
   config.cryptoOptions =
       [[RTC_OBJC_TYPE(RTCCryptoOptions) alloc] initWithSrtpEnableGcmCryptoSuites:YES
@@ -55,18 +54,16 @@
   config.rtcpAudioReportIntervalMs = 2500;
   config.rtcpVideoReportIntervalMs = 3750;
 
-  std::unique_ptr<webrtc::PeerConnectionInterface::RTCConfiguration>
-      nativeConfig([config createNativeConfiguration]);
+  std::unique_ptr<webrtc::PeerConnectionInterface::RTCConfiguration> nativeConfig(
+      [config createNativeConfiguration]);
   EXPECT_TRUE(nativeConfig.get());
   EXPECT_EQ(1u, nativeConfig->servers.size());
-  webrtc::PeerConnectionInterface::IceServer nativeServer =
-      nativeConfig->servers.front();
+  webrtc::PeerConnectionInterface::IceServer nativeServer = nativeConfig->servers.front();
   EXPECT_EQ(1u, nativeServer.urls.size());
   EXPECT_EQ("stun:stun1.example.net", nativeServer.urls.front());
 
   EXPECT_EQ(webrtc::PeerConnectionInterface::kRelay, nativeConfig->type);
-  EXPECT_EQ(webrtc::PeerConnectionInterface::kBundlePolicyMaxBundle,
-            nativeConfig->bundle_policy);
+  EXPECT_EQ(webrtc::PeerConnectionInterface::kBundlePolicyMaxBundle, nativeConfig->bundle_policy);
   EXPECT_EQ(webrtc::PeerConnectionInterface::kRtcpMuxPolicyNegotiate,
             nativeConfig->rtcp_mux_policy);
   EXPECT_EQ(webrtc::PeerConnectionInterface::kTcpCandidatePolicyDisabled,
@@ -107,8 +104,7 @@
   config.audioJitterBufferFastAccelerate = YES;
   config.iceConnectionReceivingTimeout = timeout;
   config.iceBackupCandidatePairPingInterval = interval;
-  config.continualGatheringPolicy =
-      RTCContinualGatheringPolicyGatherContinually;
+  config.continualGatheringPolicy = RTCContinualGatheringPolicyGatherContinually;
   config.shouldPruneTurnPorts = YES;
   config.cryptoOptions =
       [[RTC_OBJC_TYPE(RTCCryptoOptions) alloc] initWithSrtpEnableGcmCryptoSuites:YES

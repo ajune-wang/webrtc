@@ -34,7 +34,7 @@
 
 @interface MockAVAudioSession : NSObject
 
-@property (nonatomic, readwrite, assign) float outputVolume;
+@property(nonatomic, readwrite, assign) float outputVolume;
 
 @end
 
@@ -44,7 +44,7 @@
 
 @interface RTCAudioSessionTestDelegate : NSObject <RTC_OBJC_TYPE (RTCAudioSessionDelegate)>
 
-@property (nonatomic, readonly) float outputVolume;
+@property(nonatomic, readonly) float outputVolume;
 
 @end
 
@@ -125,17 +125,15 @@
   NSMutableArray *delegates = [NSMutableArray array];
   const size_t count = 5;
   for (size_t i = 0; i < count; ++i) {
-    RTCAudioSessionTestDelegate *delegate =
-        [[RTCAudioSessionTestDelegate alloc] init];
+    RTCAudioSessionTestDelegate *delegate = [[RTCAudioSessionTestDelegate alloc] init];
     [session addDelegate:delegate];
     [delegates addObject:delegate];
     EXPECT_EQ(i + 1, session.delegates.size());
   }
-  [delegates enumerateObjectsUsingBlock:^(RTCAudioSessionTestDelegate *obj,
-                                          NSUInteger idx,
-                                          BOOL *stop) {
-    [session removeDelegate:obj];
-  }];
+  [delegates
+      enumerateObjectsUsingBlock:^(RTCAudioSessionTestDelegate *obj, NSUInteger idx, BOOL *stop) {
+        [session removeDelegate:obj];
+      }];
   EXPECT_EQ(0u, session.delegates.size());
 }
 
@@ -144,21 +142,18 @@
   NSMutableArray *delegates = [NSMutableArray array];
   const size_t count = 2;
   for (size_t i = 0; i < count; ++i) {
-    RTCAudioSessionTestDelegate *delegate =
-        [[RTCAudioSessionTestDelegate alloc] init];
+    RTCAudioSessionTestDelegate *delegate = [[RTCAudioSessionTestDelegate alloc] init];
     [session addDelegate:delegate];
     [delegates addObject:delegate];
   }
   // Test that it gets added to the front of the list.
-  RTCAudioSessionTestDelegate *pushedDelegate =
-      [[RTCAudioSessionTestDelegate alloc] init];
+  RTCAudioSessionTestDelegate *pushedDelegate = [[RTCAudioSessionTestDelegate alloc] init];
   [session pushDelegate:pushedDelegate];
   EXPECT_TRUE(pushedDelegate == session.delegates[0]);
 
   // Test that it stays at the front of the list.
   for (size_t i = 0; i < count; ++i) {
-    RTCAudioSessionTestDelegate *delegate =
-        [[RTCAudioSessionTestDelegate alloc] init];
+    RTCAudioSessionTestDelegate *delegate = [[RTCAudioSessionTestDelegate alloc] init];
     [session addDelegate:delegate];
     [delegates addObject:delegate];
   }
@@ -177,16 +172,14 @@
   @autoreleasepool {
     // Add a delegate to the session. There should be one delegate at this
     // point.
-    RTCAudioSessionTestDelegate *delegate =
-        [[RTCAudioSessionTestDelegate alloc] init];
+    RTCAudioSessionTestDelegate *delegate = [[RTCAudioSessionTestDelegate alloc] init];
     [session addDelegate:delegate];
     EXPECT_EQ(1u, session.delegates.size());
     EXPECT_TRUE(session.delegates[0]);
   }
   // The previously created delegate should've de-alloced, leaving a nil ptr.
   EXPECT_FALSE(session.delegates[0]);
-  RTCAudioSessionTestDelegate *delegate =
-      [[RTCAudioSessionTestDelegate alloc] init];
+  RTCAudioSessionTestDelegate *delegate = [[RTCAudioSessionTestDelegate alloc] init];
   [session addDelegate:delegate];
   // On adding a new delegate, nil ptrs should've been cleared.
   EXPECT_EQ(1u, session.delegates.size());
@@ -197,8 +190,7 @@
 // Added as a regression test.
 - (void)testRemoveDelegateOnDealloc {
   @autoreleasepool {
-    RTCTestRemoveOnDeallocDelegate *delegate =
-        [[RTCTestRemoveOnDeallocDelegate alloc] init];
+    RTCTestRemoveOnDeallocDelegate *delegate = [[RTCTestRemoveOnDeallocDelegate alloc] init];
     EXPECT_TRUE(delegate);
   }
   RTC_OBJC_TYPE(RTCAudioSession) *session = [RTC_OBJC_TYPE(RTCAudioSession) sharedInstance];
@@ -306,8 +298,7 @@
   MockAVAudioSession *mockAVAudioSession = [[MockAVAudioSession alloc] init];
   RTC_OBJC_TYPE(RTCAudioSession) *session =
       [[RTC_OBJC_TYPE(RTCAudioSession) alloc] initWithAudioSession:mockAVAudioSession];
-  RTCAudioSessionTestDelegate *delegate =
-      [[RTCAudioSessionTestDelegate alloc] init];
+  RTCAudioSessionTestDelegate *delegate = [[RTCAudioSessionTestDelegate alloc] init];
   [session addDelegate:delegate];
 
   float expectedVolume = 0.75;

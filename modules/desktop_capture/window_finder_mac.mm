@@ -44,8 +44,7 @@ WindowId WindowFinderMac::GetWindowUnderPoint(DesktopVector point) {
 }
 
 // static
-std::unique_ptr<WindowFinder> WindowFinder::Create(
-    const WindowFinder::Options& options) {
+std::unique_ptr<WindowFinder> WindowFinder::Create(const WindowFinder::Options& options) {
   return std::make_unique<WindowFinderMac>(options.configuration_monitor);
 }
 

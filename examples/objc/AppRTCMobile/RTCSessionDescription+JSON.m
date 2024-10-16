@@ -26,10 +26,8 @@ static NSString const *kRTCSessionDescriptionSdpKey = @"sdp";
 
 - (NSData *)JSONData {
   NSString *type = [[self class] stringForType:self.type];
-  NSDictionary *json = @{
-    kRTCSessionDescriptionTypeKey : type,
-    kRTCSessionDescriptionSdpKey : self.sdp
-  };
+  NSDictionary *json =
+      @{kRTCSessionDescriptionTypeKey : type, kRTCSessionDescriptionSdpKey : self.sdp};
   return [NSJSONSerialization dataWithJSONObject:json options:0 error:nil];
 }
 

@@ -30,8 +30,7 @@
   return [self initWithNativeParameters:nativeParameters];
 }
 
-- (instancetype)initWithNativeParameters:
-    (const webrtc::RtpParameters &)nativeParameters {
+- (instancetype)initWithNativeParameters:(const webrtc::RtpParameters &)nativeParameters {
   self = [super init];
   if (self) {
     _transactionId = [NSString stringForStdString:nativeParameters.transaction_id];

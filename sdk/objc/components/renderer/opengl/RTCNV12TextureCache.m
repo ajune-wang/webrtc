@@ -31,14 +31,15 @@
 - (instancetype)initWithContext:(EAGLContext *)context {
   self = [super init];
   if (self) {
-    CVReturn ret = CVOpenGLESTextureCacheCreate(
-        kCFAllocatorDefault, NULL,
+    CVReturn ret = CVOpenGLESTextureCacheCreate(kCFAllocatorDefault,
+                                                NULL,
 #if COREVIDEO_USE_EAGLCONTEXT_CLASS_IN_API
-        context,
+                                                context,
 #else
-        (__bridge void *)context,
+                                                (__bridge void *)context,
 #endif
-        NULL, &_textureCache);
+                                                NULL,
+                                                &_textureCache);
     if (ret != kCVReturnSuccess) {
       self = nil;
     }
@@ -57,9 +58,18 @@
     CFRelease(*textureOut);
     *textureOut = nil;
   }
-  CVReturn ret = CVOpenGLESTextureCacheCreateTextureFromImage(
-      kCFAllocatorDefault, _textureCache, pixelBuffer, NULL, GL_TEXTURE_2D, pixelFormat, width,
-      height, pixelFormat, GL_UNSIGNED_BYTE, planeIndex, textureOut);
+  CVReturn ret = CVOpenGLESTextureCacheCreateTextureFromImage(kCFAllocatorDefault,
+                                                              _textureCache,
+                                                              pixelBuffer,
+                                                              NULL,
+                                                              GL_TEXTURE_2D,
+                                                              pixelFormat,
+                                                              width,
+                                                              height,
+                                                              pixelFormat,
+                                                              GL_UNSIGNED_BYTE,
+                                                              planeIndex,
+                                                              textureOut);
   if (ret != kCVReturnSuccess) {
     if (*textureOut) {
       CFRelease(*textureOut);
@@ -86,10 +96,10 @@
                pixelBuffer:pixelBuffer
                 planeIndex:0
                pixelFormat:GL_LUMINANCE] &&
-         [self loadTexture:&_uvTextureRef
-               pixelBuffer:pixelBuffer
-                planeIndex:1
-               pixelFormat:GL_LUMINANCE_ALPHA];
+      [self loadTexture:&_uvTextureRef
+             pixelBuffer:pixelBuffer
+              planeIndex:1
+             pixelFormat:GL_LUMINANCE_ALPHA];
 }
 
 - (void)releaseTextures {

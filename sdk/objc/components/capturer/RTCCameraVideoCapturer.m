@@ -502,8 +502,8 @@ const int64_t kNanosecondsPerSecond = 1000000000;
   NSAssert([RTC_OBJC_TYPE(RTCDispatcher) isOnQueueForType:RTCDispatcherTypeCaptureSession],
            @"reconfigureCaptureSessionInput must be called on the capture queue.");
   NSError *error = nil;
-  AVCaptureDeviceInput *input =
-      [AVCaptureDeviceInput deviceInputWithDevice:_currentDevice error:&error];
+  AVCaptureDeviceInput *input = [AVCaptureDeviceInput deviceInputWithDevice:_currentDevice
+                                                                      error:&error];
   if (!input) {
     RTCLogError(@"Failed to create front camera input: %@", error.localizedDescription);
     return;

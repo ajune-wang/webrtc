@@ -34,7 +34,7 @@ class ObjCEncodedImageBuffer : public webrtc::EncodedImageBufferInterface {
 
   NSData *data_;
 };
-}
+}  // namespace
 
 // A simple wrapper around webrtc::EncodedImageBufferInterface to make it usable with associated
 // objects.

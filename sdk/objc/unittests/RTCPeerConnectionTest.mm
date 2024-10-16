@@ -53,8 +53,7 @@
   config.audioJitterBufferFastAccelerate = YES;
   config.iceConnectionReceivingTimeout = timeout;
   config.iceBackupCandidatePairPingInterval = interval;
-  config.continualGatheringPolicy =
-      RTCContinualGatheringPolicyGatherContinually;
+  config.continualGatheringPolicy = RTCContinualGatheringPolicyGatherContinually;
   config.shouldPruneTurnPorts = YES;
   config.activeResetSrtpParams = YES;
   config.cryptoOptions =

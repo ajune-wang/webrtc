@@ -34,10 +34,8 @@
                            clientId:(NSString *)clientId
                         isInitiator:(BOOL)isInitiator
                            messages:(NSArray *)messages
-                     messageHandler:
-    (void (^)(ARDSignalingMessage *))messageHandler {
-  id mockRoomServerClient =
-      [OCMockObject mockForProtocol:@protocol(ARDRoomServerClient)];
+                     messageHandler:(void (^)(ARDSignalingMessage *))messageHandler {
+  id mockRoomServerClient = [OCMockObject mockForProtocol:@protocol(ARDRoomServerClient)];
 
   // Successful join response.
   ARDJoinResponse *joinResponse = [[ARDJoinResponse alloc] init];
@@ -53,8 +51,7 @@
 
   // Return join response from above on join.
   [[[mockRoomServerClient stub] andDo:^(NSInvocation *invocation) {
-    __unsafe_unretained void (^completionHandler)(ARDJoinResponse *response,
-                                                  NSError *error);
+    __unsafe_unretained void (^completionHandler)(ARDJoinResponse *response, NSError *error);
     [invocation getArgument:&completionHandler atIndex:4];
     completionHandler(joinResponse, nil);
   }] joinRoomWithRoomId:roomId isLoopback:NO completionHandler:[OCMArg any]];
@@ -62,16 +59,12 @@
   // Return message response from above on join.
   [[[mockRoomServerClient stub] andDo:^(NSInvocation *invocation) {
     __unsafe_unretained ARDSignalingMessage *message;
-    __unsafe_unretained void (^completionHandler)(ARDMessageResponse *response,
-                                                  NSError *error);
+    __unsafe_unretained void (^completionHandler)(ARDMessageResponse *response, NSError *error);
     [invocation getArgument:&message atIndex:2];
     [invocation getArgument:&completionHandler atIndex:5];
     messageHandler(message);
     completionHandler(messageResponse, nil);
-  }] sendMessage:[OCMArg any]
-            forRoomId:roomId
-             clientId:clientId
-    completionHandler:[OCMArg any]];
+  }] sendMessage:[OCMArg any] forRoomId:roomId clientId:clientId completionHandler:[OCMArg any]];
 
   // Do nothing on leave.
   [[[mockRoomServerClient stub] andDo:^(NSInvocation *invocation) {
@@ -80,19 +73,15 @@
     if (completionHandler) {
       completionHandler(nil);
     }
-  }] leaveRoomWithRoomId:roomId
-                clientId:clientId
-       completionHandler:[OCMArg any]];
+  }] leaveRoomWithRoomId:roomId clientId:clientId completionHandler:[OCMArg any]];
 
   return mockRoomServerClient;
 }
 
 - (id)mockSignalingChannelForRoomId:(NSString *)roomId
                            clientId:(NSString *)clientId
-                     messageHandler:
-    (void (^)(ARDSignalingMessage *message))messageHandler {
-  id mockSignalingChannel =
-      [OCMockObject niceMockForProtocol:@protocol(ARDSignalingChannel)];
+                     messageHandler:(void (^)(ARDSignalingMessage *message))messageHandler {
+  id mockSignalingChannel = [OCMockObject niceMockForProtocol:@protocol(ARDSignalingChannel)];
   [[mockSignalingChannel stub] registerForRoomId:roomId clientId:clientId];
   [[[mockSignalingChannel stub] andDo:^(NSInvocation *invocation) {
     __unsafe_unretained ARDSignalingMessage *message;
@@ -103,12 +92,10 @@
 }
 
 - (id)mockTURNClient {
-  id mockTURNClient =
-      [OCMockObject mockForProtocol:@protocol(ARDTURNClient)];
+  id mockTURNClient = [OCMockObject mockForProtocol:@protocol(ARDTURNClient)];
   [[[mockTURNClient stub] andDo:^(NSInvocation *invocation) {
     // Don't return anything in TURN response.
-    __unsafe_unretained void (^completionHandler)(NSArray *turnServers,
-                                                  NSError *error);
+    __unsafe_unretained void (^completionHandler)(NSArray *turnServers, NSError *error);
     [invocation getArgument:&completionHandler atIndex:2];
     completionHandler([NSArray array], nil);
   }] requestServersWithCompletionHandler:[OCMArg any]];
@@ -128,30 +115,25 @@
                                   clientId:(NSString *)clientId
                                isInitiator:(BOOL)isInitiator
                                   messages:(NSArray *)messages
-                            messageHandler:
-    (void (^)(ARDSignalingMessage *message))messageHandler
+                            messageHandler:(void (^)(ARDSignalingMessage *message))messageHandler
                           connectedHandler:(void (^)(void))connectedHandler
                     localVideoTrackHandler:(void (^)(void))localVideoTrackHandler {
   id turnClient = [self mockTURNClient];
   id signalingChannel = [self mockSignalingChannelForRoomId:roomId
                                                    clientId:clientId
                                              messageHandler:messageHandler];
-  id roomServerClient =
-      [self mockRoomServerClientForRoomId:roomId
-                                 clientId:clientId
-                              isInitiator:isInitiator
-                                 messages:messages
-                           messageHandler:messageHandler];
-  id delegate =
-      [OCMockObject niceMockForProtocol:@protocol(ARDAppClientDelegate)];
+  id roomServerClient = [self mockRoomServerClientForRoomId:roomId
+                                                   clientId:clientId
+                                                isInitiator:isInitiator
+                                                   messages:messages
+                                             messageHandler:messageHandler];
+  id delegate = [OCMockObject niceMockForProtocol:@protocol(ARDAppClientDelegate)];
   [[[delegate stub] andDo:^(NSInvocation *invocation) {
     connectedHandler();
-  }] appClient:[OCMArg any]
-      didChangeConnectionState:RTCIceConnectionStateConnected];
+  }] appClient:[OCMArg any] didChangeConnectionState:RTCIceConnectionStateConnected];
   [[[delegate stub] andDo:^(NSInvocation *invocation) {
     localVideoTrackHandler();
-  }] appClient:[OCMArg any]
-      didReceiveLocalVideoTrack:[OCMArg any]];
+  }] appClient:[OCMArg any] didReceiveLocalVideoTrack:[OCMArg any]];
 
   return [[ARDAppClient alloc] initWithRoomServerClient:roomServerClient
                                        signalingChannel:signalingChannel
@@ -183,16 +165,18 @@
       [self expectationWithDescription:@"Answerer PC connected"];
 
   caller = [self createAppClientForRoomId:roomId
-                                 clientId:callerId
-                              isInitiator:YES
-                                 messages:[NSArray array]
-                           messageHandler:^(ARDSignalingMessage *message) {
-    ARDAppClient *strongAnswerer = weakAnswerer;
-    [strongAnswerer channel:strongAnswerer.channel didReceiveMessage:message];
-  }                      connectedHandler:^{
-    [callerConnectionExpectation fulfill];
-  }                localVideoTrackHandler:^{
-  }];
+      clientId:callerId
+      isInitiator:YES
+      messages:[NSArray array]
+      messageHandler:^(ARDSignalingMessage *message) {
+        ARDAppClient *strongAnswerer = weakAnswerer;
+        [strongAnswerer channel:strongAnswerer.channel didReceiveMessage:message];
+      }
+      connectedHandler:^{
+        [callerConnectionExpectation fulfill];
+      }
+      localVideoTrackHandler:^{
+      }];
   // TODO(tkchin): Figure out why DTLS-SRTP constraint causes thread assertion
   // crash in Debug.
   caller.defaultPeerConnectionConstraints =
@@ -201,16 +185,18 @@
   weakCaller = caller;
 
   answerer = [self createAppClientForRoomId:roomId
-                                   clientId:answererId
-                                isInitiator:NO
-                                   messages:[NSArray array]
-                             messageHandler:^(ARDSignalingMessage *message) {
-    ARDAppClient *strongCaller = weakCaller;
-    [strongCaller channel:strongCaller.channel didReceiveMessage:message];
-  }                        connectedHandler:^{
-    [answererConnectionExpectation fulfill];
-  }                  localVideoTrackHandler:^{
-  }];
+      clientId:answererId
+      isInitiator:NO
+      messages:[NSArray array]
+      messageHandler:^(ARDSignalingMessage *message) {
+        ARDAppClient *strongCaller = weakCaller;
+        [strongCaller channel:strongCaller.channel didReceiveMessage:message];
+      }
+      connectedHandler:^{
+        [answererConnectionExpectation fulfill];
+      }
+      localVideoTrackHandler:^{
+      }];
   // TODO(tkchin): Figure out why DTLS-SRTP constraint causes thread assertion
   // crash in Debug.
   answerer.defaultPeerConnectionConstraints =
@@ -221,17 +207,18 @@
   // Kick off connection.
   [caller connectToRoomWithId:roomId settings:[self mockSettingsModel] isLoopback:NO];
   [answerer connectToRoomWithId:roomId settings:[self mockSettingsModel] isLoopback:NO];
-  [self waitForExpectationsWithTimeout:20 handler:^(NSError *error) {
-    if (error) {
-      XCTFail(@"Expectation failed with error %@.", error);
-    }
-  }];
+  [self waitForExpectationsWithTimeout:20
+                               handler:^(NSError *error) {
+                                 if (error) {
+                                   XCTFail(@"Expectation failed with error %@.", error);
+                                 }
+                               }];
 }
 
 // Test to see that we get a local video connection
 // Note this will currently pass even when no camera is connected as a local
 // video track is created regardless (Perhaps there should be a test for that...)
-#if !TARGET_IPHONE_SIMULATOR // Expect to fail on simulator due to no camera support
+#if !TARGET_IPHONE_SIMULATOR  // Expect to fail on simulator due to no camera support
 - (void)testSessionShouldGetLocalVideoTrackCallback {
   ARDAppClient *caller = nil;
   NSString *roomId = @"testRoom";
@@ -241,25 +228,28 @@
       [self expectationWithDescription:@"Caller got local video."];
 
   caller = [self createAppClientForRoomId:roomId
-                                 clientId:callerId
-                              isInitiator:YES
-                                 messages:[NSArray array]
-                           messageHandler:^(ARDSignalingMessage *message) {}
-                         connectedHandler:^{}
-                   localVideoTrackHandler:^{ [localVideoTrackExpectation fulfill]; }];
+      clientId:callerId
+      isInitiator:YES
+      messages:[NSArray array]
+      messageHandler:^(ARDSignalingMessage *message) {
+      }
+      connectedHandler:^{
+      }
+      localVideoTrackHandler:^{
+        [localVideoTrackExpectation fulfill];
+      }];
   caller.defaultPeerConnectionConstraints =
       [[RTC_OBJC_TYPE(RTCMediaConstraints) alloc] initWithMandatoryConstraints:nil
                                                            optionalConstraints:nil];
 
   // Kick off connection.
-  [caller connectToRoomWithId:roomId
-                     settings:[self mockSettingsModel]
-                   isLoopback:NO];
-  [self waitForExpectationsWithTimeout:20 handler:^(NSError *error) {
-    if (error) {
-      XCTFail("Expectation timed out with error: %@.", error);
-    }
-  }];
+  [caller connectToRoomWithId:roomId settings:[self mockSettingsModel] isLoopback:NO];
+  [self waitForExpectationsWithTimeout:20
+                               handler:^(NSError *error) {
+                                 if (error) {
+                                   XCTFail("Expectation timed out with error: %@.", error);
+                                 }
+                               }];
 }
 #endif
 

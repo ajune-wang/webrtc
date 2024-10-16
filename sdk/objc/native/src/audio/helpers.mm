@@ -33,16 +33,15 @@ NSString* NSStringFromStdString(const std::string& stdString) {
 
 std::string StdStringFromNSString(NSString* nsString) {
   NSData* charData = [nsString dataUsingEncoding:NSUTF8StringEncoding];
-  return std::string(reinterpret_cast<const char*>([charData bytes]),
-                     [charData length]);
+  return std::string(reinterpret_cast<const char*>([charData bytes]), [charData length]);
 }
 
 bool CheckAndLogError(BOOL success, NSError* error) {
   if (!success) {
-    NSString* msg =
-        [NSString stringWithFormat:@"Error: %ld, %@, %@", (long)error.code,
-                                   error.localizedDescription,
-                                   error.localizedFailureReason];
+    NSString* msg = [NSString stringWithFormat:@"Error: %ld, %@, %@",
+                                               (long)error.code,
+                                               error.localizedDescription,
+                                               error.localizedFailureReason];
     RTC_LOG(LS_ERROR) << StdStringFromNSString(msg);
     return false;
   }
@@ -96,8 +95,7 @@ int GetProcessID() {
 }
 
 std::string GetOSVersionString() {
-  NSString* osVersion =
-      [NSProcessInfo processInfo].operatingSystemVersionString;
+  NSString* osVersion = [NSProcessInfo processInfo].operatingSystemVersionString;
   return StdStringFromNSString(osVersion);
 }
 

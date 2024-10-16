@@ -37,17 +37,13 @@
   if (self) {
     _timestamp = nativeReport.timestamp();
     _type = [NSString stringForStdString:nativeReport.TypeToString()];
-    _reportId = [NSString stringForStdString:
-        nativeReport.id()->ToString()];
+    _reportId = [NSString stringForStdString:nativeReport.id()->ToString()];
 
     NSUInteger capacity = nativeReport.values().size();
-    NSMutableDictionary *values =
-        [NSMutableDictionary dictionaryWithCapacity:capacity];
+    NSMutableDictionary *values = [NSMutableDictionary dictionaryWithCapacity:capacity];
     for (auto const &valuePair : nativeReport.values()) {
-      NSString *key = [NSString stringForStdString:
-          valuePair.second->display_name()];
-      NSString *value = [NSString stringForStdString:
-          valuePair.second->ToString()];
+      NSString *key = [NSString stringForStdString:valuePair.second->display_name()];
+      NSString *value = [NSString stringForStdString:valuePair.second->ToString()];
 
       // Not expecting duplicate keys.
       RTC_DCHECK(![values objectForKey:key]);

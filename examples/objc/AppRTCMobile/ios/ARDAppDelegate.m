@@ -29,7 +29,7 @@
   RTCInitFieldTrialDictionary(fieldTrials);
   RTCInitializeSSL();
   RTCSetupInternalTracer();
-  _window =  [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+  _window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
   [_window makeKeyAndVisible];
   ARDMainViewController *viewController = [[ARDMainViewController alloc] init];
 

@@ -18,36 +18,33 @@
 
 #include "api/scoped_refptr.h"
 
-typedef int32_t(^NeedMorePlayDataBlock)(const size_t nSamples,
-                                        const size_t nBytesPerSample,
-                                        const size_t nChannels,
-                                        const uint32_t samplesPerSec,
-                                        void* audioSamples,
-                                        size_t& nSamplesOut,
-                                        int64_t* elapsed_time_ms,
-                                        int64_t* ntp_time_ms);
+typedef int32_t (^NeedMorePlayDataBlock)(const size_t nSamples,
+                                         const size_t nBytesPerSample,
+                                         const size_t nChannels,
+                                         const uint32_t samplesPerSec,
+                                         void *audioSamples,
+                                         size_t &nSamplesOut,
+                                         int64_t *elapsed_time_ms,
+                                         int64_t *ntp_time_ms);
 
-typedef int32_t(^RecordedDataIsAvailableBlock)(const void* audioSamples,
-                                               const size_t nSamples,
-                                               const size_t nBytesPerSample,
-                                               const size_t nChannels,
-                                               const uint32_t samplesPerSec,
-                                               const uint32_t totalDelayMS,
-                                               const int32_t clockDrift,
-                                               const uint32_t currentMicLevel,
-                                               const bool keyPressed,
-                                               uint32_t& newMicLevel);
-
+typedef int32_t (^RecordedDataIsAvailableBlock)(const void *audioSamples,
+                                                const size_t nSamples,
+                                                const size_t nBytesPerSample,
+                                                const size_t nChannels,
+                                                const uint32_t samplesPerSec,
+                                                const uint32_t totalDelayMS,
+                                                const int32_t clockDrift,
+                                                const uint32_t currentMicLevel,
+                                                const bool keyPressed,
+                                                uint32_t &newMicLevel);
 
 // This class implements the AudioTransport API and forwards all methods to the appropriate blocks.
 class MockAudioTransport : public webrtc::AudioTransport {
-public:
+ public:
   MockAudioTransport() {}
   ~MockAudioTransport() override {}
 
-  void expectNeedMorePlayData(NeedMorePlayDataBlock block) {
-    needMorePlayDataBlock = block;
-  }
+  void expectNeedMorePlayData(NeedMorePlayDataBlock block) { needMorePlayDataBlock = block; }
 
   void expectRecordedDataIsAvailable(RecordedDataIsAvailableBlock block) {
     recordedDataIsAvailableBlock = block;
@@ -57,10 +54,10 @@ public:
                            const size_t nBytesPerSample,
                            const size_t nChannels,
                            const uint32_t samplesPerSec,
-                           void* audioSamples,
-                           size_t& nSamplesOut,
-                           int64_t* elapsed_time_ms,
-                           int64_t* ntp_time_ms) override {
+                           void *audioSamples,
+                           size_t &nSamplesOut,
+                           int64_t *elapsed_time_ms,
+                           int64_t *ntp_time_ms) override {
     return needMorePlayDataBlock(nSamples,
                                  nBytesPerSample,
                                  nChannels,
@@ -71,7 +68,7 @@ public:
                                  ntp_time_ms);
   }
 
-  int32_t RecordedDataIsAvailable(const void* audioSamples,
+  int32_t RecordedDataIsAvailable(const void *audioSamples,
                                   const size_t nSamples,
                                   const size_t nBytesPerSample,
                                   const size_t nChannels,
@@ -80,7 +77,7 @@ public:
                                   const int32_t clockDrift,
                                   const uint32_t currentMicLevel,
                                   const bool keyPressed,
-                                  uint32_t& newMicLevel) override {
+                                  uint32_t &newMicLevel) override {
     return recordedDataIsAvailableBlock(audioSamples,
                                         nSamples,
                                         nBytesPerSample,
@@ -97,9 +94,9 @@ public:
                       int sample_rate,
                       size_t number_of_channels,
                       size_t number_of_frames,
-                      void* audio_data,
-                      int64_t* elapsed_time_ms,
-                      int64_t* ntp_time_ms) override {}
+                      void *audio_data,
+                      int64_t *elapsed_time_ms,
+                      int64_t *ntp_time_ms) override {}
 
  private:
   NeedMorePlayDataBlock needMorePlayDataBlock;
@@ -181,7 +178,7 @@ static const NSUInteger kNumIgnoreFirstCallbacks = 50;
   XCTAssertFalse(audioDeviceModule->Playing());
 }
 
-- (void)startRecording{
+- (void)startRecording {
   XCTAssertFalse(audioDeviceModule->Recording());
   XCTAssertEqual(0, audioDeviceModule->InitRecording());
   XCTAssertTrue(audioDeviceModule->RecordingIsInitialized());
@@ -189,12 +186,12 @@ static const NSUInteger kNumIgnoreFirstCallbacks = 50;
   XCTAssertTrue(audioDeviceModule->Recording());
 }
 
-- (void)stopRecording{
+- (void)stopRecording {
   XCTAssertEqual(0, audioDeviceModule->StopRecording());
   XCTAssertFalse(audioDeviceModule->Recording());
 }
 
-- (NSURL*)fileURLForSampleRate:(int)sampleRate {
+- (NSURL *)fileURLForSampleRate:(int)sampleRate {
   XCTAssertTrue(sampleRate == 48000 || sampleRate == 44100 || sampleRate == 16000);
   NSString *filename = [NSString stringWithFormat:@"audio_short%d", sampleRate / 1000];
   NSURL *url = [[NSBundle mainBundle] URLForResource:filename withExtension:@"pcm"];
@@ -279,7 +276,7 @@ static const NSUInteger kNumIgnoreFirstCallbacks = 50;
     XCTAssertEqual(nBytesPerSample, kBytesPerSample);
     XCTAssertEqual(nChannels, self.playoutParameters.channels());
     XCTAssertEqual((int)samplesPerSec, self.playoutParameters.sample_rate());
-    XCTAssertNotEqual((void*)NULL, audioSamples);
+    XCTAssertNotEqual((void *)NULL, audioSamples);
 
     return 0;
   });
@@ -316,7 +313,7 @@ static const NSUInteger kNumIgnoreFirstCallbacks = 50;
     XCTAssertEqual(nBytesPerSample, kBytesPerSample);
     XCTAssertEqual(nChannels, self.playoutParameters.channels());
     XCTAssertEqual((int)samplesPerSec, self.playoutParameters.sample_rate());
-    XCTAssertNotEqual((void*)NULL, audioSamples);
+    XCTAssertNotEqual((void *)NULL, audioSamples);
     if (++num_callbacks == kNumCallbacks) {
       [playoutExpectation fulfill];
     }
@@ -355,7 +352,7 @@ static const NSUInteger kNumIgnoreFirstCallbacks = 50;
     XCTAssertEqual(nBytesPerSample, kBytesPerSample);
     XCTAssertEqual(nChannels, self.playoutParameters.channels());
     XCTAssertEqual((int)samplesPerSec, self.playoutParameters.sample_rate());
-    XCTAssertNotEqual((void*)NULL, audioSamples);
+    XCTAssertNotEqual((void *)NULL, audioSamples);
     if (++num_callbacks == kNumCallbacks) {
       [playoutExpectation fulfill];
     }
@@ -374,10 +371,10 @@ static const NSUInteger kNumIgnoreFirstCallbacks = 50;
 - (void)testStartRecordingVerifyCallbacks {
   XCTSkipIf(!_testEnabled);
   XCTestExpectation *recordExpectation =
-  [self expectationWithDescription:@"RecordedDataIsAvailable"];
+      [self expectationWithDescription:@"RecordedDataIsAvailable"];
   __block int num_callbacks = 0;
 
-  mock.expectRecordedDataIsAvailable(^(const void* audioSamples,
+  mock.expectRecordedDataIsAvailable(^(const void *audioSamples,
                                        const size_t nSamples,
                                        const size_t nBytesPerSample,
                                        const size_t nChannels,
@@ -386,8 +383,8 @@ static const NSUInteger kNumIgnoreFirstCallbacks = 50;
                                        const int32_t clockDrift,
                                        const uint32_t currentMicLevel,
                                        const bool keyPressed,
-                                       uint32_t& newMicLevel) {
-    XCTAssertNotEqual((void*)NULL, audioSamples);
+                                       uint32_t &newMicLevel) {
+    XCTAssertNotEqual((void *)NULL, audioSamples);
     XCTAssertEqual(nSamples, self.recordParameters.frames_per_10ms_buffer());
     XCTAssertEqual(nBytesPerSample, kBytesPerSample);
     XCTAssertEqual(nChannels, self.recordParameters.channels());
@@ -416,7 +413,7 @@ static const NSUInteger kNumIgnoreFirstCallbacks = 50;
   __block NSUInteger callbackCount = 0;
 
   XCTestExpectation *recordExpectation =
-  [self expectationWithDescription:@"RecordedDataIsAvailable"];
+      [self expectationWithDescription:@"RecordedDataIsAvailable"];
   recordExpectation.expectedFulfillmentCount = kNumCallbacks;
 
   mock.expectNeedMorePlayData(^int32_t(const size_t nSamples,
@@ -432,7 +429,7 @@ static const NSUInteger kNumIgnoreFirstCallbacks = 50;
     XCTAssertEqual(nBytesPerSample, kBytesPerSample);
     XCTAssertEqual(nChannels, self.playoutParameters.channels());
     XCTAssertEqual((int)samplesPerSec, self.playoutParameters.sample_rate());
-    XCTAssertNotEqual((void*)NULL, audioSamples);
+    XCTAssertNotEqual((void *)NULL, audioSamples);
     if (callbackCount++ >= kNumCallbacks) {
       [playoutExpectation fulfill];
     }
@@ -440,7 +437,7 @@ static const NSUInteger kNumIgnoreFirstCallbacks = 50;
     return 0;
   });
 
-  mock.expectRecordedDataIsAvailable(^(const void* audioSamples,
+  mock.expectRecordedDataIsAvailable(^(const void *audioSamples,
                                        const size_t nSamples,
                                        const size_t nBytesPerSample,
                                        const size_t nChannels,
@@ -449,8 +446,8 @@ static const NSUInteger kNumIgnoreFirstCallbacks = 50;
                                        const int32_t clockDrift,
                                        const uint32_t currentMicLevel,
                                        const bool keyPressed,
-                                       uint32_t& newMicLevel) {
-    XCTAssertNotEqual((void*)NULL, audioSamples);
+                                       uint32_t &newMicLevel) {
+    XCTAssertNotEqual((void *)NULL, audioSamples);
     XCTAssertEqual(nSamples, self.recordParameters.frames_per_10ms_buffer());
     XCTAssertEqual(nBytesPerSample, kBytesPerSample);
     XCTAssertEqual(nChannels, self.recordParameters.channels());
@@ -494,7 +491,7 @@ static const NSUInteger kNumIgnoreFirstCallbacks = 50;
                                        size_t &nSamplesOut,
                                        int64_t *elapsed_time_ms,
                                        int64_t *ntp_time_ms) {
-    [inputStream read:(uint8_t *)audioSamples maxLength:nSamples*nBytesPerSample*nChannels];
+    [inputStream read:(uint8_t *)audioSamples maxLength:nSamples * nBytesPerSample * nChannels];
     nSamplesOut = nSamples;
     if (callbackCount++ == expectedCallbackCount) {
       [playoutExpectation fulfill];
@@ -545,7 +542,7 @@ static const NSUInteger kNumIgnoreFirstCallbacks = 50;
   __block NSUInteger fifoTotalWrittenElements = 0;
   __block NSUInteger fifoWriteCount = 0;
 
-  mock.expectRecordedDataIsAvailable(^(const void* audioSamples,
+  mock.expectRecordedDataIsAvailable(^(const void *audioSamples,
                                        const size_t nSamples,
                                        const size_t nBytesPerSample,
                                        const size_t nChannels,
@@ -554,12 +551,13 @@ static const NSUInteger kNumIgnoreFirstCallbacks = 50;
                                        const int32_t clockDrift,
                                        const uint32_t currentMicLevel,
                                        const bool keyPressed,
-                                       uint32_t& newMicLevel) {
+                                       uint32_t &newMicLevel) {
     if (fifoWriteCount++ < kNumIgnoreFirstCallbacks) {
       return 0;
     }
 
-    NSData *data = [NSData dataWithBytes:audioSamples length:nSamples*nBytesPerSample*nChannels];
+    NSData *data = [NSData dataWithBytes:audioSamples
+                                  length:nSamples * nBytesPerSample * nChannels];
     @synchronized(fifoBuffer) {
       [fifoBuffer addObject:data];
       fifoMaxSize = MAX(fifoMaxSize, fifoBuffer.count);
@@ -587,9 +585,9 @@ static const NSUInteger kNumIgnoreFirstCallbacks = 50;
     }
 
     if (data) {
-      memcpy(audioSamples, (char*) data.bytes, data.length);
+      memcpy(audioSamples, (char *)data.bytes, data.length);
     } else {
-      memset(audioSamples, 0, nSamples*nBytesPerSample*nChannels);
+      memset(audioSamples, 0, nSamples * nBytesPerSample * nChannels);
     }
 
     if (playoutCallbacks++ == expectedPlayoutCallbacks) {
@@ -604,10 +602,9 @@ static const NSUInteger kNumIgnoreFirstCallbacks = 50;
   NSTimeInterval waitTimeout = kFullDuplexTimeInSec * 2.0;
   [self waitForExpectationsWithTimeout:waitTimeout handler:nil];
 
-  size_t fifoAverageSize =
-      (fifoTotalWrittenElements == 0)
-        ? 0.0
-        : 0.5 + (double)fifoTotalWrittenElements / (fifoWriteCount - kNumIgnoreFirstCallbacks);
+  size_t fifoAverageSize = (fifoTotalWrittenElements == 0) ?
+      0.0 :
+      0.5 + (double)fifoTotalWrittenElements / (fifoWriteCount - kNumIgnoreFirstCallbacks);
 
   [self stopPlayout];
   [self stopRecording];

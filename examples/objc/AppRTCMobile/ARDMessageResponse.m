@@ -24,8 +24,7 @@ static NSString const *kARDMessageResultKey = @"result";
     return nil;
   }
   ARDMessageResponse *response = [[ARDMessageResponse alloc] init];
-  response.result =
-      [[self class] resultTypeFromString:responseJSON[kARDMessageResultKey]];
+  response.result = [[self class] resultTypeFromString:responseJSON[kARDMessageResultKey]];
   return response;
 }
 

@@ -10,9 +10,9 @@
 
 #include "modules/desktop_capture/mac/desktop_configuration.h"
 
+#include <Cocoa/Cocoa.h>
 #include <math.h>
 #include <algorithm>
-#include <Cocoa/Cocoa.h>
 
 #include "rtc_base/checks.h"
 
@@ -21,21 +21,18 @@ namespace webrtc {
 namespace {
 
 DesktopRect NSRectToDesktopRect(const NSRect& ns_rect) {
-  return DesktopRect::MakeLTRB(
-      static_cast<int>(floor(ns_rect.origin.x)),
-      static_cast<int>(floor(ns_rect.origin.y)),
-      static_cast<int>(ceil(ns_rect.origin.x + ns_rect.size.width)),
-      static_cast<int>(ceil(ns_rect.origin.y + ns_rect.size.height)));
+  return DesktopRect::MakeLTRB(static_cast<int>(floor(ns_rect.origin.x)),
+                               static_cast<int>(floor(ns_rect.origin.y)),
+                               static_cast<int>(ceil(ns_rect.origin.x + ns_rect.size.width)),
+                               static_cast<int>(ceil(ns_rect.origin.y + ns_rect.size.height)));
 }
 
 // Inverts the position of `rect` from bottom-up coordinates to top-down,
 // relative to `bounds`.
-void InvertRectYOrigin(const DesktopRect& bounds,
-                       DesktopRect* rect) {
+void InvertRectYOrigin(const DesktopRect& bounds, DesktopRect* rect) {
   RTC_DCHECK_EQ(bounds.top(), 0);
   *rect = DesktopRect::MakeXYWH(
-      rect->left(), bounds.bottom() - rect->bottom(),
-      rect->width(), rect->height());
+      rect->left(), bounds.bottom() - rect->bottom(), rect->width(), rect->height());
 }
 
 MacDisplayConfiguration GetConfigurationForScreen(NSScreen* screen) {
@@ -63,28 +60,24 @@ MacDisplayConfiguration GetConfigurationForScreen(NSScreen* screen) {
 }  // namespace
 
 MacDisplayConfiguration::MacDisplayConfiguration() = default;
-MacDisplayConfiguration::MacDisplayConfiguration(
-    const MacDisplayConfiguration& other) = default;
-MacDisplayConfiguration::MacDisplayConfiguration(
-    MacDisplayConfiguration&& other) = default;
+MacDisplayConfiguration::MacDisplayConfiguration(const MacDisplayConfiguration& other) = default;
+MacDisplayConfiguration::MacDisplayConfiguration(MacDisplayConfiguration&& other) = default;
 MacDisplayConfiguration::~MacDisplayConfiguration() = default;
 
-MacDisplayConfiguration& MacDisplayConfiguration::operator=(
-    const MacDisplayConfiguration& other) = default;
-MacDisplayConfiguration& MacDisplayConfiguration::operator=(
-    MacDisplayConfiguration&& other) = default;
+MacDisplayConfiguration& MacDisplayConfiguration::operator=(const MacDisplayConfiguration& other) =
+    default;
+MacDisplayConfiguration& MacDisplayConfiguration::operator=(MacDisplayConfiguration&& other) =
+    default;
 
 MacDesktopConfiguration::MacDesktopConfiguration() = default;
-MacDesktopConfiguration::MacDesktopConfiguration(
-    const MacDesktopConfiguration& other) = default;
-MacDesktopConfiguration::MacDesktopConfiguration(
-    MacDesktopConfiguration&& other) = default;
+MacDesktopConfiguration::MacDesktopConfiguration(const MacDesktopConfiguration& other) = default;
+MacDesktopConfiguration::MacDesktopConfiguration(MacDesktopConfiguration&& other) = default;
 MacDesktopConfiguration::~MacDesktopConfiguration() = default;
 
-MacDesktopConfiguration& MacDesktopConfiguration::operator=(
-    const MacDesktopConfiguration& other) = default;
-MacDesktopConfiguration& MacDesktopConfiguration::operator=(
-    MacDesktopConfiguration&& other) = default;
+MacDesktopConfiguration& MacDesktopConfiguration::operator=(const MacDesktopConfiguration& other) =
+    default;
+MacDesktopConfiguration& MacDesktopConfiguration::operator=(MacDesktopConfiguration&& other) =
+    default;
 
 // static
 MacDesktopConfiguration MacDesktopConfiguration::GetCurrent(Origin origin) {
@@ -96,27 +89,24 @@ MacDesktopConfiguration MacDesktopConfiguration::GetCurrent(Origin origin) {
   // Iterator over the monitors, adding the primary monitor and monitors whose
   // DPI match that of the primary monitor.
   for (NSUInteger i = 0; i < [screens count]; ++i) {
-    MacDisplayConfiguration display_config =
-        GetConfigurationForScreen([screens objectAtIndex: i]);
+    MacDisplayConfiguration display_config = GetConfigurationForScreen([screens objectAtIndex:i]);
 
-    if (i == 0)
-      desktop_config.dip_to_pixel_scale = display_config.dip_to_pixel_scale;
+    if (i == 0) desktop_config.dip_to_pixel_scale = display_config.dip_to_pixel_scale;
 
     // Cocoa uses bottom-up coordinates, so if the caller wants top-down then
     // we need to invert the positions of secondary monitors relative to the
     // primary one (the primary monitor's position is (0,0) in both systems).
     if (i > 0 && origin == TopLeftOrigin) {
-      InvertRectYOrigin(desktop_config.displays[0].bounds,
-                        &display_config.bounds);
+      InvertRectYOrigin(desktop_config.displays[0].bounds, &display_config.bounds);
       // `display_bounds` is density dependent, so we need to convert the
       // primay monitor's position into the secondary monitor's density context.
-      float scaling_factor = display_config.dip_to_pixel_scale /
-          desktop_config.displays[0].dip_to_pixel_scale;
-      DesktopRect primary_bounds = DesktopRect::MakeLTRB(
-          desktop_config.displays[0].pixel_bounds.left() * scaling_factor,
-          desktop_config.displays[0].pixel_bounds.top() * scaling_factor,
-          desktop_config.displays[0].pixel_bounds.right() * scaling_factor,
-          desktop_config.displays[0].pixel_bounds.bottom() * scaling_factor);
+      float scaling_factor =
+          display_config.dip_to_pixel_scale / desktop_config.displays[0].dip_to_pixel_scale;
+      DesktopRect primary_bounds =
+          DesktopRect::MakeLTRB(desktop_config.displays[0].pixel_bounds.left() * scaling_factor,
+                                desktop_config.displays[0].pixel_bounds.top() * scaling_factor,
+                                desktop_config.displays[0].pixel_bounds.right() * scaling_factor,
+                                desktop_config.displays[0].pixel_bounds.bottom() * scaling_factor);
       InvertRectYOrigin(primary_bounds, &display_config.pixel_bounds);
     }
 
@@ -125,8 +115,7 @@ MacDesktopConfiguration MacDesktopConfiguration::GetCurrent(Origin origin) {
 
     // Update the desktop bounds to account for this display, unless the current
     // display uses different DPI settings.
-    if (display_config.dip_to_pixel_scale ==
-        desktop_config.dip_to_pixel_scale) {
+    if (display_config.dip_to_pixel_scale == desktop_config.dip_to_pixel_scale) {
       desktop_config.bounds.UnionWith(display_config.bounds);
       desktop_config.pixel_bounds.UnionWith(display_config.pixel_bounds);
     }
@@ -137,27 +126,21 @@ MacDesktopConfiguration MacDesktopConfiguration::GetCurrent(Origin origin) {
 
 // For convenience of comparing MacDisplayConfigurations in
 // MacDesktopConfiguration::Equals.
-bool operator==(const MacDisplayConfiguration& left,
-                const MacDisplayConfiguration& right) {
-  return left.id == right.id &&
-      left.bounds.equals(right.bounds) &&
+bool operator==(const MacDisplayConfiguration& left, const MacDisplayConfiguration& right) {
+  return left.id == right.id && left.bounds.equals(right.bounds) &&
       left.pixel_bounds.equals(right.pixel_bounds) &&
       left.dip_to_pixel_scale == right.dip_to_pixel_scale;
 }
 
 bool MacDesktopConfiguration::Equals(const MacDesktopConfiguration& other) {
-  return bounds.equals(other.bounds) &&
-      pixel_bounds.equals(other.pixel_bounds) &&
-      dip_to_pixel_scale == other.dip_to_pixel_scale &&
-      displays == other.displays;
+  return bounds.equals(other.bounds) && pixel_bounds.equals(other.pixel_bounds) &&
+      dip_to_pixel_scale == other.dip_to_pixel_scale && displays == other.displays;
 }
 
-const MacDisplayConfiguration*
-MacDesktopConfiguration::FindDisplayConfigurationById(
+const MacDisplayConfiguration* MacDesktopConfiguration::FindDisplayConfigurationById(
     CGDirectDisplayID id) {
   bool is_builtin = CGDisplayIsBuiltin(id);
-  for (MacDisplayConfigurations::const_iterator it = displays.begin();
-      it != displays.end(); ++it) {
+  for (MacDisplayConfigurations::const_iterator it = displays.begin(); it != displays.end(); ++it) {
     // The MBP having both discrete and integrated graphic cards will do
     // automate graphics switching by default. When it switches from discrete to
     // integrated one, the current display ID of the built-in display will

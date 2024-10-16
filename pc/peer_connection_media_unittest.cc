@@ -1611,10 +1611,8 @@ TEST_F(PeerConnectionMediaTestUnifiedPlan, SetCodecPreferencesAllAudioCodecs) {
   // Normal case, set all capabilities as preferences
   EXPECT_TRUE(audio_transceiver->SetCodecPreferences(sender_audio_codecs).ok());
   auto offer = caller->CreateOffer();
-  auto codecs = offer->description()
-                    ->contents()[0]
-                    .media_description()
-                    ->codecs();
+  auto codecs =
+      offer->description()->contents()[0].media_description()->codecs();
   EXPECT_TRUE(CompareCodecs(sender_audio_codecs, codecs));
 }
 
@@ -1633,10 +1631,8 @@ TEST_F(PeerConnectionMediaTestUnifiedPlan,
   // Normal case, reset codec preferences
   EXPECT_TRUE(audio_transceiver->SetCodecPreferences(empty_codecs).ok());
   auto offer = caller->CreateOffer();
-  auto codecs = offer->description()
-                    ->contents()[0]
-                    .media_description()
-                    ->codecs();
+  auto codecs =
+      offer->description()->contents()[0].media_description()->codecs();
   EXPECT_TRUE(CompareCodecs(sender_audio_codecs, codecs));
 }
 
@@ -1723,10 +1719,8 @@ TEST_F(PeerConnectionMediaTestUnifiedPlan, SetCodecPreferencesAllVideoCodecs) {
   // Normal case, setting preferences to normal capabilities
   EXPECT_TRUE(video_transceiver->SetCodecPreferences(sender_video_codecs).ok());
   auto offer = caller->CreateOffer();
-  auto codecs = offer->description()
-                    ->contents()[0]
-                    .media_description()
-                    ->codecs();
+  auto codecs =
+      offer->description()->contents()[0].media_description()->codecs();
   EXPECT_TRUE(CompareCodecs(sender_video_codecs, codecs));
 }
 
@@ -1746,10 +1740,8 @@ TEST_F(PeerConnectionMediaTestUnifiedPlan,
   // Normal case, resetting preferences with empty list of codecs
   EXPECT_TRUE(video_transceiver->SetCodecPreferences(empty_codecs).ok());
   auto offer = caller->CreateOffer();
-  auto codecs = offer->description()
-                    ->contents()[0]
-                    .media_description()
-                    ->codecs();
+  auto codecs =
+      offer->description()->contents()[0].media_description()->codecs();
   EXPECT_TRUE(CompareCodecs(sender_video_codecs, codecs));
 }
 
@@ -1793,10 +1785,8 @@ TEST_F(PeerConnectionMediaTestUnifiedPlan,
 
   EXPECT_TRUE(video_transceiver->SetCodecPreferences(duplicate_codec).ok());
   auto offer = caller->CreateOffer();
-  auto codecs = offer->description()
-                    ->contents()[0]
-                    .media_description()
-                    ->codecs();
+  auto codecs =
+      offer->description()->contents()[0].media_description()->codecs();
   EXPECT_TRUE(CompareCodecs(single_codec, codecs));
 }
 
@@ -1837,10 +1827,8 @@ TEST_F(PeerConnectionMediaTestUnifiedPlan, SetCodecPreferencesVideoWithRtx) {
   EXPECT_TRUE(
       video_transceiver->SetCodecPreferences(video_codecs_vpx_rtx).ok());
   auto offer = caller->CreateOffer();
-  auto codecs = offer->description()
-                    ->contents()[0]
-                    .media_description()
-                    ->codecs();
+  auto codecs =
+      offer->description()->contents()[0].media_description()->codecs();
 
   EXPECT_TRUE(CompareCodecs(video_codecs_vpx_rtx, codecs));
   EXPECT_EQ(codecs.size(), 4u);
@@ -1883,10 +1871,8 @@ TEST_F(PeerConnectionMediaTestUnifiedPlan,
   EXPECT_TRUE(send_transceiver->SetCodecPreferences(video_codecs_vpx).ok());
 
   auto offer = caller->CreateOfferAndSetAsLocal();
-  auto codecs = offer->description()
-                    ->contents()[0]
-                    .media_description()
-                    ->codecs();
+  auto codecs =
+      offer->description()->contents()[0].media_description()->codecs();
 
   EXPECT_EQ(codecs.size(), 2u);  // VP8, VP9
   EXPECT_TRUE(CompareCodecs(video_codecs_vpx, codecs));
@@ -1907,10 +1893,8 @@ TEST_F(PeerConnectionMediaTestUnifiedPlan,
 
   auto answer = callee->CreateAnswerAndSetAsLocal();
 
-  auto recv_codecs = answer->description()
-                         ->contents()[0]
-                         .media_description()
-                         ->codecs();
+  auto recv_codecs =
+      answer->description()->contents()[0].media_description()->codecs();
   EXPECT_EQ(recv_codecs.size(), 1u);  // VP8
 }
 
@@ -1954,10 +1938,8 @@ TEST_F(PeerConnectionMediaTestUnifiedPlan,
   absl::c_reverse(video_codecs_vpx_reverse);
 
   auto offer = caller->CreateOfferAndSetAsLocal();
-  auto codecs = offer->description()
-                    ->contents()[0]
-                    .media_description()
-                    ->codecs();
+  auto codecs =
+      offer->description()->contents()[0].media_description()->codecs();
   EXPECT_EQ(codecs.size(), 2u);  // VP9, VP8
   EXPECT_TRUE(CompareCodecs(video_codecs_vpx, codecs));
 
@@ -1968,10 +1950,8 @@ TEST_F(PeerConnectionMediaTestUnifiedPlan,
 
   auto answer = callee->CreateAnswerAndSetAsLocal();
 
-  auto recv_codecs = answer->description()
-                         ->contents()[0]
-                         .media_description()
-                         ->codecs();
+  auto recv_codecs =
+      answer->description()->contents()[0].media_description()->codecs();
 
   EXPECT_TRUE(CompareCodecs(video_codecs_vpx_reverse, recv_codecs));
 }

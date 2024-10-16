@@ -63,8 +63,7 @@ static NSString const *kARDWSSMessagePayloadKey = @"msg";
   [_delegate channel:self didChangeState:_state];
 }
 
-- (void)registerForRoomId:(NSString *)roomId
-                 clientId:(NSString *)clientId {
+- (void)registerForRoomId:(NSString *)roomId clientId:(NSString *)clientId {
   NSParameterAssert(roomId.length);
   NSParameterAssert(clientId.length);
   _roomId = roomId;
@@ -79,45 +78,36 @@ static NSString const *kARDWSSMessagePayloadKey = @"msg";
   NSParameterAssert(_roomId.length);
   NSData *data = [message JSONData];
   if (_state == kARDSignalingChannelStateRegistered) {
-    NSString *payload =
-        [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    NSString *payload = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     NSDictionary *message = @{
-      @"cmd": @"send",
-      @"msg": payload,
+      @"cmd" : @"send",
+      @"msg" : payload,
     };
-    NSData *messageJSONObject =
-        [NSJSONSerialization dataWithJSONObject:message
-                                        options:NSJSONWritingPrettyPrinted
-                                          error:nil];
-    NSString *messageString =
-        [[NSString alloc] initWithData:messageJSONObject
-                              encoding:NSUTF8StringEncoding];
+    NSData *messageJSONObject = [NSJSONSerialization dataWithJSONObject:message
+                                                                options:NSJSONWritingPrettyPrinted
+                                                                  error:nil];
+    NSString *messageString = [[NSString alloc] initWithData:messageJSONObject
+                                                    encoding:NSUTF8StringEncoding];
     RTCLog(@"C->WSS: %@", messageString);
     [_socket send:messageString];
   } else {
-    NSString *dataString =
-        [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    NSString *dataString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     RTCLog(@"C->WSS POST: %@", dataString);
     NSString *urlString =
-        [NSString stringWithFormat:@"%@/%@/%@",
-            [_restURL absoluteString], _roomId, _clientId];
+        [NSString stringWithFormat:@"%@/%@/%@", [_restURL absoluteString], _roomId, _clientId];
     NSURL *url = [NSURL URLWithString:urlString];
-    [NSURLConnection sendAsyncPostToURL:url
-                               withData:data
-                      completionHandler:nil];
+    [NSURLConnection sendAsyncPostToURL:url withData:data completionHandler:nil];
   }
 }
 
 - (void)disconnect {
-  if (_state == kARDSignalingChannelStateClosed ||
-      _state == kARDSignalingChannelStateError) {
+  if (_state == kARDSignalingChannelStateClosed || _state == kARDSignalingChannelStateError) {
     return;
   }
   [_socket close];
   RTCLog(@"C->WSS DELETE rid:%@ cid:%@", _roomId, _clientId);
   NSString *urlString =
-      [NSString stringWithFormat:@"%@/%@/%@",
-          [_restURL absoluteString], _roomId, _clientId];
+      [NSString stringWithFormat:@"%@/%@/%@", [_restURL absoluteString], _roomId, _clientId];
   NSURL *url = [NSURL URLWithString:urlString];
   NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
   request.HTTPMethod = @"DELETE";
@@ -138,9 +128,7 @@ static NSString const *kARDWSSMessagePayloadKey = @"msg";
 - (void)webSocket:(SRWebSocket *)webSocket didReceiveMessage:(id)message {
   NSString *messageString = message;
   NSData *messageData = [messageString dataUsingEncoding:NSUTF8StringEncoding];
-  id jsonObject = [NSJSONSerialization JSONObjectWithData:messageData
-                                                  options:0
-                                                    error:nil];
+  id jsonObject = [NSJSONSerialization JSONObjectWithData:messageData options:0 error:nil];
   if (![jsonObject isKindOfClass:[NSDictionary class]]) {
     RTCLogError(@"Unexpected message: %@", jsonObject);
     return;
@@ -152,8 +140,7 @@ static NSString const *kARDWSSMessagePayloadKey = @"msg";
     return;
   }
   NSString *payload = wssMessage[kARDWSSMessagePayloadKey];
-  ARDSignalingMessage *signalingMessage =
-      [ARDSignalingMessage messageFromJSONString:payload];
+  ARDSignalingMessage *signalingMessage = [ARDSignalingMessage messageFromJSONString:payload];
   RTCLog(@"WSS->C: %@", payload);
   [_delegate channel:self didReceiveMessage:signalingMessage];
 }
@@ -167,8 +154,7 @@ static NSString const *kARDWSSMessagePayloadKey = @"msg";
     didCloseWithCode:(NSInteger)code
               reason:(NSString *)reason
             wasClean:(BOOL)wasClean {
-  RTCLog(@"WebSocket closed with code: %ld reason:%@ wasClean:%d",
-      (long)code, reason, wasClean);
+  RTCLog(@"WebSocket closed with code: %ld reason:%@ wasClean:%d", (long)code, reason, wasClean);
   NSParameterAssert(_state != kARDSignalingChannelStateError);
   self.state = kARDSignalingChannelStateClosed;
 }
@@ -182,16 +168,14 @@ static NSString const *kARDWSSMessagePayloadKey = @"msg";
   NSParameterAssert(_roomId.length);
   NSParameterAssert(_clientId.length);
   NSDictionary *registerMessage = @{
-    @"cmd": @"register",
+    @"cmd" : @"register",
     @"roomid" : _roomId,
     @"clientid" : _clientId,
   };
-  NSData *message =
-      [NSJSONSerialization dataWithJSONObject:registerMessage
-                                      options:NSJSONWritingPrettyPrinted
-                                        error:nil];
-  NSString *messageString =
-      [[NSString alloc] initWithData:message encoding:NSUTF8StringEncoding];
+  NSData *message = [NSJSONSerialization dataWithJSONObject:registerMessage
+                                                    options:NSJSONWritingPrettyPrinted
+                                                      error:nil];
+  NSString *messageString = [[NSString alloc] initWithData:message encoding:NSUTF8StringEncoding];
   RTCLog(@"Registering on WSS for rid:%@ cid:%@", _roomId, _clientId);
   // Registration can fail if server rejects it. For example, if the room is
   // full.
@@ -212,22 +196,18 @@ static NSString const *kARDWSSMessagePayloadKey = @"msg";
 
 #pragma mark - ARDSignalingChannelDelegate
 
-- (void)channel:(id<ARDSignalingChannel>)channel
-    didReceiveMessage:(ARDSignalingMessage *)message {
+- (void)channel:(id<ARDSignalingChannel>)channel didReceiveMessage:(ARDSignalingMessage *)message {
   switch (message.type) {
     case kARDSignalingMessageTypeOffer: {
       // Change message to answer, send back to server.
-      ARDSessionDescriptionMessage *sdpMessage =
-          (ARDSessionDescriptionMessage *)message;
+      ARDSessionDescriptionMessage *sdpMessage = (ARDSessionDescriptionMessage *)message;
       RTC_OBJC_TYPE(RTCSessionDescription) *description = sdpMessage.sessionDescription;
       NSString *dsc = description.sdp;
-      dsc = [dsc stringByReplacingOccurrencesOfString:@"offer"
-                                           withString:@"answer"];
+      dsc = [dsc stringByReplacingOccurrencesOfString:@"offer" withString:@"answer"];
       RTC_OBJC_TYPE(RTCSessionDescription) *answerDescription =
           [[RTC_OBJC_TYPE(RTCSessionDescription) alloc] initWithType:RTCSdpTypeAnswer sdp:dsc];
       ARDSignalingMessage *answer =
-          [[ARDSessionDescriptionMessage alloc]
-               initWithDescription:answerDescription];
+          [[ARDSessionDescriptionMessage alloc] initWithDescription:answerDescription];
       [self sendMessage:answer];
       break;
     }
@@ -245,9 +225,7 @@ static NSString const *kARDWSSMessagePayloadKey = @"msg";
   }
 }
 
-- (void)channel:(id<ARDSignalingChannel>)channel
-    didChangeState:(ARDSignalingChannelState)state {
+- (void)channel:(id<ARDSignalingChannel>)channel didChangeState:(ARDSignalingChannelState)state {
 }
 
 @end
-

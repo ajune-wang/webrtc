@@ -70,8 +70,7 @@
   nativeDescription->ToString(&sdp);
   RTCSdpType type = [[self class] typeForStdString:nativeDescription->type()];
 
-  return [self initWithType:type
-                        sdp:[NSString stringForStdString:sdp]];
+  return [self initWithType:type sdp:[NSString stringForStdString:sdp]];
 }
 
 + (std::string)stdStringForType:(RTCSdpType)type {

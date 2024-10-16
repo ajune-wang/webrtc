@@ -31,8 +31,7 @@
   return [self initWithNativeParameters:nativeParameters];
 }
 
-- (instancetype)initWithNativeParameters:
-    (const webrtc::RtpEncodingParameters &)nativeParameters {
+- (instancetype)initWithNativeParameters:(const webrtc::RtpEncodingParameters &)nativeParameters {
   self = [super init];
   if (self) {
     if (!nativeParameters.rid.empty()) {
@@ -40,12 +39,10 @@
     }
     _isActive = nativeParameters.active;
     if (nativeParameters.max_bitrate_bps) {
-      _maxBitrateBps =
-          [NSNumber numberWithInt:*nativeParameters.max_bitrate_bps];
+      _maxBitrateBps = [NSNumber numberWithInt:*nativeParameters.max_bitrate_bps];
     }
     if (nativeParameters.min_bitrate_bps) {
-      _minBitrateBps =
-          [NSNumber numberWithInt:*nativeParameters.min_bitrate_bps];
+      _minBitrateBps = [NSNumber numberWithInt:*nativeParameters.min_bitrate_bps];
     }
     if (nativeParameters.max_framerate) {
       _maxFramerate = [NSNumber numberWithInt:*nativeParameters.max_framerate];

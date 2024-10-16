@@ -66,8 +66,8 @@
   [cancelButton.trailingAnchor constraintEqualToAnchor:margin.trailingAnchor].active = YES;
   [cancelButton.bottomAnchor constraintEqualToAnchor:margin.bottomAnchor constant:-20].active = YES;
 
-  UITapGestureRecognizer *tgr =
-      [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTap:)];
+  UITapGestureRecognizer *tgr = [[UITapGestureRecognizer alloc] initWithTarget:self
+                                                                        action:@selector(didTap:)];
   [view addGestureRecognizer:tgr];
 
   self.view = view;

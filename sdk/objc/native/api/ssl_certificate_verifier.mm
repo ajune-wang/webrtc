@@ -36,7 +36,7 @@ class SSLCertificateVerifierAdapter final : public rtc::SSLCertificateVerifier {
   id<RTC_OBJC_TYPE(RTCSSLCertificateVerifier)> objc_certificate_verifier_;
 };
 
-}
+}  // namespace
 
 namespace webrtc {
 

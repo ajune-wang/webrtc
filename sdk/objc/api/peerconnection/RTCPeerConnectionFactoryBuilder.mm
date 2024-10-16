@@ -51,12 +51,12 @@
 }
 
 - (void)setAudioEncoderFactory:
-        (rtc::scoped_refptr<webrtc::AudioEncoderFactory>)audioEncoderFactory {
+    (rtc::scoped_refptr<webrtc::AudioEncoderFactory>)audioEncoderFactory {
   _audioEncoderFactory = audioEncoderFactory;
 }
 
 - (void)setAudioDecoderFactory:
-        (rtc::scoped_refptr<webrtc::AudioDecoderFactory>)audioDecoderFactory {
+    (rtc::scoped_refptr<webrtc::AudioDecoderFactory>)audioDecoderFactory {
   _audioDecoderFactory = audioDecoderFactory;
 }
 
@@ -65,7 +65,7 @@
 }
 
 - (void)setAudioProcessingModule:
-        (rtc::scoped_refptr<webrtc::AudioProcessing>)audioProcessingModule {
+    (rtc::scoped_refptr<webrtc::AudioProcessing>)audioProcessingModule {
   _audioProcessingModule = audioProcessingModule;
 }
 

@@ -2573,34 +2573,36 @@ TEST_P(PeerConnectionIntegrationTest, CodecNamesAreCaseInsensitive) {
 
   // Remove all but one audio/video codec (opus and VP8), and change the
   // casing of the caller's generated offer.
-  caller()->SetGeneratedSdpMunger([](std::unique_ptr<
-                                      SessionDescriptionInterface>& sdp) {
-    cricket::AudioContentDescription* audio =
-        GetFirstAudioContentDescription(sdp->description());
-    ASSERT_NE(nullptr, audio);
-    auto audio_codecs = audio->codecs();
-    audio_codecs.erase(std::remove_if(audio_codecs.begin(), audio_codecs.end(),
-                                      [](const cricket::Codec& codec) {
-                                        return codec.name != "opus";
-                                      }),
-                       audio_codecs.end());
-    ASSERT_EQ(1u, audio_codecs.size());
-    audio_codecs[0].name = "OpUs";
-    audio->set_codecs(audio_codecs);
+  caller()->SetGeneratedSdpMunger(
+      [](std::unique_ptr<SessionDescriptionInterface>& sdp) {
+        cricket::AudioContentDescription* audio =
+            GetFirstAudioContentDescription(sdp->description());
+        ASSERT_NE(nullptr, audio);
+        auto audio_codecs = audio->codecs();
+        audio_codecs.erase(
+            std::remove_if(audio_codecs.begin(), audio_codecs.end(),
+                           [](const cricket::Codec& codec) {
+                             return codec.name != "opus";
+                           }),
+            audio_codecs.end());
+        ASSERT_EQ(1u, audio_codecs.size());
+        audio_codecs[0].name = "OpUs";
+        audio->set_codecs(audio_codecs);
 
-    cricket::VideoContentDescription* video =
-        GetFirstVideoContentDescription(sdp->description());
-    ASSERT_NE(nullptr, video);
-    auto video_codecs = video->codecs();
-    video_codecs.erase(std::remove_if(video_codecs.begin(), video_codecs.end(),
-                                      [](const cricket::Codec& codec) {
-                                        return codec.name != "VP8";
-                                      }),
-                       video_codecs.end());
-    ASSERT_EQ(1u, video_codecs.size());
-    video_codecs[0].name = "vP8";
-    video->set_codecs(video_codecs);
-  });
+        cricket::VideoContentDescription* video =
+            GetFirstVideoContentDescription(sdp->description());
+        ASSERT_NE(nullptr, video);
+        auto video_codecs = video->codecs();
+        video_codecs.erase(
+            std::remove_if(video_codecs.begin(), video_codecs.end(),
+                           [](const cricket::Codec& codec) {
+                             return codec.name != "VP8";
+                           }),
+            video_codecs.end());
+        ASSERT_EQ(1u, video_codecs.size());
+        video_codecs[0].name = "vP8";
+        video->set_codecs(video_codecs);
+      });
 
   caller()->CreateAndSetAndSignalOffer();
   ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);

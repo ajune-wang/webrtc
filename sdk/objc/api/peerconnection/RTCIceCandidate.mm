@@ -45,8 +45,7 @@
 
 #pragma mark - Private
 
-- (instancetype)initWithNativeCandidate:
-    (const webrtc::IceCandidateInterface *)candidate {
+- (instancetype)initWithNativeCandidate:(const webrtc::IceCandidateInterface *)candidate {
   NSParameterAssert(candidate);
   std::string sdp;
   candidate->ToString(&sdp);
@@ -62,8 +61,8 @@
 - (std::unique_ptr<webrtc::IceCandidateInterface>)nativeCandidate {
   webrtc::SdpParseError error;
 
-  webrtc::IceCandidateInterface *candidate = webrtc::CreateIceCandidate(
-      _sdpMid.stdString, _sdpMLineIndex, _sdp.stdString, &error);
+  webrtc::IceCandidateInterface *candidate =
+      webrtc::CreateIceCandidate(_sdpMid.stdString, _sdpMLineIndex, _sdp.stdString, &error);
 
   if (!candidate) {
     RTCLog(@"Failed to create ICE candidate: %s\nline: %s",

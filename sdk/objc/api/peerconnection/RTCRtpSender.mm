@@ -42,8 +42,7 @@
 }
 
 - (RTC_OBJC_TYPE(RTCMediaStreamTrack) *)track {
-  rtc::scoped_refptr<webrtc::MediaStreamTrackInterface> nativeTrack(
-    _nativeRtpSender->track());
+  rtc::scoped_refptr<webrtc::MediaStreamTrackInterface> nativeTrack(_nativeRtpSender->track());
   if (nativeTrack) {
     return [RTC_OBJC_TYPE(RTCMediaStreamTrack) mediaTrackForNativeTrack:nativeTrack
                                                                 factory:_factory];

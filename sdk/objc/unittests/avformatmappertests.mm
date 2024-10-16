@@ -33,8 +33,8 @@ static cricket::VideoFormat expectedFormat =
 // CMVideoDescriptionRef mocking.
 @interface AVCaptureDeviceFormatMock : NSObject
 
-@property (nonatomic, assign) CMVideoFormatDescriptionRef format;
-@property (nonatomic, strong) OCMockObject *rangeMock;
+@property(nonatomic, assign) CMVideoFormatDescriptionRef format;
+@property(nonatomic, strong) OCMockObject* rangeMock;
 
 - (instancetype)initWithMediaSubtype:(FourCharCode)subtype
                               minFps:(float)minFps
@@ -55,8 +55,7 @@ static cricket::VideoFormat expectedFormat =
                               maxFps:(float)maxFps {
   self = [super init];
   if (self) {
-    CMVideoFormatDescriptionCreate(nil, subtype, kFormatWidth, kFormatHeight,
-                                   nil, &_format);
+    CMVideoFormatDescriptionCreate(nil, subtype, kFormatWidth, kFormatHeight, nil, &_format);
     // We can use OCMock for the range.
     _rangeMock = [OCMockObject mockForClass:[AVFrameRateRange class]];
     [[[_rangeMock stub] andReturnValue:@(minFps)] minFrameRate];
@@ -67,7 +66,7 @@ static cricket::VideoFormat expectedFormat =
 }
 
 + (instancetype)validFormat {
-  AVCaptureDeviceFormatMock *instance = [[AVCaptureDeviceFormatMock alloc]
+  AVCaptureDeviceFormatMock* instance = [[AVCaptureDeviceFormatMock alloc]
       initWithMediaSubtype:kCVPixelFormatType_420YpCbCr8BiPlanarVideoRange
                     minFps:0.0
                     maxFps:30.0];
@@ -75,7 +74,7 @@ static cricket::VideoFormat expectedFormat =
 }
 
 + (instancetype)invalidFpsFormat {
-  AVCaptureDeviceFormatMock *instance = [[AVCaptureDeviceFormatMock alloc]
+  AVCaptureDeviceFormatMock* instance = [[AVCaptureDeviceFormatMock alloc]
       initWithMediaSubtype:kCVPixelFormatType_420YpCbCr8BiPlanarVideoRange
                     minFps:0.0
                     maxFps:22.0];
@@ -83,10 +82,10 @@ static cricket::VideoFormat expectedFormat =
 }
 
 + (instancetype)invalidMediaSubtypeFormat {
-  AVCaptureDeviceFormatMock *instance = [[AVCaptureDeviceFormatMock alloc]
-      initWithMediaSubtype:kCVPixelFormatType_420YpCbCr8Planar
-                    minFps:0.0
-                    maxFps:60.0];
+  AVCaptureDeviceFormatMock* instance =
+      [[AVCaptureDeviceFormatMock alloc] initWithMediaSubtype:kCVPixelFormatType_420YpCbCr8Planar
+                                                       minFps:0.0
+                                                       maxFps:60.0];
   return instance;
 }
 
@@ -102,7 +101,7 @@ static cricket::VideoFormat expectedFormat =
   return self.format;
 }
 
-- (NSArray *)videoSupportedFrameRateRanges {
+- (NSArray*)videoSupportedFrameRateRanges {
   return @[ self.rangeMock ];
 }
 
@@ -113,13 +112,11 @@ TEST(AVFormatMapperTest, SuportedCricketFormatsWithInvalidFramerateFormats) {
   id mockDevice = OCMClassMock([AVCaptureDevice class]);
 
   // Valid media subtype, invalid framerate
-  AVCaptureDeviceFormatMock* mock =
-      [AVCaptureDeviceFormatMock invalidFpsFormat];
+  AVCaptureDeviceFormatMock* mock = [AVCaptureDeviceFormatMock invalidFpsFormat];
   OCMStub([mockDevice formats]).andReturn(@[ mock ]);
 
   // when
-  std::set<cricket::VideoFormat> result =
-      webrtc::GetSupportedVideoFormatsForDevice(mockDevice);
+  std::set<cricket::VideoFormat> result = webrtc::GetSupportedVideoFormatsForDevice(mockDevice);
 
   // then
   EXPECT_TRUE(result.empty());
@@ -130,13 +127,11 @@ TEST(AVFormatMapperTest, SuportedCricketFormatsWithInvalidFormats) {
   id mockDevice = OCMClassMock([AVCaptureDevice class]);
 
   // Invalid media subtype, valid framerate
-  AVCaptureDeviceFormatMock* mock =
-      [AVCaptureDeviceFormatMock invalidMediaSubtypeFormat];
+  AVCaptureDeviceFormatMock* mock = [AVCaptureDeviceFormatMock invalidMediaSubtypeFormat];
   OCMStub([mockDevice formats]).andReturn(@[ mock ]);
 
   // when
-  std::set<cricket::VideoFormat> result =
-      webrtc::GetSupportedVideoFormatsForDevice(mockDevice);
+  std::set<cricket::VideoFormat> result = webrtc::GetSupportedVideoFormatsForDevice(mockDevice);
 
   // then
   EXPECT_TRUE(result.empty());
@@ -151,8 +146,7 @@ TEST(AVFormatMapperTest, SuportedCricketFormats) {
   OCMStub([mockDevice formats]).andReturn(@[ mock ]);
 
   // when
-  std::set<cricket::VideoFormat> result =
-      webrtc::GetSupportedVideoFormatsForDevice(mockDevice);
+  std::set<cricket::VideoFormat> result = webrtc::GetSupportedVideoFormatsForDevice(mockDevice);
 
   // then
   EXPECT_EQ(1u, result.size());
@@ -182,12 +176,10 @@ TEST(AVFormatMapperTest, MediaSubtypePreference) {
 
   // to verify
   OCMExpect([mockDevice setActiveFormat:(AVCaptureDeviceFormat*)mockTwo]);
-  OCMExpect(
-      [mockDevice setActiveVideoMinFrameDuration:CMTimeMake(1, kFramerate)]);
+  OCMExpect([mockDevice setActiveVideoMinFrameDuration:CMTimeMake(1, kFramerate)]);
 
   // when
-  bool resultFormat =
-      webrtc::SetFormatForCaptureDevice(mockDevice, nil, expectedFormat);
+  bool resultFormat = webrtc::SetFormatForCaptureDevice(mockDevice, nil, expectedFormat);
 
   // then
   EXPECT_TRUE(resultFormat);
@@ -197,13 +189,11 @@ TEST(AVFormatMapperTest, MediaSubtypePreference) {
 TEST(AVFormatMapperTest, SetFormatWhenDeviceCannotLock) {
   // given
   id mockDevice = OCMClassMock([AVCaptureDevice class]);
-  [[[mockDevice stub] andReturnValue:@(NO)]
-      lockForConfiguration:[OCMArg setTo:nil]];
+  [[[mockDevice stub] andReturnValue:@(NO)] lockForConfiguration:[OCMArg setTo:nil]];
   [[[mockDevice stub] andReturn:@[]] formats];
 
   // when
-  bool resultFormat = webrtc::SetFormatForCaptureDevice(mockDevice, nil,
-                                                        cricket::VideoFormat());
+  bool resultFormat = webrtc::SetFormatForCaptureDevice(mockDevice, nil, cricket::VideoFormat());
 
   // then
   EXPECT_FALSE(resultFormat);
@@ -214,16 +204,14 @@ TEST(AVFormatMapperTest, SetFormatWhenFormatIsIncompatible) {
   id mockDevice = OCMClassMock([AVCaptureDevice class]);
   OCMStub([mockDevice formats]).andReturn(@[]);
   OCMStub([mockDevice lockForConfiguration:[OCMArg setTo:nil]]).andReturn(YES);
-  NSException* testException =
-      [NSException exceptionWithName:@"Test exception"
-                              reason:@"Raised from unit tests"
-                            userInfo:nil];
+  NSException* testException = [NSException exceptionWithName:@"Test exception"
+                                                       reason:@"Raised from unit tests"
+                                                     userInfo:nil];
   OCMStub([mockDevice setActiveFormat:[OCMArg any]]).andThrow(testException);
   OCMExpect([mockDevice unlockForConfiguration]);
 
   // when
-  bool resultFormat = webrtc::SetFormatForCaptureDevice(mockDevice, nil,
-                                                        cricket::VideoFormat());
+  bool resultFormat = webrtc::SetFormatForCaptureDevice(mockDevice, nil, cricket::VideoFormat());
 
   // then
   EXPECT_FALSE(resultFormat);
@@ -232,7 +220,7 @@ TEST(AVFormatMapperTest, SetFormatWhenFormatIsIncompatible) {
   // https://github.com/erikdoe/ocmock/commit/de1419415581dc307045e54bfe9c98c86efea96b
   // Without it, stubbed exceptions are being re-raised on [mock verify].
   // More information here:
-  //https://github.com/erikdoe/ocmock/issues/241
+  // https://github.com/erikdoe/ocmock/issues/241
   @try {
     [mockDevice verify];
   } @catch (NSException* exception) {

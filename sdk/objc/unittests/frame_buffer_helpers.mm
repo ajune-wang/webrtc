@@ -31,7 +31,22 @@ void DrawGradientInRGBPixelBuffer(CVPixelBufferRef pixelBuffer) {
 
   // Create a gradient
   CGFloat colors[] = {
-      1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 0.0, 1.0, 1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      0.0,
+      0.0,
+      1.0,
+      0.0,
+      1.0,
+      0.0,
+      1.0,
+      0.0,
+      0.0,
+      1.0,
+      1.0,
   };
   CGGradientRef gradient = CGGradientCreateWithColorComponents(colorSpace, colors, NULL, 4);
 

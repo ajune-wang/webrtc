@@ -72,16 +72,15 @@ static CGFloat const kStatusBarHeight = 20;
     image = [UIImage imageForName:@"ic_switch_video_black_24dp.png" color:[UIColor whiteColor]];
     [_cameraSwitchButton setImage:image forState:UIControlStateNormal];
     [_cameraSwitchButton addTarget:self
-                      action:@selector(onCameraSwitch:)
-            forControlEvents:UIControlEventTouchUpInside];
+                            action:@selector(onCameraSwitch:)
+                  forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:_cameraSwitchButton];
 
     _hangupButton = [UIButton buttonWithType:UIButtonTypeCustom];
     _hangupButton.backgroundColor = [UIColor redColor];
     _hangupButton.layer.cornerRadius = kButtonSize / 2;
     _hangupButton.layer.masksToBounds = YES;
-    image = [UIImage imageForName:@"ic_call_end_black_24dp.png"
-                            color:[UIColor whiteColor]];
+    image = [UIImage imageForName:@"ic_call_end_black_24dp.png" color:[UIColor whiteColor]];
     [_hangupButton setImage:image forState:UIControlStateNormal];
     [_hangupButton addTarget:self
                       action:@selector(onHangup:)
@@ -94,9 +93,7 @@ static CGFloat const kStatusBarHeight = 20;
     [self addSubview:_statusLabel];
 
     UITapGestureRecognizer *tapRecognizer =
-        [[UITapGestureRecognizer alloc]
-            initWithTarget:self
-                    action:@selector(didTripleTap:)];
+        [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTripleTap:)];
     tapRecognizer.numberOfTapsRequired = 3;
     [self addGestureRecognizer:tapRecognizer];
   }
@@ -107,8 +104,7 @@ static CGFloat const kStatusBarHeight = 20;
   CGRect bounds = self.bounds;
   if (_remoteVideoSize.width > 0 && _remoteVideoSize.height > 0) {
     // Aspect fill remote video into bounds.
-    CGRect remoteVideoFrame =
-        AVMakeRectWithAspectRatioInsideRect(_remoteVideoSize, bounds);
+    CGRect remoteVideoFrame = AVMakeRectWithAspectRatioInsideRect(_remoteVideoSize, bounds);
     CGFloat scale = 1;
     if (remoteVideoFrame.size.width > remoteVideoFrame.size.height) {
       // Scale by height.
@@ -120,51 +116,45 @@ static CGFloat const kStatusBarHeight = 20;
     remoteVideoFrame.size.height *= scale;
     remoteVideoFrame.size.width *= scale;
     _remoteVideoView.frame = remoteVideoFrame;
-    _remoteVideoView.center =
-        CGPointMake(CGRectGetMidX(bounds), CGRectGetMidY(bounds));
+    _remoteVideoView.center = CGPointMake(CGRectGetMidX(bounds), CGRectGetMidY(bounds));
   } else {
     _remoteVideoView.frame = bounds;
   }
 
   // Aspect fit local video view into a square box.
-  CGRect localVideoFrame =
-      CGRectMake(0, 0, kLocalVideoViewSize, kLocalVideoViewSize);
+  CGRect localVideoFrame = CGRectMake(0, 0, kLocalVideoViewSize, kLocalVideoViewSize);
   // Place the view in the bottom right.
-  localVideoFrame.origin.x = CGRectGetMaxX(bounds)
-      - localVideoFrame.size.width - kLocalVideoViewPadding;
-  localVideoFrame.origin.y = CGRectGetMaxY(bounds)
-      - localVideoFrame.size.height - kLocalVideoViewPadding;
+  localVideoFrame.origin.x =
+      CGRectGetMaxX(bounds) - localVideoFrame.size.width - kLocalVideoViewPadding;
+  localVideoFrame.origin.y =
+      CGRectGetMaxY(bounds) - localVideoFrame.size.height - kLocalVideoViewPadding;
   _localVideoView.frame = localVideoFrame;
 
   // Place stats at the top.
   CGSize statsSize = [_statsView sizeThatFits:bounds.size];
   _statsView.frame = CGRectMake(CGRectGetMinX(bounds),
                                 CGRectGetMinY(bounds) + kStatusBarHeight,
-                                statsSize.width, statsSize.height);
+                                statsSize.width,
+                                statsSize.height);
 
   // Place hangup button in the bottom left.
-  _hangupButton.frame =
-      CGRectMake(CGRectGetMinX(bounds) + kButtonPadding,
-                 CGRectGetMaxY(bounds) - kButtonPadding -
-                     kButtonSize,
-                 kButtonSize,
-                 kButtonSize);
+  _hangupButton.frame = CGRectMake(CGRectGetMinX(bounds) + kButtonPadding,
+                                   CGRectGetMaxY(bounds) - kButtonPadding - kButtonSize,
+                                   kButtonSize,
+                                   kButtonSize);
 
   // Place button to the right of hangup button.
   CGRect cameraSwitchFrame = _hangupButton.frame;
-  cameraSwitchFrame.origin.x =
-      CGRectGetMaxX(cameraSwitchFrame) + kButtonPadding;
+  cameraSwitchFrame.origin.x = CGRectGetMaxX(cameraSwitchFrame) + kButtonPadding;
   _cameraSwitchButton.frame = cameraSwitchFrame;
 
   // Place route button to the right of camera button.
   CGRect routeChangeFrame = _cameraSwitchButton.frame;
-  routeChangeFrame.origin.x =
-      CGRectGetMaxX(routeChangeFrame) + kButtonPadding;
+  routeChangeFrame.origin.x = CGRectGetMaxX(routeChangeFrame) + kButtonPadding;
   _routeChangeButton.frame = routeChangeFrame;
 
   [_statusLabel sizeToFit];
-  _statusLabel.center =
-      CGPointMake(CGRectGetMidX(bounds), CGRectGetMidY(bounds));
+  _statusLabel.center = CGPointMake(CGRectGetMidX(bounds), CGRectGetMidY(bounds));
 }
 
 #pragma mark - RTC_OBJC_TYPE(RTCVideoViewDelegate)

@@ -21,8 +21,7 @@
     : (NSString *)label configuration
     : (RTC_OBJC_TYPE(RTCDataChannelConfiguration) *)configuration {
   std::string labelString = [NSString stdStringForString:label];
-  const webrtc::DataChannelInit nativeInit =
-      configuration.nativeDataChannelInit;
+  const webrtc::DataChannelInit nativeInit = configuration.nativeDataChannelInit;
   auto result = self.nativePeerConnection->CreateDataChannelOrError(labelString, &nativeInit);
   if (!result.ok()) {
     return nil;

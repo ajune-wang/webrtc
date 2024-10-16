@@ -16,22 +16,21 @@
 #include "media/base/media_constants.h"
 #include "rtc_base/checks.h"
 
-const NSString * const kRTCRtxCodecName = @(cricket::kRtxCodecName);
-const NSString * const kRTCRedCodecName = @(cricket::kRedCodecName);
-const NSString * const kRTCUlpfecCodecName = @(cricket::kUlpfecCodecName);
-const NSString * const kRTCFlexfecCodecName = @(cricket::kFlexfecCodecName);
-const NSString * const kRTCOpusCodecName = @(cricket::kOpusCodecName);
-const NSString * const kRTCL16CodecName  = @(cricket::kL16CodecName);
-const NSString * const kRTCG722CodecName = @(cricket::kG722CodecName);
-const NSString * const kRTCIlbcCodecName = @(cricket::kIlbcCodecName);
-const NSString * const kRTCPcmuCodecName = @(cricket::kPcmuCodecName);
-const NSString * const kRTCPcmaCodecName = @(cricket::kPcmaCodecName);
-const NSString * const kRTCDtmfCodecName = @(cricket::kDtmfCodecName);
-const NSString * const kRTCComfortNoiseCodecName =
-    @(cricket::kComfortNoiseCodecName);
-const NSString * const kRTCVp8CodecName = @(cricket::kVp8CodecName);
-const NSString * const kRTCVp9CodecName = @(cricket::kVp9CodecName);
-const NSString * const kRTCH264CodecName = @(cricket::kH264CodecName);
+const NSString *const kRTCRtxCodecName = @(cricket::kRtxCodecName);
+const NSString *const kRTCRedCodecName = @(cricket::kRedCodecName);
+const NSString *const kRTCUlpfecCodecName = @(cricket::kUlpfecCodecName);
+const NSString *const kRTCFlexfecCodecName = @(cricket::kFlexfecCodecName);
+const NSString *const kRTCOpusCodecName = @(cricket::kOpusCodecName);
+const NSString *const kRTCL16CodecName = @(cricket::kL16CodecName);
+const NSString *const kRTCG722CodecName = @(cricket::kG722CodecName);
+const NSString *const kRTCIlbcCodecName = @(cricket::kIlbcCodecName);
+const NSString *const kRTCPcmuCodecName = @(cricket::kPcmuCodecName);
+const NSString *const kRTCPcmaCodecName = @(cricket::kPcmaCodecName);
+const NSString *const kRTCDtmfCodecName = @(cricket::kDtmfCodecName);
+const NSString *const kRTCComfortNoiseCodecName = @(cricket::kComfortNoiseCodecName);
+const NSString *const kRTCVp8CodecName = @(cricket::kVp8CodecName);
+const NSString *const kRTCVp9CodecName = @(cricket::kVp9CodecName);
+const NSString *const kRTCH264CodecName = @(cricket::kH264CodecName);
 
 @implementation RTC_OBJC_TYPE (RTCRtpCodecParameters)
 
@@ -47,8 +46,7 @@ const NSString * const kRTCH264CodecName = @(cricket::kH264CodecName);
   return [self initWithNativeParameters:nativeParameters];
 }
 
-- (instancetype)initWithNativeParameters:
-    (const webrtc::RtpCodecParameters &)nativeParameters {
+- (instancetype)initWithNativeParameters:(const webrtc::RtpCodecParameters &)nativeParameters {
   self = [super init];
   if (self) {
     _payloadType = nativeParameters.payload_type;

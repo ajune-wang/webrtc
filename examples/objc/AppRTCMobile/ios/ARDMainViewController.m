@@ -58,8 +58,8 @@ static NSString *const loopbackLaunchProcessArgument = @"loopback";
 
   RTC_OBJC_TYPE(RTCAudioSessionConfiguration) *webRTCConfig =
       [RTC_OBJC_TYPE(RTCAudioSessionConfiguration) webRTCConfiguration];
-  webRTCConfig.categoryOptions = webRTCConfig.categoryOptions |
-      AVAudioSessionCategoryOptionDefaultToSpeaker;
+  webRTCConfig.categoryOptions =
+      webRTCConfig.categoryOptions | AVAudioSessionCategoryOptionDefaultToSpeaker;
   [RTC_OBJC_TYPE(RTCAudioSessionConfiguration) setWebRTCConfiguration:webRTCConfig];
 
   RTC_OBJC_TYPE(RTCAudioSession) *session = [RTC_OBJC_TYPE(RTCAudioSession) sharedInstance];
@@ -103,20 +103,17 @@ static NSString *const loopbackLaunchProcessArgument = @"loopback";
   // Check that room name is valid.
   NSError *error = nil;
   NSRegularExpressionOptions options = NSRegularExpressionCaseInsensitive;
-  NSRegularExpression *regex =
-      [NSRegularExpression regularExpressionWithPattern:@"\\w+"
-                                                options:options
-                                                  error:&error];
+  NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\w+"
+                                                                         options:options
+                                                                           error:&error];
   if (error) {
     [self showAlertWithMessage:error.localizedDescription];
     return;
   }
-  NSRange matchRange =
-      [regex rangeOfFirstMatchInString:trimmedRoom
-                               options:0
-                                 range:NSMakeRange(0, trimmedRoom.length)];
-  if (matchRange.location == NSNotFound ||
-      matchRange.length != trimmedRoom.length) {
+  NSRange matchRange = [regex rangeOfFirstMatchInString:trimmedRoom
+                                                options:0
+                                                  range:NSMakeRange(0, trimmedRoom.length)];
+  if (matchRange.location == NSNotFound || matchRange.length != trimmedRoom.length) {
     [self showAlertWithMessage:@"Invalid room name."];
     return;
   }
@@ -132,12 +129,9 @@ static NSString *const loopbackLaunchProcessArgument = @"loopback";
       [[ARDVideoCallViewController alloc] initForRoom:trimmedRoom
                                            isLoopback:isLoopback
                                              delegate:self];
-  videoCallViewController.modalTransitionStyle =
-      UIModalTransitionStyleCrossDissolve;
+  videoCallViewController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
   videoCallViewController.modalPresentationStyle = UIModalPresentationFullScreen;
-  [self presentViewController:videoCallViewController
-                     animated:YES
-                   completion:nil];
+  [self presentViewController:videoCallViewController animated:YES completion:nil];
 }
 
 - (void)mainViewDidToggleAudioLoop:(ARDMainView *)mainView {
@@ -154,9 +148,10 @@ static NSString *const loopbackLaunchProcessArgument = @"loopback";
 - (void)viewControllerDidFinish:(ARDVideoCallViewController *)viewController {
   if (![viewController isBeingDismissed]) {
     RTCLog(@"Dismissing VC");
-    [self dismissViewControllerAnimated:YES completion:^{
-      [self restartAudioPlayerIfNeeded];
-    }];
+    [self dismissViewControllerAnimated:YES
+                             completion:^{
+                               [self restartAudioPlayerIfNeeded];
+                             }];
   }
   RTC_OBJC_TYPE(RTCAudioSession) *session = [RTC_OBJC_TYPE(RTCAudioSession) sharedInstance];
   session.isAudioEnabled = NO;
@@ -216,9 +211,7 @@ static NSString *const loopbackLaunchProcessArgument = @"loopback";
   if (session.isActive) {
     hasSucceeded = [session setConfiguration:configuration error:&error];
   } else {
-    hasSucceeded = [session setConfiguration:configuration
-                                      active:YES
-                                       error:&error];
+    hasSucceeded = [session setConfiguration:configuration active:YES error:&error];
   }
   if (!hasSucceeded) {
     RTCLogError(@"Error setting configuration: %@", error.localizedDescription);
@@ -227,11 +220,9 @@ static NSString *const loopbackLaunchProcessArgument = @"loopback";
 }
 
 - (void)setupAudioPlayer {
-  NSString *audioFilePath =
-      [[NSBundle mainBundle] pathForResource:@"mozart" ofType:@"mp3"];
+  NSString *audioFilePath = [[NSBundle mainBundle] pathForResource:@"mozart" ofType:@"mp3"];
   NSURL *audioFileURL = [NSURL URLWithString:audioFilePath];
-  _audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:audioFileURL
-                                                        error:nil];
+  _audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:audioFileURL error:nil];
   _audioPlayer.numberOfLoops = -1;
   _audioPlayer.volume = 1.0;
   [_audioPlayer prepareToPlay];
@@ -245,7 +236,7 @@ static NSString *const loopbackLaunchProcessArgument = @"loopback";
   }
 }
 
-- (void)showAlertWithMessage:(NSString*)message {
+- (void)showAlertWithMessage:(NSString *)message {
   UIAlertController *alert =
       [UIAlertController alertControllerWithTitle:nil
                                           message:message

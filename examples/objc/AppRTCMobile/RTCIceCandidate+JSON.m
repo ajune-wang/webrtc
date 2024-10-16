@@ -34,21 +34,17 @@ static NSString const *kRTCICECandidatesTypeKey = @"candidates";
 
 + (NSData *)JSONDataForIceCandidates:(NSArray<RTC_OBJC_TYPE(RTCIceCandidate) *> *)candidates
                             withType:(NSString *)typeValue {
-  NSMutableArray *jsonCandidates =
-      [NSMutableArray arrayWithCapacity:candidates.count];
+  NSMutableArray *jsonCandidates = [NSMutableArray arrayWithCapacity:candidates.count];
   for (RTC_OBJC_TYPE(RTCIceCandidate) * candidate in candidates) {
     NSDictionary *jsonCandidate = [candidate JSONDictionary];
     [jsonCandidates addObject:jsonCandidate];
   }
-  NSDictionary *json = @{
-    kRTCICECandidateTypeKey : typeValue,
-    kRTCICECandidatesTypeKey : jsonCandidates
-  };
+  NSDictionary *json =
+      @{kRTCICECandidateTypeKey : typeValue, kRTCICECandidatesTypeKey : jsonCandidates};
   NSError *error = nil;
-  NSData *data =
-      [NSJSONSerialization dataWithJSONObject:json
-                                      options:NSJSONWritingPrettyPrinted
-                                        error:&error];
+  NSData *data = [NSJSONSerialization dataWithJSONObject:json
+                                                 options:NSJSONWritingPrettyPrinted
+                                                   error:&error];
   if (error) {
     RTCLogError(@"Error serializing JSON: %@", error);
     return nil;
@@ -77,10 +73,9 @@ static NSString const *kRTCICECandidatesTypeKey = @"candidates";
     kRTCICECandidateSdpKey : self.sdp
   };
   NSError *error = nil;
-  NSData *data =
-      [NSJSONSerialization dataWithJSONObject:json
-                                      options:NSJSONWritingPrettyPrinted
-                                        error:&error];
+  NSData *data = [NSJSONSerialization dataWithJSONObject:json
+                                                 options:NSJSONWritingPrettyPrinted
+                                                   error:&error];
   if (error) {
     RTCLogError(@"Error serializing JSON: %@", error);
     return nil;
@@ -88,7 +83,7 @@ static NSString const *kRTCICECandidatesTypeKey = @"candidates";
   return data;
 }
 
-- (NSDictionary *)JSONDictionary{
+- (NSDictionary *)JSONDictionary {
   NSDictionary *json = @{
     kRTCICECandidateMLineIndexKey : @(self.sdpMLineIndex),
     kRTCICECandidateMidKey : self.sdpMid,

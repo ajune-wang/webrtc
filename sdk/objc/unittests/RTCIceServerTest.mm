@@ -125,7 +125,7 @@
       [[RTC_OBJC_TYPE(RTCIceServer) alloc] initWithNativeServer:nativeServer];
   EXPECT_EQ(1u, iceServer.urlStrings.count);
   EXPECT_EQ("stun:stun.example.net",
-      [NSString stdStringForString:iceServer.urlStrings.firstObject]);
+            [NSString stdStringForString:iceServer.urlStrings.firstObject]);
   EXPECT_EQ("username", [NSString stdStringForString:iceServer.username]);
   EXPECT_EQ("password", [NSString stdStringForString:iceServer.credential]);
   EXPECT_EQ("hostname", [NSString stdStringForString:iceServer.hostname]);

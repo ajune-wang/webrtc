@@ -17,8 +17,8 @@
 #include <vector>
 
 #include "api/rtc_error.h"
-#include "media/base/codec.h"
 #include "call/payload_type.h"
+#include "media/base/codec.h"
 
 namespace webrtc {
 

@@ -31,7 +31,7 @@
   return self;
 }
 
-- (instancetype)initWithCoder:(NSCoder*)aDecoder {
+- (instancetype)initWithCoder:(NSCoder *)aDecoder {
   self = [super initWithCoder:aDecoder];
   if (self) {
     [self addOrientationObserver];
@@ -72,7 +72,7 @@
   [self setCorrectVideoOrientation];
 }
 
--(void)orientationChanged:(NSNotification *)notification {
+- (void)orientationChanged:(NSNotification *)notification {
   [self setCorrectVideoOrientation];
 }
 
@@ -85,17 +85,13 @@
   if (previewLayer.connection.isVideoOrientationSupported) {
     // Set the video orientation based on device orientation.
     if (deviceOrientation == UIDeviceOrientationPortraitUpsideDown) {
-      previewLayer.connection.videoOrientation =
-          AVCaptureVideoOrientationPortraitUpsideDown;
+      previewLayer.connection.videoOrientation = AVCaptureVideoOrientationPortraitUpsideDown;
     } else if (deviceOrientation == UIDeviceOrientationLandscapeRight) {
-      previewLayer.connection.videoOrientation =
-          AVCaptureVideoOrientationLandscapeRight;
+      previewLayer.connection.videoOrientation = AVCaptureVideoOrientationLandscapeRight;
     } else if (deviceOrientation == UIDeviceOrientationLandscapeLeft) {
-      previewLayer.connection.videoOrientation =
-          AVCaptureVideoOrientationLandscapeLeft;
+      previewLayer.connection.videoOrientation = AVCaptureVideoOrientationLandscapeLeft;
     } else if (deviceOrientation == UIDeviceOrientationPortrait) {
-      previewLayer.connection.videoOrientation =
-          AVCaptureVideoOrientationPortrait;
+      previewLayer.connection.videoOrientation = AVCaptureVideoOrientationPortrait;
     }
     // If device orientation switches to FaceUp or FaceDown, don't change video orientation.
   }
@@ -105,9 +101,9 @@
 
 - (void)addOrientationObserver {
   [[NSNotificationCenter defaultCenter] addObserver:self
-                                            selector:@selector(orientationChanged:)
-                                                name:UIDeviceOrientationDidChangeNotification
-                                              object:nil];
+                                           selector:@selector(orientationChanged:)
+                                               name:UIDeviceOrientationDidChangeNotification
+                                             object:nil];
 }
 
 - (void)removeOrientationObserver {

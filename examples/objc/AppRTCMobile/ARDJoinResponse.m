@@ -49,11 +49,9 @@ static NSString const *kARDJoinWebSocketRestURLKey = @"wss_post_url";
 
   // Parse messages.
   NSArray *messages = params[kARDJoinMessagesKey];
-  NSMutableArray *signalingMessages =
-      [NSMutableArray arrayWithCapacity:messages.count];
+  NSMutableArray *signalingMessages = [NSMutableArray arrayWithCapacity:messages.count];
   for (NSString *message in messages) {
-    ARDSignalingMessage *signalingMessage =
-        [ARDSignalingMessage messageFromJSONString:message];
+    ARDSignalingMessage *signalingMessage = [ARDSignalingMessage messageFromJSONString:message];
     [signalingMessages addObject:signalingMessage];
   }
   response.messages = signalingMessages;

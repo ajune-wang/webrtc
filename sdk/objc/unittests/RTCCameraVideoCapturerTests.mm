@@ -32,20 +32,24 @@
 #if TARGET_OS_IPHONE
 // Helper method.
 CMSampleBufferRef createTestSampleBufferRef() {
-
   // This image is already in the testing bundle.
   UIImage *image = [UIImage imageNamed:@"Default.png"];
   CGSize size = image.size;
   CGImageRef imageRef = [image CGImage];
 
   CVPixelBufferRef pixelBuffer = nullptr;
-  CVPixelBufferCreate(kCFAllocatorDefault, size.width, size.height, kCVPixelFormatType_32ARGB, nil,
-                      &pixelBuffer);
+  CVPixelBufferCreate(
+      kCFAllocatorDefault, size.width, size.height, kCVPixelFormatType_32ARGB, nil, &pixelBuffer);
 
   CGColorSpaceRef rgbColorSpace = CGColorSpaceCreateDeviceRGB();
   // We don't care about bitsPerComponent and bytesPerRow so arbitrary value of 8 for both.
-  CGContextRef context = CGBitmapContextCreate(nil, size.width, size.height, 8, 8 * size.width,
-                                               rgbColorSpace, kCGImageAlphaPremultipliedFirst);
+  CGContextRef context = CGBitmapContextCreate(nil,
+                                               size.width,
+                                               size.height,
+                                               8,
+                                               8 * size.width,
+                                               rgbColorSpace,
+                                               kCGImageAlphaPremultipliedFirst);
 
   CGContextDrawImage(
       context, CGRectMake(0, 0, CGImageGetWidth(imageRef), CGImageGetHeight(imageRef)), imageRef);
@@ -59,12 +63,11 @@ CMSampleBufferRef createTestSampleBufferRef() {
   CMVideoFormatDescriptionCreateForImageBuffer(NULL, pixelBuffer, &description);
 
   CMSampleBufferRef sampleBuffer = nullptr;
-  CMSampleBufferCreateForImageBuffer(kCFAllocatorDefault, pixelBuffer, YES, NULL, NULL, description,
-                                     &timing, &sampleBuffer);
+  CMSampleBufferCreateForImageBuffer(
+      kCFAllocatorDefault, pixelBuffer, YES, NULL, NULL, description, &timing, &sampleBuffer);
   CFRelease(pixelBuffer);
 
   return sampleBuffer;
-
 }
 #endif
 @interface RTC_OBJC_TYPE (RTCCameraVideoCapturer)
@@ -136,18 +139,18 @@ CMSampleBufferRef createTestSampleBufferRef() {
   // We don't care about width and heigth so arbitrary 123 and 456 values.
   int width = 123;
   int height = 456;
-  CMVideoFormatDescriptionCreate(nil, kCVPixelFormatType_420YpCbCr8PlanarFullRange, width, height,
-                                 nil, &format);
+  CMVideoFormatDescriptionCreate(
+      nil, kCVPixelFormatType_420YpCbCr8PlanarFullRange, width, height, nil, &format);
   OCMStub([validFormat1 formatDescription]).andReturn(format);
 
   id validFormat2 = OCMClassMock([AVCaptureDeviceFormat class]);
-  CMVideoFormatDescriptionCreate(nil, kCVPixelFormatType_420YpCbCr8BiPlanarVideoRange, width,
-                                 height, nil, &format);
+  CMVideoFormatDescriptionCreate(
+      nil, kCVPixelFormatType_420YpCbCr8BiPlanarVideoRange, width, height, nil, &format);
   OCMStub([validFormat2 formatDescription]).andReturn(format);
 
   id invalidFormat = OCMClassMock([AVCaptureDeviceFormat class]);
-  CMVideoFormatDescriptionCreate(nil, kCVPixelFormatType_422YpCbCr8_yuvs, width, height, nil,
-                                 &format);
+  CMVideoFormatDescriptionCreate(
+      nil, kCVPixelFormatType_422YpCbCr8_yuvs, width, height, nil, &format);
   OCMStub([invalidFormat formatDescription]).andReturn(format);
 
   NSArray *formats = @[ validFormat1, validFormat2, invalidFormat ];
@@ -224,10 +227,10 @@ CMSampleBufferRef createTestSampleBufferRef() {
   // input ports.
   AVCaptureDeviceInput *inputPortMock = OCMClassMock([AVCaptureDeviceInput class]);
   AVCaptureInputPort *captureInputPort = OCMClassMock([AVCaptureInputPort class]);
-  NSArray *inputPortsArrayMock = @[captureInputPort];
+  NSArray *inputPortsArrayMock = @[ captureInputPort ];
   AVCaptureDevice *captureDeviceMock = OCMClassMock([AVCaptureDevice class]);
-  OCMStub(((AVCaptureConnection *)self.captureConnectionMock).inputPorts).
-      andReturn(inputPortsArrayMock);
+  OCMStub(((AVCaptureConnection *)self.captureConnectionMock).inputPorts)
+      .andReturn(inputPortsArrayMock);
   OCMStub(captureInputPort.input).andReturn(inputPortMock);
   OCMStub(inputPortMock.device).andReturn(captureDeviceMock);
   OCMStub(captureDeviceMock.position).andReturn(camera);
@@ -305,10 +308,10 @@ CMSampleBufferRef createTestSampleBufferRef() {
   // input ports.
   AVCaptureDeviceInput *inputPortMock = OCMClassMock([AVCaptureDeviceInput class]);
   AVCaptureInputPort *captureInputPort = OCMClassMock([AVCaptureInputPort class]);
-  NSArray *inputPortsArrayMock = @[captureInputPort];
+  NSArray *inputPortsArrayMock = @[ captureInputPort ];
   AVCaptureDevice *captureDeviceMock = OCMClassMock([AVCaptureDevice class]);
-  OCMStub(((AVCaptureConnection *)self.captureConnectionMock).inputPorts).
-      andReturn(inputPortsArrayMock);
+  OCMStub(((AVCaptureConnection *)self.captureConnectionMock).inputPorts)
+      .andReturn(inputPortsArrayMock);
   OCMStub(captureInputPort.input).andReturn(inputPortMock);
   OCMStub(inputPortMock.device).andReturn(captureDeviceMock);
   OCMStub(captureDeviceMock.position).andReturn(AVCaptureDevicePositionFront);
@@ -349,8 +352,8 @@ CMSampleBufferRef createTestSampleBufferRef() {
   CMSampleBufferRef sampleBuffer = createTestSampleBufferRef();
   [self setExif:sampleBuffer];
 
-  AVCaptureDevicePosition cameraPosition = [AVCaptureSession
-                                            devicePositionForSampleBuffer:sampleBuffer];
+  AVCaptureDevicePosition cameraPosition =
+      [AVCaptureSession devicePositionForSampleBuffer:sampleBuffer];
   XCTAssertEqual(cameraPosition, AVCaptureDevicePositionBack);
 #endif
 }

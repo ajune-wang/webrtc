@@ -35,10 +35,7 @@
 #include "rtc_base/strings/string_builder.h"
 
 namespace cricket {
-namespace {
-
-
-}  // namespace
+namespace {}  // namespace
 
 FeedbackParams::FeedbackParams() = default;
 FeedbackParams::~FeedbackParams() = default;

@@ -10,7 +10,6 @@
 
 #include "modules/desktop_capture/mouse_cursor_monitor.h"
 
-
 #include <memory>
 
 #include <ApplicationServices/ApplicationServices.h>
@@ -66,9 +65,8 @@ class MouseCursorMonitorMac : public MouseCursorMonitor {
  private:
   static void DisplaysReconfiguredCallback(CGDirectDisplayID display,
                                            CGDisplayChangeSummaryFlags flags,
-                                           void *user_parameter);
-  void DisplaysReconfigured(CGDirectDisplayID display,
-                            CGDisplayChangeSummaryFlags flags);
+                                           void* user_parameter);
+  void DisplaysReconfigured(CGDirectDisplayID display, CGDisplayChangeSummaryFlags flags);
 
   void CaptureImage(float scale);
 
@@ -109,18 +107,15 @@ void MouseCursorMonitorMac::Capture() {
 
   DesktopVector position(gc_position.x, gc_position.y);
 
-  MacDesktopConfiguration configuration =
-      configuration_monitor_->desktop_configuration();
+  MacDesktopConfiguration configuration = configuration_monitor_->desktop_configuration();
   float scale = GetScaleFactorAtPosition(configuration, position);
 
   CaptureImage(scale);
 
-  if (mode_ != SHAPE_AND_POSITION)
-    return;
+  if (mode_ != SHAPE_AND_POSITION) return;
 
   // Always report cursor position in DIP pixel.
-  callback_->OnMouseCursorPosition(
-      position.subtract(configuration.bounds.top_left()));
+  callback_->OnMouseCursorPosition(position.subtract(configuration.bounds.top_left()));
 }
 
 void MouseCursorMonitorMac::CaptureImage(float scale) {
@@ -140,14 +135,10 @@ void MouseCursorMonitorMac::CaptureImage(float scale) {
                    round(nssize.height * scale));  // Pixel size
   NSPoint nshotspot = [nscursor hotSpot];
   DesktopVector hotspot(
-      std::max(0,
-               std::min(size.width(), static_cast<int>(nshotspot.x * scale))),
-      std::max(0,
-               std::min(size.height(), static_cast<int>(nshotspot.y * scale))));
-  CGImageRef cg_image =
-      [nsimage CGImageForProposedRect:NULL context:nil hints:nil];
-  if (!cg_image)
-    return;
+      std::max(0, std::min(size.width(), static_cast<int>(nshotspot.x * scale))),
+      std::max(0, std::min(size.height(), static_cast<int>(nshotspot.y * scale))));
+  CGImageRef cg_image = [nsimage CGImageForProposedRect:NULL context:nil hints:nil];
+  if (!cg_image) return;
 
   // Before 10.12, OSX may report 1X cursor on Retina screen. (See
   // crbug.com/632995.) After 10.12, OSX may report 2X cursor on non-Retina
@@ -173,8 +164,7 @@ void MouseCursorMonitorMac::CaptureImage(float scale) {
     return;
   }
 
-  const uint8_t* src_data =
-      reinterpret_cast<const uint8_t*>(CFDataGetBytePtr(image_data_ref));
+  const uint8_t* src_data = reinterpret_cast<const uint8_t*>(CFDataGetBytePtr(image_data_ref));
 
   // Create a MouseCursor that describes the cursor and pass it to
   // the client.
@@ -187,27 +177,24 @@ void MouseCursorMonitorMac::CaptureImage(float scale) {
   CFRelease(image_data_ref);
   if (scaled_cg_image != nil) CGImageRelease(scaled_cg_image);
 
-  std::unique_ptr<MouseCursor> cursor(
-      new MouseCursor(image.release(), hotspot));
+  std::unique_ptr<MouseCursor> cursor(new MouseCursor(image.release(), hotspot));
 
   callback_->OnMouseCursor(cursor.release());
 }
 
-MouseCursorMonitor* MouseCursorMonitor::CreateForWindow(
-    const DesktopCaptureOptions& options, WindowId window) {
+MouseCursorMonitor* MouseCursorMonitor::CreateForWindow(const DesktopCaptureOptions& options,
+                                                        WindowId window) {
   return new MouseCursorMonitorMac(options, window, kInvalidScreenId);
 }
 
-MouseCursorMonitor* MouseCursorMonitor::CreateForScreen(
-    const DesktopCaptureOptions& options,
-    ScreenId screen) {
+MouseCursorMonitor* MouseCursorMonitor::CreateForScreen(const DesktopCaptureOptions& options,
+                                                        ScreenId screen) {
   return new MouseCursorMonitorMac(options, kCGNullWindowID, screen);
 }
 
 std::unique_ptr<MouseCursorMonitor> MouseCursorMonitor::Create(
     const DesktopCaptureOptions& options) {
-  return std::unique_ptr<MouseCursorMonitor>(
-      CreateForScreen(options, kFullDesktopScreenId));
+  return std::unique_ptr<MouseCursorMonitor>(CreateForScreen(options, kFullDesktopScreenId));
 }
 
 }  // namespace webrtc

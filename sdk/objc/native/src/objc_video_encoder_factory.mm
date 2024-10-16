@@ -51,7 +51,7 @@ class ObjCVideoEncoder : public VideoEncoder {
 
   int32_t RegisterEncodeCompleteCallback(EncodedImageCallback *callback) override {
     if (callback) {
-      [encoder_ setCallback:^BOOL(RTC_OBJC_TYPE(RTCEncodedImage) * _Nonnull frame,
+      [encoder_ setCallback:^BOOL(RTC_OBJC_TYPE(RTCEncodedImage) *_Nonnull frame,
                                   id<RTC_OBJC_TYPE(RTCCodecSpecificInfo)> _Nonnull info) {
         EncodedImage encodedImage = [frame nativeEncodedImage];
 
@@ -62,7 +62,8 @@ class ObjCVideoEncoder : public VideoEncoder {
               [(RTC_OBJC_TYPE(RTCCodecSpecificInfoH264) *)info nativeCodecSpecificInfo];
         }
 
-        EncodedImageCallback::Result res = callback->OnEncodedImage(encodedImage, &codecSpecificInfo);
+        EncodedImageCallback::Result res =
+            callback->OnEncodedImage(encodedImage, &codecSpecificInfo);
         return res.error == EncodedImageCallback::Result::OK;
       }];
     } else {
@@ -73,16 +74,13 @@ class ObjCVideoEncoder : public VideoEncoder {
 
   int32_t Release() override { return [encoder_ releaseEncoder]; }
 
-  int32_t Encode(const VideoFrame &frame,
-                 const std::vector<VideoFrameType> *frame_types) override {
+  int32_t Encode(const VideoFrame &frame, const std::vector<VideoFrameType> *frame_types) override {
     NSMutableArray<NSNumber *> *rtcFrameTypes = [NSMutableArray array];
     for (size_t i = 0; i < frame_types->size(); ++i) {
       [rtcFrameTypes addObject:@(RTCFrameType(frame_types->at(i)))];
     }
 
-    return [encoder_ encode:ToObjCVideoFrame(frame)
-          codecSpecificInfo:nil
-                 frameTypes:rtcFrameTypes];
+    return [encoder_ encode:ToObjCVideoFrame(frame) codecSpecificInfo:nil frameTypes:rtcFrameTypes];
   }
 
   void SetRates(const RateControlParameters &parameters) override {

@@ -698,7 +698,8 @@ void AudioDeviceIOS::SetupAudioBuffersForActiveAudioSession() {
   if (sample_rate <= DBL_EPSILON && playout_parameters_.sample_rate() > 0) {
     RTCLogError(@"Reported rate is invalid: %f. "
                  "Using %d as sample rate instead.",
-                sample_rate, playout_parameters_.sample_rate());
+                sample_rate,
+                playout_parameters_.sample_rate());
     sample_rate = playout_parameters_.sample_rate();
   }
 

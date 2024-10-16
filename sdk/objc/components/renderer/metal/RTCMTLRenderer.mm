@@ -52,31 +52,79 @@ static inline void getCubeVertexData(int cropX,
   // into account. The first two columns are view coordinates, the last two are texture coordinates.
   switch (rotation) {
     case RTCVideoRotation_0: {
-      float values[16] = {-1.0, -1.0, cropLeft, cropBottom,
-                           1.0, -1.0, cropRight, cropBottom,
-                          -1.0,  1.0, cropLeft, cropTop,
-                           1.0,  1.0, cropRight, cropTop};
+      float values[16] = {-1.0,
+                          -1.0,
+                          cropLeft,
+                          cropBottom,
+                          1.0,
+                          -1.0,
+                          cropRight,
+                          cropBottom,
+                          -1.0,
+                          1.0,
+                          cropLeft,
+                          cropTop,
+                          1.0,
+                          1.0,
+                          cropRight,
+                          cropTop};
       memcpy(buffer, &values, sizeof(values));
     } break;
     case RTCVideoRotation_90: {
-      float values[16] = {-1.0, -1.0, cropRight, cropBottom,
-                           1.0, -1.0, cropRight, cropTop,
-                          -1.0,  1.0, cropLeft, cropBottom,
-                           1.0,  1.0, cropLeft, cropTop};
+      float values[16] = {-1.0,
+                          -1.0,
+                          cropRight,
+                          cropBottom,
+                          1.0,
+                          -1.0,
+                          cropRight,
+                          cropTop,
+                          -1.0,
+                          1.0,
+                          cropLeft,
+                          cropBottom,
+                          1.0,
+                          1.0,
+                          cropLeft,
+                          cropTop};
       memcpy(buffer, &values, sizeof(values));
     } break;
     case RTCVideoRotation_180: {
-      float values[16] = {-1.0, -1.0, cropRight, cropTop,
-                           1.0, -1.0, cropLeft, cropTop,
-                          -1.0,  1.0, cropRight, cropBottom,
-                           1.0,  1.0, cropLeft, cropBottom};
+      float values[16] = {-1.0,
+                          -1.0,
+                          cropRight,
+                          cropTop,
+                          1.0,
+                          -1.0,
+                          cropLeft,
+                          cropTop,
+                          -1.0,
+                          1.0,
+                          cropRight,
+                          cropBottom,
+                          1.0,
+                          1.0,
+                          cropLeft,
+                          cropBottom};
       memcpy(buffer, &values, sizeof(values));
     } break;
     case RTCVideoRotation_270: {
-      float values[16] = {-1.0, -1.0, cropLeft, cropTop,
-                           1.0, -1.0, cropLeft, cropBottom,
-                          -1.0, 1.0, cropRight, cropTop,
-                           1.0, 1.0, cropRight, cropBottom};
+      float values[16] = {-1.0,
+                          -1.0,
+                          cropLeft,
+                          cropTop,
+                          1.0,
+                          -1.0,
+                          cropLeft,
+                          cropBottom,
+                          -1.0,
+                          1.0,
+                          cropRight,
+                          cropTop,
+                          1.0,
+                          1.0,
+                          cropRight,
+                          cropBottom};
       memcpy(buffer, &values, sizeof(values));
     } break;
   }
@@ -239,8 +287,9 @@ static const NSInteger kMaxInflightBuffers = 1;
   NSError *libraryError = nil;
   NSString *shaderSource = [self shaderSource];
 
-  id<MTLLibrary> sourceLibrary =
-      [_device newLibraryWithSource:shaderSource options:NULL error:&libraryError];
+  id<MTLLibrary> sourceLibrary = [_device newLibraryWithSource:shaderSource
+                                                       options:NULL
+                                                         error:&libraryError];
 
   if (libraryError) {
     RTCLogError(@"Metal: Library with source failed\n%@", libraryError);

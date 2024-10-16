@@ -113,8 +113,8 @@ NSString *MaxSupportedProfileLevelConstrainedHigh() {
     std::optional<std::string> hex_string =
         webrtc::H264ProfileLevelIdToString(webrtc::H264ProfileLevelId(
             static_cast<webrtc::H264Profile>(profile), static_cast<webrtc::H264Level>(level)));
-    self.hexString =
-        [NSString stringWithCString:hex_string.value_or("").c_str() encoding:NSUTF8StringEncoding];
+    self.hexString = [NSString stringWithCString:hex_string.value_or("").c_str()
+                                        encoding:NSUTF8StringEncoding];
   }
   return self;
 }

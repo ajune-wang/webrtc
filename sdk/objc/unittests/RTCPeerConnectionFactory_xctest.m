@@ -84,8 +84,9 @@
 
     @autoreleasepool {
       factory = [[RTC_OBJC_TYPE(RTCPeerConnectionFactory) alloc] init];
-      peerConnection =
-          [factory peerConnectionWithConfiguration:config constraints:constraints delegate:nil];
+      peerConnection = [factory peerConnectionWithConfiguration:config
+                                                    constraints:constraints
+                                                       delegate:nil];
       [peerConnection close];
       factory = nil;
     }
@@ -127,10 +128,11 @@
 
     @autoreleasepool {
       factory = [[RTC_OBJC_TYPE(RTCPeerConnectionFactory) alloc] init];
-      peerConnection =
-          [factory peerConnectionWithConfiguration:config constraints:constraints delegate:nil];
-      dataChannel =
-          [peerConnection dataChannelForLabel:@"test_channel" configuration:dataChannelConfig];
+      peerConnection = [factory peerConnectionWithConfiguration:config
+                                                    constraints:constraints
+                                                       delegate:nil];
+      dataChannel = [peerConnection dataChannelForLabel:@"test_channel"
+                                          configuration:dataChannelConfig];
       XCTAssertNotNil(dataChannel);
       [peerConnection close];
       peerConnection = nil;
@@ -158,8 +160,9 @@
 
     @autoreleasepool {
       factory = [[RTC_OBJC_TYPE(RTCPeerConnectionFactory) alloc] init];
-      peerConnection =
-          [factory peerConnectionWithConfiguration:config constraints:contraints delegate:nil];
+      peerConnection = [factory peerConnectionWithConfiguration:config
+                                                    constraints:contraints
+                                                       delegate:nil];
       tranceiver = [peerConnection addTransceiverOfType:RTCRtpMediaTypeAudio init:init];
       XCTAssertNotNil(tranceiver);
       [peerConnection close];
@@ -186,8 +189,9 @@
 
     @autoreleasepool {
       factory = [[RTC_OBJC_TYPE(RTCPeerConnectionFactory) alloc] init];
-      peerConnection =
-          [factory peerConnectionWithConfiguration:config constraints:constraints delegate:nil];
+      peerConnection = [factory peerConnectionWithConfiguration:config
+                                                    constraints:constraints
+                                                       delegate:nil];
       sender = [peerConnection senderWithKind:kRTCMediaStreamTrackKindVideo streamId:@"stream"];
       XCTAssertNotNil(sender);
       [peerConnection close];
@@ -476,29 +480,28 @@
       dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
 
       __block BOOL completed = NO;
-      [peerConnection
-          offerForConstraints:constraints
-            completionHandler:^(RTC_OBJC_TYPE(RTCSessionDescription) *_Nullable sdp,
-                                NSError *_Nullable error) {
-              XCTAssertNil(error);
-              XCTAssertNotNil(sdp);
+      [peerConnection offerForConstraints:constraints
+                        completionHandler:^(RTC_OBJC_TYPE(RTCSessionDescription) *_Nullable sdp,
+                                            NSError *_Nullable error) {
+                          XCTAssertNil(error);
+                          XCTAssertNotNil(sdp);
 
-              NSArray<NSString *> *rtpMaps = [self rtpMapsFromSDP:sdp.sdp];
-              XCTAssertEqual(1, rtpMaps.count);
+                          NSArray<NSString *> *rtpMaps = [self rtpMapsFromSDP:sdp.sdp];
+                          XCTAssertEqual(1, rtpMaps.count);
 
-              XCTAssertNotNil(targetCodec.preferredPayloadType);
-              XCTAssertNotNil(targetCodec.clockRate);
+                          XCTAssertNotNil(targetCodec.preferredPayloadType);
+                          XCTAssertNotNil(targetCodec.clockRate);
 
-              NSString *expected =
-                  [NSString stringWithFormat:@"a=rtpmap:%i VP8/%i",
-                                             targetCodec.preferredPayloadType.intValue,
-                                             targetCodec.clockRate.intValue];
+                          NSString *expected =
+                              [NSString stringWithFormat:@"a=rtpmap:%i VP8/%i",
+                                                         targetCodec.preferredPayloadType.intValue,
+                                                         targetCodec.clockRate.intValue];
 
-              XCTAssertTrue([expected isEqualToString:rtpMaps[0]]);
+                          XCTAssertTrue([expected isEqualToString:rtpMaps[0]]);
 
-              completed = YES;
-              dispatch_semaphore_signal(semaphore);
-            }];
+                          completed = YES;
+                          dispatch_semaphore_signal(semaphore);
+                        }];
 
       [peerConnection close];
       peerConnection = nil;
@@ -648,27 +651,26 @@
                                                            optionalConstraints:nil];
 
   dispatch_semaphore_t negotiatedSem = dispatch_semaphore_create(0);
-  [weakPC1 offerForConstraints:sdpConstraints
-             completionHandler:^(RTC_OBJC_TYPE(RTCSessionDescription) * offer, NSError * error) {
-               XCTAssertNil(error);
-               XCTAssertNotNil(offer);
-               [weakPC1
-                   setLocalDescription:offer
-                     completionHandler:^(NSError *error) {
-                       XCTAssertNil(error);
-                       [weakPC2
-                           setRemoteDescription:offer
-                              completionHandler:^(NSError *error) {
-                                XCTAssertNil(error);
-                                [weakPC2
-                                    answerForConstraints:sdpConstraints
-                                       completionHandler:^(
-                                           RTC_OBJC_TYPE(RTCSessionDescription) * answer,
-                                           NSError * error) {
-                                         XCTAssertNil(error);
-                                         XCTAssertNotNil(answer);
-                                         [weakPC2
-                                             setLocalDescription:answer
+  [weakPC1
+      offerForConstraints:sdpConstraints
+        completionHandler:^(RTC_OBJC_TYPE(RTCSessionDescription) * offer, NSError * error) {
+          XCTAssertNil(error);
+          XCTAssertNotNil(offer);
+          [weakPC1
+              setLocalDescription:offer
+                completionHandler:^(NSError *error) {
+                  XCTAssertNil(error);
+                  [weakPC2
+                      setRemoteDescription:offer
+                         completionHandler:^(NSError *error) {
+                           XCTAssertNil(error);
+                           [weakPC2
+                               answerForConstraints:sdpConstraints
+                                  completionHandler:^(RTC_OBJC_TYPE(RTCSessionDescription) * answer,
+                                                      NSError * error) {
+                                    XCTAssertNil(error);
+                                    XCTAssertNotNil(answer);
+                                    [weakPC2 setLocalDescription:answer
                                                completionHandler:^(NSError *error) {
                                                  XCTAssertNil(error);
                                                  [weakPC1
@@ -678,10 +680,10 @@
                                                           dispatch_semaphore_signal(negotiatedSem);
                                                         }];
                                                }];
-                                       }];
-                              }];
-                     }];
-             }];
+                                  }];
+                         }];
+                }];
+        }];
 
   return 0 ==
       dispatch_semaphore_wait(negotiatedSem,

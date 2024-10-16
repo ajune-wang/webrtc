@@ -77,7 +77,7 @@ class CallbackWithSeverityLogSink final : public rtc::LogSink {
   RTCCallbackLoggerMessageAndSeverityHandler callback_handler_;
 };
 
-}
+}  // namespace
 
 @implementation RTC_OBJC_TYPE (RTCCallbackLogger) {
   BOOL _hasStarted;
@@ -110,7 +110,7 @@ class CallbackWithSeverityLogSink final : public rtc::LogSink {
 }
 
 - (void)startWithMessageAndSeverityHandler:
-        (nullable RTCCallbackLoggerMessageAndSeverityHandler)handler {
+    (nullable RTCCallbackLoggerMessageAndSeverityHandler)handler {
   if (_hasStarted) {
     return;
   }

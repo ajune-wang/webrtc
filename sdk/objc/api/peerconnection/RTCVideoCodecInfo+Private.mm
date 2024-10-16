@@ -36,7 +36,7 @@
 
 - (webrtc::SdpVideoFormat)nativeSdpVideoFormat {
   std::map<std::string, std::string> parameters;
-  for (NSString *paramKey in self.parameters.allKeys) {
+  for (NSString* paramKey in self.parameters.allKeys) {
     std::string key = [NSString stdStringForString:paramKey];
     std::string value = [NSString stdStringForString:self.parameters[paramKey]];
     parameters[key] = value;

@@ -117,8 +117,8 @@
 }
 
 - (void)setMultipleTouchEnabled:(BOOL)multipleTouchEnabled {
-    [super setMultipleTouchEnabled:multipleTouchEnabled];
-    self.metalView.multipleTouchEnabled = multipleTouchEnabled;
+  [super setMultipleTouchEnabled:multipleTouchEnabled];
+  self.metalView.multipleTouchEnabled = multipleTouchEnabled;
 }
 
 - (void)layoutSubviews {

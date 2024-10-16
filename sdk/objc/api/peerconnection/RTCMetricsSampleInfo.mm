@@ -22,8 +22,7 @@
 
 #pragma mark - Private
 
-- (instancetype)initWithNativeSampleInfo:
-    (const webrtc::metrics::SampleInfo &)info {
+- (instancetype)initWithNativeSampleInfo:(const webrtc::metrics::SampleInfo &)info {
   self = [super init];
   if (self) {
     _name = [NSString stringForStdString:info.name];
@@ -31,8 +30,7 @@
     _max = info.max;
     _bucketCount = info.bucket_count;
 
-    NSMutableDictionary *samples =
-        [NSMutableDictionary dictionaryWithCapacity:info.samples.size()];
+    NSMutableDictionary *samples = [NSMutableDictionary dictionaryWithCapacity:info.samples.size()];
     for (auto const &sample : info.samples) {
       [samples setObject:@(sample.second) forKey:@(sample.first)];
     }

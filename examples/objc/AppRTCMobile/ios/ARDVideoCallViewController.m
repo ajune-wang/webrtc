@@ -59,8 +59,7 @@
 - (void)loadView {
   _videoCallView = [[ARDVideoCallView alloc] initWithFrame:CGRectZero];
   _videoCallView.delegate = self;
-  _videoCallView.statusLabel.text =
-      [self statusTextForState:RTCIceConnectionStateNew];
+  _videoCallView.statusLabel.text = [self statusTextForState:RTCIceConnectionStateNew];
   self.view = _videoCallView;
 
   RTC_OBJC_TYPE(RTCAudioSession) *session = [RTC_OBJC_TYPE(RTCAudioSession) sharedInstance];
@@ -73,8 +72,7 @@
 
 #pragma mark - ARDAppClientDelegate
 
-- (void)appClient:(ARDAppClient *)client
-    didChangeState:(ARDAppClientState)state {
+- (void)appClient:(ARDAppClient *)client didChangeState:(ARDAppClientState)state {
   switch (state) {
     case kARDAppClientStateConnected:
       RTCLog(@"Client connected.");
@@ -89,14 +87,12 @@
   }
 }
 
-- (void)appClient:(ARDAppClient *)client
-    didChangeConnectionState:(RTCIceConnectionState)state {
+- (void)appClient:(ARDAppClient *)client didChangeConnectionState:(RTCIceConnectionState)state {
   RTCLog(@"ICE state changed: %ld", (long)state);
   __weak ARDVideoCallViewController *weakSelf = self;
   dispatch_async(dispatch_get_main_queue(), ^{
     ARDVideoCallViewController *strongSelf = weakSelf;
-    strongSelf.videoCallView.statusLabel.text =
-        [strongSelf statusTextForState:state];
+    strongSelf.videoCallView.statusLabel.text = [strongSelf statusTextForState:state];
   });
 }
 
@@ -104,8 +100,8 @@
     didCreateLocalCapturer:(RTC_OBJC_TYPE(RTCCameraVideoCapturer) *)localCapturer {
   _videoCallView.localVideoView.captureSession = localCapturer.captureSession;
   ARDSettingsModel *settingsModel = [[ARDSettingsModel alloc] init];
-  _captureController =
-      [[ARDCaptureController alloc] initWithCapturer:localCapturer settings:settingsModel];
+  _captureController = [[ARDCaptureController alloc] initWithCapturer:localCapturer
+                                                             settings:settingsModel];
   [_captureController startCapture];
 }
 
@@ -138,10 +134,8 @@
   [_videoCallView setNeedsLayout];
 }
 
-- (void)appClient:(ARDAppClient *)client
-         didError:(NSError *)error {
-  NSString *message =
-      [NSString stringWithFormat:@"%@", error.localizedDescription];
+- (void)appClient:(ARDAppClient *)client didError:(NSError *)error {
+  NSString *message = [NSString stringWithFormat:@"%@", error.localizedDescription];
   [self hangup];
   [self showAlertWithMessage:message];
 }
@@ -233,7 +227,7 @@
   }
 }
 
-- (void)showAlertWithMessage:(NSString*)message {
+- (void)showAlertWithMessage:(NSString *)message {
   UIAlertController *alert =
       [UIAlertController alertControllerWithTitle:nil
                                           message:message

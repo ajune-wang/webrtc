@@ -38,13 +38,11 @@
 @synthesize audioJitterBufferMaxPackets = _audioJitterBufferMaxPackets;
 @synthesize audioJitterBufferFastAccelerate = _audioJitterBufferFastAccelerate;
 @synthesize iceConnectionReceivingTimeout = _iceConnectionReceivingTimeout;
-@synthesize iceBackupCandidatePairPingInterval =
-    _iceBackupCandidatePairPingInterval;
+@synthesize iceBackupCandidatePairPingInterval = _iceBackupCandidatePairPingInterval;
 @synthesize keyType = _keyType;
 @synthesize iceCandidatePoolSize = _iceCandidatePoolSize;
 @synthesize shouldPruneTurnPorts = _shouldPruneTurnPorts;
-@synthesize shouldPresumeWritableWhenFullyRelayed =
-    _shouldPresumeWritableWhenFullyRelayed;
+@synthesize shouldPresumeWritableWhenFullyRelayed = _shouldPresumeWritableWhenFullyRelayed;
 @synthesize shouldSurfaceIceCandidatesOnIceTransportTypeChanged =
     _shouldSurfaceIceCandidatesOnIceTransportTypeChanged;
 @synthesize iceCheckMinInterval = _iceCheckMinInterval;
@@ -76,7 +74,7 @@
   if (self) {
     _enableDscp = config.dscp();
     NSMutableArray *iceServers = [NSMutableArray array];
-    for (const webrtc::PeerConnectionInterface::IceServer& server : config.servers) {
+    for (const webrtc::PeerConnectionInterface::IceServer &server : config.servers) {
       RTC_OBJC_TYPE(RTCIceServer) *iceServer =
           [[RTC_OBJC_TYPE(RTCIceServer) alloc] initWithNativeServer:server];
       [iceServers addObject:iceServer];
@@ -90,18 +88,15 @@
           initWithPrivateKey:@(native_pem.private_key().c_str())
                  certificate:@(native_pem.certificate().c_str())];
     }
-    _iceTransportPolicy =
-        [[self class] transportPolicyForTransportsType:config.type];
-    _bundlePolicy =
-        [[self class] bundlePolicyForNativePolicy:config.bundle_policy];
-    _rtcpMuxPolicy =
-        [[self class] rtcpMuxPolicyForNativePolicy:config.rtcp_mux_policy];
-    _tcpCandidatePolicy = [[self class] tcpCandidatePolicyForNativePolicy:
-        config.tcp_candidate_policy];
-    _candidateNetworkPolicy = [[self class]
-        candidateNetworkPolicyForNativePolicy:config.candidate_network_policy];
+    _iceTransportPolicy = [[self class] transportPolicyForTransportsType:config.type];
+    _bundlePolicy = [[self class] bundlePolicyForNativePolicy:config.bundle_policy];
+    _rtcpMuxPolicy = [[self class] rtcpMuxPolicyForNativePolicy:config.rtcp_mux_policy];
+    _tcpCandidatePolicy =
+        [[self class] tcpCandidatePolicyForNativePolicy:config.tcp_candidate_policy];
+    _candidateNetworkPolicy =
+        [[self class] candidateNetworkPolicyForNativePolicy:config.candidate_network_policy];
     webrtc::PeerConnectionInterface::ContinualGatheringPolicy nativePolicy =
-    config.continual_gathering_policy;
+        config.continual_gathering_policy;
     _continualGatheringPolicy = [[self class] continualGatheringPolicyForNativePolicy:nativePolicy];
     _disableIPV6OnWiFi = config.disable_ipv6_on_wifi;
     _maxIPv6Networks = config.max_ipv6_networks;
@@ -109,18 +104,15 @@
     _audioJitterBufferMaxPackets = config.audio_jitter_buffer_max_packets;
     _audioJitterBufferFastAccelerate = config.audio_jitter_buffer_fast_accelerate;
     _iceConnectionReceivingTimeout = config.ice_connection_receiving_timeout;
-    _iceBackupCandidatePairPingInterval =
-        config.ice_backup_candidate_pair_ping_interval;
+    _iceBackupCandidatePairPingInterval = config.ice_backup_candidate_pair_ping_interval;
     _keyType = RTCEncryptionKeyTypeECDSA;
     _iceCandidatePoolSize = config.ice_candidate_pool_size;
     _shouldPruneTurnPorts = config.prune_turn_ports;
-    _shouldPresumeWritableWhenFullyRelayed =
-        config.presume_writable_when_fully_relayed;
+    _shouldPresumeWritableWhenFullyRelayed = config.presume_writable_when_fully_relayed;
     _shouldSurfaceIceCandidatesOnIceTransportTypeChanged =
         config.surface_ice_candidates_on_ice_transport_type_changed;
     if (config.ice_check_min_interval) {
-      _iceCheckMinInterval =
-          [NSNumber numberWithInt:*config.ice_check_min_interval];
+      _iceCheckMinInterval = [NSNumber numberWithInt:*config.ice_check_min_interval];
     }
     _sdpSemantics = [[self class] sdpSemanticsForNativeSdpSemantics:config.sdp_semantics];
     _turnCustomizer = config.turn_customizer;
@@ -195,26 +187,22 @@
 
 #pragma mark - Private
 
-- (webrtc::PeerConnectionInterface::RTCConfiguration *)
-    createNativeConfiguration {
-  std::unique_ptr<webrtc::PeerConnectionInterface::RTCConfiguration>
-      nativeConfig(new webrtc::PeerConnectionInterface::RTCConfiguration(
+- (webrtc::PeerConnectionInterface::RTCConfiguration *)createNativeConfiguration {
+  std::unique_ptr<webrtc::PeerConnectionInterface::RTCConfiguration> nativeConfig(
+      new webrtc::PeerConnectionInterface::RTCConfiguration(
           webrtc::PeerConnectionInterface::RTCConfigurationType::kAggressive));
 
   nativeConfig->set_dscp(_enableDscp);
   for (RTC_OBJC_TYPE(RTCIceServer) * iceServer in _iceServers) {
     nativeConfig->servers.push_back(iceServer.nativeServer);
   }
-  nativeConfig->type =
-      [[self class] nativeTransportsTypeForTransportPolicy:_iceTransportPolicy];
-  nativeConfig->bundle_policy =
-      [[self class] nativeBundlePolicyForPolicy:_bundlePolicy];
-  nativeConfig->rtcp_mux_policy =
-      [[self class] nativeRtcpMuxPolicyForPolicy:_rtcpMuxPolicy];
+  nativeConfig->type = [[self class] nativeTransportsTypeForTransportPolicy:_iceTransportPolicy];
+  nativeConfig->bundle_policy = [[self class] nativeBundlePolicyForPolicy:_bundlePolicy];
+  nativeConfig->rtcp_mux_policy = [[self class] nativeRtcpMuxPolicyForPolicy:_rtcpMuxPolicy];
   nativeConfig->tcp_candidate_policy =
       [[self class] nativeTcpCandidatePolicyForPolicy:_tcpCandidatePolicy];
-  nativeConfig->candidate_network_policy = [[self class]
-      nativeCandidateNetworkPolicyForPolicy:_candidateNetworkPolicy];
+  nativeConfig->candidate_network_policy =
+      [[self class] nativeCandidateNetworkPolicyForPolicy:_candidateNetworkPolicy];
   nativeConfig->continual_gathering_policy =
       [[self class] nativeContinualGatheringPolicyForPolicy:_continualGatheringPolicy];
   nativeConfig->disable_ipv6_on_wifi = _disableIPV6OnWiFi;
@@ -222,13 +210,10 @@
   nativeConfig->disable_link_local_networks = _disableLinkLocalNetworks;
   nativeConfig->audio_jitter_buffer_max_packets = _audioJitterBufferMaxPackets;
   nativeConfig->audio_jitter_buffer_fast_accelerate =
-      _audioJitterBufferFastAccelerate  ? true : false;
-  nativeConfig->ice_connection_receiving_timeout =
-      _iceConnectionReceivingTimeout;
-  nativeConfig->ice_backup_candidate_pair_ping_interval =
-      _iceBackupCandidatePairPingInterval;
-  rtc::KeyType keyType =
-      [[self class] nativeEncryptionKeyTypeForKeyType:_keyType];
+      _audioJitterBufferFastAccelerate ? true : false;
+  nativeConfig->ice_connection_receiving_timeout = _iceConnectionReceivingTimeout;
+  nativeConfig->ice_backup_candidate_pair_ping_interval = _iceBackupCandidatePairPingInterval;
+  rtc::KeyType keyType = [[self class] nativeEncryptionKeyTypeForKeyType:_keyType];
   if (_certificate != nullptr) {
     // if offered a pemcert use it...
     RTC_LOG(LS_INFO) << "Have configured cert - using it.";
@@ -307,8 +292,8 @@
   return nativeConfig.release();
 }
 
-+ (webrtc::PeerConnectionInterface::IceTransportsType)
-    nativeTransportsTypeForTransportPolicy:(RTCIceTransportPolicy)policy {
++ (webrtc::PeerConnectionInterface::IceTransportsType)nativeTransportsTypeForTransportPolicy:
+    (RTCIceTransportPolicy)policy {
   switch (policy) {
     case RTCIceTransportPolicyNone:
       return webrtc::PeerConnectionInterface::kNone;
@@ -412,8 +397,8 @@
   }
 }
 
-+ (webrtc::PeerConnectionInterface::TcpCandidatePolicy)
-    nativeTcpCandidatePolicyForPolicy:(RTCTcpCandidatePolicy)policy {
++ (webrtc::PeerConnectionInterface::TcpCandidatePolicy)nativeTcpCandidatePolicyForPolicy:
+    (RTCTcpCandidatePolicy)policy {
   switch (policy) {
     case RTCTcpCandidatePolicyEnabled:
       return webrtc::PeerConnectionInterface::kTcpCandidatePolicyEnabled;
@@ -422,8 +407,8 @@
   }
 }
 
-+ (webrtc::PeerConnectionInterface::CandidateNetworkPolicy)
-    nativeCandidateNetworkPolicyForPolicy:(RTCCandidateNetworkPolicy)policy {
++ (webrtc::PeerConnectionInterface::CandidateNetworkPolicy)nativeCandidateNetworkPolicyForPolicy:
+    (RTCCandidateNetworkPolicy)policy {
   switch (policy) {
     case RTCCandidateNetworkPolicyAll:
       return webrtc::PeerConnectionInterface::kCandidateNetworkPolicyAll;
@@ -461,8 +446,7 @@
   }
 }
 
-+ (NSString *)stringForCandidateNetworkPolicy:
-    (RTCCandidateNetworkPolicy)policy {
++ (NSString *)stringForCandidateNetworkPolicy:(RTCCandidateNetworkPolicy)policy {
   switch (policy) {
     case RTCCandidateNetworkPolicyAll:
       return @"CANDIDATE_ALL_NETWORKS";
@@ -472,8 +456,7 @@
 }
 
 + (webrtc::PeerConnectionInterface::ContinualGatheringPolicy)
-    nativeContinualGatheringPolicyForPolicy:
-        (RTCContinualGatheringPolicy)policy {
+    nativeContinualGatheringPolicyForPolicy:(RTCContinualGatheringPolicy)policy {
   switch (policy) {
     case RTCContinualGatheringPolicyGatherOnce:
       return webrtc::PeerConnectionInterface::GATHER_ONCE;
@@ -492,8 +475,7 @@
   }
 }
 
-+ (NSString *)stringForContinualGatheringPolicy:
-    (RTCContinualGatheringPolicy)policy {
++ (NSString *)stringForContinualGatheringPolicy:(RTCContinualGatheringPolicy)policy {
   switch (policy) {
     case RTCContinualGatheringPolicyGatherOnce:
       return @"GATHER_ONCE";
@@ -502,8 +484,7 @@
   }
 }
 
-+ (rtc::KeyType)nativeEncryptionKeyTypeForKeyType:
-    (RTCEncryptionKeyType)keyType {
++ (rtc::KeyType)nativeEncryptionKeyTypeForKeyType:(RTCEncryptionKeyType)keyType {
   switch (keyType) {
     case RTCEncryptionKeyTypeRSA:
       return rtc::KT_RSA;

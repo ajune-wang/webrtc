@@ -86,11 +86,10 @@
     }
   }
   // Create a wrapper that provides a native pointer for us.
-  RTCVideoRendererAdapter* adapter =
+  RTCVideoRendererAdapter *adapter =
       [[RTCVideoRendererAdapter alloc] initWithNativeRenderer:renderer];
   [_adapters addObject:adapter];
-  self.nativeVideoTrack->AddOrUpdateSink(adapter.nativeVideoRenderer,
-                                         rtc::VideoSinkWants());
+  self.nativeVideoTrack->AddOrUpdateSink(adapter.nativeVideoRenderer, rtc::VideoSinkWants());
 }
 
 - (void)removeRenderer:(id<RTC_OBJC_TYPE(RTCVideoRenderer)>)renderer {
@@ -99,20 +98,18 @@
     return;
   }
   __block NSUInteger indexToRemove = NSNotFound;
-  [_adapters enumerateObjectsUsingBlock:^(RTCVideoRendererAdapter *adapter,
-                                          NSUInteger idx,
-                                          BOOL *stop) {
-    if (adapter.videoRenderer == renderer) {
-      indexToRemove = idx;
-      *stop = YES;
-    }
-  }];
+  [_adapters
+      enumerateObjectsUsingBlock:^(RTCVideoRendererAdapter *adapter, NSUInteger idx, BOOL *stop) {
+        if (adapter.videoRenderer == renderer) {
+          indexToRemove = idx;
+          *stop = YES;
+        }
+      }];
   if (indexToRemove == NSNotFound) {
     RTC_LOG(LS_INFO) << "removeRenderer called with a renderer that has not been previously added";
     return;
   }
-  RTCVideoRendererAdapter *adapterToRemove =
-      [_adapters objectAtIndex:indexToRemove];
+  RTCVideoRendererAdapter *adapterToRemove = [_adapters objectAtIndex:indexToRemove];
   self.nativeVideoTrack->RemoveSink(adapterToRemove.nativeVideoRenderer);
   [_adapters removeObjectAtIndex:indexToRemove];
 }

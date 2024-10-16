@@ -219,7 +219,8 @@ void decompressionOutputCallback(void *decoderRef,
   };
 
   VTDecompressionOutputCallbackRecord record = {
-      decompressionOutputCallback, (__bridge void *)self,
+      decompressionOutputCallback,
+      (__bridge void *)self,
   };
   OSStatus status = VTDecompressionSessionCreate(nullptr,
                                                  _videoFormat,

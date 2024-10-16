@@ -17,13 +17,13 @@
 #include "system_wrappers/include/field_trial.h"
 
 NSString *const kRTCFieldTrialAudioForceABWENoTWCCKey = @"WebRTC-Audio-ABWENoTWCC";
-NSString * const kRTCFieldTrialFlexFec03AdvertisedKey = @"WebRTC-FlexFEC-03-Advertised";
-NSString * const kRTCFieldTrialFlexFec03Key = @"WebRTC-FlexFEC-03";
-NSString * const kRTCFieldTrialH264HighProfileKey = @"WebRTC-H264HighProfile";
-NSString * const kRTCFieldTrialMinimizeResamplingOnMobileKey =
+NSString *const kRTCFieldTrialFlexFec03AdvertisedKey = @"WebRTC-FlexFEC-03-Advertised";
+NSString *const kRTCFieldTrialFlexFec03Key = @"WebRTC-FlexFEC-03";
+NSString *const kRTCFieldTrialH264HighProfileKey = @"WebRTC-H264HighProfile";
+NSString *const kRTCFieldTrialMinimizeResamplingOnMobileKey =
     @"WebRTC-Audio-MinimizeResamplingOnMobile";
 NSString *const kRTCFieldTrialUseNWPathMonitor = @"WebRTC-Network-UseNWPathMonitor";
-NSString * const kRTCFieldTrialEnabledValue = @"Enabled";
+NSString *const kRTCFieldTrialEnabledValue = @"Enabled";
 
 // InitFieldTrialsFromString stores the char*, so the char array must outlive
 // the application.

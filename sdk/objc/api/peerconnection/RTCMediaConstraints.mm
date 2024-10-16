@@ -33,16 +33,12 @@ NSString *const kRTCMediaConstraintsValueFalse = @(webrtc::MediaConstraints::kVa
   NSDictionary<NSString *, NSString *> *_optional;
 }
 
-- (instancetype)initWithMandatoryConstraints:
-    (NSDictionary<NSString *, NSString *> *)mandatory
-                         optionalConstraints:
-    (NSDictionary<NSString *, NSString *> *)optional {
+- (instancetype)initWithMandatoryConstraints:(NSDictionary<NSString *, NSString *> *)mandatory
+                         optionalConstraints:(NSDictionary<NSString *, NSString *> *)optional {
   self = [super init];
   if (self) {
-    _mandatory = [[NSDictionary alloc] initWithDictionary:mandatory
-                                                copyItems:YES];
-    _optional = [[NSDictionary alloc] initWithDictionary:optional
-                                               copyItems:YES];
+    _mandatory = [[NSDictionary alloc] initWithDictionary:mandatory copyItems:YES];
+    _optional = [[NSDictionary alloc] initWithDictionary:optional copyItems:YES];
   }
   return self;
 }
@@ -60,8 +56,7 @@ NSString *const kRTCMediaConstraintsValueFalse = @(webrtc::MediaConstraints::kVa
   webrtc::MediaConstraints::Constraints optional =
       [[self class] nativeConstraintsForConstraints:_optional];
 
-  webrtc::MediaConstraints *nativeConstraints =
-      new webrtc::MediaConstraints(mandatory, optional);
+  webrtc::MediaConstraints *nativeConstraints = new webrtc::MediaConstraints(mandatory, optional);
   return std::unique_ptr<webrtc::MediaConstraints>(nativeConstraints);
 }
 
@@ -69,11 +64,9 @@ NSString *const kRTCMediaConstraintsValueFalse = @(webrtc::MediaConstraints::kVa
     (NSDictionary<NSString *, NSString *> *)constraints {
   webrtc::MediaConstraints::Constraints nativeConstraints;
   for (NSString *key in constraints) {
-    NSAssert([key isKindOfClass:[NSString class]],
-             @"%@ is not an NSString.", key);
+    NSAssert([key isKindOfClass:[NSString class]], @"%@ is not an NSString.", key);
     NSString *value = [constraints objectForKey:key];
-    NSAssert([value isKindOfClass:[NSString class]],
-             @"%@ is not an NSString.", value);
+    NSAssert([value isKindOfClass:[NSString class]], @"%@ is not an NSString.", value);
     if ([kRTCMediaConstraintsAudioNetworkAdaptorConfig isEqualToString:key]) {
       // This value is base64 encoded.
       NSData *charData = [[NSData alloc] initWithBase64EncodedString:value options:0];

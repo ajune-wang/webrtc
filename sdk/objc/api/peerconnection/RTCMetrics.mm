@@ -23,8 +23,7 @@ NSArray<RTC_OBJC_TYPE(RTCMetricsSampleInfo) *> *RTCGetAndResetMetrics(void) {
       histograms;
   webrtc::metrics::GetAndReset(&histograms);
 
-  NSMutableArray *metrics =
-      [NSMutableArray arrayWithCapacity:histograms.size()];
+  NSMutableArray *metrics = [NSMutableArray arrayWithCapacity:histograms.size()];
   for (auto const &histogram : histograms) {
     RTC_OBJC_TYPE(RTCMetricsSampleInfo) *metric =
         [[RTC_OBJC_TYPE(RTCMetricsSampleInfo) alloc] initWithNativeSampleInfo:*histogram.second];

@@ -32,8 +32,7 @@
   RTC_OBJC_TYPE(RTCIceCandidate) *candidate =
       [[RTC_OBJC_TYPE(RTCIceCandidate) alloc] initWithSdp:sdp sdpMLineIndex:0 sdpMid:@"audio"];
 
-  std::unique_ptr<webrtc::IceCandidateInterface> nativeCandidate =
-      candidate.nativeCandidate;
+  std::unique_ptr<webrtc::IceCandidateInterface> nativeCandidate = candidate.nativeCandidate;
   EXPECT_EQ("audio", nativeCandidate->sdp_mid());
   EXPECT_EQ(0, nativeCandidate->sdp_mline_index());
 

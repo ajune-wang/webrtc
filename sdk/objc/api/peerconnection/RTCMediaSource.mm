@@ -39,8 +39,7 @@
 
 #pragma mark - Private
 
-+ (webrtc::MediaSourceInterface::SourceState)nativeSourceStateForState:
-    (RTCSourceState)state {
++ (webrtc::MediaSourceInterface::SourceState)nativeSourceStateForState:(RTCSourceState)state {
   switch (state) {
     case RTCSourceStateInitializing:
       return webrtc::MediaSourceInterface::kInitializing;
@@ -53,8 +52,7 @@
   }
 }
 
-+ (RTCSourceState)sourceStateForNativeState:
-    (webrtc::MediaSourceInterface::SourceState)nativeState {
++ (RTCSourceState)sourceStateForNativeState:(webrtc::MediaSourceInterface::SourceState)nativeState {
   switch (nativeState) {
     case webrtc::MediaSourceInterface::kInitializing:
       return RTCSourceStateInitializing;

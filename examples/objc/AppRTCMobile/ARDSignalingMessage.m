@@ -16,8 +16,8 @@
 #import "RTCIceCandidate+JSON.h"
 #import "RTCSessionDescription+JSON.h"
 
-static NSString * const kARDSignalingMessageTypeKey = @"type";
-static NSString * const kARDTypeValueRemoveCandidates = @"remove-candidates";
+static NSString *const kARDSignalingMessageTypeKey = @"type";
+static NSString *const kARDTypeValueRemoveCandidates = @"remove-candidates";
 
 @implementation ARDSignalingMessage
 
@@ -32,8 +32,7 @@ static NSString * const kARDTypeValueRemoveCandidates = @"remove-candidates";
 }
 
 - (NSString *)description {
-  return [[NSString alloc] initWithData:[self JSONData]
-                               encoding:NSUTF8StringEncoding];
+  return [[NSString alloc] initWithData:[self JSONData] encoding:NSUTF8StringEncoding];
 }
 
 + (ARDSignalingMessage *)messageFromJSONString:(NSString *)jsonString {
@@ -53,14 +52,11 @@ static NSString * const kARDTypeValueRemoveCandidates = @"remove-candidates";
     RTCLogInfo(@"Received remove-candidates message");
     NSArray<RTC_OBJC_TYPE(RTCIceCandidate) *> *candidates =
         [RTC_OBJC_TYPE(RTCIceCandidate) candidatesFromJSONDictionary:values];
-    message = [[ARDICECandidateRemovalMessage alloc]
-                  initWithRemovedCandidates:candidates];
-  } else if ([typeString isEqualToString:@"offer"] ||
-             [typeString isEqualToString:@"answer"]) {
+    message = [[ARDICECandidateRemovalMessage alloc] initWithRemovedCandidates:candidates];
+  } else if ([typeString isEqualToString:@"offer"] || [typeString isEqualToString:@"answer"]) {
     RTC_OBJC_TYPE(RTCSessionDescription) *description =
         [RTC_OBJC_TYPE(RTCSessionDescription) descriptionFromJSONDictionary:values];
-    message =
-        [[ARDSessionDescriptionMessage alloc] initWithDescription:description];
+    message = [[ARDSessionDescriptionMessage alloc] initWithDescription:description];
   } else if ([typeString isEqualToString:@"bye"]) {
     message = [[ARDByeMessage alloc] init];
   } else {
@@ -153,9 +149,7 @@ static NSString * const kARDTypeValueRemoveCandidates = @"remove-candidates";
 }
 
 - (NSData *)JSONData {
-  NSDictionary *message = @{
-    @"type": @"bye"
-  };
+  NSDictionary *message = @{@"type" : @"bye"};
   return [NSJSONSerialization dataWithJSONObject:message
                                          options:NSJSONWritingPrettyPrinted
                                            error:NULL];

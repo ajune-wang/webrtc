@@ -9,6 +9,7 @@
  */
 
 #include "api/audio/audio_processing.h"
+
 #include <string>
 
 #include "rtc_base/checks.h"

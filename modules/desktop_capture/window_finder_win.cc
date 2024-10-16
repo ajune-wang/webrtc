@@ -21,6 +21,8 @@ WindowFinderWin::~WindowFinderWin() = default;
 
 WindowId WindowFinderWin::GetWindowUnderPoint(DesktopVector point) {
   HWND window = WindowFromPoint(POINT{point.x(), point.y()});
+
+  RTC_LOG(LS_INFO) << "Found window " << window;
   if (!window) {
     return kNullWindowId;
   }

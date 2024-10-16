@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1eb0542d_4ddd2410",
+        "filename": "video/end_to_end_tests/corruption_detection_tests.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2024-10-16T15:41:17Z",
+      "side": 1,
+      "message": "nit: maybe Reports",
+      "range": {
+        "startLine": 48,
+        "startChar": 4,
+        "endLine": 48,
+        "endChar": 10
+      },
+      "revId": "0b6a77b8313c2572e58cb10a12df6f74f86acc63",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

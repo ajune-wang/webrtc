@@ -11,18 +11,19 @@
 // Integration tests for PeerConnection.
 // These tests exercise a full stack for the SVC extension.
 
-#include <stdint.h>
-
-#include <functional>
+#include <algorithm>
 #include <vector>
 
 #include "absl/strings/match.h"
+#include "absl/strings/string_view.h"
+#include "api/media_types.h"
+#include "api/peer_connection_interface.h"
 #include "api/rtc_error.h"
 #include "api/rtp_parameters.h"
 #include "api/rtp_transceiver_interface.h"
 #include "api/scoped_refptr.h"
+#include "media/base/media_constants.h"
 #include "pc/test/integration_test_helpers.h"
-#include "rtc_base/crypto_random.h"
 #include "rtc_base/gunit.h"
 #include "test/gtest.h"
 

@@ -14,7 +14,9 @@
 
 #include <limits>
 #include <optional>
+#include <string>
 
+#include "absl/strings/string_view.h"
 #include "api/priority.h"
 #include "media/sctp/sctp_transport_internal.h"
 #include "rtc_base/byte_buffer.h"

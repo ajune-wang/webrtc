@@ -11,7 +11,12 @@
 #include "pc/audio_rtp_receiver.h"
 
 #include <atomic>
+#include <cstdint>
+#include <string>
+#include <vector>
 
+#include "api/make_ref_counted.h"
+#include "api/scoped_refptr.h"
 #include "pc/test/mock_voice_media_receive_channel_interface.h"
 #include "rtc_base/gunit.h"
 #include "rtc_base/thread.h"

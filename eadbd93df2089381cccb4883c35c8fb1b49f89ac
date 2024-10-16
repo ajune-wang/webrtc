@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ef769042_0023c173",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2024-10-16T07:34:30Z",
+      "side": 1,
+      "message": "Thank you!",
+      "revId": "eadbd93df2089381cccb4883c35c8fb1b49f89ac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "12c792e7_e8c1ad28",
+        "filename": "video/video_receive_stream2.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 580,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2024-10-16T07:34:30Z",
+      "side": 1,
+      "message": "Speaking of precision errors, is this the kind of thing that results in precision reduction from microseconds to milliseconds?",
+      "revId": "eadbd93df2089381cccb4883c35c8fb1b49f89ac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

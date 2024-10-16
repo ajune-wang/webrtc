@@ -153,6 +153,53 @@
       },
       "revId": "553ac9282c1953b58ac7168d5a4dfb2a2a9ca5a8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "43d24d1b_108bdcbb",
+        "filename": "modules/congestion_controller/receive_side_congestion_controller.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2024-10-16T06:57:25Z",
+      "side": 1,
+      "message": "OK by me if I understand correctly:\nIf RFC8888 has been negotiated, send feedback according to RFC8888\nIf transport sequence numbers on incoming packets are present - also send feedback according to the old feedback format. (regardless of negotiation for now?)\n\nIf RFC8888 has not  been negotiated, keep old logic. \n\n```\nbool has_transport_sequence_number \u003d\n      packet.HasExtension\u003cTransportSequenceNumber\u003e() ||\n      packet.HasExtension\u003cTransportSequenceNumberV2\u003e();\n\nif (send_rfc8888_congestion_feedback_) {\n    RTC_DCHECK_RUN_ON(\u0026sequence_checker_);\n    congestion_control_feedback_generator_.OnReceivedPacket(packet);\n    // and a comment here why with a todo to remove? \n    if (has_transport_sequence_number) {\n      transport_sequence_number_feedback_generator_.OnReceivedPacket(packet);\n    }\n    return\n}\n```",
+      "parentUuid": "edaead16_c56d9375",
+      "range": {
+        "startLine": 131,
+        "startChar": 4,
+        "endLine": 131,
+        "endChar": 8
+      },
+      "revId": "553ac9282c1953b58ac7168d5a4dfb2a2a9ca5a8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bf6f56cb_c439e27e",
+        "filename": "modules/congestion_controller/receive_side_congestion_controller.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2024-10-16T06:57:25Z",
+      "side": 1,
+      "message": "probably just move the min time check in here too and return.",
+      "range": {
+        "startLine": 149,
+        "startChar": 24,
+        "endLine": 149,
+        "endChar": 62
+      },
+      "revId": "553ac9282c1953b58ac7168d5a4dfb2a2a9ca5a8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -22,6 +22,29 @@
       },
       "revId": "fd53e4692d3838dde2d8e536f3e62f000642ffce",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e1feb6d1_edb98dcd",
+        "filename": "modules/rtp_rtcp/source/video_rtp_depacketizer_h264_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 313,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2024-10-16T09:14:22Z",
+      "side": 1,
+      "message": "Why is this check removed? If it fails, you should maybe update `kExpected1`",
+      "range": {
+        "startLine": 309,
+        "startChar": 0,
+        "endLine": 313,
+        "endChar": 44
+      },
+      "revId": "fd53e4692d3838dde2d8e536f3e62f000642ffce",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

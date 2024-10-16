@@ -1,0 +1,159 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a9e3ee9f_a7e17ee3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2024-10-16T09:14:22Z",
+      "side": 1,
+      "message": "Thanks! Overall it looks great, I just have some nits and code structure suggestions.",
+      "revId": "4886c6b6e8c7056fc71dd0240db97def46d0d051",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e7a1430e_fb88f191",
+        "filename": "modules/rtp_rtcp/source/video_rtp_depacketizer_h264.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2024-10-16T09:14:22Z",
+      "side": 1,
+      "message": "name should be kStartCodeH264 according to code style: https://google.github.io/styleguide/cppguide.html#Constant_Names",
+      "range": {
+        "startLine": 36,
+        "startChar": 18,
+        "endLine": 36,
+        "endChar": 33
+      },
+      "revId": "4886c6b6e8c7056fc71dd0240db97def46d0d051",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "41b898f0_6acd9c40",
+        "filename": "modules/rtp_rtcp/source/video_rtp_depacketizer_h264.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2024-10-16T09:14:22Z",
+      "side": 1,
+      "message": "I coundn\u0027t find any usages of `type`. Why do you need it?",
+      "range": {
+        "startLine": 47,
+        "startChar": 2,
+        "endLine": 47,
+        "endChar": 15
+      },
+      "revId": "4886c6b6e8c7056fc71dd0240db97def46d0d051",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "af5cb575_e11ba37f",
+        "filename": "modules/rtp_rtcp/source/video_rtp_depacketizer_h264.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2024-10-16T09:14:22Z",
+      "side": 1,
+      "message": "nit: Maybe use `header.type` here to make it more clear that it\u0027s a copy of the original value. With these bitmasks it\u0027s not immideatly obvious that these 2 expressions are the same.",
+      "range": {
+        "startLine": 59,
+        "startChar": 29,
+        "endLine": 59,
+        "endChar": 52
+      },
+      "revId": "4886c6b6e8c7056fc71dd0240db97def46d0d051",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "db0677ea_1fd5918a",
+        "filename": "modules/rtp_rtcp/source/video_rtp_depacketizer_h264.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 316,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2024-10-16T09:14:22Z",
+      "side": 1,
+      "message": "Is it possible to save to `nalus` already rewritten SPS? You\u0027ll have to store rewritten SPS in a vector of rtc::Buffer for the duration of this function, but you won\u0027t have to allocate extra ~40 bytes for each SPS and it will simplify the assmebly code below.\n\nMaybe write a helper function, since there are 2 places where you add SPS to `nalus`.\n\nI think this might make code more straight forward and would\u0027t require assumptions on max size increase.\n\nBut feed free to push back on this. Maybe while implementing it you\u0027ll discover some issues I yet fail to see.",
+      "range": {
+        "startLine": 315,
+        "startChar": 59,
+        "endLine": 316,
+        "endChar": 18
+      },
+      "revId": "4886c6b6e8c7056fc71dd0240db97def46d0d051",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "19fca618_fad372e3",
+        "filename": "modules/rtp_rtcp/source/video_rtp_depacketizer_h264_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 327,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2024-10-16T09:14:22Z",
+      "side": 1,
+      "message": "Please add back the check for the `parsed2` contents.",
+      "range": {
+        "startLine": 327,
+        "startChar": 2,
+        "endLine": 327,
+        "endChar": 23
+      },
+      "revId": "4886c6b6e8c7056fc71dd0240db97def46d0d051",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8c8c7330_04e36b47",
+        "filename": "modules/video_coding/h264_sps_pps_tracker.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2024-10-16T09:14:22Z",
+      "side": 1,
+      "message": "nit: This name is confusing to me. Maybe something like UpdateHeaderwithSpsPps?",
+      "range": {
+        "startLine": 38,
+        "startChar": 15,
+        "endLine": 38,
+        "endChar": 20
+      },
+      "revId": "4886c6b6e8c7056fc71dd0240db97def46d0d051",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

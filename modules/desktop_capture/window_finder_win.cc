@@ -14,6 +14,8 @@
 
 #include <memory>
 
+#include "rtc_base/logging.h"
+
 namespace webrtc {
 
 WindowFinderWin::WindowFinderWin() = default;
@@ -21,6 +23,8 @@ WindowFinderWin::~WindowFinderWin() = default;
 
 WindowId WindowFinderWin::GetWindowUnderPoint(DesktopVector point) {
   HWND window = WindowFromPoint(POINT{point.x(), point.y()});
+
+  RTC_LOG(LS_INFO) << "Found window " << window;
   if (!window) {
     return kNullWindowId;
   }

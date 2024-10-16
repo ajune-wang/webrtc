@@ -32,13 +32,13 @@ struct VoipEngineConfig {
   // AudioEncoderFactory provides a set of audio codecs for VoipEngine to encode
   // the audio input sample. Application can choose to limit the set to reduce
   // application footprint.
-  rtc::scoped_refptr<AudioEncoderFactory> encoder_factory;
+  scoped_refptr<AudioEncoderFactory> encoder_factory;
 
   // Mandatory (e.g. api/audio_codec/builtin_audio_decoder_factory).
   // AudioDecoderFactory provides a set of audio codecs for VoipEngine to decode
   // the received RTP packets from remote media endpoint. Application can choose
   // to limit the set to reduce application footprint.
-  rtc::scoped_refptr<AudioDecoderFactory> decoder_factory;
+  scoped_refptr<AudioDecoderFactory> decoder_factory;
 
   // Mandatory (e.g. api/task_queue/default_task_queue_factory).
   // TaskQeueuFactory provided for VoipEngine to work asynchronously on its
@@ -49,15 +49,19 @@ struct VoipEngineConfig {
   // AudioDeviceModule that periocally provides audio input samples from
   // recording device (e.g. microphone) and requests audio output samples to
   // play through its output device (e.g. speaker).
-  rtc::scoped_refptr<AudioDeviceModule> audio_device_module;
+  scoped_refptr<AudioDeviceModule> audio_device_module;
 
-  // Optional (e.g. modules/audio_processing/include).
+  // Optional (e.g. api/audio/builtin_audio_processing_factory).
   // AudioProcessing provides audio procesing functionalities (e.g. acoustic
   // echo cancellation, noise suppression, gain control, etc) on audio input
   // samples for VoipEngine. When optionally not set, VoipEngine will not have
   // such functionalities to perform on audio input samples received from
   // AudioDeviceModule.
-  rtc::scoped_refptr<AudioProcessing> audio_processing;
+  std::unique_ptr<AudioProcessingFactory> audio_processing_factory;
+
+  // TODO: bugs.webrtc.org/369904700 - Remove when users are migrated to set
+  // `audio_processing_factory` instead.
+  [[deprecated]] scoped_refptr<AudioProcessing> audio_processing;
 };
 
 // Creates a VoipEngine instance with provided VoipEngineConfig.

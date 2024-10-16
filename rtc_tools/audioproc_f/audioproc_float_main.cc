@@ -10,10 +10,10 @@
 
 #include <memory>
 
-#include "api/audio/audio_processing.h"
+#include "api/audio/builtin_audio_processing_factory.h"
 #include "api/test/audioproc_float.h"
 
 int main(int argc, char* argv[]) {
   return webrtc::test::AudioprocFloat(
-      std::make_unique<webrtc::AudioProcessingBuilder>(), argc, argv);
+      std::make_unique<webrtc::BuiltinAudioProcessingFactory>(), argc, argv);
 }

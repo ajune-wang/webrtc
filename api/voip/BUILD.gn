@@ -36,6 +36,7 @@ rtc_library("voip_engine_factory") {
   ]
   deps = [
     ":voip_api",
+    "..:field_trials_view",
     "..:scoped_refptr",
     "../../audio/voip:voip_core",
     "../../rtc_base:checks",

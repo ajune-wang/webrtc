@@ -14,6 +14,7 @@
 #include <memory>
 
 #include "api/audio/audio_processing.h"
+#include "api/audio/builtin_audio_processing_factory.h"
 #include "api/scoped_refptr.h"
 
 namespace webrtc {
@@ -31,7 +32,7 @@ namespace test {
 // is needed to pass the command line flags as `argc` and `argv`, so these can
 // be interpreted properly by the utility. To see a list of all supported
 // command line flags, run the executable with the '--help' flag.
-int AudioprocFloat(rtc::scoped_refptr<AudioProcessing> audio_processing,
+int AudioprocFloat(scoped_refptr<AudioProcessing> audio_processing,
                    int argc,
                    char* argv[]);
 
@@ -49,7 +50,7 @@ int AudioprocFloat(rtc::scoped_refptr<AudioProcessing> audio_processing,
 // line arguments into this function.
 // To see a list of all supported command line flags, run the executable with
 // the '--help' flag.
-int AudioprocFloat(std::unique_ptr<AudioProcessingBuilder> ap_builder,
+int AudioprocFloat(std::unique_ptr<BuiltinAudioProcessingFactory> ap_builder,
                    int argc,
                    char* argv[]);
 

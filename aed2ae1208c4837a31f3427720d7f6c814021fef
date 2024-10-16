@@ -51,6 +51,70 @@
       "parentUuid": "c4bdba42_327002a9",
       "revId": "aed2ae1208c4837a31f3427720d7f6c814021fef",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c02ad5d6_504795bd",
+        "filename": "modules/desktop_capture/mac/screen_capturer_sck.mm",
+        "patchSetId": 4
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2024-10-16T23:33:43Z",
+      "side": 1,
+      "message": "Generally I agree with Lambros, the thing I\u0027d be concerned about though is if this triggers an event itself that the size had changed, while `frame` likely wouldn\u0027t end up getting changed until the next one is produced.\n\nAs a compromise, perhaps a check here that we\u0027re still e.g. capturing or something similar.",
+      "parentUuid": "0ba6d32f_6f478a67",
+      "revId": "aed2ae1208c4837a31f3427720d7f6c814021fef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5773f68f_b947010b",
+        "filename": "modules/desktop_capture/mac/screen_capturer_sck.mm",
+        "patchSetId": 4
+      },
+      "lineNbr": 360,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2024-10-16T23:33:43Z",
+      "side": 1,
+      "message": "We shouldn\u0027t turn all of these into ternarys, but it\u0027d be more readable (and I think more compliant with the style guide[1]), if we did:\n\n```\nvar foo \u003d default\nif (auto real_foo \u003d ...) {\n  foo \u003d real_foo\n}\n\nvar foo2\n...\n```\n\n(And `status` and that switch could probably be replaced by an early return bool within the parsing block actually)\n\n[1] https://google.github.io/styleguide/objcguide.html#local-variables, I didn\u0027t find anything overruling this down the chain to WebRTC, though I have vague recollections that maybe it once did?",
+      "range": {
+        "startLine": 355,
+        "startChar": 0,
+        "endLine": 360,
+        "endChar": 46
+      },
+      "revId": "aed2ae1208c4837a31f3427720d7f6c814021fef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5abf8741_44f96048",
+        "filename": "modules/desktop_capture/mac/screen_capturer_sck.mm",
+        "patchSetId": 4
+      },
+      "lineNbr": 402,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2024-10-16T23:33:43Z",
+      "side": 1,
+      "message": "NIT: The break/return pairing is a little subtle here, it may be better to be a bit more explicit and set a bool e.g. `needs_processing \u003d false` that is set `true` in the Complete/Started case and then checked to trigger a return?",
+      "range": {
+        "startLine": 391,
+        "startChar": 0,
+        "endLine": 402,
+        "endChar": 3
+      },
+      "revId": "aed2ae1208c4837a31f3427720d7f6c814021fef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

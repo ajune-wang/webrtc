@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "17e0f9b1_b8280ab6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-16T08:32:34Z",
+      "side": 1,
+      "message": "you can link internal bug here for a better history, if you wish:\nb/\u003cnumber\u003e",
+      "range": {
+        "startLine": 11,
+        "startChar": 4,
+        "endLine": 11,
+        "endChar": 8
+      },
+      "revId": "f299e4532c0ab139e7dc3612a18984cf1afbd0af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7cf102a6_c2aa2214",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-16T08:32:34Z",
+      "side": 1,
+      "message": "just minor style nits",
+      "revId": "f299e4532c0ab139e7dc3612a18984cf1afbd0af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "54280db1_99673f31",
+        "filename": "call/rtp_payload_params_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1383,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-16T08:32:34Z",
+      "side": 1,
+      "message": "http://go/c-readability-advice#single-use-vars\n```suggestion\n    EXPECT_THAT(header.generic-\u003edecode_target_indications,\n                ElementsAreArray(expected_decode_target_indication));\n```",
+      "range": {
+        "startLine": 1379,
+        "startChar": 0,
+        "endLine": 1383,
+        "endChar": 49
+      },
+      "revId": "f299e4532c0ab139e7dc3612a18984cf1afbd0af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7e25bbd1_71c595cc",
+        "filename": "call/rtp_video_sender_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1146,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-16T08:32:34Z",
+      "side": 1,
+      "message": "Do not set vp9 codec specific info for the h264 encoded image",
+      "revId": "f299e4532c0ab139e7dc3612a18984cf1afbd0af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

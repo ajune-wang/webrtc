@@ -1,6 +1,29 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "f4e9f3b8_d2e186c8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-17T12:03:31Z",
+      "side": 1,
+      "message": "you mean `RtpPacketToSend` ?",
+      "range": {
+        "startLine": 9,
+        "startChar": 13,
+        "endLine": 9,
+        "endChar": 26
+      },
+      "revId": "7721d3ad0d75fbaab277faf4ac9690f06b9d1be6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "21030826_ea112687",
@@ -14,6 +37,75 @@
       "writtenOn": "2024-10-17T10:17:00Z",
       "side": 1,
       "message": "Would you mind?",
+      "revId": "7721d3ad0d75fbaab277faf4ac9690f06b9d1be6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "59ec64c0_0b700362",
+        "filename": "modules/congestion_controller/rtp/transport_feedback_adapter_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-17T12:03:31Z",
+      "side": 1,
+      "message": "May be do not pass parameters that caller can as well use directly.\n\n\n```suggestion\nRtpPacketToSend CreatePacketToSend(const PacketResult\u0026 packetr) {\n  RtpPacketToSend send_packet(nullptr);\n  send_packet.SetSsrc(kSsrc);\n  send_packet.SetPayloadSize(packet.sent_packet.size.bytes() -\n                             send_packet.headers_size());\n  send_packet.set_transport_sequence_number(packet.sent_packet.sequence_number);\n\n  return send_packet;\n}\n```",
+      "range": {
+        "startLine": 80,
+        "startChar": 0,
+        "endLine": 91,
+        "endChar": 1
+      },
+      "revId": "7721d3ad0d75fbaab277faf4ac9690f06b9d1be6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9dc9d5d5_80ed610d",
+        "filename": "rtc_tools/rtc_event_log_visualizer/analyzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1752,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-17T12:03:31Z",
+      "side": 1,
+      "message": "```suggestion\n        RTC_DCHECK_EQ(send_packet.size(), rtp_packet.rtp.total_length);\n```",
+      "range": {
+        "startLine": 1752,
+        "startChar": 8,
+        "endLine": 1752,
+        "endChar": 18
+      },
+      "revId": "7721d3ad0d75fbaab277faf4ac9690f06b9d1be6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2193d5cd_d2793a3b",
+        "filename": "rtc_tools/rtc_event_log_visualizer/log_simulation.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-17T12:03:31Z",
+      "side": 1,
+      "message": "```suggestion\n    RTC_DCHECK_EQ(send_packet.size(), packet.size);\n```",
+      "range": {
+        "startLine": 107,
+        "startChar": 4,
+        "endLine": 107,
+        "endChar": 50
+      },
       "revId": "7721d3ad0d75fbaab277faf4ac9690f06b9d1be6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

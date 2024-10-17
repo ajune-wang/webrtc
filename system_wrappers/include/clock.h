@@ -48,6 +48,24 @@ class RTC_EXPORT Clock {
     return ConvertTimestampToNtpTime(Timestamp::Millis(timestamp_ms)).ToMs();
   }
 
+  // Converts NtpTime to a Timestamp with UTC epoch.
+  // Timestamp with value 0 is returned if the NtpTime is invalid.
+  static Timestamp ConvertNtpTimeToUtcTimestamp(NtpTime ntp_time) {
+    if (!ntp_time.Valid()) {
+      return Timestamp::Seconds(0);
+    }
+    // time = seconds since UTC epoch.
+    int64_t time = ntp_time.seconds() - kNtpJan1970;
+    // time = microseconds since UTC epoch (not including NTP fraction)
+    time = time * 1'000'000;
+    // Fractions part of the NTP time, in microseconds.
+    // TODO: bugs.webrtc.org/10893 - Change to use `rtc::saturated_cast` once
+    // the bug has been fixed.
+    int64_t time_fraction = std::round(
+        ntp_time.fractions() * (1'000'000.0 / NtpTime::kFractionsPerSecond));
+    return Timestamp::Micros(time + time_fraction);
+  }
+
   // Returns an instance of the real-time system clock implementation.
   static Clock* GetRealTimeClock();
 };

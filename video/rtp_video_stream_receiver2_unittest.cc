@@ -33,6 +33,7 @@
 #include "modules/rtp_rtcp/source/rtp_packet_to_send.h"
 #include "modules/video_coding/include/video_coding_defines.h"
 #include "modules/video_coding/rtp_frame_reference_finder.h"
+#include "rtc_base/bit_buffer.h"
 #include "rtc_base/byte_buffer.h"
 #include "rtc_base/logging.h"
 #include "system_wrappers/include/clock.h"
@@ -76,6 +77,249 @@ RTPVideoHeader GetGenericVideoHeader(VideoFrameType frame_type) {
   video_header.codec = kVideoCodecGeneric;
   video_header.frame_type = frame_type;
   return video_header;
+}
+
+constexpr size_t kSpsBufferMaxSize = 256;
+constexpr size_t kPpsBufferMaxSize = 256;
+constexpr size_t kIdrBufferMaxSize = 256;
+constexpr size_t kSliceHeaderTypeI = 2;
+constexpr uint32_t kIgnored = 0;
+
+rtc::Buffer GenerateSps(int id,
+                        uint16_t width = 0,
+                        uint16_t height = 0,
+                        bool vui_parameters_present_flag = 1,
+                        bool bitstream_restriction_flag = 1) {
+  uint8_t rbsp[kSpsBufferMaxSize] = {0};
+  rtc::BitBufferWriter writer(rbsp, kSpsBufferMaxSize);
+  // Profile byte.
+  writer.WriteUInt8(0);
+  // Constraint sets and reserved zero bits.
+  writer.WriteUInt8(0);
+  // level_idc.
+  writer.WriteUInt8(0x3u);
+  // seq_paramter_set_id.
+  writer.WriteExponentialGolomb(id);
+  // Profile is not special, so we skip all the chroma format settings.
+
+  // Now some bit magic.
+  // log2_max_frame_num_minus4: ue(v).
+  writer.WriteExponentialGolomb(kIgnored);
+  // pic_order_cnt_type: ue(v). 0 is the type we want.
+  writer.WriteExponentialGolomb(0);
+  // log2_max_pic_order_cnt_lsb_minus4: ue(v). 0 is fine.
+  writer.WriteExponentialGolomb(kIgnored);
+  // max_num_ref_frames: ue(v). 0 is fine.
+  writer.WriteExponentialGolomb(0);
+  // gaps_in_frame_num_value_allowed_flag: u(1).
+  writer.WriteBits(0, 1);
+  // Next are width/height. First, calculate the mbs/map_units versions.
+  uint16_t width_in_mbs_minus1 = (width + 15) / 16 - 1;
+
+  // For the height, we're going to define frame_mbs_only_flag, so we need to
+  // divide by 2. See the parser for the full calculation.
+  uint16_t height_in_map_units_minus1 = ((height + 15) / 16 - 1) / 2;
+  // Write each as ue(v).
+  writer.WriteExponentialGolomb(width_in_mbs_minus1);
+  writer.WriteExponentialGolomb(height_in_map_units_minus1);
+  // frame_mbs_only_flag: u(1). Needs to be false.
+  writer.WriteBits(0, 1);
+  // mb_adaptive_frame_field_flag: u(1).
+  writer.WriteBits(0, 1);
+  // direct_8x8_inferene_flag: u(1).
+  writer.WriteBits(0, 1);
+  // frame_cropping_flag: u(1). 1, so we can supply crop.
+  writer.WriteBits(1, 1);
+  // Now we write the left/right/top/bottom crop. For simplicity, we'll put
+  // all the crop at the left/top. We picked a 4:2:0 format, so the crops are
+  // 1/2 the pixel crop values. Left/right.
+  writer.WriteExponentialGolomb(((16 - (width % 16)) % 16) / 2);
+  writer.WriteExponentialGolomb(0);
+  // Top/bottom.
+  writer.WriteExponentialGolomb(((16 - (height % 16)) % 16) / 2);
+  writer.WriteExponentialGolomb(0);
+
+  // Finally! The VUI.
+  // vui_parameters_present_flag: u(1)
+  writer.WriteBits(vui_parameters_present_flag, 1);
+  if (vui_parameters_present_flag) {
+    // aspect_ratio_info_present_flag, overscan_info_present_flag. Both u(1).
+    writer.WriteBits(0, 2);
+
+    // video_signal_type_present_flag: u(1)
+    writer.WriteBits(0, 1);
+
+    // chroma_loc_info_present_flag, timing_info_present_flag,
+    // nal_hrd_parameters_present_flag, vcl_hrd_parameters_present_flag,
+    // pic_struct_present_flag, All u(1)
+    writer.WriteBits(0, 5);
+
+    // bitstream_restriction_flag: u(1)
+    writer.WriteBits(bitstream_restriction_flag, 1);
+    if (bitstream_restriction_flag) {
+      // Write some defaults. Shouldn't matter for parsing, though.
+      // motion_vectors_over_pic_boundaries_flag: u(1)
+      writer.WriteBits(1, 1);
+      // max_bytes_per_pic_denom: ue(v)
+      writer.WriteExponentialGolomb(2);
+      // max_bits_per_mb_denom: ue(v)
+      writer.WriteExponentialGolomb(1);
+      // log2_max_mv_length_horizontal: ue(v)
+      // log2_max_mv_length_vertical: ue(v)
+      writer.WriteExponentialGolomb(16);
+      writer.WriteExponentialGolomb(16);
+
+      // Next are the limits we care about. Set them to 0 so SPS is not
+      // rewritten.
+      writer.WriteExponentialGolomb(0);
+      writer.WriteExponentialGolomb(0);
+    }
+  }
+
+  // Get the number of bytes written (including the last partial byte).
+  size_t byte_count, bit_offset;
+  writer.GetCurrentOffset(&byte_count, &bit_offset);
+  if (bit_offset > 0) {
+    byte_count++;
+  }
+  rtc::Buffer out_buffer;
+  H264::WriteRbsp(rtc::MakeArrayView(rbsp, byte_count), &out_buffer);
+
+  return out_buffer;
+}
+
+rtc::Buffer GeneratePps(int id,
+                        int sps_id,
+                        int num_slice_groups = 1,
+                        int slice_group_map_type = 0,
+                        int pic_size_in_map_units = 1) {
+  uint8_t data[kPpsBufferMaxSize] = {0};
+  rtc::BitBufferWriter bit_buffer(data, kPpsBufferMaxSize);
+
+  // pic_parameter_set_id: ue(v)
+  bit_buffer.WriteExponentialGolomb(id);
+  // seq_parameter_set_id: ue(v)
+  bit_buffer.WriteExponentialGolomb(sps_id);
+  // entropy_coding_mode_flag: u(1)
+  bit_buffer.WriteBits(0, 1);
+  // bottom_field_pic_order_in_frame_present_flag: u(1)
+  bit_buffer.WriteBits(kIgnored, 1);
+  // num_slice_groups_minus1: ue(v)
+  RTC_CHECK_GT(num_slice_groups, 0);
+  bit_buffer.WriteExponentialGolomb(num_slice_groups - 1);
+
+  if (num_slice_groups > 1) {
+    // slice_group_map_type: ue(v)
+    bit_buffer.WriteExponentialGolomb(slice_group_map_type);
+    switch (slice_group_map_type) {
+      case 0:
+        for (int i = 0; i < num_slice_groups; ++i) {
+          // run_length_minus1[iGroup]: ue(v)
+          bit_buffer.WriteExponentialGolomb(kIgnored);
+        }
+        break;
+      case 2:
+        for (int i = 0; i < num_slice_groups; ++i) {
+          // top_left[iGroup]: ue(v)
+          bit_buffer.WriteExponentialGolomb(kIgnored);
+          // bottom_right[iGroup]: ue(v)
+          bit_buffer.WriteExponentialGolomb(kIgnored);
+        }
+        break;
+      case 3:
+      case 4:
+      case 5:
+        // slice_group_change_direction_flag: u(1)
+        bit_buffer.WriteBits(kIgnored, 1);
+        // slice_group_change_rate_minus1: ue(v)
+        bit_buffer.WriteExponentialGolomb(kIgnored);
+        break;
+      case 6: {
+        RTC_CHECK_GT(pic_size_in_map_units, 0);
+        bit_buffer.WriteExponentialGolomb(pic_size_in_map_units - 1);
+
+        uint32_t slice_group_id_bits = 0;
+        // If num_slice_groups is not a power of two an additional bit is
+        // required
+        // to account for the ceil() of log2() below.
+        if ((num_slice_groups & (num_slice_groups - 1)) != 0)
+          ++slice_group_id_bits;
+        while (num_slice_groups > 0) {
+          num_slice_groups >>= 1;
+          ++slice_group_id_bits;
+        }
+
+        for (int i = 0; i < pic_size_in_map_units; ++i) {
+          // slice_group_id[i]: u(v)
+          // Represented by ceil(log2(num_slice_groups_minus1 + 1)) bits.
+          bit_buffer.WriteBits(kIgnored, slice_group_id_bits);
+        }
+        break;
+      }
+      default:
+        RTC_DCHECK_NOTREACHED();
+    }
+  }
+
+  // num_ref_idx_l0_default_active_minus1: ue(v)
+  bit_buffer.WriteExponentialGolomb(kIgnored);
+  // num_ref_idx_l1_default_active_minus1: ue(v)
+  bit_buffer.WriteExponentialGolomb(kIgnored);
+  // weighted_pred_flag: u(1)
+  bit_buffer.WriteBits(kIgnored, 1);
+  // weighted_bipred_idc: u(2)
+  bit_buffer.WriteBits(kIgnored, 2);
+
+  // pic_init_qp_minus26: se(v)
+  bit_buffer.WriteSignedExponentialGolomb(kIgnored);
+  // pic_init_qs_minus26: se(v)
+  bit_buffer.WriteExponentialGolomb(kIgnored);
+  // chroma_qp_index_offset: se(v)
+  bit_buffer.WriteExponentialGolomb(kIgnored);
+  // deblocking_filter_control_present_flag: u(1)
+  // constrained_intra_pred_flag: u(1)
+  bit_buffer.WriteBits(kIgnored, 2);
+  // redundant_pic_cnt_present_flag: u(1)
+  bit_buffer.WriteBits(kIgnored, 1);
+
+  size_t byte_offset;
+  size_t bit_offset;
+  bit_buffer.GetCurrentOffset(&byte_offset, &bit_offset);
+  if (bit_offset > 0) {
+    bit_buffer.WriteBits(0, 8 - bit_offset);
+    bit_buffer.GetCurrentOffset(&byte_offset, &bit_offset);
+  }
+
+  rtc::Buffer out_buffer;
+  H264::WriteRbsp(rtc::MakeArrayView(data, byte_offset), &out_buffer);
+
+  return out_buffer;
+}
+
+rtc::Buffer GenerateIdr(int pps_id, int first_mb_in_slice) {
+  uint8_t data[kIdrBufferMaxSize] = {0};
+  rtc::BitBufferWriter bit_buffer(data, kIdrBufferMaxSize);
+
+  // first_mb_in_slice: ue(v)
+  bit_buffer.WriteExponentialGolomb(first_mb_in_slice);
+  // slice_type : ue(v)
+  bit_buffer.WriteExponentialGolomb(kSliceHeaderTypeI);
+  // pic_parameter_set_id: ue(v)
+  bit_buffer.WriteExponentialGolomb(pps_id);
+
+  // Skip the rest as it is not needed by SliceHeader::Parse().
+
+  size_t byte_offset;
+  size_t bit_offset;
+  bit_buffer.GetCurrentOffset(&byte_offset, &bit_offset);
+  if (bit_offset > 0) {
+    bit_buffer.WriteBits(0, 8 - bit_offset);
+    bit_buffer.GetCurrentOffset(&byte_offset, &bit_offset);
+  }
+  rtc::Buffer out_buffer;
+  H264::WriteRbsp(rtc::MakeArrayView(data, byte_offset), &out_buffer);
+
+  return out_buffer;
 }
 
 class MockNackSender : public NackSender {
@@ -191,7 +435,9 @@ class RtpVideoStreamReceiver2Test : public ::testing::Test,
     info.type = H264::NaluType::kSps;
     info.sps_id = sps_id;
     info.pps_id = -1;
-    data->AppendData<uint8_t, 2>({H264::NaluType::kSps, sps_id});
+    data->AppendData<uint8_t, 1>({H264::NaluType::kSps});
+    data->AppendData(GenerateSps(sps_id));
+
     auto& h264 = absl::get<RTPVideoHeaderH264>(video_header->video_type_header);
     h264.nalus.push_back(info);
   }
@@ -204,16 +450,22 @@ class RtpVideoStreamReceiver2Test : public ::testing::Test,
     info.type = H264::NaluType::kPps;
     info.sps_id = sps_id;
     info.pps_id = pps_id;
-    data->AppendData<uint8_t, 2>({H264::NaluType::kPps, pps_id});
+    data->AppendData<uint8_t, 1>({H264::NaluType::kPps});
+    data->AppendData(GeneratePps(pps_id, sps_id));
     auto& h264 = absl::get<RTPVideoHeaderH264>(video_header->video_type_header);
     h264.nalus.push_back(info);
   }
 
-  void AddIdr(RTPVideoHeader* video_header, int pps_id) {
+  void AddIdr(RTPVideoHeader* video_header,
+              int pps_id,
+              int first_mb_in_slice,
+              rtc::CopyOnWriteBuffer* data) {
     NaluInfo info;
     info.type = H264::NaluType::kIdr;
     info.sps_id = -1;
     info.pps_id = pps_id;
+    data->AppendData<uint8_t, 1>({H264::NaluType::kIdr});
+    data->AppendData(GenerateIdr(pps_id, first_mb_in_slice));
     auto& h264 = absl::get<RTPVideoHeaderH264>(video_header->video_type_header);
     h264.nalus.push_back(info);
   }
@@ -570,15 +822,13 @@ TEST_P(RtpVideoStreamReceiver2TestH264, InBandSpsPps) {
 
   rtc::CopyOnWriteBuffer idr_data;
   RTPVideoHeader idr_video_header = GetDefaultH264VideoHeader();
-  AddIdr(&idr_video_header, 1);
+  AddIdr(&idr_video_header, 1, 0, &idr_data);
   rtp_packet.SetSequenceNumber(2);
   rtp_packet.SetPayloadType(kH264PayloadType);
   rtp_packet.SetMarker(true);
   idr_video_header.is_first_packet_in_frame = true;
   idr_video_header.is_last_packet_in_frame = true;
   idr_video_header.frame_type = VideoFrameType::kVideoFrameKey;
-  const uint8_t idr[] = {0x65, 1, 2, 3};
-  idr_data.AppendData(idr);
   mock_on_complete_frame_callback_.AppendExpectedBitstream(
       kH264StartCode, sizeof(kH264StartCode));
   mock_on_complete_frame_callback_.AppendExpectedBitstream(idr_data.data(),
@@ -586,55 +836,6 @@ TEST_P(RtpVideoStreamReceiver2TestH264, InBandSpsPps) {
   EXPECT_CALL(mock_on_complete_frame_callback_, DoOnCompleteFrame(_));
   rtp_video_stream_receiver_->OnReceivedPayloadData(idr_data, rtp_packet,
                                                     idr_video_header, 0);
-}
-
-TEST_P(RtpVideoStreamReceiver2TestH264, OutOfBandFmtpSpsPps) {
-  constexpr int kPayloadType = 99;
-  webrtc::CodecParameterMap codec_params;
-  // Example parameter sets from https://tools.ietf.org/html/rfc3984#section-8.2
-  // .
-  codec_params.insert(
-      {cricket::kH264FmtpSpropParameterSets, "Z0IACpZTBYmI,aMljiA=="});
-  rtp_video_stream_receiver_->AddReceiveCodec(kPayloadType, kVideoCodecH264,
-                                              codec_params,
-                                              /*raw_payload=*/false);
-  rtp_video_stream_receiver_->StartReceive();
-  const uint8_t binary_sps[] = {0x67, 0x42, 0x00, 0x0a, 0x96,
-                                0x53, 0x05, 0x89, 0x88};
-  mock_on_complete_frame_callback_.AppendExpectedBitstream(
-      kH264StartCode, sizeof(kH264StartCode));
-  mock_on_complete_frame_callback_.AppendExpectedBitstream(binary_sps,
-                                                           sizeof(binary_sps));
-  const uint8_t binary_pps[] = {0x68, 0xc9, 0x63, 0x88};
-  mock_on_complete_frame_callback_.AppendExpectedBitstream(
-      kH264StartCode, sizeof(kH264StartCode));
-  mock_on_complete_frame_callback_.AppendExpectedBitstream(binary_pps,
-                                                           sizeof(binary_pps));
-
-  RtpPacketReceived rtp_packet;
-  RTPVideoHeader video_header = GetDefaultH264VideoHeader();
-  AddIdr(&video_header, 0);
-  rtp_packet.SetPayloadType(kPayloadType);
-  rtp_packet.SetSequenceNumber(2);
-  rtp_packet.SetMarker(true);
-  video_header.is_first_packet_in_frame = true;
-  video_header.is_last_packet_in_frame = true;
-  video_header.codec = kVideoCodecH264;
-  video_header.frame_type = VideoFrameType::kVideoFrameKey;
-  rtc::CopyOnWriteBuffer data({'1', '2', '3'});
-  mock_on_complete_frame_callback_.AppendExpectedBitstream(
-      kH264StartCode, sizeof(kH264StartCode));
-  mock_on_complete_frame_callback_.AppendExpectedBitstream(data.data(),
-                                                           data.size());
-  // IDR frames without SPS/PPS are not returned by
-  // |H26xPacketBuffer.InsertPacket| until SPS and PPS are received when
-  // WebRTC-SpsPpsIdrIsH264Keyframe is enabled.
-  if (!env_.field_trials().IsEnabled("WebRTC-SpsPpsIdrIsH264Keyframe") ||
-      !env_.field_trials().IsEnabled("WebRTC-Video-H26xPacketBuffer")) {
-    EXPECT_CALL(mock_on_complete_frame_callback_, DoOnCompleteFrame(_));
-  }
-  rtp_video_stream_receiver_->OnReceivedPayloadData(data, rtp_packet,
-                                                    video_header, 0);
 }
 
 TEST_P(RtpVideoStreamReceiver2TestH264, ForceSpsPpsIdrIsKeyframe) {
@@ -678,14 +879,12 @@ TEST_P(RtpVideoStreamReceiver2TestH264, ForceSpsPpsIdrIsKeyframe) {
 
   rtc::CopyOnWriteBuffer idr_data;
   RTPVideoHeader idr_video_header = GetDefaultH264VideoHeader();
-  AddIdr(&idr_video_header, 1);
+  AddIdr(&idr_video_header, 1, 0, &idr_data);
   rtp_packet.SetSequenceNumber(2);
   rtp_packet.SetMarker(true);
   idr_video_header.is_first_packet_in_frame = true;
   idr_video_header.is_last_packet_in_frame = true;
   idr_video_header.frame_type = VideoFrameType::kVideoFrameKey;
-  const uint8_t idr[] = {0x65, 1, 2, 3};
-  idr_data.AppendData(idr);
   mock_on_complete_frame_callback_.AppendExpectedBitstream(
       kH264StartCode, sizeof(kH264StartCode));
   mock_on_complete_frame_callback_.AppendExpectedBitstream(idr_data.data(),

@@ -297,6 +297,30 @@
       },
       "revId": "f299e4532c0ab139e7dc3612a18984cf1afbd0af",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cd4b5bb0_68c382f7",
+        "filename": "call/rtp_video_sender_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1155,
+      "author": {
+        "id": 13704
+      },
+      "writtenOn": "2024-10-17T07:42:10Z",
+      "side": 1,
+      "message": "Ah, you need to supply the `.attached_structure` from the \"key frame\" when parsing all subsequent deltas. Forgot about that, sorry. I created a suggested edit that should pass.",
+      "parentUuid": "a6021f53_6559fa50",
+      "range": {
+        "startLine": 1154,
+        "startChar": 0,
+        "endLine": 1155,
+        "endChar": 80
+      },
+      "revId": "f299e4532c0ab139e7dc3612a18984cf1afbd0af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

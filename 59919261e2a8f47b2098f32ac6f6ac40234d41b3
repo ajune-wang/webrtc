@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4a1dba52_bfd658be",
+        "filename": "call/rtp_video_sender_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1168,
+      "author": {
+        "id": 13704
+      },
+      "writtenOn": "2024-10-17T07:42:10Z",
+      "side": 1,
+      "message": "```suggestion\n\n  ASSERT_THAT(sent_packets, SizeIs(2));\n  DependencyDescriptor dd_key;\n  // Key frame should have attached structure.\n  EXPECT_TRUE(sent_packets[0].GetExtension\u003cRtpDependencyDescriptorExtension\u003e(\n      nullptr, \u0026dd_key));\n  EXPECT_THAT(dd_key.attached_structure, NotNull());\n  // Delta frame does not have attached structure.\n  DependencyDescriptor dd_delta;\n  EXPECT_TRUE(sent_packets[1].GetExtension\u003cRtpDependencyDescriptorExtension\u003e(\n      dd_key.attached_structure.get(), \u0026dd_delta));\n  EXPECT_THAT(dd_delta.attached_structure, IsNull());\n```",
+      "range": {
+        "startLine": 1154,
+        "startChar": 0,
+        "endLine": 1168,
+        "endChar": 50
+      },
+      "revId": "59919261e2a8f47b2098f32ac6f6ac40234d41b3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

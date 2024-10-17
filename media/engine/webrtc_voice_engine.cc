@@ -471,7 +471,7 @@ WebRtcVoiceEngine::WebRtcVoiceEngine(
       minimized_remsampling_on_mobile_trial_enabled_(
           trials.IsEnabled("WebRTC-Audio-MinimizeResamplingOnMobile")),
       payload_types_in_transport_trial_enabled_(
-          trials.IsEnabled("WebRTC-PayloadTypesInTransport")) {
+          !trials.IsDisabled("WebRTC-PayloadTypesInTransport")) {
   RTC_LOG(LS_INFO) << "WebRtcVoiceEngine::WebRtcVoiceEngine";
   RTC_DCHECK(decoder_factory);
   RTC_DCHECK(encoder_factory);

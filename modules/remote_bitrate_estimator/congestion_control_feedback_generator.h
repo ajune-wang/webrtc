@@ -88,6 +88,7 @@ class CongestionControlFeedbackGenerator
       sequence_number_unwrappers_;
 
   std::vector<PacketInfo> packets_;
+  std::optional<PacketInfo> last_packet_from_previous_feedback_;
   Timestamp last_feedback_sent_time_ = Timestamp::Zero();
   bool marker_bit_seen_ = false;
   Timestamp next_possible_feedback_send_time_ = Timestamp::Zero();

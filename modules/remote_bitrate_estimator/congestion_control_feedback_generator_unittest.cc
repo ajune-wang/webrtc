@@ -342,5 +342,59 @@ TEST(CongestionControlFeedbackGeneratorTest,
   generator.Process(clock.CurrentTime());
 }
 
+// Include last packet from previous feedback in order to allow the sender to
+// figure out which packets that has been lost or possibly reordered.
+TEST(CongestionControlFeedbackGeneratorTest,
+     LastReceivedPacketFromPreviousReportIncludedInNext) {
+  MockFunction<void(std::vector<std::unique_ptr<rtcp::RtcpPacket>>)>
+      rtcp_sender;
+  SimulatedClock clock(123456);
+  // constexpr TimeDelta kLongSmallTimeInterval = TimeDelta::Millis(2);
+  CongestionControlFeedbackGenerator generator(CreateEnvironment(&clock),
+                                               rtcp_sender.AsStdFunction());
+
+  TimeDelta time_to_next_process = generator.Process(clock.CurrentTime());
+  RtpPacketReceived packet_1 =
+      CreatePacket(clock.CurrentTime(), /*marker=*/false, /* ssrc=*/1,
+                   /* seq=*/2);
+  generator.OnReceivedPacket(packet_1);
+  clock.AdvanceTime(time_to_next_process);
+
+  EXPECT_CALL(rtcp_sender, Call)
+      .WillOnce(
+          [&](std::vector<std::unique_ptr<rtcp::RtcpPacket>> rtcp_packets) {
+            ASSERT_THAT(rtcp_packets, SizeIs(1));
+            rtcp::CongestionControlFeedback* rtcp =
+                static_cast<rtcp::CongestionControlFeedback*>(
+                    rtcp_packets[0].get());
+            ASSERT_THAT(rtcp->packets(), SizeIs(1));
+            EXPECT_EQ(rtcp->packets()[0].ssrc, 1u);
+            EXPECT_EQ(rtcp->packets()[0].sequence_number, 2u);
+          });
+  time_to_next_process = generator.Process(clock.CurrentTime());
+
+  clock.AdvanceTime(time_to_next_process);
+  RtpPacketReceived packet_2 =
+      CreatePacket(clock.CurrentTime(), /*marker=*/false, /* ssrc=*/2,
+                   /* seq=*/3);
+  generator.OnReceivedPacket(packet_2);
+  EXPECT_CALL(rtcp_sender, Call)
+      .WillOnce(
+          [&](std::vector<std::unique_ptr<rtcp::RtcpPacket>> rtcp_packets) {
+            ASSERT_THAT(rtcp_packets, SizeIs(1));
+            rtcp::CongestionControlFeedback* rtcp =
+                static_cast<rtcp::CongestionControlFeedback*>(
+                    rtcp_packets[0].get());
+            ASSERT_THAT(rtcp->packets(), SizeIs(2));
+            EXPECT_EQ(rtcp->packets()[0].ssrc, 1u);
+            EXPECT_EQ(rtcp->packets()[0].sequence_number, 2u);
+            EXPECT_EQ(rtcp->packets()[1].ssrc, 2u);
+            EXPECT_EQ(rtcp->packets()[1].sequence_number, 3u);
+          });
+  time_to_next_process = generator.Process(clock.CurrentTime());
+  clock.AdvanceTime(time_to_next_process);
+  generator.Process(clock.CurrentTime());
+}
+
 }  // namespace
 }  // namespace webrtc

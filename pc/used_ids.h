@@ -88,6 +88,7 @@ class UsedIds {
   std::set<int> id_set_;
 };
 
+/*
 // Helper class used for finding duplicate RTP payload types among audio, video
 // and data codecs. When bundle is used the payload types may not collide.
 class UsedPayloadTypes : public UsedIds<Codec> {
@@ -122,6 +123,7 @@ class UsedPayloadTypes : public UsedIds<Codec> {
   static const int kFirstDynamicPayloadTypeUpperRange = 96;
   static const int kLastDynamicPayloadTypeUpperRange = 127;
 };
+*/
 
 // Helper class used for finding duplicate RTP Header extension ids among
 // audio and video extensions.

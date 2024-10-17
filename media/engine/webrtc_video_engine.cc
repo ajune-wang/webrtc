@@ -583,8 +583,7 @@ std::vector<VideoCodecSettings> MapCodecs(const std::vector<Codec>& codecs) {
     const int payload_type = in_codec.id;
 
     if (payload_codec_type.find(payload_type) != payload_codec_type.end()) {
-      RTC_LOG(LS_ERROR) << "Payload type already registered: "
-                        << in_codec.ToString();
+      RTC_LOG(LS_ERROR) << "Payload type already registered: " << in_codec;
       return {};
     }
     payload_codec_type[payload_type] = in_codec.GetResiliencyType();

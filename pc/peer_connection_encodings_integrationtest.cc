@@ -211,6 +211,7 @@ class PeerConnectionEncodingsIntegrationTest : public ::testing::Test {
     // Create and set offer for `local_pc_wrapper`.
     std::unique_ptr<SessionDescriptionInterface> offer =
         CreateOffer(local_pc_wrapper);
+    RTC_LOG(LS_ERROR) << "DEBUG: SDP offer " << *offer;
     rtc::scoped_refptr<MockSetSessionDescriptionObserver> p1 =
         SetLocalDescription(local_pc_wrapper, offer.get());
     // Modify the offer before handoff because `remote_pc_wrapper` only supports
@@ -224,6 +225,7 @@ class PeerConnectionEncodingsIntegrationTest : public ::testing::Test {
     // Create and set answer for `remote_pc_wrapper`.
     std::unique_ptr<SessionDescriptionInterface> answer =
         CreateAnswer(remote_pc_wrapper);
+    RTC_LOG(LS_ERROR) << "DEBUG: SDP answer " << *answer;
     EXPECT_TRUE(answer);
     p1 = SetLocalDescription(remote_pc_wrapper, answer.get());
     // Modify the answer before handoff because `local_pc_wrapper` should still

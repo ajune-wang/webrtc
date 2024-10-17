@@ -129,24 +129,33 @@ PayloadTypePicker::PayloadTypePicker() {
 RTCErrorOr<PayloadType> PayloadTypePicker::SuggestMapping(
     cricket::Codec codec,
     const PayloadTypeRecorder* excluder) {
+  RTC_LOG(LS_ERROR) << "DEBUG: Assigning id for " << codec;
   // Test compatibility: If the codec contains a PT, and it is free, use it.
   // This saves having to rewrite tests that set the codec ID themselves.
   // Codecs with unassigned IDs should have -1 as their id.
+  RTC_LOG(LS_ERROR) << "DEBUG: Count of preassigned is "
+                    << seen_payload_types_.count(PayloadType(codec.id));
   if (codec.id >= 0 && codec.id <= kLastDynamicPayloadTypeUpperRange &&
       seen_payload_types_.count(PayloadType(codec.id)) == 0) {
+    RTC_LOG(LS_ERROR) << "DEBUG: Returning preassigned " << codec.id << " for "
+                      << codec;
     AddMapping(PayloadType(codec.id), codec);
     return PayloadType(codec.id);
   }
   // The first matching entry is returned, unless excluder
   // maps it to something different.
   for (auto entry : entries_) {
-    if (MatchesWithCodecRules(entry.codec(), codec)) {
+    if (MatchesWithReferenceAttributes(entry.codec(), codec)) {
       if (excluder) {
         auto result = excluder->LookupCodec(entry.payload_type());
-        if (result.ok() && !MatchesWithCodecRules(result.value(), codec)) {
+        if (result.ok() &&
+            !MatchesWithReferenceAttributes(result.value(), codec)) {
           continue;
         }
       }
+      RTC_LOG(LS_ERROR) << "DEBUG: Returning match "
+                        << static_cast<int>(entry.payload_type()) << " for "
+                        << codec;
       return entry.payload_type();
     }
   }
@@ -155,6 +164,8 @@ RTCErrorOr<PayloadType> PayloadTypePicker::SuggestMapping(
   if (found_pt.ok()) {
     AddMapping(found_pt.value(), codec);
   }
+  RTC_LOG(LS_ERROR) << "DEBUG: Returning assigned "
+                    << static_cast<int>(found_pt.value()) << " for " << codec;
   return found_pt;
 }
 
@@ -164,7 +175,7 @@ RTCError PayloadTypePicker::AddMapping(PayloadType payload_type,
   // Multiple mappings for the same codec and the same PT are legal;
   for (auto entry : entries_) {
     if (payload_type == entry.payload_type() &&
-        MatchesWithCodecRules(codec, entry.codec())) {
+        MatchesWithReferenceAttributes(codec, entry.codec())) {
       return RTCError::OK();
     }
   }
@@ -177,7 +188,7 @@ RTCError PayloadTypeRecorder::AddMapping(PayloadType payload_type,
                                          cricket::Codec codec) {
   auto existing_codec_it = payload_type_to_codec_.find(payload_type);
   if (existing_codec_it != payload_type_to_codec_.end() &&
-      !MatchesWithCodecRules(codec, existing_codec_it->second)) {
+      !MatchesWithReferenceAttributes(codec, existing_codec_it->second)) {
     if (absl::EqualsIgnoreCase(codec.name, existing_codec_it->second.name)) {
       // The difference is in clock rate, channels or FMTP parameters.
       RTC_LOG(LS_INFO) << "Warning: Attempt to change a codec's parameters";
@@ -185,8 +196,8 @@ RTCError PayloadTypeRecorder::AddMapping(PayloadType payload_type,
       // This is done in production today, so we can't return an error.
     } else {
       RTC_LOG(LS_WARNING) << "Warning: You attempted to redefine a codec from "
-                          << existing_codec_it->second.ToString() << " to "
-                          << " new codec " << codec.ToString();
+                          << existing_codec_it->second << " to "
+                          << " new codec " << codec;
       // This is a spec violation.
       // TODO: https://issues.webrtc.org/41480892 - return an error.
     }
@@ -211,7 +222,7 @@ RTCErrorOr<PayloadType> PayloadTypeRecorder::LookupPayloadType(
   auto result =
       std::find_if(payload_type_to_codec_.begin(), payload_type_to_codec_.end(),
                    [codec](const auto& iter) {
-                     return MatchesWithCodecRules(iter.second, codec);
+                     return MatchesWithReferenceAttributes(iter.second, codec);
                    });
   if (result == payload_type_to_codec_.end()) {
     return RTCError(RTCErrorType::INVALID_PARAMETER,

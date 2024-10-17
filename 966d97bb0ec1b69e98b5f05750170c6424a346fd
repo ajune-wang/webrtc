@@ -176,6 +176,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e3e0c41a_f20d4a72",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2024-10-17T11:16:25Z",
+      "side": 1,
+      "message": "Yes, that\u0027s correct, `getDisplayMedia` in Chrome will not use this code path.",
+      "parentUuid": "d70ffabe_9338f6e5",
+      "revId": "966d97bb0ec1b69e98b5f05750170c6424a346fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "94138ef6_0ba6956f",
@@ -217,6 +235,29 @@
         "startChar": 13,
         "endLine": 125,
         "endChar": 37
+      },
+      "revId": "966d97bb0ec1b69e98b5f05750170c6424a346fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "61a1c638_86ec191d",
+        "filename": "modules/desktop_capture/mac/screen_capturer_sck.mm",
+        "patchSetId": 4
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2024-10-17T11:16:25Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this call be conditioned on `capture_options_.allow_sck_system_picker()`?",
+      "range": {
+        "startLine": 189,
+        "startChar": 2,
+        "endLine": 189,
+        "endChar": 43
       },
       "revId": "966d97bb0ec1b69e98b5f05750170c6424a346fd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"

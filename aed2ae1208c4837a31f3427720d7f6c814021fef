@@ -73,6 +73,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4677fcbd_f0258d57",
+        "filename": "modules/desktop_capture/mac/screen_capturer_sck.mm",
+        "patchSetId": 4
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2024-10-17T09:49:00Z",
+      "side": 1,
+      "message": "If I\u0027m not mistaken, will this imply that the stream is restarted if the content size is changed?\n\nThere\u0027s an [updateConfiguration](https://developer.apple.com/documentation/screencapturekit/scstream/3928173-updateconfiguration?language\u003dobjc) that could be used. In my experience, it may take a few samples for the reconfiguration to take effect.",
+      "parentUuid": "c02ad5d6_504795bd",
+      "revId": "aed2ae1208c4837a31f3427720d7f6c814021fef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5773f68f_b947010b",
         "filename": "modules/desktop_capture/mac/screen_capturer_sck.mm",
         "patchSetId": 4

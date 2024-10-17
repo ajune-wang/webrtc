@@ -94,6 +94,10 @@ void CongestionControlFeedbackGenerator::SetTransportOverhead(
 }
 
 void CongestionControlFeedbackGenerator::SendFeedback(Timestamp now) {
+  if (last_packet_from_previous_feedback_) {
+    packets_.insert(packets_.begin(), *last_packet_from_previous_feedback_);
+  }
+
   absl::c_sort(packets_, [](const PacketInfo& a, const PacketInfo& b) {
     return std::tie(a.ssrc, a.unwrapped_sequence_number, a.arrival_time) <
            std::tie(b.ssrc, b.unwrapped_sequence_number, b.arrival_time);
@@ -132,6 +136,10 @@ void CongestionControlFeedbackGenerator::SendFeedback(Timestamp now) {
            .ecn = packet.ecn});
     }
   }
+  // Keep the last received packet and send it again in the next report.
+  // That allows the sender to figure out which packets that have been
+  // lost (or possibly reordered) reordered since sender knows the send order.
+  last_packet_from_previous_feedback_ = packets_.back();
   packets_.clear();
   marker_bit_seen_ = false;
 

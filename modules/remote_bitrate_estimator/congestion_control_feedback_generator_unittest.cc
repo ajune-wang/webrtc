@@ -342,5 +342,65 @@ TEST(CongestionControlFeedbackGeneratorTest,
   generator.Process(clock.CurrentTime());
 }
 
+// Include last packet from previous feedback in order to allow the sender to
+// figure out which packets that have been lost or possibly reordered.
+TEST(CongestionControlFeedbackGeneratorTest,
+     LastReceivedPacketIncludedInPreviousReportIncludedInNext) {
+  MockFunction<void(std::vector<std::unique_ptr<rtcp::RtcpPacket>>)>
+      rtcp_sender;
+  SimulatedClock clock(123456);
+  CongestionControlFeedbackGenerator generator(CreateEnvironment(&clock),
+                                               rtcp_sender.AsStdFunction());
+
+  TimeDelta time_to_next_process = generator.Process(clock.CurrentTime());
+  RtpPacketReceived packet_1 =
+      CreatePacket(clock.CurrentTime(), /*marker=*/false, /* ssrc=*/1,
+                   /* seq=*/2);
+  RtpPacketReceived packet_2 =
+      CreatePacket(clock.CurrentTime(), /*marker=*/false, /* ssrc=*/1,
+                   /* seq=*/3);
+  generator.OnReceivedPacket(packet_1);
+  generator.OnReceivedPacket(packet_2);
+  clock.AdvanceTime(time_to_next_process);
+
+  EXPECT_CALL(rtcp_sender, Call)
+      .WillOnce(
+          [&](std::vector<std::unique_ptr<rtcp::RtcpPacket>> rtcp_packets) {
+            ASSERT_THAT(rtcp_packets, SizeIs(1));
+            rtcp::CongestionControlFeedback* rtcp =
+                static_cast<rtcp::CongestionControlFeedback*>(
+                    rtcp_packets[0].get());
+            ASSERT_THAT(rtcp->packets(), SizeIs(2));
+            EXPECT_EQ(rtcp->packets()[1].ssrc, packet_2.Ssrc());
+            EXPECT_EQ(rtcp->packets()[1].sequence_number,
+                      packet_2.SequenceNumber());
+          });
+  time_to_next_process = generator.Process(clock.CurrentTime());
+
+  clock.AdvanceTime(time_to_next_process);
+  RtpPacketReceived packet_3 =
+      CreatePacket(clock.CurrentTime(), /*marker=*/false, /* ssrc=*/2,
+                   /* seq=*/3);
+  generator.OnReceivedPacket(packet_3);
+  EXPECT_CALL(rtcp_sender, Call)
+      .WillOnce(
+          [&](std::vector<std::unique_ptr<rtcp::RtcpPacket>> rtcp_packets) {
+            ASSERT_THAT(rtcp_packets, SizeIs(1));
+            rtcp::CongestionControlFeedback* rtcp =
+                static_cast<rtcp::CongestionControlFeedback*>(
+                    rtcp_packets[0].get());
+            ASSERT_THAT(rtcp->packets(), SizeIs(2));
+            EXPECT_EQ(rtcp->packets()[0].ssrc, packet_2.Ssrc());
+            EXPECT_EQ(rtcp->packets()[0].sequence_number,
+                      packet_2.SequenceNumber());
+            EXPECT_EQ(rtcp->packets()[1].ssrc, packet_3.Ssrc());
+            EXPECT_EQ(rtcp->packets()[1].sequence_number,
+                      packet_3.SequenceNumber());
+          });
+  time_to_next_process = generator.Process(clock.CurrentTime());
+  clock.AdvanceTime(time_to_next_process);
+  generator.Process(clock.CurrentTime());
+}
+
 }  // namespace
 }  // namespace webrtc

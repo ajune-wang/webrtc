@@ -25,6 +25,7 @@
 #include "api/array_view.h"
 #include "api/audio/audio_device.h"
 #include "api/audio/audio_processing.h"
+#include "api/audio/builtin_audio_processing_factory.h"
 #include "api/audio_codecs/builtin_audio_encoder_factory.h"
 #include "api/environment/environment.h"
 #include "api/field_trials_view.h"
@@ -243,12 +244,12 @@ void CallPerfTest::TestAudioVideoSync(FecMode fec,
             audio_rtp_speed);
     EXPECT_EQ(0, fake_audio_device->Init());
 
+    CallConfig sender_config = SendCallConfig();
     AudioState::Config send_audio_state_config;
     send_audio_state_config.audio_mixer = AudioMixerImpl::Create();
     send_audio_state_config.audio_processing =
-        AudioProcessingBuilder().Create();
+        BuiltinAudioProcessingFactory().Create(sender_config.env);
     send_audio_state_config.audio_device_module = fake_audio_device;
-    CallConfig sender_config = SendCallConfig();
 
     auto audio_state = AudioState::Create(send_audio_state_config);
     fake_audio_device->RegisterAudioCallback(audio_state->audio_transport());

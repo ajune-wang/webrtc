@@ -17,7 +17,7 @@
 namespace webrtc {
 namespace jni {
 
-rtc::scoped_refptr<AudioProcessing> CreateAudioProcessing();
+[[deprecated]] scoped_refptr<AudioProcessing> CreateAudioProcessing();
 
 }  // namespace jni
 }  // namespace webrtc

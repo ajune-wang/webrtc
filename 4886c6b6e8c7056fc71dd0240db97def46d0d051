@@ -89,6 +89,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "950197a1_d0b1c13a",
+        "filename": "modules/rtp_rtcp/source/video_rtp_depacketizer_h264.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2024-10-17T13:56:34Z",
+      "side": 1,
+      "message": "in fact the `type` is wrong, should be `header.type \u003d data[0] \u0026 kH264TypeMask;`",
+      "parentUuid": "af5cb575_e11ba37f",
+      "range": {
+        "startLine": 59,
+        "startChar": 29,
+        "endLine": 59,
+        "endChar": 52
+      },
+      "revId": "4886c6b6e8c7056fc71dd0240db97def46d0d051",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "db0677ea_1fd5918a",
         "filename": "modules/rtp_rtcp/source/video_rtp_depacketizer_h264.cc",
         "patchSetId": 5
@@ -112,6 +136,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c64ec470_0254d796",
+        "filename": "modules/rtp_rtcp/source/video_rtp_depacketizer_h264.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 316,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2024-10-17T13:56:34Z",
+      "side": 1,
+      "message": "I was thinking adding the helper function to add the out of band sps/pps to the output buffer.\n\nI am not really prone of doing the rewrite in this first phase as it would require me to match the sps with the rewritten one. \n\nThe previous behaviour was to rewrite only the last sps, but I think it was more of of a simplification for doing the bytestream manipulation than the desired behaviour.",
+      "parentUuid": "db0677ea_1fd5918a",
+      "range": {
+        "startLine": 315,
+        "startChar": 59,
+        "endLine": 316,
+        "endChar": 18
+      },
+      "revId": "4886c6b6e8c7056fc71dd0240db97def46d0d051",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "19fca618_fad372e3",
         "filename": "modules/rtp_rtcp/source/video_rtp_depacketizer_h264_unittest.cc",
         "patchSetId": 5
@@ -123,6 +171,30 @@
       "writtenOn": "2024-10-16T09:14:22Z",
       "side": 1,
       "message": "Please add back the check for the `parsed2` contents.",
+      "range": {
+        "startLine": 327,
+        "startChar": 2,
+        "endLine": 327,
+        "endChar": 23
+      },
+      "revId": "4886c6b6e8c7056fc71dd0240db97def46d0d051",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8c4cde92_f16dc90b",
+        "filename": "modules/rtp_rtcp/source/video_rtp_depacketizer_h264_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 327,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2024-10-17T13:56:34Z",
+      "side": 1,
+      "message": "The contents are not modified now by Parse(), the checks on the content are done bellow on the AssembleFrame()",
+      "parentUuid": "19fca618_fad372e3",
       "range": {
         "startLine": 327,
         "startChar": 2,

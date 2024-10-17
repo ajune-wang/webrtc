@@ -16,6 +16,23 @@
       "message": "LGTM",
       "revId": "f4232f1a3457e8b52294131a0f748f021ebdc1ea",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d87e3ffa_33523568",
+        "filename": "modules/desktop_capture/mac/screen_capturer_sck.mm",
+        "patchSetId": 4
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2024-10-17T12:42:48Z",
+      "side": 1,
+      "message": "nit: I have a slight preference in writing this as `max_frame_rate_ \u003e 0`.",
+      "revId": "f4232f1a3457e8b52294131a0f748f021ebdc1ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

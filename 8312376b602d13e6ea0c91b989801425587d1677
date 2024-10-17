@@ -79,6 +79,30 @@
       },
       "revId": "8312376b602d13e6ea0c91b989801425587d1677",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f8e11930_5c3e48dc",
+        "filename": "modules/desktop_capture/screen_capturer_mac_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2024-10-17T08:12:29Z",
+      "side": 1,
+      "message": "I don\u0027t know if this is appropriate here, but in Chrome we use CGPreflightScreenCaptureAccess() to check this, see [1](https://source.chromium.org/chromium/chromium/src/+/main:ui/base/cocoa/permissions_utils.mm;drc\u003d6849bf6b37e96bd1c38a5f77f7deaa28b53779c4;bpv\u003d1;bpt\u003d1;l\u003d109).",
+      "parentUuid": "542c960e_010e6b5f",
+      "range": {
+        "startLine": 145,
+        "startChar": 35,
+        "endLine": 145,
+        "endChar": 78
+      },
+      "revId": "8312376b602d13e6ea0c91b989801425587d1677",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

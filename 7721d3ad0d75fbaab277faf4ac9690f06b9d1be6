@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "3a90e5d5_dfecd37f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2024-10-17T14:36:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f4e9f3b8_d2e186c8",
+      "range": {
+        "startLine": 9,
+        "startChar": 13,
+        "endLine": 9,
+        "endChar": 26
+      },
+      "revId": "7721d3ad0d75fbaab277faf4ac9690f06b9d1be6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "21030826_ea112687",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 1
@@ -37,6 +61,23 @@
       "writtenOn": "2024-10-17T10:17:00Z",
       "side": 1,
       "message": "Would you mind?",
+      "revId": "7721d3ad0d75fbaab277faf4ac9690f06b9d1be6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "980b4fa2_7760b9b9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2024-10-17T14:36:08Z",
+      "side": 1,
+      "message": "@terelius, can you also take a look?",
       "revId": "7721d3ad0d75fbaab277faf4ac9690f06b9d1be6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -100,6 +141,30 @@
       "writtenOn": "2024-10-17T12:03:31Z",
       "side": 1,
       "message": "```suggestion\n    RTC_DCHECK_EQ(send_packet.size(), packet.size);\n```",
+      "range": {
+        "startLine": 107,
+        "startChar": 4,
+        "endLine": 107,
+        "endChar": 50
+      },
+      "revId": "7721d3ad0d75fbaab277faf4ac9690f06b9d1be6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d5c1de1c_63dbd23e",
+        "filename": "rtc_tools/rtc_event_log_visualizer/log_simulation.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2024-10-17T14:36:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2193d5cd_d2793a3b",
       "range": {
         "startLine": 107,
         "startChar": 4,

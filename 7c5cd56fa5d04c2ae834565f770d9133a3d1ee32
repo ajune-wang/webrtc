@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ed7c09b0_bcb6e470",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-17T14:50:49Z",
+      "side": 1,
+      "message": "I find it an improvement as it is, but got few ideas that personally I think can make it even better.",
+      "revId": "7c5cd56fa5d04c2ae834565f770d9133a3d1ee32",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ee2d767_a78f4217",
+        "filename": "system_wrappers/include/clock.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-17T14:50:49Z",
+      "side": 1,
+      "message": "personally I like to try to make function names shorter when feasible.\ne.g. here \u0027NtpTime\u0027 is redundant with the parameter type,\n\u0027Convert\u0027 is sort of redundant with the verb \u0027To\u0027,\n\u0027Timestamp\u0027 is redundant with the return type, though that still might be helpful if there could be different return types.\nSo may be \n\u0027ToUtc\u0027\n\nAnother idea is to attach it not the to Clock class, but to NtpTime types as this conversion is agnostic to clock:\n\n```\nclass NtpTime {\n public:\n  ...\n  Timestamp ToUtc() const; // or ToUtcTimestamp\n};\n```",
+      "range": {
+        "startLine": 53,
+        "startChar": 19,
+        "endLine": 53,
+        "endChar": 47
+      },
+      "revId": "7c5cd56fa5d04c2ae834565f770d9133a3d1ee32",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8c810f61_3c33ee7e",
+        "filename": "system_wrappers/include/clock.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-17T14:50:49Z",
+      "side": 1,
+      "message": "technically `Timestamp::Zero()` represents a valid timestamp\nso may be `Timestamp::MinusInfinity()`",
+      "range": {
+        "startLine": 55,
+        "startChar": 13,
+        "endLine": 55,
+        "endChar": 34
+      },
+      "revId": "7c5cd56fa5d04c2ae834565f770d9133a3d1ee32",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0c56629f_68655a33",
+        "filename": "system_wrappers/include/clock.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-17T14:50:49Z",
+      "side": 1,
+      "message": "prefer post monorail-\u003etracker migration id (42220971)\nor skip this TODO altogether:\nif fractions is uint32_t, and if you use int64_t arithmetic, there should be no overflows ever.",
+      "range": {
+        "startLine": 62,
+        "startChar": 29,
+        "endLine": 62,
+        "endChar": 34
+      },
+      "revId": "7c5cd56fa5d04c2ae834565f770d9133a3d1ee32",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b936ff8a_d4f6f6d1",
+        "filename": "system_wrappers/include/clock.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-17T14:50:49Z",
+      "side": 1,
+      "message": "May be avoid float arithmetic in favor of using large integer type:\n```suggestion\n    int64_t time_fraction \u003d\n        int64_t{ntp_time.fractions()} * 1\u0027000\u0027000 / NtpTime::kFractionsPerSecond;\n```\n\n(with microsecond precision rounding shouldn\u0027t really matter)",
+      "range": {
+        "startLine": 64,
+        "startChar": 0,
+        "endLine": 65,
+        "endChar": 77
+      },
+      "revId": "7c5cd56fa5d04c2ae834565f770d9133a3d1ee32",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

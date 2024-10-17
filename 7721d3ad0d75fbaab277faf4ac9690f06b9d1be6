@@ -128,6 +128,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4f9656f2_223751ee",
+        "filename": "rtc_tools/rtc_event_log_visualizer/analyzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1752,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2024-10-17T15:32:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9dc9d5d5_80ed610d",
+      "range": {
+        "startLine": 1752,
+        "startChar": 8,
+        "endLine": 1752,
+        "endChar": 18
+      },
+      "revId": "7721d3ad0d75fbaab277faf4ac9690f06b9d1be6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2193d5cd_d2793a3b",

@@ -742,6 +742,11 @@ class AudioProcessingFactory {
       const Environment& env) = 0;
 };
 
+// Returns factory that always returns `audio_processing`.
+RTC_EXPORT absl::Nonnull<std::unique_ptr<AudioProcessingFactory>>
+PrebuiltAudioProcessing(
+    absl::Nullable<scoped_refptr<AudioProcessing>> audio_processing);
+
 // Experimental interface for a custom analysis submodule.
 class CustomAudioAnalyzer {
  public:
@@ -769,71 +774,6 @@ class CustomProcessing {
   virtual void SetRuntimeSetting(AudioProcessing::RuntimeSetting setting);
 
   virtual ~CustomProcessing() {}
-};
-
-// TODO: bugs.webrtc.org/369904700 - Deprecate and remove in favor of the
-// BuiltinAudioProcessingFactory.
-class RTC_EXPORT AudioProcessingBuilder {
- public:
-  AudioProcessingBuilder();
-  AudioProcessingBuilder(const AudioProcessingBuilder&) = delete;
-  AudioProcessingBuilder& operator=(const AudioProcessingBuilder&) = delete;
-  ~AudioProcessingBuilder();
-
-  // Sets the APM configuration.
-  AudioProcessingBuilder& SetConfig(const AudioProcessing::Config& config) {
-    config_ = config;
-    return *this;
-  }
-
-  // Sets the echo controller factory to inject when APM is created.
-  AudioProcessingBuilder& SetEchoControlFactory(
-      std::unique_ptr<EchoControlFactory> echo_control_factory) {
-    echo_control_factory_ = std::move(echo_control_factory);
-    return *this;
-  }
-
-  // Sets the capture post-processing sub-module to inject when APM is created.
-  AudioProcessingBuilder& SetCapturePostProcessing(
-      std::unique_ptr<CustomProcessing> capture_post_processing) {
-    capture_post_processing_ = std::move(capture_post_processing);
-    return *this;
-  }
-
-  // Sets the render pre-processing sub-module to inject when APM is created.
-  AudioProcessingBuilder& SetRenderPreProcessing(
-      std::unique_ptr<CustomProcessing> render_pre_processing) {
-    render_pre_processing_ = std::move(render_pre_processing);
-    return *this;
-  }
-
-  // Sets the echo detector to inject when APM is created.
-  AudioProcessingBuilder& SetEchoDetector(
-      rtc::scoped_refptr<EchoDetector> echo_detector) {
-    echo_detector_ = std::move(echo_detector);
-    return *this;
-  }
-
-  // Sets the capture analyzer sub-module to inject when APM is created.
-  AudioProcessingBuilder& SetCaptureAnalyzer(
-      std::unique_ptr<CustomAudioAnalyzer> capture_analyzer) {
-    capture_analyzer_ = std::move(capture_analyzer);
-    return *this;
-  }
-
-  // Creates an APM instance with the specified config or the default one if
-  // unspecified. Injects the specified components transferring the ownership
-  // to the newly created APM instance - i.e., except for the config, the
-  // builder is reset to its initial state.
-  rtc::scoped_refptr<AudioProcessing> Create();
-
- private:
-  AudioProcessing::Config config_;
-  std::unique_ptr<EchoControlFactory> echo_control_factory_;
-  std::unique_ptr<CustomProcessing> capture_post_processing_;
-  std::unique_ptr<CustomProcessing> render_pre_processing_;
-  rtc::scoped_refptr<EchoDetector> echo_detector_;
-  std::unique_ptr<CustomAudioAnalyzer> capture_analyzer_;
 };
 
 class StreamConfig {

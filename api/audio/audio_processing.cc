@@ -208,4 +208,23 @@ std::string AudioProcessing::Config::ToString() const {
   return builder.str();
 }
 
+absl::Nonnull<std::unique_ptr<AudioProcessingFactory>> PrebuiltAudioProcessing(
+    absl::Nullable<scoped_refptr<AudioProcessing>> audio_processing) {
+  class PrebuiltAudioProcessingFactory : public AudioProcessingFactory {
+   public:
+    explicit PrebuiltAudioProcessingFactory(scoped_refptr<AudioProcessing> ap)
+        : ap_(std::move(ap)) {}
+    ~PrebuiltAudioProcessingFactory() = default;
+
+    scoped_refptr<AudioProcessing> Create(const Environment& /*env*/) {
+      return ap_;
+    }
+
+   private:
+    scoped_refptr<AudioProcessing> ap_;
+  };
+  return std::make_unique<PrebuiltAudioProcessingFactory>(
+      std::move(audio_processing));
+}
+
 }  // namespace webrtc

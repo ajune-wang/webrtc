@@ -22,7 +22,7 @@
 namespace webrtc {
 
 absl::Nullable<scoped_refptr<AudioProcessing>>
-BuiltinAudioProcessingFactory::Create(const Environment& /*env*/) {
+BuiltinAudioProcessingFactory::Create(const Environment& env) {
   if (called_create_) {
     RTC_DLOG(LS_ERROR)
         << "Calling BuiltinAudioProcessingFactory::Create more than once "
@@ -30,10 +30,8 @@ BuiltinAudioProcessingFactory::Create(const Environment& /*env*/) {
   }
   called_create_ = true;
 
-  // TODO: bugs.webrtc.org/369904700 - Pass `env` when AudioProcessingImpl gets
-  // constructor that accepts it.
   return make_ref_counted<AudioProcessingImpl>(
-      config_, std::move(capture_post_processing_),
+      env, config_, std::move(capture_post_processing_),
       std::move(render_pre_processing_), std::move(echo_control_factory_),
       std::move(echo_detector_), std::move(capture_analyzer_));
 }

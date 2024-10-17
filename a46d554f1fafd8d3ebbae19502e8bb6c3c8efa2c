@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "11de9711_5b13998a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-10-17T12:32:36Z",
+      "side": 1,
+      "message": "I\u0027m not sure this is necessary.\nThe RFC 8888 format specifies that each SSRC report block starts with begin_seq and num_reports. And sequence numbers are sequential.\nSo a report on SSRC\u003d123;begin_seq\u003d72,num_reports\u003d3 followed by a later report having SSRC\u003d123;begin_seq\u003d75,num_reports\u003d3 will indicate that all packets from 72 to 77 have been reported on; having the second report have begin_seq\u003d74,num_reports\u003d4 would seem to me to give no additional information.",
+      "revId": "a46d554f1fafd8d3ebbae19502e8bb6c3c8efa2c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5b69be89_5a88979c",
+        "filename": "modules/remote_bitrate_estimator/congestion_control_feedback_generator_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 346,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-10-17T12:32:36Z",
+      "side": 1,
+      "message": "```suggestion\n// figure out which packets have been lost or possibly reordered.\n```",
+      "revId": "a46d554f1fafd8d3ebbae19502e8bb6c3c8efa2c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

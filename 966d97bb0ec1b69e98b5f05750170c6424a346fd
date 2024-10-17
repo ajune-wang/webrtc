@@ -74,6 +74,76 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "6f6dc433_aa2b93f8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2024-10-17T00:00:21Z",
+      "side": 1,
+      "message": "As you call out, the point of `DelegatedSourceListController` is because Wayland has a similar requirement that we go through a system picker rather than being able to call this directly. In that sense, I\u0027d say `BaseCapturerPipeWire` is likely *fine* to model from. I\u0027m not sure if we really track selection changes, so much as use this as a mechanism to help provide the UI a way to \"resummon\" the picker after the user gets the current preview. I *think* the contract with delegated picking is also that you expect to only see one source and you know that you can\u0027t change it (e.g. the `GetSourceList` behavior *is* different), based on what I\u0027ve heard from this API, I *do* think that pattern is likely the right one to follow. (I may be misremembering some guarantees and/or didn\u0027t document things, I can try to look into this more as well if you are unable to find/follow the references).\n\nThe other part that is potentially tricky with Chrome at least is that the capturer created during the picker is *not* the same as the capturer that is actually created to do the capturing, and so there is some restore logic, which requires using the system-level IDs where possible so that everything is talking in the same space (I *think* `BaseCapturerPipeWire` has some singleton object responsible for generating the IDs IIRC). I\u0027m not sure if that\u0027s possible today and/or what timeline we\u0027d have for wiring this up in Chrome (maybe we do things completely differently? I\u0027d need to dig in).\n\n`BaseCapturerPipeWire` is used for actually capturing windows/screens today and shipped and not experimental :).\n\nYou can see a wrapper of using this existing code here: https://source.chromium.org/chromium/chromium/src/+/main:chrome/browser/media/webrtc/delegated_source_list_capturer.cc",
+      "parentUuid": "52d4aa52_d7905221",
+      "range": {
+        "startLine": 15,
+        "startChar": 10,
+        "endLine": 17,
+        "endChar": 53
+      },
+      "revId": "966d97bb0ec1b69e98b5f05750170c6424a346fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0ff1ece9_52ced8a5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2024-10-17T00:00:21Z",
+      "side": 1,
+      "message": "By and large this sounds like we\u0027re doing the same things that we used to do with the Wayland capturer before refactoring to the `DelegatedSourceListController` to give a little bit better hooks for integration.",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 8
+      },
+      "revId": "966d97bb0ec1b69e98b5f05750170c6424a346fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "41f12f96_a285a893",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2024-10-17T00:00:21Z",
+      "side": 1,
+      "message": "I believe this also interacts poorly with some of the existing code.",
+      "range": {
+        "startLine": 25,
+        "startChar": 2,
+        "endLine": 25,
+        "endChar": 31
+      },
+      "revId": "966d97bb0ec1b69e98b5f05750170c6424a346fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "4a17f134_d562a874",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 4
@@ -85,6 +155,69 @@
       "writtenOn": "2024-10-09T22:17:36Z",
       "side": 1,
       "message": "Thank you for doing this work, it\u0027s much appreciated! 😊",
+      "revId": "966d97bb0ec1b69e98b5f05750170c6424a346fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d70ffabe_9338f6e5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2024-10-17T00:00:21Z",
+      "side": 1,
+      "message": "Still working through this one but wanted to share some initial thoughts. I could be wrong, but from what I\u0027m recollecting being told about SckCapturer I *do* think it is fairly similar to the PipeWire capturerer with regards to `DelegatedSourceListController` usage. However, I *think* in Chrome, this class is currently only used by CRD, and we do SCK for Screens/windows differently? @kron would know better than I though.",
+      "revId": "966d97bb0ec1b69e98b5f05750170c6424a346fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "94138ef6_0ba6956f",
+        "filename": "modules/desktop_capture/desktop_capturer.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2024-10-17T00:00:21Z",
+      "side": 1,
+      "message": "This actually looks like dead code to me in the Chromium project.... Is it used by Firefox?",
+      "range": {
+        "startLine": 115,
+        "startChar": 50,
+        "endLine": 115,
+        "endChar": 71
+      },
+      "revId": "966d97bb0ec1b69e98b5f05750170c6424a346fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "53544dd9_43409a20",
+        "filename": "modules/desktop_capture/desktop_capturer.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2024-10-17T00:00:21Z",
+      "side": 1,
+      "message": "Presumably we do not have a way to restrict the SckCapturer to Desktop Screens or Windows?",
+      "range": {
+        "startLine": 125,
+        "startChar": 13,
+        "endLine": 125,
+        "endChar": 37
+      },
       "revId": "966d97bb0ec1b69e98b5f05750170c6424a346fd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

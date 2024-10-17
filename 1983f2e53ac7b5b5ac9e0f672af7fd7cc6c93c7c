@@ -16,6 +16,24 @@
       "message": "This should make the test fail more often, right?\nI see that you have a number of failure logs to work on :-)",
       "revId": "1983f2e53ac7b5b5ac9e0f672af7fd7cc6c93c7c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "64a01c84_727a85fa",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2024-10-17T13:31:22Z",
+      "side": 1,
+      "message": "I think it\u0027s better to fail early (and printing an error message) rather than waiting until the end.",
+      "parentUuid": "45dc1f35_ddd148cf",
+      "revId": "1983f2e53ac7b5b5ac9e0f672af7fd7cc6c93c7c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

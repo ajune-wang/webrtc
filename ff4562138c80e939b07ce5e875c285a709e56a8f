@@ -22,6 +22,30 @@
       },
       "revId": "ff4562138c80e939b07ce5e875c285a709e56a8f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "239851cb_00f2ddc5",
+        "filename": "modules/desktop_capture/mac/screen_capturer_sck.mm",
+        "patchSetId": 4
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2024-10-17T08:36:35Z",
+      "side": 1,
+      "message": "I agree with the suggestion to avoid using macros.\n\nWhile I\u0027m not an Objective-C expert, I understand that the convention is to guard code using OS-specific features with `if (@available(macOS 14.0, *))`. Therefore, line 366 should likely remain as originally written.\n\nI suggest moving `ScreenCaptureSckAvailable()` next to `CreateScreenCapturerSck()`.",
+      "parentUuid": "81a0ec89_2eadf9cf",
+      "range": {
+        "startLine": 53,
+        "startChar": 0,
+        "endLine": 59,
+        "endChar": 1
+      },
+      "revId": "ff4562138c80e939b07ce5e875c285a709e56a8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

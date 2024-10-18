@@ -37,6 +37,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "dc99ba6d_45734ebd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7255
+      },
+      "writtenOn": "2024-10-18T11:58:04Z",
+      "side": 1,
+      "message": "I added a test.",
+      "parentUuid": "59575cfd_c13f471f",
+      "revId": "7c5cd56fa5d04c2ae834565f770d9133a3d1ee32",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "7ee2d767_a78f4217",
         "filename": "system_wrappers/include/clock.h",
         "patchSetId": 3
@@ -60,6 +78,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "d4e86748_17511819",
+        "filename": "system_wrappers/include/clock.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 7255
+      },
+      "writtenOn": "2024-10-18T11:58:04Z",
+      "side": 1,
+      "message": "I don\u0027t want to skip the Ntp part. I think NTP is redundant if I read the declaration, but not if I skim through existing .cc code. Since I might not know the type of the parameters.\n\nI aslo don\u0027t like putting this into NtpTime. It creates a dependency between NtpTime and Timestamp I find ugly. I feel that NtpTime is a low level data type that should not have dependancies. It also prevents cross dependency if someone would like to make an similar Timestamp-\u003eNtpTime function in Timestamp. Having the conversions outside the NtpTime/Timestamp classes feels much nicer.\n\nBut I do agree the name is kind of long, I\u0027ll rename it to NtpToUtc.",
+      "parentUuid": "7ee2d767_a78f4217",
+      "range": {
+        "startLine": 53,
+        "startChar": 19,
+        "endLine": 53,
+        "endChar": 47
+      },
+      "revId": "7c5cd56fa5d04c2ae834565f770d9133a3d1ee32",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "8c810f61_3c33ee7e",
         "filename": "system_wrappers/include/clock.h",
         "patchSetId": 3
@@ -71,6 +113,30 @@
       "writtenOn": "2024-10-17T14:50:49Z",
       "side": 1,
       "message": "technically `Timestamp::Zero()` represents a valid timestamp\nso may be `Timestamp::MinusInfinity()`",
+      "range": {
+        "startLine": 55,
+        "startChar": 13,
+        "endLine": 55,
+        "endChar": 34
+      },
+      "revId": "7c5cd56fa5d04c2ae834565f770d9133a3d1ee32",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "29e5cd60_f4a8e495",
+        "filename": "system_wrappers/include/clock.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 7255
+      },
+      "writtenOn": "2024-10-18T11:58:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8c810f61_3c33ee7e",
       "range": {
         "startLine": 55,
         "startChar": 13,
@@ -106,6 +172,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "a83ab6c4_67492f84",
+        "filename": "system_wrappers/include/clock.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 7255
+      },
+      "writtenOn": "2024-10-18T11:58:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0c56629f_68655a33",
+      "range": {
+        "startLine": 62,
+        "startChar": 29,
+        "endLine": 62,
+        "endChar": 34
+      },
+      "revId": "7c5cd56fa5d04c2ae834565f770d9133a3d1ee32",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "b936ff8a_d4f6f6d1",
         "filename": "system_wrappers/include/clock.h",
         "patchSetId": 3
@@ -117,6 +207,30 @@
       "writtenOn": "2024-10-17T14:50:49Z",
       "side": 1,
       "message": "May be avoid float arithmetic in favor of using large integer type:\n```suggestion\n    int64_t time_fraction \u003d\n        int64_t{ntp_time.fractions()} * 1\u0027000\u0027000 / NtpTime::kFractionsPerSecond;\n```\n\n(with microsecond precision rounding shouldn\u0027t really matter)",
+      "range": {
+        "startLine": 64,
+        "startChar": 0,
+        "endLine": 65,
+        "endChar": 77
+      },
+      "revId": "7c5cd56fa5d04c2ae834565f770d9133a3d1ee32",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "edded016_28f67b5a",
+        "filename": "system_wrappers/include/clock.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 7255
+      },
+      "writtenOn": "2024-10-18T11:58:04Z",
+      "side": 1,
+      "message": "I removed the float arithmetic. I modified the expression to still make it round to the correct integer.",
+      "parentUuid": "b936ff8a_d4f6f6d1",
       "range": {
         "startLine": 64,
         "startChar": 0,

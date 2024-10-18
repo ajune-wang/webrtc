@@ -239,6 +239,30 @@
       },
       "revId": "7c5cd56fa5d04c2ae834565f770d9133a3d1ee32",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c21925a9_49aa4774",
+        "filename": "system_wrappers/include/clock.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-18T12:38:51Z",
+      "side": 1,
+      "message": "personally I wouldn\u0027t worry about submicrosecond precision.",
+      "parentUuid": "edded016_28f67b5a",
+      "range": {
+        "startLine": 64,
+        "startChar": 0,
+        "endLine": 65,
+        "endChar": 77
+      },
+      "revId": "7c5cd56fa5d04c2ae834565f770d9133a3d1ee32",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

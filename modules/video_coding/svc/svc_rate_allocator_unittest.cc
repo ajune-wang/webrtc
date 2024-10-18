@@ -13,6 +13,7 @@
 #include <algorithm>
 #include <cstddef>
 #include <cstdint>
+#include <utility>
 #include <vector>
 
 #include "absl/container/inlined_vector.h"
@@ -29,6 +30,10 @@
 #include "rtc_base/checks.h"
 #include "test/explicit_key_value_config.h"
 #include "test/gtest.h"
+
+#ifdef RTC_ENABLE_H265
+#include "modules/video_coding/codecs/h265/h265_svc_config.h"
+#endif
 
 namespace webrtc {
 namespace test {
@@ -68,16 +73,27 @@ static VideoCodec Configure(VideoCodecType codecType,
     return codec;
   }
 
-  RTC_DCHECK_EQ(codecType, kVideoCodecAV1);
+  RTC_DCHECK(
+#ifdef RTC_ENABLE_H265
+      codecType == kVideoCodecH265 ||
+#endif
+      codecType == kVideoCodecAV1);
 
   if (num_spatial_layers == 1) {
-    // SetAv1SvcConfig expects bitrate limits for be set when single spatial
-    // layer is requested.
+    // SetAv1SvcConfig/SetH265SvcConfig expects bitrate limits for be set when
+    // single spatial layer is requested.
     codec.minBitrate = 30;
     codec.maxBitrate = 5000;
   }
 
-  SetAv1SvcConfig(codec, num_temporal_layers, num_spatial_layers);
+  if (codecType == kVideoCodecAV1) {
+    SetAv1SvcConfig(codec, num_temporal_layers, num_spatial_layers);
+  }
+#ifdef RTC_ENABLE_H265
+  if (codecType == kVideoCodecH265) {
+    SetH265SvcConfig(codec, num_temporal_layers, num_spatial_layers);
+  }
+#endif
 
   return codec;
 }
@@ -373,7 +389,7 @@ TEST(SvcRateAllocatorTest, SupportsAv1WithSkippedLayer) {
   EXPECT_GT(allocation.GetSpatialLayerSum(2), 0u);
 }
 
-TEST(SvcRateAllocatorTest, UsesScalabilityModeToGetNumberOfLayers) {
+TEST(SvcRateAllocatorTest, AV1UsesScalabilityModeToGetNumberOfLayers) {
   VideoCodec codec;
   codec.width = 640;
   codec.height = 360;
@@ -407,6 +423,102 @@ TEST(SvcRateAllocatorTest, UsesScalabilityModeToGetNumberOfLayers) {
   EXPECT_EQ(allocation.GetSpatialLayerSum(2), 0u);
 }
 
+#ifdef RTC_ENABLE_H265
+TEST(SvcRateAllocatorTest, SupportsH265) {
+  VideoCodec codec;
+  codec.width = 640;
+  codec.height = 360;
+  codec.codecType = kVideoCodecH265;
+  codec.SetScalabilityMode(ScalabilityMode::kL3T3);
+  codec.spatialLayers[0].active = true;
+  codec.spatialLayers[0].minBitrate = 30;
+  codec.spatialLayers[0].targetBitrate = 51;
+  codec.spatialLayers[0].maxBitrate = 73;
+  codec.spatialLayers[1].active = true;
+  codec.spatialLayers[1].minBitrate = 49;
+  codec.spatialLayers[1].targetBitrate = 64;
+  codec.spatialLayers[1].maxBitrate = 97;
+  codec.spatialLayers[2].active = true;
+  codec.spatialLayers[2].minBitrate = 193;
+  codec.spatialLayers[2].targetBitrate = 305;
+  codec.spatialLayers[2].maxBitrate = 418;
+  ExplicitKeyValueConfig field_trials("");
+
+  SvcRateAllocator allocator(codec, field_trials);
+
+  VideoBitrateAllocation allocation =
+      allocator.Allocate(VideoBitrateAllocationParameters(1'000'000, 30));
+
+  EXPECT_GT(allocation.GetSpatialLayerSum(0), 0u);
+  EXPECT_GT(allocation.GetSpatialLayerSum(1), 0u);
+  EXPECT_GT(allocation.GetSpatialLayerSum(2), 0u);
+}
+
+TEST(SvcRateAllocatorTest, SupportsH265WithSkippedLayer) {
+  VideoCodec codec;
+  codec.width = 640;
+  codec.height = 360;
+  codec.codecType = kVideoCodecH265;
+  codec.SetScalabilityMode(ScalabilityMode::kL3T3);
+  codec.spatialLayers[0].active = false;
+  codec.spatialLayers[0].minBitrate = 30;
+  codec.spatialLayers[0].targetBitrate = 51;
+  codec.spatialLayers[0].maxBitrate = 73;
+  codec.spatialLayers[1].active = true;
+  codec.spatialLayers[1].minBitrate = 49;
+  codec.spatialLayers[1].targetBitrate = 64;
+  codec.spatialLayers[1].maxBitrate = 97;
+  codec.spatialLayers[2].active = true;
+  codec.spatialLayers[2].minBitrate = 193;
+  codec.spatialLayers[2].targetBitrate = 305;
+  codec.spatialLayers[2].maxBitrate = 418;
+  ExplicitKeyValueConfig field_trials("");
+
+  SvcRateAllocator allocator(codec, field_trials);
+
+  VideoBitrateAllocation allocation =
+      allocator.Allocate(VideoBitrateAllocationParameters(1'000'000, 30));
+
+  EXPECT_EQ(allocation.GetSpatialLayerSum(0), 0u);
+  EXPECT_GT(allocation.GetSpatialLayerSum(1), 0u);
+  EXPECT_GT(allocation.GetSpatialLayerSum(2), 0u);
+}
+
+TEST(SvcRateAllocatorTest, H265UsesScalabilityModeToGetNumberOfLayers) {
+  VideoCodec codec;
+  codec.width = 640;
+  codec.height = 360;
+  codec.codecType = kVideoCodecH265;
+  codec.SetScalabilityMode(ScalabilityMode::kL2T2);
+  codec.spatialLayers[0].active = true;
+  codec.spatialLayers[0].minBitrate = 30;
+  codec.spatialLayers[0].targetBitrate = 51;
+  codec.spatialLayers[0].maxBitrate = 73;
+  codec.spatialLayers[1].active = true;
+  codec.spatialLayers[1].minBitrate = 49;
+  codec.spatialLayers[1].targetBitrate = 64;
+  codec.spatialLayers[1].maxBitrate = 97;
+  codec.spatialLayers[2].active = true;
+  codec.spatialLayers[2].minBitrate = 193;
+  codec.spatialLayers[2].targetBitrate = 305;
+  codec.spatialLayers[2].maxBitrate = 418;
+  ExplicitKeyValueConfig field_trials("");
+
+  SvcRateAllocator allocator(codec, field_trials);
+  VideoBitrateAllocation allocation =
+      allocator.Allocate(VideoBitrateAllocationParameters(1'000'000, 30));
+
+  // Expect bitrates for 2 temporal layers.
+  EXPECT_TRUE(allocation.HasBitrate(1, /*temporal_index=*/0));
+  EXPECT_TRUE(allocation.HasBitrate(1, /*temporal_index=*/1));
+  EXPECT_FALSE(allocation.HasBitrate(1, /*temporal_index=*/2));
+
+  // expect codec.spatialLayers[2].active is ignored because scability mode uses
+  // just 2 spatial layers.
+  EXPECT_EQ(allocation.GetSpatialLayerSum(2), 0u);
+}
+#endif
+
 TEST(SvcRateAllocatorTest, CapsAllocationToMaxBitrate) {
   VideoCodec codec = Configure(kVideoCodecVP9, 1280, 720, 3, 3, false);
   codec.maxBitrate = 70;  // Cap the overall max bitrate to 70kbps.
@@ -424,17 +536,20 @@ TEST(SvcRateAllocatorTest, CapsAllocationToMaxBitrate) {
   EXPECT_EQ(allocation.GetSpatialLayerSum(2), 0u);
 }
 
-class SvcRateAllocatorTestParametrizedContentType : public TestWithParam<bool> {
+class SvcRateAllocatorTestParametrizedContentType
+    : public TestWithParam<std::pair<VideoCodecType, bool>> {
  public:
   SvcRateAllocatorTestParametrizedContentType()
-      : is_screen_sharing_(GetParam()) {}
+      : is_screen_sharing_(GetParam().second), codec_type_(GetParam().first) {}
 
   const bool is_screen_sharing_;
+
+  const VideoCodecType codec_type_;
 };
 
 TEST_P(SvcRateAllocatorTestParametrizedContentType, MaxBitrate) {
   VideoCodec codec =
-      Configure(kVideoCodecVP9, 1280, 720, 3, 1, is_screen_sharing_);
+      Configure(codec_type_, 1280, 720, 3, 1, is_screen_sharing_);
   EXPECT_EQ(SvcRateAllocator::GetMaxBitrate(codec),
             DataRate::KilobitsPerSec(codec.spatialLayers[0].maxBitrate +
                                      codec.spatialLayers[1].maxBitrate +
@@ -448,7 +563,7 @@ TEST_P(SvcRateAllocatorTestParametrizedContentType, MaxBitrate) {
 
 TEST_P(SvcRateAllocatorTestParametrizedContentType, PaddingBitrate) {
   VideoCodec codec =
-      Configure(kVideoCodecVP9, 1280, 720, 3, 1, is_screen_sharing_);
+      Configure(codec_type_, 1280, 720, 3, 1, is_screen_sharing_);
   ExplicitKeyValueConfig field_trials("");
   SvcRateAllocator allocator = SvcRateAllocator(codec, field_trials);
 
@@ -499,7 +614,7 @@ TEST_P(SvcRateAllocatorTestParametrizedContentType, StableBitrate) {
       "screenshare_hysteresis_factor:1.0/");
 
   const VideoCodec codec =
-      Configure(kVideoCodecVP9, 1280, 720, 3, 1, is_screen_sharing_);
+      Configure(codec_type_, 1280, 720, 3, 1, is_screen_sharing_);
   const auto start_rates = SvcRateAllocator::GetLayerStartBitrates(codec);
   const DataRate min_rate_two_layers = start_rates[1];
   const DataRate min_rate_three_layers = start_rates[2];
@@ -553,7 +668,7 @@ TEST_P(SvcRateAllocatorTestParametrizedContentType, StableBitrate) {
 TEST_P(SvcRateAllocatorTestParametrizedContentType,
        StableBitrateWithHysteresis) {
   const VideoCodec codec =
-      Configure(kVideoCodecVP9, 1280, 720, 3, 1, is_screen_sharing_);
+      Configure(codec_type_, 1280, 720, 3, 1, is_screen_sharing_);
   const auto start_rates = SvcRateAllocator::GetLayerStartBitrates(codec);
   const DataRate min_rate_single_layer = start_rates[0];
   const DataRate min_rate_two_layers = start_rates[1];
@@ -642,9 +757,12 @@ TEST_P(SvcRateAllocatorTestParametrizedContentType,
   EXPECT_FALSE(allocation.IsSpatialLayerUsed(2));
 }
 
-TEST_P(SvcRateAllocatorTestParametrizedContentType, TwoTemporalLayersAv1) {
+TEST_P(SvcRateAllocatorTestParametrizedContentType, TwoTemporalLayers) {
+  if (codec_type_ == kVideoCodecVP9) {
+    GTEST_SKIP() << "VP9 is using a different bitrate allocation.";
+  }
   VideoCodec codec =
-      Configure(kVideoCodecAV1, 1280, 720, 1, 2, is_screen_sharing_);
+      Configure(codec_type_, 1280, 720, 1, 2, is_screen_sharing_);
   ExplicitKeyValueConfig field_trials("");
   SvcRateAllocator allocator = SvcRateAllocator(codec, field_trials);
   VideoBitrateAllocation allocation =
@@ -657,9 +775,12 @@ TEST_P(SvcRateAllocatorTestParametrizedContentType, TwoTemporalLayersAv1) {
             363355u);
 }
 
-TEST_P(SvcRateAllocatorTestParametrizedContentType, ThreeTemporalLayersAv1) {
+TEST_P(SvcRateAllocatorTestParametrizedContentType, ThreeTemporalLayers) {
+  if (codec_type_ == kVideoCodecVP9) {
+    GTEST_SKIP() << "VP9 is using a different bitrate allocation.";
+  }
   VideoCodec codec =
-      Configure(kVideoCodecAV1, 1280, 720, 1, 3, is_screen_sharing_);
+      Configure(codec_type_, 1280, 720, 1, 3, is_screen_sharing_);
   ExplicitKeyValueConfig field_trials("");
   SvcRateAllocator allocator = SvcRateAllocator(codec, field_trials);
   VideoBitrateAllocation allocation =
@@ -674,9 +795,24 @@ TEST_P(SvcRateAllocatorTestParametrizedContentType, ThreeTemporalLayersAv1) {
             304022u);
 }
 
+namespace {
+std::vector<std::pair<VideoCodecType, bool>> CodecsToTest() {
+  std::vector<std::pair<VideoCodecType, bool>> codecs;
+  codecs.emplace_back(kVideoCodecAV1, true);
+  codecs.emplace_back(kVideoCodecAV1, false);
+  codecs.emplace_back(kVideoCodecVP9, true);
+  codecs.emplace_back(kVideoCodecVP9, false);
+#ifdef RTC_ENABLE_H265
+  codecs.emplace_back(kVideoCodecH265, true);
+  codecs.emplace_back(kVideoCodecH265, false);
+#endif
+  return codecs;
+}
+}  // namespace
+
 INSTANTIATE_TEST_SUITE_P(_,
                          SvcRateAllocatorTestParametrizedContentType,
-                         Bool());
+                         ::testing::ValuesIn(CodecsToTest()));
 
 }  // namespace test
 }  // namespace webrtc

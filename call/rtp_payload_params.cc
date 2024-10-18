@@ -114,8 +114,9 @@ void PopulateRtpWithCodecSpecifics(const CodecSpecificInfo& info,
     case kVideoCodecGeneric:
       rtp->codec = kVideoCodecGeneric;
       return;
-    // TODO(bugs.webrtc.org/13485): Implement H265 codec specific info
     default:
+      // There is no CodecSpecificInfo.AV1 or CodecSpecificInfo.H265. They use
+      // the CodecSpecificInfo structure only.
       return;
   }
 }
@@ -353,7 +354,8 @@ void RtpPayloadParams::SetGeneric(const CodecSpecificInfo* codec_specific_info,
       }
       return;
     case VideoCodecType::kVideoCodecAV1:
-      // TODO(philipel): Implement AV1 to generic descriptor.
+      // Codec-specifics is not supported for AV1. We convert from the
+      // generic_frame_info.
       return;
     case VideoCodecType::kVideoCodecH264:
       if (codec_specific_info) {
@@ -362,7 +364,8 @@ void RtpPayloadParams::SetGeneric(const CodecSpecificInfo* codec_specific_info,
       }
       return;
     case VideoCodecType::kVideoCodecH265:
-      // TODO(bugs.webrtc.org/13485): Implement H265 to generic descriptor.
+      // Codec-specifics is not supported for H.265. We convert from the
+      // generic_frame_info.
       return;
   }
   RTC_DCHECK_NOTREACHED() << "Unsupported codec.";

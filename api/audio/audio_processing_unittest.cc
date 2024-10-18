@@ -1,0 +1,44 @@
+/*
+ *  Copyright (c) 2024 The WebRTC project authors. All Rights Reserved.
+ *
+ *  Use of this source code is governed by a BSD-style license
+ *  that can be found in the LICENSE file in the root of the source
+ *  tree. An additional intellectual property rights grant can be found
+ *  in the file PATENTS.  All contributing project authors may
+ *  be found in the AUTHORS file in the root of the source tree.
+ */
+
+#include "api/audio/audio_processing.h"
+
+#include <memory>
+
+#include "api/environment/environment_factory.h"
+#include "api/make_ref_counted.h"
+#include "api/scoped_refptr.h"
+#include "modules/audio_processing/include/mock_audio_processing.h"
+#include "test/gmock.h"
+#include "test/gtest.h"
+
+namespace webrtc {
+
+using ::testing::_;
+using ::testing::NotNull;
+
+TEST(CustomAudioProcessingTest, ReturnsTheSameAudioProcessing) {
+  scoped_refptr<AudioProcessing> ap =
+      make_ref_counted<test::MockAudioProcessing>();
+
+  std::unique_ptr<AudioProcessingFactory> factory = CustomAudioProcessing(ap);
+
+  ASSERT_THAT(factory, NotNull());
+  EXPECT_EQ(factory->Create(CreateEnvironment()), ap);
+  EXPECT_EQ(factory->Create(CreateEnvironment()), ap);
+}
+
+#if GTEST_HAS_DEATH_TEST
+TEST(CustomAudioProcessingTest, NullptrAudioProcessingIsUnsupported) {
+  EXPECT_DEATH(CustomAudioProcessing(nullptr), _);
+}
+#endif
+
+}  // namespace webrtc

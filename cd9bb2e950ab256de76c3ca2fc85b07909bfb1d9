@@ -16,6 +16,24 @@
       "message": "There is still a weird interaction between the depacketizer and the sps pps tracker as the tracker checks the Nalu information from the video header on a per packet base, so the depakcetizer has to add the out of bound Nalu info even if it doesn\u0027t modify the buffer on the Parse() step.\n\nAfter reviewing it, I am not sure if the tracker makes sense anymore or if it could be removed altogether and just rely on the AssembleFrame() output for requesting an key frame as in any other codec.\n\nDue to that, I had to remove teh OutOfBound tests from the rtp_video_stream_receiver2_unittest as the OnReceivedPayload is skipping the depacketizer Parse(). I can modify add those tests by using the OnReceivedPacket insted and avoid creating the video header manually on the tests.",
       "revId": "cd9bb2e950ab256de76c3ca2fc85b07909bfb1d9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2f15ef6b_ba835b8e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2024-10-18T08:20:19Z",
+      "side": 1,
+      "message": "I don\u0027t mind tracker being removed.",
+      "parentUuid": "d2422043_adbfd308",
+      "revId": "cd9bb2e950ab256de76c3ca2fc85b07909bfb1d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -158,6 +158,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f4fbac91_954c3424",
+        "filename": "modules/rtp_rtcp/source/video_rtp_depacketizer_h264.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 316,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2024-10-18T08:20:19Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "c64ec470_0254d796",
+      "range": {
+        "startLine": 315,
+        "startChar": 59,
+        "endLine": 316,
+        "endChar": 18
+      },
+      "revId": "4886c6b6e8c7056fc71dd0240db97def46d0d051",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "19fca618_fad372e3",
@@ -195,6 +219,30 @@
       "side": 1,
       "message": "The contents are not modified now by Parse(), the checks on the content are done bellow on the AssembleFrame()",
       "parentUuid": "19fca618_fad372e3",
+      "range": {
+        "startLine": 327,
+        "startChar": 2,
+        "endLine": 327,
+        "endChar": 23
+      },
+      "revId": "4886c6b6e8c7056fc71dd0240db97def46d0d051",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a23e30da_906ae87d",
+        "filename": "modules/rtp_rtcp/source/video_rtp_depacketizer_h264_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 327,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2024-10-18T08:20:19Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "8c4cde92_f16dc90b",
       "range": {
         "startLine": 327,
         "startChar": 2,

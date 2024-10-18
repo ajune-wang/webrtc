@@ -94,6 +94,30 @@
       },
       "revId": "af1c400d799b6aa25e86ec3492610da236b654e2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b97d0564_461258d2",
+        "filename": "modules/desktop_capture/mac/screen_capturer_sck.mm",
+        "patchSetId": 4
+      },
+      "lineNbr": 315,
+      "author": {
+        "id": 6092
+      },
+      "writtenOn": "2024-10-18T17:23:23Z",
+      "side": 1,
+      "message": "For CRD, we need to set the `config.width` and `config.height` to the platform\u0027s native screen resolution, to match the behavior of the old capturer. Otherwise, the image quality will severely regress for users when we roll out the SCK capturer.\n\nSimilarly, I think we want the `SCCaptureResolutionNominal` setting? I\u0027m not sure how SCK can change the \"quality of content\" when we are requesting a lossless RGB format for the data? If it means re-scaling, we don\u0027t want that for the same reason. I didn\u0027t actually notice any difference with this setting, but that could be because I didn\u0027t try it with a poor network?\n\nThe issue for CRD is that users expect a much higher level of clarity than is needed for typical images or videos. Each frame-compression is based on the previous frame content. Most of the time, not much is changed - we don\u0027t need to send the entire frame, only the changed parts (and our encoder automatically detects these). Even over a poor network, small changes can be sent quickly. This is why it\u0027s important to capture at the original desktop quality, so that when users type characters into an editor, the screen-changes are encoded and sent at full fidelity.",
+      "parentUuid": "4075cf17_31b01aef",
+      "range": {
+        "startLine": 315,
+        "startChar": 29,
+        "endLine": 315,
+        "endChar": 57
+      },
+      "revId": "af1c400d799b6aa25e86ec3492610da236b654e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

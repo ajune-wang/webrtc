@@ -22,6 +22,30 @@
       },
       "revId": "129f228f5900d498d4e1127422706b069d2d5916",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7a2dc57a_85fa6a08",
+        "filename": "rtc_tools/rtc_event_log_visualizer/analyzer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1760,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2024-10-18T09:33:06Z",
+      "side": 0,
+      "message": "Hum, because I hoped transport feedback adapter did not care about the media type.  But that seems to be wrong at least here; https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/modules/congestion_controller/goog_cc/delay_based_bwe.cc;drc\u003d8037fc6ffa131805248c2a63c3edec69155b05cf;l\u003d170. Adding it back.",
+      "parentUuid": "934ec9ed_fc47a1a1",
+      "range": {
+        "startLine": 1750,
+        "startChar": 0,
+        "endLine": 1760,
+        "endChar": 9
+      },
+      "revId": "129f228f5900d498d4e1127422706b069d2d5916",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

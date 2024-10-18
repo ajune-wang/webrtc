@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "68f6ae3a_0000bc8e",
+        "filename": "modules/congestion_controller/rtp/transport_feedback_adapter.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2024-10-18T09:33:06Z",
+      "side": 1,
+      "message": "Yes. But dchecks only applies to debug build.",
+      "parentUuid": "41193077_720de244",
+      "range": {
+        "startLine": 102,
+        "startChar": 49,
+        "endLine": 102,
+        "endChar": 60
+      },
+      "revId": "ac357446e958c99d9754b0d079b6c769ddec7fae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1d0800fc_34868d9c",
@@ -37,6 +61,24 @@
       "writtenOn": "2024-10-18T07:56:44Z",
       "side": 1,
       "message": "Should we set the media type?",
+      "revId": "ac357446e958c99d9754b0d079b6c769ddec7fae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "236aebe2_c712023b",
+        "filename": "modules/congestion_controller/rtp/transport_feedback_adapter_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2024-10-18T09:33:06Z",
+      "side": 1,
+      "message": "https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/modules/congestion_controller/goog_cc/delay_based_bwe.cc;drc\u003d8037fc6ffa131805248c2a63c3edec69155b05cf;l\u003d170\n\n... \nOk, I will add it back.",
+      "parentUuid": "1d0800fc_34868d9c",
       "revId": "ac357446e958c99d9754b0d079b6c769ddec7fae",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

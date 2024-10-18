@@ -43,7 +43,7 @@ std::unique_ptr<VideoDecoder> CreateDecoder(const Environment& env,
     case VideoCodecType::kVideoCodecAV1:
       return CreateDav1dDecoder();
     case VideoCodecType::kVideoCodecH265:
-      // TODO: bugs.webrtc.org/13485 - implement H265 decoder
+      // No H.265 SW decoder implementation will be provided.
       return nullptr;
     default:
       return nullptr;

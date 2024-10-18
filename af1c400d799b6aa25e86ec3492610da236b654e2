@@ -118,6 +118,30 @@
       },
       "revId": "af1c400d799b6aa25e86ec3492610da236b654e2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ffcb584e_1a57d315",
+        "filename": "modules/desktop_capture/mac/screen_capturer_sck.mm",
+        "patchSetId": 4
+      },
+      "lineNbr": 315,
+      "author": {
+        "id": 6092
+      },
+      "writtenOn": "2024-10-18T17:31:29Z",
+      "side": 1,
+      "message": "Ah, I didn\u0027t read the whole change - looks like you\u0027re not actually changing the content width/height. So my concern is just about the automatic versus nominal setting. I would prefer to keep \"nominal\" here, though I didn\u0027t actually see any change when I tested it 😊",
+      "parentUuid": "b97d0564_461258d2",
+      "range": {
+        "startLine": 315,
+        "startChar": 29,
+        "endLine": 315,
+        "endChar": 57
+      },
+      "revId": "af1c400d799b6aa25e86ec3492610da236b654e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

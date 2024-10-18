@@ -107,6 +107,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cd33e72f_a4846f19",
+        "filename": "media/base/codec.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2024-10-18T14:25:54Z",
+      "side": 1,
+      "message": "Have updated this part and moved the method to codec_comparators.cc.",
+      "parentUuid": "02deab53_a6252387",
+      "revId": "3a320c58dd8cffb7255cacb398954a3eac28284f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "506c3705_342fab89",
         "filename": "media/base/codec.cc",
         "patchSetId": 9
@@ -154,6 +172,24 @@
       "side": 1,
       "message": "After reading the bug and the linked design doc, I\u0027m still unclear about what the exact purpose of this function is. Is there some guarantee that it won\u0027t be used on RTX codecs? If so, can we codify that?",
       "parentUuid": "918c6ec8_e66cab4d",
+      "revId": "3a320c58dd8cffb7255cacb398954a3eac28284f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "662cb56e_e32c9164",
+        "filename": "media/base/codec.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2024-10-18T14:25:54Z",
+      "side": 1,
+      "message": "Have removed the check for RTX codec.",
+      "parentUuid": "29ad2ad3_2bada6ea",
       "revId": "3a320c58dd8cffb7255cacb398954a3eac28284f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

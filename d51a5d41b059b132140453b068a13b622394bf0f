@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d1b8abe2_f18c4289",
+        "filename": "system_wrappers/source/clock_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-18T12:34:16Z",
+      "side": 1,
+      "message": "or\n```suggestion\n  EXPECT_LT(d.Abs(), TimeDelta::Millis(1));\n```\n\nwhich might show intent clearer: error is within 1ms",
+      "revId": "d51a5d41b059b132140453b068a13b622394bf0f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

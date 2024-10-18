@@ -33,6 +33,23 @@
       "message": "Looks much cleaner!",
       "revId": "ea5a06e60dee448e84f82a8c6e91872a807339ac",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "21a4e6b2_06e23148",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-10-18T08:23:26Z",
+      "side": 1,
+      "message": "interop-tested between stable and a build with this for... not getting fooled twice!",
+      "revId": "ea5a06e60dee448e84f82a8c6e91872a807339ac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

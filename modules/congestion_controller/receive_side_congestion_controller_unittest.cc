@@ -97,7 +97,11 @@ TEST(ReceiveSideCongestionControllerTest, SendsRfc8888FeedbackIfForced) {
       CreateEnvironment(&clock, &field_trials), rtcp_sender.AsStdFunction(),
       remb_sender.AsStdFunction(), nullptr);
 
+  // Expect that RTCP feedback is sent.
   EXPECT_CALL(rtcp_sender, Call);
+  // Expect that REMB is not sent.
+  EXPECT_CALL(remb_sender, Call).Times(0);
+
   RtpPacketReceived packet;
   packet.set_arrival_time(clock.CurrentTime());
   controller.OnReceivedPacket(packet, MediaType::VIDEO);
@@ -116,6 +120,7 @@ TEST(ReceiveSideCongestionControllerTest, SendsRfc8888FeedbackIfEnabled) {
       remb_sender.AsStdFunction(), nullptr);
   controller.EnablSendCongestionControlFeedbackAccordingToRfc8888();
 
+  // Expect that RTCP feedback is sent.
   EXPECT_CALL(rtcp_sender, Call)
       .WillOnce(
           [&](std::vector<std::unique_ptr<rtcp::RtcpPacket>> rtcp_packets) {
@@ -126,6 +131,8 @@ TEST(ReceiveSideCongestionControllerTest, SendsRfc8888FeedbackIfEnabled) {
             EXPECT_EQ(header.fmt(),
                       rtcp::CongestionControlFeedback::kFeedbackMessageType);
           });
+  // Expect that REMB is not sent.
+  EXPECT_CALL(remb_sender, Call).Times(0);
 
   RtpPacketReceived packet;
   packet.set_arrival_time(clock.CurrentTime());

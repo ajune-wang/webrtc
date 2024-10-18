@@ -48,6 +48,10 @@ std::string GetFmtpParameterOrDefault(const CodecParameterMap& params,
   return default_value;
 }
 
+bool HasParameter(const CodecParameterMap& params, const std::string& name) {
+  return params.find(name) != params.end();
+}
+
 std::string H264GetPacketizationModeOrDefault(const CodecParameterMap& params) {
   // If packetization-mode is not present, default to "0".
   // https://tools.ietf.org/html/rfc6184#section-6.2
@@ -134,6 +138,66 @@ bool ReferencedCodecsMatch(const std::vector<Codec>& codecs1,
   const Codec* codec1 = FindCodecById(codecs1, codec1_id);
   const Codec* codec2 = FindCodecById(codecs2, codec2_id);
   return codec1 != nullptr && codec2 != nullptr && codec1->Matches(*codec2);
+}
+
+CodecParameterMap InsertDefaultParams(const std::string& name,
+                                      const CodecParameterMap& params) {
+  CodecParameterMap updated_params = params;
+  if (absl::EqualsIgnoreCase(name, cricket::kVp9CodecName)) {
+    if (!HasParameter(params, kVP9FmtpProfileId)) {
+      if (std::optional<VP9Profile> default_profile =
+              ParseSdpForVP9Profile({})) {
+        updated_params.insert(
+            {kVP9FmtpProfileId, VP9ProfileToString(*default_profile)});
+      }
+    }
+  }
+  if (absl::EqualsIgnoreCase(name, cricket::kAv1CodecName)) {
+    if (!HasParameter(params, cricket::kAv1FmtpProfile)) {
+      if (std::optional<AV1Profile> default_profile =
+              ParseSdpForAV1Profile({})) {
+        updated_params.insert({cricket::kAv1FmtpProfile,
+                               AV1ProfileToString(*default_profile).data()});
+      }
+    }
+    if (!HasParameter(params, cricket::kAv1FmtpTier)) {
+      updated_params.insert({cricket::kAv1FmtpTier, AV1GetTierOrDefault({})});
+    }
+    if (!HasParameter(params, cricket::kAv1FmtpLevelIdx)) {
+      updated_params.insert(
+          {cricket::kAv1FmtpLevelIdx, AV1GetLevelIdxOrDefault({})});
+    }
+  }
+  if (absl::EqualsIgnoreCase(name, cricket::kH264CodecName)) {
+    if (!HasParameter(params, cricket::kH264FmtpPacketizationMode)) {
+      updated_params.insert({cricket::kH264FmtpPacketizationMode,
+                             H264GetPacketizationModeOrDefault({})});
+    }
+  }
+#ifdef RTC_ENABLE_H265
+  if (absl::EqualsIgnoreCase(name, cricket::kH265CodecName)) {
+    if (std::optional<H265ProfileTierLevel> default_params =
+            ParseSdpForH265ProfileTierLevel({})) {
+      if (!HasParameter(params, cricket::kH265FmtpProfileId)) {
+        updated_params.insert({cricket::kH265FmtpProfileId,
+                               H265ProfileToString(default_params->profile)});
+      }
+      if (!HasParameter(params, cricket::kH265FmtpLevelId)) {
+        updated_params.insert({cricket::kH265FmtpLevelId,
+                               H265LevelToString(default_params->level)});
+      }
+      if (!HasParameter(params, cricket::kH265FmtpTierFlag)) {
+        updated_params.insert({cricket::kH265FmtpTierFlag,
+                               H265TierToString(default_params->tier)});
+      }
+    }
+    if (!HasParameter(params, cricket::kH265FmtpTxMode)) {
+      updated_params.insert(
+          {cricket::kH265FmtpTxMode, GetH265TxModeOrDefault({})});
+    }
+  }
+#endif
+  return updated_params;
 }
 
 }  // namespace
@@ -289,6 +353,17 @@ std::optional<Codec> FindMatchingCodec(const std::vector<Codec>& codecs1,
     }
   }
   return std::nullopt;
+}
+
+bool IsSameRtpCodec(const Codec& codec, const RtpCodec& rtp_codec) {
+  RtpCodecParameters rtp_codec2 = codec.ToCodecParameters();
+
+  return absl::EqualsIgnoreCase(rtp_codec.name, rtp_codec2.name) &&
+         rtp_codec.kind == rtp_codec2.kind &&
+         rtp_codec.num_channels == rtp_codec2.num_channels &&
+         rtp_codec.clock_rate == rtp_codec2.clock_rate &&
+         InsertDefaultParams(rtp_codec.name, rtp_codec.parameters) ==
+             InsertDefaultParams(rtp_codec2.name, rtp_codec2.parameters);
 }
 
 }  // namespace webrtc

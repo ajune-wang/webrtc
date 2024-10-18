@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "934ec9ed_fc47a1a1",
+        "filename": "rtc_tools/rtc_event_log_visualizer/analyzer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1760,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2024-10-18T07:56:44Z",
+      "side": 0,
+      "message": "Why are we not preserving the media type?",
+      "range": {
+        "startLine": 1750,
+        "startChar": 0,
+        "endLine": 1760,
+        "endChar": 9
+      },
+      "revId": "129f228f5900d498d4e1127422706b069d2d5916",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

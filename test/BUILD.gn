@@ -1382,4 +1382,8 @@ rtc_library("video_codec_tester") {
     "//third_party/abseil-cpp/absl/strings",
     "//third_party/libyuv",
   ]
+
+  if (rtc_use_h265) {
+    deps += [ "//modules/video_coding/codecs/h265:h265_svc_config" ]
+  }
 }

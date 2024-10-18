@@ -689,4 +689,116 @@ TEST_F(VideoCodecInitializerTest, UpdatesVp9SpecificFieldsWithScalabilityMode) {
   EXPECT_EQ(codec.VP9()->interLayerPred, InterLayerPredMode::kOff);
 }
 
+#ifdef RTC_ENABLE_H265
+TEST_F(VideoCodecInitializerTest, H265ingleSpatialLayerBitratesAreConsistent) {
+  VideoEncoderConfig config;
+  config.codec_type = VideoCodecType::kVideoCodecH265;
+  std::vector<VideoStream> streams = {DefaultStream()};
+  streams[0].scalability_mode = ScalabilityMode::kL1T2;
+
+  VideoCodec codec =
+      VideoCodecInitializer::SetupCodec(env_.field_trials(), config, streams);
+
+  EXPECT_GE(codec.spatialLayers[0].targetBitrate,
+            codec.spatialLayers[0].minBitrate);
+  EXPECT_LE(codec.spatialLayers[0].targetBitrate,
+            codec.spatialLayers[0].maxBitrate);
+}
+
+TEST_F(VideoCodecInitializerTest, H265TwoSpatialLayersBitratesAreConsistent) {
+  VideoEncoderConfig config;
+  config.codec_type = VideoCodecType::kVideoCodecH265;
+  std::vector<VideoStream> streams = {DefaultStream()};
+  streams[0].scalability_mode = ScalabilityMode::kL2T2;
+
+  VideoCodec codec =
+      VideoCodecInitializer::SetupCodec(env_.field_trials(), config, streams);
+
+  EXPECT_GE(codec.spatialLayers[0].targetBitrate,
+            codec.spatialLayers[0].minBitrate);
+  EXPECT_LE(codec.spatialLayers[0].targetBitrate,
+            codec.spatialLayers[0].maxBitrate);
+
+  EXPECT_GE(codec.spatialLayers[1].targetBitrate,
+            codec.spatialLayers[1].minBitrate);
+  EXPECT_LE(codec.spatialLayers[1].targetBitrate,
+            codec.spatialLayers[1].maxBitrate);
+}
+
+TEST_F(VideoCodecInitializerTest, H265ConfiguredMinBitrateApplied) {
+  VideoEncoderConfig config;
+  config.simulcast_layers.resize(1);
+  config.simulcast_layers[0].min_bitrate_bps = 28000;
+  config.codec_type = VideoCodecType::kVideoCodecH265;
+  std::vector<VideoStream> streams = {DefaultStream()};
+  streams[0].scalability_mode = ScalabilityMode::kL3T2;
+
+  VideoCodec codec =
+      VideoCodecInitializer::SetupCodec(env_.field_trials(), config, streams);
+
+  EXPECT_EQ(codec.spatialLayers[0].minBitrate, 28u);
+  EXPECT_GE(codec.spatialLayers[0].targetBitrate,
+            codec.spatialLayers[0].minBitrate);
+}
+
+TEST_F(VideoCodecInitializerTest,
+       H265ConfiguredMinBitrateLimitedByDefaultTargetBitrate) {
+  VideoEncoderConfig config;
+  config.simulcast_layers.resize(1);
+  config.simulcast_layers[0].min_bitrate_bps = 2228000;
+  config.codec_type = VideoCodecType::kVideoCodecAV1;
+  std::vector<VideoStream> streams = {DefaultStream()};
+  streams[0].scalability_mode = ScalabilityMode::kL3T2;
+
+  VideoCodec codec =
+      VideoCodecInitializer::SetupCodec(env_.field_trials(), config, streams);
+
+  EXPECT_GE(codec.spatialLayers[0].targetBitrate,
+            codec.spatialLayers[0].minBitrate);
+}
+
+TEST_F(VideoCodecInitializerTest, H265ConfiguredMinBitrateNotAppliedIfUnset) {
+  VideoEncoderConfig config;
+  config.simulcast_layers.resize(1);
+  config.codec_type = VideoCodecType::kVideoCodecH265;
+  std::vector<VideoStream> streams = {DefaultStream()};
+  streams[0].scalability_mode = ScalabilityMode::kL3T2;
+
+  VideoCodec codec =
+      VideoCodecInitializer::SetupCodec(env_.field_trials(), config, streams);
+
+  EXPECT_GT(codec.spatialLayers[0].minBitrate, 0u);
+}
+
+TEST_F(VideoCodecInitializerTest, H265TwoSpatialLayersActiveByDefault) {
+  VideoEncoderConfig config;
+  config.codec_type = VideoCodecType::kVideoCodecH265;
+  std::vector<VideoStream> streams = {DefaultStream()};
+  streams[0].scalability_mode = ScalabilityMode::kL2T2;
+  config.spatial_layers = {};
+
+  VideoCodec codec =
+      VideoCodecInitializer::SetupCodec(env_.field_trials(), config, streams);
+
+  EXPECT_TRUE(codec.spatialLayers[0].active);
+  EXPECT_TRUE(codec.spatialLayers[1].active);
+}
+
+TEST_F(VideoCodecInitializerTest, H265TwoSpatialLayersOneDeactivated) {
+  VideoEncoderConfig config;
+  config.codec_type = VideoCodecType::kVideoCodecH265;
+  std::vector<VideoStream> streams = {DefaultStream()};
+  streams[0].scalability_mode = ScalabilityMode::kL2T2;
+  config.spatial_layers.resize(2);
+  config.spatial_layers[0].active = true;
+  config.spatial_layers[1].active = false;
+
+  VideoCodec codec =
+      VideoCodecInitializer::SetupCodec(env_.field_trials(), config, streams);
+
+  EXPECT_TRUE(codec.spatialLayers[0].active);
+  EXPECT_FALSE(codec.spatialLayers[1].active);
+}
+#endif
+
 }  // namespace webrtc

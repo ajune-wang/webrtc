@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6208aeeb_2b8d0a27",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2024-10-18T12:46:04Z",
+      "side": 1,
+      "message": "Looks good. Thanks!\n\nCould you please add a test for this to https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/modules/video_coding/codecs/av1/libaom_av1_encoder_unittest.cc ? Encode L3T3 720p into a low bitrate to provoke layer drops and verify that end_of_picture is set on last encoded layer when upper layer(s) is dropped.",
+      "revId": "5437fb3b4c6783ba82ee0520d7669a9b28623150",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

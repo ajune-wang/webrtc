@@ -16,6 +16,23 @@
       "message": "Please help to +1",
       "revId": "ea07be83c38144262c1f26d7ecca2d5f449ea988",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "edfde5cb_d1900ba1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2024-10-18T08:39:18Z",
+      "side": 1,
+      "message": "\u003e (cpplint) Could not find a newline character at the end of the file.  [whitespace/ending_newline] [5]\n\nAdd the newline at the end of h264_encoder_impl.cc please",
+      "revId": "ea07be83c38144262c1f26d7ecca2d5f449ea988",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

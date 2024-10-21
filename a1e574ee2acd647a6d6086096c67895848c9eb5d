@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cd0f55eb_5ac7d47d",
+        "filename": "api/data_channel_interface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2024-10-21T12:32:43Z",
+      "side": 1,
+      "message": "actually, the comment just above is exactly the same.\nmaybe rephrase as \"E.g. implementations ...\"",
+      "range": {
+        "startLine": 96,
+        "startChar": 22,
+        "endLine": 96,
+        "endChar": 31
+      },
+      "revId": "a1e574ee2acd647a6d6086096c67895848c9eb5d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

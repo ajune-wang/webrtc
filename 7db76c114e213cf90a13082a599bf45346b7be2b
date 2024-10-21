@@ -1,0 +1,423 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bfd5fe4a_47056fc3",
+        "filename": "api/transport/DEPS",
+        "patchSetId": 7
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-21T15:03:47Z",
+      "side": 1,
+      "message": "may be it deserve to be moved to api,\ne.g., the enum might fit direclty into `network_types.h` file",
+      "revId": "7db76c114e213cf90a13082a599bf45346b7be2b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c6b1592b_83b63c12",
+        "filename": "call/rtp_transport_controller_send.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 667,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-21T15:03:47Z",
+      "side": 1,
+      "message": "https://abseil.io/tips/141\n\n“In summary, be aware that implicit conversions to bool can be unclear, so consider writing more explicit code:\n\n* Compare pointer types to nullptr.\n* Test container emptiness with boolean functions like std::optional\u003cT\u003e::has_value()”\n\n\n\n```suggestion\n  if (feedback_msg.has_value()) {\n    if (controller_ !\u003d nullptr) {\n      PostUpdates(controller_-\u003eOnTransportPacketsFeedback(*feedback_msg));\n    }\n```",
+      "range": {
+        "startLine": 665,
+        "startChar": 0,
+        "endLine": 667,
+        "endChar": 74
+      },
+      "revId": "7db76c114e213cf90a13082a599bf45346b7be2b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4cbb469e_4ba6c95a",
+        "filename": "modules/congestion_controller/DEPS",
+        "patchSetId": 7
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-21T15:03:47Z",
+      "side": 1,
+      "message": "needed?\n(\"+rtc_base\" rule is in the root DEPS, so should apply to all subfolders)",
+      "revId": "7db76c114e213cf90a13082a599bf45346b7be2b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bdb484d5_5e4a75e8",
+        "filename": "modules/congestion_controller/rtp/transport_feedback_adapter.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-21T15:03:47Z",
+      "side": 1,
+      "message": "```suggestion\n  // Note that it can happen that the same SSRC and sequence number is sent\n  // again. I.e., audio retransmission.\n  rtp_to_transport_sequence_number_.emplace(ssrc_seq_pair, feedback.sent.sequence_number);\n```",
+      "range": {
+        "startLine": 132,
+        "startChar": 0,
+        "endLine": 135,
+        "endChar": 68
+      },
+      "revId": "7db76c114e213cf90a13082a599bf45346b7be2b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "481bace7_43b6ed9e",
+        "filename": "modules/congestion_controller/rtp/transport_feedback_adapter.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-21T15:03:47Z",
+      "side": 1,
+      "message": "this function is explicitly designed to calculate RTT, it has some assumption that are reasonable for RTT, but might not be applicable to generic delta.\ne.g. this function intentionally doesn\u0027t return negative or even zero values.\n(below you assume it can)",
+      "range": {
+        "startLine": 263,
+        "startChar": 22,
+        "endLine": 263,
+        "endChar": 25
+      },
+      "revId": "7db76c114e213cf90a13082a599bf45346b7be2b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4230aaeb_34478cf7",
+        "filename": "modules/congestion_controller/rtp/transport_feedback_adapter.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-21T15:03:47Z",
+      "side": 1,
+      "message": "you can log TimeDelta directly\n\n```suggestion\n                        \u003c\u003c feedback_delta \u003c\u003c \".\";\n```",
+      "range": {
+        "startLine": 270,
+        "startChar": 24,
+        "endLine": 270,
+        "endChar": 57
+      },
+      "revId": "7db76c114e213cf90a13082a599bf45346b7be2b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d7a1ebd5_92dd3314",
+        "filename": "modules/congestion_controller/rtp/transport_feedback_adapter.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-21T15:03:47Z",
+      "side": 1,
+      "message": "https://clang.llvm.org/extra/clang-tidy/checks/bugprone/argument-comment.html\n\n```suggestion\n        /*received\u003d*/ packet_info.arrival_time_offset.IsFinite());\n```",
+      "range": {
+        "startLine": 283,
+        "startChar": 8,
+        "endLine": 283,
+        "endChar": 20
+      },
+      "revId": "7db76c114e213cf90a13082a599bf45346b7be2b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "66db63fe_d0b74b00",
+        "filename": "modules/congestion_controller/rtp/transport_feedback_adapter.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 298,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-21T15:03:47Z",
+      "side": 1,
+      "message": "may be swap if and else branches to\n- keep error condition close to the action\n- reduce nesting for the primary branch\n```suggestion\n    if (packet_feedback-\u003enetwork_route !\u003d network_route_) {\n      ++ignored_packets;\n      continue;\n    }\n    \n    PacketResult result;\n    result.sent_packet \u003d packet_feedback-\u003esent;\n    if (packet_info.arrival_time_offset.IsFinite()) {\n      result.receive_time \u003d current_offset_ - packet_info.arrival_time_offset;\n    }\n    result.ecn \u003d packet_info.ecn;\n    packet_result_vector.push_back(result);\n```",
+      "range": {
+        "startLine": 288,
+        "startChar": 0,
+        "endLine": 298,
+        "endChar": 5
+      },
+      "revId": "7db76c114e213cf90a13082a599bf45346b7be2b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "307a6e6e_c6151bba",
+        "filename": "modules/congestion_controller/rtp/transport_feedback_adapter.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-21T15:03:47Z",
+      "side": 1,
+      "message": "prefer `absl::c_something(c...` over `std::something(c.begin(), c.end()...` when operating on full container\n```suggestion\n  absl::c_sort(packet_result_vector,\n            [](const PacketResult\u0026 lhs, const PacketResult\u0026 rhs) {\n              return lhs.sent_packet.sequence_number \u003c\n                     rhs.sent_packet.sequence_number;\n            });\n```",
+      "range": {
+        "startLine": 313,
+        "startChar": 1,
+        "endLine": 317,
+        "endChar": 15
+      },
+      "revId": "7db76c114e213cf90a13082a599bf45346b7be2b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f7f26f36_306ce903",
+        "filename": "modules/congestion_controller/rtp/transport_feedback_adapter.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-21T15:03:47Z",
+      "side": 1,
+      "message": "Ntp time is usually represented with NtpTime type which is 64 bit.\nCan you clarify what kind of ntp time is 32 bit?\nmay be `last_feedback_compact_ntp_time_`",
+      "range": {
+        "startLine": 123,
+        "startChar": 40,
+        "endLine": 123,
+        "endChar": 48
+      },
+      "revId": "7db76c114e213cf90a13082a599bf45346b7be2b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "174257a0_9b81d5b2",
+        "filename": "modules/congestion_controller/rtp/transport_feedback_adapter.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-21T15:03:47Z",
+      "side": 1,
+      "message": "```suggestion\n  // Map SSRC and RTP sequence number to transport sequence number.\n```",
+      "range": {
+        "startLine": 125,
+        "startChar": 9,
+        "endLine": 125,
+        "endChar": 14
+      },
+      "revId": "7db76c114e213cf90a13082a599bf45346b7be2b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "25375c94_93154da6",
+        "filename": "modules/congestion_controller/rtp/transport_feedback_adapter.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-21T15:03:47Z",
+      "side": 1,
+      "message": "I would recommend to use struct instead of the pair.\nhttps://testing.googleblog.com/2017/11/obsessed-with-primitives.html\n\nThe type of the .first and .second are too similar, so can be easily confused.",
+      "range": {
+        "startLine": 126,
+        "startChar": 2,
+        "endLine": 127,
+        "endChar": 69
+      },
+      "revId": "7db76c114e213cf90a13082a599bf45346b7be2b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "873d963c_96841510",
+        "filename": "modules/congestion_controller/rtp/transport_feedback_adapter.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-21T15:03:47Z",
+      "side": 1,
+      "message": "may be int64_t?\nhistory_ below is keyed by signed int\n\n```suggestion\n  std::map\u003cSsrcRtpSequenceNumberPair, int64_t /*transport_sequence_number*/\u003e\n```",
+      "range": {
+        "startLine": 128,
+        "startChar": 38,
+        "endLine": 128,
+        "endChar": 46
+      },
+      "revId": "7db76c114e213cf90a13082a599bf45346b7be2b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "24d7535a_d8e967cf",
+        "filename": "modules/congestion_controller/rtp/transport_feedback_adapter_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-21T15:03:47Z",
+      "side": 1,
+      "message": "`rtc::ArrayView\u003cconst T\u003e` is usually better parameter type that `const std::vector\u003cT\u003e\u0026`\n\ne.g. then in tests you do not have to use std::vector,\n\nand instead of \n```\n std::vector\u003cPacketTemplate\u003e packets \u003d {\n      {\n          .transport_sequence_number \u003d 1,\n```\n\ncan write\n\n```\n PacketTemplate packets[] \u003d {\n      {\n          .transport_sequence_number \u003d 1,\n```",
+      "range": {
+        "startLine": 98,
+        "startChar": 4,
+        "endLine": 98,
+        "endChar": 38
+      },
+      "revId": "7db76c114e213cf90a13082a599bf45346b7be2b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4488825b_648aa2c0",
+        "filename": "modules/congestion_controller/rtp/transport_feedback_adapter_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-21T15:03:47Z",
+      "side": 1,
+      "message": "prefer explicit type here, it is not that long, but helps when reading code\n```suggestion\n  for (const PacketTemplate\u0026 packet : packets) {\n```",
+      "range": {
+        "startLine": 109,
+        "startChar": 13,
+        "endLine": 109,
+        "endChar": 17
+      },
+      "revId": "7db76c114e213cf90a13082a599bf45346b7be2b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2cf9ecb7_c6f3a056",
+        "filename": "modules/congestion_controller/rtp/transport_feedback_adapter_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-21T15:03:47Z",
+      "side": 1,
+      "message": "```suggestion\n  TransportFeedbackAdapterTest() \u003d default;\n```\n\nor just remove.",
+      "revId": "7db76c114e213cf90a13082a599bf45346b7be2b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d12267fc_6ea42382",
+        "filename": "modules/congestion_controller/rtp/transport_feedback_adapter_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-21T15:03:47Z",
+      "side": 1,
+      "message": "Same as with other symbols in ::testing, I prefer to alias them, and then use them without full qualification name.\n\nBut if you do not want to alias them, then do not fully qualify\n\nhttps://abseil.io/tips/119\n\n“When declaring namespace aliases and using-declarations, use fully qualified names (with leading `::`) unless you are referring to a name inside the current namespace.\nFor other uses of names, avoid fully qualifying when reasonable”",
+      "range": {
+        "startLine": 177,
+        "startChar": 25,
+        "endLine": 178,
+        "endChar": 65
+      },
+      "revId": "7db76c114e213cf90a13082a599bf45346b7be2b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dc365877_41d07b93",
+        "filename": "modules/congestion_controller/rtp/transport_feedback_adapter_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-21T15:03:47Z",
+      "side": 1,
+      "message": "if you remove trailing `,` (here and in next packet)\nthen `git cl format` would produce more compact code",
+      "range": {
+        "startLine": 194,
+        "startChar": 53,
+        "endLine": 194,
+        "endChar": 54
+      },
+      "revId": "7db76c114e213cf90a13082a599bf45346b7be2b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1fe55b3b_97234766",
+        "filename": "modules/congestion_controller/rtp/transport_feedback_adapter_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-21T15:03:47Z",
+      "side": 1,
+      "message": "```suggestion\n                      /*overhead\u003d*/ 0u, TimeNow());\n```",
+      "range": {
+        "startLine": 206,
+        "startChar": 22,
+        "endLine": 206,
+        "endChar": 34
+      },
+      "revId": "7db76c114e213cf90a13082a599bf45346b7be2b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

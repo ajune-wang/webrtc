@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c9507dbf_37dc4440",
+        "filename": "modules/congestion_controller/rtp/transport_feedback_adapter_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-21T15:03:47Z",
+      "side": 0,
+      "message": "Would it be reasonable to ask to refactor unittests in two separate changes:\n1st move object under test out of the fixture, add helpers [but only for the transport feedback], basically change fixture to be empty as it is in this change, but do not parametrized it yet.\n\nThen all lines with test name would be the same, and it would be easier to track how each test changed.\n\nAs a next change change fixture to be parameterized.\nAt that point test bodies would be the same, and once again easier to track what have changed.\n\nAs it is now code is moved around so much, that it is very hard to see what have changed.",
+      "revId": "079a8b46918e222bbc8ff318e48c888142a023a9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3b04b591_2c3f6580",
+        "filename": "modules/congestion_controller/rtp/transport_feedback_adapter_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-21T15:03:47Z",
+      "side": 0,
+      "message": "no more checking for audio?",
+      "revId": "079a8b46918e222bbc8ff318e48c888142a023a9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

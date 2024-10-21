@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "449c0623_fc6a2b8b",
+        "filename": "pc/peer_connection_integrationtest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2024-10-21T14:59:39Z",
+      "side": 1,
+      "message": "You can use rtc::kNumMillisecsPerSec\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/rtc_base/time_utils.h;l\u003d23;drc\u003dc2c6442ad515f13c5a4cfaeee21415dd7b910f8b",
+      "revId": "2402460239840ed96c6877bcca88f4d8e900c411",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6685cfab_c74136d4",
+        "filename": "pc/peer_connection_integrationtest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 4099,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2024-10-21T14:59:39Z",
+      "side": 1,
+      "message": "There seem to be an assumption about how often the corruption score is reported which seems like it might be an implementation detail.\n\nI wonder if we should do `ASSERT_TRUE_WAIT(GetCorruptionScoreCount(caller()) \u003e 0)` here instead of waiting for a specific number of frames (where this helper method polls getStats and returns the corruption score count or 0)\n\nOtherwise it would be good to document how the number of frames to run this test for was decided etc",
+      "revId": "2402460239840ed96c6877bcca88f4d8e900c411",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

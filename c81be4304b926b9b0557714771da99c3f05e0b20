@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b1e55690_8b07aa30",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-10-21T05:08:32Z",
+      "side": 1,
+      "message": "I\u0027ve created a CL to remove the internal usage of the old API. Wait for it.",
+      "revId": "c81be4304b926b9b0557714771da99c3f05e0b20",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

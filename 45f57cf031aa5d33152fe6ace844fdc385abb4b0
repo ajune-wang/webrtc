@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "24b09bc5_8dd18810",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-10-21T19:16:19Z",
+      "side": 1,
+      "message": "This is not a proper description of what\u0027s in the CL - \"cleanup TODOs\" makes it sound like you\u0027re only removing TODOs that no longer apply.\n\nAs far as I can tell from a quick look, most of this CL is adding scalability mode handling to HEVC.",
+      "revId": "45f57cf031aa5d33152fe6ace844fdc385abb4b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3a8a9042_bb97f10b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-10-21T19:16:19Z",
+      "side": 1,
+      "message": "Please make the description reflect the content of the CL.",
+      "revId": "45f57cf031aa5d33152fe6ace844fdc385abb4b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

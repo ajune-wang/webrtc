@@ -92,6 +92,8 @@ struct DataBuffer {
 //
 // The code responding to these callbacks should unwind the stack before
 // using any other webrtc APIs; re-entrancy is not supported.
+// Implementations of these callbacks must not release the data channel or cause it to be
+// deallocated before returning.
 class DataChannelObserver {
  public:
   // The data channel state have changed.

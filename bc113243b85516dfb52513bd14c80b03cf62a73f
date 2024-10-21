@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5f687bd5_daf52c55",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-21T09:42:55Z",
+      "side": 1,
+      "message": "I\u0027m a bit unsure about this helper.\nIn addition to two usages in WebRTC itself, I\u0027m aware of some dependencies that use own implementation of the AutioProcessing interface, and thus it would be better to have unified AudioProcessingFactory implementation that returns custom AudioProcessing. That would be specially helpful if AudioProcessingFactory interface would evolve.\nSame time, it might be better to try to convert those to implement custom AudioProcessingFactory. By introducing this helper I\u0027m postponing such migrations.\nOverall I\u0027m leaning towards this helper. It would reduce amount of changes I need to do short term, but won\u0027t prevent those changes if they are helpful for other reasons.",
+      "revId": "bc113243b85516dfb52513bd14c80b03cf62a73f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

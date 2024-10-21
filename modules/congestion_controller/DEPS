@@ -2,10 +2,10 @@ include_rules = [
   "+logging/rtc_event_log",
   "+system_wrappers",
   "+video",
+  "+rtc_base/network",
 ]
 specific_include_rules = {
   "goog_cc_network_control_unittest.cc": [
     "+call/video_receive_stream.h",
   ],
 }
-

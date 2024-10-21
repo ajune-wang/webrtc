@@ -11,12 +11,14 @@
 #include "sdk/android/src/jni/pc/audio.h"
 
 #include "api/audio/audio_processing.h"
+#include "api/audio/builtin_audio_processing_factory.h"
+#include "api/environment/environment_factory."
 
 namespace webrtc {
 namespace jni {
 
 rtc::scoped_refptr<AudioProcessing> CreateAudioProcessing() {
-  return AudioProcessingBuilder().Create();
+  return BuiltinAudioProcessingFactory().Create(CreateEnvironment());
 }
 
 }  // namespace jni

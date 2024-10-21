@@ -13,6 +13,9 @@
 #include <memory>
 #include <utility>
 
+#include "absl/base/nullability.h"
+#include "api/audio/audio_processing.h"
+#include "api/environment/environment.h"
 #include "api/media_types.h"
 #include "api/rtc_error.h"
 #include "api/rtp_parameters.h"
@@ -67,8 +70,11 @@ PeerConnectionDependencies::~PeerConnectionDependencies() = default;
 PeerConnectionFactoryDependencies::PeerConnectionFactoryDependencies() =
     default;
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
 PeerConnectionFactoryDependencies::PeerConnectionFactoryDependencies(
     PeerConnectionFactoryDependencies&&) = default;
+#pragma clang diagnostic pop
 
 PeerConnectionFactoryDependencies::~PeerConnectionFactoryDependencies() =
     default;

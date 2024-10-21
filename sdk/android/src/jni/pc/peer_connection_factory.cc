@@ -287,7 +287,13 @@ ScopedJavaLocalRef<jobject> CreatePeerConnectionFactoryForJava(
   dependencies.adm = std::move(audio_device_module);
   dependencies.audio_encoder_factory = std::move(audio_encoder_factory);
   dependencies.audio_decoder_factory = std::move(audio_decoder_factory);
-  dependencies.audio_processing = std::move(audio_processor);
+  if (audio_processor != nullptr) {
+    dependencies.audio_processing_factory =
+        PrebuiltAudioProcessing(std::move(audio_processor));
+  } else {
+    dependencies.audio_processing_factory =
+        std::make_unique<BuiltingAudioProcessingFactory>();
+  }
   dependencies.video_encoder_factory =
       absl::WrapUnique(CreateVideoEncoderFactory(jni, jencoder_factory));
   dependencies.video_decoder_factory =
@@ -324,7 +330,7 @@ JNI_PeerConnectionFactory_CreatePeerConnectionFactory(
     jlong native_network_controller_factory,
     jlong native_network_state_predictor_factory,
     jlong native_neteq_factory) {
-  rtc::scoped_refptr<AudioProcessing> audio_processor(
+  scoped_refptr<AudioProcessing> audio_processor(
       reinterpret_cast<AudioProcessing*>(native_audio_processor));
   return CreatePeerConnectionFactoryForJava(
       jni, jcontext, joptions,
@@ -332,8 +338,7 @@ JNI_PeerConnectionFactory_CreatePeerConnectionFactory(
           reinterpret_cast<AudioDeviceModule*>(native_audio_device_module)),
       TakeOwnershipOfRefPtr<AudioEncoderFactory>(native_audio_encoder_factory),
       TakeOwnershipOfRefPtr<AudioDecoderFactory>(native_audio_decoder_factory),
-      jencoder_factory, jdecoder_factory,
-      audio_processor ? audio_processor : CreateAudioProcessing(),
+      jencoder_factory, jdecoder_factory, std::move(audio_processor),
       TakeOwnershipOfUniquePtr<FecControllerFactoryInterface>(
           native_fec_controller_factory),
       TakeOwnershipOfUniquePtr<NetworkControllerFactoryInterface>(

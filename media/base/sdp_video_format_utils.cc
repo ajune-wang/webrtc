@@ -179,12 +179,8 @@ std::optional<int> ParseSdpForVPxMaxFrameSize(const CodecParameterMap& params) {
 }
 
 bool SupportsPerLayerPictureLossIndication(const CodecParameterMap& params) {
-  return absl::c_find_if(
-             params, [](const std::pair<std::string, std::string>& kv) {
-               return kv.first ==
-                          cricket::kCodecParamPerLayerPictureLossIndication &&
-                      kv.second == "1";
-             }) != params.end();
+  auto it = params.find(cricket::kCodecParamPerLayerPictureLossIndication);
+  return it != params.end() && it->second == "1";
 }
 
 }  // namespace webrtc

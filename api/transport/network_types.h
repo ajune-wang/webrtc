@@ -20,6 +20,7 @@
 #include "api/units/data_size.h"
 #include "api/units/time_delta.h"
 #include "api/units/timestamp.h"
+#include "rtc_base/network/ecn_marking.h"
 #include "rtc_base/system/rtc_export.h"
 
 namespace webrtc {
@@ -168,6 +169,7 @@ struct RTC_EXPORT PacketResult {
 
   SentPacket sent_packet;
   Timestamp receive_time = Timestamp::PlusInfinity();
+  rtc::EcnMarking ecn = rtc::EcnMarking::kNotEct;
 };
 
 struct RTC_EXPORT TransportPacketsFeedback {

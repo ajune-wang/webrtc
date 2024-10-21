@@ -5,4 +5,7 @@ specific_include_rules = {
     "+rtc_base/net_helpers.h",
     "+rtc_base/socket_address.h",
   ],
+  "network_types\.h": [
+    "+rtc_base/network/ecn_marking.h"
+  ]
 }

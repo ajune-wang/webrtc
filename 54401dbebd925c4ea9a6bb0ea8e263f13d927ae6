@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5a9a3287_735ba2b2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 12094
+      },
+      "writtenOn": "2024-10-21T06:33:06Z",
+      "side": 1,
+      "message": "This CL is a prerequisite of implementing Media Session `voiceactivity` action. It reuses deprecated `AudioProcessingStats.voice_detected` for reporting VAD info from audio processing module.",
+      "revId": "54401dbebd925c4ea9a6bb0ea8e263f13d927ae6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

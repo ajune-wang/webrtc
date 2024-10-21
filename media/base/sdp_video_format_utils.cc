@@ -19,7 +19,6 @@
 #ifdef RTC_ENABLE_H265
 #include "api/video_codecs/h265_profile_tier_level.h"
 #endif
-#include "absl/algorithm/container.h"
 #include "media/base/media_constants.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/string_to_number.h"
@@ -179,12 +178,8 @@ std::optional<int> ParseSdpForVPxMaxFrameSize(const CodecParameterMap& params) {
 }
 
 bool SupportsPerLayerPictureLossIndication(const CodecParameterMap& params) {
-  return absl::c_find_if(
-             params, [](const std::pair<std::string, std::string>& kv) {
-               return kv.first ==
-                          cricket::kCodecParamPerLayerPictureLossIndication &&
-                      kv.second == "1";
-             }) != params.end();
+  auto it = params.find(cricket::kCodecParamPerLayerPictureLossIndication);
+  return it != params.end() && it->second == "1";
 }
 
 }  // namespace webrtc

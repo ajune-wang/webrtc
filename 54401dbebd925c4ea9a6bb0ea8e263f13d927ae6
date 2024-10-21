@@ -16,6 +16,23 @@
       "message": "This CL is a prerequisite of implementing Media Session `voiceactivity` action. It reuses deprecated `AudioProcessingStats.voice_detected` for reporting VAD info from audio processing module.",
       "revId": "54401dbebd925c4ea9a6bb0ea8e263f13d927ae6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d7be0121_c197a255",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2024-10-21T07:35:18Z",
+      "side": 1,
+      "message": "Please use reviewers from https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/modules/audio_processing/OWNERS and https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/api/audio/OWNERS",
+      "revId": "54401dbebd925c4ea9a6bb0ea8e263f13d927ae6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

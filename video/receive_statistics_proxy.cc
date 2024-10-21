@@ -843,6 +843,8 @@ void ReceiveStatisticsProxy::OnCorruptionScore(double corruption_score,
         &content_specific_stats_[content_type];
     content_specific_stats->corruption_score.AddSample(corruption_score);
   }));
+
+  printf("Corruption score is: %f.\n", corruption_score);
 }
 
 void ReceiveStatisticsProxy::DecoderThreadStarting() {

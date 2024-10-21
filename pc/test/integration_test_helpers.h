@@ -149,6 +149,8 @@ static const int kMaxWaitForFramesMs = 10000;
 static const int kDefaultExpectedAudioFrameCount = 3;
 static const int kDefaultExpectedVideoFrameCount = 3;
 
+constexpr int kFrameIntervalMs = 100;
+
 static const char kDataChannelLabel[] = "data_channel";
 
 // SRTP cipher name negotiated by the tests. This must be updated if the
@@ -680,6 +682,34 @@ class PeerConnectionIntegrationWrapper : public PeerConnectionObserver,
     return observer->error().ok();
   }
 
+  void AddCorruptionDetectionHeader() {
+    SetGeneratedSdpMunger(
+        [&](std::unique_ptr<SessionDescriptionInterface>& sdp) {
+          for (ContentInfo& content : sdp->description()->contents()) {
+            cricket::MediaContentDescription* media =
+                content.media_description();
+            // Corruption detection is only a valid RTP header extension for
+            // video stream.
+            if (media->type() != cricket::MediaType::MEDIA_TYPE_VIDEO) {
+              continue;
+            }
+            cricket::RtpHeaderExtensions extensions =
+                media->rtp_header_extensions();
+
+            // Find a valid id.
+            int id = extensions.size();
+            while (IdExists(extensions, id)) {
+              id++;
+            }
+
+            extensions.push_back(RtpExtension(
+                RtpExtension::kCorruptionDetectionUri, id, /*encrypt=*/true));
+            media->set_rtp_header_extensions(extensions);
+            break;
+          }
+        });
+  }
+
  private:
   // Constructor used by friend class PeerConnectionIntegrationBaseTest.
   explicit PeerConnectionIntegrationWrapper(const std::string& debug_name)
@@ -735,7 +765,7 @@ class PeerConnectionIntegrationWrapper : public PeerConnectionObserver,
       FakePeriodicVideoSource::Config config) {
     // Set max frame rate to 10fps to reduce the risk of test flakiness.
     // TODO(deadbeef): Do something more robust.
-    config.frame_interval_ms = 100;
+    config.frame_interval_ms = kFrameIntervalMs;
 
     video_track_sources_.emplace_back(
         rtc::make_ref_counted<FakePeriodicVideoTrackSource>(
@@ -1026,6 +1056,14 @@ class PeerConnectionIntegrationWrapper : public PeerConnectionObserver,
     data_channels_.push_back(data_channel);
     data_observers_.push_back(
         std::make_unique<MockDataChannelObserver>(data_channel.get()));
+  }
+  bool IdExists(const cricket::RtpHeaderExtensions& extensions, int id) {
+    for (const auto& extension : extensions) {
+      if (extension.id == id) {
+        return true;
+      }
+    }
+    return false;
   }
 
   std::string debug_name_;

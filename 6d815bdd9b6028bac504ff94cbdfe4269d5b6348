@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9f3a2b90_404e7e36",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 20334
+      },
+      "writtenOn": "2024-10-21T16:25:25Z",
+      "side": 1,
+      "message": "@danilchap@webrtc.org Thanks for merging this CL.",
+      "revId": "6d815bdd9b6028bac504ff94cbdfe4269d5b6348",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

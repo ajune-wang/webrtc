@@ -47,7 +47,7 @@ class SimpleStringBuilder {
   // Returns a pointer to the built string. The name `str()` is borrowed for
   // compatibility reasons as we replace usage of stringstream throughout the
   // code base.
-  const char* str() const { return buffer_.data(); }
+  std::string str() const { return std::string(buffer_.data(), size_); }
 
   // Returns the length of the string. The name `size()` is picked for STL
   // compatibility reasons.

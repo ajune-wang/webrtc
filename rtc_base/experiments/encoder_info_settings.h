@@ -40,7 +40,8 @@ class EncoderInfoSettings {
   }
   std::vector<VideoEncoder::ResolutionBitrateLimits> resolution_bitrate_limits()
       const {
-    return resolution_bitrate_limits_;
+    return std::vector<VideoEncoder::ResolutionBitrateLimits>(
+        resolution_bitrate_limits_);  // Copy.
   }
 
   static std::vector<VideoEncoder::ResolutionBitrateLimits>

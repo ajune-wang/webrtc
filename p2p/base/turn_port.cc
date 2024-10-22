@@ -382,11 +382,11 @@ void TurnPort::SetTurnLoggingId(absl::string_view turn_logging_id) {
 }
 
 std::vector<std::string> TurnPort::GetTlsAlpnProtocols() const {
-  return tls_alpn_protocols_;
+  return std::vector<std::string>(tls_alpn_protocols_);  // Copy
 }
 
 std::vector<std::string> TurnPort::GetTlsEllipticCurves() const {
-  return tls_elliptic_curves_;
+  return std::vector<std::string>(tls_elliptic_curves_);  // Copy
 }
 
 void TurnPort::PrepareAddress() {
@@ -1469,7 +1469,8 @@ void TurnAllocateRequest::OnErrorResponse(StunMessage* response) {
                           << rtc::hex_encode(id()) << ", code=" << error_code
                           << ", rtt=" << Elapsed();
       const StunErrorCodeAttribute* attr = response->GetErrorCode();
-      port_->OnAllocateError(error_code, attr ? attr->reason() : "");
+      port_->OnAllocateError(error_code,
+                             attr ? std::string(attr->reason()) : "");
   }
 }
 
@@ -1486,7 +1487,8 @@ void TurnAllocateRequest::OnAuthChallenge(StunMessage* response, int code) {
                         << ": Failed to authenticate with the server "
                            "after challenge.";
     const StunErrorCodeAttribute* attr = response->GetErrorCode();
-    port_->OnAllocateError(STUN_ERROR_UNAUTHORIZED, attr ? attr->reason() : "");
+    port_->OnAllocateError(STUN_ERROR_UNAUTHORIZED,
+                           attr ? std::string(attr->reason()) : "");
     return;
   }
 
@@ -1527,13 +1529,15 @@ void TurnAllocateRequest::OnTryAlternate(StunMessage* response, int code) {
     RTC_LOG(LS_WARNING) << port_->ToString()
                         << ": Missing STUN_ATTR_ALTERNATE_SERVER "
                            "attribute in try alternate error response";
-    port_->OnAllocateError(STUN_ERROR_TRY_ALTERNATE,
-                           error_code_attr ? error_code_attr->reason() : "");
+    port_->OnAllocateError(
+        STUN_ERROR_TRY_ALTERNATE,
+        error_code_attr ? std::string(error_code_attr->reason()) : "");
     return;
   }
   if (!port_->SetAlternateServer(alternate_server_attr->GetAddress())) {
-    port_->OnAllocateError(STUN_ERROR_TRY_ALTERNATE,
-                           error_code_attr ? error_code_attr->reason() : "");
+    port_->OnAllocateError(
+        STUN_ERROR_TRY_ALTERNATE,
+        error_code_attr ? std::string(error_code_attr->reason()) : "");
     return;
   }
 

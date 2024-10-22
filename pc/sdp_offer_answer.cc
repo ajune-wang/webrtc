@@ -238,7 +238,7 @@ const ContentInfo* FindTransceiverMSection(
 std::vector<cricket::StreamParams> GetActiveStreams(
     const cricket::MediaContentDescription* desc) {
   return RtpTransceiverDirectionHasSend(desc->direction())
-             ? desc->streams()
+             ? std::vector<cricket::StreamParams>(desc->streams())  // Copy
              : std::vector<cricket::StreamParams>();
 }
 
@@ -535,7 +535,8 @@ RTCError ValidateRtpHeaderExtensionsForSpecSimulcast(
     if (!media_description->HasSimulcast()) {
       continue;
     }
-    auto extensions = media_description->rtp_header_extensions();
+    auto extensions = std::vector<webrtc::RtpExtension>(
+        media_description->rtp_header_extensions());  // Copy.
     auto it = absl::c_find_if(extensions, [](const RtpExtension& ext) {
       return ext.uri == RtpExtension::kRidUri;
     });
@@ -715,10 +716,11 @@ RTCError DisableSimulcastInSender(
   }
 
   std::vector<std::string> disabled_layers;
-  std::transform(
-      parameters.encodings.begin() + 1, parameters.encodings.end(),
-      std::back_inserter(disabled_layers),
-      [](const RtpEncodingParameters& encoding) { return encoding.rid; });
+  std::transform(parameters.encodings.begin() + 1, parameters.encodings.end(),
+                 std::back_inserter(disabled_layers),
+                 [](const RtpEncodingParameters& encoding) {
+                   return std::string(encoding.rid);  // Can't avoid copy.
+                 });
   return sender->DisableEncodingLayers(disabled_layers);
 }
 
@@ -3976,7 +3978,7 @@ SdpOfferAnswerHandler::AssociateTransceiver(
   // setting the value of the RtpTransceiver's mid property to the MID of the m=
   // section, and establish a mapping between the transceiver and the index of
   // the m= section.
-  transceiver->internal()->set_mid(content.name);
+  transceiver->internal()->set_mid(std::string(content.name));  // Copy.
   transceiver->internal()->set_mline_index(mline_index);
   return std::move(transceiver);
 }

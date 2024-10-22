@@ -86,7 +86,7 @@ class StunBindingRequest : public StunRequest {
 
     port_->OnStunBindingOrResolveRequestFailed(
         server_addr_, attr ? attr->number() : STUN_ERROR_GLOBAL_FAILURE,
-        attr ? attr->reason()
+        attr ? std::string(attr->reason())
              : "STUN binding response with no error code attribute.");
 
     int64_t now = rtc::TimeMillis();

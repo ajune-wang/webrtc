@@ -163,14 +163,14 @@ class RtpSenderBase : public RtpSenderInternal, public ObserverInterface {
 
   std::vector<std::string> stream_ids() const override {
     RTC_DCHECK_RUN_ON(signaling_thread_);
-    return stream_ids_;
+    return std::vector<std::string>(stream_ids_);
   }
 
   // Set stream ids, eliminating duplicates in the process.
   void set_stream_ids(const std::vector<std::string>& stream_ids) override;
   void SetStreams(const std::vector<std::string>& stream_ids) override;
 
-  std::string id() const override { return id_; }
+  std::string id() const override { return std::string(id_); }
 
   void set_init_send_encodings(
       const std::vector<RtpEncodingParameters>& init_send_encodings) override {
@@ -178,7 +178,7 @@ class RtpSenderBase : public RtpSenderInternal, public ObserverInterface {
   }
   std::vector<RtpEncodingParameters> init_send_encodings() const override {
     RTC_DCHECK_RUN_ON(signaling_thread_);
-    return init_parameters_.encodings;
+    return std::vector<RtpEncodingParameters>(init_parameters_.encodings);
   }
 
   void set_transport(
@@ -227,7 +227,7 @@ class RtpSenderBase : public RtpSenderInternal, public ObserverInterface {
     send_codecs_ = send_codecs;
   }
   std::vector<cricket::Codec> GetSendCodecs() const override {
-    return send_codecs_;
+    return std::vector<cricket::Codec>(send_codecs_);  // Copy.
   }
 
  protected:

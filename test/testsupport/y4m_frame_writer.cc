@@ -11,6 +11,7 @@
 #include <stdio.h>
 
 #include <string>
+#include <utility>
 
 #include "rtc_base/logging.h"
 #include "test/testsupport/frame_writer.h"
@@ -22,7 +23,7 @@ Y4mFrameWriterImpl::Y4mFrameWriterImpl(std::string output_filename,
                                        int width,
                                        int height,
                                        int frame_rate)
-    : YuvFrameWriterImpl(output_filename, width, height),
+    : YuvFrameWriterImpl(std::move(output_filename), width, height),
       frame_rate_(frame_rate) {}
 
 Y4mFrameWriterImpl::~Y4mFrameWriterImpl() = default;

@@ -119,10 +119,10 @@ MetricsAccumulator::MetricValue* MetricsAccumulator::GetOrCreateMetric(
   *created = true;
 
   Metric metric{
-      .name = key.metric_name,
+      .name = std::move(key.metric_name),
       .unit = Unit::kUnitless,
       .improvement_direction = ImprovementDirection::kNeitherIsBetter,
-      .test_case = key.test_case_name,
+      .test_case = std::move(key.test_case_name),
   };
   return &metrics_.emplace(key, MetricValue{.metric = std::move(metric)})
               .first->second;

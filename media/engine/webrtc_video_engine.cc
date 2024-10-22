@@ -358,7 +358,7 @@ static bool ValidateStreamParams(const StreamParams& sp) {
   std::map<uint32_t, std::set<std::string>> primary_ssrc_to_semantics;
   for (const auto& group : sp.ssrc_groups) {
     auto result = primary_ssrc_to_semantics.try_emplace(
-        group.ssrcs[0], std::set<std::string>({group.semantics}));
+        group.ssrcs[0], std::set<std::string>({std::string(group.semantics)}));
     if (!result.second) {
       // A duplicate SSRC was found, check for duplicate semantics.
       auto semantics_it = result.first->second.insert(group.semantics);
@@ -549,7 +549,7 @@ bool IsScalabilityModeSupportedByCodec(
     const webrtc::VideoSendStream::Config& config) {
   return config.encoder_settings.encoder_factory
       ->QueryCodecSupport(webrtc::SdpVideoFormat(codec.name, codec.params),
-                          scalability_mode)
+                          std::string(scalability_mode))  // Copy
       .is_supported;
 }
 
@@ -1567,7 +1567,8 @@ bool WebRtcVideoSendChannel::AddSendStream(const StreamParams& sp) {
   WebRtcVideoSendStream* stream = new WebRtcVideoSendStream(
       call_, sp, std::move(config), default_send_options_,
       video_config_.enable_cpu_adaptation, bitrate_config_.max_bitrate_bps,
-      send_codec(), send_codecs_, send_rtp_extensions_, send_params_);
+      send_codec(), send_codecs_,
+      std::vector<webrtc::RtpExtension>(send_rtp_extensions_), send_params_);
 
   uint32_t ssrc = sp.first_ssrc();
   RTC_DCHECK(ssrc != 0);
@@ -2071,8 +2072,9 @@ void WebRtcVideoSendChannel::WebRtcVideoSendStream::SetSenderParameters(
 
   // Set codecs and options.
   if (params.send_codec) {
-    SetCodec(*params.send_codec,
-             params.send_codecs.value_or(parameters_.codec_settings_list));
+    SetCodec(*params.send_codec, params.send_codecs.value_or(
+                                     std::vector<cricket::VideoCodecSettings>(
+                                         parameters_.codec_settings_list)));
     recreate_stream = false;  // SetCodec has already recreated the stream.
   } else if (params.conference_mode && parameters_.codec_settings) {
     SetCodec(*parameters_.codec_settings, parameters_.codec_settings_list);
@@ -2834,9 +2836,11 @@ bool WebRtcVideoReceiveChannel::GetChangedReceiverParameters(
     }
   }
 
-  if (NonFlexfecReceiveCodecsHaveChanged(recv_codecs_, mapped_codecs)) {
+  if (NonFlexfecReceiveCodecsHaveChanged(
+          std::vector<VideoCodecSettings>(recv_codecs_),  // Copy, Copy.
+          std::vector<VideoCodecSettings>(mapped_codecs))) {
     changed_params->codec_settings =
-        std::optional<std::vector<VideoCodecSettings>>(mapped_codecs);
+        std::vector<VideoCodecSettings>(mapped_codecs);  // Copy.
   }
 
   // Handle RTP header extensions.

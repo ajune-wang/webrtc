@@ -75,7 +75,7 @@ ConvertCorruptionDetectionMessageToFrameInstrumentationData(
       .std_dev = message.std_dev(),
       .luma_error_threshold = message.luma_error_threshold(),
       .chroma_error_threshold = message.chroma_error_threshold(),
-      .sample_values = sample_values};
+      .sample_values = std::move(sample_values)};
 }
 
 std::optional<FrameInstrumentationSyncData>

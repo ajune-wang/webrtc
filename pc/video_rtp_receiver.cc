@@ -69,7 +69,8 @@ rtc::scoped_refptr<DtlsTransportInterface> VideoRtpReceiver::dtls_transport()
 std::vector<rtc::scoped_refptr<MediaStreamInterface>>
 VideoRtpReceiver::streams() const {
   RTC_DCHECK_RUN_ON(&signaling_thread_checker_);
-  return streams_;
+  return std::vector<rtc::scoped_refptr<MediaStreamInterface>>(
+      streams_);  // Copy!
 }
 
 RtpParameters VideoRtpReceiver::GetParameters() const {

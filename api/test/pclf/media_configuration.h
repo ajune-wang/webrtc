@@ -230,7 +230,7 @@ class VideoDumpOptions {
   VideoDumpOptions(VideoDumpOptions&&) = default;
   VideoDumpOptions& operator=(VideoDumpOptions&&) = default;
 
-  std::string output_directory() const { return output_directory_; }
+  const std::string& output_directory() const { return output_directory_; }
   int sampling_modulo() const { return sampling_modulo_; }
   bool export_frame_ids() const { return export_frame_ids_; }
 

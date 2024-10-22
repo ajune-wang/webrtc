@@ -90,7 +90,7 @@ std::unique_ptr<test::FrameGeneratorInterface> CreateScreenShareFrameGenerator(
   if (!screen_share_config.scrolling_params) {
     // Cycle image every slide_change_interval seconds.
     return test::CreateFromYuvFileFrameGenerator(
-        slides, video_config.width, video_config.height,
+        std::move(slides), video_config.width, video_config.height,
         screen_share_config.slide_change_interval.seconds() * video_config.fps);
   }
 
@@ -98,7 +98,7 @@ std::unique_ptr<test::FrameGeneratorInterface> CreateScreenShareFrameGenerator(
                              screen_share_config.scrolling_params->duration;
   RTC_DCHECK(pause_duration >= TimeDelta::Zero());
   return test::CreateScrollingInputFromYuvFilesFrameGenerator(
-      Clock::GetRealTimeClock(), slides,
+      Clock::GetRealTimeClock(), std::move(slides),
       screen_share_config.scrolling_params->source_width,
       screen_share_config.scrolling_params->source_height, video_config.width,
       video_config.height, screen_share_config.scrolling_params->duration.ms(),

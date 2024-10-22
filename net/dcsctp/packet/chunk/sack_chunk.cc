@@ -98,7 +98,7 @@ std::optional<SackChunk> SackChunk::Parse(rtc::ArrayView<const uint8_t> data) {
   }
   RTC_DCHECK(offset == reader->variable_data_size());
 
-  return SackChunk(tsn_ack, a_rwnd, gap_ack_blocks, duplicate_tsns);
+  return SackChunk(tsn_ack, a_rwnd, std::move(gap_ack_blocks), duplicate_tsns);
 }
 
 void SackChunk::SerializeTo(std::vector<uint8_t>& out) const {

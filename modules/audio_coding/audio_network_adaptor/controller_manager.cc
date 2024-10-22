@@ -355,15 +355,15 @@ ControllerManagerImpl::~ControllerManagerImpl() = default;
 std::vector<Controller*> ControllerManagerImpl::GetSortedControllers(
     const Controller::NetworkMetrics& metrics) {
   if (controller_scoring_points_.size() == 0)
-    return default_sorted_controllers_;
+    return std::vector<Controller*>(default_sorted_controllers_);  // Copy
 
   if (!metrics.uplink_bandwidth_bps || !metrics.uplink_packet_loss_fraction)
-    return sorted_controllers_;
+    return std::vector<Controller*>(sorted_controllers_);  // Copy
 
   const int64_t now_ms = rtc::TimeMillis();
   if (last_reordering_time_ms_ &&
       now_ms - *last_reordering_time_ms_ < config_.min_reordering_time_ms)
-    return sorted_controllers_;
+    return std::vector<Controller*>(sorted_controllers_);  // Copy
 
   ScoringPoint scoring_point(*metrics.uplink_bandwidth_bps,
                              *metrics.uplink_packet_loss_fraction);
@@ -371,7 +371,7 @@ std::vector<Controller*> ControllerManagerImpl::GetSortedControllers(
   if (last_reordering_time_ms_ &&
       last_scoring_point_.SquaredDistanceTo(scoring_point) <
           config_.min_reordering_squared_distance)
-    return sorted_controllers_;
+    return std::vector<Controller*>(sorted_controllers_);
 
   // Sort controllers according to the distances of `scoring_point` to the
   // scoring points of controllers.
@@ -403,11 +403,11 @@ std::vector<Controller*> ControllerManagerImpl::GetSortedControllers(
     last_reordering_time_ms_ = now_ms;
     last_scoring_point_ = scoring_point;
   }
-  return sorted_controllers_;
+  return std::vector<Controller*>(sorted_controllers_);  // Copy
 }
 
 std::vector<Controller*> ControllerManagerImpl::GetControllers() const {
-  return default_sorted_controllers_;
+  return std::vector<Controller*>(default_sorted_controllers_);  // Copy.
 }
 
 ControllerManagerImpl::ScoringPoint::ScoringPoint(

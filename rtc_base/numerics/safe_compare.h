@@ -130,12 +130,12 @@ constexpr bool Cmp(T1 a, T2 b) {
   return b < 0 ? Op::Op(0, -1) : Op::Op(a, safe_cmp_impl::MakeUnsigned(b));
 }
 
-#define RTC_SAFECMP_MAKE_OP(name, op)      \
-  struct name {                            \
-    template <typename T1, typename T2>    \
-    static constexpr bool Op(T1 a, T2 b) { \
-      return a op b;                       \
-    }                                      \
+#define RTC_SAFECMP_MAKE_OP(name, op)                    \
+  struct name {                                          \
+    template <typename T1, typename T2>                  \
+    static constexpr bool Op(const T1& a, const T2& b) { \
+      return a op b;                                     \
+    }                                                    \
   };
 RTC_SAFECMP_MAKE_OP(EqOp, ==)
 RTC_SAFECMP_MAKE_OP(NeOp, !=)

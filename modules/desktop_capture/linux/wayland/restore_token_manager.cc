@@ -20,12 +20,11 @@ RestoreTokenManager& RestoreTokenManager::GetInstance() {
 
 void RestoreTokenManager::AddToken(DesktopCapturer::SourceId id,
                                    const std::string& token) {
-  restore_tokens_.insert({id, token});
+  restore_tokens_.insert({id, std::string(token)});  // Copy.
 }
 
 std::string RestoreTokenManager::GetToken(DesktopCapturer::SourceId id) {
-  const std::string token = restore_tokens_[id];
-  return token;
+  return std::string(restore_tokens_[id]);  // Copy.
 }
 
 DesktopCapturer::SourceId RestoreTokenManager::GetUnusedId() {

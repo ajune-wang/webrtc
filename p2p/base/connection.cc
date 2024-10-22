@@ -565,7 +565,7 @@ void Connection::OnReadPacket(const rtc::ReceivedPacket& packet) {
       // request. In this case `last_ping_received_` will be updated but no
       // response will be sent.
     case STUN_BINDING_INDICATION:
-      ReceivedPing(msg->transaction_id());
+      ReceivedPing(std::string(msg->transaction_id()));  // Copy
       break;
     case GOOG_PING_REQUEST:
       // Checked in Port::GetStunMessage.
@@ -584,7 +584,7 @@ void Connection::OnReadPacket(const rtc::ReceivedPacket& packet) {
 void Connection::HandleStunBindingOrGoogPingRequest(IceMessage* msg) {
   RTC_DCHECK_RUN_ON(network_thread_);
   // This connection should now be receiving.
-  ReceivedPing(msg->transaction_id());
+  ReceivedPing(std::string(msg->transaction_id()));  // Copy
   if (field_trials_->extra_ice_ping && last_ping_response_received_ == 0) {
     if (local_candidate().is_relay() || local_candidate().is_prflx() ||
         remote_candidate().is_relay() || remote_candidate().is_prflx()) {
@@ -1421,7 +1421,7 @@ void Connection::OnConnectionRequestResponse(StunRequest* request,
                    << rtt << ", pings_since_last_response=" << pings;
   }
   std::optional<uint32_t> nomination;
-  const std::string request_id = request->id();
+  const std::string& request_id = request->id();
   auto iter = absl::c_find_if(
       pings_since_last_response_,
       [&request_id](const SentPing& ping) { return ping.id == request_id; });

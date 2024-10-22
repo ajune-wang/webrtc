@@ -87,7 +87,9 @@ class TransformableOutgoingAudioFrame
 
   uint8_t GetPayloadType() const override { return payload_type_; }
   Direction GetDirection() const override { return Direction::kSender; }
-  std::string GetMimeType() const override { return codec_mime_type_; }
+  std::string GetMimeType() const override {
+    return std::string(codec_mime_type_);
+  }
 
   rtc::ArrayView<const uint32_t> GetContributingSources() const override {
     return csrcs_;

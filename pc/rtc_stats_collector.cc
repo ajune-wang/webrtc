@@ -360,7 +360,9 @@ std::string GetCodecIdAndMaybeCreateCodecStats(
     return codec_id;
   }
   // Create the `RTCCodecStats` that we want to reference.
-  auto codec_stats = std::make_unique<RTCCodecStats>(codec_id, timestamp);
+  auto codec_stats =
+      std::make_unique<RTCCodecStats>(std::string(codec_id),  // copy
+                                      timestamp);
   codec_stats->payload_type = payload_type;
   codec_stats->mime_type = codec_params.mime_type();
   if (codec_params.clock_rate.has_value()) {
@@ -939,7 +941,7 @@ void ProduceCertificateStatsFromSSLCertificateStats(
       break;
     }
     RTCCertificateStats* certificate_stats =
-        new RTCCertificateStats(certificate_stats_id, timestamp);
+        new RTCCertificateStats(std::move(certificate_stats_id), timestamp);
     certificate_stats->fingerprint = s->fingerprint;
     certificate_stats->fingerprint_algorithm = s->fingerprint_algorithm;
     certificate_stats->base64_certificate = s->base64_certificate;
@@ -1709,7 +1711,7 @@ void RTCStatsCollector::ProduceAudioRTPStreamStats_n(
     return;
   }
   RTC_DCHECK(stats.track_media_info_map.voice_media_info().has_value());
-  std::string mid = *stats.mid;
+  auto mid = std::string(*stats.mid);  // Copy.
   std::string transport_id = RTCTransportStatsIDFromTransportChannel(
       *stats.transport_name, cricket::ICE_CANDIDATE_COMPONENT_RTP);
   // Inbound and remote-outbound.
@@ -1814,7 +1816,7 @@ void RTCStatsCollector::ProduceVideoRTPStreamStats_n(
     return;
   }
   RTC_DCHECK(stats.track_media_info_map.video_media_info().has_value());
-  std::string mid = *stats.mid;
+  auto mid = std::string(*stats.mid);  // Copy.
   std::string transport_id = RTCTransportStatsIDFromTransportChannel(
       *stats.transport_name, cricket::ICE_CANDIDATE_COMPONENT_RTP);
   // Inbound and remote-outbound.

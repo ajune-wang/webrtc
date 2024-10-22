@@ -34,7 +34,7 @@ class TransformableVideoReceiverFrame
         metadata_(frame_->GetRtpVideoHeader().GetAsMetadata()),
         receiver_(receiver) {
     metadata_.SetSsrc(ssrc);
-    metadata_.SetCsrcs(frame_->Csrcs());
+    metadata_.SetCsrcs(std::vector<uint32_t>(frame_->Csrcs()));  // Copy.
   }
   ~TransformableVideoReceiverFrame() override = default;
 

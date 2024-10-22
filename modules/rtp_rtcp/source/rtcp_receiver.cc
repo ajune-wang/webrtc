@@ -730,7 +730,7 @@ std::vector<rtcp::TmmbItem> RTCPReceiver::BoundingSet(bool* tmmbr_owner) {
     return std::vector<rtcp::TmmbItem>();
 
   *tmmbr_owner = TMMBRHelp::IsOwner(tmmbr_info->tmmbn, local_media_ssrc());
-  return tmmbr_info->tmmbn;
+  return std::vector<rtcp::TmmbItem>(tmmbr_info->tmmbn);  // Copy
 }
 
 bool RTCPReceiver::HandleSdes(const CommonHeader& rtcp_block,

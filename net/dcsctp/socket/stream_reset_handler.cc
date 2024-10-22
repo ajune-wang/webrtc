@@ -337,7 +337,7 @@ ReConfigChunk StreamResetHandler::MakeReconfigChunk() {
       Parameters::Builder().Add(OutgoingSSNResetRequestParameter(
           current_request_->req_seq_nbr(), current_request_->req_seq_nbr(),
           current_request_->sender_last_assigned_tsn(),
-          current_request_->streams()));
+          std::vector<StreamID>(current_request_->streams())));  // Copy.
 
   return ReConfigChunk(params_builder.Build());
 }

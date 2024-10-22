@@ -68,7 +68,7 @@ std::vector<PacketResult> TransportPacketsFeedback::LostWithSendInfo() const {
 
 std::vector<PacketResult> TransportPacketsFeedback::PacketsWithFeedback()
     const {
-  return packet_feedbacks;
+  return std::vector<PacketResult>(packet_feedbacks);  // Copy.
 }
 
 std::vector<PacketResult> TransportPacketsFeedback::SortedByReceiveTime()

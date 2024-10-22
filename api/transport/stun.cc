@@ -1378,7 +1378,7 @@ bool ComputeStunCredentialHash(const std::string& username,
   // http://tools.ietf.org/html/rfc5389#section-15.4
   // long-term credentials will be calculated using the key and key is
   // key = MD5(username ":" realm ":" SASLprep(password))
-  std::string input = username;
+  auto input = std::string(username);  // Copy.
   input += ':';
   input += realm;
   input += ':';

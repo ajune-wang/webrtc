@@ -1508,7 +1508,7 @@ void BuildMediaDescription(const ContentInfo* content_info,
   // b=AS:<bandwidth> or
   // b=TIAS:<bandwidth>
   int bandwidth = media_desc->bandwidth();
-  std::string bandwidth_type = media_desc->bandwidth_type();
+  auto bandwidth_type = std::string(media_desc->bandwidth_type());  // Copy.
   if (bandwidth_type == kApplicationSpecificBandwidth && bandwidth >= 1000) {
     InitLine(kLineTypeSessionBandwidth, bandwidth_type, &os);
     bandwidth /= 1000;
@@ -1700,7 +1700,9 @@ void BuildRtpContentAttributes(const MediaContentDescription* media_desc,
         // for Unified Plan compatibility. Plan B will always have a
         // track_stream_id.
         const std::string& stream_id =
-            track_stream_id.empty() ? kNoStreamMsid : track_stream_id;
+            track_stream_id.empty()
+                ? kNoStreamMsid
+                : std::string(track_stream_id);  // Surprise copy.
         InitAttrLine(kAttributeSsrc, &os);
         os << kSdpDelimiterColon << ssrc << kSdpDelimiterSpace
            << kSsrcAttributeMsid << kSdpDelimiterColon << stream_id
@@ -1983,7 +1985,7 @@ void BuildCandidate(const std::vector<Candidate>& candidates,
        << candidate.component() << " " << candidate.protocol() << " "
        << candidate.priority() << " "
        << (candidate.address().ipaddr().IsNil()
-               ? candidate.address().hostname()
+               ? std::string(candidate.address().hostname())
                : candidate.address().ipaddr().ToString())
        << " " << candidate.address().PortAsString() << " "
        << kAttributeCandidateTyp << " " << type << " ";
@@ -2239,7 +2241,7 @@ bool ParseSessionDescription(absl::string_view message,
       if (!GetValue(*aline, kAttributeMsidSemantics, &semantics, error)) {
         return false;
       }
-      if (CaseInsensitiveFind(semantics, kMediaStreamSemantic)) {
+      if (CaseInsensitiveFind(std::move(semantics), kMediaStreamSemantic)) {
         desc->set_msid_signaling(cricket::kMsidSignalingSemantic);
       }
     } else if (HasAttribute(*aline, kAttributeExtmapAllowMixed)) {
@@ -2658,7 +2660,8 @@ static std::unique_ptr<MediaContentDescription> ParseContentDescription(
   for (int pt : payload_types) {
     payload_type_preferences[pt] = preference--;
   }
-  std::vector<cricket::Codec> codecs = media_desc->codecs();
+  // Copy to sort in place.
+  auto codecs = std::vector<cricket::Codec>(media_desc->codecs());
   absl::c_sort(codecs, [&payload_type_preferences](const cricket::Codec& a,
                                                    const cricket::Codec& b) {
     return payload_type_preferences[a.id] > payload_type_preferences[b.id];
@@ -2666,7 +2669,7 @@ static std::unique_ptr<MediaContentDescription> ParseContentDescription(
   // Backfill any default parameters.
   BackfillCodecParameters(codecs);
 
-  media_desc->set_codecs(codecs);
+  media_desc->set_codecs(std::move(codecs));
   return media_desc;
 }
 
@@ -2925,7 +2928,8 @@ cricket::Codec GetCodecWithPayloadType(
 // Updates or creates a new codec entry in the media description.
 void AddOrReplaceCodec(MediaContentDescription* content_desc,
                        const cricket::Codec& codec) {
-  std::vector<cricket::Codec> codecs = content_desc->codecs();
+  // Copy for subsequent modification.
+  auto codecs = std::vector<cricket::Codec>(content_desc->codecs());
   bool found = false;
   for (cricket::Codec& existing_codec : codecs) {
     if (codec.id == existing_codec.id) {
@@ -2939,7 +2943,7 @@ void AddOrReplaceCodec(MediaContentDescription* content_desc,
     content_desc->AddCodec(codec);
     return;
   }
-  content_desc->set_codecs(codecs);
+  content_desc->set_codecs(std::move(codecs));
 }
 
 // Adds or updates existing codec corresponding to `payload_type` according
@@ -2998,7 +3002,8 @@ std::optional<cricket::Codec> PopWildcardCodec(
 
 void UpdateFromWildcardCodecs(cricket::MediaContentDescription* desc) {
   RTC_DCHECK(desc);
-  auto codecs = desc->codecs();
+  // Copy for subsequent modification.
+  auto codecs = std::vector<cricket::Codec>(desc->codecs());
   std::optional<cricket::Codec> wildcard_codec = PopWildcardCodec(&codecs);
   if (!wildcard_codec) {
     return;
@@ -3006,7 +3011,7 @@ void UpdateFromWildcardCodecs(cricket::MediaContentDescription* desc) {
   for (auto& codec : codecs) {
     AddFeedbackParameters(wildcard_codec->feedback_params, &codec);
   }
-  desc->set_codecs(codecs);
+  desc->set_codecs(std::move(codecs));
 }
 
 void AddAudioAttribute(const std::string& name,
@@ -3016,11 +3021,12 @@ void AddAudioAttribute(const std::string& name,
   if (value.empty()) {
     return;
   }
-  std::vector<cricket::Codec> codecs = desc->codecs();
+  // Copy for modification.
+  auto codecs = std::vector<cricket::Codec>(desc->codecs());
   for (cricket::Codec& codec : codecs) {
     codec.params[name] = std::string(value);
   }
-  desc->set_codecs(codecs);
+  desc->set_codecs(std::move(codecs));
 }
 
 bool ParseContent(absl::string_view message,
@@ -3114,7 +3120,7 @@ bool ParseContent(absl::string_view message,
         b = std::min(b, INT_MAX);
       }
       media_desc->set_bandwidth(b);
-      media_desc->set_bandwidth_type(bandwidth_type);
+      media_desc->set_bandwidth_type(std::move(bandwidth_type));
       continue;
     }
 

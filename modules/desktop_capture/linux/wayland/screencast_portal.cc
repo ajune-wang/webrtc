@@ -416,7 +416,7 @@ void ScreenCastPortal::SetRestoreToken(const std::string& token) {
 }
 
 std::string ScreenCastPortal::RestoreToken() const {
-  return restore_token_;
+  return std::string(restore_token_);  // Copy.
 }
 
 void ScreenCastPortal::OpenPipeWireRemote() {

@@ -59,7 +59,10 @@ struct VisitToString {
     RTC_DCHECK_LE(len, arraysize(buf));
     return std::string(&buf[0], len);
   }
-
+  template <>
+  std::string ValueToString(const std::string& value) {
+    return std::string(value);
+  }
   // Vector attributes.
   template <typename T>
   std::string operator()(const std::optional<std::vector<T>>* attribute) {

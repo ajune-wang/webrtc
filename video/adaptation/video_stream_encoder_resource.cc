@@ -44,7 +44,7 @@ void VideoStreamEncoderResource::SetResourceListener(
 }
 
 std::string VideoStreamEncoderResource::Name() const {
-  return name_;
+  return std::string(name_);  // Copy.
 }
 
 void VideoStreamEncoderResource::OnResourceUsageStateMeasured(

@@ -680,7 +680,7 @@ std::string StatsReport::Value::ToString() const {
     case kStaticString:
       return std::string(value_.static_string_);
     case kString:
-      return *value_.string_;
+      return std::string(*value_.string_);  // Copy.
     case kBool:
       return value_.bool_ ? "true" : "false";
     case kId:

@@ -144,7 +144,7 @@ rtc::scoped_refptr<I420Buffer> YuvFrameReaderImpl::ReadFrame(
 
 std::unique_ptr<FrameReader> CreateYuvFrameReader(std::string filepath,
                                                   Resolution resolution) {
-  return CreateYuvFrameReader(filepath, resolution,
+  return CreateYuvFrameReader(std::move(filepath), resolution,
                               YuvFrameReaderImpl::RepeatMode::kSingle);
 }
 
@@ -153,7 +153,7 @@ std::unique_ptr<FrameReader> CreateYuvFrameReader(
     Resolution resolution,
     YuvFrameReaderImpl::RepeatMode repeat_mode) {
   YuvFrameReaderImpl* frame_reader =
-      new YuvFrameReaderImpl(filepath, resolution, repeat_mode);
+      new YuvFrameReaderImpl(std::move(filepath), resolution, repeat_mode);
   frame_reader->Init();
   return std::unique_ptr<FrameReader>(frame_reader);
 }

@@ -72,7 +72,7 @@ class VideoRtpReceiver : public RtpReceiverInternal {
     return cricket::MEDIA_TYPE_VIDEO;
   }
 
-  std::string id() const override { return id_; }
+  std::string id() const override { return std::string(id_); }  // Copy.
 
   RtpParameters GetParameters() const override;
 

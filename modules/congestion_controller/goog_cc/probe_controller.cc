@@ -261,7 +261,7 @@ std::vector<ProbeClusterConfig> ProbeController::OnMaxTotalAllocatedBitrate(
     }
     bool allow_further_probing = limited_by_current_bwe;
 
-    return InitiateProbing(at_time, probes, allow_further_probing);
+    return InitiateProbing(at_time, std::move(probes), allow_further_probing);
   }
   if (!max_total_allocated_bitrate.IsZero()) {
     last_allowed_repeated_initial_probe_ = at_time;
@@ -324,7 +324,7 @@ std::vector<ProbeClusterConfig> ProbeController::InitiateExponentialProbing(
                      << " now: " << at_time;
   }
 
-  return InitiateProbing(at_time, probes, true);
+  return InitiateProbing(at_time, std::move(probes), true);
 }
 
 std::vector<ProbeClusterConfig> ProbeController::SetEstimatedBitrate(

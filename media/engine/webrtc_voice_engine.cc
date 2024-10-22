@@ -412,8 +412,8 @@ std::vector<Codec> LegacyCollectCodecs(
       if (allocate_pt) {
         std::string red_fmtp =
             rtc::ToString(codec.id) + "/" + rtc::ToString(codec.id);
-        cricket::Codec red_codec =
-            CreateAudioCodec({kRedCodecName, 48000, 2, {{"", red_fmtp}}});
+        cricket::Codec red_codec = CreateAudioCodec(
+            {kRedCodecName, 48000, 2, {{"", std::move(red_fmtp)}}});
         red_codec.id = pt_mapper.SuggestMapping(red_codec, nullptr).value();
         out.push_back(red_codec);
       } else {
@@ -1602,8 +1602,8 @@ bool WebRtcVoiceSendChannel::AddSendStream(const StreamParams& sp) {
   std::optional<std::string> audio_network_adaptor_config =
       GetAudioNetworkAdaptorConfig(options_);
   WebRtcAudioSendStream* stream = new WebRtcAudioSendStream(
-      ssrc, mid_, sp.cname, sp.id, send_codec_spec_, ExtmapAllowMixed(),
-      send_rtp_extensions_, max_send_bitrate_bps_,
+      ssrc, mid_, sp.cname, std::string(sp.id), send_codec_spec_,
+      ExtmapAllowMixed(), send_rtp_extensions_, max_send_bitrate_bps_,
       audio_config_.rtcp_report_interval_ms, audio_network_adaptor_config,
       call_, transport(), engine()->encoder_factory_, codec_pair_id_, nullptr,
       crypto_options_);
@@ -1819,7 +1819,7 @@ bool WebRtcVoiceSendChannel::GetStats(VoiceMediaSendInfo* info) {
     sinfo.apm_statistics = stats.apm_statistics;
     sinfo.report_block_datas = std::move(stats.report_block_datas);
 
-    auto encodings = stream.second->rtp_parameters().encodings;
+    const auto& encodings = stream.second->rtp_parameters().encodings;
     if (!encodings.empty()) {
       sinfo.active = encodings[0].active;
     }
@@ -2200,7 +2200,7 @@ bool WebRtcVoiceReceiveChannel::SetRecvCodecs(
     const std::vector<Codec>& codecs_in) {
   RTC_DCHECK_RUN_ON(worker_thread_);
 
-  auto codecs = codecs_in;
+  auto codecs = std::vector<Codec>(codecs_in);  // Copy.
   // Record the payload types used in the payload type suggester.
   RTC_LOG(LS_INFO) << "Setting receive voice codecs. Mid is " << mid_;
   for (auto& codec : codecs) {
@@ -2353,7 +2353,8 @@ bool WebRtcVoiceReceiveChannel::AddRecvStream(const StreamParams& sp) {
   // updating the sync group if stream ids have changed.
   if (MaybeDeregisterUnsignaledRecvStream(ssrc)) {
     auto stream_ids = sp.stream_ids();
-    std::string sync_group = stream_ids.empty() ? std::string() : stream_ids[0];
+    std::string sync_group =
+        stream_ids.empty() ? std::string() : std::string(stream_ids[0]);
     call_->OnUpdateSyncGroup(recv_streams_[ssrc]->stream(),
                              std::move(sync_group));
     return true;
@@ -2406,7 +2407,7 @@ void WebRtcVoiceReceiveChannel::ResetUnsignaledRecvStream() {
   RTC_LOG(LS_INFO) << "ResetUnsignaledRecvStream.";
   unsignaled_stream_params_ = StreamParams();
   // Create a copy since RemoveRecvStream will modify `unsignaled_recv_ssrcs_`.
-  std::vector<uint32_t> to_remove = unsignaled_recv_ssrcs_;
+  auto to_remove = std::vector<uint32_t>(unsignaled_recv_ssrcs_);
   for (uint32_t ssrc : to_remove) {
     RemoveRecvStream(ssrc);
   }

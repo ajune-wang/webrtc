@@ -86,7 +86,7 @@ class AudioRtpReceiver : public ObserverInterface,
     return cricket::MEDIA_TYPE_AUDIO;
   }
 
-  std::string id() const override { return id_; }
+  std::string id() const override { return std::string(id_); }  // Copy.
 
   RtpParameters GetParameters() const override;
 

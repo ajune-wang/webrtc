@@ -161,8 +161,7 @@ std::string BitstreamReader::ReadString(int num_bytes) {
   for (int i = 0; i < num_bytes; ++i) {
     res += Read<uint8_t>();
   }
-
-  return Ok() ? res : std::string();
+  return Ok() ? std::move(res) : std::string();
 }
 
 }  // namespace webrtc

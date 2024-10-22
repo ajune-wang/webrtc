@@ -71,6 +71,11 @@ std::string ToString(T value) {
   return {absl::StrCat(value)};
 }
 
+template <>
+std::string ToString(std::string&& value) {
+  return std::move(value);
+}
+
 // Versions that behave differently from StrCat
 template <>
 std::string ToString(bool b);

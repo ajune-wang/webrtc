@@ -481,10 +481,10 @@ void ReceiveStatisticsProxy::OnDecoderInfo(
   RTC_DCHECK_RUN_ON(&decode_queue_);
   worker_thread_->PostTask(SafeTask(
       task_safety_.flag(),
-      [this, name = decoder_info.implementation_name,
+      [this, name = std::string(decoder_info.implementation_name),
        is_hardware_accelerated = decoder_info.is_hardware_accelerated]() {
         RTC_DCHECK_RUN_ON(&main_thread_);
-        stats_.decoder_implementation_name = name;
+        stats_.decoder_implementation_name = std::string(name);
         stats_.power_efficient_decoder = is_hardware_accelerated;
       }));
 }

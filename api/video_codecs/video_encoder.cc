@@ -243,8 +243,8 @@ bool VideoEncoder::EncoderInfo::operator==(const EncoderInfo& rhs) const {
 std::optional<VideoEncoder::ResolutionBitrateLimits>
 VideoEncoder::EncoderInfo::GetEncoderBitrateLimitsForResolution(
     int frame_size_pixels) const {
-  std::vector<ResolutionBitrateLimits> bitrate_limits =
-      resolution_bitrate_limits;
+  std::vector<ResolutionBitrateLimits> bitrate_limits(
+      resolution_bitrate_limits);  // Copy.
 
   // Sort the list of bitrate limits by resolution.
   sort(bitrate_limits.begin(), bitrate_limits.end(),

@@ -226,7 +226,7 @@ bool StreamParams::GetSecondarySsrc(const std::string& semantics,
 }
 
 std::vector<std::string> StreamParams::stream_ids() const {
-  return stream_ids_;
+  return std::vector<std::string>(stream_ids_);  // Copy.
 }
 
 void StreamParams::set_stream_ids(const std::vector<std::string>& stream_ids) {
@@ -234,7 +234,7 @@ void StreamParams::set_stream_ids(const std::vector<std::string>& stream_ids) {
 }
 
 std::string StreamParams::first_stream_id() const {
-  return stream_ids_.empty() ? "" : stream_ids_[0];
+  return stream_ids_.empty() ? "" : std::string(stream_ids_[0]);  // Copy.
 }
 
 }  // namespace cricket

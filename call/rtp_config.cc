@@ -233,7 +233,7 @@ std::optional<std::string> RtpConfig::GetRidForSsrc(uint32_t ssrc) const {
   if (it != ssrcs.end()) {
     size_t ssrc_index = std::distance(ssrcs.begin(), it);
     if (ssrc_index < rids.size()) {
-      return rids[ssrc_index];
+      return std::string(rids[ssrc_index]);  // Copy.
     }
   }
   return std::nullopt;

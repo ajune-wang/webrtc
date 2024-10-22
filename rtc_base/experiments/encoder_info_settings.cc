@@ -110,8 +110,9 @@ EncoderInfoSettings::GetSinglecastBitrateLimitForResolutionWhenQpIsUntrusted(
     return std::nullopt;
   }
 
-  std::vector<VideoEncoder::ResolutionBitrateLimits> bitrate_limits =
-      resolution_bitrate_limits;
+  // Copy vector to allow sorting in place.
+  auto bitrate_limits = std::vector<VideoEncoder::ResolutionBitrateLimits>(
+      resolution_bitrate_limits);
 
   // Sort the list of bitrate limits by resolution.
   sort(bitrate_limits.begin(), bitrate_limits.end(),

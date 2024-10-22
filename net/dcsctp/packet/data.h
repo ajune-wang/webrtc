@@ -65,8 +65,8 @@ struct Data {
 
   // Creates a copy of this `Data` object.
   Data Clone() const {
-    return Data(stream_id, ssn, mid, fsn, ppid, payload, is_beginning, is_end,
-                is_unordered);
+    return Data(stream_id, ssn, mid, fsn, ppid, std::vector<uint8_t>(payload),
+                is_beginning, is_end, is_unordered);
   }
 
   // The size of this data, which translates to the size of its payload.

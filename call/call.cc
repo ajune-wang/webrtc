@@ -961,7 +961,7 @@ webrtc::VideoSendStream* Call::CreateVideoSendStream(
   // TODO(mflodman): Base the start bitrate on a current bandwidth estimate, if
   // the call has already started.
   // Copy ssrcs from `config` since `config` is moved.
-  std::vector<uint32_t> ssrcs = config.rtp.ssrcs;
+  auto ssrcs = std::vector<uint32_t>(config.rtp.ssrcs);
 
   VideoSendStreamImpl* send_stream = new VideoSendStreamImpl(
       env_, num_cpu_cores_, call_stats_->AsRtcpRttStats(),

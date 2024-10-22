@@ -287,7 +287,8 @@ std::vector<RtpStreamSender> CreateRtpStreamSenders(
     RTC_DCHECK_EQ(configuration.rtx_send_ssrc.has_value(),
                   !rtp_config.rtx.ssrcs.empty());
 
-    configuration.rid = (i < rtp_config.rids.size()) ? rtp_config.rids[i] : "";
+    configuration.rid =
+        i < rtp_config.rids.size() ? std::string(rtp_config.rids[i]) : "";
 
     configuration.need_rtp_packet_infos = rtp_config.lntf.enabled;
 
@@ -523,7 +524,8 @@ void RtpVideoSender::SetActiveModulesLocked(bool sending) {
   if (!sending) {
     feedback_provider->DeRegisterStreamFeedbackObserver(this);
   } else {
-    feedback_provider->RegisterStreamFeedbackObserver(rtp_config_.ssrcs, this);
+    feedback_provider->RegisterStreamFeedbackObserver(
+        std::vector<uint32_t>(rtp_config_.ssrcs), this);
   }
 }
 

@@ -447,7 +447,7 @@ std::string GetTrackIdBySsrc(
     const std::map<uint32_t, std::string>& track_id_by_ssrc) {
   auto it = track_id_by_ssrc.find(ssrc);
   if (it != track_id_by_ssrc.end()) {
-    return it->second;
+    return std::string(it->second);
   }
   if (direction == StatsReport::kReceive) {
     // If the track ID was not found, this might be an unsignaled receive
@@ -458,7 +458,7 @@ std::string GetTrackIdBySsrc(
                        << " is an unsignalled receive stream corresponding "
                           "to the RtpReceiver with track ID \""
                        << it->second << "\".";
-      return it->second;
+      return std::string(it->second);
     }
   }
   return "";
@@ -931,7 +931,8 @@ LegacyStatsCollector::SessionStats LegacyStatsCollector::ExtractSessionInfo_n(
       pc_->GetTransportStatsByNames(transport_names);
 
   for (auto& entry : transport_stats_by_name) {
-    stats.transport_stats.emplace_back(entry.first, std::move(entry.second));
+    stats.transport_stats.emplace_back(std::string(entry.first),
+                                       std::move(entry.second));
     TransportStats& transport = stats.transport_stats.back();
 
     // Attempt to get a copy of the certificates from the transport and

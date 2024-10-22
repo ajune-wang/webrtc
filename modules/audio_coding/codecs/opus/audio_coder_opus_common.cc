@@ -20,7 +20,7 @@ std::optional<std::string> GetFormatParameter(const SdpAudioFormat& format,
   if (it == format.parameters.end())
     return std::nullopt;
 
-  return it->second;
+  return std::string(it->second);  // Copy.
 }
 
 // Parses a comma-separated string "1,2,0,6" into a std::vector<unsigned char>.

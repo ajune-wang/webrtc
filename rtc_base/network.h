@@ -247,7 +247,7 @@ class RTC_EXPORT Network {
 
   // `key_` has unique value per network interface. Used in sorting network
   // interfaces. Key is derived from interface name and it's prefix.
-  std::string key() const { return key_; }
+  std::string key() const { return std::string(key_); }
 
   // Returns the Network's current idea of the 'best' IP it has.
   // Or return an unset IP if this network has no active addresses.

@@ -139,7 +139,7 @@ bool IsValid(const std::vector<BalancedDegradationSettings::Config>& configs) {
 std::vector<BalancedDegradationSettings::Config> GetValidOrDefault(
     const std::vector<BalancedDegradationSettings::Config>& configs) {
   if (IsValid(configs)) {
-    return configs;
+    return std::vector<BalancedDegradationSettings::Config>(configs);  // Copy.
   }
   return DefaultConfigs();
 }
@@ -408,7 +408,7 @@ BalancedDegradationSettings::~BalancedDegradationSettings() {}
 
 std::vector<BalancedDegradationSettings::Config>
 BalancedDegradationSettings::GetConfigs() const {
-  return configs_;
+  return std::vector<BalancedDegradationSettings::Config>(configs_);  // Copy.
 }
 
 int BalancedDegradationSettings::MinFps(VideoCodecType type, int pixels) const {

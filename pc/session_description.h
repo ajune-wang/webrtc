@@ -89,7 +89,7 @@ class MediaContentDescription {
 
   // `protocol` is the expected media transport protocol, such as RTP/AVPF,
   // RTP/SAVPF or SCTP/DTLS.
-  std::string protocol() const { return protocol_; }
+  const std::string& protocol() const { return protocol_; }
   virtual void set_protocol(absl::string_view protocol) {
     protocol_ = std::string(protocol);
   }
@@ -116,9 +116,9 @@ class MediaContentDescription {
 
   int bandwidth() const { return bandwidth_; }
   void set_bandwidth(int bandwidth) { bandwidth_ = bandwidth; }
-  std::string bandwidth_type() const { return bandwidth_type_; }
+  const std::string& bandwidth_type() const { return bandwidth_type_; }
   void set_bandwidth_type(std::string bandwidth_type) {
-    bandwidth_type_ = bandwidth_type;
+    bandwidth_type_ = std::move(bandwidth_type);
   }
 
   // List of RTP header extensions. URIs are **NOT** guaranteed to be unique
@@ -224,7 +224,7 @@ class MediaContentDescription {
 
   // Codecs should be in preference order (most preferred codec first).
   const std::vector<Codec>& codecs() const { return codecs_; }
-  void set_codecs(const std::vector<Codec>& codecs) { codecs_ = codecs; }
+  void set_codecs(std::vector<Codec> codecs) { codecs_ = std::move(codecs); }
   virtual bool has_codecs() const { return !codecs_.empty(); }
   bool HasCodec(int id) {
     return absl::c_find_if(codecs_, [id](const cricket::Codec codec) {
@@ -399,8 +399,8 @@ class RTC_EXPORT ContentInfo {
   ContentInfo& operator=(ContentInfo&& o) = default;
 
   // Alias for `name`.
-  std::string mid() const { return name; }
-  void set_mid(const std::string& mid) { this->name = mid; }
+  const std::string& mid() const { return name; }
+  void set_mid(std::string mid) { name = std::move(mid); }
 
   // Alias for `description`.
   MediaContentDescription* media_description();

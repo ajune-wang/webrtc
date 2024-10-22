@@ -243,7 +243,7 @@ class StunMessage {
   // Can only be called after adding or checking the integrity.
   std::string password() const {
     RTC_DCHECK(integrity_ != IntegrityStatus::kNotSet);
-    return password_;
+    return std::string(password_);  // Copy.
   }
 
   // Adds a MESSAGE-INTEGRITY attribute that is valid for the current message.

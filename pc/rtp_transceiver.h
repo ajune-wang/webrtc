@@ -172,7 +172,9 @@ class RtpTransceiver : public RtpTransceiverInterface {
   // Returns a vector of the senders owned by this transceiver.
   std::vector<rtc::scoped_refptr<RtpSenderProxyWithInternal<RtpSenderInternal>>>
   senders() const {
-    return senders_;
+    return std::vector<
+        rtc::scoped_refptr<RtpSenderProxyWithInternal<RtpSenderInternal>>>(
+        senders_);  // Copy.
   }
 
   // Adds an RtpReceiver of the appropriate type to be owned by this
@@ -189,7 +191,9 @@ class RtpTransceiver : public RtpTransceiverInterface {
   std::vector<
       rtc::scoped_refptr<RtpReceiverProxyWithInternal<RtpReceiverInternal>>>
   receivers() const {
-    return receivers_;
+    return std::vector<
+        rtc::scoped_refptr<RtpReceiverProxyWithInternal<RtpReceiverInternal>>>(
+        receivers_);  // Copy!
   }
 
   // Returns the backing object for the transceiver's Unified Plan sender.
@@ -276,7 +280,7 @@ class RtpTransceiver : public RtpTransceiverInterface {
   RTCError SetCodecPreferences(
       rtc::ArrayView<RtpCodecCapability> codecs) override;
   std::vector<RtpCodecCapability> codec_preferences() const override {
-    return codec_preferences_;
+    return std::vector<RtpCodecCapability>(codec_preferences_);  // Copy.
   }
   std::vector<RtpHeaderExtensionCapability> GetHeaderExtensionsToNegotiate()
       const override;

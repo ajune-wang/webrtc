@@ -98,7 +98,7 @@ FieldTrials::~FieldTrials() {
 std::string FieldTrials::GetValue(absl::string_view key) const {
   auto it = key_value_map_.find(std::string(key));
   if (it != key_value_map_.end())
-    return it->second;
+    return std::string(it->second);  // Copy.
 
   // Check the global string so that programs using
   // a mix between FieldTrials and the global string continue to work

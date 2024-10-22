@@ -438,7 +438,7 @@ void SctpDataChannel::UnregisterObserver() {
 }
 
 std::string SctpDataChannel::label() const {
-  return label_;
+  return std::string(label_);  // Copy
 }
 
 bool SctpDataChannel::reliable() const {
@@ -468,7 +468,7 @@ std::optional<int> SctpDataChannel::maxRetransmitsOpt() const {
 }
 
 std::string SctpDataChannel::protocol() const {
-  return protocol_;
+  return std::string(protocol_);  // Copy.
 }
 
 bool SctpDataChannel::negotiated() const {

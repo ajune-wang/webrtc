@@ -742,7 +742,7 @@ void ChannelReceive::ReceivePacket(const uint8_t* packet,
     rtc::SimpleStringBuilder mime_type(buf);
     auto it = payload_type_map_.find(header.payloadType);
     mime_type << MediaTypeToString(cricket::MEDIA_TYPE_AUDIO) << "/"
-              << (it != payload_type_map_.end() ? it->second.name
+              << (it != payload_type_map_.end() ? std::string(it->second.name)
                                                 : "x-unknown");
     frame_transformer_delegate_->Transform(payload_data, header, remote_ssrc_,
                                            mime_type.str(), receive_time);

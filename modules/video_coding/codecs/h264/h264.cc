@@ -54,7 +54,7 @@ SdpVideoFormat CreateH264Format(H264Profile profile,
                                 H264Level level,
                                 const std::string& packetization_mode,
                                 bool add_scalability_modes) {
-  const std::optional<std::string> profile_string =
+  std::optional<std::string> profile_string =
       H264ProfileLevelIdToString(H264ProfileLevelId(profile, level));
   RTC_CHECK(profile_string);
   absl::InlinedVector<ScalabilityMode, kScalabilityModeCount> scalability_modes;
@@ -65,9 +65,9 @@ SdpVideoFormat CreateH264Format(H264Profile profile,
   }
   return SdpVideoFormat(
       cricket::kH264CodecName,
-      {{cricket::kH264FmtpProfileLevelId, *profile_string},
+      {{cricket::kH264FmtpProfileLevelId, *std::move(profile_string)},
        {cricket::kH264FmtpLevelAsymmetryAllowed, "1"},
-       {cricket::kH264FmtpPacketizationMode, packetization_mode}},
+       {cricket::kH264FmtpPacketizationMode, std::string(packetization_mode)}},
       scalability_modes);
 }
 

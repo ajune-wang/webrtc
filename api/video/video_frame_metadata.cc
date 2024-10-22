@@ -155,7 +155,7 @@ void VideoFrameMetadata::SetSsrc(uint32_t ssrc) {
 }
 
 std::vector<uint32_t> VideoFrameMetadata::GetCsrcs() const {
-  return csrcs_;
+  return std::vector<uint32_t>(csrcs_);
 }
 
 void VideoFrameMetadata::SetCsrcs(std::vector<uint32_t> csrcs) {

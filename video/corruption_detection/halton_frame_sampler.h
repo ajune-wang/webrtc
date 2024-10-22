@@ -68,7 +68,7 @@ class HaltonFrameSampler {
 // 4. Fetch the values at the scaled coordinates in the filtered frame.
 std::vector<FilteredSample> GetSampleValuesForFrame(
     scoped_refptr<I420BufferInterface> i420_frame_buffer,
-    std::vector<HaltonFrameSampler::Coordinates> sample_coordinates,
+    const std::vector<HaltonFrameSampler::Coordinates>& sample_coordinates,
     int scaled_width,
     int scaled_height,
     double std_dev_gaussian_blur);

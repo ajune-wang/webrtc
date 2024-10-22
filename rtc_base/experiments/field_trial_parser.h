@@ -39,7 +39,7 @@ namespace webrtc {
 class FieldTrialParameterInterface {
  public:
   virtual ~FieldTrialParameterInterface();
-  std::string key() const { return key_; }
+  std::string key() const { return std::string(key_); }  // Copy
 
  protected:
   // Protected to allow implementations to provide assignment and copy.
@@ -80,7 +80,7 @@ class FieldTrialParameter : public FieldTrialParameterInterface {
  public:
   FieldTrialParameter(absl::string_view key, T default_value)
       : FieldTrialParameterInterface(key), value_(default_value) {}
-  T Get() const { return value_; }
+  T Get() const { return T(value_); }  // Copy.
   operator T() const { return Get(); }
   const T* operator->() const { return &value_; }
 

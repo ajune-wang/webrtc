@@ -57,7 +57,7 @@ class FieldTrialList : public FieldTrialListBase {
   FieldTrialList(absl::string_view key, std::initializer_list<T> default_values)
       : FieldTrialListBase(key), values_(default_values) {}
 
-  std::vector<T> Get() const { return values_; }
+  std::vector<T> Get() const { return std::vector<T>(values_); }  // Copy.
   operator std::vector<T>() const { return Get(); }
   typename std::vector<T>::const_reference operator[](size_t index) const {
     return values_[index];
@@ -192,7 +192,7 @@ class FieldTrialStructList : public FieldTrialStructListBase {
                        std::initializer_list<S> default_list)
       : FieldTrialStructListBase(l), values_(default_list) {}
 
-  std::vector<S> Get() const { return values_; }
+  std::vector<S> Get() const { return std::vector<S>(values_); }  // Copy.
   operator std::vector<S>() const { return Get(); }
   const S& operator[](size_t index) const { return values_[index]; }
   const std::vector<S>* operator->() const { return &values_; }

@@ -23,7 +23,7 @@
 namespace webrtc {
 
 std::string JsepIceCandidate::sdp_mid() const {
-  return sdp_mid_;
+  return std::string(sdp_mid_);  // Copy.
 }
 
 int JsepIceCandidate::sdp_mline_index() const {
@@ -35,7 +35,7 @@ const cricket::Candidate& JsepIceCandidate::candidate() const {
 }
 
 std::string JsepIceCandidate::server_url() const {
-  return candidate_.url();
+  return std::string(candidate_.url());  // Copy.
 }
 
 JsepCandidateCollection::JsepCandidateCollection() = default;

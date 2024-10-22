@@ -163,7 +163,8 @@ void DataChannelController::OnChannelClosed(int channel_id) {
 
 void DataChannelController::OnReadyToSend() {
   RTC_DCHECK_RUN_ON(network_thread());
-  auto copy = sctp_data_channels_n_;
+  auto copy = std::vector<rtc::scoped_refptr<SctpDataChannel>>(
+      sctp_data_channels_n_);  // Copy, ref-churn.
   for (const auto& channel : copy) {
     if (channel->sid_n().has_value()) {
       channel->OnTransportReady();

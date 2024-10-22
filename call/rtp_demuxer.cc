@@ -71,8 +71,9 @@ bool RtpDemuxerCriteria::operator!=(const RtpDemuxerCriteria& other) const {
 
 std::string RtpDemuxerCriteria::ToString() const {
   rtc::StringBuilder sb;
-  sb << "{mid: " << (mid_.empty() ? "<empty>" : mid_)
-     << ", rsid: " << (rsid_.empty() ? "<empty>" : rsid_) << ", ssrcs: [";
+  sb << "{mid: " << (mid_.empty() ? "<empty>" : std::string(mid_))
+     << ", rsid: " << (rsid_.empty() ? "<empty>" : std::string(rsid_))
+     << ", ssrcs: [";
 
   for (auto ssrc : ssrcs_) {
     sb << ssrc << ", ";

@@ -61,7 +61,9 @@ class TransformableIncomingAudioFrame
   }
   Direction GetDirection() const override { return Direction::kReceiver; }
 
-  std::string GetMimeType() const override { return codec_mime_type_; }
+  std::string GetMimeType() const override {
+    return std::string(codec_mime_type_);
+  }  // Copy.
   const std::optional<uint16_t> SequenceNumber() const override {
     return header_.sequenceNumber;
   }

@@ -43,7 +43,7 @@ void RembThrottler::OnReceiveBitrateChanged(const std::vector<uint32_t>& ssrcs,
     last_send_remb_bitrate_ = receive_bitrate;
     receive_bitrate = std::min(last_send_remb_bitrate_, max_remb_bitrate_);
   }
-  remb_sender_(receive_bitrate.bps(), ssrcs);
+  remb_sender_(receive_bitrate.bps(), std::vector<uint32_t>(ssrcs));  // Copy.
 }
 
 void RembThrottler::SetMaxDesiredReceiveBitrate(DataRate bitrate) {

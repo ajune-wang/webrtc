@@ -35,7 +35,7 @@ class FrameDumpingEncoder : public VideoEncoder, public EncodedImageCallback {
                       int64_t origin_time_micros,
                       std::string output_directory)
       : wrapped_(std::move(wrapped)),
-        output_directory_(output_directory),
+        output_directory_(std::move(output_directory)),
         origin_time_micros_(origin_time_micros) {}
 
   ~FrameDumpingEncoder() override {
@@ -138,7 +138,7 @@ std::unique_ptr<VideoEncoder> MaybeCreateFrameDumpingEncoderWrapper(
   }
   absl::c_replace(output_directory, ';', '/');
   return std::make_unique<FrameDumpingEncoder>(
-      std::move(encoder), rtc::TimeMicros(), output_directory);
+      std::move(encoder), rtc::TimeMicros(), std::move(output_directory));
 }
 
 }  // namespace webrtc

@@ -196,7 +196,7 @@ std::string SimulcastSdpSerializer::SerializeSimulcastDescription(
        << simulcast.receive_layers();
   }
 
-  return sb.str();
+  return std::string(sb.str());
 }
 
 // https://tools.ietf.org/html/draft-ietf-mmusic-sdp-simulcast-13#section-5.1
@@ -305,7 +305,7 @@ std::string SimulcastSdpSerializer::SerializeRidDescription(
     propertyDelimiter = kDelimiterSemicolon;
   }
 
-  return builder.str();
+  return std::string(builder.str());
 }
 
 // https://tools.ietf.org/html/draft-ietf-mmusic-rid-15#section-10
@@ -370,11 +370,11 @@ RTCErrorOr<RidDescription> SimulcastSdpSerializer::DeserializeRidDescription(
       // will (most-likely) be ignored by components down stream.
       if (parts[0] == kPayloadType) {
         RTCError error = ParseRidPayloadList(
-            parts.size() > 1 ? parts[1] : std::string(), &rid_description);
+            parts.size() > 1 ? std::move(parts[1]) : std::string(),
+            &rid_description);
         if (!error.ok()) {
           return std::move(error);
         }
-
         continue;
       }
 
@@ -385,7 +385,7 @@ RTCErrorOr<RidDescription> SimulcastSdpSerializer::DeserializeRidDescription(
       }
 
       rid_description.restrictions[parts[0]] =
-          parts.size() > 1 ? parts[1] : std::string();
+          parts.size() > 1 ? std::move(parts[1]) : std::string();
     }
   }
 

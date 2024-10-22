@@ -75,7 +75,7 @@ RTCError VerifyCodecPreferences(
   // This ensures that we always have something to offer, regardless of
   // transceiver.direction.
   // TODO(fippo): clean up the filtering killswitch
-  std::vector<RtpCodecCapability> codecs = unfiltered_codecs;
+  auto codecs = std::vector<RtpCodecCapability>(unfiltered_codecs);  // Copy.
   if (!absl::c_any_of(codecs, [&recv_codecs](const RtpCodecCapability& codec) {
         return codec.IsMediaCodec() &&
                absl::c_any_of(recv_codecs,
@@ -172,7 +172,8 @@ RtpTransceiver::RtpTransceiver(
   sender->internal()->SetSendCodecs(
       sender->media_type() == cricket::MEDIA_TYPE_VIDEO
           ? media_engine()->video().send_codecs(false)
-          : media_engine()->voice().send_codecs());
+          : std::vector<cricket::Codec>(
+                media_engine()->voice().send_codecs()));  // Copy.
   senders_.push_back(sender);
   receivers_.push_back(receiver);
 
@@ -444,8 +445,9 @@ void RtpTransceiver::AddSender(
   std::vector<cricket::Codec> send_codecs =
       media_type() == cricket::MEDIA_TYPE_VIDEO
           ? media_engine()->video().send_codecs(false)
-          : media_engine()->voice().send_codecs();
-  sender->internal()->SetSendCodecs(send_codecs);
+          : std::vector<cricket::Codec>(
+                media_engine()->voice().send_codecs());  // Copy.
+  sender->internal()->SetSendCodecs(std::move(send_codecs));
   senders_.push_back(sender);
 }
 
@@ -723,7 +725,8 @@ RTCError RtpTransceiver::SetCodecPreferences(
 
 std::vector<RtpHeaderExtensionCapability>
 RtpTransceiver::GetHeaderExtensionsToNegotiate() const {
-  return header_extensions_to_negotiate_;
+  return std::vector<RtpHeaderExtensionCapability>(
+      header_extensions_to_negotiate_);  // Copy.
 }
 
 std::vector<RtpHeaderExtensionCapability>

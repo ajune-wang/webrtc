@@ -25,7 +25,7 @@ class MediaStream : public Notifier<MediaStreamInterface> {
  public:
   static rtc::scoped_refptr<MediaStream> Create(const std::string& id);
 
-  std::string id() const override { return id_; }
+  std::string id() const override { return std::string(id_); }  // Copy.
 
   bool AddTrack(rtc::scoped_refptr<AudioTrackInterface> track) override;
   bool AddTrack(rtc::scoped_refptr<VideoTrackInterface> track) override;
@@ -36,8 +36,12 @@ class MediaStream : public Notifier<MediaStreamInterface> {
   rtc::scoped_refptr<VideoTrackInterface> FindVideoTrack(
       const std::string& track_id) override;
 
-  AudioTrackVector GetAudioTracks() override { return audio_tracks_; }
-  VideoTrackVector GetVideoTracks() override { return video_tracks_; }
+  AudioTrackVector GetAudioTracks() override {
+    return AudioTrackVector(audio_tracks_);  // Copy.
+  }
+  VideoTrackVector GetVideoTracks() override {
+    return VideoTrackVector(video_tracks_);  // Copy.
+  }
 
  protected:
   explicit MediaStream(const std::string& id);

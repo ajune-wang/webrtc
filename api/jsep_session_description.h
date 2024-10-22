@@ -59,8 +59,10 @@ class JsepSessionDescription : public SessionDescriptionInterface {
   virtual const cricket::SessionDescription* description() const {
     return description_.get();
   }
-  virtual std::string session_id() const { return session_id_; }
-  virtual std::string session_version() const { return session_version_; }
+  virtual std::string session_id() const { return std::string(session_id_); }
+  virtual std::string session_version() const {
+    return std::string(session_version_);
+  }
   virtual SdpType GetType() const { return type_; }
   virtual std::string type() const { return SdpTypeToString(type_); }
   // Allows changing the type. Used for testing.

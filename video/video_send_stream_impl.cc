@@ -455,7 +455,7 @@ VideoSendStreamImpl::VideoSendStreamImpl(
       encoder_target_rate_bps_(0),
       encoder_bitrate_priority_(encoder_config.bitrate_priority),
       encoder_av1_priority_bitrate_override_bps_(
-          GetEncoderPriorityBitrate(config_.rtp.payload_name,
+          GetEncoderPriorityBitrate(std::string(config_.rtp.payload_name),
                                     env_.field_trials())),
       configured_pacing_factor_(
           GetConfiguredPacingFactor(config_,

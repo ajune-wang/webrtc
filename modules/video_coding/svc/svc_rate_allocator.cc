@@ -80,7 +80,7 @@ std::vector<DataRate> AdjustAndVerify(
       // Not enough rate to reach min bitrate for desired number of layers,
       // abort allocation.
       if (spatial_layer_rates.size() == 1) {
-        return spatial_layer_rates;
+        return std::vector<DataRate>(spatial_layer_rates);  // Copy.
       }
       return adjusted_spatial_layer_rates;
     }
@@ -128,7 +128,7 @@ static std::vector<DataRate> SplitBitrate(size_t num_layers,
 }
 
 VideoBitrateAllocation DistributeAllocationToTemporalLayers(
-    std::vector<DataRate> spatial_layer_birates,
+    const std::vector<DataRate>& spatial_layer_birates,
     size_t first_active_layer,
     size_t num_temporal_layers) {
   // Distribute rate across temporal layers. Allocate more bits to lower

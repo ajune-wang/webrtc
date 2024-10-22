@@ -250,7 +250,7 @@ PortAllocatorSession* BasicPortAllocator::CreateSessionInternal(
 void BasicPortAllocator::AddTurnServerForTesting(
     const RelayServerConfig& turn_server) {
   CheckRunOnValidThreadAndInitialized();
-  std::vector<RelayServerConfig> new_turn_servers = turn_servers();
+  auto new_turn_servers = std::vector<RelayServerConfig>(turn_servers());
   new_turn_servers.push_back(turn_server);
   SetConfiguration(stun_servers(), new_turn_servers, candidate_pool_size(),
                    turn_port_prune_policy(), turn_customizer());
@@ -490,10 +490,8 @@ void BasicPortAllocatorSession::Regather(
 
 void BasicPortAllocatorSession::GetCandidateStatsFromReadyPorts(
     CandidateStatsList* candidate_stats_list) const {
-  auto ports = ReadyPorts();
-  for (auto* port : ports) {
-    auto candidates = port->Candidates();
-    for (const auto& candidate : candidates) {
+  for (auto* port : ReadyPorts()) {
+    for (const auto& candidate : port->Candidates()) {
       std::optional<StunStats> stun_stats;
       port->GetStunStats(&stun_stats);
       CandidateStats candidate_stats(allocator_->SanitizeCandidate(candidate),
@@ -775,7 +773,7 @@ std::vector<const rtc::Network*> BasicPortAllocatorSession::SelectIPv6Networks(
     std::vector<const rtc::Network*>& all_ipv6_networks,
     int max_ipv6_networks) {
   if (static_cast<int>(all_ipv6_networks.size()) <= max_ipv6_networks) {
-    return all_ipv6_networks;
+    return std::vector<const rtc::Network*>(all_ipv6_networks);
   }
   // Adapter types are placed in priority order. Cellular type is an alias of
   // cellular, 2G..5G types.

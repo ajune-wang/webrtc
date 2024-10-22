@@ -1057,7 +1057,7 @@ void SendStatisticsProxy::OnEncoderImplementationChanged(
   MutexLock lock(&mutex_);
   encoder_changed_ =
       EncoderChangeEvent{stats_.encoder_implementation_name.value_or("unknown"),
-                         implementation.name};
+                         std::string(implementation.name)};
   stats_.encoder_implementation_name = implementation.name;
   stats_.power_efficient_encoder = implementation.is_hardware_accelerated;
   // Clear cached scalability mode values, they may no longer be accurate.

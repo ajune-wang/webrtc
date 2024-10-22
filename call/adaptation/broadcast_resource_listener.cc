@@ -38,7 +38,7 @@ class BroadcastResourceListener::AdapterResource : public Resource {
   }
 
   // Resource implementation.
-  std::string Name() const override { return name_; }
+  std::string Name() const override { return std::string(name_); }  // Copy.
   void SetResourceListener(ResourceListener* listener) override {
     MutexLock lock(&lock_);
     RTC_DCHECK(!listener_ || !listener);

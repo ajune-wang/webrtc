@@ -98,12 +98,12 @@ class TransceiverList {
   // from being deallocated, even if they are removed from the TransceiverList.
   std::vector<RtpTransceiverProxyRefPtr> List() const {
     RTC_DCHECK_RUN_ON(&sequence_checker_);
-    return transceivers_;
+    return std::vector<RtpTransceiverProxyRefPtr>(transceivers_);  // Copy.
   }
   // As above, but does not check thread ownership. Unsafe.
   // TODO(bugs.webrtc.org/12692): Refactor and remove
   std::vector<RtpTransceiverProxyRefPtr> UnsafeList() const {
-    return transceivers_;
+    return std::vector<RtpTransceiverProxyRefPtr>(transceivers_);
   }
 
   // Returns a list of the internal() pointers of the currently active list

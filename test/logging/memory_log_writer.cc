@@ -22,7 +22,9 @@ class MemoryLogWriter final : public RtcEventLogOutput {
   explicit MemoryLogWriter(std::map<std::string, std::string>* target,
                            absl::string_view filename)
       : target_(target), filename_(filename) {}
-  ~MemoryLogWriter() final { target_->insert({filename_, std::move(buffer_)}); }
+  ~MemoryLogWriter() final {
+    target_->insert({std::move(filename_), std::move(buffer_)});
+  }
   bool IsActive() const override { return true; }
   bool Write(absl::string_view value) override {
     buffer_.append(value.data(), value.size());
@@ -32,7 +34,7 @@ class MemoryLogWriter final : public RtcEventLogOutput {
 
  private:
   std::map<std::string, std::string>* const target_;
-  const std::string filename_;
+  std::string filename_;
   std::string buffer_;
 };
 

@@ -120,7 +120,8 @@ void ResourceAdaptationProcessor::AddResource(
 std::vector<rtc::scoped_refptr<Resource>>
 ResourceAdaptationProcessor::GetResources() const {
   MutexLock crit(&resources_lock_);
-  return resources_;
+  return std::vector<rtc::scoped_refptr<Resource>>(
+      resources_);  // Copy while locked.
 }
 
 void ResourceAdaptationProcessor::RemoveResource(

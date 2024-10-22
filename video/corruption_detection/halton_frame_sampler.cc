@@ -139,7 +139,7 @@ double GetFilteredElement(int width,
 
 std::vector<FilteredSample> GetSampleValuesForFrame(
     const scoped_refptr<I420BufferInterface> i420_frame_buffer,
-    std::vector<HaltonFrameSampler::Coordinates> sample_coordinates,
+    const std::vector<HaltonFrameSampler::Coordinates>& sample_coordinates,
     int scaled_width,
     int scaled_height,
     double std_dev_gaussian_blur) {

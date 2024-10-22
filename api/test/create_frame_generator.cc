@@ -51,8 +51,7 @@ std::unique_ptr<FrameGeneratorInterface> CreateFromYuvFileFrameGenerator(
     RTC_DCHECK(file != nullptr) << "Failed to open: '" << filename << "'\n";
     files.push_back(file);
   }
-
-  return std::make_unique<YuvFileGenerator>(files, width, height,
+  return std::make_unique<YuvFileGenerator>(std::move(files), width, height,
                                             frame_repeat_count);
 }
 
@@ -68,8 +67,7 @@ std::unique_ptr<FrameGeneratorInterface> CreateFromNV12FileFrameGenerator(
     RTC_DCHECK(file != nullptr) << "Failed to open: '" << filename << "'\n";
     files.push_back(file);
   }
-
-  return std::make_unique<NV12FileGenerator>(files, width, height,
+  return std::make_unique<NV12FileGenerator>(std::move(files), width, height,
                                              frame_repeat_count);
 }
 

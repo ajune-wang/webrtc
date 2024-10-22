@@ -42,9 +42,9 @@ std::string GetFmtpParameterOrDefault(const CodecParameterMap& params,
                                       const std::string& default_value) {
   const auto it = params.find(name);
   if (it != params.end()) {
-    return it->second;
+    return std::string(it->second);  // Copy.
   }
-  return default_value;
+  return std::string(default_value);  // Copy.
 }
 
 std::string H264GetPacketizationModeOrDefault(const CodecParameterMap& params) {
@@ -181,7 +181,7 @@ std::string SdpVideoFormat::ToString() const {
     builder << "]";
   }
 
-  return builder.str();
+  return builder.Release();
 }
 
 bool SdpVideoFormat::IsSameCodec(const SdpVideoFormat& other) const {

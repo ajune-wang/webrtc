@@ -96,7 +96,7 @@ class RtcEventLogParseStatus {
     return ok();
   }
 
-  std::string message() const { return error_; }
+  std::string message() const { return std::string(error_); }  // Copy.
 
  private:
   RtcEventLogParseStatus() : error_() {}

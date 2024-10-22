@@ -134,7 +134,7 @@ std::string SocketAddress::HostAsURIString() const {
   // If the hostname was a literal IP string, it may need to have square
   // brackets added (for SocketAddress::ToString()).
   if (!literal_ && !hostname_.empty())
-    return hostname_;
+    return std::string(hostname_);  // Copy.
   if (ip_.family() == AF_INET6) {
     return "[" + ip_.ToString() + "]";
   } else {
@@ -146,7 +146,7 @@ std::string SocketAddress::HostAsSensitiveURIString() const {
   // If the hostname was a literal IP string, it may need to have square
   // brackets added (for SocketAddress::ToString()).
   if (!literal_ && !hostname_.empty())
-    return hostname_;
+    return std::string(hostname_);  // Copy.
   if (ip_.family() == AF_INET6) {
     return "[" + ip_.ToSensitiveString() + "]";
   } else {

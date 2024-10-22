@@ -148,7 +148,7 @@ bool DtmfSender::InsertDtmf(const std::string& tones,
 
 std::string DtmfSender::tones() const {
   RTC_DCHECK_RUN_ON(signaling_thread_);
-  return tones_;
+  return std::string(tones_);  // Copy
 }
 
 int DtmfSender::duration() const {

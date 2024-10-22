@@ -118,7 +118,8 @@ void BundleManager::DeleteGroup(const cricket::ContentGroup* bundle_group) {
         return bundle_group == group.get();
       });
   RTC_DCHECK(bundle_group_it != bundle_groups_.end());
-  auto mid_list = (*bundle_group_it)->content_names();
+  auto mid_list = std::vector<std::string>(
+      (*bundle_group_it)->content_names());  // Copy required?
   for (const auto& content_name : mid_list) {
     DeleteMid(bundle_group, content_name);
   }

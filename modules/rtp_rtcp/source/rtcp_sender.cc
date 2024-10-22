@@ -446,7 +446,7 @@ void RTCPSender::BuildREMB(const RtcpContext& ctx, PacketSender& sender) {
   rtcp::Remb remb;
   remb.SetSenderSsrc(ssrc_);
   remb.SetBitrateBps(remb_bitrate_);
-  remb.SetSsrcs(remb_ssrcs_);
+  remb.SetSsrcs(std::vector<uint32_t>(remb_ssrcs_));  // Copy.
   sender.AppendPacket(remb);
 }
 
@@ -553,7 +553,7 @@ void RTCPSender::BuildNACK(const RtcpContext& ctx, PacketSender& sender) {
 void RTCPSender::BuildBYE(const RtcpContext& ctx, PacketSender& sender) {
   rtcp::Bye bye;
   bye.SetSenderSsrc(ssrc_);
-  bye.SetCsrcs(csrcs_);
+  bye.SetCsrcs(std::vector<uint32_t>(csrcs_));  // Copy.
   sender.AppendPacket(bye);
 }
 

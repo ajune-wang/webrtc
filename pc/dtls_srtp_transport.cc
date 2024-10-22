@@ -46,7 +46,8 @@ void DtlsSrtpTransport::SetDtlsTransports(
   }
 
   const std::string transport_name =
-      rtp_dtls_transport ? rtp_dtls_transport->transport_name() : "null";
+      rtp_dtls_transport ? std::string(rtp_dtls_transport->transport_name())
+                         : "null";
 
   if (rtcp_dtls_transport && rtcp_dtls_transport != rtcp_dtls_transport_) {
     // This would only be possible if using BUNDLE but not rtcp-mux, which isn't

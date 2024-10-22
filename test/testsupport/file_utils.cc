@@ -98,7 +98,8 @@ std::string OutputPathWithRandomDirectory() {
   std::string path = webrtc::test::internal::OutputPath();
   std::string rand_dir = path + rtc::CreateRandomUuid();
 
-  return CreateDir(rand_dir) ? rand_dir + std::string(kPathDelimiter) : path;
+  return CreateDir(rand_dir) ? rand_dir + std::string(kPathDelimiter)
+                             : std::move(path);
 }
 
 std::string WorkingDir() {

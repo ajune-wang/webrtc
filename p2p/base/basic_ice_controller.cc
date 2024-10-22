@@ -342,8 +342,7 @@ const Connection* BasicIceController::MorePingable(const Connection* conn1,
 
   // During the initial state when nothing has been pinged yet, return the first
   // one in the ordered `connections_`.
-  auto connections = connections_;
-  return *(std::find_if(connections.begin(), connections.end(),
+  return *(std::find_if(connections_.begin(), connections_.end(),
                         [conn1, conn2](const Connection* conn) {
                           return conn == conn1 || conn == conn2;
                         }));

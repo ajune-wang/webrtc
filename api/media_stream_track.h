@@ -26,7 +26,7 @@ class MediaStreamTrack : public Notifier<T> {
  public:
   typedef typename T::TrackState TypedTrackState;
 
-  std::string id() const override { return id_; }
+  std::string id() const override { return std::string(id_); }  // Copy.
   MediaStreamTrackInterface::TrackState state() const override {
     return state_;
   }

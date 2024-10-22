@@ -877,7 +877,7 @@ struct SenderParameters : MediaChannelParameters {
   std::map<std::string, std::string> ToStringMap() const override {
     auto params = MediaChannelParameters::ToStringMap();
     params["max_bandwidth_bps"] = rtc::ToString(max_bandwidth_bps);
-    params["mid"] = (mid.empty() ? "<not set>" : mid);
+    params["mid"] = mid.empty() ? "<not set>" : std::string(mid);
     params["extmap-allow-mixed"] = extmap_allow_mixed ? "true" : "false";
     return params;
   }

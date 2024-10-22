@@ -884,7 +884,8 @@ JsepTransportController* PeerConnection::InitializeTransportController_n(
         RTC_DCHECK_RUN_ON(network_thread());
         signaling_thread()->PostTask(
             SafeTask(signaling_thread_safety_.flag(),
-                     [this, t = transport, c = candidates]() {
+                     [this, t = std::string(transport),
+                      c = std::vector<cricket::Candidate>(candidates)]() {
                        RTC_DCHECK_RUN_ON(signaling_thread());
                        OnTransportControllerCandidatesGathered(t, c);
                      }));
@@ -902,10 +903,11 @@ JsepTransportController* PeerConnection::InitializeTransportController_n(
       [this](const std::vector<cricket::Candidate>& c) {
         RTC_DCHECK_RUN_ON(network_thread());
         signaling_thread()->PostTask(
-            SafeTask(signaling_thread_safety_.flag(), [this, c = c]() {
-              RTC_DCHECK_RUN_ON(signaling_thread());
-              OnTransportControllerCandidatesRemoved(c);
-            }));
+            SafeTask(signaling_thread_safety_.flag(),
+                     [this, c = std::vector<cricket::Candidate>(c)]() {
+                       RTC_DCHECK_RUN_ON(signaling_thread());
+                       OnTransportControllerCandidatesRemoved(c);
+                     }));
       });
   transport_controller_->SubscribeIceCandidatePairChanged(
       [this](const cricket::CandidatePairChangeEvent& event) {
@@ -2042,7 +2044,8 @@ void PeerConnection::ReportFirstConnectUsageMetrics() {
   RTC_HISTOGRAM_ENUMERATION("WebRTC.PeerConnection.ProvisionalAnswer", pranswer,
                             kProvisionalAnswerMax);
 
-  auto transport_infos = remote_description()->description()->transport_infos();
+  auto transport_infos = std::vector<TransportInfo>(
+      remote_description()->description()->transport_infos());  // Copy
   if (!transport_infos.empty()) {
     // Record the number of valid / invalid ice-ufrag. We do allow certain
     // non-spec ice-char for backward-compat reasons. At this point we know
@@ -2152,7 +2155,7 @@ bool PeerConnection::CreateDataChannelTransport(absl::string_view mid) {
     return false;
 
   sctp_mid_s_ = std::string(mid);
-  SetSctpTransportName(transport_name.value());
+  SetSctpTransportName(std::string(transport_name.value()));  // Copy.
 
   return true;
 }
@@ -2220,7 +2223,8 @@ PeerConnection::InitializePortAllocator_n(
       ConvertIceTransportTypeToCandidateFilter(configuration.type));
   port_allocator_->set_max_ipv6_networks(configuration.max_ipv6_networks);
 
-  auto turn_servers_copy = turn_servers;
+  auto turn_servers_copy =
+      std::vector<cricket::RelayServerConfig>(turn_servers);
   for (auto& turn_server : turn_servers_copy) {
     turn_server.tls_cert_verifier = tls_cert_verifier_.get();
   }
@@ -2250,7 +2254,8 @@ bool PeerConnection::ReconfigurePortAllocator_n(
   port_allocator_->SetCandidateFilter(
       ConvertIceTransportTypeToCandidateFilter(type));
   // Add the custom tls turn servers if they exist.
-  auto turn_servers_copy = turn_servers;
+  auto turn_servers_copy =
+      std::vector<cricket::RelayServerConfig>(turn_servers);
   for (auto& turn_server : turn_servers_copy) {
     turn_server.tls_cert_verifier = tls_cert_verifier_.get();
   }
@@ -2327,9 +2332,10 @@ std::vector<DataChannelStats> PeerConnection::GetDataChannelStats() const {
 
 std::optional<std::string> PeerConnection::sctp_transport_name() const {
   RTC_DCHECK_RUN_ON(signaling_thread());
-  if (sctp_mid_s_ && transport_controller_copy_)
-    return sctp_transport_name_s_;
-  return std::optional<std::string>();
+  if (sctp_mid_s_ && transport_controller_copy_) {
+    return std::string(sctp_transport_name_s_);  // Copy.
+  }
+  return std::nullopt;
 }
 
 void PeerConnection::SetSctpTransportName(std::string sctp_transport_name) {
@@ -2437,7 +2443,7 @@ void PeerConnection::OnTransportControllerConnectionState(
 
         network_thread()->PostTask(
             SafeTask(network_thread_safety_,
-                     [this, transceivers = std::move(transceivers)] {
+                     [this, transceivers = std::move(transceivers)]() mutable {
                        RTC_DCHECK_RUN_ON(network_thread());
                        ReportTransportStats(std::move(transceivers));
                      }));
@@ -2707,7 +2713,8 @@ void PeerConnection::AddRemoteCandidate(const std::string& mid,
   new_candidate.set_underlying_type_for_vpn(rtc::ADAPTER_TYPE_UNKNOWN);
 
   network_thread()->PostTask(SafeTask(
-      network_thread_safety_, [this, mid = mid, candidate = new_candidate] {
+      network_thread_safety_,
+      [this, mid = std::string(mid), candidate = new_candidate] {
         RTC_DCHECK_RUN_ON(network_thread());
         std::vector<cricket::Candidate> candidates = {candidate};
         RTCError error =
@@ -2963,8 +2970,8 @@ bool PeerConnection::OnTransportChanged(
     if (dtls_transport) {
       signaling_thread()->PostTask(SafeTask(
           signaling_thread_safety_.flag(),
-          [this,
-           name = std::string(dtls_transport->internal()->transport_name())] {
+          [this, name = std::string(
+                     dtls_transport->internal()->transport_name())]() mutable {
             RTC_DCHECK_RUN_ON(signaling_thread());
             SetSctpTransportName(std::move(name));
           }));
@@ -2988,10 +2995,10 @@ void PeerConnection::StartSctpTransport(int local_port,
     return;
 
   network_thread()->PostTask(SafeTask(
-      network_thread_safety_,
-      [this, mid = *sctp_mid_s_, local_port, remote_port, max_message_size] {
+      network_thread_safety_, [this, mid = std::string(*sctp_mid_s_),
+                               local_port, remote_port, max_message_size] {
         rtc::scoped_refptr<SctpTransport> sctp_transport =
-            transport_controller_n()->GetSctpTransport(mid);
+            transport_controller_n()->GetSctpTransport(std::string(mid));
         if (sctp_transport)
           sctp_transport->Start(local_port, remote_port, max_message_size);
       }));

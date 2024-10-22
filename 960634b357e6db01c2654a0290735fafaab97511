@@ -3,6 +3,40 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0e13834a_305f06bf",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-10-22T12:42:37Z",
+      "side": 1,
+      "message": "nit: usage",
+      "revId": "960634b357e6db01c2654a0290735fafaab97511",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bbea39f2_19dbb671",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-10-22T12:42:37Z",
+      "side": 1,
+      "message": "I\u0027m in favor of the webrtc namespace....",
+      "revId": "960634b357e6db01c2654a0290735fafaab97511",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "09435749_cf144ba3",
         "filename": "api/transport/ecn_marking.h",
         "patchSetId": 2
@@ -38,6 +72,30 @@
       "side": 1,
       "message": "Seems to be a mix in api/. Are there any actual rules? Otherwise I prefer not to. \nSockets and addresses seems to belong to rtc.",
       "parentUuid": "09435749_cf144ba3",
+      "range": {
+        "startLine": 14,
+        "startChar": 10,
+        "endLine": 14,
+        "endChar": 13
+      },
+      "revId": "960634b357e6db01c2654a0290735fafaab97511",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "32e04ad2_1d3fcd28",
+        "filename": "api/transport/ecn_marking.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-10-22T12:42:37Z",
+      "side": 1,
+      "message": "The goal is webrtc only, but the project to move stuff is not staffed.....\nNew stuff should be in webrtc.\n\nDoc (old): https://docs.google.com/document/d/17MLgQkfjScs8xKAVscp6qAgxViD5OBMSm8xRH8FTK_I/edit?usp\u003dsharing",
+      "parentUuid": "0aaf7015_4a06fd2c",
       "range": {
         "startLine": 14,
         "startChar": 10,

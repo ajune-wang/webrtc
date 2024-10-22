@@ -63,6 +63,7 @@
 #include "call/call.h"
 #include "call/flexfec_receive_stream.h"
 #include "call/packet_receiver.h"
+#include "call/payload_type_picker.h"
 #include "call/receive_stream.h"
 #include "call/rtp_config.h"
 #include "call/rtp_transport_controller_send_interface.h"
@@ -106,10 +107,6 @@ using ::webrtc::ParseRtpPayloadType;
 using ::webrtc::ParseRtpSsrc;
 
 constexpr int64_t kUnsignaledSsrcCooldownMs = rtc::kNumMillisecsPerSec / 2;
-
-// TODO(bugs.webrtc.org/13166): Remove AV1X when backwards compatibility is not
-// needed.
-constexpr char kAv1xCodecName[] = "AV1X";
 
 // This constant is really an on/off, lower-level configurable NACK history
 // duration hasn't been implemented.
@@ -161,38 +158,6 @@ void AddDefaultFeedbackParams(Codec* codec,
   }
 }
 
-// Helper function to determine whether a codec should use the [35, 63] range.
-// Should be used when adding new codecs (or variants).
-bool IsCodecValidForLowerRange(const Codec& codec) {
-  if (absl::EqualsIgnoreCase(codec.name, kFlexfecCodecName) ||
-      absl::EqualsIgnoreCase(codec.name, kAv1CodecName) ||
-      absl::EqualsIgnoreCase(codec.name, kAv1xCodecName)) {
-    return true;
-  } else if (absl::EqualsIgnoreCase(codec.name, kH264CodecName)) {
-    std::string profile_level_id;
-    std::string packetization_mode;
-
-    if (codec.GetParam(kH264FmtpProfileLevelId, &profile_level_id)) {
-      if (absl::StartsWithIgnoreCase(profile_level_id, "4d00")) {
-        if (codec.GetParam(kH264FmtpPacketizationMode, &packetization_mode)) {
-          return packetization_mode == "0";
-        }
-      }
-      // H264 with YUV444.
-      return absl::StartsWithIgnoreCase(profile_level_id, "f400");
-    }
-  } else if (absl::EqualsIgnoreCase(codec.name, kVp9CodecName)) {
-    std::string profile_id;
-
-    if (codec.GetParam(kVP9ProfileId, &profile_id)) {
-      if (profile_id.compare("1") == 0 || profile_id.compare("3") == 0) {
-        return true;
-      }
-    }
-  }
-  return false;
-}
-
 // Get the default set of supported codecs.
 // is_decoder_factory is needed to keep track of the implict assumption that any
 // H264 decoder also supports constrained base line profile.
@@ -234,70 +199,47 @@ std::vector<webrtc::SdpVideoFormat> GetDefaultSupportedFormats(
 
 // This function will assign dynamic payload types (in the range [96, 127]
 // and then [35, 63]) to the input codecs, and also add ULPFEC, RED, FlexFEC,
-// and associated RTX codecs for recognized codecs (VP8, VP9, H264, and RED).
 // It will also add default feedback params to the codecs.
-std::vector<Codec> AssignPayloadTypesAndAddRtx(
+webrtc::RTCErrorOr<std::vector<Codec>> AssignPayloadTypes(
     const std::vector<webrtc::SdpVideoFormat>& supported_formats,
-    bool include_rtx,
+    webrtc::PayloadTypePicker& pt_mapper,
     const webrtc::FieldTrialsView& trials) {
-  // Due to interoperability issues with old Chrome/WebRTC versions that
-  // ignore the [35, 63] range prefer the lower range for new codecs.
-  static const int kFirstDynamicPayloadTypeLowerRange = 35;
-  static const int kLastDynamicPayloadTypeLowerRange = 63;
-
-  static const int kFirstDynamicPayloadTypeUpperRange = 96;
-  static const int kLastDynamicPayloadTypeUpperRange = 127;
-  int payload_type_upper = kFirstDynamicPayloadTypeUpperRange;
-  int payload_type_lower = kFirstDynamicPayloadTypeLowerRange;
-
   std::vector<Codec> output_codecs;
   for (const webrtc::SdpVideoFormat& format : supported_formats) {
     Codec codec = cricket::CreateVideoCodec(format);
-    bool isFecCodec = absl::EqualsIgnoreCase(codec.name, kUlpfecCodecName) ||
-                      absl::EqualsIgnoreCase(codec.name, kFlexfecCodecName);
-
-    // Check if we ran out of payload types.
-    if (payload_type_lower > kLastDynamicPayloadTypeLowerRange) {
-      // TODO(https://bugs.chromium.org/p/webrtc/issues/detail?id=12248):
-      // return an error.
-      RTC_LOG(LS_ERROR) << "Out of dynamic payload types [35,63] after "
-                           "fallback from [96, 127], skipping the rest.";
-      RTC_DCHECK_EQ(payload_type_upper, kLastDynamicPayloadTypeUpperRange);
-      break;
-    }
-
-    // Lower range gets used for "new" codecs or when running out of payload
-    // types in the upper range.
-    if (IsCodecValidForLowerRange(codec) ||
-        payload_type_upper >= kLastDynamicPayloadTypeUpperRange) {
-      codec.id = payload_type_lower++;
-    } else {
-      codec.id = payload_type_upper++;
-    }
+    codec.id = pt_mapper.SuggestMapping(codec, nullptr).value();
+    // TODO: https://issues.webrtc.org/360058654 - Handle running out of IDs.
     AddDefaultFeedbackParams(&codec, trials);
     output_codecs.push_back(codec);
+  }
+  return output_codecs;
+}
 
+// This function will add associated RTX codecs for recognized codecs (VP8, VP9,
+// H264, and RED).
+webrtc::RTCErrorOr<std::vector<Codec>> AddRtx(
+    const std::vector<Codec>& input_codecs,
+    webrtc::PayloadTypePicker& pt_mapper) {
+  std::vector<Codec> output_codecs;
+  for (const Codec& codec : input_codecs) {
+    // We want to interleave the input codecs with the output codecs.
+    output_codecs.push_back(codec);
+    bool isFecCodec = absl::EqualsIgnoreCase(codec.name, kUlpfecCodecName) ||
+                      absl::EqualsIgnoreCase(codec.name, kFlexfecCodecName);
     // Add associated RTX codec for non-FEC codecs.
-    if (include_rtx) {
-      if (!isFecCodec) {
-        // Check if we ran out of payload types.
-        if (payload_type_lower > kLastDynamicPayloadTypeLowerRange) {
-          // TODO(https://bugs.chromium.org/p/webrtc/issues/detail?id=12248):
-          // return an error.
-          RTC_LOG(LS_ERROR) << "Out of dynamic payload types [35,63] after "
-                               "fallback from [96, 127], skipping the rest.";
-          RTC_DCHECK_EQ(payload_type_upper, kLastDynamicPayloadTypeUpperRange);
+    if (!isFecCodec) {
+      Codec rtx_codec =
+          cricket::CreateVideoRtxCodec(Codec::kIdNotSet, codec.id);
+      auto result = pt_mapper.SuggestMapping(rtx_codec, nullptr);
+      if (!result.ok()) {
+        if (result.error().type() == webrtc::RTCErrorType::RESOURCE_EXHAUSTED) {
+          // Out of payload types. Stop adding RTX codecs.
           break;
         }
-        if (IsCodecValidForLowerRange(codec) ||
-            payload_type_upper >= kLastDynamicPayloadTypeUpperRange) {
-          output_codecs.push_back(
-              cricket::CreateVideoRtxCodec(payload_type_lower++, codec.id));
-        } else {
-          output_codecs.push_back(
-              cricket::CreateVideoRtxCodec(payload_type_upper++, codec.id));
-        }
+        return result.MoveError();
       }
+      rtx_codec.id = result.value();
+      output_codecs.push_back(rtx_codec);
     }
   }
   return output_codecs;
@@ -314,7 +256,18 @@ std::vector<Codec> GetPayloadTypesAndDefaultCodecs(
   auto supported_formats =
       GetDefaultSupportedFormats(factory, is_decoder_factory, trials);
 
-  return AssignPayloadTypesAndAddRtx(supported_formats, include_rtx, trials);
+  // Temporary: Use PayloadTypePicker for assignments.
+  webrtc::PayloadTypePicker pt_mapper;
+  std::vector<Codec> output_codecs;
+  auto result = AssignPayloadTypes(supported_formats, pt_mapper, trials);
+  RTC_DCHECK(result.ok());
+  output_codecs = result.MoveValue();
+  if (include_rtx) {
+    auto result = AddRtx(output_codecs, pt_mapper);
+    RTC_DCHECK(result.ok());
+    return result.MoveValue();
+  }
+  return output_codecs;
 }
 
 static std::string CodecVectorToString(const std::vector<Codec>& codecs) {
@@ -607,6 +560,7 @@ std::vector<VideoCodecSettings> MapCodecs(const std::vector<Codec>& codecs) {
   std::optional<int> flexfec_payload_type;
 
   for (const Codec& in_codec : codecs) {
+    RTC_LOG(LS_ERROR) << "MapCodecs registering " << in_codec;
     const int payload_type = in_codec.id;
 
     if (payload_codec_type.find(payload_type) != payload_codec_type.end()) {

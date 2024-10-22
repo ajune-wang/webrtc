@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6ed51038_353deddf",
+        "filename": "api/data_channel_interface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2024-10-22T06:51:49Z",
+      "side": 1,
+      "message": "As Jonas points out, this additional comment is highlighting what has already been called out in the lines directly above.\n\nTo me it sounds like a bug was discovered in an implementation that deleted a reference counted object from within a callback from that object. That\u0027s a pattern to be avoided and arguably not unique to DataChannelObserver.\n\nPossibly related to the problem, CallbackList allows for removing subscriptions from within callbacks - is that relevant to the original problem?",
+      "parentUuid": "9a19ff7d_5c4548df",
+      "range": {
+        "startLine": 95,
+        "startChar": 47,
+        "endLine": 95,
+        "endChar": 72
+      },
+      "revId": "a1e574ee2acd647a6d6086096c67895848c9eb5d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "cd0f55eb_5ac7d47d",
         "filename": "api/data_channel_interface.h",
         "patchSetId": 2

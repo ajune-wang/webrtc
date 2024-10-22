@@ -105,9 +105,8 @@ int SimulcastUtility::NumberOfTemporalLayers(const VideoCodec& codec,
       case kVideoCodecH264:
         num_temporal_layers = codec.H264().numberOfTemporalLayers;
         break;
-      case kVideoCodecH265:
-        // TODO(bugs.webrtc.org/13485)
-        break;
+      // For AV1 and H.265 we get temporal layer count for scalability mode,
+      // instead of from codec-specifics.
       default:
         break;
     }

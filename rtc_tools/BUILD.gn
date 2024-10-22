@@ -476,6 +476,10 @@ if (!build_with_chromium) {
       "//third_party/abseil-cpp/absl/flags:usage",
       "//third_party/abseil-cpp/absl/strings:strings",
     ]
+
+    if (rtc_use_h265) {
+      deps += [ "//modules/video_coding/codecs/h265:h265_svc_config" ]
+    }
   }
 }
 

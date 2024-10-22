@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0aaf830c_d6693f7c",
+        "filename": "api/data_channel_interface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2024-10-22T07:26:42Z",
+      "side": 1,
+      "message": "DataChannel being reference counted, couldn\u0027t it protect itself from being deleted while callbacks are pending? It seems strange to me that someone reacting to an event have to take precaution even if that event handler is not referencing the data channel directly. Considering \"re-entrancy is not supported\" (comment above) it probably wouldn\u0027t naturally hold a reference here",
+      "parentUuid": "6ed51038_353deddf",
+      "range": {
+        "startLine": 95,
+        "startChar": 47,
+        "endLine": 95,
+        "endChar": 72
+      },
+      "revId": "a1e574ee2acd647a6d6086096c67895848c9eb5d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "cd0f55eb_5ac7d47d",
         "filename": "api/data_channel_interface.h",
         "patchSetId": 2

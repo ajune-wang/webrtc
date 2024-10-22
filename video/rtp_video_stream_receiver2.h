@@ -41,7 +41,6 @@
 #include "modules/rtp_rtcp/source/rtp_video_header.h"
 #include "modules/rtp_rtcp/source/rtp_video_stream_receiver_frame_transformer_delegate.h"
 #include "modules/rtp_rtcp/source/video_rtp_depacketizer.h"
-#include "modules/video_coding/h264_sps_pps_tracker.h"
 #include "modules/video_coding/h26x_packet_buffer.h"
 #include "modules/video_coding/loss_notification_controller.h"
 #include "modules/video_coding/nack_requester.h"
@@ -303,8 +302,6 @@ class RtpVideoStreamReceiver2 : public LossNotificationSender,
   void NotifyReceiverOfEmptyPacket(uint16_t seq_num)
       RTC_RUN_ON(packet_sequence_checker_);
   bool IsRedEnabled() const;
-  void InsertSpsPpsIntoTracker(uint8_t payload_type)
-      RTC_RUN_ON(packet_sequence_checker_);
   void OnInsertedPacket(video_coding::PacketBuffer::InsertResult result)
       RTC_RUN_ON(packet_sequence_checker_);
   ParseGenericDependenciesResult ParseGenericDependenciesExtension(
@@ -397,8 +394,6 @@ class RtpVideoStreamReceiver2 : public LossNotificationSender,
       RTC_GUARDED_BY(packet_sequence_checker_);
 
   std::map<int64_t, uint16_t> last_seq_num_for_pic_id_
-      RTC_GUARDED_BY(packet_sequence_checker_);
-  video_coding::H264SpsPpsTracker tracker_
       RTC_GUARDED_BY(packet_sequence_checker_);
 
   // Maps payload id to the depacketizer.

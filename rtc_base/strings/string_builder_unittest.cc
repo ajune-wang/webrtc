@@ -21,12 +21,12 @@ namespace rtc {
 TEST(SimpleStringBuilder, Limit) {
   char sb_buf[10];
   SimpleStringBuilder sb(sb_buf);
-  EXPECT_EQ(0u, strlen(sb.str()));
+  EXPECT_TRUE(sb.str().empty());
 
   // Test that for a SSB with a buffer size of 10, that we can write 9 chars
   // into it.
   sb << "012345678";  // 9 characters + '\0'.
-  EXPECT_EQ(0, strcmp(sb.str(), "012345678"));
+  EXPECT_EQ(sb.str(), "012345678");
 }
 
 TEST(SimpleStringBuilder, NumbersAndChars) {
@@ -34,7 +34,7 @@ TEST(SimpleStringBuilder, NumbersAndChars) {
   SimpleStringBuilder sb(sb_buf);
   sb << 1 << ':' << 2.1 << ":" << 2.2f << ':' << 78187493520ll << ':'
      << 78187493520ul;
-  EXPECT_EQ(0, strcmp(sb.str(), "1:2.1:2.2:78187493520:78187493520"));
+  EXPECT_EQ(sb.str(), "1:2.1:2.2:78187493520:78187493520");
 }
 
 TEST(SimpleStringBuilder, Format) {
@@ -42,9 +42,7 @@ TEST(SimpleStringBuilder, Format) {
   SimpleStringBuilder sb(sb_buf);
   sb << "Here we go - ";
   sb.AppendFormat("This is a hex formatted value: 0x%08llx", 3735928559ULL);
-  EXPECT_EQ(0,
-            strcmp(sb.str(),
-                   "Here we go - This is a hex formatted value: 0xdeadbeef"));
+  EXPECT_EQ(sb.str(), "Here we go - This is a hex formatted value: 0xdeadbeef"));
 }
 
 TEST(SimpleStringBuilder, StdString) {

@@ -560,6 +560,12 @@ class RTCStatsReportVerifier {
       verifier.TestAttributeIsUndefined(inbound_stream.decoder_implementation);
       verifier.TestAttributeIsUndefined(inbound_stream.power_efficient_decoder);
     }
+    // As long as the Corruption detection RTP header is not activated it should
+    // not aggregate any corruption score.
+    verifier.TestAttributeIsUndefined(inbound_stream.corruption_score_sum);
+    verifier.TestAttributeIsUndefined(
+        inbound_stream.corruption_score_squared_sum);
+    verifier.TestAttributeIsUndefined(inbound_stream.corruption_score_count);
     verifier.TestAttributeIsNonNegative<uint32_t>(
         inbound_stream.packets_received);
     if (inbound_stream.kind.has_value() && *inbound_stream.kind == "audio") {

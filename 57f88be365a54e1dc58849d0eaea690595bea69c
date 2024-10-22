@@ -71,6 +71,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "caa80046_a75be5d4",
+        "filename": "api/stats/rtcstats_objects.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 301,
+      "author": {
+        "id": 3485001
+      },
+      "writtenOn": "2024-10-22T09:56:00Z",
+      "side": 1,
+      "message": "Lets keep it as is then and when it is defined in https://w3c.github.io/webrtc-stats/ I can remove it from here.",
+      "parentUuid": "9c07394d_9e38874e",
+      "revId": "57f88be365a54e1dc58849d0eaea690595bea69c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "020538f7_2158310c",

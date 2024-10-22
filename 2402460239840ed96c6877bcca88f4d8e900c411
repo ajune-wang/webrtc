@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5a516959_27d21920",
+        "filename": "pc/peer_connection_integrationtest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 3485001
+      },
+      "writtenOn": "2024-10-22T09:56:00Z",
+      "side": 1,
+      "message": "Removing these.",
+      "parentUuid": "449c0623_fc6a2b8b",
+      "revId": "2402460239840ed96c6877bcca88f4d8e900c411",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6685cfab_c74136d4",
@@ -31,6 +49,24 @@
       "writtenOn": "2024-10-21T14:59:39Z",
       "side": 1,
       "message": "There seem to be an assumption about how often the corruption score is reported which seems like it might be an implementation detail.\n\nI wonder if we should do `ASSERT_TRUE_WAIT(GetCorruptionScoreCount(caller()) \u003e 0)` here instead of waiting for a specific number of frames (where this helper method polls getStats and returns the corruption score count or 0)\n\nOtherwise it would be good to document how the number of frames to run this test for was decided etc",
+      "revId": "2402460239840ed96c6877bcca88f4d8e900c411",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "86678d57_bf80ff27",
+        "filename": "pc/peer_connection_integrationtest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 4099,
+      "author": {
+        "id": 3485001
+      },
+      "writtenOn": "2024-10-22T09:56:00Z",
+      "side": 1,
+      "message": "Done. However, if we don\u0027t specify any number of frames it only encodes/decodes 1 frame. Corruption score must be computed on the first frame (a key frame). So thats not a problem. \n\nBut as you say we have an implementation detail such that the corruption score should be logged approximately once per second. That will not be tested in the updated version. I will leave it to you and @sprang@webrtc.org what is best in this case. If the goal is only to test the plumbing this is enough but if we want to test more than so then probably I will need to go back to the previous version.",
+      "parentUuid": "6685cfab_c74136d4",
       "revId": "2402460239840ed96c6877bcca88f4d8e900c411",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

@@ -16,6 +16,40 @@
       "message": "Thanks for the review.",
       "revId": "c732d4be1a2105eb1685526b8df9f24b099ba858",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f1741607_572b9337",
+        "filename": "pc/peer_connection_integrationtest.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 4197,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2024-10-22T10:59:05Z",
+      "side": 1,
+      "message": "Optional: If you change GetCorruptionScoreCount() to returning std::optional\u003cuint32_t\u003e then while you would need to to \".value_or(0)\" in the other tests, here you could assert that it is std::nullopt rather than 0 reflecting the fact that it has no value.\n\nBut the \"missing\" aspect of this is already tested in rtc_stats_integrationtest.cc already so feel free to ignore this comment",
+      "revId": "c732d4be1a2105eb1685526b8df9f24b099ba858",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "181b6cb6_5abe6070",
+        "filename": "pc/rtc_stats_integrationtest.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 564,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2024-10-22T10:59:05Z",
+      "side": 1,
+      "message": "nit: You might want to mention in this comment that this is tested in the other file",
+      "revId": "c732d4be1a2105eb1685526b8df9f24b099ba858",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

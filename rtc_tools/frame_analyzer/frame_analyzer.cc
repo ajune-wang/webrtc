@@ -143,7 +143,7 @@ int main(int argc, char* argv[]) {
       string_builder.AppendFormat("%6.2f ", color_transformation[i][j]);
   }
   printf("Adjusting test video with color transformation: %s\n",
-         string_builder.str());
+         string_builder.str().c_str());
 
   // Adjust all frames in the test video with the calculated color
   // transformation.

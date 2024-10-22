@@ -16,6 +16,24 @@
       "message": "looks good but please add a test to cover this",
       "revId": "6ad63e9579c55a8bcc3106fd06f01d42e9d5fe29",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3d1344f4_0c19da05",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19804
+      },
+      "writtenOn": "2024-10-22T22:42:27Z",
+      "side": 1,
+      "message": "I tried to follow the other initializer tests.",
+      "parentUuid": "966db0c0_55a9b275",
+      "revId": "6ad63e9579c55a8bcc3106fd06f01d42e9d5fe29",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

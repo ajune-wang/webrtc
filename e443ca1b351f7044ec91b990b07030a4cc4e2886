@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "71f9c199_26d7baae",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2024-10-22T08:18:41Z",
+      "side": 1,
+      "message": "I have fixed the video_engine_unit tests and removed the sps/pps tracker from the code.\n\nIt turns out that the H26XPacketBuffer still requires the h264 depacketizer to parse the rtp packet to add the out of band sps/pps to the h264 video header nal units. As it is not possible to modify the RTPReceivedPacket payload, I have manually added the nal info that would came out from the Parse() function to the unit test and everything works now.\n\nCould it be possible to run again all the try jobs to see if there is anything missing?\n\nWhen that passes I will add pending tests for the video depacketizer.",
+      "revId": "e443ca1b351f7044ec91b990b07030a4cc4e2886",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

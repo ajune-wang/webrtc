@@ -34,6 +34,24 @@
       "parentUuid": "d2422043_adbfd308",
       "revId": "cd9bb2e950ab256de76c3ca2fc85b07909bfb1d9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6557752b_76e9e32d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2024-10-22T08:18:41Z",
+      "side": 1,
+      "message": "I have removed in the latest commit, woudl be easi to revert if we decide not to do it.",
+      "parentUuid": "2f15ef6b_ba835b8e",
+      "revId": "cd9bb2e950ab256de76c3ca2fc85b07909bfb1d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

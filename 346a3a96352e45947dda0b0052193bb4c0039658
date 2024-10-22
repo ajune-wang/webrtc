@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e1f843b2_9acbdb11",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-22T09:45:49Z",
+      "side": 1,
+      "message": "Do you mind reviewing this?\nFor the bigger picture (with planned follow up steps) you may check drafty https://webrtc-review.googlesource.com/c/src/+/365301",
+      "revId": "346a3a96352e45947dda0b0052193bb4c0039658",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

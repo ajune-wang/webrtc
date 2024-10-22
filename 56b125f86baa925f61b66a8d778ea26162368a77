@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3dff5ec0_86f72038",
+        "filename": "modules/audio_processing/test/audioproc_float_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 751,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-22T09:45:49Z",
+      "side": 1,
+      "message": "moved as is from\nmodules/audio_processing/test/audio_processing_simulator.cc",
+      "revId": "56b125f86baa925f61b66a8d778ea26162368a77",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "373f143c_bed61fdd",
+        "filename": "modules/audio_processing/test/audioproc_float_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 776,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-22T09:45:49Z",
+      "side": 1,
+      "message": "moved and slightly cleaned from\nAudioProcessingSimulator constructor",
+      "revId": "56b125f86baa925f61b66a8d778ea26162368a77",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

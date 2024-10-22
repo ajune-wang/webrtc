@@ -99,6 +99,30 @@
       },
       "revId": "cd9bb2e950ab256de76c3ca2fc85b07909bfb1d9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cefbeb23_0d010251",
+        "filename": "video/rtp_video_stream_receiver2.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 697,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2024-10-22T10:39:45Z",
+      "side": 1,
+      "message": "That\u0027s acceptable, but better still, could you please explicitly request the keyframe once depacketizer fails like that.\n\nIn any case, add the description of this change in behavior in the CL description.",
+      "parentUuid": "db41e4bd_0867d348",
+      "range": {
+        "startLine": 697,
+        "startChar": 8,
+        "endLine": 697,
+        "endChar": 48
+      },
+      "revId": "cd9bb2e950ab256de76c3ca2fc85b07909bfb1d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

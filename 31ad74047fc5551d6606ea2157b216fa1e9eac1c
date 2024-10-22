@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "33b95028_dde995ac",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-22T15:26:55Z",
+      "side": 1,
+      "message": "less code duplication,\nand to get it out of the \u0027name collisions\u0027 list",
+      "revId": "31ad74047fc5551d6606ea2157b216fa1e9eac1c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

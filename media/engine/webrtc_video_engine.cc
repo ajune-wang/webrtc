@@ -14,28 +14,46 @@
 
 #include <algorithm>
 #include <cstdint>
+#include <functional>
 #include <initializer_list>
+#include <map>
+#include <memory>
 #include <optional>
 #include <set>
 #include <string>
-#include <type_traits>
 #include <utility>
+#include <vector>
 
 #include "absl/algorithm/container.h"
-#include "absl/container/inlined_vector.h"
 #include "absl/functional/bind_front.h"
 #include "absl/strings/match.h"
+#include "absl/strings/string_view.h"
+#include "api/array_view.h"
+#include "api/crypto/crypto_options.h"
+#include "api/crypto/frame_decryptor_interface.h"
+#include "api/field_trials_view.h"
+#include "api/frame_transformer_interface.h"
 #include "api/make_ref_counted.h"
 #include "api/media_stream_interface.h"
 #include "api/media_types.h"
 #include "api/priority.h"
 #include "api/rtc_error.h"
+#include "api/rtp_headers.h"
 #include "api/rtp_parameters.h"
+#include "api/rtp_sender_interface.h"
 #include "api/rtp_transceiver_direction.h"
+#include "api/scoped_refptr.h"
+#include "api/sequence_checker.h"
+#include "api/task_queue/pending_task_safety_flag.h"
+#include "api/task_queue/task_queue_base.h"
+#include "api/transport/rtp/rtp_source.h"
 #include "api/units/time_delta.h"
 #include "api/units/timestamp.h"
-#include "api/video/resolution.h"
+#include "api/video/recordable_encoded_frame.h"
+#include "api/video/video_bitrate_allocator_factory.h"
 #include "api/video/video_codec_type.h"
+#include "api/video/video_sink_interface.h"
+#include "api/video/video_source_interface.h"
 #include "api/video_codecs/scalability_mode.h"
 #include "api/video_codecs/sdp_video_format.h"
 #include "api/video_codecs/video_codec.h"
@@ -43,23 +61,30 @@
 #include "api/video_codecs/video_encoder.h"
 #include "api/video_codecs/video_encoder_factory.h"
 #include "call/call.h"
+#include "call/flexfec_receive_stream.h"
 #include "call/packet_receiver.h"
 #include "call/receive_stream.h"
 #include "call/rtp_config.h"
 #include "call/rtp_transport_controller_send_interface.h"
+#include "call/video_receive_stream.h"
 #include "call/video_send_stream.h"
 #include "common_video/frame_counts.h"
-#include "common_video/include/quality_limitation_reason.h"
 #include "media/base/codec.h"
+#include "media/base/codec_comparators.h"
 #include "media/base/media_channel.h"
+#include "media/base/media_channel_impl.h"
+#include "media/base/media_config.h"
 #include "media/base/media_constants.h"
+#include "media/base/media_engine.h"
 #include "media/base/rid_description.h"
 #include "media/base/rtp_utils.h"
+#include "media/base/stream_params.h"
 #include "media/engine/webrtc_media_engine.h"
 #include "modules/rtp_rtcp/include/receive_statistics.h"
-#include "modules/rtp_rtcp/include/report_block_data.h"
 #include "modules/rtp_rtcp/include/rtcp_statistics.h"
+#include "modules/rtp_rtcp/include/rtp_header_extension_map.h"
 #include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
+#include "modules/rtp_rtcp/source/rtp_packet_received.h"
 #include "modules/rtp_rtcp/source/rtp_util.h"
 #include "modules/video_coding/svc/scalability_mode_util.h"
 #include "rtc_base/checks.h"
@@ -68,8 +93,10 @@
 #include "rtc_base/logging.h"
 #include "rtc_base/socket.h"
 #include "rtc_base/strings/string_builder.h"
+#include "rtc_base/synchronization/mutex.h"
 #include "rtc_base/time_utils.h"
 #include "rtc_base/trace_event.h"
+#include "video/config/video_encoder_config.h"
 
 namespace cricket {
 
@@ -583,8 +610,7 @@ std::vector<VideoCodecSettings> MapCodecs(const std::vector<Codec>& codecs) {
     const int payload_type = in_codec.id;
 
     if (payload_codec_type.find(payload_type) != payload_codec_type.end()) {
-      RTC_LOG(LS_ERROR) << "Payload type already registered: "
-                        << in_codec.ToString();
+      RTC_LOG(LS_ERROR) << "Payload type already registered: " << in_codec;
       return {};
     }
     payload_codec_type[payload_type] = in_codec.GetResiliencyType();
@@ -1090,8 +1116,8 @@ bool WebRtcVideoSendChannel::GetChangedSenderParameters(
     if (rtp_parameters.encodings[0].codec) {
       auto matched_codec =
           absl::c_find_if(negotiated_codecs, [&](auto negotiated_codec) {
-            return negotiated_codec.codec.MatchesRtpCodec(
-                *rtp_parameters.encodings[0].codec);
+            return IsSameRtpCodec(negotiated_codec.codec,
+                                  *rtp_parameters.encodings[0].codec);
           });
       if (matched_codec != negotiated_codecs.end()) {
         force_codec = *matched_codec;
@@ -1127,7 +1153,7 @@ bool WebRtcVideoSendChannel::GetChangedSenderParameters(
       if (encoding.codec) {
         auto matched_codec =
             absl::c_find_if(negotiated_codecs, [&](auto negotiated_codec) {
-              return negotiated_codec.codec.MatchesRtpCodec(*encoding.codec);
+              return IsSameRtpCodec(negotiated_codec.codec, *encoding.codec);
             });
         if (matched_codec != negotiated_codecs.end()) {
           send_codecs.push_back(*matched_codec);
@@ -1421,13 +1447,13 @@ webrtc::RTCError WebRtcVideoSendChannel::SetRtpSendParameters(
     // the first layer.
     // TODO(orphis): Support mixed-codec simulcast
     if (parameters.encodings[0].codec && send_codec_ &&
-        !send_codec_->codec.MatchesRtpCodec(*parameters.encodings[0].codec)) {
+        !IsSameRtpCodec(send_codec_->codec, *parameters.encodings[0].codec)) {
       RTC_LOG(LS_VERBOSE) << "Trying to change codec to "
                           << parameters.encodings[0].codec->name;
       auto matched_codec =
           absl::c_find_if(negotiated_codecs_, [&](auto negotiated_codec) {
-            return negotiated_codec.codec.MatchesRtpCodec(
-                *parameters.encodings[0].codec);
+            return IsSameRtpCodec(negotiated_codec.codec,
+                                  *parameters.encodings[0].codec);
           });
       if (matched_codec == negotiated_codecs_.end()) {
         return webrtc::InvokeSetParametersCallback(
@@ -1532,13 +1558,6 @@ bool WebRtcVideoSendChannel::AddSendStream(const StreamParams& sp) {
       bitrate_allocator_factory_;
   config.encoder_settings.encoder_switch_request_callback = this;
 
-  // TODO: bugs.webrtc.org/358039777 - Add test when this effectively does
-  // something.
-  if (webrtc::RtpExtension::FindHeaderExtensionByUri(
-          config.rtp.extensions, webrtc::RtpExtension::kCorruptionDetectionUri,
-          webrtc::RtpExtension::kRequireEncryptedExtension)) {
-    config.encoder_settings.enable_frame_instrumentation_generator = true;
-  }
   config.crypto_options = crypto_options_;
   config.rtp.extmap_allow_mixed = ExtmapAllowMixed();
   config.rtcp_report_interval_ms = video_config_.rtcp_report_interval_ms;
@@ -2621,6 +2640,13 @@ void WebRtcVideoSendChannel::WebRtcVideoSendStream::RecreateWebRtcStream() {
       }
     }
   }
+
+  if (webrtc::RtpExtension::FindHeaderExtensionByUri(
+          config.rtp.extensions, webrtc::RtpExtension::kCorruptionDetectionUri,
+          webrtc::RtpExtension::kRequireEncryptedExtension)) {
+    config.encoder_settings.enable_frame_instrumentation_generator = true;
+  }
+
   stream_ = call_->CreateVideoSendStream(std::move(config),
                                          parameters_.encoder_config.Copy());
 
@@ -3845,11 +3871,11 @@ WebRtcVideoReceiveChannel::WebRtcVideoReceiveStream::GetVideoReceiverInfo(
   }
 
   // remote-outbound-rtp stats.
-  info.last_sender_report_timestamp_ms = stats.last_sender_report_timestamp_ms;
-  info.last_sender_report_utc_timestamp_ms =
-      stats.last_sender_report_utc_timestamp_ms;
-  info.last_sender_report_remote_utc_timestamp_ms =
-      stats.last_sender_report_remote_utc_timestamp_ms;
+  info.last_sender_report_timestamp = stats.last_sender_report_timestamp;
+  info.last_sender_report_utc_timestamp =
+      stats.last_sender_report_utc_timestamp;
+  info.last_sender_report_remote_utc_timestamp =
+      stats.last_sender_report_remote_utc_timestamp;
   info.sender_reports_packets_sent = stats.sender_reports_packets_sent;
   info.sender_reports_bytes_sent = stats.sender_reports_bytes_sent;
   info.sender_reports_reports_count = stats.sender_reports_reports_count;

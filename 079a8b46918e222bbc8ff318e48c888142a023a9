@@ -22,6 +22,30 @@
       },
       "revId": "079a8b46918e222bbc8ff318e48c888142a023a9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2ce40c56_c52dd448",
+        "filename": "modules/congestion_controller/rtp/transport_feedback_adapter_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 373,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-22T13:25:41Z",
+      "side": 0,
+      "message": "yep,\nlooks like this tests delta limits of the TransportFeedback format.\n\nMaybe it also tests how `TransportFeedbackAdapter` handles those deltas, but that is hard to see from the test body or the test name.",
+      "parentUuid": "096112fa_bb8239c7",
+      "range": {
+        "startLine": 373,
+        "startChar": 6,
+        "endLine": 373,
+        "endChar": 14
+      },
+      "revId": "079a8b46918e222bbc8ff318e48c888142a023a9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

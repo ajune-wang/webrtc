@@ -20,6 +20,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "95b71a36_577c2e89",
+        "filename": "modules/congestion_controller/rtp/transport_feedback_adapter_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-22T13:25:41Z",
+      "side": 1,
+      "message": "pass rtc::ArrayView by value\n\n```suggestion\n    rtc::ArrayView\u003cconst PacketResult\u003e packets) {\n```",
+      "range": {
+        "startLine": 75,
+        "startChar": 4,
+        "endLine": 75,
+        "endChar": 45
+      },
+      "revId": "e30dc860e6b9f853485c01a4653bb6c05666dd90",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c390296b_88c1389d",
         "filename": "modules/congestion_controller/rtp/transport_feedback_adapter_unittest.cc",
         "patchSetId": 1
@@ -37,6 +60,69 @@
         "endLine": 133,
         "endChar": 66
       },
+      "revId": "e30dc860e6b9f853485c01a4653bb6c05666dd90",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c1642bc4_67a41ed7",
+        "filename": "modules/congestion_controller/rtp/transport_feedback_adapter_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-22T13:25:41Z",
+      "side": 1,
+      "message": "https://google.github.io/styleguide/cppguide.html#Inputs_and_Outputs\n\n“When ordering function parameters, put all input-only parameters before any output parameters.”\n\n\n```suggestion\n  std::optional\u003cTransportPacketsFeedback\u003e CreateAndProcessFeedback(\n      rtc::ArrayView\u003cconst PacketResult\u003e packets,\n      TransportFeedbackAdapter\u0026 adapter) {\n```",
+      "range": {
+        "startLine": 133,
+        "startChar": 42,
+        "endLine": 135,
+        "endChar": 56
+      },
+      "revId": "e30dc860e6b9f853485c01a4653bb6c05666dd90",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "08b08886_e731afa7",
+        "filename": "modules/congestion_controller/rtp/transport_feedback_adapter_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-22T13:25:41Z",
+      "side": 1,
+      "message": "https://google.github.io/styleguide/cppguide.html#Type_deduction\n\n“Use type deduction only if it makes the code clearer to readers who aren\u0027t familiar with the project, or if it makes the code safer. Do not use it merely to avoid the inconvenience of writing an explicit type.”\n\n\n```suggestion\n  for (const PacketResult\u0026 packet : sent_packets) {\n```",
+      "range": {
+        "startLine": 214,
+        "startChar": 13,
+        "endLine": 214,
+        "endChar": 17
+      },
+      "revId": "e30dc860e6b9f853485c01a4653bb6c05666dd90",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "63213f02_361e641e",
+        "filename": "modules/congestion_controller/rtp/transport_feedback_adapter_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-22T13:25:41Z",
+      "side": 1,
+      "message": "may be keep `ASSERT_THAT(parsed_feedback, NotNull());`\nmay be add `ASSERT_TRUE(res.has_value());`",
       "revId": "e30dc860e6b9f853485c01a4653bb6c05666dd90",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

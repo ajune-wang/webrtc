@@ -16,6 +16,115 @@
       "message": "Please?",
       "revId": "eb264126055d11ac8b2ef1dbe60cad8987c12b75",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cddd23e4_e01f4671",
+        "filename": "modules/rtp_rtcp/source/ntp_time_util.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-22T14:15:53Z",
+      "side": 1,
+      "message": "I welcome explicit cast, but there is a safer one:\n\nhttps://google.github.io/styleguide/cppguide.html#Casting\n\n“Use brace initialization to convert arithmetic types (e.g., int64_t{x}). This is the safest approach because code will not compile if conversion can result in information loss.”\n\n\n```suggestion\n  int64_t value \u003d int64_t{compact_ntp_interval};\n```",
+      "range": {
+        "startLine": 39,
+        "startChar": 18,
+        "endLine": 39,
+        "endChar": 60
+      },
+      "revId": "eb264126055d11ac8b2ef1dbe60cad8987c12b75",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8f5cd008_e2fc293e",
+        "filename": "modules/rtp_rtcp/source/ntp_time_util.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-22T14:15:53Z",
+      "side": 1,
+      "message": "too many zeros in a row are hard to count and easy to make mistake.\n\n```suggestion\n  if (compact_ntp_interval \u003e 0x8000\u00270000) {\n```",
+      "range": {
+        "startLine": 40,
+        "startChar": 29,
+        "endLine": 40,
+        "endChar": 39
+      },
+      "revId": "eb264126055d11ac8b2ef1dbe60cad8987c12b75",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aa5c56c5_90521e89",
+        "filename": "modules/rtp_rtcp/source/ntp_time_util.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-22T14:15:53Z",
+      "side": 1,
+      "message": "```suggestion\n    value -\u003d (int64_t{1} \u003c\u003c 32);\n```\n\nor\n\n```suggestion\n    value -\u003d 0x1\u00270000\u00270000;\n```",
+      "range": {
+        "startLine": 41,
+        "startChar": 4,
+        "endLine": 41,
+        "endChar": 35
+      },
+      "revId": "eb264126055d11ac8b2ef1dbe60cad8987c12b75",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dab138de_46ea9c8d",
+        "filename": "modules/rtp_rtcp/source/ntp_time_util_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-22T14:15:53Z",
+      "side": 1,
+      "message": "Prefer to put value under test 1st, constant - as second parameter.\n\n\nhttp://go/c-readability-advice#avoid-yoda-style-comparisons\n```suggestion\n  ASSERT_LT(ms_diff, 0);\n```",
+      "range": {
+        "startLine": 66,
+        "startChar": 2,
+        "endLine": 66,
+        "endChar": 24
+      },
+      "revId": "eb264126055d11ac8b2ef1dbe60cad8987c12b75",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5a303a2a_9965966a",
+        "filename": "modules/rtp_rtcp/source/ntp_time_util_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-22T14:15:53Z",
+      "side": 1,
+      "message": "may be add a test that checks that value 0x8000\u00270000 can be converted.\n(I can imaging a reasonable implementation of the function that would crash with such value)\n\nsomething like\n\n```\n// Both +0x8000 and -x0x8000 seconds can be valid result when converting value exactly in the middle.\nEXPECT_EQ(CompactNtpIntervalToTimeDelta(0x8000\u00270000).Abs(),\n          TimeDelta::Seconds(0x8000));\n```",
+      "revId": "eb264126055d11ac8b2ef1dbe60cad8987c12b75",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

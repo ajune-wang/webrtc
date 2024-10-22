@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4a5957ad_528b4cbb",
+        "filename": "call/payload_type_picker.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2024-10-22T14:44:14Z",
+      "side": 1,
+      "message": "Wouldn\u0027t it be better to have it in media_constants.h with a deprecated annotation instead of adding yet another copy of it?\nOr maybe bite the bullet and stop recognizing AV1X?",
+      "revId": "79687ee76d343b0520abc4ab6d4dd605608d92a5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a117f6d4_371d433f",
+        "filename": "call/payload_type_picker.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2024-10-22T14:44:14Z",
+      "side": 1,
+      "message": "Do we really want those? Shouldn\u0027t they be a verbose log?",
+      "revId": "79687ee76d343b0520abc4ab6d4dd605608d92a5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f00dfeef_3599e7a2",
+        "filename": "call/payload_type_picker.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2024-10-22T14:44:14Z",
+      "side": 1,
+      "message": "Remove log or change verbosity level",
+      "revId": "79687ee76d343b0520abc4ab6d4dd605608d92a5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a2393aba_d9b0d7f4",
+        "filename": "call/payload_type_picker.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2024-10-22T14:44:14Z",
+      "side": 1,
+      "message": "Remove log or change verbosity level",
+      "revId": "79687ee76d343b0520abc4ab6d4dd605608d92a5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

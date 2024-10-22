@@ -16,6 +16,23 @@
       "message": "I\u0027ve created a CL to remove the internal usage of the old API. Wait for it.",
       "revId": "c81be4304b926b9b0557714771da99c3f05e0b20",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "37187b28_8f9931ec",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-10-22T09:24:48Z",
+      "side": 1,
+      "message": "The downstream user is gone now, so this should be submittable. (Cross fingers.)",
+      "revId": "c81be4304b926b9b0557714771da99c3f05e0b20",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

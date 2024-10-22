@@ -36,17 +36,17 @@ InterpolatedGainCurve::InterpolatedGainCurve(
     : region_logger_(
           (rtc::StringBuilder("WebRTC.Audio.")
            << histogram_name_prefix << ".FixedDigitalGainCurveRegion.Identity")
-              .str(),
+              .Release(),
           (rtc::StringBuilder("WebRTC.Audio.")
            << histogram_name_prefix << ".FixedDigitalGainCurveRegion.Knee")
-              .str(),
+              .Release(),
           (rtc::StringBuilder("WebRTC.Audio.")
            << histogram_name_prefix << ".FixedDigitalGainCurveRegion.Limiter")
-              .str(),
+              .Release(),
           (rtc::StringBuilder("WebRTC.Audio.")
            << histogram_name_prefix
            << ".FixedDigitalGainCurveRegion.Saturation")
-              .str()),
+              .Release()),
       apm_data_dumper_(apm_data_dumper) {}
 
 InterpolatedGainCurve::~InterpolatedGainCurve() {

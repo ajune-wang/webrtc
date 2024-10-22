@@ -123,6 +123,30 @@
       },
       "revId": "cd9bb2e950ab256de76c3ca2fc85b07909bfb1d9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "27091776_4a934ac2",
+        "filename": "video/rtp_video_stream_receiver2.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 697,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2024-10-22T12:45:50Z",
+      "side": 1,
+      "message": "We can\u0027t really do that as we are not doing anything speciall now for H264, if the bitstream is empty, we will discard the frame here: https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/api/video/rtp_video_frame_assembler.cc;l\u003d173;drc\u003d08efa89c7d73d72e6ebcddbf053c41a230dc1ba8;bpv\u003d1;bpt\u003d1\n\nI can add back the sps/pps if we really want to request the key frame inmediatelly",
+      "parentUuid": "cefbeb23_0d010251",
+      "range": {
+        "startLine": 697,
+        "startChar": 8,
+        "endLine": 697,
+        "endChar": 48
+      },
+      "revId": "cd9bb2e950ab256de76c3ca2fc85b07909bfb1d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

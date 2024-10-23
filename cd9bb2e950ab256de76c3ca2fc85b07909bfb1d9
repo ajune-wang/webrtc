@@ -171,6 +171,30 @@
       },
       "revId": "cd9bb2e950ab256de76c3ca2fc85b07909bfb1d9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7f56b0ef_9c3ce019",
+        "filename": "video/rtp_video_stream_receiver2.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 697,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-23T14:37:25Z",
+      "side": 1,
+      "message": "I do not have a strong opinion about H264.\n\nAs far as I know this touches one of the issues with WebRTC model versus H264 format: WebRTC require sps/pps in some form, but H264 key frame (IDR) doesn\u0027t have to include them, there is no message that requests SPS/PPS explicitly.\n\nGenerally key frame request is an expensive but universal tool to solve all kind of problems.\nAlternative of requesting key frame when there is any kind of depacketization issue I find acceptable: sub-optimal, but simple.\nActually for bare H264 it might be the best choice - I think H264 packet buffer doesn\u0027t tolerate rtp sequence number gaps, so if there is a packet WebRTC fails to parse, then key frame might be the only way to recover.",
+      "parentUuid": "a3517b54_defd9d15",
+      "range": {
+        "startLine": 697,
+        "startChar": 8,
+        "endLine": 697,
+        "endChar": 48
+      },
+      "revId": "cd9bb2e950ab256de76c3ca2fc85b07909bfb1d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

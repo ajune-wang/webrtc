@@ -51,6 +51,8 @@ constexpr TimeDelta kMaxFramesInFlightStorageDuration = TimeDelta::Seconds(3);
 constexpr int kFrameWidth = 320;
 constexpr int kFrameHeight = 240;
 constexpr double kMaxSsim = 1;
+constexpr int kQp = 10;
+constexpr char kCodec[] = "AV1";
 constexpr char kStreamLabel[] = "video-stream";
 constexpr char kSenderPeerName[] = "alice";
 constexpr char kReceiverPeerName[] = "bob";
@@ -59,6 +61,7 @@ DefaultVideoQualityAnalyzerOptions AnalyzerOptionsForTest() {
   DefaultVideoQualityAnalyzerOptions options;
   options.compute_psnr = false;
   options.compute_ssim = false;
+  options.compute_corruption_score = false;
   options.adjust_cropping_before_comparing_frames = false;
   options.max_frames_storage_duration = kMaxFramesInFlightStorageDuration;
   return options;
@@ -520,6 +523,7 @@ TEST(DefaultVideoQualityAnalyzerTest, HeavyQualityMetricsFromEqualFrames) {
   DefaultVideoQualityAnalyzerOptions analyzer_options;
   analyzer_options.compute_psnr = true;
   analyzer_options.compute_ssim = true;
+  analyzer_options.compute_corruption_score = true;
   analyzer_options.adjust_cropping_before_comparing_frames = false;
   DefaultVideoQualityAnalyzer analyzer(Clock::GetRealTimeClock(),
                                        test::GetGlobalMetricsLogger(),
@@ -528,6 +532,9 @@ TEST(DefaultVideoQualityAnalyzerTest, HeavyQualityMetricsFromEqualFrames) {
                  std::vector<std::string>{kSenderPeerName, kReceiverPeerName},
                  kAnalyzerMaxThreadsCount);
 
+  VideoQualityAnalyzerInterface::DecoderStats decoder_stats;
+  decoder_stats.qp = kQp;
+  decoder_stats.decoder_name = kCodec;
   for (int i = 0; i < 10; ++i) {
     VideoFrame frame = NextFrame(frame_generator.get(), i);
     frame.set_id(
@@ -540,8 +547,7 @@ TEST(DefaultVideoQualityAnalyzerTest, HeavyQualityMetricsFromEqualFrames) {
     VideoFrame received_frame = DeepCopy(frame);
     analyzer.OnFramePreDecode(kReceiverPeerName, received_frame.id(),
                               FakeEncode(received_frame));
-    analyzer.OnFrameDecoded(kReceiverPeerName, received_frame,
-                            VideoQualityAnalyzerInterface::DecoderStats());
+    analyzer.OnFrameDecoded(kReceiverPeerName, received_frame, decoder_stats);
     analyzer.OnFrameRendered(kReceiverPeerName, received_frame);
   }
 
@@ -567,6 +573,8 @@ TEST(DefaultVideoQualityAnalyzerTest, HeavyQualityMetricsFromEqualFrames) {
   auto it = stream_stats.find(kAliceBobStats);
   EXPECT_GE(it->second.psnr.GetMin(), kPerfectPSNR);
   EXPECT_GE(it->second.ssim.GetMin(), kMaxSsim);
+  EXPECT_EQ(it->second.corruption_score.GetAverage(), 0.0);
+  EXPECT_EQ(it->second.corruption_score.NumSamples(), 10);
 }
 
 TEST(DefaultVideoQualityAnalyzerTest,
@@ -579,6 +587,7 @@ TEST(DefaultVideoQualityAnalyzerTest,
   DefaultVideoQualityAnalyzerOptions analyzer_options;
   analyzer_options.compute_psnr = true;
   analyzer_options.compute_ssim = true;
+  analyzer_options.compute_corruption_score = true;
   analyzer_options.adjust_cropping_before_comparing_frames = true;
   DefaultVideoQualityAnalyzer analyzer(Clock::GetRealTimeClock(),
                                        test::GetGlobalMetricsLogger(),
@@ -587,6 +596,9 @@ TEST(DefaultVideoQualityAnalyzerTest,
                  std::vector<std::string>{kSenderPeerName, kReceiverPeerName},
                  kAnalyzerMaxThreadsCount);
 
+  VideoQualityAnalyzerInterface::DecoderStats decoder_stats;
+  decoder_stats.qp = kQp;
+  decoder_stats.decoder_name = kCodec;
   for (int i = 0; i < 10; ++i) {
     VideoFrame frame = NextFrame(frame_generator.get(), i);
     frame.set_id(
@@ -605,8 +617,7 @@ TEST(DefaultVideoQualityAnalyzerTest,
 
     analyzer.OnFramePreDecode(kReceiverPeerName, received_frame.id(),
                               FakeEncode(received_frame));
-    analyzer.OnFrameDecoded(kReceiverPeerName, received_frame,
-                            VideoQualityAnalyzerInterface::DecoderStats());
+    analyzer.OnFrameDecoded(kReceiverPeerName, received_frame, decoder_stats);
     analyzer.OnFrameRendered(kReceiverPeerName, received_frame);
   }
 
@@ -632,6 +643,8 @@ TEST(DefaultVideoQualityAnalyzerTest,
   auto it = stream_stats.find(kAliceBobStats);
   EXPECT_GE(it->second.psnr.GetMin(), kPerfectPSNR);
   EXPECT_GE(it->second.ssim.GetMin(), kMaxSsim);
+  EXPECT_EQ(it->second.corruption_score.GetAverage(), 0.0);
+  EXPECT_EQ(it->second.corruption_score.NumSamples(), 10);
 }
 
 TEST(DefaultVideoQualityAnalyzerTest, CpuUsage) {

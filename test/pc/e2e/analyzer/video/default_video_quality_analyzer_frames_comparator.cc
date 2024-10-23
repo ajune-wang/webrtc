@@ -12,6 +12,7 @@
 
 #include <algorithm>
 #include <map>
+#include <memory>
 #include <optional>
 #include <string>
 #include <utility>
@@ -29,6 +30,7 @@
 #include "test/pc/e2e/analyzer/video/default_video_quality_analyzer_internal_shared_objects.h"
 #include "test/pc/e2e/analyzer/video/default_video_quality_analyzer_shared_objects.h"
 #include "test/pc/e2e/metric_metadata_keys.h"
+#include "video/corruption_detection/frame_pair_corruption_score.h"
 
 namespace webrtc {
 namespace {
@@ -38,6 +40,8 @@ using ::webrtc::webrtc_pc_e2e::SampleMetadataKey;
 constexpr TimeDelta kFreezeThreshold = TimeDelta::Millis(150);
 constexpr int kMaxActiveComparisons = 10;
 constexpr int kMillisInSecond = 1000;
+
+constexpr float kCorruptionDetectionScaleFactor = 0.5;
 
 SamplesStatsCounter::StatsSample StatsSample(
     double value,
@@ -413,10 +417,15 @@ void DefaultVideoQualityAnalyzerFramesComparator::ProcessComparison(
   // Comparison is checked to be valid before adding, so we can use this
   // assumptions during computations.
 
-  // Perform expensive psnr and ssim calculations while not holding lock.
+  const FrameStats& frame_stats = comparison.frame_stats;
+
+  // Perform expensive psnr, ssim and corruption score calculations while not
+  // holding lock.
   double psnr = -1.0;
   double ssim = -1.0;
-  if ((options_.compute_psnr || options_.compute_ssim) &&
+  double corruption_score = -1.0;
+  if ((options_.compute_psnr || options_.compute_ssim ||
+       options_.compute_corruption_score) &&
       comparison.captured.has_value() && comparison.rendered.has_value()) {
     rtc::scoped_refptr<I420BufferInterface> reference_buffer =
         comparison.captured->video_frame_buffer()->ToI420();
@@ -435,9 +444,20 @@ void DefaultVideoQualityAnalyzerFramesComparator::ProcessComparison(
     if (options_.compute_ssim) {
       ssim = I420SSIM(*reference_buffer, *test_buffer);
     }
+    if (options_.compute_corruption_score &&
+        frame_stats.decoded_frame_qp.has_value()) {
+      if (corruption_scorer_ == nullptr) {
+        corruption_scorer_ = std::make_unique<FramePairCorruptionScorer>(
+            frame_stats.used_decoder->codec_name,
+            kCorruptionDetectionScaleFactor, /*sample_fraction=*/std::nullopt);
+      }
+      corruption_score = corruption_scorer_->CalculateScore(
+          frame_stats.decoded_frame_qp.value(), *reference_buffer,
+          *test_buffer);
+      RTC_CHECK_GE(corruption_score, 0.0);
+      RTC_CHECK_LE(corruption_score, 1.0);
+    }
   }
-
-  const FrameStats& frame_stats = comparison.frame_stats;
 
   MutexLock lock(&mutex_);
   auto stats_it = stream_stats_.find(comparison.stats_key);
@@ -462,6 +482,10 @@ void DefaultVideoQualityAnalyzerFramesComparator::ProcessComparison(
   if (ssim > 0) {
     stats->ssim.AddSample(
         StatsSample(ssim, frame_stats.received_time, metadata));
+  }
+  if (corruption_score >= 0.0) {
+    stats->corruption_score.AddSample(
+        StatsSample(corruption_score, frame_stats.received_time, metadata));
   }
   stats->capture_frame_rate.AddEvent(frame_stats.captured_time);
   if (frame_stats.time_between_captured_frames.has_value()) {

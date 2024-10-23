@@ -118,6 +118,10 @@ struct StreamStats {
   SamplesStatsCounter psnr;
   SamplesStatsCounter ssim;
 
+  // TODO(discuss): Do we want it as `SamplesStatsCounter` or
+  // `webrtc_impl::RunningStatistics`?
+  SamplesStatsCounter corruption_score;
+
   // Time from frame encoded (time point on exit from encoder) to the
   // encoded image received in decoder (time point on entrance to decoder).
   SamplesStatsCounter transport_time_ms;
@@ -264,6 +268,8 @@ struct DefaultVideoQualityAnalyzerOptions {
   // Tells DefaultVideoQualityAnalyzer if heavy metrics have to be computed.
   bool compute_psnr = true;
   bool compute_ssim = true;
+  // TODO: b/328030507 - When implementation is complete, update to `true`.
+  bool compute_corruption_score = false;
   // If true, weights the luma plane more than the chroma planes in the PSNR.
   bool use_weighted_psnr = false;
   // Tells DefaultVideoQualityAnalyzer if detailed frame stats should be

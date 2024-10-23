@@ -13,6 +13,7 @@
 
 #include <deque>
 #include <map>
+#include <memory>
 #include <utility>
 #include <vector>
 
@@ -24,6 +25,7 @@
 #include "test/pc/e2e/analyzer/video/default_video_quality_analyzer_cpu_measurer.h"
 #include "test/pc/e2e/analyzer/video/default_video_quality_analyzer_internal_shared_objects.h"
 #include "test/pc/e2e/analyzer/video/default_video_quality_analyzer_shared_objects.h"
+#include "video/corruption_detection/frame_pair_corruption_score.h"
 
 namespace webrtc {
 
@@ -139,6 +141,11 @@ class DefaultVideoQualityAnalyzerFramesComparator {
   const DefaultVideoQualityAnalyzerOptions options_;
   webrtc::Clock* const clock_;
   DefaultVideoQualityAnalyzerCpuMeasurer& cpu_measurer_;
+
+  // `FramePairCorruptionScorer` requires the video codec in order to be
+  // initialized which is not know in the constructor of this class. Therefore,
+  // initiating it as a pointer.
+  std::unique_ptr<FramePairCorruptionScorer> corruption_scorer_;
 
   mutable Mutex mutex_;
   State state_ RTC_GUARDED_BY(mutex_) = State::kNew;

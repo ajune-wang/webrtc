@@ -81,6 +81,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2b511f58_b2289cfe",
+        "filename": "modules/congestion_controller/rtp/transport_feedback_adapter.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2024-10-23T10:36:32Z",
+      "side": 1,
+      "message": "done",
+      "parentUuid": "bdb484d5_5e4a75e8",
+      "range": {
+        "startLine": 132,
+        "startChar": 0,
+        "endLine": 135,
+        "endChar": 68
+      },
+      "revId": "7db76c114e213cf90a13082a599bf45346b7be2b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "481bace7_43b6ed9e",
@@ -106,6 +130,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "6d79ce5b_49116aff",
+        "filename": "modules/congestion_controller/rtp/transport_feedback_adapter.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2024-10-23T10:36:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "481bace7_43b6ed9e",
+      "range": {
+        "startLine": 263,
+        "startChar": 22,
+        "endLine": 263,
+        "endChar": 25
+      },
+      "revId": "7db76c114e213cf90a13082a599bf45346b7be2b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "4230aaeb_34478cf7",
         "filename": "modules/congestion_controller/rtp/transport_feedback_adapter.cc",
         "patchSetId": 7
@@ -117,6 +165,30 @@
       "writtenOn": "2024-10-21T15:03:47Z",
       "side": 1,
       "message": "you can log TimeDelta directly\n\n```suggestion\n                        \u003c\u003c feedback_delta \u003c\u003c \".\";\n```",
+      "range": {
+        "startLine": 270,
+        "startChar": 24,
+        "endLine": 270,
+        "endChar": 57
+      },
+      "revId": "7db76c114e213cf90a13082a599bf45346b7be2b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "218fc5a5_c62c948e",
+        "filename": "modules/congestion_controller/rtp/transport_feedback_adapter.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2024-10-23T10:36:32Z",
+      "side": 1,
+      "message": "done",
+      "parentUuid": "4230aaeb_34478cf7",
       "range": {
         "startLine": 270,
         "startChar": 24,
@@ -152,6 +224,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "2774ac07_73b01408",
+        "filename": "modules/congestion_controller/rtp/transport_feedback_adapter.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2024-10-23T10:36:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d7a1ebd5_92dd3314",
+      "range": {
+        "startLine": 283,
+        "startChar": 8,
+        "endLine": 283,
+        "endChar": 20
+      },
+      "revId": "7db76c114e213cf90a13082a599bf45346b7be2b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "66db63fe_d0b74b00",
         "filename": "modules/congestion_controller/rtp/transport_feedback_adapter.cc",
         "patchSetId": 7
@@ -175,6 +271,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "61f73767_070b4aab",
+        "filename": "modules/congestion_controller/rtp/transport_feedback_adapter.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 298,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2024-10-23T10:36:32Z",
+      "side": 1,
+      "message": "done",
+      "parentUuid": "66db63fe_d0b74b00",
+      "range": {
+        "startLine": 288,
+        "startChar": 0,
+        "endLine": 298,
+        "endChar": 5
+      },
+      "revId": "7db76c114e213cf90a13082a599bf45346b7be2b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "307a6e6e_c6151bba",
         "filename": "modules/congestion_controller/rtp/transport_feedback_adapter.cc",
         "patchSetId": 7
@@ -186,6 +306,30 @@
       "writtenOn": "2024-10-21T15:03:47Z",
       "side": 1,
       "message": "prefer `absl::c_something(c...` over `std::something(c.begin(), c.end()...` when operating on full container\n```suggestion\n  absl::c_sort(packet_result_vector,\n            [](const PacketResult\u0026 lhs, const PacketResult\u0026 rhs) {\n              return lhs.sent_packet.sequence_number \u003c\n                     rhs.sent_packet.sequence_number;\n            });\n```",
+      "range": {
+        "startLine": 313,
+        "startChar": 1,
+        "endLine": 317,
+        "endChar": 15
+      },
+      "revId": "7db76c114e213cf90a13082a599bf45346b7be2b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d92fe179_3273d833",
+        "filename": "modules/congestion_controller/rtp/transport_feedback_adapter.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2024-10-23T10:36:32Z",
+      "side": 1,
+      "message": "done",
+      "parentUuid": "307a6e6e_c6151bba",
       "range": {
         "startLine": 313,
         "startChar": 1,
@@ -244,6 +388,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "1910b69f_b85838a4",
+        "filename": "modules/congestion_controller/rtp/transport_feedback_adapter.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2024-10-23T10:36:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "174257a0_9b81d5b2",
+      "range": {
+        "startLine": 125,
+        "startChar": 9,
+        "endLine": 125,
+        "endChar": 14
+      },
+      "revId": "7db76c114e213cf90a13082a599bf45346b7be2b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "25375c94_93154da6",
         "filename": "modules/congestion_controller/rtp/transport_feedback_adapter.h",
         "patchSetId": 7
@@ -288,6 +456,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9437ae25_2f86845b",
+        "filename": "modules/congestion_controller/rtp/transport_feedback_adapter.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2024-10-23T10:36:32Z",
+      "side": 1,
+      "message": "thanks.",
+      "parentUuid": "873d963c_96841510",
+      "range": {
+        "startLine": 128,
+        "startChar": 38,
+        "endLine": 128,
+        "endChar": 46
+      },
+      "revId": "7db76c114e213cf90a13082a599bf45346b7be2b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "24d7535a_d8e967cf",
@@ -301,6 +493,30 @@
       "writtenOn": "2024-10-21T15:03:47Z",
       "side": 1,
       "message": "`rtc::ArrayView\u003cconst T\u003e` is usually better parameter type that `const std::vector\u003cT\u003e\u0026`\n\ne.g. then in tests you do not have to use std::vector,\n\nand instead of \n```\n std::vector\u003cPacketTemplate\u003e packets \u003d {\n      {\n          .transport_sequence_number \u003d 1,\n```\n\ncan write\n\n```\n PacketTemplate packets[] \u003d {\n      {\n          .transport_sequence_number \u003d 1,\n```",
+      "range": {
+        "startLine": 98,
+        "startChar": 4,
+        "endLine": 98,
+        "endChar": 38
+      },
+      "revId": "7db76c114e213cf90a13082a599bf45346b7be2b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d4154237_001a3346",
+        "filename": "modules/congestion_controller/rtp/transport_feedback_adapter_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2024-10-23T10:36:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "24d7535a_d8e967cf",
       "range": {
         "startLine": 98,
         "startChar": 4,
@@ -376,6 +592,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "4d76c747_8d288751",
+        "filename": "modules/congestion_controller/rtp/transport_feedback_adapter_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2024-10-23T10:36:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d12267fc_6ea42382",
+      "range": {
+        "startLine": 177,
+        "startChar": 25,
+        "endLine": 178,
+        "endChar": 65
+      },
+      "revId": "7db76c114e213cf90a13082a599bf45346b7be2b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "dc365877_41d07b93",
         "filename": "modules/congestion_controller/rtp/transport_feedback_adapter_unittest.cc",
         "patchSetId": 7
@@ -410,6 +650,30 @@
       "writtenOn": "2024-10-21T15:03:47Z",
       "side": 1,
       "message": "```suggestion\n                      /*overhead\u003d*/ 0u, TimeNow());\n```",
+      "range": {
+        "startLine": 206,
+        "startChar": 22,
+        "endLine": 206,
+        "endChar": 34
+      },
+      "revId": "7db76c114e213cf90a13082a599bf45346b7be2b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f1ac512c_ef1c5801",
+        "filename": "modules/congestion_controller/rtp/transport_feedback_adapter_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2024-10-23T10:36:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1fe55b3b_97234766",
       "range": {
         "startLine": 206,
         "startChar": 22,

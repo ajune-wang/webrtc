@@ -122,6 +122,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c9c17ca2_76fc86ad",
+        "filename": "api/data_channel_interface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2024-10-23T08:07:58Z",
+      "side": 1,
+      "message": "I\u0027m not 100% sure it\u0027s worth it and am guessing that peterhanspers@ doesn\u0027t think so either since the CL adds documentation - but can be convinced otherwise. To me it still looks like there was a bug in the observer implementation. It\u0027s unfortunately the kind of bug that\u0027s dependent on operation order (i.e. timing of decrementing the refcount) and therefore might be one of those bugs that unintentionally don\u0027t get triggered by tests but can happen in production.\n\nBtw, CallbackList has a similar mechanism to detect when inside a callback to what you describe. Search for `send_in_progress_` if interested. In particular the CHECK inside the dtor (`~CallbackListReceivers()`) is something that, if we had, would have caught this type of problem.",
+      "parentUuid": "9d781407_ab5a071c",
+      "range": {
+        "startLine": 95,
+        "startChar": 47,
+        "endLine": 95,
+        "endChar": 72
+      },
+      "revId": "a1e574ee2acd647a6d6086096c67895848c9eb5d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "cd0f55eb_5ac7d47d",
         "filename": "api/data_channel_interface.h",
         "patchSetId": 2

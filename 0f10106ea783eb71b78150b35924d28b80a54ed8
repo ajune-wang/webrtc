@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c005653e_b45b167d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2024-10-23T04:26:56Z",
+      "side": 1,
+      "message": "Hi, could you please review this? It\u0027s just a simple cleanup. Thanks!",
+      "revId": "0f10106ea783eb71b78150b35924d28b80a54ed8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

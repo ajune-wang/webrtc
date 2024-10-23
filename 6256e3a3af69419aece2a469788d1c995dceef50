@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3abfd8f1_2d1657c1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2024-10-23T16:39:48Z",
+      "side": 1,
+      "message": "I am not exactly sure about the exact mechanism, but it seeem that the decoder database only allows a single decoder. So when the GetDecoder() is received, it removes the previous decoder, clearing the impl_ member of the wrapper.\n\nIf the payload type is changed, and then changed back, that cuases the decoder configuration to fail, switching back to sw decoding.",
+      "revId": "6256e3a3af69419aece2a469788d1c995dceef50",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

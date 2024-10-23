@@ -40,6 +40,7 @@ DefaultVideoQualityAnalyzerOptions AnalyzerOptionsForTest() {
   DefaultVideoQualityAnalyzerOptions options;
   options.compute_psnr = false;
   options.compute_ssim = false;
+  options.compute_corruption_score = false;
   options.adjust_cropping_before_comparing_frames = false;
   return options;
 }
@@ -388,6 +389,7 @@ TEST(DefaultVideoQualityAnalyzerFramesComparatorTest,
   EXPECT_EQ(stats.stream_started_time, captured_time);
   ExpectEmpty(stats.psnr);
   ExpectEmpty(stats.ssim);
+  ExpectEmpty(stats.corruption_score);
   ExpectEmpty(stats.transport_time_ms);
   ExpectEmpty(stats.total_delay_incl_transport_ms);
   ExpectEmpty(stats.time_between_rendered_frames_ms);
@@ -449,6 +451,7 @@ TEST(DefaultVideoQualityAnalyzerFramesComparatorTest,
   EXPECT_EQ(stats.stream_started_time, captured_time);
   ExpectEmpty(stats.psnr);
   ExpectEmpty(stats.ssim);
+  ExpectEmpty(stats.corruption_score);
   ExpectEmpty(stats.transport_time_ms);
   ExpectEmpty(stats.total_delay_incl_transport_ms);
   ExpectEmpty(stats.time_between_rendered_frames_ms);
@@ -522,6 +525,7 @@ TEST(DefaultVideoQualityAnalyzerFramesComparatorTest,
   EXPECT_EQ(stats.stream_started_time, captured_time);
   ExpectEmpty(stats.psnr);
   ExpectEmpty(stats.ssim);
+  ExpectEmpty(stats.corruption_score);
   ExpectEmpty(stats.transport_time_ms);
   ExpectEmpty(stats.total_delay_incl_transport_ms);
   ExpectEmpty(stats.time_between_rendered_frames_ms);
@@ -599,6 +603,7 @@ TEST(DefaultVideoQualityAnalyzerFramesComparatorTest,
   EXPECT_EQ(stats.stream_started_time, captured_time);
   ExpectEmpty(stats.psnr);
   ExpectEmpty(stats.ssim);
+  ExpectEmpty(stats.corruption_score);
   ExpectEmpty(stats.transport_time_ms);
   ExpectEmpty(stats.total_delay_incl_transport_ms);
   ExpectEmpty(stats.time_between_rendered_frames_ms);
@@ -681,6 +686,7 @@ TEST(DefaultVideoQualityAnalyzerFramesComparatorTest,
   EXPECT_EQ(stats.stream_started_time, captured_time);
   ExpectEmpty(stats.psnr);
   ExpectEmpty(stats.ssim);
+  ExpectEmpty(stats.corruption_score);
   ExpectSizeAndAllElementsAre(stats.transport_time_ms, /*size=*/1,
                               /*value=*/20.0);
   ExpectEmpty(stats.total_delay_incl_transport_ms);
@@ -773,6 +779,7 @@ TEST(DefaultVideoQualityAnalyzerFramesComparatorTest,
   EXPECT_EQ(stats.stream_started_time, captured_time);
   ExpectEmpty(stats.psnr);
   ExpectEmpty(stats.ssim);
+  ExpectEmpty(stats.corruption_score);
   ExpectSizeAndAllElementsAre(stats.transport_time_ms, /*size=*/1,
                               /*value=*/20.0);
   ExpectEmpty(stats.total_delay_incl_transport_ms);
@@ -864,6 +871,7 @@ TEST(DefaultVideoQualityAnalyzerFramesComparatorTest,
   EXPECT_EQ(stats.stream_started_time, captured_time);
   ExpectEmpty(stats.psnr);
   ExpectEmpty(stats.ssim);
+  ExpectEmpty(stats.corruption_score);
   ExpectSizeAndAllElementsAre(stats.transport_time_ms, /*size=*/1,
                               /*value=*/20.0);
   ExpectEmpty(stats.total_delay_incl_transport_ms);
@@ -933,6 +941,7 @@ TEST(DefaultVideoQualityAnalyzerFramesComparatorTest,
   EXPECT_EQ(stats.stream_started_time, captured_time);
   ExpectEmpty(stats.psnr);
   ExpectEmpty(stats.ssim);
+  ExpectEmpty(stats.corruption_score);
   ExpectEmpty(stats.transport_time_ms);
   ExpectEmpty(stats.total_delay_incl_transport_ms);
   ExpectEmpty(stats.time_between_rendered_frames_ms);
@@ -994,6 +1003,7 @@ TEST(DefaultVideoQualityAnalyzerFramesComparatorTest,
   EXPECT_EQ(stats.stream_started_time, captured_time);
   ExpectEmpty(stats.psnr);
   ExpectEmpty(stats.ssim);
+  ExpectEmpty(stats.corruption_score);
   ExpectEmpty(stats.transport_time_ms);
   ExpectEmpty(stats.total_delay_incl_transport_ms);
   ExpectEmpty(stats.time_between_rendered_frames_ms);
@@ -1067,6 +1077,7 @@ TEST(DefaultVideoQualityAnalyzerFramesComparatorTest,
   EXPECT_EQ(stats.stream_started_time, captured_time);
   ExpectEmpty(stats.psnr);
   ExpectEmpty(stats.ssim);
+  ExpectEmpty(stats.corruption_score);
   ExpectEmpty(stats.transport_time_ms);
   ExpectEmpty(stats.total_delay_incl_transport_ms);
   ExpectEmpty(stats.time_between_rendered_frames_ms);
@@ -1144,6 +1155,7 @@ TEST(DefaultVideoQualityAnalyzerFramesComparatorTest,
   EXPECT_EQ(stats.stream_started_time, captured_time);
   ExpectEmpty(stats.psnr);
   ExpectEmpty(stats.ssim);
+  ExpectEmpty(stats.corruption_score);
   ExpectEmpty(stats.transport_time_ms);
   ExpectEmpty(stats.total_delay_incl_transport_ms);
   ExpectEmpty(stats.time_between_rendered_frames_ms);
@@ -1222,6 +1234,7 @@ TEST(DefaultVideoQualityAnalyzerFramesComparatorTest,
   EXPECT_EQ(stats.stream_started_time, captured_time);
   ExpectEmpty(stats.psnr);
   ExpectEmpty(stats.ssim);
+  ExpectEmpty(stats.corruption_score);
   ExpectEmpty(stats.transport_time_ms);
   ExpectEmpty(stats.total_delay_incl_transport_ms);
   ExpectEmpty(stats.time_between_rendered_frames_ms);
@@ -1311,6 +1324,7 @@ TEST(DefaultVideoQualityAnalyzerFramesComparatorTest,
   EXPECT_EQ(stats.stream_started_time, captured_time);
   ExpectEmpty(stats.psnr);
   ExpectEmpty(stats.ssim);
+  ExpectEmpty(stats.corruption_score);
   ExpectEmpty(stats.transport_time_ms);
   ExpectEmpty(stats.total_delay_incl_transport_ms);
   ExpectEmpty(stats.time_between_rendered_frames_ms);
@@ -1399,6 +1413,7 @@ TEST(DefaultVideoQualityAnalyzerFramesComparatorTest,
   EXPECT_EQ(stats.stream_started_time, captured_time);
   ExpectEmpty(stats.psnr);
   ExpectEmpty(stats.ssim);
+  ExpectEmpty(stats.corruption_score);
   ExpectSizeAndAllElementsAre(stats.transport_time_ms, /*size=*/1,
                               /*value=*/20.0);
   ExpectEmpty(stats.total_delay_incl_transport_ms);
@@ -1440,9 +1455,11 @@ TEST(DefaultVideoQualityAnalyzerFramesComparatorTest,
 TEST(DefaultVideoQualityAnalyzerFramesComparatorTest,
      RenderedKeyFrameAccountedInStats) {
   DefaultVideoQualityAnalyzerCpuMeasurer cpu_measurer;
+  DefaultVideoQualityAnalyzerOptions default_video_quality_analyzer_options;
+  default_video_quality_analyzer_options.compute_corruption_score = true;
   DefaultVideoQualityAnalyzerFramesComparator comparator(
       Clock::GetRealTimeClock(), cpu_measurer,
-      DefaultVideoQualityAnalyzerOptions());
+      default_video_quality_analyzer_options);
 
   Timestamp captured_time = Clock::GetRealTimeClock()->CurrentTime();
   uint16_t frame_id = 1;
@@ -1497,6 +1514,8 @@ TEST(DefaultVideoQualityAnalyzerFramesComparatorTest,
   EXPECT_EQ(stats.stream_started_time, captured_time);
   EXPECT_GE(GetFirstOrDie(stats.psnr), 20);
   EXPECT_GE(GetFirstOrDie(stats.ssim), 0.5);
+  EXPECT_GE(GetFirstOrDie(stats.corruption_score), 0.0);
+  EXPECT_LE(GetFirstOrDie(stats.corruption_score), 1.0);
   ExpectSizeAndAllElementsAre(stats.transport_time_ms, /*size=*/1,
                               /*value=*/20.0);
   EXPECT_GE(GetFirstOrDie(stats.total_delay_incl_transport_ms), 60.0);
@@ -1536,9 +1555,10 @@ TEST(DefaultVideoQualityAnalyzerFramesComparatorTest,
 
 TEST(DefaultVideoQualityAnalyzerFramesComparatorTest, AllStatsHaveMetadataSet) {
   DefaultVideoQualityAnalyzerCpuMeasurer cpu_measurer;
+  DefaultVideoQualityAnalyzerOptions default_video_quality_analyzer;
+  default_video_quality_analyzer.compute_corruption_score = true;
   DefaultVideoQualityAnalyzerFramesComparator comparator(
-      Clock::GetRealTimeClock(), cpu_measurer,
-      DefaultVideoQualityAnalyzerOptions());
+      Clock::GetRealTimeClock(), cpu_measurer, default_video_quality_analyzer);
 
   Timestamp captured_time = Clock::GetRealTimeClock()->CurrentTime();
   uint16_t frame_id = 1;
@@ -1592,6 +1612,7 @@ TEST(DefaultVideoQualityAnalyzerFramesComparatorTest, AllStatsHaveMetadataSet) {
   StreamStats stats = comparator.stream_stats().at(stats_key);
   AssertFirstMetadataHasField(stats.psnr, "frame_id", "1");
   AssertFirstMetadataHasField(stats.ssim, "frame_id", "1");
+  AssertFirstMetadataHasField(stats.corruption_score, "frame_id", "1");
   AssertFirstMetadataHasField(stats.transport_time_ms, "frame_id", "1");
   AssertFirstMetadataHasField(stats.total_delay_incl_transport_ms, "frame_id",
                               "1");

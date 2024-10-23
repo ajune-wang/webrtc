@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "73f43e5e_622bbba6",
+        "filename": "system_wrappers/include/clock.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 7255
+      },
+      "writtenOn": "2024-10-23T10:47:44Z",
+      "side": 1,
+      "message": "Done.\nAlso fixed the comment for the function, the code changed after a review comment, but the comment had not changed. Fixed now.",
+      "parentUuid": "cf8f7aeb_f3513567",
+      "revId": "2c38b850c320812ea393378303f817eb16a5da35",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "01fb7e36_005c6c09",
@@ -31,6 +49,24 @@
       "writtenOn": "2024-10-23T09:37:19Z",
       "side": 1,
       "message": "dito, skip `time \u003d `",
+      "revId": "2c38b850c320812ea393378303f817eb16a5da35",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a2b22a42_f894cc07",
+        "filename": "system_wrappers/include/clock.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 7255
+      },
+      "writtenOn": "2024-10-23T10:47:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "01fb7e36_005c6c09",
       "revId": "2c38b850c320812ea393378303f817eb16a5da35",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

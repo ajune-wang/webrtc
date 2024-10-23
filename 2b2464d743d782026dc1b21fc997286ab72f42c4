@@ -182,6 +182,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "69bf34a6_9fd00ba2",
+        "filename": "modules/congestion_controller/rtp/transport_feedback_adapter_unittest.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-23T12:21:19Z",
+      "side": 1,
+      "message": "better (I still prefer my suggestion a bit more)",
+      "parentUuid": "5cf47b77_3b16b13b",
+      "range": {
+        "startLine": 72,
+        "startChar": 0,
+        "endLine": 78,
+        "endChar": 53
+      },
+      "revId": "2b2464d743d782026dc1b21fc997286ab72f42c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "71222768_d1b8caa9",
@@ -219,6 +243,30 @@
       "side": 1,
       "message": "Done ?",
       "parentUuid": "71222768_d1b8caa9",
+      "range": {
+        "startLine": 327,
+        "startChar": 28,
+        "endLine": 327,
+        "endChar": 68
+      },
+      "revId": "2b2464d743d782026dc1b21fc997286ab72f42c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6b7ee162_10fedaa6",
+        "filename": "modules/congestion_controller/rtp/transport_feedback_adapter_unittest.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 327,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-23T12:21:19Z",
+      "side": 1,
+      "message": "Yep, looks nicer to me.\nMay be declare kHighArriveTime as Timestamp, then there is no need to add Zero three times.\n\n`Timestamp kHighArriveTime \u003d Timestamp::Zero() + ....;`",
+      "parentUuid": "c0698481_3c47ce0d",
       "range": {
         "startLine": 327,
         "startChar": 28,

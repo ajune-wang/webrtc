@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cf8f7aeb_f3513567",
+        "filename": "system_wrappers/include/clock.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2024-10-23T09:37:19Z",
+      "side": 1,
+      "message": "Not, I would write \"Seconds since UTC epoch.\" only.",
+      "revId": "2c38b850c320812ea393378303f817eb16a5da35",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "01fb7e36_005c6c09",
+        "filename": "system_wrappers/include/clock.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2024-10-23T09:37:19Z",
+      "side": 1,
+      "message": "dito, skip `time \u003d `",
+      "revId": "2c38b850c320812ea393378303f817eb16a5da35",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

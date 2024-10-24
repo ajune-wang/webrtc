@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "881ae8c1_47e036ea",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2024-10-24T09:18:16Z",
+      "side": 1,
+      "message": "We have this issue in m131 - https://chromiumdash.appspot.com/commit/fb803de683585ebadb0137f1cbbc54e36a50fc77\n\nWe need to merge this fix. @sergio.garcia.murillo@gmail.com, is this something you can take of?",
+      "revId": "96a11a01294eeb6516be07a0698e102618b44170",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

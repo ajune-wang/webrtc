@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b20404eb_3f73eb35",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-24T12:48:33Z",
+      "side": 1,
+      "message": "Artöm, can you please check api/test as an OWNER",
+      "revId": "f5d36cbb1ff58edf3e7426da46aacf2a4faae4db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

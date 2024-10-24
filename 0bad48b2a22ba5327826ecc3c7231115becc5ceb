@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "89d3b0f5_f97ee49e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2024-10-24T11:34:44Z",
+      "side": 1,
+      "message": "Added unit tests for verifying that the decoders are Released and recreated when switching between codecs. Also confirmed that unit tests fails if the change to the VideoReceiveStream2 is reverted.",
+      "revId": "0bad48b2a22ba5327826ecc3c7231115becc5ceb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

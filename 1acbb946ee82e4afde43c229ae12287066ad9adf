@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c9a5cb7c_196be4d4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2024-10-24T08:09:04Z",
+      "side": 1,
+      "message": "lgtm, I moved the SEI clause with the break, but didn\u0027t add a new break for the falltrough",
+      "revId": "1acbb946ee82e4afde43c229ae12287066ad9adf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

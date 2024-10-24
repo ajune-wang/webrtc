@@ -167,6 +167,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7cc52367_4a1b9da2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2024-10-24T08:42:08Z",
+      "side": 1,
+      "message": "Inject decoder factory, change PT (X-\u003eY-\u003eX) and verify that it recreates decoder X?",
+      "parentUuid": "0f68367a_193b4473",
+      "revId": "6256e3a3af69419aece2a469788d1c995dceef50",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "21da0dc0_58d201c4",
         "filename": "video/video_receive_stream2.cc",
         "patchSetId": 1
@@ -202,6 +220,30 @@
       "side": 1,
       "message": "There should be only one entry for each payloadtype, right?",
       "parentUuid": "21da0dc0_58d201c4",
+      "range": {
+        "startLine": 868,
+        "startChar": 8,
+        "endLine": 868,
+        "endChar": 40
+      },
+      "revId": "6256e3a3af69419aece2a469788d1c995dceef50",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5f6d8034_28f5c49b",
+        "filename": "video/video_receive_stream2.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 868,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2024-10-24T08:42:08Z",
+      "side": 1,
+      "message": "OK, we have a check for this in https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/video/video_receive_stream2.cc;l\u003d238;drc\u003d558c2dc5397cbb85db138ef17e36c816c4dad50e",
+      "parentUuid": "c262a590_f8b1e39a",
       "range": {
         "startLine": 868,
         "startChar": 8,

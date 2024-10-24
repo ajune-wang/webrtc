@@ -16,6 +16,46 @@
       "message": "Added unit tests for verifying that the decoders are Released and recreated when switching between codecs. Also confirmed that unit tests fails if the change to the VideoReceiveStream2 is reverted.",
       "revId": "0bad48b2a22ba5327826ecc3c7231115becc5ceb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9676c8ef_4f710691",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2024-10-24T11:53:22Z",
+      "side": 1,
+      "message": "LGTM, assuming the comment will be addressed.",
+      "revId": "0bad48b2a22ba5327826ecc3c7231115becc5ceb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d0495e6f_61368c51",
+        "filename": "video/video_receive_stream2.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 870,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2024-10-24T11:53:22Z",
+      "side": 1,
+      "message": "Could you please add to the comment why it is important to unregister decoder? That will reduce chances for this logic to be removed by someone in future.",
+      "range": {
+        "startLine": 870,
+        "startChar": 11,
+        "endLine": 870,
+        "endChar": 70
+      },
+      "revId": "0bad48b2a22ba5327826ecc3c7231115becc5ceb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

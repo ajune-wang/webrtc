@@ -195,6 +195,30 @@
       },
       "revId": "cd9bb2e950ab256de76c3ca2fc85b07909bfb1d9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "570bb7b5_b5dc870b",
+        "filename": "video/rtp_video_stream_receiver2.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 697,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2024-10-24T11:53:58Z",
+      "side": 1,
+      "message": "Note that the SPS/PPS needs to be received once per id. As most h264 encoders only use pps/sps with with a single id (0), this issue will only happen on the firrt IDR frame if the SPS/PPS is lost.\n\nI will review in which cases the current depacketizers returns empty frames, but maybe we could request a key frame if we have a depacketizer error and we have not yet received any key frame yet.",
+      "parentUuid": "7f56b0ef_9c3ce019",
+      "range": {
+        "startLine": 697,
+        "startChar": 8,
+        "endLine": 697,
+        "endChar": 48
+      },
+      "revId": "cd9bb2e950ab256de76c3ca2fc85b07909bfb1d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

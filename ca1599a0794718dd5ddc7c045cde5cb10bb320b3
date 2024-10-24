@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "856e9957_51a2b317",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2024-10-24T14:35:37Z",
+      "side": 1,
+      "message": "Not sure of what causes it, but I am getting a situtation in which video decoding freezes when using dav1d decoder because dav1d_send_data is returning EAGAIN and we are not draining any pending frames.",
+      "revId": "ca1599a0794718dd5ddc7c045cde5cb10bb320b3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

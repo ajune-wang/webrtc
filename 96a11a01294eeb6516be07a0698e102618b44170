@@ -70,6 +70,24 @@
       "parentUuid": "fc19872c_cf2a519a",
       "revId": "96a11a01294eeb6516be07a0698e102618b44170",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e0485c0b_1d8d7a29",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2024-10-24T16:28:30Z",
+      "side": 1,
+      "message": "I have created the merge request, \n\nhttps://issues.chromium.org/issues/375352614\n\nbut can\u0027t update it or set the Merge-Request, I guees it needs to be done by a googler?",
+      "parentUuid": "1a23e7fb_25cda68f",
+      "revId": "96a11a01294eeb6516be07a0698e102618b44170",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ],
   "submitRequirementResults": [

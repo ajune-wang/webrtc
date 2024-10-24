@@ -16,6 +16,40 @@
       "message": "lgtm, I moved the SEI clause with the break, but didn\u0027t add a new break for the falltrough",
       "revId": "1acbb946ee82e4afde43c229ae12287066ad9adf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "33e6d8ff_3d9f959f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-24T09:00:45Z",
+      "side": 1,
+      "message": "Note for future code archeologies:\nThe issue was introduced in https://webrtc-review.googlesource.com/c/src/+/364241",
+      "revId": "1acbb946ee82e4afde43c229ae12287066ad9adf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "14b052bd_b9b7825b",
+        "filename": "AUTHORS",
+        "patchSetId": 1
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-24T09:00:45Z",
+      "side": 1,
+      "message": "This list looks (mostly) sorted alphabetically.\nDo you mind moving your name above with that sorting in mind?",
+      "revId": "1acbb946ee82e4afde43c229ae12287066ad9adf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -34,6 +34,24 @@
       "parentUuid": "881ae8c1_47e036ea",
       "revId": "96a11a01294eeb6516be07a0698e102618b44170",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fc19872c_cf2a519a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2024-10-24T14:11:01Z",
+      "side": 1,
+      "message": "https://chromium.googlesource.com/chromium/src.git/+/refs/heads/main/docs/process/merge_request.md#merge-request-process\n\nIn short:\n1. Create chromium merge request (like https://issues.chromium.org/issues/367752722)\n2. Get approval.\n3. Create WebRTC merge CL (like https://webrtc-review.googlesource.com/c/src/+/362981). In https://webrtc-review.googlesource.com/c/src/+/364241 -\u003e 3 dots menu in top right corner -\u003e Cherry pick. Find M131 branch number in https://chromiumdash.appspot.com/branches",
+      "parentUuid": "311fc044_c66c2c59",
+      "revId": "96a11a01294eeb6516be07a0698e102618b44170",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ],
   "submitRequirementResults": [

@@ -382,6 +382,19 @@ void BaseChannel::SetFirstPacketReceivedCallback(
   on_first_packet_received_ = std::move(callback);
 }
 
+void BaseChannel::SetFirstPacketSentCallback(std::function<void()> callback) {
+  RTC_DCHECK_RUN_ON(network_thread());
+  RTC_DCHECK(!on_first_packet_sent_ || !callback);
+
+  // TODO(bugs.webrtc.org/11992): Rename SetFirstPacketSentCallback to
+  // something that indicates network thread initialization/uninitialization and
+  // call Init_n() / Deinit_n() respectively.
+  // if (!callback)
+  //   Deinit_n();
+
+  on_first_packet_sent_ = std::move(callback);
+}
+
 void BaseChannel::OnTransportReadyToSend(bool ready) {
   RTC_DCHECK_RUN_ON(network_thread());
   RTC_DCHECK(network_initialized());
@@ -428,6 +441,12 @@ bool BaseChannel::SendPacket(bool rtcp,
     RTC_DLOG(LS_WARNING) << "Sending an " << (rtcp ? "RTCP" : "RTP")
                          << " packet without encryption for " << ToString()
                          << ".";
+  }
+
+  // Exclude probe packets (`is_retransmit`) from triggering the callback.
+  if (on_first_packet_sent_ && !options.is_retransmit) {
+    on_first_packet_sent_();
+    on_first_packet_sent_ = nullptr;
   }
 
   return rtcp ? rtp_transport_->SendRtcpPacket(packet, options, PF_SRTP_BYPASS)

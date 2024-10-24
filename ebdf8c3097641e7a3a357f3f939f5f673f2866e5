@@ -33,6 +33,24 @@
       "message": "Both branches look the same to me.",
       "revId": "ebdf8c3097641e7a3a357f3f939f5f673f2866e5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ee6d9666_9a9e4844",
+        "filename": "rtc_base/openssl_adapter.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 304,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-10-24T09:56:06Z",
+      "side": 1,
+      "message": "Good catch, thank you!",
+      "parentUuid": "8cdcc665_23ec817a",
+      "revId": "ebdf8c3097641e7a3a357f3f939f5f673f2866e5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7afa850e_7720f8fb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2024-10-24T07:24:21Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "bcbb8a16_02830cc3",
+      "range": {
+        "startLine": 9,
+        "startChar": 56,
+        "endLine": 9,
+        "endChar": 63
+      },
+      "revId": "6256e3a3af69419aece2a469788d1c995dceef50",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5bbb590f_a964802b",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-10-24T06:55:15Z",
       "side": 1,
       "message": "Where it falls back to SW on payload type change? Could you please add link to the code to the description?",
+      "range": {
+        "startLine": 10,
+        "startChar": 38,
+        "endLine": 11,
+        "endChar": 23
+      },
+      "revId": "6256e3a3af69419aece2a469788d1c995dceef50",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "539f5eaa_2f85fd3c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2024-10-24T07:24:21Z",
+      "side": 1,
+      "message": "the fallback code path is quite comboluted. It is happening because when we call Configure() on the VideoDecoderSoftwareWrapper, the InitHwDecoder() fails here:\n\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/api/video_codecs/video_decoder_software_fallback_wrapper.cc;l\u003d111;drc\u003d08efa89c7d73d72e6ebcddbf053c41a230dc1ba8;bpv\u003d0;bpt\u003d1\n\nBecause the impl_ is null here:\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/blink/renderer/platform/peerconnection/rtc_video_decoder_adapter.cc;l\u003d646?q\u003d%22if%20(!impl_)%22%20decoder\u0026ss\u003dchromium%2Fchromium%2Fsrc\n\nwhich seems to be reseted when we get the decoder on the VideoReceiver2::Decode()\n\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/modules/video_coding/video_receiver2.cc;l\u003d87;drc\u003d08efa89c7d73d72e6ebcddbf053c41a230dc1ba8;bpv\u003d1;bpt\u003d1\n\nas the decoder database release the unique_ptr of the previous decoder here:\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/modules/video_coding/decoder_database.cc;l\u003d98;drc\u003d08efa89c7d73d72e6ebcddbf053c41a230dc1ba8;bpv\u003d1;bpt\u003d1\n\nSo, long story short:\n\n- we receive AV1, then we create the av1 decoder and register it as external\n- we receive the H264 codec, and when we decode the fist packet, we delete the decoder instance, leaving the decoder wrapper in an inconsistent state\n- we receive AV1 again and we try to reuse the external decoder, which fails to configure and fallback to sw decoding\n\nwith the change, when we receive h264 we remove it from external decoders, so it has to be recreated again when we receive av1 again",
+      "parentUuid": "5bbb590f_a964802b",
       "range": {
         "startLine": 10,
         "startChar": 38,
@@ -83,6 +131,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0f68367a_193b4473",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2024-10-24T07:24:21Z",
+      "side": 1,
+      "message": "I tried, but I have not found any method that could provide observability about this functionality. Do you have any clue about how could the test look like?",
+      "parentUuid": "580d17f8_510461fe",
+      "revId": "6256e3a3af69419aece2a469788d1c995dceef50",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "21da0dc0_58d201c4",
         "filename": "video/video_receive_stream2.cc",
         "patchSetId": 1
@@ -94,6 +160,30 @@
       "writtenOn": "2024-10-24T06:55:15Z",
       "side": 1,
       "message": "Before there was a break after this call which limited number of created decoders to one. Now, after removing the break, more than one decoder can be created. Is this a safe change?",
+      "range": {
+        "startLine": 868,
+        "startChar": 8,
+        "endLine": 868,
+        "endChar": 40
+      },
+      "revId": "6256e3a3af69419aece2a469788d1c995dceef50",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c262a590_f8b1e39a",
+        "filename": "video/video_receive_stream2.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 868,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2024-10-24T07:24:21Z",
+      "side": 1,
+      "message": "There should be only one entry for each payloadtype, right?",
+      "parentUuid": "21da0dc0_58d201c4",
       "range": {
         "startLine": 868,
         "startChar": 8,

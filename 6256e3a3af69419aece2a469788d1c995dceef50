@@ -1,6 +1,52 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "bcbb8a16_02830cc3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2024-10-24T06:55:15Z",
+      "side": 1,
+      "message": "decoder?",
+      "range": {
+        "startLine": 9,
+        "startChar": 56,
+        "endLine": 9,
+        "endChar": 63
+      },
+      "revId": "6256e3a3af69419aece2a469788d1c995dceef50",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5bbb590f_a964802b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2024-10-24T06:55:15Z",
+      "side": 1,
+      "message": "Where it falls back to SW on payload type change? Could you please add link to the code to the description?",
+      "range": {
+        "startLine": 10,
+        "startChar": 38,
+        "endLine": 11,
+        "endChar": 23
+      },
+      "revId": "6256e3a3af69419aece2a469788d1c995dceef50",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "3abfd8f1_2d1657c1",
@@ -14,6 +60,46 @@
       "writtenOn": "2024-10-23T16:39:48Z",
       "side": 1,
       "message": "I am not exactly sure about the exact mechanism, but it seeem that the decoder database only allows a single decoder. So when the GetDecoder() is received, it removes the previous decoder, clearing the impl_ member of the wrapper.\n\nIf the payload type is changed, and then changed back, that cuases the decoder configuration to fail, switching back to sw decoding.",
+      "revId": "6256e3a3af69419aece2a469788d1c995dceef50",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "580d17f8_510461fe",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2024-10-24T06:55:15Z",
+      "side": 1,
+      "message": "Could you please add test for this change?",
+      "revId": "6256e3a3af69419aece2a469788d1c995dceef50",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "21da0dc0_58d201c4",
+        "filename": "video/video_receive_stream2.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 868,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2024-10-24T06:55:15Z",
+      "side": 1,
+      "message": "Before there was a break after this call which limited number of created decoders to one. Now, after removing the break, more than one decoder can be created. Is this a safe change?",
+      "range": {
+        "startLine": 868,
+        "startChar": 8,
+        "endLine": 868,
+        "endChar": 40
+      },
       "revId": "6256e3a3af69419aece2a469788d1c995dceef50",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

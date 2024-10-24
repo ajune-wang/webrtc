@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b43f8edb_85deb847",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-10-24T08:08:39Z",
+      "side": 1,
+      "message": "This one has to wait until we\u0027ve relanded the previoius CL.",
+      "revId": "874ffd7dfcde62c56c3ae24344e6ef095205d61a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

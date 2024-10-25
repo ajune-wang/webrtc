@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2556e287_619e079a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-10-25T12:55:06Z",
+      "side": 1,
+      "message": "This should be a do-nothing, but it might help figure out why Duo disliked my previous CL.",
+      "revId": "bdfd559c152c990ed527bffbce17fb9c75ef8766",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

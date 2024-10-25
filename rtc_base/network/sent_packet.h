@@ -44,6 +44,7 @@ struct RTC_EXPORT PacketInfo {
 
   bool included_in_feedback = false;
   bool included_in_allocation = false;
+  bool is_retransmit = false;
   PacketType packet_type = PacketType::kUnknown;
   PacketInfoProtocolType protocol = PacketInfoProtocolType::kUnknown;
   // A unique id assigned by the network manager, and std::nullopt if not set.

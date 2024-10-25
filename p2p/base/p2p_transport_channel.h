@@ -350,7 +350,7 @@ class RTC_EXPORT P2PTransportChannel : public IceTransportInternal,
 
   // Returns the latest remote ICE parameters or nullptr if there are no remote
   // ICE parameters yet.
-  IceParameters* remote_ice() {
+  const IceParameters* remote_ice() const {
     RTC_DCHECK_RUN_ON(network_thread_);
     return remote_ice_parameters_.empty() ? nullptr
                                           : &remote_ice_parameters_.back();
@@ -358,7 +358,7 @@ class RTC_EXPORT P2PTransportChannel : public IceTransportInternal,
   // Returns the remote IceParameters and generation that match `ufrag`
   // if found, and returns nullptr otherwise.
   const IceParameters* FindRemoteIceFromUfrag(absl::string_view ufrag,
-                                              uint32_t* generation);
+                                              uint32_t* generation) const;
   // Returns the index of the latest remote ICE parameters, or 0 if no remote
   // ICE parameters have been received.
   uint32_t remote_ice_generation() {

@@ -310,6 +310,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b3857638_6dbdb464",
+        "filename": "pc/rtp_sender.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 414,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-10-25T13:43:49Z",
+      "side": 1,
+      "message": "I actually think it would make sense to disallow setting the observer multiple times (RTC_DCHECK(!observer) in the setter).\nSetting it post-construction will skew the measurement if time elapses between the sending of the packet and setting the observer - ideally it would be passed at construction time.",
+      "parentUuid": "a46fb9ec_8fa7811e",
+      "revId": "eb5c96d2f4ec473489ddda1bd8050612425d4150",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2aa5bb02_3530f566",

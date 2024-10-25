@@ -63,6 +63,30 @@
       },
       "revId": "ca1599a0794718dd5ddc7c045cde5cb10bb320b3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3cb9eeb9_f1f6e8e1",
+        "filename": "modules/video_coding/codecs/av1/dav1d_decoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2024-10-25T11:36:21Z",
+      "side": 1,
+      "message": "anyway, happy to add a counter to protect us from potential bugs in dav1d if you feel so.",
+      "parentUuid": "9e031771_32cbc072",
+      "range": {
+        "startLine": 143,
+        "startChar": 6,
+        "endLine": 143,
+        "endChar": 37
+      },
+      "revId": "ca1599a0794718dd5ddc7c045cde5cb10bb320b3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

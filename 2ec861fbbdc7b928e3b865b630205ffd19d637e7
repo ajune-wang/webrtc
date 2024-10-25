@@ -39,6 +39,30 @@
       },
       "revId": "2ec861fbbdc7b928e3b865b630205ffd19d637e7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1bef86a5_626638d0",
+        "filename": "rtc_base/network/sent_packet.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2024-10-25T14:59:23Z",
+      "side": 1,
+      "message": "Renamed to is_media with a comment explaining that it excludes retransmissions. I\u0027ll change egress in a follow up cl (I guess we can discuss proper naming in that cl).",
+      "parentUuid": "8b25bb55_450cd5ee",
+      "range": {
+        "startLine": 47,
+        "startChar": 7,
+        "endLine": 47,
+        "endChar": 20
+      },
+      "revId": "2ec861fbbdc7b928e3b865b630205ffd19d637e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

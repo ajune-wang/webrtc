@@ -16,6 +16,69 @@
       "message": "I\u0027ll await review from the video experts.",
       "revId": "0fc06a8bb6a511f86193e412dde92cdc3207b1a2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "11186e86_dc4cbac8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2024-10-25T14:08:12Z",
+      "side": 1,
+      "message": "I would suggest splitting this into two CLs: 1) address TODO and 2) add H265 SVC.",
+      "revId": "0fc06a8bb6a511f86193e412dde92cdc3207b1a2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f870b54e_eb1499bc",
+        "filename": "api/video/rtp_video_frame_assembler.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2024-10-25T14:08:12Z",
+      "side": 1,
+      "message": "Could you please add test for this? Similar to RtpVideoFrameAssembler.{Vp8,Vp9,Av1}Packetization",
+      "range": {
+        "startLine": 69,
+        "startChar": 6,
+        "endLine": 69,
+        "endChar": 58
+      },
+      "revId": "0fc06a8bb6a511f86193e412dde92cdc3207b1a2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "758304c5_17e5447f",
+        "filename": "modules/rtp_rtcp/source/rtp_video_header.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2024-10-25T14:08:12Z",
+      "side": 1,
+      "message": "Let\u0027s get rid of this default and handle all VideoCodecType values explicitly. This will enforce people who add new codec types to handle them in places like this which they may overlook otherwise.",
+      "range": {
+        "startLine": 62,
+        "startChar": 4,
+        "endLine": 62,
+        "endChar": 11
+      },
+      "revId": "0fc06a8bb6a511f86193e412dde92cdc3207b1a2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

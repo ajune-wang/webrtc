@@ -88,6 +88,24 @@
       "parentUuid": "1a23e7fb_25cda68f",
       "revId": "96a11a01294eeb6516be07a0698e102618b44170",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "910d7ddc_cb25b3d1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2024-10-25T06:52:28Z",
+      "side": 1,
+      "message": "Updated. There are questions in https://issues.chromium.org/u/2/issues/375352614#comment2 you need to answer.",
+      "parentUuid": "e0485c0b_1d8d7a29",
+      "revId": "96a11a01294eeb6516be07a0698e102618b44170",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ],
   "submitRequirementResults": [

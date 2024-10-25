@@ -1,0 +1,140 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3e1e0a48_45a19f61",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-10-25T11:32:45Z",
+      "side": 1,
+      "message": "I don\u0027t think the documentation is good enough yet. Please explain what it is intended to do in the code comments.",
+      "revId": "eb5c96d2f4ec473489ddda1bd8050612425d4150",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a028ed8f_550f6ef7",
+        "filename": "api/rtp_sender_interface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-10-25T11:32:45Z",
+      "side": 1,
+      "message": "```suggestion\n  // they will all call OnFirstPacketSent at once.\n```",
+      "revId": "eb5c96d2f4ec473489ddda1bd8050612425d4150",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "97eabf79_4ec4bb1b",
+        "filename": "api/rtp_sender_interface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-10-25T11:32:45Z",
+      "side": 1,
+      "message": "This doesn\u0027t make sense. Is the comment copy/pasted from the receive API?\n\nIn particular, the first packet of *what* is sent?",
+      "revId": "eb5c96d2f4ec473489ddda1bd8050612425d4150",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "48be8b77_3267e8e3",
+        "filename": "api/rtp_sender_interface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-10-25T11:32:45Z",
+      "side": 1,
+      "message": "Please add text saying what the observer is supposed to observe.",
+      "revId": "eb5c96d2f4ec473489ddda1bd8050612425d4150",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "502fd50d_5c2ffac5",
+        "filename": "pc/channel.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 393,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-10-25T11:32:45Z",
+      "side": 1,
+      "message": "Is this comment a copy/paste error? It doesn\u0027t make sense in context.",
+      "revId": "eb5c96d2f4ec473489ddda1bd8050612425d4150",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "77f64027_df450827",
+        "filename": "pc/channel.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 450,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-10-25T11:32:45Z",
+      "side": 1,
+      "message": "This removes the need for a separate \"callback fired\" by deleting the reference to the observer. That should be documented in the .h file.",
+      "revId": "eb5c96d2f4ec473489ddda1bd8050612425d4150",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7591e1d7_efd17e6e",
+        "filename": "pc/rtp_sender.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 414,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-10-25T11:32:45Z",
+      "side": 1,
+      "message": "If the observer was already set, this will lead to both the old and the new observer being triggered. Shouldn\u0027t the OnFirstPacketSent be under \"if !_observer\"?",
+      "revId": "eb5c96d2f4ec473489ddda1bd8050612425d4150",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2aa5bb02_3530f566",
+        "filename": "pc/rtp_sender.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 424,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-10-25T11:32:45Z",
+      "side": 1,
+      "message": "It seems odd to delete the pointer in BaseChannel and have a separate sent_first_packet_ member here.",
+      "revId": "eb5c96d2f4ec473489ddda1bd8050612425d4150",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

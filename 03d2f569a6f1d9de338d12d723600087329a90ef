@@ -16,6 +16,29 @@
       "message": "PTAL",
       "revId": "03d2f569a6f1d9de338d12d723600087329a90ef",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0b147feb_9223d1ce",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1234,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2024-10-25T08:47:24Z",
+      "side": 1,
+      "message": "nit: prefer absl::c_sort when sorting the whole container.",
+      "range": {
+        "startLine": 1234,
+        "startChar": 2,
+        "endLine": 1234,
+        "endChar": 5
+      },
+      "revId": "03d2f569a6f1d9de338d12d723600087329a90ef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5cbfa8b1_e1141911",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2024-10-25T13:21:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cf41b033_b0991083",
+      "revId": "eb5c96d2f4ec473489ddda1bd8050612425d4150",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a028ed8f_550f6ef7",
@@ -48,6 +66,24 @@
       "writtenOn": "2024-10-25T11:32:45Z",
       "side": 1,
       "message": "```suggestion\n  // they will all call OnFirstPacketSent at once.\n```",
+      "revId": "eb5c96d2f4ec473489ddda1bd8050612425d4150",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0cc33db4_120bb63e",
+        "filename": "api/rtp_sender_interface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2024-10-25T13:21:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a028ed8f_550f6ef7",
       "revId": "eb5c96d2f4ec473489ddda1bd8050612425d4150",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -69,6 +105,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6fefdfbe_9602a9f6",
+        "filename": "api/rtp_sender_interface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2024-10-25T13:21:03Z",
+      "side": 1,
+      "message": "Yes it is copied. I think it makes sense for plan b, but not unified plan where we have a single sender per transceiver (IIUC). I guess we live in the future now :)\n\nI removed the comment since it doesn\u0027t seem like it is relevant anymore (I was unsure, which is why I kept it).",
+      "parentUuid": "97eabf79_4ec4bb1b",
+      "revId": "eb5c96d2f4ec473489ddda1bd8050612425d4150",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "48be8b77_3267e8e3",
@@ -82,6 +136,24 @@
       "writtenOn": "2024-10-25T11:32:45Z",
       "side": 1,
       "message": "Please add text saying what the observer is supposed to observe.",
+      "revId": "eb5c96d2f4ec473489ddda1bd8050612425d4150",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "94311d1b_2ad23179",
+        "filename": "api/rtp_sender_interface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2024-10-25T13:21:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "48be8b77_3267e8e3",
       "revId": "eb5c96d2f4ec473489ddda1bd8050612425d4150",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -109,6 +181,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a9b7f267_0603cfa5",
+        "filename": "media/base/media_channel_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2024-10-25T13:21:03Z",
+      "side": 1,
+      "message": "Good idea!",
+      "parentUuid": "184bcdcf_9920c642",
+      "range": {
+        "startLine": 223,
+        "startChar": 20,
+        "endLine": 223,
+        "endChar": 33
+      },
+      "revId": "eb5c96d2f4ec473489ddda1bd8050612425d4150",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "502fd50d_5c2ffac5",
@@ -122,6 +218,24 @@
       "writtenOn": "2024-10-25T11:32:45Z",
       "side": 1,
       "message": "Is this comment a copy/paste error? It doesn\u0027t make sense in context.",
+      "revId": "eb5c96d2f4ec473489ddda1bd8050612425d4150",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4bf595c8_1cb3d550",
+        "filename": "pc/channel.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 393,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2024-10-25T13:21:03Z",
+      "side": 1,
+      "message": "Ack. Yes it was copied.",
+      "parentUuid": "502fd50d_5c2ffac5",
       "revId": "eb5c96d2f4ec473489ddda1bd8050612425d4150",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -143,6 +257,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "663be72c_bf89a386",
+        "filename": "pc/channel.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 450,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2024-10-25T13:21:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "77f64027_df450827",
+      "revId": "eb5c96d2f4ec473489ddda1bd8050612425d4150",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7591e1d7_efd17e6e",
@@ -160,6 +292,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a46fb9ec_8fa7811e",
+        "filename": "pc/rtp_sender.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 414,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2024-10-25T13:21:03Z",
+      "side": 1,
+      "message": "I\u0027m not sure when it would make sense to set the observer multiple times?\n\nThe point of this logic is: If new observers are set after the first packet was already sent, the callback should still be invoked.",
+      "parentUuid": "7591e1d7_efd17e6e",
+      "revId": "eb5c96d2f4ec473489ddda1bd8050612425d4150",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2aa5bb02_3530f566",
@@ -173,6 +323,24 @@
       "writtenOn": "2024-10-25T11:32:45Z",
       "side": 1,
       "message": "It seems odd to delete the pointer in BaseChannel and have a separate sent_first_packet_ member here.",
+      "revId": "eb5c96d2f4ec473489ddda1bd8050612425d4150",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e9ea3fee_21d7042c",
+        "filename": "pc/rtp_sender.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 424,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2024-10-25T13:21:03Z",
+      "side": 1,
+      "message": "I don\u0027t quite understand the point about deleting the pointer (callback?) in BaseChannel. But sure, `sent_first_packet_` could be stored in BaseChannel. I implemented it the same way as first packet received for consistency. Feel free to suggest how you would like it to work instead.",
+      "parentUuid": "2aa5bb02_3530f566",
       "revId": "eb5c96d2f4ec473489ddda1bd8050612425d4150",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

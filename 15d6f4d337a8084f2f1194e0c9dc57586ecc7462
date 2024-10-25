@@ -34,6 +34,24 @@
       "parentUuid": "54fa9aee_61d1f498",
       "revId": "15d6f4d337a8084f2f1194e0c9dc57586ecc7462",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3241bbb6_ebd62638",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2024-10-25T13:21:03Z",
+      "side": 1,
+      "message": "AFAICT, yes retransmission is set here for both audio and video: http://google3/third_party/webrtc/files/stable/webrtc/modules/rtp_rtcp/source/rtp_sender.cc;l\u003d321;rcl\u003d689744252\n\nAlthough it would be strange to get a retransmission request before having sent a media packet first ;)",
+      "parentUuid": "a0900968_d49a34da",
+      "revId": "15d6f4d337a8084f2f1194e0c9dc57586ecc7462",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

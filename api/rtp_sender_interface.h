@@ -36,6 +36,20 @@
 
 namespace webrtc {
 
+class RtpSenderObserverInterface {
+ public:
+  // Note: Currently if there are multiple RtpSenders of the same media type,
+  // they will all call OnFirstPacketReceived at once.
+  //
+  // In the future, it's likely that an RtpSender will only call
+  // OnFirstPacketSent when a packet is received specifically for its
+  // SSRC/mid.
+  virtual void OnFirstPacketSent(cricket::MediaType media_type) = 0;
+
+ protected:
+  virtual ~RtpSenderObserverInterface() {}
+};
+
 using SetParametersCallback = absl::AnyInvocable<void(RTCError) &&>;
 
 class RTC_EXPORT RtpSenderInterface : public webrtc::RefCountInterface,
@@ -87,6 +101,10 @@ class RTC_EXPORT RtpSenderInterface : public webrtc::RefCountInterface,
   virtual RTCError SetParameters(const RtpParameters& parameters) = 0;
   virtual void SetParametersAsync(const RtpParameters& parameters,
                                   SetParametersCallback callback);
+
+  // Does not take ownership of observer.
+  // Must call SetObserver(nullptr) before the observer is destroyed.
+  virtual void SetObserver(RtpSenderObserverInterface* observer) {}
 
   // Returns null for a video sender.
   virtual rtc::scoped_refptr<DtmfSenderInterface> GetDtmfSender() const = 0;

@@ -58,6 +58,9 @@ struct RTC_EXPORT PacketOptions {
   // packets with different marking.
   bool ecn_1 = false;
 
+  // Whether this is a retransmission of an earlier packet or padding.
+  bool is_retransmit = false;
+
   // When used with RTP packets (for example, webrtc::PacketOptions), the value
   // should be 16 bits. A value of -1 represents "not set".
   int64_t packet_id = -1;

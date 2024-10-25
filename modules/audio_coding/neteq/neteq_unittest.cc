@@ -23,6 +23,8 @@
 #include "absl/flags/flag.h"
 #include "api/audio/audio_frame.h"
 #include "api/audio_codecs/builtin_audio_decoder_factory.h"
+#include "api/environment/environment_factory.h"
+#include "api/neteq/default_neteq_factory.h"
 #include "modules/audio_coding/codecs/pcm16b/pcm16b.h"
 #include "modules/audio_coding/neteq/test/neteq_decoding_test.h"
 #include "modules/audio_coding/neteq/tools/audio_loop.h"
@@ -31,6 +33,7 @@
 #include "modules/include/module_common_types_public.h"
 #include "modules/rtp_rtcp/include/rtcp_statistics.h"
 #include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
+#include "rtc_base/checks.h"
 #include "rtc_base/message_digest.h"
 #include "rtc_base/numerics/safe_conversions.h"
 #include "rtc_base/strings/string_builder.h"
@@ -42,6 +45,66 @@
 ABSL_FLAG(bool, gen_ref, false, "Generate reference files.");
 
 namespace webrtc {
+
+TEST(NetEqStereoDecodingTest, CheckTrivialStereo) {
+  const std::string rtp_file =
+      webrtc::test::ResourcePath("audio_coding/neteq_opus", "rtp");
+  std::unique_ptr<test::RtpFileSource> rtp_source(
+      test::RtpFileSource::Create(rtp_file));
+
+  SimulatedClock clock(0);
+  const Environment env = CreateEnvironment(&clock);
+  NetEq::Config config;
+  std::unique_ptr<NetEq> neteq = DefaultNetEqFactory().Create(
+      env, config, CreateBuiltinAudioDecoderFactory());
+  ASSERT_TRUE(neteq);
+  NetEqNetworkStatistics stat;
+  ASSERT_EQ(0, neteq->NetworkStatistics(&stat));
+
+  // Add decoder Opus; configure to decode stereo.
+  ASSERT_EQ(true,
+            neteq->RegisterPayloadType(
+                111, SdpAudioFormat("opus", 48000, 2, {{"stereo", "1"}})));
+
+  // Insert and decode packets.
+  constexpr int kAudioFrameDurationMs = 10;
+  constexpr int kPacketDurationMs = 20;
+  AudioFrame out_frame;
+  while (true) {
+    auto packet = rtp_source->NextPacket();
+    if (!packet)
+      break;
+    if (packet->payload_length_bytes() == 0)
+      continue;
+
+    ASSERT_EQ(0, neteq->InsertPacket(
+                     packet->header(),
+                     rtc::ArrayView<const uint8_t>(
+                         packet->payload(), packet->payload_length_bytes()),
+                     clock.CurrentTime()));
+
+    // Assume that the inserted packet is a 20 ms one.
+    constexpr int kAudioFramesToDecode =
+        kPacketDurationMs / kAudioFrameDurationMs;
+    for (int i = 0; i < kAudioFramesToDecode; ++i) {
+      bool muted;
+      neteq->GetAudio(&out_frame, &muted);
+
+      // Check that the audio has been decoded as stereo.
+      ASSERT_EQ(out_frame.num_channels(), 2u);
+
+      // Check that `out_frame` is trivially stereo.
+      InterleavedView<const int16_t> interleaved_view = out_frame.data_view();
+      auto samples_view = interleaved_view.data();
+      ASSERT_EQ(interleaved_view.num_channels(), 2u);
+      for (size_t i = 0; i < samples_view.size(); i += 2) {
+        ASSERT_EQ(samples_view[i], samples_view[i + 1]);
+      }
+    }
+
+    clock.AdvanceTimeMilliseconds(kPacketDurationMs);
+  }
+}
 
 #if defined(WEBRTC_LINUX) && defined(WEBRTC_ARCH_X86_64) &&         \
     defined(WEBRTC_NETEQ_UNITTEST_BITEXACT) &&                      \

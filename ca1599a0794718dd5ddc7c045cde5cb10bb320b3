@@ -16,6 +16,29 @@
       "message": "Not sure of what causes it, but I am getting a situtation in which video decoding freezes when using dav1d decoder because dav1d_send_data is returning EAGAIN and we are not draining any pending frames.",
       "revId": "ca1599a0794718dd5ddc7c045cde5cb10bb320b3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0a9fdf4d_2e2cc896",
+        "filename": "modules/video_coding/codecs/av1/dav1d_decoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2024-10-25T11:14:14Z",
+      "side": 1,
+      "message": "Looks like a potential for a dead loop. Should we limit max number of attempts and log an error when the limit is reached?",
+      "range": {
+        "startLine": 143,
+        "startChar": 6,
+        "endLine": 143,
+        "endChar": 37
+      },
+      "revId": "ca1599a0794718dd5ddc7c045cde5cb10bb320b3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

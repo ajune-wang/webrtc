@@ -106,6 +106,24 @@
       "parentUuid": "e0485c0b_1d8d7a29",
       "revId": "96a11a01294eeb6516be07a0698e102618b44170",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b594e0ca_bcef3f7a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2024-10-25T13:12:00Z",
+      "side": 1,
+      "message": "Done (to the best of my knowledge)\n\n@lishunbo@agora.io could you verify that the patch merged in canary actually solves the issue so we can merge it to 131 beta?",
+      "parentUuid": "910d7ddc_cb25b3d1",
+      "revId": "96a11a01294eeb6516be07a0698e102618b44170",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ],
   "submitRequirementResults": [

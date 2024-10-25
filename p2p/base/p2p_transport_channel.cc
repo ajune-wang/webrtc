@@ -462,7 +462,7 @@ void P2PTransportChannel::SetRemoteIceParameters(
   RTC_LOG(LS_INFO) << "Received remote ICE parameters: ufrag="
                    << ice_params.ufrag << ", renomination "
                    << (ice_params.renomination ? "enabled" : "disabled");
-  IceParameters* current_ice = remote_ice();
+  const IceParameters* current_ice = remote_ice();
   if (!current_ice || *current_ice != ice_params) {
     // Keep the ICE credentials so that newer connections
     // are prioritized over the older ones.
@@ -2269,8 +2269,11 @@ Candidate P2PTransportChannel::SanitizeRemoteCandidate(
   // Remove the address for prflx remote candidates. See
   // https://w3c.github.io/webrtc-stats/#dom-rtcicecandidatestats.
   use_hostname_address |= c.is_prflx();
+  // Filter remote ufrag of peer-reflexive candidates before any ICE parameters
+  // are known.
+  bool filter_ufrag = remote_ice() == nullptr && c.is_prflx();
   return c.ToSanitizedCopy(use_hostname_address,
-                           false /* filter_related_address */);
+                           false /* filter_related_address */, filter_ufrag);
 }
 
 void P2PTransportChannel::LogCandidatePairConfig(

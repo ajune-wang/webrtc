@@ -350,7 +350,7 @@ class RTC_EXPORT P2PTransportChannel : public IceTransportInternal,
 
   // Returns the latest remote ICE parameters or nullptr if there are no remote
   // ICE parameters yet.
-  IceParameters* remote_ice() {
+  const IceParameters* remote_ice() const {
     RTC_DCHECK_RUN_ON(network_thread_);
     return remote_ice_parameters_.empty() ? nullptr
                                           : &remote_ice_parameters_.back();

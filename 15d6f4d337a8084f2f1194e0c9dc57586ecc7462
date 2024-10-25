@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "54fa9aee_61d1f498",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2024-10-25T11:08:33Z",
+      "side": 1,
+      "message": "hta: for overall review.\nperkj: can you check if my assumptions about the probe packets are correct and makes sense.",
+      "revId": "15d6f4d337a8084f2f1194e0c9dc57586ecc7462",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

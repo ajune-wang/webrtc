@@ -20,6 +20,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e35b8da3_bd57af96",
+        "filename": "modules/video_coding/codecs/av1/dav1d_decoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2024-10-25T11:55:11Z",
+      "side": 1,
+      "message": "Do we expected decoder to actually deliver frames here? If yes, should we pass them to decode_complete_callback_-\u003eDecoded()?",
+      "range": {
+        "startLine": 142,
+        "startChar": 26,
+        "endLine": 142,
+        "endChar": 43
+      },
+      "revId": "ca1599a0794718dd5ddc7c045cde5cb10bb320b3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0a9fdf4d_2e2cc896",
         "filename": "modules/video_coding/codecs/av1/dav1d_decoder.cc",
         "patchSetId": 1
@@ -79,6 +102,30 @@
       "side": 1,
       "message": "anyway, happy to add a counter to protect us from potential bugs in dav1d if you feel so.",
       "parentUuid": "9e031771_32cbc072",
+      "range": {
+        "startLine": 143,
+        "startChar": 6,
+        "endLine": 143,
+        "endChar": 37
+      },
+      "revId": "ca1599a0794718dd5ddc7c045cde5cb10bb320b3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b96e6ea0_5350a011",
+        "filename": "modules/video_coding/codecs/av1/dav1d_decoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2024-10-25T11:55:11Z",
+      "side": 1,
+      "message": "I think it would be good to have this protection.",
+      "parentUuid": "3cb9eeb9_f1f6e8e1",
       "range": {
         "startLine": 143,
         "startChar": 6,

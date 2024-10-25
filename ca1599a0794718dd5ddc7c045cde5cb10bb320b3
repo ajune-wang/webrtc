@@ -39,6 +39,30 @@
       },
       "revId": "ca1599a0794718dd5ddc7c045cde5cb10bb320b3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9e031771_32cbc072",
+        "filename": "modules/video_coding/codecs/av1/dav1d_decoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2024-10-25T11:32:12Z",
+      "side": 1,
+      "message": "get_picture_res will only be 0 if dav1d_get_picture if operation is success, and a frame is returned, so I don\u0027t think it can dead loop.\n\nAlso note that this is the documented way of draining frames on EOS: \n\n```\n// Handle EOS by draining all buffered frames.\ndo {\n    res \u003d dav1d_get_picture(c, \u0026p);\n    if (res \u003c 0) {\n        if (res !\u003d DAV1D_ERR(EAGAIN))\n            free_and_abort();\n    } else\n        output_and_unref_picture(\u0026p);\n} while (res \u003d\u003d 0);\n```\n\nhttps://videolan.videolan.me/dav1d/dav1d_8h.html#a231e6aa679d5e46fcdac7546f03a6506",
+      "parentUuid": "0a9fdf4d_2e2cc896",
+      "range": {
+        "startLine": 143,
+        "startChar": 6,
+        "endLine": 143,
+        "endChar": 37
+      },
+      "revId": "ca1599a0794718dd5ddc7c045cde5cb10bb320b3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

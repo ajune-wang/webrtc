@@ -25,6 +25,8 @@
 namespace webrtc {
 namespace {
 
+constexpr size_t kMaxDrainCount = 64;
+
 class Dav1dDecoder : public VideoDecoder {
  public:
   Dav1dDecoder();
@@ -132,10 +134,26 @@ int32_t Dav1dDecoder::Decode(const EncodedImage& encoded_image,
                   /*user_data=*/nullptr);
 
   if (int decode_res = dav1d_send_data(context_, &dav1d_data)) {
-    RTC_LOG(LS_WARNING)
-        << "Dav1dDecoder::Decode decoding failed with error code "
-        << decode_res;
-    return WEBRTC_VIDEO_CODEC_ERROR;
+    // Drain any pending frames.
+    if (decode_res == DAV1D_ERR(EAGAIN)) {
+      int get_picture_res;
+      size_t drain_count = 0;
+      do {
+        rtc::scoped_refptr<ScopedDav1dPicture> scoped_dav1d_picture(
+            new ScopedDav1dPicture{});
+        Dav1dPicture& dav1d_picture = scoped_dav1d_picture->Picture();
+        get_picture_res = dav1d_get_picture(context_, &dav1d_picture);
+      } while (get_picture_res == 0 && drain_count++ < kMaxDrainCount);
+      // Try again after drain.
+      decode_res = dav1d_send_data(context_, &dav1d_data);
+    }
+
+    if (decode_res) {
+      RTC_LOG(LS_WARNING)
+          << "Dav1dDecoder::Decode decoding failed with error code "
+          << decode_res;
+      return WEBRTC_VIDEO_CODEC_ERROR;
+    }
   }
 
   rtc::scoped_refptr<ScopedDav1dPicture> scoped_dav1d_picture(

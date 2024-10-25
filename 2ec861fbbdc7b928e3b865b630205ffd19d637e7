@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8927d382_f0c0431d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2024-10-25T14:41:31Z",
+      "side": 1,
+      "message": "lgtm % if you consider my proposal.",
+      "revId": "2ec861fbbdc7b928e3b865b630205ffd19d637e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8b25bb55_450cd5ee",
+        "filename": "rtc_base/network/sent_packet.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2024-10-25T14:41:31Z",
+      "side": 1,
+      "message": "After code searching, it looks like it would be trivial to change RtpSenderEgress::CompleteSendPacket \nand this can then be is_(new)_media instead.\n\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/modules/rtp_rtcp/source/rtp_sender_egress.cc;drc\u003da1ed3062934ae1b42f30f47bee72ac9d9a9b76ba;l\u003d285\n\nCan you fix both or at least this new usage?  Probably dont want to change the existing in this cl.",
+      "range": {
+        "startLine": 47,
+        "startChar": 7,
+        "endLine": 47,
+        "endChar": 20
+      },
+      "revId": "2ec861fbbdc7b928e3b865b630205ffd19d637e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

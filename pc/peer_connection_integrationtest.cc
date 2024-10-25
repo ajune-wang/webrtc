@@ -4051,6 +4051,7 @@ TEST_F(PeerConnectionIntegrationTestUnifiedPlan,
             PeerConnectionInterface::kHaveRemotePrAnswer);
   ASSERT_EQ(callee()->pc()->signaling_state(),
             PeerConnectionInterface::kStable);
+  RTC_LOG(LS_ERROR) << "DEBUG: First SDP: " << *answer;
 
   // Now scramble the answer sdp so that it (really!) different from the first
   // prAnswer.
@@ -4059,6 +4060,7 @@ TEST_F(PeerConnectionIntegrationTestUnifiedPlan,
   ASSERT_GT(ReassignPayloadIds(answer), 0);
   SetNewFingerprint(answer);
 
+  RTC_LOG(LS_ERROR) << "DEBUG: Scrambled SDP: " << *answer;
   // Apply the modified answer as a definitive one.
   EXPECT_TRUE(caller()->SetRemoteDescription(std::move(answer)));
   EXPECT_EQ(caller()->pc()->signaling_state(),

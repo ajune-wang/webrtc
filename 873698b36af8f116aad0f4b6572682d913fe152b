@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "575cd0f9_86c150af",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 12094
+      },
+      "writtenOn": "2024-10-25T10:19:29Z",
+      "side": 1,
+      "message": "This CL is a dependency of https://chromium-review.googlesource.com/c/chromium/src/+/5963917, which fix the scalability modes issue mentioned [here](https://issues.webrtc.org/issues/41480904#comment122). Please take a look, thanks.",
+      "revId": "873698b36af8f116aad0f4b6572682d913fe152b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

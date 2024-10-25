@@ -319,7 +319,8 @@ Candidate PortAllocator::SanitizeCandidate(const Candidate& c) const {
       ((c.is_stun() && filter_stun_related_address) ||
        (c.is_relay() && filter_turn_related_address) ||
        (c.is_prflx() && filter_prflx_related_address));
-  return c.ToSanitizedCopy(use_hostname_address, filter_related_address);
+  return c.ToSanitizedCopy(use_hostname_address, filter_related_address,
+                           /*filter_ufrag=*/false);
 }
 
 }  // namespace cricket

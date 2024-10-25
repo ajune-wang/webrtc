@@ -16,6 +16,24 @@
       "message": "hta: for overall review.\nperkj: can you check if my assumptions about the probe packets are correct and makes sense.",
       "revId": "15d6f4d337a8084f2f1194e0c9dc57586ecc7462",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a0900968_d49a34da",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2024-10-25T11:41:32Z",
+      "side": 1,
+      "message": "Seems to come from RtpSenderEgress::CompleteSendPacket. Have you verified that audio retransmitted packets is correctly marked?",
+      "parentUuid": "54fa9aee_61d1f498",
+      "revId": "15d6f4d337a8084f2f1194e0c9dc57586ecc7462",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

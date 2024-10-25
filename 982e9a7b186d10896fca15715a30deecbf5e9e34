@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f8e4a78_2a339e4e",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 823,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2024-10-25T07:58:35Z",
+      "side": 1,
+      "message": "suggest naming send_rate_of_max_loss_observation",
+      "range": {
+        "startLine": 823,
+        "startChar": 11,
+        "endLine": 823,
+        "endChar": 27
+      },
+      "revId": "982e9a7b186d10896fca15715a30deecbf5e9e34",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e1abcc13_fe21c5d5",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1170,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2024-10-25T07:58:35Z",
+      "side": 1,
+      "message": "too long?",
+      "range": {
+        "startLine": 1170,
+        "startChar": 36,
+        "endLine": 1170,
+        "endChar": 39
+      },
+      "revId": "982e9a7b186d10896fca15715a30deecbf5e9e34",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "93d73088_9fa8049c",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1849,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2024-10-25T07:58:35Z",
+      "side": 1,
+      "message": "Suggest adding the case when it should not ignore loss spike in the name of the test. \nUseBytelossRateDoesNotIgnoreSpikeLossOnSendBurst ?",
+      "range": {
+        "startLine": 1849,
+        "startChar": 27,
+        "endLine": 1849,
+        "endChar": 64
+      },
+      "revId": "982e9a7b186d10896fca15715a30deecbf5e9e34",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

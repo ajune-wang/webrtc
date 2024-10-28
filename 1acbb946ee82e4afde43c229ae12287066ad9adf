@@ -104,6 +104,24 @@
       "parentUuid": "41ee0b13_4380708d",
       "revId": "1acbb946ee82e4afde43c229ae12287066ad9adf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ea737142_1e163696",
+        "filename": "AUTHORS",
+        "patchSetId": 1
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2024-10-28T12:53:48Z",
+      "side": 1,
+      "message": "go to the 3 vertical dots icon on the top right of this page, below your profile pic. I can\u0027t create the cherry pick because I am not the owner of this CL and I don\u0027t have rights to override the author.",
+      "parentUuid": "a9d487aa_a6477536",
+      "revId": "1acbb946ee82e4afde43c229ae12287066ad9adf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

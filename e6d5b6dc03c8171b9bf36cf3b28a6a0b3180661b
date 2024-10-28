@@ -16,6 +16,24 @@
       "message": "this is a local private function. if parameter is unused, then likely it should be just removed.\n\nBut in spirit of relying more on automated tools I do not mind if such cleanup would happen some time later.",
       "revId": "e6d5b6dc03c8171b9bf36cf3b28a6a0b3180661b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3b0b16b1_1a9662ab",
+        "filename": "media/engine/webrtc_voice_engine.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 19769
+      },
+      "writtenOn": "2024-10-28T14:17:45Z",
+      "side": 1,
+      "message": "Totally agree.\nI started by doing those validations and whenever possible actually remove the unused params.\nBut it doesn\u0027t scale real good if our goal is to add the compilation flag asap.\nI do want to get back to all of those commits and remove params that are completely removable instead of commenting them out, so I think we\u0027re aligned here.",
+      "parentUuid": "d3fbd4ad_56d6c18a",
+      "revId": "e6d5b6dc03c8171b9bf36cf3b28a6a0b3180661b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

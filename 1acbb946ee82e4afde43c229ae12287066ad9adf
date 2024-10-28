@@ -68,6 +68,24 @@
       "parentUuid": "14b052bd_b9b7825b",
       "revId": "1acbb946ee82e4afde43c229ae12287066ad9adf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "41ee0b13_4380708d",
+        "filename": "AUTHORS",
+        "patchSetId": 1
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2024-10-28T08:20:35Z",
+      "side": 1,
+      "message": "@ssilkin@chromium.org I can\u0027t create a merge request from this CL as i get the following error:\n\nCould not perform action: invalid author:\n  email address lishunbo@shengwang.cn is not registered in your account, and you lack \u0027forge author\u0027 permission.\n  \n  \n@lishunbo@agora.io is it something you could do? if I understood the instuctions properly just go to the 3 dots of this CL, choose cherry pick and use branch: refs/branch-heads/6778 adding the webrtc:375352614 to the cl issue.",
+      "parentUuid": "5684feab_9722a5e7",
+      "revId": "1acbb946ee82e4afde43c229ae12287066ad9adf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b823377f_308cd360",
+        "filename": "modules/audio_coding/neteq/neteq_network_stats_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-28T14:17:41Z",
+      "side": 1,
+      "message": "```suggestion\n                    size_t /* encoded_len */) const override {\n```",
+      "range": {
+        "startLine": 102,
+        "startChar": 27,
+        "endLine": 102,
+        "endChar": 45
+      },
+      "revId": "327d07d420e8863e302b4ec4664080f73628db03",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

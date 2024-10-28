@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "713a0216_3b2c5c1d",
+        "filename": "api/peer_connection_interface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 1320,
+      "author": {
+        "id": 19769
+      },
+      "writtenOn": "2024-10-28T10:37:49Z",
+      "side": 1,
+      "message": "I wrote an automation to do that for me (add the compilation flag, autoninja, pick the error lines, `sort -u` the errors, comment the unused variables)\nI\u0027m manually auditing the changes for variables that should be annotated with `maybe_unused` instead of commenting them out, but other than that I rely on the automation and local builds/bots\nSo I\u0027m assuming this is because the errors about those variables didn\u0027t occur after each other following the `sort -u`.\nI can add it here \\ it will appear in a later CL.\nGiven the amount of errors left (1100+-) and that the automation is fixing 75 errors at a time (don\u0027t want to bloat the CLs) there\u0027re 15~ CLs left\n\nAny preference?",
+      "parentUuid": "788f65e9_26ae5583",
+      "range": {
+        "startLine": 1318,
+        "startChar": 34,
+        "endLine": 1320,
+        "endChar": 64
+      },
+      "revId": "c33208255903496678e8863f5636084d1026fbfb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "83539dee_d846bbdc",
         "filename": "logging/rtc_event_log/events/rtc_event_generic_packet_sent.h",
         "patchSetId": 2
@@ -37,6 +61,30 @@
       "writtenOn": "2024-10-28T10:12:47Z",
       "side": 1,
       "message": "last parameter looks unused too, why is it not commented out?",
+      "range": {
+        "startLine": 97,
+        "startChar": 44,
+        "endLine": 97,
+        "endChar": 50
+      },
+      "revId": "c33208255903496678e8863f5636084d1026fbfb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3a0458ac_b7c0a2f5",
+        "filename": "logging/rtc_event_log/events/rtc_event_generic_packet_sent.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 19769
+      },
+      "writtenOn": "2024-10-28T10:37:49Z",
+      "side": 1,
+      "message": "Same comment as above",
+      "parentUuid": "83539dee_d846bbdc",
       "range": {
         "startLine": 97,
         "startChar": 44,

@@ -86,6 +86,24 @@
       "parentUuid": "5684feab_9722a5e7",
       "revId": "1acbb946ee82e4afde43c229ae12287066ad9adf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a9d487aa_a6477536",
+        "filename": "AUTHORS",
+        "patchSetId": 1
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 22924
+      },
+      "writtenOn": "2024-10-28T10:12:40Z",
+      "side": 1,
+      "message": "@sergio.garcia.murillo@gmail.com I can\u0027t see any cherry-pick related options on my side either.\nAdditionally, I have switched my current email suffix to the one used for submitting code. Please try again.",
+      "parentUuid": "41ee0b13_4380708d",
+      "revId": "1acbb946ee82e4afde43c229ae12287066ad9adf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

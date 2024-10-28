@@ -16,6 +16,23 @@
       "message": "can you please also add\nchromium:375352614",
       "revId": "e1b286758d8558ebabdc97855e6d3766c00a91ca",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "05297da8_443dc6f6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-28T14:47:33Z",
+      "side": 1,
+      "message": "Erik, do you mind to give a 2nd approval while Sergey OOO",
+      "revId": "e1b286758d8558ebabdc97855e6d3766c00a91ca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

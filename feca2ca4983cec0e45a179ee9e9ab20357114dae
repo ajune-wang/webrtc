@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1f640b57_3f25d420",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-10-28T08:38:02Z",
+      "side": 1,
+      "message": "we can wait a bit before merging so the spec has a proper resolution",
+      "revId": "feca2ca4983cec0e45a179ee9e9ab20357114dae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

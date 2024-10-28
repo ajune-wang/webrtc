@@ -118,32 +118,38 @@ class TestAudioDevice : public AudioDeviceGeneric {
   }
   int32_t SetMicrophoneVolume(uint32_t /* volume */) override { return 0; }
   int32_t MicrophoneVolume(uint32_t& /* volume */) const override { return 0; }
-  int32_t MaxMicrophoneVolume(uint32_t& maxVolume) const override { return 0; }
-  int32_t MinMicrophoneVolume(uint32_t& minVolume) const override { return 0; }
+  int32_t MaxMicrophoneVolume(uint32_t& /* maxVolume */) const override {
+    return 0;
+  }
+  int32_t MinMicrophoneVolume(uint32_t& /* minVolume */) const override {
+    return 0;
+  }
 
   // Speaker mute control
-  int32_t SpeakerMuteIsAvailable(bool& available) override { return 0; }
-  int32_t SetSpeakerMute(bool enable) override { return 0; }
-  int32_t SpeakerMute(bool& enabled) const override { return 0; }
+  int32_t SpeakerMuteIsAvailable(bool& /* available */) override { return 0; }
+  int32_t SetSpeakerMute(bool /* enable */) override { return 0; }
+  int32_t SpeakerMute(bool& /* enabled */) const override { return 0; }
 
   // Microphone mute control
-  int32_t MicrophoneMuteIsAvailable(bool& available) override { return 0; }
-  int32_t SetMicrophoneMute(bool enable) override { return 0; }
-  int32_t MicrophoneMute(bool& enabled) const override { return 0; }
+  int32_t MicrophoneMuteIsAvailable(bool& /* available */) override {
+    return 0;
+  }
+  int32_t SetMicrophoneMute(bool /* enable */) override { return 0; }
+  int32_t MicrophoneMute(bool& /* enabled */) const override { return 0; }
 
   // Stereo support
   int32_t StereoPlayoutIsAvailable(bool& available) override {
     available = false;
     return 0;
   }
-  int32_t SetStereoPlayout(bool enable) override { return 0; }
-  int32_t StereoPlayout(bool& enabled) const override { return 0; }
+  int32_t SetStereoPlayout(bool /* enable */) override { return 0; }
+  int32_t StereoPlayout(bool& /* enabled */) const override { return 0; }
   int32_t StereoRecordingIsAvailable(bool& available) override {
     available = false;
     return 0;
   }
-  int32_t SetStereoRecording(bool enable) override { return 0; }
-  int32_t StereoRecording(bool& enabled) const override { return 0; }
+  int32_t SetStereoRecording(bool /* enable */) override { return 0; }
+  int32_t StereoRecording(bool& /* enabled */) const override { return 0; }
 
   // Delay information and control
   int32_t PlayoutDelay(uint16_t& delayMS) const override {
@@ -157,9 +163,9 @@ class TestAudioDevice : public AudioDeviceGeneric {
   bool BuiltInNSIsAvailable() const override { return false; }
 
   // Windows Core Audio and Android only.
-  int32_t EnableBuiltInAEC(bool enable) override { return -1; }
-  int32_t EnableBuiltInAGC(bool enable) override { return -1; }
-  int32_t EnableBuiltInNS(bool enable) override { return -1; }
+  int32_t EnableBuiltInAEC(bool /* enable */) override { return -1; }
+  int32_t EnableBuiltInAGC(bool /* enable */) override { return -1; }
+  int32_t EnableBuiltInNS(bool /* enable */) override { return -1; }
 
   // Play underrun count.
   int32_t GetPlayoutUnderrunCount() const override { return -1; }

@@ -142,8 +142,8 @@ TEST(TaskQueuePacedSenderTest, PacesPackets) {
   size_t packets_sent = 0;
   Timestamp end_time = Timestamp::PlusInfinity();
   EXPECT_CALL(packet_router, SendPacket)
-      .WillRepeatedly([&](std::unique_ptr<RtpPacketToSend> packet,
-                          const PacedPacketInfo& cluster_info) {
+      .WillRepeatedly([&](std::unique_ptr<RtpPacketToSend> /* packet */,
+                          const PacedPacketInfo& /* cluster_info */) {
         ++packets_sent;
         if (packets_sent == kPacketsToSend) {
           end_time = time_controller.GetClock()->CurrentTime();

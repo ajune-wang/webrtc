@@ -419,7 +419,7 @@ void DelayBasedBweTest::RateIncreaseRtpTimestampsTestHelper(
 
 void DelayBasedBweTest::CapacityDropTestHelper(
     int number_of_streams,
-    bool wrap_time_stamp,
+    bool /* wrap_time_stamp */,
     uint32_t expected_bitrate_drop_delta,
     int64_t receiver_clock_offset_change_ms) {
   const int kFramerate = 30;

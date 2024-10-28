@@ -22,6 +22,30 @@
       },
       "revId": "58ff095f10493ce51d36c9cc72b20f4d6660a134",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "23a47bf0_3e2e74a4",
+        "filename": "api/call/transport.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2024-10-28T12:34:25Z",
+      "side": 1,
+      "message": "I don\u0027t think it matters since it\u0027s only set in sender_egress. But I can change it to true just in case.",
+      "parentUuid": "46db15ca_df59ea6e",
+      "range": {
+        "startLine": 31,
+        "startChar": 18,
+        "endLine": 31,
+        "endChar": 23
+      },
+      "revId": "58ff095f10493ce51d36c9cc72b20f4d6660a134",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

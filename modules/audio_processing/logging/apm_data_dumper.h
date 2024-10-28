@@ -190,7 +190,7 @@ class ApmDataDumper {
 #endif
   }
 
-  /* v */ oid DumpRaw(absl::string_ /* v */ iew /* name */,
+  /* v */ oid DumpRaw(absl::string_ /* v */ /* iew */ /* name */,
                       bool /* v */,
                       int /* dump_set */ = kDefaultDumpSet) {
 #if WEBRTC_APM_DEBUG_DUMP == 1
@@ -250,8 +250,8 @@ class ApmDataDumper {
 
   void DumpRaw(absl::string_view /* name */,
                size_t /* v_length */,
-               const int16_t* v,
-               int dump_set = kDefaultDumpSet) {
+               const int16_t* /* v */,
+               int /* dump_set */ = kDefaultDumpSet) {
 #if WEBRTC_APM_DEBUG_DUMP == 1
     if (dump_set_to_use_ && *dump_set_to_use_ != dump_set)
       return;
@@ -263,9 +263,9 @@ class ApmDataDumper {
 #endif
   }
 
-  void DumpRaw(absl::string_view name,
-               rtc::ArrayView<const int16_t> v,
-               int dump_set = kDefaultDumpSet) {
+  void DumpRaw(absl::string_view /* name */,
+               rtc::ArrayView<const int16_t> /* v */,
+               int /* dump_set */ = kDefaultDumpSet) {
 #if WEBRTC_APM_DEBUG_DUMP == 1
     if (dump_set_to_use_ && *dump_set_to_use_ != dump_set)
       return;
@@ -276,9 +276,9 @@ class ApmDataDumper {
 #endif
   }
 
-  void DumpRaw(absl::string_view name,
-               int32_t v,
-               int dump_set = kDefaultDumpSet) {
+  void DumpRaw(absl::string_view /* name */,
+               int32_t /* v */,
+               int /* dump_set */ = kDefaultDumpSet) {
 #if WEBRTC_APM_DEBUG_DUMP == 1
     if (dump_set_to_use_ && *dump_set_to_use_ != dump_set)
       return;
@@ -290,10 +290,10 @@ class ApmDataDumper {
 #endif
   }
 
-  void DumpRaw(absl::string_view name,
-               size_t v_length,
-               const int32_t* v,
-               int dump_set = kDefaultDumpSet) {
+  void DumpRaw(absl::string_view /* name */,
+               size_t /* v_length */,
+               const int32_t* /* v */,
+               int /* dump_set */ = kDefaultDumpSet) {
 #if WEBRTC_APM_DEBUG_DUMP == 1
     if (dump_set_to_use_ && *dump_set_to_use_ != dump_set)
       return;
@@ -305,9 +305,9 @@ class ApmDataDumper {
 #endif
   }
 
-  void DumpRaw(absl::string_view name,
-               size_t v,
-               int dump_set = kDefaultDumpSet) {
+  void DumpRaw(absl::string_view /* name */,
+               size_t /* v */,
+               int /* dump_set */ = kDefaultDumpSet) {
 #if WEBRTC_APM_DEBUG_DUMP == 1
     if (dump_set_to_use_ && *dump_set_to_use_ != dump_set)
       return;
@@ -319,7 +319,7 @@ class ApmDataDumper {
 #endif
   }
 
-  void DumpRaw(absl::string_view name,
+  void DumpRaw(absl::string_view /* name */,
                size_t v_length,
                const size_t* v,
                int dump_set = kDefaultDumpSet) {

@@ -122,6 +122,24 @@
       "parentUuid": "a9d487aa_a6477536",
       "revId": "1acbb946ee82e4afde43c229ae12287066ad9adf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2cd66d6a_01ee1833",
+        "filename": "AUTHORS",
+        "patchSetId": 1
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 22924
+      },
+      "writtenOn": "2024-10-28T14:03:48Z",
+      "side": 1,
+      "message": "Thank you! I\u0027m not very familiar with this Gerrit system yet. I just found the cherry-pick button and have already created a new PR, which is waiting to be merged.\n\nhttps://webrtc-review.googlesource.com/c/src/+/366900",
+      "parentUuid": "ea737142_1e163696",
+      "revId": "1acbb946ee82e4afde43c229ae12287066ad9adf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

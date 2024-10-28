@@ -48,6 +48,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ee897a1d_b901028b",
+        "filename": "api/peer_connection_interface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 1320,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-28T10:44:53Z",
+      "side": 1,
+      "message": "I just was wondering if there is a bug in the automation that overlooks this for some reason.\nBut it seems it is just limitation that doesn\u0027t update all parameters at the same time.\nI do not mind submitting it as is, and rely on next runs of the tool to update the remaining parameters: less manual work is generally better. Current state of the change may be adds a bit of inconsistency, but it doesn\u0027t break anything.",
+      "parentUuid": "713a0216_3b2c5c1d",
+      "range": {
+        "startLine": 1318,
+        "startChar": 34,
+        "endLine": 1320,
+        "endChar": 64
+      },
+      "revId": "c33208255903496678e8863f5636084d1026fbfb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "83539dee_d846bbdc",
@@ -85,6 +109,30 @@
       "side": 1,
       "message": "Same comment as above",
       "parentUuid": "83539dee_d846bbdc",
+      "range": {
+        "startLine": 97,
+        "startChar": 44,
+        "endLine": 97,
+        "endChar": 50
+      },
+      "revId": "c33208255903496678e8863f5636084d1026fbfb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "80f17b82_41fdbdcd",
+        "filename": "logging/rtc_event_log/events/rtc_event_generic_packet_sent.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-28T10:44:53Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "3a0458ac_b7c0a2f5",
       "range": {
         "startLine": 97,
         "startChar": 44,

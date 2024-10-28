@@ -145,13 +145,14 @@ class SimulcastTestFixtureImpl::TestDecodedImageCallback
     decoded_frames_++;
     return 0;
   }
-  int32_t Decoded(VideoFrame& decoded_image, int64_t decode_time_ms) override {
+  int32_t Decoded(VideoFrame& /* decoded_image */,
+                  int64_t /* decode_time_ms */) override {
     RTC_DCHECK_NOTREACHED();
     return -1;
   }
   void Decoded(VideoFrame& decoded_image,
-               std::optional<int32_t> decode_time_ms,
-               std::optional<uint8_t> qp) override {
+               std::optional<int32_t> /* decode_time_ms */,
+               std::optional<uint8_t> /* qp */) override {
     Decoded(decoded_image);
   }
   int DecodedFrames() { return decoded_frames_; }
@@ -914,9 +915,9 @@ void SimulcastTestFixtureImpl::TestDecodeWidthHeightSet() {
 
   EXPECT_CALL(encoder_callback, OnEncodedImage(_, _))
       .Times(3)
-      .WillRepeatedly(
-          ::testing::Invoke([&](const EncodedImage& encoded_image,
-                                const CodecSpecificInfo* codec_specific_info) {
+      .WillRepeatedly(::testing::Invoke(
+          [&](const EncodedImage& encoded_image,
+              const CodecSpecificInfo* /* codec_specific_info */) {
             EXPECT_EQ(encoded_image._frameType, VideoFrameType::kVideoFrameKey);
 
             size_t index = encoded_image.SimulcastIndex().value_or(0);

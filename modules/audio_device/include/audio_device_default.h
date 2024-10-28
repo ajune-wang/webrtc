@@ -25,50 +25,50 @@ class AudioDeviceModuleDefault : public T {
   AudioDeviceModuleDefault() {}
   virtual ~AudioDeviceModuleDefault() {}
 
-  int32_t RegisterAudioCallback(AudioTransport* audioCallback) override {
+  int32_t RegisterAudioCallback(AudioTransport* /* audioCallback */) override {
     return 0;
   }
   int32_t Init() override { return 0; }
   int32_t InitSpeaker() override { return 0; }
-  int32_t SetPlayoutDevice(uint16_t index) override { return 0; }
+  int32_t SetPlayoutDevice(uint16_t /* index */) override { return 0; }
   int32_t SetPlayoutDevice(
-      AudioDeviceModule::WindowsDeviceType device) override {
+      AudioDeviceModule::WindowsDeviceType /* device */) override {
     return 0;
   }
-  int32_t SetStereoPlayout(bool enable) override { return 0; }
+  int32_t SetStereoPlayout(bool /* enable */) override { return 0; }
   int32_t StopPlayout() override { return 0; }
   int32_t InitMicrophone() override { return 0; }
-  int32_t SetRecordingDevice(uint16_t index) override { return 0; }
+  int32_t SetRecordingDevice(uint16_t /* index */) override { return 0; }
   int32_t SetRecordingDevice(
-      AudioDeviceModule::WindowsDeviceType device) override {
+      AudioDeviceModule::WindowsDeviceType /* device */) override {
     return 0;
   }
-  int32_t SetStereoRecording(bool enable) override { return 0; }
+  int32_t SetStereoRecording(bool /* enable */) override { return 0; }
   int32_t StopRecording() override { return 0; }
 
   int32_t Terminate() override { return 0; }
 
   int32_t ActiveAudioLayer(
-      AudioDeviceModule::AudioLayer* audioLayer) const override {
+      AudioDeviceModule::AudioLayer* /* audioLayer */) const override {
     return 0;
   }
   bool Initialized() const override { return true; }
   int16_t PlayoutDevices() override { return 0; }
   int16_t RecordingDevices() override { return 0; }
-  int32_t PlayoutDeviceName(uint16_t index,
-                            char name[kAdmMaxDeviceNameSize],
-                            char guid[kAdmMaxGuidSize]) override {
+  int32_t PlayoutDeviceName(uint16_t /* index */,
+                            char /* name */[kAdmMaxDeviceNameSize],
+                            char /* guid */[kAdmMaxGuidSize]) override {
     return 0;
   }
-  int32_t RecordingDeviceName(uint16_t index,
-                              char name[kAdmMaxDeviceNameSize],
-                              char guid[kAdmMaxGuidSize]) override {
+  int32_t RecordingDeviceName(uint16_t /* index */,
+                              char /* name */[kAdmMaxDeviceNameSize],
+                              char /* guid */[kAdmMaxGuidSize]) override {
     return 0;
   }
-  int32_t PlayoutIsAvailable(bool* available) override { return 0; }
+  int32_t PlayoutIsAvailable(bool* /* available */) override { return 0; }
   int32_t InitPlayout() override { return 0; }
   bool PlayoutIsInitialized() const override { return true; }
-  int32_t RecordingIsAvailable(bool* available) override { return 0; }
+  int32_t RecordingIsAvailable(bool* /* available */) override { return 0; }
   int32_t InitRecording() override { return 0; }
   bool RecordingIsInitialized() const override { return true; }
   int32_t StartPlayout() override { return 0; }
@@ -77,7 +77,7 @@ class AudioDeviceModuleDefault : public T {
   bool Recording() const override { return false; }
   bool SpeakerIsInitialized() const override { return true; }
   bool MicrophoneIsInitialized() const override { return true; }
-  int32_t SpeakerVolumeIsAvailable(bool* available) override { return 0; }
+  int32_t SpeakerVolumeIsAvailable(bool* /* available */) override { return 0; }
   int32_t SetSpeakerVolume(uint32_t volume) override { return 0; }
   int32_t SpeakerVolume(uint32_t* volume) const override { return 0; }
   int32_t MaxSpeakerVolume(uint32_t* maxVolume) const override { return 0; }

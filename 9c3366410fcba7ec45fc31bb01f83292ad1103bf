@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9abfef51_0a14dbb6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2024-10-28T09:07:44Z",
+      "side": 1,
+      "message": "thanks",
+      "revId": "9c3366410fcba7ec45fc31bb01f83292ad1103bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bc71dc30_6e886c43",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_egress_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2024-10-28T09:07:44Z",
+      "side": 1,
+      "message": "IsMedia",
+      "range": {
+        "startLine": 218,
+        "startChar": 28,
+        "endLine": 218,
+        "endChar": 68
+      },
+      "revId": "9c3366410fcba7ec45fc31bb01f83292ad1103bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

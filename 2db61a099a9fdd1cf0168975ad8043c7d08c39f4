@@ -16,6 +16,24 @@
       "message": "Can we have a test for this? What kind of stream triggers this behavior? Is that frames reordering?",
       "revId": "2db61a099a9fdd1cf0168975ad8043c7d08c39f4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b38e12ba_064a3700",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2024-10-28T08:10:07Z",
+      "side": 1,
+      "message": "I am not exactly sure what causes this yet. This was a side issue of the https://webrtc-review.googlesource.com/c/src/+/366580 issue, when switching to the av1 software decoder. However, when using the software decoder with tha av1 stream withouth the switch, it doesn\u0027t seem to trigger the behaviour.",
+      "parentUuid": "0780a557_58096d9a",
+      "revId": "2db61a099a9fdd1cf0168975ad8043c7d08c39f4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

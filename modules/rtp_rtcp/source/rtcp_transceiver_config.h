@@ -34,9 +34,9 @@ class MediaReceiverRtcpObserver {
  public:
   virtual ~MediaReceiverRtcpObserver() = default;
 
-  virtual void OnSenderReport(uint32_t sender_ssrc,
-                              NtpTime ntp_time,
-                              uint32_t rtp_time) {}
+  virtual void OnSenderReport(uint32_t /* sender_ssrc */,
+                              NtpTime /* ntp_time */,
+                              uint32_t /* rtp_time */) {}
   virtual void OnBye(uint32_t sender_ssrc) {}
   virtual void OnBitrateAllocation(uint32_t sender_ssrc,
                                    const VideoBitrateAllocation& allocation) {}

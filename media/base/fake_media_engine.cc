@@ -544,11 +544,12 @@ rtc::scoped_refptr<webrtc::AudioState> FakeVoiceEngine::GetAudioState() const {
   return rtc::scoped_refptr<webrtc::AudioState>();
 }
 std::unique_ptr<VoiceMediaSendChannelInterface>
-FakeVoiceEngine::CreateSendChannel(webrtc::Call* call,
-                                   const MediaConfig& /* config */,
-                                   const AudioOptions& options,
-                                   const webrtc::CryptoOptions& crypto_options,
-                                   webrtc::AudioCodecPairId codec_pair_id) {
+FakeVoiceEngine::CreateSendChannel(
+    webrtc::Call* call,
+    const MediaConfig& /* config */,
+    const AudioOptions& options,
+    const webrtc::CryptoOptions& /* crypto_options */,
+    webrtc::AudioCodecPairId /* codec_pair_id */) {
   std::unique_ptr<FakeVoiceMediaSendChannel> ch =
       std::make_unique<FakeVoiceMediaSendChannel>(options,
                                                   call->network_thread());
@@ -557,10 +558,10 @@ FakeVoiceEngine::CreateSendChannel(webrtc::Call* call,
 std::unique_ptr<VoiceMediaReceiveChannelInterface>
 FakeVoiceEngine::CreateReceiveChannel(
     webrtc::Call* call,
-    const MediaConfig& config,
+    const MediaConfig& /* config */,
     const AudioOptions& options,
-    const webrtc::CryptoOptions& crypto_options,
-    webrtc::AudioCodecPairId codec_pair_id) {
+    const webrtc::CryptoOptions& /* crypto_options */,
+    webrtc::AudioCodecPairId /* codec_pair_id */) {
   std::unique_ptr<FakeVoiceMediaReceiveChannel> ch =
       std::make_unique<FakeVoiceMediaReceiveChannel>(options,
                                                      call->network_thread());
@@ -585,8 +586,8 @@ void FakeVoiceEngine::SetSendCodecs(const std::vector<Codec>& codecs) {
 int FakeVoiceEngine::GetInputLevel() {
   return 0;
 }
-bool FakeVoiceEngine::StartAecDump(webrtc::FileWrapper file,
-                                   int64_t max_size_bytes) {
+bool FakeVoiceEngine::StartAecDump(webrtc::FileWrapper /* file */,
+                                   int64_t /* max_size_bytes */) {
   return false;
 }
 std::optional<webrtc::AudioDeviceModule::Stats>
@@ -619,10 +620,11 @@ bool FakeVideoEngine::SetOptions(const VideoOptions& options) {
 std::unique_ptr<VideoMediaSendChannelInterface>
 FakeVideoEngine::CreateSendChannel(
     webrtc::Call* call,
-    const MediaConfig& config,
+    const MediaConfig& /* config */,
     const VideoOptions& options,
-    const webrtc::CryptoOptions& crypto_options,
-    webrtc::VideoBitrateAllocatorFactory* video_bitrate_allocator_factory) {
+    const webrtc::CryptoOptions& /* crypto_options */,
+    webrtc::
+        VideoBitrateAllocatorFactory* /* video_bitrate_allocator_factory */) {
   if (fail_create_channel_) {
     return nullptr;
   }
@@ -635,9 +637,9 @@ FakeVideoEngine::CreateSendChannel(
 std::unique_ptr<VideoMediaReceiveChannelInterface>
 FakeVideoEngine::CreateReceiveChannel(
     webrtc::Call* call,
-    const MediaConfig& config,
+    const MediaConfig& /* config */,
     const VideoOptions& options,
-    const webrtc::CryptoOptions& crypto_options) {
+    const webrtc::CryptoOptions& /* crypto_options */) {
   if (fail_create_channel_) {
     return nullptr;
   }
@@ -647,11 +649,11 @@ FakeVideoEngine::CreateReceiveChannel(
                                                      call->network_thread());
   return ch;
 }
-std::vector<Codec> FakeVideoEngine::send_codecs(bool use_rtx) const {
+std::vector<Codec> FakeVideoEngine::send_codecs(bool /* use_rtx */) const {
   return send_codecs_;
 }
 
-std::vector<Codec> FakeVideoEngine::recv_codecs(bool use_rtx) const {
+std::vector<Codec> FakeVideoEngine::recv_codecs(bool /* use_rtx */) const {
   return recv_codecs_;
 }
 

@@ -124,6 +124,24 @@
       "parentUuid": "910d7ddc_cb25b3d1",
       "revId": "96a11a01294eeb6516be07a0698e102618b44170",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "da0899f0_742f607a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 22924
+      },
+      "writtenOn": "2024-10-28T02:30:48Z",
+      "side": 1,
+      "message": "@sergio.garcia.murillo@gmail.com I tested the main branch today, and the tests were successful.",
+      "parentUuid": "b594e0ca_bcef3f7a",
+      "revId": "96a11a01294eeb6516be07a0698e102618b44170",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ],
   "submitRequirementResults": [

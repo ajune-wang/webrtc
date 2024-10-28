@@ -50,6 +50,24 @@
       "message": "This list looks (mostly) sorted alphabetically.\nDo you mind moving your name above with that sorting in mind?",
       "revId": "1acbb946ee82e4afde43c229ae12287066ad9adf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5684feab_9722a5e7",
+        "filename": "AUTHORS",
+        "patchSetId": 1
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 22924
+      },
+      "writtenOn": "2024-10-28T02:30:48Z",
+      "side": 1,
+      "message": "Sorry, fixed",
+      "parentUuid": "14b052bd_b9b7825b",
+      "revId": "1acbb946ee82e4afde43c229ae12287066ad9adf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

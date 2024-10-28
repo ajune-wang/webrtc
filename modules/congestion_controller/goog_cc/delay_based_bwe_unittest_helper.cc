@@ -232,7 +232,7 @@ void DelayBasedBweTest::IncomingFeedback(Timestamp receive_time,
 // Returns true if an over-use was seen, false otherwise.
 // The StreamGenerator::updated() should be used to check for any changes in
 // target bitrate after the call to this function.
-bool DelayBasedBweTest::GenerateAndProcessFrame(uint32_t ssrc,
+bool DelayBasedBweTest::GenerateAndProcessFrame(uint32_t /* ssrc */,
                                                 uint32_t bitrate_bps) {
   stream_generator_->SetBitrateBps(bitrate_bps);
   std::vector<PacketResult> packets;

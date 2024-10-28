@@ -44,7 +44,7 @@ class TestAudioDevice : public AudioDeviceGeneric {
 
   // Retrieve the currently utilized audio layer
   int32_t ActiveAudioLayer(
-      AudioDeviceModule::AudioLayer& audioLayer) const override {
+      AudioDeviceModule::AudioLayer& /* audioLayer */) const override {
     return 0;
   }
 
@@ -56,26 +56,26 @@ class TestAudioDevice : public AudioDeviceGeneric {
   // Device enumeration
   int16_t PlayoutDevices() override { return 0; }
   int16_t RecordingDevices() override { return 0; }
-  int32_t PlayoutDeviceName(uint16_t index,
-                            char name[kAdmMaxDeviceNameSize],
-                            char guid[kAdmMaxGuidSize]) override {
+  int32_t PlayoutDeviceName(uint16_t /* index */,
+                            char /* name */[kAdmMaxDeviceNameSize],
+                            char /* guid */[kAdmMaxGuidSize]) override {
     return 0;
   }
-  int32_t RecordingDeviceName(uint16_t index,
-                              char name[kAdmMaxDeviceNameSize],
-                              char guid[kAdmMaxGuidSize]) override {
+  int32_t RecordingDeviceName(uint16_t /* index */,
+                              char /* name */[kAdmMaxDeviceNameSize],
+                              char /* guid */[kAdmMaxGuidSize]) override {
     return 0;
   }
 
   // Device selection
-  int32_t SetPlayoutDevice(uint16_t index) override { return 0; }
+  int32_t SetPlayoutDevice(uint16_t /* index */) override { return 0; }
   int32_t SetPlayoutDevice(
-      AudioDeviceModule::WindowsDeviceType device) override {
+      AudioDeviceModule::WindowsDeviceType /* device */) override {
     return 0;
   }
-  int32_t SetRecordingDevice(uint16_t index) override { return 0; }
+  int32_t SetRecordingDevice(uint16_t /* index */) override { return 0; }
   int32_t SetRecordingDevice(
-      AudioDeviceModule::WindowsDeviceType device) override {
+      AudioDeviceModule::WindowsDeviceType /* device */) override {
     return 0;
   }
 
@@ -102,16 +102,22 @@ class TestAudioDevice : public AudioDeviceGeneric {
   bool MicrophoneIsInitialized() const override { return true; }
 
   // Speaker volume controls
-  int32_t SpeakerVolumeIsAvailable(bool& available) override { return 0; }
-  int32_t SetSpeakerVolume(uint32_t volume) override { return 0; }
-  int32_t SpeakerVolume(uint32_t& volume) const override { return 0; }
-  int32_t MaxSpeakerVolume(uint32_t& maxVolume) const override { return 0; }
-  int32_t MinSpeakerVolume(uint32_t& minVolume) const override { return 0; }
+  int32_t SpeakerVolumeIsAvailable(bool& /* available */) override { return 0; }
+  int32_t SetSpeakerVolume(uint32_t /* volume */) override { return 0; }
+  int32_t SpeakerVolume(uint32_t& /* volume */) const override { return 0; }
+  int32_t MaxSpeakerVolume(uint32_t& /* maxVolume */) const override {
+    return 0;
+  }
+  int32_t MinSpeakerVolume(uint32_t& /* minVolume */) const override {
+    return 0;
+  }
 
   // Microphone volume controls
-  int32_t MicrophoneVolumeIsAvailable(bool& available) override { return 0; }
-  int32_t SetMicrophoneVolume(uint32_t volume) override { return 0; }
-  int32_t MicrophoneVolume(uint32_t& volume) const override { return 0; }
+  int32_t MicrophoneVolumeIsAvailable(bool& /* available */) override {
+    return 0;
+  }
+  int32_t SetMicrophoneVolume(uint32_t /* volume */) override { return 0; }
+  int32_t MicrophoneVolume(uint32_t& /* volume */) const override { return 0; }
   int32_t MaxMicrophoneVolume(uint32_t& maxVolume) const override { return 0; }
   int32_t MinMicrophoneVolume(uint32_t& minVolume) const override { return 0; }
 

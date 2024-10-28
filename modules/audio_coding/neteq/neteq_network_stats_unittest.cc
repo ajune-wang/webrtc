@@ -99,7 +99,7 @@ class MockAudioDecoder final : public AudioDecoder {
   }
 
   bool PacketHasFec(const uint8_t* /* encoded */,
-                    size_t /* encoded */ _len) const override {
+                    size_t /* encoded */ /* _len */) const override {
     ADD_FAILURE() << "Since going through ParsePayload, PacketHasFec should "
                      "never get called.";
     return fec_enabled_;

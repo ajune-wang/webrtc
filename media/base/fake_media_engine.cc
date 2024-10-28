@@ -194,12 +194,12 @@ FakeVoiceMediaSendChannel::VoiceChannelAudioSink::~VoiceChannelAudioSink() {
   }
 }
 void FakeVoiceMediaSendChannel::VoiceChannelAudioSink::OnData(
-    const void* audio_data,
-    int bits_per_sample,
-    int sample_rate,
-    size_t number_of_channels,
-    size_t number_of_frames,
-    std::optional<int64_t> absolute_capture_timestamp_ms) {}
+    const void* /* audio_data */,
+    int /* bits_per_sample */,
+    int /* sample_rate */,
+    size_t /* number_of_channels */,
+    size_t /* number_of_frames */,
+    std::optional<int64_t> /* absolute_capture_timestamp_ms */) {}
 void FakeVoiceMediaSendChannel::VoiceChannelAudioSink::OnClose() {
   source_ = nullptr;
 }
@@ -288,7 +288,7 @@ bool FakeVoiceMediaSendChannel::GetOutputVolume(uint32_t ssrc, double* volume) {
   *volume = output_scalings_[ssrc];
   return true;
 }
-bool FakeVoiceMediaSendChannel::GetStats(VoiceMediaSendInfo* info) {
+bool FakeVoiceMediaSendChannel::GetStats(VoiceMediaSendInfo* /* info */) {
   return false;
 }
 bool FakeVoiceMediaSendChannel::SetSendCodecs(
@@ -388,8 +388,8 @@ bool FakeVideoMediaSendChannel::HasSource(uint32_t ssrc) const {
   return sources_.find(ssrc) != sources_.end() && sources_.at(ssrc) != nullptr;
 }
 void FakeVideoMediaSendChannel::FillBitrateInfo(
-    BandwidthEstimationInfo* bwe_info) {}
-bool FakeVideoMediaSendChannel::GetStats(VideoMediaSendInfo* info) {
+    BandwidthEstimationInfo* /* bwe_info */) {}
+bool FakeVideoMediaSendChannel::GetStats(VideoMediaSendInfo* /* info */) {
   return false;
 }
 bool FakeVideoMediaSendChannel::SetSendCodecs(
@@ -412,8 +412,8 @@ bool FakeVideoMediaSendChannel::SetMaxSendBandwidth(int bps) {
   return true;
 }
 void FakeVideoMediaSendChannel::GenerateSendKeyFrame(
-    uint32_t ssrc,
-    const std::vector<std::string>& rids) {}
+    uint32_t /* ssrc */,
+    const std::vector<std::string>& /* rids */) {}
 
 FakeVideoMediaReceiveChannel::FakeVideoMediaReceiveChannel(
     const VideoOptions& options,
@@ -457,7 +457,7 @@ bool FakeVideoMediaReceiveChannel::SetSink(
   return true;
 }
 void FakeVideoMediaReceiveChannel::SetDefaultSink(
-    rtc::VideoSinkInterface<webrtc::VideoFrame>* sink) {}
+    rtc::VideoSinkInterface<webrtc::VideoFrame>* /* sink */) {}
 bool FakeVideoMediaReceiveChannel::HasSink(uint32_t ssrc) const {
   return sinks_.find(ssrc) != sinks_.end() && sinks_.at(ssrc) != nullptr;
 }
@@ -481,7 +481,7 @@ bool FakeVideoMediaReceiveChannel::RemoveRecvStream(uint32_t ssrc) {
   return true;
 }
 std::vector<webrtc::RtpSource> FakeVideoMediaReceiveChannel::GetSources(
-    uint32_t ssrc) const {
+    uint32_t /* ssrc */) const {
   return {};
 }
 bool FakeVideoMediaReceiveChannel::SetBaseMinimumPlayoutDelayMs(uint32_t ssrc,
@@ -521,15 +521,16 @@ bool FakeVideoMediaReceiveChannel::SetMaxSendBandwidth(int bps) {
 }
 
 void FakeVideoMediaReceiveChannel::SetRecordableEncodedFrameCallback(
-    uint32_t ssrc,
-    std::function<void(const webrtc::RecordableEncodedFrame&)> callback) {}
+    uint32_t /* ssrc */,
+    std::function<void(const webrtc::RecordableEncodedFrame&)> /* callback */) {
+}
 
 void FakeVideoMediaReceiveChannel::ClearRecordableEncodedFrameCallback(
-    uint32_t ssrc) {}
+    uint32_t /* ssrc */) {}
 
-void FakeVideoMediaReceiveChannel::RequestRecvKeyFrame(uint32_t ssrc) {}
+void FakeVideoMediaReceiveChannel::RequestRecvKeyFrame(uint32_t /* ssrc */) {}
 
-bool FakeVideoMediaReceiveChannel::GetStats(VideoMediaReceiveInfo* info) {
+bool FakeVideoMediaReceiveChannel::GetStats(VideoMediaReceiveInfo* /* info */) {
   return false;
 }
 
@@ -544,7 +545,7 @@ rtc::scoped_refptr<webrtc::AudioState> FakeVoiceEngine::GetAudioState() const {
 }
 std::unique_ptr<VoiceMediaSendChannelInterface>
 FakeVoiceEngine::CreateSendChannel(webrtc::Call* call,
-                                   const MediaConfig& config,
+                                   const MediaConfig& /* config */,
                                    const AudioOptions& options,
                                    const webrtc::CryptoOptions& crypto_options,
                                    webrtc::AudioCodecPairId codec_pair_id) {

@@ -1,0 +1,1350 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "465ddd8b_700d5994",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3267050
+      },
+      "writtenOn": "2024-10-29T23:01:57Z",
+      "side": 1,
+      "message": "So changed lines marked // Copy should likely be left as-is, the rest seem like they ought be cobbled together into an actual CL.",
+      "revId": "aa55ae2de4e9b2aea6039d0e1b94c260ae53634c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bfedd443_44d407fc",
+        "filename": "BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 3267050
+      },
+      "writtenOn": "2024-10-29T23:01:57Z",
+      "side": 1,
+      "message": "So we wouldn\u0027t check in these two lines, this just allows us to reason about which files are subject to the explicit constructor rules.",
+      "range": {
+        "startLine": 136,
+        "startChar": 0,
+        "endLine": 136,
+        "endChar": 26
+      },
+      "revId": "aa55ae2de4e9b2aea6039d0e1b94c260ae53634c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1a84042d_d1239db7",
+        "filename": "api/field_trials.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 3267050
+      },
+      "writtenOn": "2024-10-29T23:01:57Z",
+      "side": 1,
+      "message": "So these marked copy would not necessarily get checked in if the copy was acceptable; they exist to show places where the return type might want to be a const-ref so long as we are sure that the map remains unchanged.",
+      "range": {
+        "startLine": 101,
+        "startChar": 10,
+        "endLine": 101,
+        "endChar": 33
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "0f5a1334_cfa6d480",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "api/field_trials.cc",
+              "range": {
+                "startLine": 100,
+                "startChar": 0,
+                "endLine": 101,
+                "endChar": 0
+              },
+              "replacement": "  if (it !\u003d key_value_map_.end()) {\n"
+            },
+            {
+              "path": "api/field_trials.cc",
+              "range": {
+                "startLine": 102,
+                "startChar": 0,
+                "endLine": 102,
+                "endChar": 0
+              },
+              "replacement": "  }\n"
+            }
+          ]
+        }
+      ],
+      "revId": "aa55ae2de4e9b2aea6039d0e1b94c260ae53634c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ca614037_4d2d25f0",
+        "filename": "api/jsep_ice_candidate.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 3267050
+      },
+      "writtenOn": "2024-10-29T23:01:57Z",
+      "side": 1,
+      "message": "given the lower-case name, these seem more likely to have been intended to return const-ref.",
+      "range": {
+        "startLine": 26,
+        "startChar": 9,
+        "endLine": 26,
+        "endChar": 41
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "93b3d7fc_656b19ff",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "api/jsep_ice_candidate.cc",
+              "range": {
+                "startLine": 25,
+                "startChar": 0,
+                "endLine": 27,
+                "endChar": 0
+              },
+              "replacement": "const std::string\u0026 JsepIceCandidate::sdp_mid() const {\n  return sdp_mid_;\n"
+            },
+            {
+              "path": "api/jsep_ice_candidate.cc",
+              "range": {
+                "startLine": 37,
+                "startChar": 0,
+                "endLine": 39,
+                "endChar": 0
+              },
+              "replacement": "const std::string\u0026 JsepIceCandidate::server_url() const {\n  return candidate_.url();\n"
+            }
+          ]
+        }
+      ],
+      "revId": "aa55ae2de4e9b2aea6039d0e1b94c260ae53634c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2c43cc43_fd475705",
+        "filename": "api/legacy_stats_types.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 683,
+      "author": {
+        "id": 3267050
+      },
+      "writtenOn": "2024-10-29T23:01:57Z",
+      "side": 1,
+      "message": "Probably want this copy.  But good to know it is happening.",
+      "range": {
+        "startLine": 683,
+        "startChar": 44,
+        "endLine": 683,
+        "endChar": 52
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "ffc95e24_34fde9dc",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "api/legacy_stats_types.cc",
+              "range": {
+                "startLine": 683,
+                "startChar": 0,
+                "endLine": 684,
+                "endChar": 0
+              },
+              "replacement": "      return std::string(*value_.string_);\n"
+            }
+          ]
+        }
+      ],
+      "revId": "aa55ae2de4e9b2aea6039d0e1b94c260ae53634c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0e9af26a_40f21c4b",
+        "filename": "api/test/create_frame_generator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 3267050
+      },
+      "writtenOn": "2024-10-29T23:01:57Z",
+      "side": 1,
+      "message": "I\u0027d recommend taking this one and below,",
+      "range": {
+        "startLine": 54,
+        "startChar": 0,
+        "endLine": 54,
+        "endChar": 76
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "d64a3de8_6376a236",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "api/test/create_frame_generator.cc",
+              "range": {
+                "startLine": 54,
+                "startChar": 0,
+                "endLine": 55,
+                "endChar": 0
+              },
+              "replacement": "  return std::make_unique\u003cYuvFileGenerator\u003e(files, width, height,\n"
+            },
+            {
+              "path": "api/test/create_frame_generator.cc",
+              "range": {
+                "startLine": 70,
+                "startChar": 0,
+                "endLine": 71,
+                "endChar": 0
+              },
+              "replacement": "  return std::make_unique\u003cNV12FileGenerator\u003e(files, width, height,\n"
+            }
+          ]
+        }
+      ],
+      "revId": "aa55ae2de4e9b2aea6039d0e1b94c260ae53634c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c9e4236e_a966cfd7",
+        "filename": "api/test/create_peer_connection_quality_test_frame_generator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 3267050
+      },
+      "writtenOn": "2024-10-29T23:01:57Z",
+      "side": 1,
+      "message": "I\u0027d recommend taking this change and below.",
+      "range": {
+        "startLine": 93,
+        "startChar": 0,
+        "endLine": 93,
+        "endChar": 67
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "47932bbc_0bae3846",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "api/test/create_peer_connection_quality_test_frame_generator.cc",
+              "range": {
+                "startLine": 93,
+                "startChar": 0,
+                "endLine": 94,
+                "endChar": 0
+              },
+              "replacement": "        slides, video_config.width, video_config.height,\n"
+            },
+            {
+              "path": "api/test/create_peer_connection_quality_test_frame_generator.cc",
+              "range": {
+                "startLine": 101,
+                "startChar": 0,
+                "endLine": 102,
+                "endChar": 0
+              },
+              "replacement": "      Clock::GetRealTimeClock(), slides,\n"
+            }
+          ]
+        }
+      ],
+      "revId": "aa55ae2de4e9b2aea6039d0e1b94c260ae53634c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bb8d1dd0_02ef8f46",
+        "filename": "api/test/metrics/metrics_accumulator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 3267050
+      },
+      "writtenOn": "2024-10-29T23:01:57Z",
+      "side": 1,
+      "message": "recomended",
+      "range": {
+        "startLine": 122,
+        "startChar": 0,
+        "endLine": 122,
+        "endChar": 41
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "30431149_ff59422e",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "api/test/metrics/metrics_accumulator.cc",
+              "range": {
+                "startLine": 122,
+                "startChar": 0,
+                "endLine": 123,
+                "endChar": 0
+              },
+              "replacement": "      .name \u003d key.metric_name,\n"
+            },
+            {
+              "path": "api/test/metrics/metrics_accumulator.cc",
+              "range": {
+                "startLine": 125,
+                "startChar": 0,
+                "endLine": 126,
+                "endChar": 0
+              },
+              "replacement": "      .test_case \u003d key.test_case_name,\n"
+            }
+          ]
+        }
+      ],
+      "revId": "aa55ae2de4e9b2aea6039d0e1b94c260ae53634c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c5c75a9d_c0f4dfbe",
+        "filename": "api/transport/network_types.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 3267050
+      },
+      "writtenOn": "2024-10-29T23:01:57Z",
+      "side": 1,
+      "message": "copy probably required due to mixed case name, eh?",
+      "range": {
+        "startLine": 71,
+        "startChar": 0,
+        "endLine": 71,
+        "endChar": 63
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "161f1c80_a9315020",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "api/transport/network_types.cc",
+              "range": {
+                "startLine": 71,
+                "startChar": 0,
+                "endLine": 72,
+                "endChar": 0
+              },
+              "replacement": "  return std::vector\u003cPacketResult\u003e(packet_feedbacks);  // Copy required.\n"
+            }
+          ]
+        }
+      ],
+      "revId": "aa55ae2de4e9b2aea6039d0e1b94c260ae53634c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b63498ff_60b96865",
+        "filename": "api/video_codecs/sdp_video_format.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 3267050
+      },
+      "writtenOn": "2024-10-29T23:01:57Z",
+      "side": 1,
+      "message": "Probably want this one.",
+      "range": {
+        "startLine": 184,
+        "startChar": 17,
+        "endLine": 184,
+        "endChar": 24
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "15878716_308af87e",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "api/video_codecs/sdp_video_format.cc",
+              "range": {
+                "startLine": 184,
+                "startChar": 0,
+                "endLine": 185,
+                "endChar": 0
+              },
+              "replacement": "  return builder.str();\n"
+            }
+          ]
+        }
+      ],
+      "revId": "aa55ae2de4e9b2aea6039d0e1b94c260ae53634c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7e213214_8011ba8e",
+        "filename": "common_video/corruption_detection_converters.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 3267050
+      },
+      "writtenOn": "2024-10-29T23:01:57Z",
+      "side": 1,
+      "message": "probably want.",
+      "range": {
+        "startLine": 78,
+        "startChar": 0,
+        "endLine": 78,
+        "endChar": 49
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "1ea852a7_d8e1e924",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "common_video/corruption_detection_converters.cc",
+              "range": {
+                "startLine": 78,
+                "startChar": 0,
+                "endLine": 79,
+                "endChar": 0
+              },
+              "replacement": "      .sample_values \u003d sample_values};\n"
+            }
+          ]
+        }
+      ],
+      "revId": "aa55ae2de4e9b2aea6039d0e1b94c260ae53634c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fcb62a28_3f58cef1",
+        "filename": "media/base/sdp_video_format_utils.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 3267050
+      },
+      "writtenOn": "2024-10-29T23:01:57Z",
+      "side": 1,
+      "message": "definitely want to avoid copy on each iteration.",
+      "range": {
+        "startLine": 183,
+        "startChar": 0,
+        "endLine": 183,
+        "endChar": 66
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "92dab698_b254df48",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "media/base/sdp_video_format_utils.cc",
+              "range": {
+                "startLine": 183,
+                "startChar": 0,
+                "endLine": 184,
+                "endChar": 0
+              },
+              "replacement": "             params, [](const CodecParameterMap::value_type\u0026 kv) -\u003e bool {\n"
+            }
+          ]
+        }
+      ],
+      "revId": "aa55ae2de4e9b2aea6039d0e1b94c260ae53634c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "afe86f9f_6fe78ee3",
+        "filename": "media/base/stream_params.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 3267050
+      },
+      "writtenOn": "2024-10-29T23:01:57Z",
+      "side": 1,
+      "message": "Lower-case names vs copy.",
+      "range": {
+        "startLine": 229,
+        "startChar": 0,
+        "endLine": 229,
+        "endChar": 57
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "ddad36d4_6460235f",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "media/base/stream_params.cc",
+              "range": {
+                "startLine": 229,
+                "startChar": 0,
+                "endLine": 230,
+                "endChar": 0
+              },
+              "replacement": "  return std::vector\u003cstd::string\u003e(stream_ids_);  // copy\n"
+            },
+            {
+              "path": "media/base/stream_params.cc",
+              "range": {
+                "startLine": 237,
+                "startChar": 0,
+                "endLine": 238,
+                "endChar": 0
+              },
+              "replacement": "  return stream_ids_.empty() ? \"\" : std::string(stream_ids_[0]);  // copy\n"
+            }
+          ]
+        }
+      ],
+      "revId": "aa55ae2de4e9b2aea6039d0e1b94c260ae53634c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e82ffcb3_64cbd272",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 3267050
+      },
+      "writtenOn": "2024-10-29T23:01:57Z",
+      "side": 1,
+      "message": "I don\u0027t think any of these can be avoided in this file, we\u0027d not check any of this in, just be aware",
+      "revId": "aa55ae2de4e9b2aea6039d0e1b94c260ae53634c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "54bce2c7_fa9411c8",
+        "filename": "modules/congestion_controller/goog_cc/probe_controller.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 3267050
+      },
+      "writtenOn": "2024-10-29T23:01:57Z",
+      "side": 1,
+      "message": "Couple of moves here desirable.",
+      "range": {
+        "startLine": 264,
+        "startChar": 0,
+        "endLine": 264,
+        "endChar": 78
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "3dd4b66e_8b2dcdac",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "modules/congestion_controller/goog_cc/probe_controller.cc",
+              "range": {
+                "startLine": 264,
+                "startChar": 0,
+                "endLine": 265,
+                "endChar": 0
+              },
+              "replacement": "    return InitiateProbing(at_time, probes, allow_further_probing);\n"
+            },
+            {
+              "path": "modules/congestion_controller/goog_cc/probe_controller.cc",
+              "range": {
+                "startLine": 327,
+                "startChar": 0,
+                "endLine": 328,
+                "endChar": 0
+              },
+              "replacement": "  return InitiateProbing(at_time, probes, true);\n"
+            }
+          ]
+        }
+      ],
+      "revId": "aa55ae2de4e9b2aea6039d0e1b94c260ae53634c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7f48843d_1dbe300e",
+        "filename": "modules/congestion_controller/rtp/transport_feedback_demuxer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 3267050
+      },
+      "writtenOn": "2024-10-29T23:01:57Z",
+      "side": 1,
+      "message": "move desirable",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 53
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "22130ed9_b875d304",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "modules/congestion_controller/rtp/transport_feedback_demuxer.cc",
+              "range": {
+                "startLine": 37,
+                "startChar": 0,
+                "endLine": 38,
+                "endChar": 0
+              },
+              "replacement": "  observers_.emplace_back(std::move(ssrcs), observer);\n"
+            }
+          ]
+        }
+      ],
+      "revId": "aa55ae2de4e9b2aea6039d0e1b94c260ae53634c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "250cd1a6_f7d47eda",
+        "filename": "modules/video_coding/codecs/h264/h264.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 3267050
+      },
+      "writtenOn": "2024-10-29T23:01:57Z",
+      "side": 1,
+      "message": "stray const here blocks moves",
+      "range": {
+        "startLine": 57,
+        "startChar": 0,
+        "endLine": 57,
+        "endChar": 45
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "03b03c5d_35186aaf",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "modules/video_coding/codecs/h264/h264.cc",
+              "range": {
+                "startLine": 57,
+                "startChar": 0,
+                "endLine": 58,
+                "endChar": 0
+              },
+              "replacement": "  const std::optional\u003cstd::string\u003e profile_string \u003d\n"
+            }
+          ]
+        }
+      ],
+      "revId": "aa55ae2de4e9b2aea6039d0e1b94c260ae53634c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "87d42e5a_29440e83",
+        "filename": "modules/video_coding/codecs/h264/h264.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 3267050
+      },
+      "writtenOn": "2024-10-29T23:01:57Z",
+      "side": 1,
+      "message": "move desirable.",
+      "range": {
+        "startLine": 68,
+        "startChar": 0,
+        "endLine": 68,
+        "endChar": 70
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "5966cf16_0a193a32",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "modules/video_coding/codecs/h264/h264.cc",
+              "range": {
+                "startLine": 68,
+                "startChar": 0,
+                "endLine": 69,
+                "endChar": 0
+              },
+              "replacement": "      {{cricket::kH264FmtpProfileLevelId, std::move(*profile_string)},\n"
+            }
+          ]
+        }
+      ],
+      "revId": "aa55ae2de4e9b2aea6039d0e1b94c260ae53634c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4551b08b_927ca8da",
+        "filename": "modules/video_coding/svc/svc_rate_allocator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 3267050
+      },
+      "writtenOn": "2024-10-29T23:01:57Z",
+      "side": 1,
+      "message": "copy avoided here.",
+      "range": {
+        "startLine": 131,
+        "startChar": 0,
+        "endLine": 131,
+        "endChar": 55
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "d437beef_0254afed",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "modules/video_coding/svc/svc_rate_allocator.cc",
+              "range": {
+                "startLine": 131,
+                "startChar": 0,
+                "endLine": 132,
+                "endChar": 0
+              },
+              "replacement": "    std::vector\u003cDataRate\u003e spatial_layer_birates,\n"
+            },
+            {
+              "path": "modules/video_coding/svc/svc_rate_allocator.cc",
+              "range": {
+                "startLine": 333,
+                "startChar": 0,
+                "endLine": 334,
+                "endChar": 0
+              },
+              "replacement": "      std::move(spatial_layer_bitrates), active_layers.first,\n      num_layers_.temporal);\n"
+            }
+          ]
+        }
+      ],
+      "revId": "aa55ae2de4e9b2aea6039d0e1b94c260ae53634c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "620b2e65_0652f6e5",
+        "filename": "net/dcsctp/packet/chunk/forward_tsn_chunk.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 3267050
+      },
+      "writtenOn": "2024-10-29T23:01:57Z",
+      "side": 1,
+      "message": "copy avoided here.",
+      "range": {
+        "startLine": 93,
+        "startChar": 12,
+        "endLine": 93,
+        "endChar": 19
+      },
+      "revId": "aa55ae2de4e9b2aea6039d0e1b94c260ae53634c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "28f722fe_73867f8b",
+        "filename": "net/dcsctp/packet/chunk/sack_chunk.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 3267050
+      },
+      "writtenOn": "2024-10-29T23:01:57Z",
+      "side": 1,
+      "message": "move desirable",
+      "range": {
+        "startLine": 101,
+        "startChar": 41,
+        "endLine": 101,
+        "endChar": 45
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "0cbe0037_930d40b6",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "net/dcsctp/packet/chunk/sack_chunk.cc",
+              "range": {
+                "startLine": 101,
+                "startChar": 0,
+                "endLine": 102,
+                "endChar": 0
+              },
+              "replacement": "  return SackChunk(tsn_ack, a_rwnd, std::move(gap_ack_blocks),\n                   std::move(duplicate_tsns));\n"
+            }
+          ]
+        }
+      ],
+      "revId": "aa55ae2de4e9b2aea6039d0e1b94c260ae53634c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aaa656f1_fc6badbd",
+        "filename": "p2p/base/basic_ice_controller.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 345,
+      "author": {
+        "id": 3267050
+      },
+      "writtenOn": "2024-10-29T23:01:57Z",
+      "side": 1,
+      "message": "copy avoided here.",
+      "range": {
+        "startLine": 345,
+        "startChar": 0,
+        "endLine": 345,
+        "endChar": 65
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "589c057f_88ee5dc3",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "p2p/base/basic_ice_controller.cc",
+              "range": {
+                "startLine": 345,
+                "startChar": 0,
+                "endLine": 346,
+                "endChar": 0
+              },
+              "replacement": "  return *(absl::c_find_if(connections_,\n"
+            }
+          ]
+        }
+      ],
+      "revId": "aa55ae2de4e9b2aea6039d0e1b94c260ae53634c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d9547117_23295266",
+        "filename": "p2p/client/basic_port_allocator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 493,
+      "author": {
+        "id": 3267050
+      },
+      "writtenOn": "2024-10-29T23:01:57Z",
+      "side": 1,
+      "message": "copy avoided as auto doesn\u0027t deduce to reference,",
+      "range": {
+        "startLine": 493,
+        "startChar": 0,
+        "endLine": 493,
+        "endChar": 35
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "3b62459d_60783020",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "p2p/client/basic_port_allocator.cc",
+              "range": {
+                "startLine": 493,
+                "startChar": 0,
+                "endLine": 494,
+                "endChar": 0
+              },
+              "replacement": "  for (PortInterface* port : ReadyPorts()) {\n"
+            }
+          ]
+        }
+      ],
+      "revId": "aa55ae2de4e9b2aea6039d0e1b94c260ae53634c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "691e5386_8d4e9293",
+        "filename": "pc/rtp_sender.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 3267050
+      },
+      "writtenOn": "2024-10-29T23:01:57Z",
+      "side": 1,
+      "message": "copy vs, lower-case method name,",
+      "range": {
+        "startLine": 164,
+        "startChar": 28,
+        "endLine": 164,
+        "endChar": 38
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "bc6a77d2_24900ad7",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "pc/rtp_sender.h",
+              "range": {
+                "startLine": 164,
+                "startChar": 0,
+                "endLine": 165,
+                "endChar": 0
+              },
+              "replacement": "  std::vector\u003cstd::string\u003e stream_ids() const override\n      RTC_RUN_ON(signaling_thread_) {\n"
+            }
+          ]
+        }
+      ],
+      "revId": "aa55ae2de4e9b2aea6039d0e1b94c260ae53634c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "93b7c8ad_bd637de3",
+        "filename": "pc/session_description.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 3267050
+      },
+      "writtenOn": "2024-10-29T23:01:57Z",
+      "side": 1,
+      "message": "usual refs and moves in setters.",
+      "range": {
+        "startLine": 119,
+        "startChar": 2,
+        "endLine": 123,
+        "endChar": 0
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "b9b227ac_b1d230f5",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "pc/session_description.h",
+              "range": {
+                "startLine": 120,
+                "startChar": 0,
+                "endLine": 121,
+                "endChar": 0
+              },
+              "replacement": "  void set_bandwidth_type(const std::string\u0026 bandwidth_type) {\n"
+            }
+          ]
+        }
+      ],
+      "revId": "aa55ae2de4e9b2aea6039d0e1b94c260ae53634c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a0f6e9b3_1a2bff88",
+        "filename": "pc/webrtc_sdp.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2672,
+      "author": {
+        "id": 3267050
+      },
+      "writtenOn": "2024-10-29T23:01:57Z",
+      "side": 1,
+      "message": "moves desirable.",
+      "range": {
+        "startLine": 2672,
+        "startChar": 0,
+        "endLine": 2672,
+        "endChar": 44
+      },
+      "revId": "aa55ae2de4e9b2aea6039d0e1b94c260ae53634c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bcab4b28_4cfeae40",
+        "filename": "rtc_base/async_dns_resolver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 3267050
+      },
+      "writtenOn": "2024-10-29T23:01:57Z",
+      "side": 1,
+      "message": "mutable required if we want to move addresses at 162",
+      "range": {
+        "startLine": 158,
+        "startChar": 55,
+        "endLine": 158,
+        "endChar": 62
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "a8a30274_92b3a5b0",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "rtc_base/async_dns_resolver.cc",
+              "range": {
+                "startLine": 157,
+                "startChar": 0,
+                "endLine": 167,
+                "endChar": 0
+              },
+              "replacement": "    state-\u003eFinish(\n        [this, error, flag, caller_task_queue,\n         addresses \u003d std::move(addresses)]() mutable {\n          caller_task_queue-\u003ePostTask(SafeTask(\n              flag, [this, error, addresses \u003d std::move(addresses)]() mutable {\n                RTC_DCHECK_RUN_ON(\u0026result_.sequence_checker_);\n                result_.addresses_ \u003d std::move(addresses);\n                result_.error_ \u003d error;\n                callback_();\n              }));\n        });\n"
+            }
+          ]
+        }
+      ],
+      "revId": "aa55ae2de4e9b2aea6039d0e1b94c260ae53634c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ac205e9b_7dcbfea4",
+        "filename": "rtc_base/network.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 3267050
+      },
+      "writtenOn": "2024-10-29T23:01:57Z",
+      "side": 1,
+      "message": "const ref presumably",
+      "range": {
+        "startLine": 250,
+        "startChar": 0,
+        "endLine": 250,
+        "endChar": 55
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "cb204082_d7d67151",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "rtc_base/network.h",
+              "range": {
+                "startLine": 250,
+                "startChar": 0,
+                "endLine": 251,
+                "endChar": 0
+              },
+              "replacement": "  const std::string\u0026 key() const { return key_; }\n"
+            }
+          ]
+        }
+      ],
+      "revId": "aa55ae2de4e9b2aea6039d0e1b94c260ae53634c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f8cf0037_411f46d5",
+        "filename": "rtc_base/numerics/safe_compare.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 3267050
+      },
+      "writtenOn": "2024-10-29T23:01:57Z",
+      "side": 1,
+      "message": "Important when using strings.",
+      "range": {
+        "startLine": 134,
+        "startChar": 0,
+        "endLine": 134,
+        "endChar": 58
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "c8d6f7ae_7a40a398",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "rtc_base/numerics/safe_compare.h",
+              "range": {
+                "startLine": 133,
+                "startChar": 0,
+                "endLine": 139,
+                "endChar": 0
+              },
+              "replacement": "#define RTC_SAFECMP_MAKE_OP(name, op)                                    \\\n  struct name {                                                          \\\n    template \u003ctypename T1, typename T2\u003e                                  \\\n    static constexpr bool Op(const T1\u0026 a, const T2\u0026 b) {                 \\\n      return a op b;                                                     \\\n    }                                                                    \\\n    template \u003ctypename T1, typename T2\u003e                                  \\\n    static constexpr bool Op(T1 a, T2 b) {                               \\\n      return a op b;                                                     \\\n    }                                                                    \\\n    template \u003ctypename T1, typename T2\u003e                                  \\\n    static constexpr bool Op(T1 a, const T2\u0026 b) {                        \\\n      return a op b;                                                     \\\n    }                                                                    \\\n    template \u003ctypename T1, typename T2\u003e                                  \\\n    static constexpr bool Op(const T1\u0026 a, T2 b) {                        \\\n      return a op b;                                                     \\\n    }                                                                    \\\n"
+            }
+          ]
+        }
+      ],
+      "revId": "aa55ae2de4e9b2aea6039d0e1b94c260ae53634c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "05dac42f_75ff2344",
+        "filename": "rtc_base/string_encode.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 3267050
+      },
+      "writtenOn": "2024-10-29T23:01:57Z",
+      "side": 1,
+      "message": "likely to avoid copies.",
+      "range": {
+        "startLine": 76,
+        "startChar": 0,
+        "endLine": 76,
+        "endChar": 26
+      },
+      "revId": "aa55ae2de4e9b2aea6039d0e1b94c260ae53634c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cfd74cec_d18ce178",
+        "filename": "test/logging/memory_log_writer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 3267050
+      },
+      "writtenOn": "2024-10-29T23:01:57Z",
+      "side": 1,
+      "message": "Avoid allocation for the copy during destruction (avoid allocation in destructors in general).",
+      "range": {
+        "startLine": 26,
+        "startChar": 21,
+        "endLine": 26,
+        "endChar": 41
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "be7a372d_59b2dcd8",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "test/logging/memory_log_writer.cc",
+              "range": {
+                "startLine": 26,
+                "startChar": 0,
+                "endLine": 27,
+                "endChar": 0
+              },
+              "replacement": "    target_-\u003einsert({filename_, buffer_});\n"
+            }
+          ]
+        }
+      ],
+      "revId": "aa55ae2de4e9b2aea6039d0e1b94c260ae53634c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2f8b098f_cc3c28c7",
+        "filename": "test/testsupport/y4m_frame_writer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 3267050
+      },
+      "writtenOn": "2024-10-29T23:01:57Z",
+      "side": 1,
+      "message": "maybe wants const-ref arg instead?",
+      "range": {
+        "startLine": 22,
+        "startChar": 39,
+        "endLine": 22,
+        "endChar": 66
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "3877bd8c_b207bc2b",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "test/testsupport/y4m_frame_writer.cc",
+              "range": {
+                "startLine": 22,
+                "startChar": 0,
+                "endLine": 23,
+                "endChar": 0
+              },
+              "replacement": "Y4mFrameWriterImpl::Y4mFrameWriterImpl(const std::string\u0026 output_filename,\n"
+            },
+            {
+              "path": "test/testsupport/y4m_frame_writer.cc",
+              "range": {
+                "startLine": 26,
+                "startChar": 0,
+                "endLine": 27,
+                "endChar": 0
+              },
+              "replacement": "    : YuvFrameWriterImpl(output_filename, width, height),\n"
+            }
+          ]
+        }
+      ],
+      "revId": "aa55ae2de4e9b2aea6039d0e1b94c260ae53634c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "82f603cc_38cb51c8",
+        "filename": "video/corruption_detection/halton_frame_sampler.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 3267050
+      },
+      "writtenOn": "2024-10-29T23:01:57Z",
+      "side": 1,
+      "message": "avoid copy.",
+      "range": {
+        "startLine": 71,
+        "startChar": 56,
+        "endLine": 71,
+        "endChar": 74
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "1cb491b5_c1e939fc",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "video/corruption_detection/halton_frame_sampler.h",
+              "range": {
+                "startLine": 71,
+                "startChar": 0,
+                "endLine": 72,
+                "endChar": 0
+              },
+              "replacement": "    const std::vector\u003cHaltonFrameSampler::Coordinates\u003e sample_coordinates,\n"
+            }
+          ]
+        }
+      ],
+      "revId": "aa55ae2de4e9b2aea6039d0e1b94c260ae53634c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2a19864f_baa84b25",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1252,
+      "author": {
+        "id": 3267050
+      },
+      "writtenOn": "2024-10-29T23:01:57Z",
+      "side": 1,
+      "message": "this move doesn\u0027t happen unless mutable above.",
+      "range": {
+        "startLine": 1252,
+        "startChar": 13,
+        "endLine": 1252,
+        "endChar": 24
+      },
+      "revId": "aa55ae2de4e9b2aea6039d0e1b94c260ae53634c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

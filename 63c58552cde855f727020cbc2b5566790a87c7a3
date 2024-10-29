@@ -16,6 +16,23 @@
       "message": "may not fix the flakyness (test time does not seem to be reduced on my machine) but seemed like a good idea in general",
       "revId": "63c58552cde855f727020cbc2b5566790a87c7a3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "41d03646_47e702aa",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-10-29T08:07:40Z",
+      "side": 1,
+      "message": "What\u0027s the resulting change in test execution time (debug mode)?",
+      "revId": "63c58552cde855f727020cbc2b5566790a87c7a3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

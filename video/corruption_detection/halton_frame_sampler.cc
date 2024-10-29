@@ -173,6 +173,12 @@ std::vector<FilteredSample> GetSampleValuesForFrame(
         << std_dev_gaussian_blur << ".\n";
     return {};
   }
+  RTC_CHECK_LE(scaled_width, i420_frame_buffer->width())
+      << "Upscaling causes corruption. Therefore, only down-scaling is "
+         "permissible.";
+  RTC_CHECK_LE(scaled_height, i420_frame_buffer->height())
+      << "Upscaling causes corruption. Therefore, only down-scaling is "
+         "permissible.";
 
   // Scale the frame to the desired resolution:
   // 1. Create a new buffer with the desired resolution.

@@ -27,6 +27,7 @@ using ::testing::DoubleEq;
 using ::testing::DoubleNear;
 using ::testing::ElementsAre;
 using ::testing::Field;
+using ::testing::HasSubstr;
 using ::testing::IsEmpty;
 using ::testing::Not;
 
@@ -157,6 +158,19 @@ TEST(HaltonFrameSamplerTest, FrameIsNotSampledWhenTimestampsAreEqual) {
           /*is_key_frame=*/false, /*rtp_timestamp=*/0, /*num_samples=*/1),
       _);
 }
+
+TEST(ScalingTest, ShouldCrashWhenUpscaling) {
+  const scoped_refptr<I420Buffer> kDefaultI420Buffer =
+      MakeDefaultI420FrameBuffer();
+
+  EXPECT_DEATH(GetSampleValuesForFrame(kDefaultI420Buffer,
+                                       MakeDefaultSampleCoordinates(),
+                                       /*scaled_width=*/8, /*scaled_height=*/8,
+                                       kDefaultStdDevGaussianBlur),
+               HasSubstr("Upscaling causes corruption. Therefore, only "
+                         "down-scaling is permissible."));
+}
+
 #endif  // GTEST_HAS_DEATH_TEST
 
 TEST(HaltonFrameSamplerGaussianFilteringTest,

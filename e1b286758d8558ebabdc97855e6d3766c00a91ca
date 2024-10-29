@@ -51,6 +51,24 @@
       "message": "Erik, do you mind to give a 2nd approval while Sergey OOO",
       "revId": "e1b286758d8558ebabdc97855e6d3766c00a91ca",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0a35ca4b_5274e81a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 22924
+      },
+      "writtenOn": "2024-10-29T11:48:42Z",
+      "side": 1,
+      "message": "@danilchap@webrtc.org Can anyone else help with this ticket?",
+      "parentUuid": "05297da8_443dc6f6",
+      "revId": "e1b286758d8558ebabdc97855e6d3766c00a91ca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

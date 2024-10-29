@@ -83,6 +83,7 @@ double FramePairCorruptionScorer::CalculateScore(
       GetSampleValuesForFrame(
           reference_i420_buffer, halton_samples, test_i420_buffer->width(),
           test_i420_buffer->height(), filter_settings.std_dev);
+  printf("------------------------\n");
   const std::vector<FilteredSample> filtered_test_sample_values =
       GetSampleValuesForFrame(
           test_i420_buffer, halton_samples, test_i420_buffer->width(),

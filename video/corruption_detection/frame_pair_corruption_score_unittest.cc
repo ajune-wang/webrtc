@@ -22,6 +22,8 @@
 #include "test/gtest.h"
 #include "test/testsupport/file_utils.h"
 #include "test/testsupport/frame_reader.h"
+#include "test/testsupport/file_utils.h"
+#include "video/corruption_detection/tga_writer.h"
 
 namespace webrtc {
 namespace {
@@ -36,7 +38,7 @@ constexpr int kHeight = 720;
 constexpr absl::string_view kCodecName = "VP8";
 
 // Scale function parameters.
-constexpr float kScaleFactor = 14;
+constexpr float kScaleFactor = 0.5;
 
 // Logistic function parameters.
 constexpr float kGrowthRate = 0.5;
@@ -64,9 +66,9 @@ TEST(FramePairCorruptionScorerTest, SameFrameReturnsNoCorruptionScaleFunction) {
 
   FramePairCorruptionScorer frame_pair_corruption_score(
       kCodecName, kScaleFactor, std::nullopt);
-  EXPECT_LT(
+  EXPECT_EQ(
       frame_pair_corruption_score.CalculateScore(/*qp=*/1, *frame, *frame),
-      0.5);
+      0);
 }
 
 TEST(FramePairCorruptionScorerTest,
@@ -91,6 +93,42 @@ TEST(FramePairCorruptionScorerTest,
   EXPECT_LT(frame_pair_corruption_score.CalculateScore(
                 /*qp=*/1, *frame,
                 *GetDowscaledFrame(frame, /*downscale_factor=*/0.5)),
+            0.5);
+}
+
+TEST(FramePairCorruptionScorerTest,
+     HalfScaleThenDoubleScale) {
+  std::unique_ptr<FrameReader> frame_reader = GetFrameGenerator();
+  scoped_refptr<I420Buffer> frame = frame_reader->PullFrame();
+
+  scoped_refptr<I420BufferInterface> down_scaled = GetDowscaledFrame(frame, /*downscale_factor=*/0.5);
+  scoped_refptr<I420Buffer> up_scaled = I420Buffer::Create(kWidth, kHeight);
+  up_scaled->ScaleFrom(*down_scaled);
+
+  ASSERT_EQ(up_scaled->width(), frame->width());
+  ASSERT_EQ(up_scaled->height(), frame->height());
+
+  FramePairCorruptionScorer frame_pair_corruption_score(
+      kCodecName, kScaleFactor, 0.00001);
+  EXPECT_LT(frame_pair_corruption_score.CalculateScore(
+                /*qp=*/1, *frame,
+                *up_scaled),
+            0.5);
+}
+
+
+TEST(FramePairCorruptionScorerTest, Upscale) {
+  std::unique_ptr<FrameReader> frame_reader = GetFrameGenerator();
+  scoped_refptr<I420Buffer> frame = frame_reader->PullFrame();
+  
+  scoped_refptr<I420Buffer> up_scaled = I420Buffer::Create(kWidth * 2, kHeight * 2);
+  up_scaled->ScaleFrom(*frame);
+
+  FramePairCorruptionScorer frame_pair_corruption_score(
+      kCodecName, kScaleFactor, std::nullopt);
+  EXPECT_LT(frame_pair_corruption_score.CalculateScore(
+                /*qp=*/1, *up_scaled,
+                *frame),
             0.5);
 }
 

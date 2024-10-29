@@ -14,16 +14,11 @@
 #include "api/audio/audio_processing.h"
 #include "api/audio_codecs/audio_decoder_factory.h"
 #include "api/audio_codecs/audio_encoder_factory.h"
+#include "api/peer_connection_interface.h"
 #include "api/scoped_refptr.h"
 #include "api/transport/network_control.h"
 #include "api/video_codecs/video_decoder_factory.h"
 #include "api/video_codecs/video_encoder_factory.h"
-
-namespace webrtc {
-
-struct PeerConnectionDependencies;
-
-}  // namespace webrtc
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -66,6 +61,10 @@ NS_ASSUME_NONNULL_BEGIN
                     (rtc::scoped_refptr<webrtc::AudioProcessing>)audioProcessingModule
              networkControllerFactory:(std::unique_ptr<webrtc::NetworkControllerFactoryInterface>)
                                           networkControllerFactory;
+
+/* Initialize object with provided dependencies. Overrides provided threads. Sets default
+ * dependencies when absent. */
+- (instancetype)initWithMediaDependencies:(webrtc::PeerConnectionFactoryDependencies)dependencies;
 
 - (instancetype)
     initWithEncoderFactory:(nullable id<RTC_OBJC_TYPE(RTCVideoEncoderFactory)>)encoderFactory

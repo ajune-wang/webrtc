@@ -211,6 +211,9 @@ std::vector<FilteredSample> GetSampleValuesForFrame(
     int column = coordinate.column * width_merged_planes;
     int row = coordinate.row * height_merged_planes;
 
+    printf("column: %d\n", column);
+    printf("row: %d\n", row);
+
     // Map to plane coordinates and fetch the value.
     double value_for_coordinate;
     if (column < scaled_i420_buffer->width()) {
@@ -241,6 +244,7 @@ std::vector<FilteredSample> GetSampleValuesForFrame(
       filtered_samples.push_back(
           {.value = value_for_coordinate, .plane = ImagePlane::kChroma});
     }
+    printf("Value for coordinate: %f\n", value_for_coordinate);
   }
   return filtered_samples;
 }

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5665c2e9_c42bec08",
+        "filename": "video/corruption_detection/frame_pair_corruption_score_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 3485001
+      },
+      "writtenOn": "2024-10-29T13:04:04Z",
+      "side": 1,
+      "message": "See",
+      "range": {
+        "startLine": 100,
+        "startChar": 5,
+        "endLine": 100,
+        "endChar": 29
+      },
+      "revId": "aef239d9a34ad289973a0458e6cfe26576108da9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

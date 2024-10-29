@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4d7040c5_8505ddf2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-10-29T08:08:48Z",
+      "side": 1,
+      "message": "This should stop the bleeding. We will get the problem back when we remove keys smaller than 2048 but I can refactor the tests until then",
+      "revId": "3be9a0507722c184cf8cbcde6267a28fe11702af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

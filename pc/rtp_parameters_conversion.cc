@@ -359,20 +359,4 @@ RtpCapabilities ToRtpCapabilities(
   return capabilities;
 }
 
-RtpParameters ToRtpParameters(
-    const std::vector<cricket::Codec>& cricket_codecs,
-    const cricket::RtpHeaderExtensions& cricket_extensions,
-    const cricket::StreamParamsVec& stream_params) {
-  RtpParameters rtp_parameters;
-  for (const cricket::Codec& cricket_codec : cricket_codecs) {
-    rtp_parameters.codecs.push_back(ToRtpCodecParameters(cricket_codec));
-  }
-  for (const RtpExtension& cricket_extension : cricket_extensions) {
-    rtp_parameters.header_extensions.emplace_back(cricket_extension.uri,
-                                                  cricket_extension.id);
-  }
-  rtp_parameters.encodings = ToRtpEncodings(stream_params);
-  return rtp_parameters;
-}
-
 }  // namespace webrtc

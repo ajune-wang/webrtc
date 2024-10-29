@@ -566,34 +566,4 @@ TEST(RtpParametersConversionTest, ToRtpCapabilities) {
               UnorderedElementsAre(FecMechanism::RED, FecMechanism::FLEXFEC));
 }
 
-TEST(RtpParametersConversionTest, ToRtpParameters) {
-  cricket::Codec vp8 = cricket::CreateVideoCodec(101, "VP8");
-  vp8.clockrate = 90000;
-
-  cricket::Codec red = cricket::CreateVideoCodec(102, "red");
-  red.clockrate = 90000;
-
-  cricket::Codec ulpfec = cricket::CreateVideoCodec(103, "ulpfec");
-  ulpfec.clockrate = 90000;
-
-  cricket::StreamParamsVec streams;
-  cricket::StreamParams stream;
-  stream.ssrcs.push_back(1234u);
-  streams.push_back(stream);
-
-  RtpParameters rtp_parameters =
-      ToRtpParameters({vp8, red, ulpfec}, {{"uri", 1}, {"uri2", 3}}, streams);
-  ASSERT_EQ(3u, rtp_parameters.codecs.size());
-  EXPECT_EQ("VP8", rtp_parameters.codecs[0].name);
-  EXPECT_EQ("red", rtp_parameters.codecs[1].name);
-  EXPECT_EQ("ulpfec", rtp_parameters.codecs[2].name);
-  ASSERT_EQ(2u, rtp_parameters.header_extensions.size());
-  EXPECT_EQ("uri", rtp_parameters.header_extensions[0].uri);
-  EXPECT_EQ(1, rtp_parameters.header_extensions[0].id);
-  EXPECT_EQ("uri2", rtp_parameters.header_extensions[1].uri);
-  EXPECT_EQ(3, rtp_parameters.header_extensions[1].id);
-  ASSERT_EQ(1u, rtp_parameters.encodings.size());
-  EXPECT_EQ(1234u, rtp_parameters.encodings[0].ssrc);
-}
-
 }  // namespace webrtc

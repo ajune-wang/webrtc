@@ -87,11 +87,6 @@ RtpCapabilities ToRtpCapabilities(
     const std::vector<cricket::Codec>& cricket_codecs,
     const cricket::RtpHeaderExtensions& cricket_extensions);
 
-RtpParameters ToRtpParameters(
-    const std::vector<cricket::Codec>& cricket_codecs,
-    const cricket::RtpHeaderExtensions& cricket_extensions,
-    const cricket::StreamParamsVec& stream_params);
-
 }  // namespace webrtc
 
 #endif  // PC_RTP_PARAMETERS_CONVERSION_H_

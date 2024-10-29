@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3b5f1dac_805ddce5",
+        "filename": "common_audio/signal_processing/include/signal_processing_library.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 392,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2024-10-29T11:49:40Z",
+      "side": 1,
+      "message": "Out of these functions, only two are used in production code (`WebRtcSpl_ElementwiseVectorMult` and `WebRtcSpl_AffineTransformVector`).\n\nYou don\u0027t have to clean that up now, but we may want to prune unused splib functions in the future.",
+      "range": {
+        "startLine": 392,
+        "startChar": 0,
+        "endLine": 392,
+        "endChar": 2
+      },
+      "revId": "a18b0225cde0490d7f7fe3dda493a4761bdefc37",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

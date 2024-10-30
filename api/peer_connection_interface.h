@@ -1260,11 +1260,12 @@ class PeerConnectionObserver {
       PeerConnectionInterface::SignalingState new_state) = 0;
 
   // Triggered when media is received on a new stream from remote peer.
-  virtual void OnAddStream(rtc::scoped_refptr<MediaStreamInterface> stream) {}
+  virtual void OnAddStream(
+      rtc::scoped_refptr<MediaStreamInterface> /* stream */) {}
 
   // Triggered when a remote peer closes a stream.
-  virtual void OnRemoveStream(rtc::scoped_refptr<MediaStreamInterface> stream) {
-  }
+  virtual void OnRemoveStream(
+      rtc::scoped_refptr<MediaStreamInterface> /* stream */) {}
 
   // Triggered when a remote peer opens a data channel.
   virtual void OnDataChannel(
@@ -1282,7 +1283,7 @@ class PeerConnectionObserver {
   // PeerConnection::ShouldFireNegotiationNeededEvent() returns true since it is
   // possible for the event to become invalidated by operations subsequently
   // chained.
-  virtual void OnNegotiationNeededEvent(uint32_t event_id) {}
+  virtual void OnNegotiationNeededEvent(uint32_t /* event_id */) {}
 
   // Called any time the legacy IceConnectionState changes.
   //
@@ -1293,15 +1294,15 @@ class PeerConnectionObserver {
   //
   // TODO(jonasolsson): deprecate and remove this.
   virtual void OnIceConnectionChange(
-      PeerConnectionInterface::IceConnectionState new_state) {}
+      PeerConnectionInterface::IceConnectionState /* new_state */) {}
 
   // Called any time the standards-compliant IceConnectionState changes.
   virtual void OnStandardizedIceConnectionChange(
-      PeerConnectionInterface::IceConnectionState new_state) {}
+      PeerConnectionInterface::IceConnectionState /* new_state */) {}
 
   // Called any time the PeerConnectionState changes.
   virtual void OnConnectionChange(
-      PeerConnectionInterface::PeerConnectionState new_state) {}
+      PeerConnectionInterface::PeerConnectionState /* new_state */) {}
 
   // Called any time the IceGatheringState changes.
   virtual void OnIceGatheringChange(
@@ -1312,8 +1313,8 @@ class PeerConnectionObserver {
 
   // Gathering of an ICE candidate failed.
   // See https://w3c.github.io/webrtc-pc/#event-icecandidateerror
-  virtual void OnIceCandidateError(const std::string& address,
-                                   int port,
+  virtual void OnIceCandidateError(const std::string& /* address */,
+                                   int /* port */,
                                    const std::string& url,
                                    int error_code,
                                    const std::string& error_text) {}
@@ -1350,7 +1351,7 @@ class PeerConnectionObserver {
   // RTCSessionDescription" algorithm:
   // https://w3c.github.io/webrtc-pc/#set-description
   virtual void OnTrack(
-      rtc::scoped_refptr<RtpTransceiverInterface> transceiver) {}
+      rtc::scoped_refptr<RtpTransceiverInterface> /* transceiver */) {}
 
   // Called when signaling indicates that media will no longer be received on a
   // track.
@@ -1361,7 +1362,7 @@ class PeerConnectionObserver {
   // https://w3c.github.io/webrtc-pc/#process-remote-track-removal
   // TODO(hbos,deadbeef): Make pure virtual when all subclasses implement it.
   virtual void OnRemoveTrack(
-      rtc::scoped_refptr<RtpReceiverInterface> receiver) {}
+      rtc::scoped_refptr<RtpReceiverInterface> /* receiver */) {}
 
   // Called when an interesting usage is detected by WebRTC.
   // An appropriate action is to add information about the context of the
@@ -1369,7 +1370,7 @@ class PeerConnectionObserver {
   // log function.
   // The heuristics for defining what constitutes "interesting" are
   // implementation-defined.
-  virtual void OnInterestingUsage(int usage_pattern) {}
+  virtual void OnInterestingUsage(int /* usage_pattern */) {}
 };
 
 // PeerConnectionDependencies holds all of PeerConnections dependencies.
@@ -1471,9 +1472,9 @@ struct RTC_EXPORT PeerConnectionFactoryDependencies final {
   rtc::scoped_refptr<AudioDecoderFactory> audio_decoder_factory;
   rtc::scoped_refptr<AudioMixer> audio_mixer;
   // TODO: bugs.webrtc.org/369904700 - Deprecate `audio_processing` in favor
-  // of `audio_processing_factory`.
+  // of `audio_processing_builder`.
   rtc::scoped_refptr<AudioProcessing> audio_processing;
-  std::unique_ptr<AudioProcessingFactory> audio_processing_factory;
+  std::unique_ptr<AudioProcessingBuilderInterface> audio_processing_builder;
   std::unique_ptr<AudioFrameProcessor> audio_frame_processor;
   std::unique_ptr<VideoEncoderFactory> video_encoder_factory;
   std::unique_ptr<VideoDecoderFactory> video_decoder_factory;
@@ -1613,7 +1614,7 @@ class RTC_EXPORT PeerConnectionFactoryInterface
   // StopAecDump function is called.
   // TODO(webrtc:6463): Delete default implementation when downstream mocks
   // classes are updated.
-  virtual bool StartAecDump(FILE* file, int64_t max_size_bytes) {
+  virtual bool StartAecDump(FILE* /* file */, int64_t /* max_size_bytes */) {
     return false;
   }
 

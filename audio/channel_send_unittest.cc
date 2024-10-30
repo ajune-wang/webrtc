@@ -188,7 +188,7 @@ TEST_F(ChannelSendTest, FrameTransformerGetsCorrectTimestamp) {
 
   std::optional<uint32_t> sent_timestamp;
   auto send_rtp = [&](rtc::ArrayView<const uint8_t> data,
-                      const PacketOptions& options) {
+                      const PacketOptions& /* options */) {
     RtpPacketReceived packet;
     packet.Parse(data);
     if (!sent_timestamp) {
@@ -298,7 +298,7 @@ TEST_F(ChannelSendTest, AudioLevelsAttachedToInsertedTransformedFrame) {
 
   std::optional<uint8_t> sent_audio_level;
   auto send_rtp = [&](rtc::ArrayView<const uint8_t> data,
-                      const PacketOptions& options) {
+                      const PacketOptions& /* options */) {
     RtpPacketReceived packet(&extension_manager);
     packet.Parse(data);
     RTPHeader header;

@@ -260,8 +260,8 @@ bool PeerConnectionIntegrationWrapper::Init(
     // Standard creation method for APM may return a null pointer when
     // AudioProcessing is disabled with a build flag. Bypass that flag by
     // explicitly injecting the factory.
-    pc_factory_dependencies.audio_processing_factory =
-        std::make_unique<BuiltinAudioProcessingFactory>();
+    pc_factory_dependencies.audio_processing_builder =
+        std::make_unique<BuiltinAudioProcessingBuilder>();
     EnableMediaWithDefaults(pc_factory_dependencies);
   }
 

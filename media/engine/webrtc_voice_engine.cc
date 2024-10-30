@@ -288,7 +288,7 @@ webrtc::AudioReceiveStreamInterface::Config BuildReceiveStreamConfig(
     bool use_nack,
     bool enable_non_sender_rtt,
     const std::vector<std::string>& stream_ids,
-    const std::vector<webrtc::RtpExtension>& extensions,
+    const std::vector<webrtc::RtpExtension>& /* extensions */,
     webrtc::Transport* rtcp_send_transport,
     const rtc::scoped_refptr<webrtc::AudioDecoderFactory>& decoder_factory,
     const std::map<int, webrtc::SdpAudioFormat>& decoder_map,
@@ -471,7 +471,7 @@ WebRtcVoiceEngine::WebRtcVoiceEngine(
       minimized_remsampling_on_mobile_trial_enabled_(
           trials.IsEnabled("WebRTC-Audio-MinimizeResamplingOnMobile")),
       payload_types_in_transport_trial_enabled_(
-          trials.IsEnabled("WebRTC-PayloadTypesInTransport")) {
+          !trials.IsDisabled("WebRTC-PayloadTypesInTransport")) {
   RTC_LOG(LS_INFO) << "WebRtcVoiceEngine::WebRtcVoiceEngine";
   RTC_DCHECK(decoder_factory);
   RTC_DCHECK(encoder_factory);

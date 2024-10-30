@@ -95,8 +95,8 @@ class FakeAudioSendStream final : public webrtc::AudioSendStream {
                    webrtc::SetParametersCallback callback) override;
   void Start() override { sending_ = true; }
   void Stop() override { sending_ = false; }
-  void SendAudioData(std::unique_ptr<webrtc::AudioFrame> audio_frame) override {
-  }
+  void SendAudioData(
+      std::unique_ptr<webrtc::AudioFrame> /* audio_frame */) override {}
   bool SendTelephoneEvent(int payload_type,
                           int payload_frequency,
                           int event,
@@ -299,14 +299,16 @@ class FakeVideoReceiveStream final
   void UpdateRtxSsrc(uint32_t ssrc) { config_.rtp.rtx_ssrc = ssrc; }
 
   void SetFrameDecryptor(rtc::scoped_refptr<webrtc::FrameDecryptorInterface>
-                             frame_decryptor) override {}
+                         /* frame_decryptor */) override {}
 
   void SetDepacketizerToDecoderFrameTransformer(
-      rtc::scoped_refptr<webrtc::FrameTransformerInterface> frame_transformer)
-      override {}
+      rtc::scoped_refptr<
+          webrtc::FrameTransformerInterface> /* frame_transformer */) override {
+  }
 
-  RecordingState SetAndGetRecordingState(RecordingState state,
-                                         bool generate_key_frame) override {
+  RecordingState SetAndGetRecordingState(
+      RecordingState /* state */,
+      bool /* generate_key_frame */) override {
     return RecordingState();
   }
   void GenerateKeyFrame() override {}
@@ -393,6 +395,26 @@ class FakeFlexfecReceiveStream final : public webrtc::FlexfecReceiveStream {
   webrtc::FlexfecReceiveStream::Config config_;
 };
 
+// Fake payload type suggester.
+// This is injected into FakeCall at initialization.
+class FakePayloadTypeSuggester : public webrtc::PayloadTypeSuggester {
+ public:
+  webrtc::RTCErrorOr<webrtc::PayloadType> SuggestPayloadType(
+      const std::string& /* mid */,
+      cricket::Codec codec) override {
+    // Ignores mid argument.
+    return pt_picker_.SuggestMapping(codec, nullptr);
+  }
+  webrtc::RTCError AddLocalMapping(const std::string& /* mid */,
+                                   webrtc::PayloadType /* payload_type */,
+                                   const cricket::Codec& /* codec */) override {
+    return webrtc::RTCError::OK();
+  }
+
+ private:
+  webrtc::PayloadTypePicker pt_picker_;
+};
+
 class FakeCall final : public webrtc::Call, public webrtc::PacketReceiver {
  public:
   explicit FakeCall(const webrtc::Environment& env);
@@ -441,7 +463,7 @@ class FakeCall final : public webrtc::Call, public webrtc::PacketReceiver {
   void SetStats(const webrtc::Call::Stats& stats);
 
   void SetClientBitratePreferences(
-      const webrtc::BitrateSettings& preferences) override {}
+      const webrtc::BitrateSettings& /* preferences */) override {}
   const webrtc::FieldTrialsView& trials() const override {
     return env_.field_trials();
   }
@@ -476,7 +498,7 @@ class FakeCall final : public webrtc::Call, public webrtc::PacketReceiver {
 
   webrtc::PacketReceiver* Receiver() override;
 
-  void DeliverRtcpPacket(rtc::CopyOnWriteBuffer packet) override {}
+  void DeliverRtcpPacket(rtc::CopyOnWriteBuffer /* packet */) override {}
 
   void DeliverRtpPacket(
       webrtc::MediaType media_type,

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0f1bb18e_6997c443",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-30T14:36:47Z",
+      "side": 1,
+      "message": "Noticed Anders (reviewed introduction of the builder in https://webrtc-review.googlesource.com/c/src/+/83280 ) is OOO for a while.",
+      "revId": "391010602448b96244784c14ab0aa95dd370a647",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

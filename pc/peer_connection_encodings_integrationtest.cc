@@ -55,6 +55,7 @@
 #include "test/scoped_key_value_config.h"
 
 using ::testing::Eq;
+using ::testing::Gt;
 using ::testing::Optional;
 using ::testing::SizeIs;
 using ::testing::StrCaseEq;
@@ -1686,6 +1687,7 @@ TEST_F(PeerConnectionEncodingsIntegrationTest,
   remote_pc_wrapper->WaitForConnection();
 
   RtpParameters parameters = audio_transceiver->sender()->GetParameters();
+  ASSERT_THAT(parameters.encodings.size(), Gt(0));
   parameters.encodings[0].codec = opus;
   RTCError error = audio_transceiver->sender()->SetParameters(parameters);
   EXPECT_EQ(error.type(), RTCErrorType::INVALID_MODIFICATION);
@@ -1748,6 +1750,7 @@ TEST_F(PeerConnectionEncodingsIntegrationTest,
   remote_pc_wrapper->WaitForConnection();
 
   RtpParameters parameters = audio_transceiver->sender()->GetParameters();
+  ASSERT_THAT(parameters.encodings.size(), Gt(0));
   parameters.encodings[0].codec = opus;
   RTCError error = audio_transceiver->sender()->SetParameters(parameters);
   EXPECT_EQ(error.type(), RTCErrorType::INVALID_MODIFICATION);
@@ -1893,6 +1896,7 @@ TEST_F(PeerConnectionEncodingsIntegrationTest,
   remote_pc_wrapper->WaitForConnection();
 
   RtpParameters parameters = audio_transceiver->sender()->GetParameters();
+  ASSERT_THAT(parameters.encodings.size(), Gt(0));
   EXPECT_EQ(parameters.encodings[0].codec, opus);
 
   ASSERT_TRUE(audio_transceiver->SetCodecPreferences(not_opus_codecs).ok());
@@ -1945,7 +1949,9 @@ TEST_F(PeerConnectionEncodingsIntegrationTest,
   remote_pc_wrapper->WaitForConnection();
 
   RtpParameters parameters = audio_transceiver->sender()->GetParameters();
+  ASSERT_THAT(parameters.encodings.size(), Gt(0));
   EXPECT_EQ(parameters.encodings[0].codec, opus);
+  ASSERT_THAT(parameters.codecs.size(), Gt(0));
   EXPECT_EQ(parameters.codecs[0].name, red->name);
 
   // Check that it's possible to switch back to Opus without RED.

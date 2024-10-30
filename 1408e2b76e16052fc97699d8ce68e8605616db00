@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3b545aac_ac38152e",
+        "filename": "audio/voip/test/audio_egress_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-30T10:32:44Z",
+      "side": 1,
+      "message": "wonder if using `Unused` type for the 1st parameter too would make more sense in the test code.\n\nthough personally I would probably rewrite expectation even further:\n\n```\nON_CALL(transport_, SendRtp).WillByDefault(WithoutArgs([\u0026] {\n  if (++rtp_count \u003d\u003d kExpected) {\n    event.Set();\n  }\n  return true;\n}));\n```\n\n\nAnyway, such big changes is out of scope of the main point of the change, so feel free to ignore.",
+      "range": {
+        "startLine": 299,
+        "startChar": 66,
+        "endLine": 299,
+        "endChar": 72
+      },
+      "revId": "1408e2b76e16052fc97699d8ce68e8605616db00",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -67,6 +67,23 @@
       "message": "Temporarily set the status back to WIP. As suggested by Olga, let\u0027s review the design doc first.",
       "revId": "54401dbebd925c4ea9a6bb0ea8e263f13d927ae6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c39fa2d2_a4b3677a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2024-10-30T09:04:12Z",
+      "side": 1,
+      "message": "Thanks for uploading this change.\n\nUnfortunately, for the reasons I explained in https://docs.google.com/document/d/1dkYen-klX7-CCs82_qyRMICdjzms6mgcvZly91qip6o/edit?disco\u003dAAABXmwXT2Q, the option implemented in this CL is not a valid one.\n\nHappy to continue the discussion in the design doc.",
+      "revId": "54401dbebd925c4ea9a6bb0ea8e263f13d927ae6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

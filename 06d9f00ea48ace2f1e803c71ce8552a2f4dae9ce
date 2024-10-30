@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "760afb54_9bbd2bfe",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-30T14:17:36Z",
+      "side": 1,
+      "message": "I wanted to extend builder, put didn\u0027t want to add yet another multiparameter constructor to RTCPeerConnectionFactory, so instead added single parameter constructor and refactored implementation to reduce some duplication, and to allow to remove those native multiparameter constructors. Is that ok, or would you prefer me to split this change into two steps: refactor first, extend builder after?",
+      "revId": "06d9f00ea48ace2f1e803c71ce8552a2f4dae9ce",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

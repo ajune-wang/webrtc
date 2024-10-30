@@ -50,6 +50,24 @@
       "message": "Actaully objective-c, not C....",
       "revId": "f3d84e832e86aca316683af89778e4e78baecc8f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "655150e5_8bd8f43d",
+        "filename": "examples/objc/AppRTCMobile/third_party/SocketRocket/SRWebSocket.m",
+        "patchSetId": 3
+      },
+      "lineNbr": 1643,
+      "author": {
+        "id": 19769
+      },
+      "writtenOn": "2024-10-30T09:43:54Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "33c2a70d_76d7db71",
+      "revId": "f3d84e832e86aca316683af89778e4e78baecc8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

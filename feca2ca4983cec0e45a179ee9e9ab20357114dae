@@ -16,6 +16,23 @@
       "message": "we can wait a bit before merging so the spec has a proper resolution",
       "revId": "feca2ca4983cec0e45a179ee9e9ab20357114dae",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "385c0645_93c383f9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-10-30T09:49:14Z",
+      "side": 1,
+      "message": "It makes me nervous to land this without any WG discussion.\nCan you make a killswitch for it?",
+      "revId": "feca2ca4983cec0e45a179ee9e9ab20357114dae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -16,6 +16,23 @@
       "message": "@hta@webrtc.org is the root cause of the revert the change to the `SRWebSocket.m` file?\nLooking again, the rest of the changes looks valid without a lot of potential to break stuff",
       "revId": "f5e0f038440ae1cf46f84c3d740a75e420d808ca",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1c08ebb6_2bc2f10a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19769
+      },
+      "writtenOn": "2024-10-30T08:46:10Z",
+      "side": 1,
+      "message": "Ah I see the reason for it in the revert commit.",
+      "revId": "f5e0f038440ae1cf46f84c3d740a75e420d808ca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

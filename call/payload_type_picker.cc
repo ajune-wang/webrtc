@@ -141,10 +141,11 @@ RTCErrorOr<PayloadType> PayloadTypePicker::SuggestMapping(
   // The first matching entry is returned, unless excluder
   // maps it to something different.
   for (auto entry : entries_) {
-    if (MatchesWithCodecRules(entry.codec(), codec)) {
+    if (MatchesWithReferenceAttributes(entry.codec(), codec)) {
       if (excluder) {
         auto result = excluder->LookupCodec(entry.payload_type());
-        if (result.ok() && !MatchesWithCodecRules(result.value(), codec)) {
+        if (result.ok() &&
+            !MatchesWithReferenceAttributes(result.value(), codec)) {
           continue;
         }
       }
@@ -165,7 +166,7 @@ RTCError PayloadTypePicker::AddMapping(PayloadType payload_type,
   // Multiple mappings for the same codec and the same PT are legal;
   for (auto entry : entries_) {
     if (payload_type == entry.payload_type() &&
-        MatchesWithCodecRules(codec, entry.codec())) {
+        MatchesWithReferenceAttributes(codec, entry.codec())) {
       return RTCError::OK();
     }
   }
@@ -225,7 +226,7 @@ RTCErrorOr<PayloadType> PayloadTypeRecorder::LookupPayloadType(
   auto result =
       std::find_if(payload_type_to_codec_.begin(), payload_type_to_codec_.end(),
                    [codec](const auto& iter) {
-                     return MatchesWithCodecRules(iter.second, codec);
+                     return MatchesWithReferenceAttributes(iter.second, codec);
                    });
   if (result == payload_type_to_codec_.end()) {
     return RTCError(RTCErrorType::INVALID_PARAMETER,

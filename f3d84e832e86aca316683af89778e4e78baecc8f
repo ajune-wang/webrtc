@@ -16,6 +16,23 @@
       "message": "Replaced [[maybe_unused]] with (void) and a comment.",
       "revId": "f3d84e832e86aca316683af89778e4e78baecc8f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "33c2a70d_76d7db71",
+        "filename": "examples/objc/AppRTCMobile/third_party/SocketRocket/SRWebSocket.m",
+        "patchSetId": 3
+      },
+      "lineNbr": 1643,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-10-30T09:12:42Z",
+      "side": 1,
+      "message": "Actaully objective-c, not C....",
+      "revId": "f3d84e832e86aca316683af89778e4e78baecc8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

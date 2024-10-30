@@ -449,4 +449,52 @@ TEST(VCMTimingTest, GetTimings) {
   EXPECT_THAT(timings, HasConsistentVideoDelayTimings());
 }
 
+TEST(VCMTimingTest, GetTimingsBeforeAndAfterValidRtpTimestamp) {
+  test::ScopedKeyValueConfig field_trials;
+  SimulatedClock clock(33);
+  VCMTiming timing(&clock, field_trials);
+  timing.Reset();
+
+  // Setup.
+  TimeDelta min_playout_delay = TimeDelta::Millis(50);
+  timing.set_min_playout_delay(min_playout_delay);
+  TimeDelta max_playout_delay = TimeDelta::Millis(500);
+  timing.set_max_playout_delay(max_playout_delay);
+
+  // On decodable frames before valid rtp timestamp.
+  TimeDelta rtp_ts_base = TimeDelta::Millis(3000);
+  TimeDelta rtp_ts_delta_10fps = TimeDelta::Millis(9000);
+  TimeDelta frame_ts_delta_10fps = TimeDelta::Millis(100);
+  TimeDelta any_time_elapsed = TimeDelta::Millis(17);
+  int decodeable_frame_cnt = 10;
+
+  for (int i = 0; i < decodeable_frame_cnt; i++) {
+    clock.AdvanceTimeMilliseconds(any_time_elapsed.ms());
+
+    Timestamp render_time = timing.RenderTime(
+        rtp_ts_base.ms() + i * rtp_ts_delta_10fps.ms(), clock.CurrentTime());
+    // Render time should be CurrentTime
+    EXPECT_EQ(render_time.ms(), clock.CurrentTime().ms());
+  }
+
+  // On frame compelete, which one not 'metadata.delayed_by_retransmission'
+  rtp_ts_base += decodeable_frame_cnt * rtp_ts_delta_10fps;
+  Timestamp valid_frame_ts = clock.CurrentTime();
+  timing.IncomingTimestamp(rtp_ts_base.ms(), valid_frame_ts);
+
+  for (int i = 0; i < decodeable_frame_cnt; i++) {
+    clock.AdvanceTimeMilliseconds(any_time_elapsed.ms());
+
+    Timestamp render_time = timing.RenderTime(
+        rtp_ts_base.ms() + i * rtp_ts_delta_10fps.ms(), clock.CurrentTime());
+    // Render time should be relative to the latest valid frame timestamp.
+    EXPECT_EQ(render_time.ms(), valid_frame_ts.ms() +
+                                    i * frame_ts_delta_10fps.ms() +
+                                    min_playout_delay.ms());
+    EXPECT_NE(render_time.ms(),
+              valid_frame_ts.ms() + i * frame_ts_delta_10fps.ms());
+    EXPECT_NE(render_time.ms(), clock.CurrentTime().ms());
+  }
+}
+
 }  // namespace webrtc

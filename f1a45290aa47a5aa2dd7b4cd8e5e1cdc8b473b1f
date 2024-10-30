@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ee2d835e_71815622",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-10-30T09:52:45Z",
+      "side": 1,
+      "message": "Question: Should we [[deprecate]] the remaining functions in order to eventually get rid of the file?",
+      "revId": "f1a45290aa47a5aa2dd7b4cd8e5e1cdc8b473b1f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

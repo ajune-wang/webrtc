@@ -214,17 +214,16 @@ std::string AudioProcessing::Config::ToString() const {
   return builder.str();
 }
 
-absl::Nonnull<std::unique_ptr<AudioProcessingBuilderInterface>>
-CustomAudioProcessing(
+absl::Nonnull<std::unique_ptr<AudioProcessingFactory>> CustomAudioProcessing(
     absl::Nonnull<scoped_refptr<AudioProcessing>> audio_processing) {
-  class Builder : public AudioProcessingBuilderInterface {
+  class Factory : public AudioProcessingFactory {
    public:
-    explicit Builder(absl::Nonnull<scoped_refptr<AudioProcessing>> ap)
+    explicit Factory(absl::Nonnull<scoped_refptr<AudioProcessing>> ap)
         : ap_(std::move(ap)) {}
 
-    absl::Nullable<scoped_refptr<AudioProcessing>> Build(
+    absl::Nullable<scoped_refptr<AudioProcessing>> Create(
         const Environment& /*env*/) override {
-      return std::move(ap_);
+      return ap_;
     }
 
    private:
@@ -232,7 +231,7 @@ CustomAudioProcessing(
   };
 
   RTC_CHECK(audio_processing);
-  return std::make_unique<Builder>(std::move(audio_processing));
+  return std::make_unique<Factory>(std::move(audio_processing));
 }
 
 }  // namespace webrtc

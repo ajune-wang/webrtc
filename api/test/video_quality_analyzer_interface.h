@@ -41,7 +41,7 @@ namespace webrtc {
 //  ___________       ________       _________
 // |           |     |        |     |         |
 // |   Frame   |-(A)→| WebRTC |-(B)→| Video   |-(C)┐
-// | Generator |     | Stack  |     | Encoder |    |
+// | Generator |     | Stack  |     | Decoder |    |
 //  ¯¯¯¯¯¯¯¯¯¯¯       ¯¯¯¯¯¯¯¯       ¯¯¯¯¯¯¯¯¯     |
 //                                               __↓________
 //                                              | Transport |

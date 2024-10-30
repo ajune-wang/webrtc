@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef API_AUDIO_BUILTIN_AUDIO_PROCESSING_BUILDER_H_
-#define API_AUDIO_BUILTIN_AUDIO_PROCESSING_BUILDER_H_
+#ifndef API_AUDIO_BUILTIN_AUDIO_PROCESSING_FACTORY_H_
+#define API_AUDIO_BUILTIN_AUDIO_PROCESSING_FACTORY_H_
 
 #include <memory>
 #include <utility>
@@ -23,54 +23,53 @@
 
 namespace webrtc {
 
-class RTC_EXPORT BuiltinAudioProcessingBuilder
-    : public AudioProcessingBuilderInterface {
+class RTC_EXPORT BuiltinAudioProcessingFactory : public AudioProcessingFactory {
  public:
-  BuiltinAudioProcessingBuilder() = default;
-  explicit BuiltinAudioProcessingBuilder(const AudioProcessing::Config& config)
+  BuiltinAudioProcessingFactory() = default;
+  explicit BuiltinAudioProcessingFactory(const AudioProcessing::Config& config)
       : config_(config) {}
-  BuiltinAudioProcessingBuilder(const BuiltinAudioProcessingBuilder&) = delete;
-  BuiltinAudioProcessingBuilder& operator=(
-      const BuiltinAudioProcessingBuilder&) = delete;
-  ~BuiltinAudioProcessingBuilder() override = default;
+  BuiltinAudioProcessingFactory(const BuiltinAudioProcessingFactory&) = delete;
+  BuiltinAudioProcessingFactory& operator=(
+      const BuiltinAudioProcessingFactory&) = delete;
+  ~BuiltinAudioProcessingFactory() override = default;
 
   // Sets the APM configuration.
-  BuiltinAudioProcessingBuilder& SetConfig(
+  BuiltinAudioProcessingFactory& SetConfig(
       const AudioProcessing::Config& config) {
     config_ = config;
     return *this;
   }
 
   // Sets the echo controller factory to inject when APM is created.
-  BuiltinAudioProcessingBuilder& SetEchoControlFactory(
+  BuiltinAudioProcessingFactory& SetEchoControlFactory(
       std::unique_ptr<EchoControlFactory> echo_control_factory) {
     echo_control_factory_ = std::move(echo_control_factory);
     return *this;
   }
 
   // Sets the capture post-processing sub-module to inject when APM is created.
-  BuiltinAudioProcessingBuilder& SetCapturePostProcessing(
+  BuiltinAudioProcessingFactory& SetCapturePostProcessing(
       std::unique_ptr<CustomProcessing> capture_post_processing) {
     capture_post_processing_ = std::move(capture_post_processing);
     return *this;
   }
 
   // Sets the render pre-processing sub-module to inject when APM is created.
-  BuiltinAudioProcessingBuilder& SetRenderPreProcessing(
+  BuiltinAudioProcessingFactory& SetRenderPreProcessing(
       std::unique_ptr<CustomProcessing> render_pre_processing) {
     render_pre_processing_ = std::move(render_pre_processing);
     return *this;
   }
 
   // Sets the echo detector to inject when APM is created.
-  BuiltinAudioProcessingBuilder& SetEchoDetector(
+  BuiltinAudioProcessingFactory& SetEchoDetector(
       rtc::scoped_refptr<EchoDetector> echo_detector) {
     echo_detector_ = std::move(echo_detector);
     return *this;
   }
 
   // Sets the capture analyzer sub-module to inject when APM is created.
-  BuiltinAudioProcessingBuilder& SetCaptureAnalyzer(
+  BuiltinAudioProcessingFactory& SetCaptureAnalyzer(
       std::unique_ptr<CustomAudioAnalyzer> capture_analyzer) {
     capture_analyzer_ = std::move(capture_analyzer);
     return *this;
@@ -78,11 +77,14 @@ class RTC_EXPORT BuiltinAudioProcessingBuilder
 
   // Creates an APM instance with the specified config or the default one if
   // unspecified. Injects the specified components transferring the ownership
-  // to the newly created APM instance.
-  absl::Nullable<scoped_refptr<AudioProcessing>> Build(
+  // to the newly created APM instance. This implementation of the
+  // AudioProcessingFactory interface is not designed to be used more than once.
+  // Calling `Create` second time would return an unspecified object.
+  absl::Nullable<scoped_refptr<AudioProcessing>> Create(
       const Environment& env) override;
 
  private:
+  bool called_create_ = false;
   AudioProcessing::Config config_;
   std::unique_ptr<EchoControlFactory> echo_control_factory_;
   std::unique_ptr<CustomProcessing> capture_post_processing_;
@@ -93,4 +95,4 @@ class RTC_EXPORT BuiltinAudioProcessingBuilder
 
 }  // namespace webrtc
 
-#endif  // API_AUDIO_BUILTIN_AUDIO_PROCESSING_BUILDER_H_
+#endif  // API_AUDIO_BUILTIN_AUDIO_PROCESSING_FACTORY_H_

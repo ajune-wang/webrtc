@@ -583,19 +583,20 @@ class SSLStreamAdapterTestBase : public ::testing::Test,
 
     // Now run the handshake
     if (expect_success) {
-      EXPECT_TRUE_SIMULATED_WAIT((client_ssl_->GetState() == rtc::SS_OPEN) &&
-                                     (server_ssl_->GetState() == rtc::SS_OPEN),
-                                 handshake_wait_, clock_);
+      EXPECT_TRUE_WAIT((client_ssl_->GetState() == rtc::SS_OPEN) &&
+                           (server_ssl_->GetState() == rtc::SS_OPEN),
+                       handshake_wait_);
     } else {
-      EXPECT_TRUE_SIMULATED_WAIT(client_ssl_->GetState() == rtc::SS_CLOSED,
-                                 handshake_wait_, clock_);
+      EXPECT_TRUE_WAIT(client_ssl_->GetState() == rtc::SS_CLOSED,
+                       handshake_wait_);
     }
   }
 
   // This tests that we give up after 12 DTLS resends.
   // Only works for BoringSSL which allows advancing the fake clock.
   void TestHandshakeTimeout() {
-    int64_t time_start = clock_.TimeNanos();
+    rtc::ScopedFakeClock clock;
+    int64_t time_start = clock.TimeNanos();
     webrtc::TimeDelta time_increment = webrtc::TimeDelta::Millis(1000);
 
     if (!dtls_) {
@@ -623,12 +624,12 @@ class SSLStreamAdapterTestBase : public ::testing::Test,
     // Now wait for the handshake to timeout (or fail after an hour of simulated
     // time).
     while (client_ssl_->GetState() == rtc::SS_OPENING &&
-           (rtc::TimeDiff(clock_.TimeNanos(), time_start) <
+           (rtc::TimeDiff(clock.TimeNanos(), time_start) <
             3600 * rtc::kNumNanosecsPerSec)) {
-      EXPECT_TRUE_SIMULATED_WAIT(!((client_ssl_->GetState() == rtc::SS_OPEN) &&
-                                   (server_ssl_->GetState() == rtc::SS_OPEN)),
-                                 1000, clock_);
-      clock_.AdvanceTime(time_increment);
+      EXPECT_TRUE_WAIT(!((client_ssl_->GetState() == rtc::SS_OPEN) &&
+                         (server_ssl_->GetState() == rtc::SS_OPEN)),
+                       1000);
+      clock.AdvanceTime(time_increment);
     }
     EXPECT_EQ(client_ssl_->GetState(), rtc::SS_CLOSED);
   }
@@ -652,9 +653,9 @@ class SSLStreamAdapterTestBase : public ::testing::Test,
     ASSERT_EQ(0, client_ssl_->StartSSL());
 
     // Now run the handshake.
-    EXPECT_TRUE_SIMULATED_WAIT(
+    EXPECT_TRUE_WAIT(
         client_ssl_->IsTlsConnected() && server_ssl_->IsTlsConnected(),
-        handshake_wait_, clock_);
+        handshake_wait_);
 
     // Until the identity has been verified, the state should still be
     // SS_OPENING and writes should return SR_BLOCK.
@@ -855,7 +856,6 @@ class SSLStreamAdapterTestBase : public ::testing::Test,
   }
 
   rtc::AutoThread main_thread_;
-  rtc::ScopedFakeClock clock_;
   std::string client_cert_pem_;
   std::string client_private_key_pem_;
   rtc::KeyParams client_key_type_;
@@ -973,15 +973,14 @@ class SSLStreamAdapterTestDTLSBase : public SSLStreamAdapterTestBase {
 
     WriteData();
 
-    EXPECT_TRUE_SIMULATED_WAIT(sent_ == count_, 10000, clock_);
+    EXPECT_TRUE_WAIT(sent_ == count_, 10000);
     RTC_LOG(LS_INFO) << "sent_ == " << sent_;
 
     if (damage_) {
-      SIMULATED_WAIT(false, 2000, clock_);
+      WAIT(false, 2000);
       EXPECT_EQ(0U, received_.size());
     } else if (loss_ == 0) {
-      EXPECT_EQ_SIMULATED_WAIT(static_cast<size_t>(sent_), received_.size(),
-                               1000, clock_);
+      EXPECT_EQ_WAIT(static_cast<size_t>(sent_), received_.size(), 1000);
     } else {
       RTC_LOG(LS_INFO) << "Sent " << sent_ << " packets; received "
                        << received_.size();
@@ -1128,18 +1127,17 @@ TEST_P(SSLStreamAdapterTestDTLSHandshake, TestGetSslCipherSuite) {
 }
 
 // Test different key sizes with SHA-256, then different signature algorithms
-// with ECDSA. Two different RSA sizes are tested on the client side.
-// TODO: bugs.webrtc.org/375552698 - these tests are slow in debug builds
-// and have caused flakyness in the past with larger keysizes.
+// with ECDSA.
 INSTANTIATE_TEST_SUITE_P(
     SSLStreamAdapterTestDTLSHandshakeKeyParameters,
     SSLStreamAdapterTestDTLSHandshake,
     Combine(Values(rtc::KeyParams::RSA(rtc::kRsaDefaultModSize,
                                        rtc::kRsaDefaultExponent),
-                   rtc::KeyParams::RSA(1152, rtc::kRsaDefaultExponent),
+                   rtc::KeyParams::RSA(2 * 1152, rtc::kRsaDefaultExponent),
                    rtc::KeyParams::ECDSA(rtc::EC_NIST_P256)),
             Values(rtc::KeyParams::RSA(rtc::kRsaDefaultModSize,
                                        rtc::kRsaDefaultExponent),
+                   rtc::KeyParams::RSA(2 * 1152, rtc::kRsaDefaultExponent),
                    rtc::KeyParams::ECDSA(rtc::EC_NIST_P256)),
             Values(std::make_pair(rtc::DIGEST_SHA_256, SHA256_DIGEST_LENGTH))));
 
@@ -1480,3 +1478,4 @@ TEST_F(SSLStreamAdapterTestDTLS, TestGetSslVersionBytes) {
   ASSERT_TRUE(GetSslVersionBytes(false, &server_version));
   EXPECT_EQ(server_version, kDtls1_2);
 }
+

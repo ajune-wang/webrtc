@@ -154,9 +154,7 @@ class FakeNetworkInterface : public MediaChannelNetworkInterface {
     return true;
   }
 
-  virtual int SetOption(SocketType /* type */,
-                        rtc::Socket::Option opt,
-                        int option) {
+  virtual int SetOption(SocketType type, rtc::Socket::Option opt, int option) {
     if (opt == rtc::Socket::OPT_SNDBUF) {
       sendbuf_size_ = option;
     } else if (opt == rtc::Socket::OPT_RCVBUF) {

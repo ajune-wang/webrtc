@@ -176,10 +176,10 @@ class MockAudioProcessing : public AudioProcessing {
   MOCK_METHOD(AudioProcessing::Config, GetConfig, (), (const, override));
 };
 
-class MockAudioProcessingBuilder : public AudioProcessingBuilderInterface {
+class MockAudioProcessingFactory : public AudioProcessingFactory {
  public:
   MOCK_METHOD(scoped_refptr<AudioProcessing>,
-              Build,
+              Create,
               (const Environment&),
               (override));
 };

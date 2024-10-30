@@ -8,7 +8,7 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#include "api/audio/builtin_audio_processing_builder.h"
+#include "api/audio/builtin_audio_processing_factory.h"
 
 #include "api/audio/audio_processing.h"
 #include "api/environment/environment.h"
@@ -21,25 +21,25 @@ namespace webrtc {
 
 using ::testing::NotNull;
 
-TEST(BuiltinAudioProcessingBuilderTest, CreatesWithDefaults) {
-  EXPECT_THAT(BuiltinAudioProcessingBuilder().Build(CreateEnvironment()),
+TEST(BuiltinAudioProcessingFactoryTest, CreatesWithDefaults) {
+  EXPECT_THAT(BuiltinAudioProcessingFactory().Create(CreateEnvironment()),
               NotNull());
 }
 
-TEST(BuiltinAudioProcessingBuilderTest, CreatesWithConfig) {
+TEST(BuiltinAudioProcessingFactoryTest, CreatesWithConfig) {
   const Environment env = CreateEnvironment();
   AudioProcessing::Config config;
   // Change a field to make config different to default one.
   config.gain_controller1.enabled = !config.gain_controller1.enabled;
 
   scoped_refptr<AudioProcessing> ap1 =
-      BuiltinAudioProcessingBuilder(config).Build(env);
+      BuiltinAudioProcessingFactory(config).Create(env);
   ASSERT_THAT(ap1, NotNull());
   EXPECT_EQ(ap1->GetConfig().gain_controller1.enabled,
             config.gain_controller1.enabled);
 
   scoped_refptr<AudioProcessing> ap2 =
-      BuiltinAudioProcessingBuilder().SetConfig(config).Build(env);
+      BuiltinAudioProcessingFactory().SetConfig(config).Create(env);
   ASSERT_THAT(ap2, NotNull());
   EXPECT_EQ(ap2->GetConfig().gain_controller1.enabled,
             config.gain_controller1.enabled);

@@ -33,8 +33,7 @@ namespace test {
 class NetEqTestErrorCallback {
  public:
   virtual ~NetEqTestErrorCallback() = default;
-  virtual void OnInsertPacketError(const NetEqInput::PacketData& /* packet */) {
-  }
+  virtual void OnInsertPacketError(const NetEqInput::PacketData& packet) {}
   virtual void OnGetAudioError() {}
 };
 

@@ -395,6 +395,26 @@ class FakeFlexfecReceiveStream final : public webrtc::FlexfecReceiveStream {
   webrtc::FlexfecReceiveStream::Config config_;
 };
 
+// Fake payload type suggester.
+// This is injected into FakeCall at initialization.
+class FakePayloadTypeSuggester : public webrtc::PayloadTypeSuggester {
+ public:
+  webrtc::RTCErrorOr<webrtc::PayloadType> SuggestPayloadType(
+      const std::string& /* mid */,
+      cricket::Codec codec) override {
+    // Ignores mid argument.
+    return pt_picker_.SuggestMapping(codec, nullptr);
+  }
+  webrtc::RTCError AddLocalMapping(const std::string& /* mid */,
+                                   webrtc::PayloadType /* payload_type */,
+                                   const cricket::Codec& /* codec */) override {
+    return webrtc::RTCError::OK();
+  }
+
+ private:
+  webrtc::PayloadTypePicker pt_picker_;
+};
+
 class FakeCall final : public webrtc::Call, public webrtc::PacketReceiver {
  public:
   explicit FakeCall(const webrtc::Environment& env);

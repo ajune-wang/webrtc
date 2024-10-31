@@ -114,6 +114,8 @@ class DcSctpSocket : public DcSctpSocketInterface {
     return tcb_ != nullptr ? tcb_->my_verification_tag() : VerificationTag(0);
   }
 
+  void DtlsRestart() override;
+
  private:
   // Parameter proposals valid during the connect phase.
   struct ConnectParameters {
@@ -150,6 +152,8 @@ class DcSctpSocket : public DcSctpSocketInterface {
 
   // Changes the socket state, given a `reason` (for debugging/logging).
   void SetState(State state, absl::string_view reason);
+  // Perform Connect action.
+  void InternalConnect();
   // Closes the association. Note that the TCB will not be valid past this call.
   void InternalClose(ErrorKind error, absl::string_view message);
   // Closes the association, because of too many retransmission errors.

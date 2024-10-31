@@ -10,6 +10,7 @@
 #include "net/dcsctp/socket/dcsctp_socket.h"
 
 #include <algorithm>
+#include <cstddef>
 #include <cstdint>
 #include <limits>
 #include <memory>
@@ -19,9 +20,12 @@
 #include <vector>
 
 #include "absl/functional/bind_front.h"
-#include "absl/memory/memory.h"
 #include "absl/strings/string_view.h"
 #include "api/array_view.h"
+#include "api/task_queue/task_queue_base.h"
+#include "api/units/time_delta.h"
+#include "api/units/timestamp.h"
+#include "net/dcsctp/common/internal_types.h"
 #include "net/dcsctp/packet/chunk/abort_chunk.h"
 #include "net/dcsctp/packet/chunk/chunk.h"
 #include "net/dcsctp/packet/chunk/cookie_ack_chunk.h"
@@ -57,7 +61,7 @@
 #include "net/dcsctp/packet/parameter/supported_extensions_parameter.h"
 #include "net/dcsctp/packet/parameter/zero_checksum_acceptable_chunk_parameter.h"
 #include "net/dcsctp/packet/sctp_packet.h"
-#include "net/dcsctp/packet/tlv_trait.h"
+#include "net/dcsctp/public/dcsctp_handover_state.h"
 #include "net/dcsctp/public/dcsctp_message.h"
 #include "net/dcsctp/public/dcsctp_options.h"
 #include "net/dcsctp/public/dcsctp_socket.h"
@@ -73,7 +77,6 @@
 #include "net/dcsctp/socket/transmission_control_block.h"
 #include "net/dcsctp/timer/timer.h"
 #include "net/dcsctp/tx/retransmission_queue.h"
-#include "net/dcsctp/tx/send_queue.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/strings/string_builder.h"
@@ -308,7 +311,10 @@ void DcSctpSocket::SendInit() {
 
 void DcSctpSocket::Connect() {
   CallbackDeferrer::ScopedDeferrer deferrer(callbacks_);
+  InternalConnect();
+}
 
+void DcSctpSocket::InternalConnect() {
   if (state_ == State::kClosed) {
     connect_params_.initial_tsn =
         TSN(callbacks_.GetRandomInt(kMinInitialTsn, kMaxInitialTsn));
@@ -327,6 +333,29 @@ void DcSctpSocket::Connect() {
                          << "Called Connect on a socket that is not closed";
   }
   RTC_DCHECK(IsConsistent());
+}
+
+void DcSctpSocket::DtlsRestart() {
+  CallbackDeferrer::ScopedDeferrer deferrer(callbacks_);
+  RTC_LOG(LS_INFO) << log_prefix() << "DtlsRestart";
+  switch (state_) {
+    case State::kClosed:
+    case State::kShutdownPending:
+    case State::kShutdownSent:
+    case State::kShutdownReceived:
+    case State::kShutdownAckSent:
+      // Do nothing
+      return;
+    case State::kCookieWait:
+    case State::kCookieEchoed:
+    case State::kEstablished:
+      break;
+  }
+  InternalClose(ErrorKind::kNoError, "DtlsRestart");
+  InternalConnect();
+
+  // Suppress callbacks (e.g OnClosed()) from being called.
+  deferrer.Clear();
 }
 
 void DcSctpSocket::CreateTransmissionControlBlock(

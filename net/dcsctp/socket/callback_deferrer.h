@@ -51,6 +51,8 @@ class CallbackDeferrer : public DcSctpSocketCallbacks {
       callback_deferrer_.Prepare();
     }
 
+    void Clear() { callback_deferrer_.Clear(); }
+
     ~ScopedDeferrer() { callback_deferrer_.TriggerDeferred(); }
 
    private:
@@ -88,6 +90,8 @@ class CallbackDeferrer : public DcSctpSocketCallbacks {
   void OnLifecycleMessageFullySent(LifecycleId lifecycle_id) override;
   void OnLifecycleMessageDelivered(LifecycleId lifecycle_id) override;
   void OnLifecycleEnd(LifecycleId lifecycle_id) override;
+
+  void Clear() { deferred_.clear(); }
 
  private:
   struct Error {

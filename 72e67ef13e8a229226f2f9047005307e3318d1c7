@@ -33,6 +33,24 @@
       "message": "I\u0027m unsure if new api should continue to parse command line flags, or if that better to delegete to the caller. It feels like it is really just the main function that should parse command line flags.\n\nThis utility would still use the absl flags.\n\nSince I\u0027ll need to update all call sites anyway, do you want me to address this too, or leave it be as unrelated?\n(if I address this, then argc/argv parameters would disappear from the api)\n\n[I suspect initially this utility was written before absl flags were available, and was ported to use absl flags later]",
       "revId": "72e67ef13e8a229226f2f9047005307e3318d1c7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "20bfc836_d0c3246c",
+        "filename": "modules/audio_processing/test/audioproc_float_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 867,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-31T12:29:23Z",
+      "side": 1,
+      "message": "checking some internal binaries I found two that expect ap flags to be specified differently than other flags. so changing api/unifying flags may break some usages of these utilities. Thus I\u0027m leaning towards not changing how flags are passed into this utility.",
+      "parentUuid": "e26a1960_fdeba380",
+      "revId": "72e67ef13e8a229226f2f9047005307e3318d1c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

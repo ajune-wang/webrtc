@@ -852,7 +852,6 @@ TEST_F(MediaSessionDescriptionFactoryTest, TestCreateOfferWithCustomCodecs) {
   // Fields in codec are set during the gen process, so simple compare
   // does not work.
   EXPECT_EQ(acd->codecs()[0].name, custom_audio_codec.name);
-  RTC_LOG(LS_ERROR) << "DEBUG: audio PT assigned is " << acd->codecs()[0].id;
 
   EXPECT_EQ(MEDIA_TYPE_VIDEO, vcd->type());
   ASSERT_EQ(vcd->codecs().size(), 1U);

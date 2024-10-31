@@ -51,6 +51,24 @@
       "parentUuid": "e26a1960_fdeba380",
       "revId": "72e67ef13e8a229226f2f9047005307e3318d1c7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dbd919d5_ed1e143d",
+        "filename": "modules/audio_processing/test/audioproc_float_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 867,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2024-10-31T12:58:16Z",
+      "side": 1,
+      "message": "Good question.\n\nI would need to look into the history and how the flag libraries work to give a definitive answer, and lean toward no for that reaosn.\nHowever, if you think it is straightforward simplification and want to fix it, please go ahead and use me as reviewer.\n\nMy main concern is whether there are conflicts with downstream dependencies that define and parse their own flags, are the flags defined here in `audioproc_float_impl` still parsed and accessible here?",
+      "parentUuid": "e26a1960_fdeba380",
+      "revId": "72e67ef13e8a229226f2f9047005307e3318d1c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

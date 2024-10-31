@@ -1,6 +1,40 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "9f854779_0befe594",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-10-31T10:41:51Z",
+      "side": 1,
+      "message": "Suggest adding \"in native WebRTC\", since presumably Chrome is different.",
+      "revId": "bc0895aa6cab8484723a7ad0716dc7ee3ff4364c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e8d36715_04229dad",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-10-31T10:41:51Z",
+      "side": 1,
+      "message": "Suggest saying \"With L4S in WebRTC\". Using L4S elsewhere is out of scope for this CL, but not unimaginable.",
+      "revId": "bc0895aa6cab8484723a7ad0716dc7ee3ff4364c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "b76ddb48_f73ef7d2",
@@ -14,6 +48,23 @@
       "writtenOn": "2024-10-31T10:35:39Z",
       "side": 1,
       "message": "Please?",
+      "revId": "bc0895aa6cab8484723a7ad0716dc7ee3ff4364c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "81d739d4_3f856256",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-10-31T10:41:51Z",
+      "side": 1,
+      "message": "This is native, right? Chrome has its own code.",
       "revId": "bc0895aa6cab8484723a7ad0716dc7ee3ff4364c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

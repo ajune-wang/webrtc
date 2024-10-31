@@ -37,6 +37,8 @@ class MockDcSctpSocket : public DcSctpSocketInterface {
 
   MOCK_METHOD(void, Close, (), (override));
 
+  MOCK_METHOD(void, DtlsRestart, (), (override));
+
   MOCK_METHOD(SocketState, state, (), (const, override));
 
   MOCK_METHOD(const DcSctpOptions&, options, (), (const, override));

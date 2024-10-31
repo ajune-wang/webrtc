@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7745f912_8eff9b87",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-31T12:05:33Z",
+      "side": 1,
+      "message": "I\u0027ve realized that instead of injecting prebuilt AudioProcessing it would be beneficial to inject a builder that can postpone construction of the AudioProcessing until (global for now) field trials are set. Thus changing api of both functions. \n\nAs it is now custom AudioProcessing can\u0027t use field trials at construction time when those field trials are set through the command line flag.",
+      "revId": "72e67ef13e8a229226f2f9047005307e3318d1c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e26a1960_fdeba380",
+        "filename": "modules/audio_processing/test/audioproc_float_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 867,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-31T12:05:33Z",
+      "side": 1,
+      "message": "I\u0027m unsure if new api should continue to parse command line flags, or if that better to delegete to the caller. It feels like it is really just the main function that should parse command line flags.\n\nThis utility would still use the absl flags.\n\nSince I\u0027ll need to update all call sites anyway, do you want me to address this too, or leave it be as unrelated?\n(if I address this, then argc/argv parameters would disappear from the api)\n\n[I suspect initially this utility was written before absl flags were available, and was ported to use absl flags later]",
+      "revId": "72e67ef13e8a229226f2f9047005307e3318d1c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

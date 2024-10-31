@@ -18,6 +18,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "949f8fd3_fbee5077",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-10-31T13:50:24Z",
+      "side": 1,
+      "message": "Thanks!",
+      "revId": "7c81e3c872303d2f2e95306cb2b1595e3ee0b9aa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c10ad53c_08caf193",
@@ -31,6 +48,30 @@
       "writtenOn": "2024-10-31T13:27:54Z",
       "side": 1,
       "message": "AbslStringify  (there is no symbol named absl::Stringify)\n\nMay be add link to https://abseil.io/tips/215",
+      "range": {
+        "startLine": 84,
+        "startChar": 12,
+        "endLine": 84,
+        "endChar": 27
+      },
+      "revId": "7c81e3c872303d2f2e95306cb2b1595e3ee0b9aa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "acbda134_3974ee0e",
+        "filename": "g3doc/abseil-in-webrtc.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-10-31T13:50:24Z",
+      "side": 1,
+      "message": "Good point. Done.",
+      "parentUuid": "c10ad53c_08caf193",
       "range": {
         "startLine": 84,
         "startChar": 12,

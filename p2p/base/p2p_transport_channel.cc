@@ -1592,6 +1592,18 @@ int P2PTransportChannel::SendPacket(const char* data,
     return sent;
   }
 
+  uint8_t first_packet_byte = reinterpret_cast<const uint8_t*>(data)[0];
+  if (127 < first_packet_byte && first_packet_byte < 192) {
+    // RTP
+  } else if (19 < first_packet_byte && first_packet_byte < 64) {
+    RTC_LOG(LS_INFO) << "KESO: Send DTLS: with len= " << len;
+  } else if (first_packet_byte < 2) {
+    // STUN
+  } else {
+    RTC_LOG(LS_INFO) << "KESO: Send UNKNOWN <" << first_packet_byte
+                     << "> with len= " << len;
+  }
+
   bytes_sent_ += sent;
   return sent;
 }
@@ -2200,21 +2212,34 @@ void P2PTransportChannel::OnReadPacket(Connection* connection,
     return;
   }
 
-    // Let the client know of an incoming packet
-    packets_received_++;
-    bytes_received_ += packet.payload().size();
-    RTC_DCHECK(connection->last_data_received() >= last_data_received_ms_);
-    last_data_received_ms_ =
-        std::max(last_data_received_ms_, connection->last_data_received());
+  // Let the client know of an incoming packet
+  packets_received_++;
+  bytes_received_ += packet.payload().size();
+  RTC_DCHECK(connection->last_data_received() >= last_data_received_ms_);
+  last_data_received_ms_ =
+      std::max(last_data_received_ms_, connection->last_data_received());
 
-    NotifyPacketReceived(packet);
+  uint8_t first_packet_byte = packet.payload()[0];
+  if (127 < first_packet_byte && first_packet_byte < 192) {
+    // RTP
+  } else if (19 < first_packet_byte && first_packet_byte < 64) {
+    RTC_LOG(LS_INFO) << "KESO: RECV DTLS: with len= "
+                     << packet.payload().size();
+  } else if (first_packet_byte < 2) {
+    // STUN
+  } else {
+    RTC_LOG(LS_INFO) << "KESO: RECV UNKNOWN <" << first_packet_byte
+                     << "> with len= " << packet.payload().size();
+  }
 
-    // May need to switch the sending connection based on the receiving media
-    // path if this is the controlled side.
-    if (ice_role_ == ICEROLE_CONTROLLED && connection != selected_connection_) {
-      ice_controller_->OnImmediateSwitchRequest(IceSwitchReason::DATA_RECEIVED,
-                                                connection);
-    }
+  NotifyPacketReceived(packet);
+
+  // May need to switch the sending connection based on the receiving media
+  // path if this is the controlled side.
+  if (ice_role_ == ICEROLE_CONTROLLED && connection != selected_connection_) {
+    ice_controller_->OnImmediateSwitchRequest(IceSwitchReason::DATA_RECEIVED,
+                                              connection);
+  }
 }
 
 void P2PTransportChannel::OnSentPacket(const rtc::SentPacket& sent_packet) {

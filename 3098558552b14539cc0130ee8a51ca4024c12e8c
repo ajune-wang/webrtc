@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e3a4b152_2a08bc32",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2024-10-31T07:23:33Z",
+      "side": 1,
+      "message": "Thanks for your contribution! Please, add yourself to the webrtc/AUTHORS file as a contributor.\n\nThanks!\n/Henrik",
+      "revId": "3098558552b14539cc0130ee8a51ca4024c12e8c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

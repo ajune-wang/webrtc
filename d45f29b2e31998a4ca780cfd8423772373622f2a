@@ -37,6 +37,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "ee0c432f_3af148e4",
+        "filename": "api/test/audioproc_float.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-10-31T13:51:45Z",
+      "side": 1,
+      "message": "std::unique_ptr plays well with subclasses.\nBut when ap_builder is `BuiltinAudioProcessingBuilder`, then additional functionality is enabled - some dependencies can be set using flags rather than injected programatically.\n\nThat difference should be already covered by the comment:\n// \"BuiltinAudioProcessingBuilder\n// `ap_builder` supports setting of injectable components, which will be passed\n// on to the created AudioProcessing instance. When generic\n// `AudioProcessingBuilderInterface` is used, all functionality that relies on\n// using the BuiltinAudioProcessingBuilder is deactivated.\"\n\nwith `dynamic_cast` I could have single entry function, but rtti is usually disabled when building webrtc.",
+      "parentUuid": "ef1a74b1_9109742a",
+      "revId": "d45f29b2e31998a4ca780cfd8423772373622f2a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "ef4d14eb_43344e61",
         "filename": "api/test/audioproc_float.h",
         "patchSetId": 3

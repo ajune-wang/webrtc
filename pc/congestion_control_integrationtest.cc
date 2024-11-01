@@ -41,4 +41,26 @@ TEST_F(PeerConnectionCongestionControlTest, OfferContainsCcfbIfEnabled) {
   EXPECT_THAT(offer_str, HasSubstr("a=rtcp-fb:* ack ccfb\r\n"));
 }
 
+TEST_F(PeerConnectionCongestionControlTest, ReceiveOfferSetsCcfbFlag) {
+  test::ScopedFieldTrials trials(
+      "WebRTC-RFC8888CongestionControlFeedback/Enabled/");
+  ASSERT_TRUE(CreatePeerConnectionWrappers());
+  ConnectFakeSignaling();
+  caller()->AddAudioVideoTracks();
+  caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+  // Check that the callee parsed it.
+  auto parsed_contents =
+      callee()->pc()->remote_description()->description()->contents();
+  for (const auto& content : parsed_contents) {
+    EXPECT_TRUE(content.media_description()->rtcp_fb_ack_ccfb());
+  }
+  // Check that the caller also parsed it.
+  parsed_contents =
+      caller()->pc()->remote_description()->description()->contents();
+  for (const auto& content : parsed_contents) {
+    EXPECT_TRUE(content.media_description()->rtcp_fb_ack_ccfb());
+  }
+}
+
 }  // namespace webrtc

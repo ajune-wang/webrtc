@@ -3013,6 +3013,10 @@ void UpdateFromWildcardCodecs(cricket::MediaContentDescription* desc) {
   for (auto& codec : codecs) {
     AddFeedbackParameters(wildcard_codec->feedback_params, &codec);
   }
+  // Special treatment for transport-wide feedback params.
+  if (wildcard_codec->feedback_params.Has({"ack", "ccfb"})) {
+    desc->set_rtcp_fb_ack_ccfb(true);
+  }
   desc->set_codecs(codecs);
 }
 

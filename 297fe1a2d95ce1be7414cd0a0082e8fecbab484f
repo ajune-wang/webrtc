@@ -33,6 +33,23 @@
       "message": "LGTM",
       "revId": "297fe1a2d95ce1be7414cd0a0082e8fecbab484f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "76f141e3_7a9cd089",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-11-01T06:41:45Z",
+      "side": 1,
+      "message": "LGTM on patch 4.",
+      "revId": "297fe1a2d95ce1be7414cd0a0082e8fecbab484f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

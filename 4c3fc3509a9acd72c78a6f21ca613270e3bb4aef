@@ -34,6 +34,24 @@
       "parentUuid": "35c0eab6_482b867e",
       "revId": "4c3fc3509a9acd72c78a6f21ca613270e3bb4aef",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d80f737e_681aa775",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2024-11-01T10:38:12Z",
+      "side": 1,
+      "message": "Opus 1.5 and DRED is not supported yet.\n\nThe 20% limit decided a long time ago after extensive evaluations. They could turn out to be not relevant anymore, but I would need some data that shows that this would be better. It will probably have to be re-evaluated if/when we implement support for DRED.",
+      "parentUuid": "4a8e8069_ba362156",
+      "revId": "4c3fc3509a9acd72c78a6f21ca613270e3bb4aef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

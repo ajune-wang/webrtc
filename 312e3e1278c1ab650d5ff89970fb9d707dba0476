@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4c981d66_966c00c8",
+        "filename": "modules/audio_coding/codecs/opus/audio_decoder_opus_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2024-11-01T08:29:54Z",
+      "side": 1,
+      "message": "Why not break here?",
+      "range": {
+        "startLine": 162,
+        "startChar": 6,
+        "endLine": 162,
+        "endChar": 14
+      },
+      "revId": "312e3e1278c1ab650d5ff89970fb9d707dba0476",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "88127b94_74864226",
+        "filename": "modules/audio_coding/codecs/opus/audio_decoder_opus_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2024-11-01T08:29:54Z",
+      "side": 1,
+      "message": "Alternative to the payload size check above, you can check if the decoded frame was comfort noise and then break.",
+      "range": {
+        "startLine": 168,
+        "startChar": 0,
+        "endLine": 168,
+        "endChar": 48
+      },
+      "revId": "312e3e1278c1ab650d5ff89970fb9d707dba0476",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9daf5bdd_6c43c0fa",
+        "filename": "modules/audio_coding/codecs/opus/audio_decoder_opus_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2024-11-01T08:29:54Z",
+      "side": 1,
+      "message": "There is no need to parse the packet (it\u0027s even a bit strange since there is no packet, I\u0027m surprised we allow it). You can just call decoder.Decode(nullptr, 0, ...)",
+      "range": {
+        "startLine": 174,
+        "startChar": 0,
+        "endLine": 180,
+        "endChar": 0
+      },
+      "revId": "312e3e1278c1ab650d5ff89970fb9d707dba0476",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

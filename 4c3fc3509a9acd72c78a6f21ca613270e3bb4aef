@@ -52,6 +52,24 @@
       "parentUuid": "4a8e8069_ba362156",
       "revId": "4c3fc3509a9acd72c78a6f21ca613270e3bb4aef",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "96556835_0898953f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3334152
+      },
+      "writtenOn": "2024-11-01T12:16:09Z",
+      "side": 1,
+      "message": "All right. for now, for the old Opus version, 20% is engouh, but I think it still not is a good idea to limit that. For example, it misunderstands me and thinks that WebRTC want to do something to Opus and use fake network packet loss rates to Opus.",
+      "parentUuid": "d80f737e_681aa775",
+      "revId": "4c3fc3509a9acd72c78a6f21ca613270e3bb4aef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

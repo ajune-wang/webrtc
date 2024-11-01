@@ -16,6 +16,24 @@
       "message": "Could you please provide a motivation for the change?",
       "revId": "4c3fc3509a9acd72c78a6f21ca613270e3bb4aef",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4a8e8069_ba362156",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3334152
+      },
+      "writtenOn": "2024-11-01T10:28:31Z",
+      "side": 1,
+      "message": "The new Opus codec 1.5 supports DRED and can cover 99% packet loss, so I think WebRTC should not limit this real packet loss, I want to know why WebRTC limits it to 20% packet loss?",
+      "parentUuid": "35c0eab6_482b867e",
+      "revId": "4c3fc3509a9acd72c78a6f21ca613270e3bb4aef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

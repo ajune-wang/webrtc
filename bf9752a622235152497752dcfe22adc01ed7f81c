@@ -63,6 +63,30 @@
       },
       "revId": "bf9752a622235152497752dcfe22adc01ed7f81c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9b5b6a57_519bdd00",
+        "filename": "AUTHORS",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2024-11-01T07:03:52Z",
+      "side": 1,
+      "message": "Oh, I\u0027m sorry, I didn\u0027t mean you had to sign it again. This was just a note to self and colleagues that I had checked the registry, and that you had already signed the CLA. Now you have signed it again. 😊",
+      "parentUuid": "73d1cdfb_2e98dc89",
+      "range": {
+        "startLine": 28,
+        "startChar": 17,
+        "endLine": 28,
+        "endChar": 38
+      },
+      "revId": "bf9752a622235152497752dcfe22adc01ed7f81c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

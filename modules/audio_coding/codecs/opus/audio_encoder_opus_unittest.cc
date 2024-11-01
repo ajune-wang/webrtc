@@ -371,8 +371,8 @@ TEST_P(AudioEncoderOpusTest,
 TEST_P(AudioEncoderOpusTest, PacketLossRateUpperBounded) {
   auto states = CreateCodec(sample_rate_hz_, 2);
 
-  states->encoder->OnReceivedUplinkPacketLossFraction(0.5);
-  EXPECT_FLOAT_EQ(0.2f, states->encoder->packet_loss_rate());
+  states->encoder->OnReceivedUplinkPacketLossFraction(1.2f);
+  EXPECT_FLOAT_EQ(0.99f, states->encoder->packet_loss_rate());
 }
 
 TEST_P(AudioEncoderOpusTest, DoNotInvokeSetTargetBitrateIfOverheadUnknown) {

@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6689f098_8822da65",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18005
+      },
+      "writtenOn": "2024-11-01T12:19:43Z",
+      "side": 1,
+      "message": "Will create another 2 CLs besides this, 1 for temporal SVC support, another to expose H.265 depacketizer through RtpVideoFrameAssember(if there is still plan to use this class).",
+      "parentUuid": "11186e86_dc4cbac8",
+      "revId": "0fc06a8bb6a511f86193e412dde92cdc3207b1a2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f870b54e_eb1499bc",
         "filename": "api/video/rtp_video_frame_assembler.cc",
         "patchSetId": 6
@@ -60,6 +78,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ab6c5024_4ad0c234",
+        "filename": "api/video/rtp_video_frame_assembler.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 18005
+      },
+      "writtenOn": "2024-11-01T12:19:43Z",
+      "side": 1,
+      "message": "Actually RtpVideoFrameAssembler is not used anywhere. Probably the original plan is to make this a public API?  Will create another CL for adding this with test.",
+      "parentUuid": "f870b54e_eb1499bc",
+      "range": {
+        "startLine": 69,
+        "startChar": 6,
+        "endLine": 69,
+        "endChar": 58
+      },
+      "revId": "0fc06a8bb6a511f86193e412dde92cdc3207b1a2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "758304c5_17e5447f",
         "filename": "modules/rtp_rtcp/source/rtp_video_header.cc",
         "patchSetId": 6
@@ -71,6 +113,30 @@
       "writtenOn": "2024-10-25T14:08:12Z",
       "side": 1,
       "message": "Let\u0027s get rid of this default and handle all VideoCodecType values explicitly. This will enforce people who add new codec types to handle them in places like this which they may overlook otherwise.",
+      "range": {
+        "startLine": 62,
+        "startChar": 4,
+        "endLine": 62,
+        "endChar": 11
+      },
+      "revId": "0fc06a8bb6a511f86193e412dde92cdc3207b1a2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3e45e056_0a6259b9",
+        "filename": "modules/rtp_rtcp/source/rtp_video_header.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 18005
+      },
+      "writtenOn": "2024-11-01T12:19:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "758304c5_17e5447f",
       "range": {
         "startLine": 62,
         "startChar": 4,

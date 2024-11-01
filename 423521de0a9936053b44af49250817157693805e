@@ -16,6 +16,24 @@
       "message": "lgtm. I do think that when we create an answer, we should also remove transport sequence number header extension and the corresponding RTCP messages. Ie, as is, if we receive transport sequence number, we will send feedback according to both feedback formats which will work bad in WebRTC but is what Nvidia wanted (for now)",
       "revId": "423521de0a9936053b44af49250817157693805e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "141bb4cb_d4cff49b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-11-01T07:38:32Z",
+      "side": 1,
+      "message": "Added a TODO. This change probably also needs to wait for an API control that allows users to choose which format to use; we don\u0027t have any such control now.",
+      "parentUuid": "8c31a0dc_0f1aef0c",
+      "revId": "423521de0a9936053b44af49250817157693805e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

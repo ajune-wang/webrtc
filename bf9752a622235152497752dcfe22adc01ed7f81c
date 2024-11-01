@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "57bbed51_2bee402b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2024-11-01T06:44:46Z",
+      "side": 1,
+      "message": "Thanks! LGTM.",
+      "revId": "bf9752a622235152497752dcfe22adc01ed7f81c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eeaf1eb8_1c179a70",
+        "filename": "AUTHORS",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2024-11-01T06:44:46Z",
+      "side": 1,
+      "message": "CLA was signed for this email in 2022.",
+      "range": {
+        "startLine": 28,
+        "startChar": 17,
+        "endLine": 28,
+        "endChar": 38
+      },
+      "revId": "bf9752a622235152497752dcfe22adc01ed7f81c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -114,6 +114,26 @@ const Codec kVideoCodecs2[] = {CreateVideoCodec(126, "H264"),
 
 const Codec kVideoCodecsAnswer[] = {CreateVideoCodec(97, "H264")};
 
+const webrtc::SdpVideoFormat kH265MainProfileLevel31Sdp("H265",
+                                                        {{"profile-id", "1"},
+                                                         {"tier-flag", "0"},
+                                                         {"level-id", "93"},
+                                                         {"tx-mode", "SRST"}});
+const webrtc::SdpVideoFormat kH265MainProfileLevel52Sdp("H265",
+                                                        {{"profile-id", "1"},
+                                                         {"tier-flag", "0"},
+                                                         {"level-id", "156"},
+                                                         {"tx-mode", "SRST"}});
+
+const Codec kVideoCodecs3[] = {CreateVideoCodec(96, kH265MainProfileLevel31Sdp),
+                               CreateVideoCodec(97, "H264")};
+
+const Codec kVideoCodecs4[] = {CreateVideoCodec(96, kH265MainProfileLevel52Sdp),
+                               CreateVideoCodec(97, "H264")};
+
+const Codec kVideoCodecsMerged[] = {CreateVideoCodec(96, "H265"),
+                                    CreateVideoCodec(97, "H264")};
+
 const RtpExtension kAudioRtpExtension1[] = {
     RtpExtension("urn:ietf:params:rtp-hdrext:ssrc-audio-level", 8),
     RtpExtension("http://google.com/testing/audio_something", 10),
@@ -4884,6 +4904,94 @@ INSTANTIATE_TEST_SUITE_P(MediaSessionDescriptionFactoryTest,
                                         RtpTransceiverDirection::kSendRecv,
                                         RtpTransceiverDirection::kInactive),
                                  Bool()));
+
+void TestVideoCodecsOffer(RtpTransceiverDirection direction) {
+  webrtc::test::ScopedKeyValueConfig field_trials;
+  TransportDescriptionFactory tdf(field_trials);
+  tdf.set_certificate(rtc::RTCCertificate::Create(
+      std::unique_ptr<rtc::SSLIdentity>(new rtc::FakeSSLIdentity("id"))));
+
+  UniqueRandomIdGenerator ssrc_generator;
+  MediaSessionDescriptionFactory sf(nullptr, false, &ssrc_generator, &tdf,
+                                    nullptr);
+  const std::vector<Codec> send_codecs = MAKE_VECTOR(kVideoCodecs3);
+  const std::vector<Codec> recv_codecs = MAKE_VECTOR(kVideoCodecs4);
+  const std::vector<Codec> sendrecv_codecs = MAKE_VECTOR(kVideoCodecsMerged);
+  sf.set_video_codecs(send_codecs, recv_codecs);
+
+  MediaSessionOptions opts;
+  AddMediaDescriptionOptions(MEDIA_TYPE_VIDEO, "video", direction, kActive,
+                             &opts);
+
+  if (direction == RtpTransceiverDirection::kSendRecv ||
+      direction == RtpTransceiverDirection::kSendOnly) {
+    AttachSenderToMediaDescriptionOptions(
+        "video", MEDIA_TYPE_VIDEO, kVideoTrack1, {kMediaStream1}, 1, &opts);
+  }
+
+  std::unique_ptr<SessionDescription> offer =
+      sf.CreateOfferOrError(opts, nullptr).MoveValue();
+  ASSERT_TRUE(offer.get());
+  ContentInfo* ac = offer->GetContentByName("video");
+
+  if (ac) {
+    MediaContentDescription* acd = ac->media_description();
+    // sendrecv and inactive should both present lists as if the channel was
+    // to be used for sending and receiving. Inactive essentially means it
+    // might eventually be used anything, but we don't know more at this
+    // moment.
+    if (acd->direction() == RtpTransceiverDirection::kSendOnly) {
+      EXPECT_TRUE(CodecsMatch(send_codecs, acd->codecs()));
+#ifdef RTC_ENABLE_H265
+      // Additional check for H.265 level.
+      for (const auto& codec : acd->codecs()) {
+        if (codec.name == "H265") {
+          auto it = codec.params.find("level-id");
+          ASSERT_TRUE(it != codec.params.end());
+          EXPECT_EQ(it->second, "93");
+        }
+      }
+#endif
+    } else if (acd->direction() == RtpTransceiverDirection::kRecvOnly) {
+      EXPECT_TRUE(CodecsMatch(recv_codecs, acd->codecs()));
+#ifdef RTC_ENABLE_H265
+      // Additional check for H.265 level.
+      for (const auto& codec : acd->codecs()) {
+        if (codec.name == "H265") {
+          auto it = codec.params.find("level-id");
+          ASSERT_TRUE(it != codec.params.end());
+          EXPECT_EQ(it->second, "156");
+        }
+      }
+#endif
+    } else {
+      EXPECT_TRUE(CodecsMatch(sendrecv_codecs, acd->codecs()));
+#ifdef RTC_ENABLE_H265
+      // Additional check for H.265 level.
+      for (const auto& codec : acd->codecs()) {
+        if (codec.name == "H265") {
+          auto it = codec.params.find("level-id");
+          ASSERT_TRUE(it != codec.params.end());
+          EXPECT_EQ(it->second, "156");
+        }
+      }
+#endif
+    }
+  }
+}
+
+using VideoCodecsOfferTest = testing::TestWithParam<RtpTransceiverDirection>;
+
+TEST_P(VideoCodecsOfferTest, TestCodecsInOffer) {
+  TestVideoCodecsOffer(GetParam());
+}
+
+INSTANTIATE_TEST_SUITE_P(MediaSessionDescriptionFactoryTest,
+                         VideoCodecsOfferTest,
+                         Values(RtpTransceiverDirection::kSendOnly,
+                                RtpTransceiverDirection::kRecvOnly,
+                                RtpTransceiverDirection::kSendRecv,
+                                RtpTransceiverDirection::kInactive));
 
 }  // namespace
 }  // namespace cricket

@@ -222,7 +222,7 @@ int main(int argc, char* argv[]) {
   std::map<std::string, std::vector<std::string>> flag_aliases = {
       {"default",
        {"incoming_delay", "incoming_loss_rate", "incoming_bitrate",
-        "outgoing_bitrate", "incoming_stream_bitrate",
+        "outgoing_bitrate", "incoming_stream_bitrate", "outgoing_ecn_feedback",
         "outgoing_stream_bitrate", "network_delay_feedback",
         "fraction_loss_feedback"}},
       {"sendside_bwe",

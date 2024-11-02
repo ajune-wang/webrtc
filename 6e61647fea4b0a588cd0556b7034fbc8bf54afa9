@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b7046d71_ad6e3fab",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18005
+      },
+      "writtenOn": "2024-11-02T08:27:11Z",
+      "side": 1,
+      "message": "This is to fix the RtpSender.setParameter() issue reported by @hbos@webrtc.org for HEVC send-only offer. PTAL. Thanks!",
+      "revId": "6e61647fea4b0a588cd0556b7034fbc8bf54afa9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -96,12 +96,12 @@ ReceiveSideCongestionController::ReceiveSideCongestionController(
       {&force_send_rfc8888_feedback},
       env.field_trials().Lookup("WebRTC-RFC8888CongestionControlFeedback"));
   if (force_send_rfc8888_feedback) {
-    EnablSendCongestionControlFeedbackAccordingToRfc8888();
+    EnableSendCongestionControlFeedbackAccordingToRfc8888();
   }
 }
 
 void ReceiveSideCongestionController::
-    EnablSendCongestionControlFeedbackAccordingToRfc8888() {
+    EnableSendCongestionControlFeedbackAccordingToRfc8888() {
   RTC_DCHECK_RUN_ON(&sequence_checker_);
   send_rfc8888_congestion_feedback_ = true;
 }

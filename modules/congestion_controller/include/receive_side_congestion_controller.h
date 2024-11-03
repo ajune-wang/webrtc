@@ -44,7 +44,7 @@ class ReceiveSideCongestionController : public CallStatsObserver {
 
   ~ReceiveSideCongestionController() override = default;
 
-  void EnablSendCongestionControlFeedbackAccordingToRfc8888();
+  void EnableSendCongestionControlFeedbackAccordingToRfc8888();
 
   void OnReceivedPacket(const RtpPacketReceived& packet, MediaType media_type);
 

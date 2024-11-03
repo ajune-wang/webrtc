@@ -18,6 +18,7 @@
 #include <vector>
 
 #include "absl/memory/memory.h"
+#include "modules/desktop_capture/desktop_frame_rotation.h"
 #include "modules/desktop_capture/linux/wayland/egl_dmabuf.h"
 #include "modules/desktop_capture/linux/wayland/screencast_stream_utils.h"
 #include "modules/portal/pipewire_utils.h"
@@ -40,6 +41,19 @@ constexpr int CursorMetaSize(int w, int h) {
 
 constexpr PipeWireVersion kDmaBufModifierMinVersion = {0, 3, 33};
 constexpr PipeWireVersion kDropSingleModifierMinVersion = {0, 3, 40};
+
+static Rotation RotationFromPipeWireTransform(uint32_t transform) {
+  switch (transform) {
+    case SPA_META_TRANSFORMATION_90:
+      return Rotation::CLOCK_WISE_90;
+    case SPA_META_TRANSFORMATION_180:
+      return Rotation::CLOCK_WISE_180;
+    case SPA_META_TRANSFORMATION_270:
+      return Rotation::CLOCK_WISE_270;
+    default:
+      return Rotation::CLOCK_WISE_0;
+  }
+}
 
 class SharedScreenCastStreamPrivate {
  public:
@@ -282,6 +296,10 @@ void SharedScreenCastStreamPrivate::OnStreamParamChanged(
       &builder, SPA_TYPE_OBJECT_ParamMeta, SPA_PARAM_Meta, SPA_PARAM_META_type,
       SPA_POD_Id(SPA_META_Header), SPA_PARAM_META_size,
       SPA_POD_Int(sizeof(struct spa_meta_header)))));
+  params.push_back(reinterpret_cast<spa_pod*>(spa_pod_builder_add_object(
+      &builder, SPA_TYPE_OBJECT_ParamMeta, SPA_PARAM_Meta, SPA_PARAM_META_type,
+      SPA_POD_Id(SPA_META_VideoTransform), SPA_PARAM_META_size,
+      SPA_POD_Int(sizeof(struct spa_meta_videotransform)))));
   params.push_back(reinterpret_cast<spa_pod*>(spa_pod_builder_add_object(
       &builder, SPA_TYPE_OBJECT_ParamMeta, SPA_PARAM_Meta, SPA_PARAM_META_type,
       SPA_POD_Id(SPA_META_VideoCrop), SPA_PARAM_META_size,
@@ -850,6 +868,24 @@ void SharedScreenCastStreamPrivate::ProcessBuffer(pw_buffer* buffer) {
       ConvertRGBxToBGRx(tmp_src, queue_.current_frame()->stride());
       tmp_src += queue_.current_frame()->stride();
     }
+  }
+
+  // Frame may need to be rotated based on the video transform metadata.
+  struct spa_meta_videotransform* videotransform_metadata =
+      static_cast<struct spa_meta_videotransform*>(
+          spa_buffer_find_meta_data(spa_buffer, SPA_META_VideoTransform,
+                                    sizeof(*videotransform_metadata)));
+
+  if (videotransform_metadata) {
+    Rotation rotation =
+        RotationFromPipeWireTransform(videotransform_metadata->transform);
+    DesktopSize size = RotateSize(queue_.current_frame()->size(), rotation);
+
+    std::unique_ptr<DesktopFrame> target(new BasicDesktopFrame(size));
+
+    RotateDesktopFrame(*queue_.current_frame(), queue_.current_frame()->rect(),
+                       rotation, offset, target.get());
+    queue_.ReplaceCurrentFrame(SharedDesktopFrame::Wrap(std::move(target)));
   }
 
   if (observer_) {

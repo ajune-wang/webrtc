@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bdc2b5ae_fbb73ba9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3712231
+      },
+      "writtenOn": "2024-11-03T03:26:54Z",
+      "side": 1,
+      "message": "I tried this in a local Firefox build and it worked for me, the screens are now rotated correctly on https://mozilla.github.io/webrtc-landing/gum_test.html",
+      "revId": "9e7e8eb9ea3be211cb1cf36e8a2c802bce6ee895",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "49115ee1_f4c12b9f",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 884,
+      "author": {
+        "id": 3712231
+      },
+      "writtenOn": "2024-11-03T03:26:54Z",
+      "side": 1,
+      "message": "Please check that this way of creating a new frame actually make sense here and does not tank performance if called for every frame.\n\n(It\u0027s my first time writing C++ and my first contribution to WebRTC)",
+      "revId": "9e7e8eb9ea3be211cb1cf36e8a2c802bce6ee895",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

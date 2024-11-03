@@ -20,6 +20,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "19a39875_a0315bd9",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2024-11-03T07:18:57Z",
+      "side": 1,
+      "message": "This copies https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/modules/video_capture/linux/video_capture_pipewire.cc;l\u003d40. In that case we can move it to PipeWireUtils and have it shared.",
+      "revId": "9e7e8eb9ea3be211cb1cf36e8a2c802bce6ee895",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "49115ee1_f4c12b9f",
         "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream.cc",
         "patchSetId": 1
@@ -31,6 +48,24 @@
       "writtenOn": "2024-11-03T03:26:54Z",
       "side": 1,
       "message": "Please check that this way of creating a new frame actually make sense here and does not tank performance if called for every frame.\n\n(It\u0027s my first time writing C++ and my first contribution to WebRTC)",
+      "revId": "9e7e8eb9ea3be211cb1cf36e8a2c802bce6ee895",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "58b4fc95_92839c35",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 884,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2024-11-03T07:18:57Z",
+      "side": 1,
+      "message": "I think in case of DMABuf we can apply the rotation in OpenGL for better performance. In case of MemFD I don\u0027t know, it will for sure impact performance.",
+      "parentUuid": "49115ee1_f4c12b9f",
       "revId": "9e7e8eb9ea3be211cb1cf36e8a2c802bce6ee895",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

@@ -104,6 +104,7 @@ struct RTC_EXPORT PacedPacketInfo {
   int probe_cluster_min_probes = -1;
   int probe_cluster_min_bytes = -1;
   int probe_cluster_bytes_sent = 0;
+  bool send_as_ect1 = false;
 };
 
 struct RTC_EXPORT SentPacket {

@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5f15bd70_e66c9d35",
+        "filename": "modules/audio_coding/codecs/opus/audio_decoder_opus_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2024-11-04T15:36:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d9b16f12_6ae36c46",
+      "range": {
+        "startLine": 126,
+        "startChar": 0,
+        "endLine": 126,
+        "endChar": 3
+      },
+      "revId": "37fe55173f00599a768fe6cee2affd571974074e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b9d7c423_416ab79a",
@@ -47,6 +71,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0f77830a_06add089",
+        "filename": "modules/audio_coding/codecs/opus/audio_decoder_opus_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2024-11-04T15:36:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b9d7c423_416ab79a",
+      "range": {
+        "startLine": 146,
+        "startChar": 7,
+        "endLine": 147,
+        "endChar": 66
+      },
+      "revId": "37fe55173f00599a768fe6cee2affd571974074e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "12155c11_ffa12068",
@@ -60,6 +108,30 @@
       "writtenOn": "2024-11-04T14:16:47Z",
       "side": 1,
       "message": "Where is this file taken from?\n\nShould it be placed under audio_coding?",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 40
+      },
+      "revId": "37fe55173f00599a768fe6cee2affd571974074e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c3742975_ec9f12cc",
+        "filename": "resources/near48_mono.pcm.sha1",
+        "patchSetId": 5
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2024-11-04T15:36:26Z",
+      "side": 1,
+      "message": "This is a downmix of the existing PCM file named near48_stereo.pcm which already lives in the same directory",
+      "parentUuid": "12155c11_ffa12068",
       "range": {
         "startLine": 1,
         "startChar": 0,

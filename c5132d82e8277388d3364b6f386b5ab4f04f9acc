@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4b83d506_1e60b609",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-11-04T13:00:12Z",
+      "side": 1,
+      "message": "I\u0027ve also removed all template magic and overloads for simplicity.\n(patchset#1 still has some, and such magic might be helpful for prod code e.g. to reduce binary size, but for test utility I consider such complexity unnecessary)",
+      "revId": "c5132d82e8277388d3364b6f386b5ab4f04f9acc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

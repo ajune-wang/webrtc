@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "34755a4f_1fb101d5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2024-11-04T11:23:22Z",
+      "side": 1,
+      "message": "Thanks for your comments, Jakob. I\u0027ve changed a few things, good to take a look again.",
+      "revId": "6d8d438ffb77d3a1fe990584bcaae229583ff803",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

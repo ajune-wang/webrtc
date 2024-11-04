@@ -18,6 +18,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "17a34047_e5929b13",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2024-11-04T17:53:48Z",
+      "side": 1,
+      "message": "Thanks for the submission! A couple suggestions for how to avoid allocating/destroying a new video frame for every received frame which IMO *would* be a performance hit; though there\u0027s some tradeoffs there and some additional questions for Jan.",
+      "revId": "9e7e8eb9ea3be211cb1cf36e8a2c802bce6ee895",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "19a39875_a0315bd9",
@@ -66,6 +83,24 @@
       "side": 1,
       "message": "I think in case of DMABuf we can apply the rotation in OpenGL for better performance. In case of MemFD I don\u0027t know, it will for sure impact performance.",
       "parentUuid": "49115ee1_f4c12b9f",
+      "revId": "9e7e8eb9ea3be211cb1cf36e8a2c802bce6ee895",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1a2d3814_88cecdd1",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 884,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2024-11-04T17:53:48Z",
+      "side": 1,
+      "message": "I think rotation would also impact size, so `frame_size_` would likely need to be updated correctly as well. This *does* look like it allocates a new frame for every frame where there is a rotation, which is definitely a performance hit.\n\nLooking at https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/modules/desktop_capture/desktop_frame_rotation.cc;drc\u003dd3251968d1b3dbe7e1353a3f15970b47173103e9;l\u003d93, There\u0027s actually not a *lot* specific there, and I think it could potentially be slightly more generalized, or at least re-implemented with the underlying pipewire types as a source (though perhaps that\u0027s only necessary for MemFD based on Jan\u0027s comment and we can leverage OpenGL for DMABuf).\n\nI *think* (though I could be wrong and the data is already plumbed up correctly), that `videotransform_metadata` needs to be used when recalculating `frame_size_` above and then it seems to me that the most performant solution (albeit some potential complications from code), would be to perform the rotation within either `ProcessMemFDBuffer` or `ProcessDMABuffer`, as that\u0027s where the copy is already happening.\n\nHowever, I did not look into the docs about how the frame is provided and these transforms are used.\n\nI think at a minimum if we instead copied into a permanently allocated temp_frame and *then* into the queue, we\u0027d have the potential for better performance because we aren\u0027t allocating/de-allocating an extra video frame per frame; but it does introduce (IIUC) an extra copy.",
+      "parentUuid": "58b4fc95_92839c35",
       "revId": "9e7e8eb9ea3be211cb1cf36e8a2c802bce6ee895",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

@@ -140,6 +140,30 @@
       },
       "revId": "37fe55173f00599a768fe6cee2affd571974074e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4b82b8a7_317d6254",
+        "filename": "resources/near48_mono.pcm.sha1",
+        "patchSetId": 5
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2024-11-04T15:43:40Z",
+      "side": 1,
+      "message": "Ah, makes sense :)",
+      "parentUuid": "c3742975_ec9f12cc",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 40
+      },
+      "revId": "37fe55173f00599a768fe6cee2affd571974074e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

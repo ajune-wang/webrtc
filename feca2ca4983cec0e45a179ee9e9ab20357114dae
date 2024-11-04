@@ -33,6 +33,24 @@
       "message": "It makes me nervous to land this without any WG discussion.\nCan you make a killswitch for it?",
       "revId": "feca2ca4983cec0e45a179ee9e9ab20357114dae",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c1ea431b_28abe601",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-11-04T17:41:24Z",
+      "side": 1,
+      "message": "lets wait for the WG to conclude before landing, no imminent danger.",
+      "parentUuid": "385c0645_93c383f9",
+      "revId": "feca2ca4983cec0e45a179ee9e9ab20357114dae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6b52c582_c797c00e",
+        "filename": "pc/media_session.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1084,
+      "author": {
+        "id": 18005
+      },
+      "writtenOn": "2024-11-05T09:00:51Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "2b39e2b9_359be5ad",
+      "revId": "1df1ab5199495d3dc2c355dca18dcd696e17e3f6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8a94ca34_5e8c8b3f",
@@ -37,6 +55,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e8a38fab_93cd973d",
+        "filename": "pc/media_session.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1093,
+      "author": {
+        "id": 18005
+      },
+      "writtenOn": "2024-11-05T09:00:51Z",
+      "side": 1,
+      "message": "Yes. Ok will do.",
+      "parentUuid": "8a94ca34_5e8c8b3f",
+      "revId": "1df1ab5199495d3dc2c355dca18dcd696e17e3f6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0404fc51_2d6e8ae7",
         "filename": "pc/media_session.cc",
         "patchSetId": 4
@@ -48,6 +84,24 @@
       "writtenOn": "2024-11-05T08:51:57Z",
       "side": 1,
       "message": "If filtered level is less than the supported level, wouldn\u0027t this \"upgrade\" the level to a higher level that may not be supported in the SDP?\n\nDo we need to change this to \"if filtered level \u003e supported level\"?\n\nIs there an opposite test we should have that ensures we don\u0027t incorrectly upgrade?",
+      "revId": "1df1ab5199495d3dc2c355dca18dcd696e17e3f6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "692a5f23_f9282638",
+        "filename": "pc/media_session.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1113,
+      "author": {
+        "id": 18005
+      },
+      "writtenOn": "2024-11-05T09:00:51Z",
+      "side": 1,
+      "message": "for send-only offer, what\u0027s negotiated must be exactly the one in supported_level.",
+      "parentUuid": "0404fc51_2d6e8ae7",
       "revId": "1df1ab5199495d3dc2c355dca18dcd696e17e3f6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -82,6 +136,24 @@
       "writtenOn": "2024-11-05T08:51:57Z",
       "side": 1,
       "message": "Should we do something similar on the answer side too?",
+      "revId": "1df1ab5199495d3dc2c355dca18dcd696e17e3f6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3de1c776_994b37eb",
+        "filename": "pc/media_session_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 4985,
+      "author": {
+        "id": 18005
+      },
+      "writtenOn": "2024-11-05T09:00:51Z",
+      "side": 1,
+      "message": "Unfortunately which level-id should be included in answer remain an open. The AVTCore meeting decision allows answer level-id higher than offer level-id; while RFC 7798 mandates answer level-id not larger than offer level-id.\n\nWe can revisit this after IETF 121.",
+      "parentUuid": "f4b1e08d_839dff02",
       "revId": "1df1ab5199495d3dc2c355dca18dcd696e17e3f6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

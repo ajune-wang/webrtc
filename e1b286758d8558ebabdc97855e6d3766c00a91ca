@@ -69,6 +69,24 @@
       "parentUuid": "05297da8_443dc6f6",
       "revId": "e1b286758d8558ebabdc97855e6d3766c00a91ca",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c340a68f_69abbd2b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2024-11-05T10:21:05Z",
+      "side": 1,
+      "message": "@ssilkin@webrtc.org @sprang@webrtc.org could you aprove this CL? Not sure exactly how much time do we have for mergin it in 131",
+      "parentUuid": "0a35ca4b_5274e81a",
+      "revId": "e1b286758d8558ebabdc97855e6d3766c00a91ca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

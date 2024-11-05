@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2b39e2b9_359be5ad",
+        "filename": "pc/media_session.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1084,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2024-11-05T08:51:57Z",
+      "side": 1,
+      "message": "nit: Prefer doing \"not video OR not kSendOnly\" and early return over nesting",
+      "revId": "1df1ab5199495d3dc2c355dca18dcd696e17e3f6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8a94ca34_5e8c8b3f",
+        "filename": "pc/media_session.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1093,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2024-11-05T08:51:57Z",
+      "side": 1,
+      "message": "By \"already merged\", you you mean that the assumption is that we assume that for any profile the level is already the highest level for that profile? Maybe this can be rephrased as such",
+      "revId": "1df1ab5199495d3dc2c355dca18dcd696e17e3f6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0404fc51_2d6e8ae7",
+        "filename": "pc/media_session.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1113,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2024-11-05T08:51:57Z",
+      "side": 1,
+      "message": "If filtered level is less than the supported level, wouldn\u0027t this \"upgrade\" the level to a higher level that may not be supported in the SDP?\n\nDo we need to change this to \"if filtered level \u003e supported level\"?\n\nIs there an opposite test we should have that ensures we don\u0027t incorrectly upgrade?",
+      "revId": "1df1ab5199495d3dc2c355dca18dcd696e17e3f6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "43e8ca70_dec2407e",
+        "filename": "pc/media_session_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 4981,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2024-11-05T08:51:57Z",
+      "side": 1,
+      "message": "Since this is basically 4 different tests with a common SetUp(), I would suggest creating a separate test class for to avoid \"if-else\" code blocks that are essentially different TEST_Fs.\n\n```\nclass VideoCodecsOfferH265LevelIdTest : public ::testing::Test {\n public:\n  void SetUp() override {\n    /* the common set-up code */\n  }\n\n protected:\n  /* variables that are needed by TEST_F below */\n};\n\nTEST_F(VideoCodecsOfferH265LevelIdTest, SendOnlyDowngradesLevelId) {\n  /* code that is currently placed in if-else blocks */\n}\n\nTEST_F ... RecvOnly ...\nTEST_F ... SendRecv ...\nTEST_F ... Inactive ...\n```\n\nAlso since this test is quite specific to H265 I think you can place the `#ifdef RTC_ENABLE_H265` around the entire test class rather than in different places of the test",
+      "revId": "1df1ab5199495d3dc2c355dca18dcd696e17e3f6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f4b1e08d_839dff02",
+        "filename": "pc/media_session_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 4985,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2024-11-05T08:51:57Z",
+      "side": 1,
+      "message": "Should we do something similar on the answer side too?",
+      "revId": "1df1ab5199495d3dc2c355dca18dcd696e17e3f6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -43,6 +43,10 @@
 #include "rtc_base/logging.h"
 #include "rtc_base/numerics/sequence_number_unwrapper.h"
 
+#ifdef RTC_ENABLE_H265
+#include "modules/rtp_rtcp/source/video_rtp_depacketizer_h265.h"
+#endif
+
 namespace webrtc {
 namespace {
 std::unique_ptr<VideoRtpDepacketizer> CreateDepacketizer(
@@ -61,9 +65,7 @@ std::unique_ptr<VideoRtpDepacketizer> CreateDepacketizer(
     case RtpVideoFrameAssembler::kGeneric:
       return std::make_unique<VideoRtpDepacketizerGeneric>();
     case RtpVideoFrameAssembler::kH265:
-      // TODO(bugs.webrtc.org/13485): Implement VideoRtpDepacketizerH265
-      RTC_DCHECK_NOTREACHED();
-      return nullptr;
+      return std::make_unique<VideoRtpDepacketizerH265>();
   }
   RTC_DCHECK_NOTREACHED();
   return nullptr;

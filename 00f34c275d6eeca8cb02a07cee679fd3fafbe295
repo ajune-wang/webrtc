@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2d4b64ee_ab4e9e6b",
+        "filename": "api/video/rtp_video_frame_assembler.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 18005
+      },
+      "writtenOn": "2024-11-05T14:14:50Z",
+      "side": 1,
+      "message": "It will look awkward to have two .cc that\u0027s just less than 10 lines, one of which does nothing but return a nullptr.\n\nThe initial guideline from Sergey about code path for HEVC:\n\"Keep H265 code paths in WebRTC behind RTC_ENABLE_H265 compilation flag.\"\n\nI think eventually we will remove this macro.. someday... So I suggest we follow other files\u0027 practice.",
+      "parentUuid": "5d84d892_c0eedbc6",
+      "range": {
+        "startLine": 46,
+        "startChar": 0,
+        "endLine": 46,
+        "endChar": 22
+      },
+      "revId": "00f34c275d6eeca8cb02a07cee679fd3fafbe295",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b1c9b7ae_ee8e32e4",
         "filename": "api/video/rtp_video_frame_assembler_unittests.cc",
         "patchSetId": 3
@@ -37,6 +61,24 @@
       "writtenOn": "2024-11-05T12:25:12Z",
       "side": 1,
       "message": "Consider moving this to a separate target that is only built when h265 is actually enabled.",
+      "revId": "00f34c275d6eeca8cb02a07cee679fd3fafbe295",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "67b3b5ef_47d2138f",
+        "filename": "api/video/rtp_video_frame_assembler_unittests.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 18005
+      },
+      "writtenOn": "2024-11-05T14:14:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b1c9b7ae_ee8e32e4",
       "revId": "00f34c275d6eeca8cb02a07cee679fd3fafbe295",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

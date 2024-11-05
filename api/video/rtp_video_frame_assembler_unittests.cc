@@ -231,6 +231,49 @@ TEST(RtpVideoFrameAssembler, Vp9Packetization) {
   EXPECT_THAT(References(second_frame), UnorderedElementsAre(10));
 }
 
+#ifdef RTC_ENABLE_H265
+TEST(RtpVideoFrameAssembler, H265Packetization) {
+  RtpVideoFrameAssembler assembler(RtpVideoFrameAssembler::kH265);
+  RtpVideoFrameAssembler::FrameVector frames;
+
+  // Key and delta frames generated on linux with ffmpeg command:
+  // `ffmpeg -i /dev/video0 -r 30 -c:v libx265 -s 1280x720 camera.h265`,
+  // truncated for test.
+  // IDR_N_LP(key) frame with start code included.
+  uint8_t kIdrPayload[] = {0x00, 0x00, 0x00, 0x01, 0x28, 0x01, 0xaf,
+                           0x08, 0x4a, 0x31, 0x11, 0x15, 0xe5, 0xc0};
+  // TRAIL_R(delta) frame with start code included.
+  uint8_t kDeltaPayload[] = {0x00, 0x00, 0x00, 0x01, 0x02, 0x01, 0xd0,
+                             0x09, 0x7e, 0x10, 0xc6, 0x1c, 0x8c, 0x17};
+
+  RTPVideoHeader video_header;
+  video_header.frame_type = VideoFrameType::kVideoFrameKey;
+  AppendFrames(assembler.InsertPacket(PacketBuilder(PayloadFormat::kH265)
+                                          .WithPayload(kIdrPayload)
+                                          .WithVideoHeader(video_header)
+                                          .WithSeqNum(10)
+                                          .Build()),
+               frames);
+
+  AppendFrames(assembler.InsertPacket(PacketBuilder(PayloadFormat::kH265)
+                                          .WithPayload(kDeltaPayload)
+                                          .WithSeqNum(11)
+                                          .Build()),
+               frames);
+  ASSERT_THAT(frames, SizeIs(2));
+
+  auto first_frame = frames[0].ExtractFrame();
+  EXPECT_THAT(first_frame->Id(), Eq(10));
+  EXPECT_THAT(Payload(first_frame), ElementsAreArray(kIdrPayload));
+  EXPECT_THAT(References(first_frame), IsEmpty());
+
+  auto second_frame = frames[1].ExtractFrame();
+  EXPECT_THAT(second_frame->Id(), Eq(11));
+  EXPECT_THAT(Payload(second_frame), ElementsAreArray(kDeltaPayload));
+  EXPECT_THAT(References(second_frame), UnorderedElementsAre(10));
+}
+#endif
+
 TEST(RtpVideoFrameAssembler, Av1Packetization) {
   RtpVideoFrameAssembler assembler(RtpVideoFrameAssembler::kAv1);
   RtpVideoFrameAssembler::FrameVector frames;

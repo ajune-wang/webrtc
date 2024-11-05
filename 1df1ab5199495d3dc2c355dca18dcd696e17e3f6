@@ -192,6 +192,24 @@
       "parentUuid": "3de1c776_994b37eb",
       "revId": "1df1ab5199495d3dc2c355dca18dcd696e17e3f6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f6650a9e_753e82df",
+        "filename": "pc/media_session_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 4985,
+      "author": {
+        "id": 18005
+      },
+      "writtenOn": "2024-11-05T12:03:04Z",
+      "side": 1,
+      "message": "It\u0027s the reverse - offerer sends 100, answer can decode 150, should the answer return level 150 or 100?  RFC says 100,  WebRTC WG meeting decides it should be 150.\n\nI\u0027ll add a test for that. We already have asymmetrical level-id on Windows meet this requirement.(sender can handle level-id 156, receiver can handle level-id 186).",
+      "parentUuid": "78e8db1f_9b5646a6",
+      "revId": "1df1ab5199495d3dc2c355dca18dcd696e17e3f6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

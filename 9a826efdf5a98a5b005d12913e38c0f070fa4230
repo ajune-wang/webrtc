@@ -51,6 +51,24 @@
       "parentUuid": "40b61174_a78a17dd",
       "revId": "9a826efdf5a98a5b005d12913e38c0f070fa4230",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2e45b757_945507bf",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 1173,
+      "author": {
+        "id": 18005
+      },
+      "writtenOn": "2024-11-05T14:01:02Z",
+      "side": 1,
+      "message": "There will be next CL to setup temporal scalability for HEVC and make sure HEVC only have 1 spatial layer everywhere. VideoStreamEncoder will be taken care of, with necessary changes here as well. Will include you in the review of that.",
+      "parentUuid": "898639b8_d1e57fde",
+      "revId": "9a826efdf5a98a5b005d12913e38c0f070fa4230",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

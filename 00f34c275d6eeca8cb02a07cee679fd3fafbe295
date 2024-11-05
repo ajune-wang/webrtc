@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5d84d892_c0eedbc6",
+        "filename": "api/video/rtp_video_frame_assembler.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2024-11-05T12:25:12Z",
+      "side": 1,
+      "message": "I\u0027m not a huge fan of sprinkling the code with ifdefs like this.\nOne alternative is to use a header that contains just a factory function, e.g. `std::unique_ptr\u003cVideoRtpDepacketizer\u003e CreateH265Depacketizer();` - then the build file can include either the .cc file that returns the actual implemented, or if H265 is not enable it can include a .cc file that implements that function but it returns just a nullpt.\n\nwdyt?\n\nI see that there\u0027s already a bunch of ifdes like this across the code so might be a lost cause at this point...",
+      "range": {
+        "startLine": 46,
+        "startChar": 0,
+        "endLine": 46,
+        "endChar": 22
+      },
+      "revId": "00f34c275d6eeca8cb02a07cee679fd3fafbe295",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b1c9b7ae_ee8e32e4",
+        "filename": "api/video/rtp_video_frame_assembler_unittests.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2024-11-05T12:25:12Z",
+      "side": 1,
+      "message": "Consider moving this to a separate target that is only built when h265 is actually enabled.",
+      "revId": "00f34c275d6eeca8cb02a07cee679fd3fafbe295",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

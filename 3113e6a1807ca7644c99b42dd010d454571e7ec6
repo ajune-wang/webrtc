@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "72f7b973_715d5556",
+        "filename": "modules/audio_coding/codecs/opus/audio_decoder_opus_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2024-11-05T08:49:00Z",
+      "side": 1,
+      "message": "You can also use a more modern style from C++17\n\n```\nAudioEncoderOpusConfig GetEncoderConfig(int num_channels, bool dtx_enabled) {\n  return {\n    .frame_size_ms \u003d kEncoderFrameDurationMs,\n    .sample_rate_hz \u003d kSampleRateHz,\n    .num_channels \u003d num_channels,\n    .application \u003d AudioEncoderOpusConfig::ApplicationMode::kVoip,\n    .bitrate_bps \u003d 32000, // No need for std::make_optional with C++17 I think\n    .fec_enabled \u003d false,\n    .cbr_enabled \u003d false,\n    .max_playback_rate_hz \u003d kSampleRateHz,\n    .complexity \u003d 10,\n    .dtx_enabled \u003d dtx_enabled\n  };\n}\n```",
+      "revId": "3113e6a1807ca7644c99b42dd010d454571e7ec6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "15e90d55_6fa73c05",
+        "filename": "modules/audio_coding/codecs/opus/audio_decoder_opus_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2024-11-05T08:49:00Z",
+      "side": 1,
+      "message": "Why is this needed?",
+      "revId": "3113e6a1807ca7644c99b42dd010d454571e7ec6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

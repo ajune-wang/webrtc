@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f5c09b51_f5e7005c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-11-05T16:04:31Z",
+      "side": 1,
+      "message": "Suggestions for how to add a check in the last test that the ccfb has been generated and received?\n\nI\u0027ve done the \"debug log\" hack, so I know that it is, but the test is not testing it. Otherwise, the CL should be ready.",
+      "revId": "c5f770392d755eec3c0b814e2d2bc200017120d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

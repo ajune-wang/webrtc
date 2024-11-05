@@ -16,6 +16,23 @@
       "message": "@sprang@chromium.org and @hta@chromium.org PTAL as Sergey is OOO.\n\nThis CL now only includes cleanups without much codec specific impls.",
       "revId": "9a826efdf5a98a5b005d12913e38c0f070fa4230",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "40b61174_a78a17dd",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 1173,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2024-11-05T13:36:27Z",
+      "side": 1,
+      "message": "Here and in other places in the file, why do we need to special case H265?\n\nIn terms of bitrate allocation, I think using the same one that VP9 uses makes sense (I noticed that we use too much bitrate by default for non-VP9 codecs last time I checked) so I\u0027m tempted to just LGTM this, but I am reacting to the comments about spatial layers... IIUC we\u0027re only doing a single spatial layer with regards to H265.",
+      "revId": "9a826efdf5a98a5b005d12913e38c0f070fa4230",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

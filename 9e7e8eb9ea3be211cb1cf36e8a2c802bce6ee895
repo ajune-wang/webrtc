@@ -103,6 +103,24 @@
       "parentUuid": "58b4fc95_92839c35",
       "revId": "9e7e8eb9ea3be211cb1cf36e8a2c802bce6ee895",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0837e7d9_4c302251",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 884,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2024-11-06T07:56:13Z",
+      "side": 1,
+      "message": "Yes, rotation also impacts `frame_size_`, this will need to be taken into account, basically switching `width` for `heigh` and vice-versa, depending on the rotation. What you can do in `ProcessMemFDBuffer` to avoid double-copying is to use `RotateDesktopFrame` instead of `CopyPixelsFrom`, because `RotateDesktopFrame` also copies it, but does it with the rotation in mind. And for DMA Bufs we still want to use OpenGL.",
+      "parentUuid": "1a2d3814_88cecdd1",
+      "revId": "9e7e8eb9ea3be211cb1cf36e8a2c802bce6ee895",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

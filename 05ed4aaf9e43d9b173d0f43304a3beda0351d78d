@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f897256c_eafe11a7",
+        "filename": "media/engine/simulcast_encoder_adapter.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 961,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2024-11-06T11:26:37Z",
+      "side": 1,
+      "message": "Read the comment on the bug this was on purpose, I don\u0027t object!",
+      "parentUuid": "f86c2ce3_0e408c59",
+      "revId": "05ed4aaf9e43d9b173d0f43304a3beda0351d78d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e7ed3c62_f3058f42",
         "filename": "media/engine/simulcast_encoder_adapter.cc",
         "patchSetId": 4

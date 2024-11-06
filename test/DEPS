@@ -23,6 +23,7 @@ include_rules = [
   "+system_wrappers",
   "+third_party/libyuv",
   "+video/config",
+  "+video/corruption_detection",
 ]
 
 specific_include_rules = {

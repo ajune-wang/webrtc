@@ -51,6 +51,24 @@
       "message": "Is it possible for all layers to be paused, resulting in \"SimulcastEncoderAdapter ()\"? Let\u0027s `if (!encoder_names.empty())` just in case?",
       "revId": "05ed4aaf9e43d9b173d0f43304a3beda0351d78d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a9b9c7f6_b27304e0",
+        "filename": "media/engine/simulcast_encoder_adapter.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1008,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2024-11-06T13:33:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e7ed3c62_f3058f42",
+      "revId": "05ed4aaf9e43d9b173d0f43304a3beda0351d78d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

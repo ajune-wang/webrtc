@@ -16,6 +16,24 @@
       "message": "I think \u003e1 temporal layers should be behind a separate flag. Since this is inside WebRTC that would be a field trial flag.\n\nIn the case of VP9 HW we initially launched L1T1 successfully and had a separate rollout for L1T2 but discovered issues with it so that never launched. It\u0027s good to limit scope for these things to one launch at a time.",
       "revId": "3a9e074bb905a46122fbc7a76bdb5e17dd08d4b9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e19bbbb4_226ddaa2",
+        "filename": "modules/video_coding/video_codec_initializer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 18005
+      },
+      "writtenOn": "2024-11-06T08:31:39Z",
+      "side": 1,
+      "message": "The plan is to control that at VEA/VD level and RTCVideoEncoder in blink. HEVC is different as it\u0027s HW only so we\u0027re going to add feature flag in RTCVideoEncoder and external RTC decoder/encoder factories.",
+      "parentUuid": "9f13dbb4_cb5bcfe6",
+      "revId": "3a9e074bb905a46122fbc7a76bdb5e17dd08d4b9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

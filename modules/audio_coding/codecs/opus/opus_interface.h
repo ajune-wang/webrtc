@@ -538,6 +538,22 @@ int WebRtcOpus_PacketHasFec(const uint8_t* payload,
 int WebRtcOpus_PacketHasVoiceActivity(const uint8_t* payload,
                                       size_t payload_length_bytes);
 
+/****************************************************************************
+ * WebRtcOpus_PacketIsStereo(...)
+ *
+ * This function returns the mono/stereo information encoded in the opus packet.
+ * Input:
+ *        - payload              : Encoded data pointer
+ *        - payload_length_bytes : Bytes of encoded data
+ *
+ * Return value                  : 0 - the packet is a mono one.
+ *                                 1 - the packet is a stereo one.
+ *                                -1 - the mono/stereo information could not be
+ *                                     determined.
+ */
+int WebRtcOpus_PacketIsStereo(const uint8_t* payload,
+                              size_t payload_length_bytes);
+
 #ifdef __cplusplus
 }  // extern "C"
 #endif

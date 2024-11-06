@@ -10,6 +10,7 @@
 
 #include "modules/audio_coding/codecs/opus/audio_decoder_opus.h"
 
+#include <iostream>
 #include <memory>
 #include <optional>
 #include <utility>
@@ -20,13 +21,23 @@
 #include "rtc_base/checks.h"
 
 namespace webrtc {
+namespace {
+
+void CopyLeftChannelIntoRightChannel(int16_t* data, int size) {
+  for (int i = 0; i < size; i += 2) {
+    data[i + 1] = data[i];
+  }
+}
+
+}  // namespace
 
 AudioDecoderOpusImpl::AudioDecoderOpusImpl(const FieldTrialsView& field_trials,
                                            size_t num_channels,
                                            int sample_rate_hz)
     : channels_(num_channels),
       sample_rate_hz_(sample_rate_hz),
-      generate_plc_(field_trials.IsEnabled("WebRTC-Audio-OpusGeneratePlc")) {
+      generate_plc_(field_trials.IsEnabled("WebRTC-Audio-OpusGeneratePlc")),
+      last_packet_was_mono_(num_channels == 1) {
   RTC_DCHECK(num_channels == 1 || num_channels == 2);
   RTC_DCHECK(sample_rate_hz == 16000 || sample_rate_hz == 48000);
   const int error =
@@ -66,12 +77,24 @@ int AudioDecoderOpusImpl::DecodeInternal(const uint8_t* encoded,
                                          SpeechType* speech_type) {
   RTC_DCHECK_EQ(sample_rate_hz, sample_rate_hz_);
   int16_t temp_type = 1;  // Default is speech.
-  int ret =
+  const int err_or_decoded_samples_channel =
       WebRtcOpus_Decode(dec_state_, encoded, encoded_len, decoded, &temp_type);
-  if (ret > 0)
-    ret *= static_cast<int>(channels_);  // Return total number of samples.
   *speech_type = ConvertSpeechType(temp_type);
-  return ret;
+  if (err_or_decoded_samples_channel <= 0) {
+    return err_or_decoded_samples_channel;
+  }
+
+  const int decoded_samples =
+      err_or_decoded_samples_channel * static_cast<int>(channels_);
+
+  // TODO: https://issues.webrtc.org/376493209 - Remove when libopus gets fixed.
+  UpdateLastPacketWasMono(encoded, encoded_len);
+  const bool comfort_noise_or_plc = encoded == nullptr || encoded_len == 0;
+  if (comfort_noise_or_plc && NonTrivialStereoPossiblyGenerated()) {
+    CopyLeftChannelIntoRightChannel(decoded, decoded_samples);
+  }
+
+  return decoded_samples;
 }
 
 int AudioDecoderOpusImpl::DecodeRedundantInternal(const uint8_t* encoded,
@@ -143,8 +166,32 @@ void AudioDecoderOpusImpl::GeneratePlc(
     if (ret < 0) {
       return 0;
     }
+
+    // TODO: https://issues.webrtc.org/376493209 - Remove when libopus gets
+    // fixed.
+    if (NonTrivialStereoPossiblyGenerated()) {
+      CopyLeftChannelIntoRightChannel(decoded.data(), decoded.size());
+    }
+
     return ret;
   });
+}
+
+void AudioDecoderOpusImpl::UpdateLastPacketWasMono(const uint8_t* encoded,
+                                                   size_t encoded_len) {
+  const int is_stereo = WebRtcOpus_PacketIsStereo(encoded, encoded_len);
+  switch (is_stereo) {
+    case 0:
+      last_packet_was_mono_ = true;
+      break;
+    case 1:
+      last_packet_was_mono_ = false;
+      break;
+    default:
+      // Do not update `last_packet_was_mono_` when no packet is provided.
+      RTC_DCHECK(encoded == nullptr);
+      break;
+  }
 }
 
 }  // namespace webrtc

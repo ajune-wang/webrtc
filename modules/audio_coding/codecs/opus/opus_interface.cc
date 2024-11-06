@@ -750,3 +750,12 @@ int WebRtcOpus_PacketHasVoiceActivity(const uint8_t* payload,
 
   return 0;
 }
+
+int WebRtcOpus_PacketIsStereo(const uint8_t* payload,
+                              size_t payload_length_bytes) {
+  if (payload == NULL || payload_length_bytes == 0)
+    return -1;
+  const int channels = opus_packet_get_nb_channels(payload);
+  RTC_DCHECK(channels == 1 || channels == 2);
+  return channels - 1;
+}

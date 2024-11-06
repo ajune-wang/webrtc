@@ -34,6 +34,24 @@
       "parentUuid": "8222611b_5f0afeb7",
       "revId": "f467c11b76ce474416edf273ed4515c4a605f8aa",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "92b5659d_080f3118",
+        "filename": "video/g3doc/adaptation.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2024-11-06T14:37:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "022333e8_f907e32d",
+      "revId": "f467c11b76ce474416edf273ed4515c4a605f8aa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

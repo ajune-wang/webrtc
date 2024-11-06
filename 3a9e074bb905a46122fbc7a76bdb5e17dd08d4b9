@@ -71,6 +71,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2b54961b_89a271c7",
+        "filename": "modules/video_coding/video_codec_initializer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 18005
+      },
+      "writtenOn": "2024-11-06T14:13:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0407624c_2984340c",
+      "revId": "3a9e074bb905a46122fbc7a76bdb5e17dd08d4b9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ecb1c597_a274548a",
@@ -88,6 +106,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ef013520_7be9324e",
+        "filename": "modules/video_coding/video_codec_initializer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 357,
+      "author": {
+        "id": 18005
+      },
+      "writtenOn": "2024-11-06T14:13:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ecb1c597_a274548a",
+      "revId": "3a9e074bb905a46122fbc7a76bdb5e17dd08d4b9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "26f28bc9_e3f9c699",
@@ -101,6 +137,24 @@
       "writtenOn": "2024-11-06T11:42:36Z",
       "side": 1,
       "message": "What if different scalability modes are used on different layers?\n\nThis is an existing problem for all codecs, the fact that we express scalability mode both at `video_codec.Get/SetScalabilityMode()` and at `video_codec.simulcastStream[i]-\u003enumberOfTemporalLayers` (allowing one encoding to do L1T1 and another encoding to do L1T3).\n\nIf we try {L1T3,L1T1} then `numberOfTemporalLayers` would either say 1 or 3 depending on the the index of `simulcastStream`, but should `video_codec.GetScalabilityMode()` say L1T3 (encoding[0] value) or should it say std::nullopt (because there isn\u0027t a single correct value here)?\n\nCan you check what we do for other codecs and do the same thing here?",
+      "revId": "3a9e074bb905a46122fbc7a76bdb5e17dd08d4b9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9d99251d_587125b7",
+        "filename": "modules/video_coding/video_codec_initializer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 358,
+      "author": {
+        "id": 18005
+      },
+      "writtenOn": "2024-11-06T14:13:57Z",
+      "side": 1,
+      "message": "According to the comment here: https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/modules/video_coding/video_codec_initializer.cc;l\u003d124;drc\u003d8037fc6ffa131805248c2a63c3edec69155b05cf Looks like it should be std::nullopt.\n\nAlso added a test to validate the example you list here.",
+      "parentUuid": "26f28bc9_e3f9c699",
       "revId": "3a9e074bb905a46122fbc7a76bdb5e17dd08d4b9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

@@ -225,7 +225,7 @@ TEST(AudioDecoderOpusTest, MonoEncoderStereoDecoderOutputsTrivialStereo) {
   }
 }
 
-TEST(AudioDecoderOpusTest, MonoEncoderStereoDecoderOutputsNonTrivialStereoDtx) {
+TEST(AudioDecoderOpusTest, MonoEncoderStereoDecoderOutputsTrivialStereoDtx) {
   const Environment env = EnvironmentFactory().Create();
   // Create a mono encoder.
   const AudioEncoderOpusConfig encoder_config =
@@ -259,8 +259,7 @@ TEST(AudioDecoderOpusTest, MonoEncoderStereoDecoderOutputsNonTrivialStereoDtx) {
   // Make sure that comfort noise is not a muted frame.
   ASSERT_FALSE(IsZeroedFrame(decoded_view));
 
-  // TODO: https://issues.webrtc.org/376493209 - When fixed, expect true below.
-  EXPECT_FALSE(IsTrivialStereo(decoded_view));
+  EXPECT_TRUE(IsTrivialStereo(decoded_view));
 }
 
 TEST(AudioDecoderOpusTest,

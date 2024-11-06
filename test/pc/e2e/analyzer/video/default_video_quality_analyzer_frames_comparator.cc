@@ -21,6 +21,7 @@
 #include "api/array_view.h"
 #include "api/scoped_refptr.h"
 #include "api/video/i420_buffer.h"
+#include "api/video/video_frame.h"
 #include "api/video/video_frame_type.h"
 #include "common_video/libyuv/include/webrtc_libyuv.h"
 #include "rtc_base/checks.h"
@@ -38,6 +39,8 @@ namespace {
 using ::webrtc::webrtc_pc_e2e::SampleMetadataKey;
 
 constexpr TimeDelta kFreezeThreshold = TimeDelta::Millis(150);
+// Figure out why this is chosen to be 10. Can we not increase it. This results
+// in very few comparisons.
 constexpr int kMaxActiveComparisons = 10;
 constexpr int kMillisInSecond = 1000;
 
@@ -101,6 +104,8 @@ FrameComparison ValidateFrameComparison(FrameComparison comparison) {
       // after decoder.
       RTC_DCHECK(!comparison.captured.has_value())
           << "Dropped frame comparison can't have captured frame";
+      RTC_DCHECK(!comparison.decoded.has_value())
+          << "Dropped frame comparison can't have decoded frame";
       RTC_DCHECK(!comparison.rendered.has_value())
           << "Dropped frame comparison can't have rendered frame";
 
@@ -141,6 +146,8 @@ FrameComparison ValidateFrameComparison(FrameComparison comparison) {
       // set. Also these frames were never rendered.
       RTC_DCHECK(!comparison.captured.has_value())
           << "Frame in flight comparison can't have captured frame";
+      RTC_DCHECK(!comparison.decoded.has_value())
+          << "Frame in flight comparison can't have decoded frame";
       RTC_DCHECK(!comparison.rendered.has_value())
           << "Frame in flight comparison can't have rendered frame";
       RTC_DCHECK(!comparison.frame_stats.rendered_time.IsFinite())
@@ -351,9 +358,41 @@ void DefaultVideoQualityAnalyzerFramesComparator::AddComparison(
                         std::move(rendered), type, std::move(frame_stats));
 }
 
+void DefaultVideoQualityAnalyzerFramesComparator::AddComparison(
+    InternalStatsKey stats_key,
+    int skipped_between_rendered,
+    std::optional<VideoFrame> captured,
+    std::optional<VideoFrame> decoded,
+    std::optional<VideoFrame> rendered,
+    FrameComparisonType type,
+    FrameStats frame_stats) {
+  MutexLock lock(&mutex_);
+  RTC_CHECK_EQ(state_, State::kActive)
+      << "Frames comparator has to be started before it will be used";
+  stream_stats_.at(stats_key).skipped_between_rendered.AddSample(
+      StatsSample(skipped_between_rendered, Now(),
+                  /*metadata=*/
+                  {{SampleMetadataKey::kFrameIdMetadataKey,
+                    std::to_string(frame_stats.frame_id)}}));
+  AddComparisonInternal(std::move(stats_key), std::move(captured),
+                        std::move(decoded), std::move(rendered), type,
+                        std::move(frame_stats));
+}
+
 void DefaultVideoQualityAnalyzerFramesComparator::AddComparisonInternal(
     InternalStatsKey stats_key,
     std::optional<VideoFrame> captured,
+    std::optional<VideoFrame> rendered,
+    FrameComparisonType type,
+    FrameStats frame_stats) {
+  AddComparisonInternal(stats_key, captured, /*decoded=*/std::nullopt, rendered,
+                        type, frame_stats);
+}
+
+void DefaultVideoQualityAnalyzerFramesComparator::AddComparisonInternal(
+    InternalStatsKey stats_key,
+    std::optional<VideoFrame> captured,
+    std::optional<VideoFrame> decoded,
     std::optional<VideoFrame> rendered,
     FrameComparisonType type,
     FrameStats frame_stats) {
@@ -365,16 +404,16 @@ void DefaultVideoQualityAnalyzerFramesComparator::AddComparisonInternal(
   if (comparisons_.size() >= kMaxActiveComparisons) {
     comparisons_.emplace_back(ValidateFrameComparison(
         FrameComparison(std::move(stats_key), /*captured=*/std::nullopt,
-                        /*rendered=*/std::nullopt, type, std::move(frame_stats),
-                        OverloadReason::kCpu)));
+                        /*decoded=*/std::nullopt, /*rendered=*/std::nullopt,
+                        type, std::move(frame_stats), OverloadReason::kCpu)));
   } else {
     OverloadReason overload_reason = OverloadReason::kNone;
     if (!captured && type == FrameComparisonType::kRegular) {
       overload_reason = OverloadReason::kMemory;
     }
     comparisons_.emplace_back(ValidateFrameComparison(FrameComparison(
-        std::move(stats_key), std::move(captured), std::move(rendered), type,
-        std::move(frame_stats), overload_reason)));
+        std::move(stats_key), std::move(captured), std::move(decoded),
+        std::move(rendered), type, std::move(frame_stats), overload_reason)));
   }
   comparison_available_event_.Set();
   cpu_measurer_.StopExcludingCpuThreadTime();
@@ -444,16 +483,18 @@ void DefaultVideoQualityAnalyzerFramesComparator::ProcessComparison(
     if (options_.compute_ssim) {
       ssim = I420SSIM(*reference_buffer, *test_buffer);
     }
-    if (options_.compute_corruption_score &&
+    if (options_.compute_corruption_score && comparison.decoded.has_value() &&
         frame_stats.decoded_frame_qp.has_value()) {
       if (corruption_scorer_ == nullptr) {
         corruption_scorer_ = std::make_unique<FramePairCorruptionScorer>(
             frame_stats.used_decoder->codec_name,
             kCorruptionDetectionScaleFactor, /*sample_fraction=*/std::nullopt);
       }
+      rtc::scoped_refptr<I420BufferInterface> decoded_buffer =
+          comparison.decoded->video_frame_buffer()->ToI420();
       corruption_score = corruption_scorer_->CalculateScore(
           frame_stats.decoded_frame_qp.value(), *reference_buffer,
-          *test_buffer);
+          *decoded_buffer);
       RTC_CHECK_GE(corruption_score, 0.0);
       RTC_CHECK_LE(corruption_score, 1.0);
     }

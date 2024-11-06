@@ -134,6 +134,7 @@ DefaultVideoQualityAnalyzer::DefaultVideoQualityAnalyzer(
       clock_(clock),
       metrics_logger_(metrics_logger),
       frames_storage_(options.max_frames_storage_duration, clock_),
+      decoded_frames_storage_(options.max_frames_storage_duration, clock_),
       frames_comparator_(clock, cpu_measurer_, options) {
   RTC_CHECK(metrics_logger_);
 }
@@ -469,6 +470,13 @@ void DefaultVideoQualityAnalyzer::OnFrameDecoded(
                        stream_to_sender_.at(it->second.stream()), peer_index);
   stream_frame_counters_.at(key).decoded++;
   Timestamp now = Now();
+
+  // Store local copy of the frame with frame_id set. The id is important to be
+  // able to match it with the corresponding captured/rendered frame.
+  VideoFrame local_frame(frame);
+  local_frame.set_id(frame.id());
+  decoded_frames_storage_.Add(std::move(local_frame), now);
+
   StreamCodecInfo used_decoder;
   used_decoder.codec_name = stats.decoder_name;
   used_decoder.first_frame_id = frame.id();
@@ -528,6 +536,12 @@ void DefaultVideoQualityAnalyzer::OnFrameRendered(
   // Find corresponding captured frame.
   FrameInFlight* frame_in_flight = &frame_it->second;
   std::optional<VideoFrame> captured_frame = frames_storage_.Get(frame.id());
+  // Find corresponding decoded frame.
+  std::optional<VideoFrame> decoded_frame =
+      decoded_frames_storage_.Get(frame.id());
+  RTC_CHECK(captured_frame.has_value() && decoded_frame.has_value());
+  RTC_CHECK_LE(decoded_frame->width(), captured_frame->width());
+  RTC_CHECK_LE(decoded_frame->height(), captured_frame->height());
 
   const size_t stream_index = frame_in_flight->stream();
   StreamState* state = &stream_states_.at(stream_index);
@@ -570,12 +584,13 @@ void DefaultVideoQualityAnalyzer::OnFrameRendered(
   analyzer_stats_.frames_in_flight_left_count.AddSample(
       StatsSample(captured_frames_in_flight_.size(), Now()));
   frames_comparator_.AddComparison(
-      stats_key, dropped_count, captured_frame, /*rendered=*/frame,
-      FrameComparisonType::kRegular,
+      stats_key, dropped_count, captured_frame, decoded_frame,
+      /*rendered=*/frame, FrameComparisonType::kRegular,
       frame_in_flight->GetStatsForPeer(peer_index));
 
   if (frame_it->second.HaveAllPeersReceived()) {
     frames_storage_.Remove(frame_it->second.id());
+    decoded_frames_storage_.Remove(frame_it->second.id());
     captured_frames_in_flight_.erase(frame_it);
   }
 
@@ -731,6 +746,8 @@ void DefaultVideoQualityAnalyzer::UnregisterParticipantInCall(
     if (frame_in_flight.HasEncodedTime() &&
         frame_in_flight.HaveAllPeersReceived()) {
       frames_storage_.Remove(frame_in_flight.id());
+      // Is this really correct?
+      decoded_frames_storage_.Remove(frame_in_flight.id());
       it = captured_frames_in_flight_.erase(it);
     } else {
       it++;
@@ -1063,6 +1080,8 @@ int DefaultVideoQualityAnalyzer::ProcessNotSeenFramesBeforeRendered(
 
     if (next_frame_it->second.HaveAllPeersReceived()) {
       frames_storage_.Remove(next_frame_it->second.id());
+      // Should this be done? What is the goal here exactly?
+      decoded_frames_storage_.Remove(next_frame_it->second.id());
       captured_frames_in_flight_.erase(next_frame_it);
     }
   }

@@ -9,6 +9,8 @@
  */
 #include "test/pc/e2e/analyzer/video/default_video_quality_analyzer_internal_shared_objects.h"
 
+#include <utility>
+
 #include "api/video/video_frame.h"
 #include "rtc_base/strings/string_builder.h"
 
@@ -38,12 +40,14 @@ bool operator==(const InternalStatsKey& a, const InternalStatsKey& b) {
 
 FrameComparison::FrameComparison(InternalStatsKey stats_key,
                                  std::optional<VideoFrame> captured,
+                                 std::optional<VideoFrame> decoded,
                                  std::optional<VideoFrame> rendered,
                                  FrameComparisonType type,
                                  FrameStats frame_stats,
                                  OverloadReason overload_reason)
     : stats_key(std::move(stats_key)),
       captured(std::move(captured)),
+      decoded(std::move(decoded)),
       rendered(std::move(rendered)),
       type(type),
       frame_stats(std::move(frame_stats)),

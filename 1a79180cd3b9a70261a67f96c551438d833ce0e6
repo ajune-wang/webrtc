@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "33b300dd_6ff311c5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-11-06T15:03:49Z",
+      "side": 1,
+      "message": "Drive-by comment: ABSL_DEPRECATE_AND_INLINE?",
+      "revId": "1a79180cd3b9a70261a67f96c551438d833ce0e6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "60c0ff02_494a0b45",
+        "filename": "media/base/video_common.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-11-06T15:03:49Z",
+      "side": 1,
+      "message": "Is this a case  for using  ABSL_DEPRECATE_AND_INLINE per https://webrtc.googlesource.com/src/+/HEAD/g3doc/style-guide.md ?",
+      "revId": "1a79180cd3b9a70261a67f96c551438d833ce0e6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -34,6 +34,75 @@
       "parentUuid": "9f13dbb4_cb5bcfe6",
       "revId": "3a9e074bb905a46122fbc7a76bdb5e17dd08d4b9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "647b80d3_445e226b",
+        "filename": "modules/video_coding/video_codec_initializer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2024-11-06T11:42:36Z",
+      "side": 1,
+      "message": "OK sgtm",
+      "parentUuid": "e19bbbb4_226ddaa2",
+      "revId": "3a9e074bb905a46122fbc7a76bdb5e17dd08d4b9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0407624c_2984340c",
+        "filename": "modules/video_coding/video_codec_initializer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2024-11-06T11:42:36Z",
+      "side": 1,
+      "message": "I prefer not to special-case H265 here, see other comment.",
+      "revId": "3a9e074bb905a46122fbc7a76bdb5e17dd08d4b9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ecb1c597_a274548a",
+        "filename": "modules/video_coding/video_codec_initializer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 357,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2024-11-06T11:42:36Z",
+      "side": 1,
+      "message": "I prefer the scalability mode to already be set and then handle the failure here instead, for example by resetting the scalability mode and RTC_LOG(LS_WARNING) that we\u0027re falling back due to not supporting the scalability mode.\n\nActually check what we do in the VP8 case:\n```\n      // Validate specified scalability modes. If some layer has an unsupported\n      // mode, store it as the top-level scalability mode, which will make\n      // InitEncode fail with an appropriate error.\n```\nLet\u0027s do the same thing here?",
+      "revId": "3a9e074bb905a46122fbc7a76bdb5e17dd08d4b9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "26f28bc9_e3f9c699",
+        "filename": "modules/video_coding/video_codec_initializer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 358,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2024-11-06T11:42:36Z",
+      "side": 1,
+      "message": "What if different scalability modes are used on different layers?\n\nThis is an existing problem for all codecs, the fact that we express scalability mode both at `video_codec.Get/SetScalabilityMode()` and at `video_codec.simulcastStream[i]-\u003enumberOfTemporalLayers` (allowing one encoding to do L1T1 and another encoding to do L1T3).\n\nIf we try {L1T3,L1T1} then `numberOfTemporalLayers` would either say 1 or 3 depending on the the index of `simulcastStream`, but should `video_codec.GetScalabilityMode()` say L1T3 (encoding[0] value) or should it say std::nullopt (because there isn\u0027t a single correct value here)?\n\nCan you check what we do for other codecs and do the same thing here?",
+      "revId": "3a9e074bb905a46122fbc7a76bdb5e17dd08d4b9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

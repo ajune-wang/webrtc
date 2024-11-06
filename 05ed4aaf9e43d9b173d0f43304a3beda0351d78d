@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f86c2ce3_0e408c59",
+        "filename": "media/engine/simulcast_encoder_adapter.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 961,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2024-11-06T11:22:37Z",
+      "side": 1,
+      "message": "This would also exclude \"active but paused\" layers (we\u0027re doing {active,active,active} but some layers are paused due to BW adaptation reasons which dynamically is updated in SetRates).\n\nIs that a bug or a feature? On one hand it makes sense not to include an encoder that \"isn\u0027t used\", on the other hand it \"is\" used in the sense that it\u0027s still initialized and ready to go because we haven\u0027t InitEncode/Release\u0027d it away (which is what I would expect to happen if we did active\u003dfalse).\n\nWas the bug about \"active\u003dfalse\" not being removed from the name or about BW adaptation hiding pause?",
+      "revId": "05ed4aaf9e43d9b173d0f43304a3beda0351d78d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c47a831f_ae4a7cd4",
+        "filename": "modules/audio_coding/codecs/opus/audio_decoder_opus_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2024-11-06T09:04:51Z",
+      "side": 1,
+      "message": "Unfortunately that\u0027s not an option for `AudioEncoderOpusConfig` because it has a user-provided ctor - i.e., the struct is not an aggregate type (see https://en.cppreference.com/w/cpp/language/aggregate_initialization).\n\nRight, make_optional is not needed.",
+      "parentUuid": "72f7b973_715d5556",
+      "revId": "3113e6a1807ca7644c99b42dd010d454571e7ec6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "15e90d55_6fa73c05",
@@ -31,6 +49,24 @@
       "writtenOn": "2024-11-05T08:49:00Z",
       "side": 1,
       "message": "Why is this needed?",
+      "revId": "3113e6a1807ca7644c99b42dd010d454571e7ec6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "32a4e9fc_1663d16c",
+        "filename": "modules/audio_coding/codecs/opus/audio_decoder_opus_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2024-11-06T09:04:51Z",
+      "side": 1,
+      "message": "`env` is needed in the decoder and encoder ctors below.",
+      "parentUuid": "15e90d55_6fa73c05",
       "revId": "3113e6a1807ca7644c99b42dd010d454571e7ec6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

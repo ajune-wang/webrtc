@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9f13dbb4_cb5bcfe6",
+        "filename": "modules/video_coding/video_codec_initializer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2024-11-06T07:59:30Z",
+      "side": 1,
+      "message": "I think \u003e1 temporal layers should be behind a separate flag. Since this is inside WebRTC that would be a field trial flag.\n\nIn the case of VP9 HW we initially launched L1T1 successfully and had a separate rollout for L1T2 but discovered issues with it so that never launched. It\u0027s good to limit scope for these things to one launch at a time.",
+      "revId": "3a9e074bb905a46122fbc7a76bdb5e17dd08d4b9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

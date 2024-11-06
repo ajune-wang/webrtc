@@ -16,6 +16,110 @@
       "message": "Suggestions for how to add a check in the last test that the ccfb has been generated and received?\n\nI\u0027ve done the \"debug log\" hack, so I know that it is, but the test is not testing it. Otherwise, the CL should be ready.",
       "revId": "c5f770392d755eec3c0b814e2d2bc200017120d2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8b2829fe_1ddd4fe3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2024-11-06T10:13:49Z",
+      "side": 1,
+      "message": "Will there be a follow up cl to remote twcc from answer? As is now, a receiver will send both which will confuse a peer connection sender.",
+      "revId": "c5f770392d755eec3c0b814e2d2bc200017120d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b91215af_8d38034d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2024-11-06T10:13:49Z",
+      "side": 1,
+      "message": "I would not mind if these tests created an event log and used that to verify.",
+      "parentUuid": "f5c09b51_f5e7005c",
+      "revId": "c5f770392d755eec3c0b814e2d2bc200017120d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "575316c7_14a12ca3",
+        "filename": "call/call.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2024-11-06T10:13:49Z",
+      "side": 1,
+      "message": "nit: I prefer if this is moved up before trials()",
+      "range": {
+        "startLine": 161,
+        "startChar": 15,
+        "endLine": 161,
+        "endChar": 68
+      },
+      "revId": "c5f770392d755eec3c0b814e2d2bc200017120d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dcffe33d_cdf46207",
+        "filename": "pc/congestion_control_integrationtest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2024-11-06T10:13:49Z",
+      "side": 1,
+      "message": "please refer to the L4S bug.",
+      "range": {
+        "startLine": 81,
+        "startChar": 11,
+        "endLine": 81,
+        "endChar": 17
+      },
+      "revId": "c5f770392d755eec3c0b814e2d2bc200017120d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "83eb4c7c_5aa28ef0",
+        "filename": "pc/sdp_offer_answer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 4952,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2024-11-06T10:13:49Z",
+      "side": 1,
+      "message": "Is this safe or should a safety flag be used?",
+      "range": {
+        "startLine": 4952,
+        "startChar": 35,
+        "endLine": 4952,
+        "endChar": 43
+      },
+      "revId": "c5f770392d755eec3c0b814e2d2bc200017120d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

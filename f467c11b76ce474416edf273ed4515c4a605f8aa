@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8222611b_5f0afeb7",
+        "filename": "video/g3doc/adaptation.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2024-11-06T14:36:26Z",
+      "side": 1,
+      "message": "Fun fact: When simulcast or kSVC is used, the Quality Scaler is disabled in favor of just enabling or disabling layers via bitrate allocation.\n\nShould we add a line or two about this?",
+      "revId": "f467c11b76ce474416edf273ed4515c4a605f8aa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

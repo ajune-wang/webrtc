@@ -157,6 +157,24 @@
       "parentUuid": "26f28bc9_e3f9c699",
       "revId": "3a9e074bb905a46122fbc7a76bdb5e17dd08d4b9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c3306e70_aa3d1423",
+        "filename": "modules/video_coding/video_codec_initializer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 358,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2024-11-07T11:36:35Z",
+      "side": 1,
+      "message": "Ack, and setting it to null is already handled above so no need to reset.",
+      "parentUuid": "9d99251d_587125b7",
+      "revId": "3a9e074bb905a46122fbc7a76bdb5e17dd08d4b9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -34,6 +34,11 @@ AudioTrackInterface::GetAudioProcessor() {
   return nullptr;
 }
 
+rtc::scoped_refptr<AudioTrackInterface> AudioTrackInterface::Clone(
+    absl::string_view label) {
+  return nullptr;
+}
+
 const cricket::AudioOptions AudioSourceInterface::options() const {
   return {};
 }

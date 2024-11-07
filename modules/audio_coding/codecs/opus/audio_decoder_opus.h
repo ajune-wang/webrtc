@@ -59,6 +59,8 @@ class AudioDecoderOpusImpl final : public AudioDecoder {
                               SpeechType* speech_type) override;
 
  private:
+  void UpdateLastPacketWasMono(const uint8_t* encoded, size_t encoded_len);
+
   OpusDecInst* dec_state_;
   const size_t channels_;
   const int sample_rate_hz_;

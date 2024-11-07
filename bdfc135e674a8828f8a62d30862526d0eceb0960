@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bd7a6da0_8d105957",
+        "filename": "modules/audio_coding/codecs/opus/opus_interface.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 562,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2024-11-07T15:18:46Z",
+      "side": 1,
+      "message": "`* 2`?",
+      "range": {
+        "startLine": 562,
+        "startChar": 54,
+        "endLine": 562,
+        "endChar": 57
+      },
+      "revId": "bdfc135e674a8828f8a62d30862526d0eceb0960",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

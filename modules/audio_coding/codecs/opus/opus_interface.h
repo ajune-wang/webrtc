@@ -538,6 +538,22 @@ int WebRtcOpus_PacketHasFec(const uint8_t* payload,
 int WebRtcOpus_PacketHasVoiceActivity(const uint8_t* payload,
                                       size_t payload_length_bytes);
 
+/****************************************************************************
+ * WebRtcOpus_PacketNumChannels(...)
+ *
+ * This function returns the number of channels for the encoded opus packet.
+ * Input:
+ *        - payload              : Encoded packet data pointer
+ *        - payload_length_bytes : Bytes of encoded data
+ *
+ * Return value                  : 1 - the packet is a mono one.
+ *                                 2 - the packet is a stereo one.
+ *                                -1 - the mono/stereo information could not be
+ *                                     determined.
+ */
+int WebRtcOpus_PacketNumChannels(const uint8_t* payload,
+                                 size_t payload_length_bytes);
+
 #ifdef __cplusplus
 }  // extern "C"
 #endif

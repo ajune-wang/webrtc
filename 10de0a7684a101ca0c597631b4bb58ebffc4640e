@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "385f3839_ead4f833",
+        "filename": "modules/audio_coding/codecs/opus/audio_decoder_opus.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2024-11-07T12:28:35Z",
+      "side": 1,
+      "message": "It\u0027s an option to move that block into `WebRtcOpus_Decode()`, more precisely where indicate below:\n\n```\nint WebRtcOpus_Decode(OpusDecInst* inst,\n                      const uint8_t* encoded,\n                      size_t encoded_bytes,\n                      int16_t* decoded,\n                      int16_t* audio_type) {\n  int decoded_samples;\n\n  if (encoded_bytes \u003d\u003d 0) {\n    *audio_type \u003d DetermineAudioType(inst, encoded_bytes);\n    decoded_samples \u003d DecodePlc(inst, decoded);\n    \n    // MOVE THE WORKAROUND HERE\n  } else {\n    ...\n```\n\nHowever, it requires to either modify the `WebRtcOpus_Decode` signature to pass the number of channels for the last decoded packet or make that information part of the decoder state (namely, `OpusDecInst`).\n\nI don\u0027t have a strong preference; I opted for changing `AudioDecoderOpusImpl` so that we only need to change one class and avoid spreading the workaround across too many different places.\n\nUp to you.",
+      "parentUuid": "29693344_d0c48238",
+      "range": {
+        "startLine": 89,
+        "startChar": 0,
+        "endLine": 94,
+        "endChar": 3
+      },
+      "revId": "10de0a7684a101ca0c597631b4bb58ebffc4640e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "141d4b57_3cc6a7b3",
         "filename": "modules/audio_coding/codecs/opus/audio_decoder_opus.cc",
         "patchSetId": 4
@@ -54,6 +78,30 @@
       "writtenOn": "2024-11-07T08:46:40Z",
       "side": 1,
       "message": "I\u0027d store internal stream number of channels instead of boolean.",
+      "range": {
+        "startLine": 181,
+        "startChar": 0,
+        "endLine": 193,
+        "endChar": 0
+      },
+      "revId": "10de0a7684a101ca0c597631b4bb58ebffc4640e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7cfaf6ae_a909f221",
+        "filename": "modules/audio_coding/codecs/opus/audio_decoder_opus.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2024-11-07T12:28:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "141d4b57_3cc6a7b3",
       "range": {
         "startLine": 181,
         "startChar": 0,

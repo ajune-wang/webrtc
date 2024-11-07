@@ -67,6 +67,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fd7905ec_66bce1d8",
+        "filename": "modules/audio_coding/codecs/opus/audio_decoder_opus.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2024-11-07T12:31:12Z",
+      "side": 1,
+      "message": "Yes, the internal channel state should be stored in OpusDecInst.\n\nI don\u0027t see that this file needs to be changed at all?",
+      "parentUuid": "385f3839_ead4f833",
+      "range": {
+        "startLine": 89,
+        "startChar": 0,
+        "endLine": 94,
+        "endChar": 3
+      },
+      "revId": "10de0a7684a101ca0c597631b4bb58ebffc4640e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "141d4b57_3cc6a7b3",
         "filename": "modules/audio_coding/codecs/opus/audio_decoder_opus.cc",
         "patchSetId": 4

@@ -16,6 +16,52 @@
       "message": "Hi Jakob, could you PTAL? Alessio",
       "revId": "10de0a7684a101ca0c597631b4bb58ebffc4640e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "29693344_d0c48238",
+        "filename": "modules/audio_coding/codecs/opus/audio_decoder_opus.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2024-11-07T08:46:40Z",
+      "side": 1,
+      "message": "I\u0027d move this into opus_interface instead (but feel free to keep the tests here).",
+      "range": {
+        "startLine": 89,
+        "startChar": 0,
+        "endLine": 94,
+        "endChar": 3
+      },
+      "revId": "10de0a7684a101ca0c597631b4bb58ebffc4640e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "141d4b57_3cc6a7b3",
+        "filename": "modules/audio_coding/codecs/opus/audio_decoder_opus.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2024-11-07T08:46:40Z",
+      "side": 1,
+      "message": "I\u0027d store internal stream number of channels instead of boolean.",
+      "range": {
+        "startLine": 181,
+        "startChar": 0,
+        "endLine": 193,
+        "endChar": 0
+      },
+      "revId": "10de0a7684a101ca0c597631b4bb58ebffc4640e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

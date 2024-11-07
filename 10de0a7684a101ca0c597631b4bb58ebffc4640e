@@ -89,6 +89,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f25cdc68_c9b9a24a",
+        "filename": "modules/audio_coding/codecs/opus/audio_decoder_opus.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2024-11-07T14:41:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fd7905ec_66bce1d8",
+      "range": {
+        "startLine": 89,
+        "startChar": 0,
+        "endLine": 94,
+        "endChar": 3
+      },
+      "revId": "10de0a7684a101ca0c597631b4bb58ebffc4640e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "141d4b57_3cc6a7b3",

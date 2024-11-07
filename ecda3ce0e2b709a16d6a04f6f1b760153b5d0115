@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2d397b76_1f4d5dc0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-11-07T09:36:50Z",
+      "side": 1,
+      "message": "Wouldn\u0027t it be better to fix it by casting .bytes to a pointer to utf8?",
+      "revId": "ecda3ce0e2b709a16d6a04f6f1b760153b5d0115",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

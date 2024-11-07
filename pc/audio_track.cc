@@ -67,4 +67,10 @@ void AudioTrack::OnChanged() {
   }
 }
 
+rtc::scoped_refptr<AudioTrackInterface> AudioTrack::Clone(
+    absl::string_view label) {
+  RTC_DCHECK_RUN_ON(&signaling_thread_checker_);
+  return AudioTrack::Create(label, audio_source_);
+}
+
 }  // namespace webrtc

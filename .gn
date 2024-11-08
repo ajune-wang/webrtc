@@ -84,4 +84,8 @@ default_args = {
 
   # This adds a dependency to //base.
   use_fuzztest_wrapper = false
+
+  # DO NOT SUBMIT
+  enable_rust = true
+  enable_rust_cxx = true
 }

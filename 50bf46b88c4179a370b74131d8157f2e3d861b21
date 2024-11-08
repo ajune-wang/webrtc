@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3911a604_332c7828",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2024-11-08T10:30:43Z",
+      "side": 1,
+      "message": "Excellent! We\u0027re ready to ship then, that requires a Chromium CL, see https://source.chromium.org/chromium/chromium/src/+/main:third_party/blink/renderer/modules/peerconnection/rtc_stats_report.cc;l\u003d102;drc\u003d9f771c84231a80894401b400f1a0d9ce34db6019.\n\nThat CL should be accompanied by a web platform test that 1) enables the extension, and 2) verifies that values are present as per...\n\nhttps://www.w3.org/TR/webrtc-stats/#dom-rtcinboundrtpstreamstats-corruptionmeasurements\n\u003e If the corruption-detection header extension is present in the RTP packets, corruption probability measurements MUST be present.",
+      "revId": "50bf46b88c4179a370b74131d8157f2e3d861b21",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

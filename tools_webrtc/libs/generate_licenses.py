@@ -53,6 +53,7 @@ LIB_TO_LICENSES_DICT = {
     'ijar': ['third_party/ijar/LICENSE'],
     'jsoncpp': ['third_party/jsoncpp/LICENSE'],
     'libaom': ['third_party/libaom/source/libaom/LICENSE'],
+    'libc': ['third_party/libc/src/LICENSE.TXT'],
     'libc++': ['third_party/libc++/src/LICENSE.TXT'],
     'libc++abi': ['third_party/libc++abi/src/LICENSE.TXT'],
     'libevent': ['third_party/libevent/LICENSE'],

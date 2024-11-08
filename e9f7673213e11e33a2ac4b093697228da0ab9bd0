@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6986fcb4_889705cd",
+        "filename": "tools_webrtc/mb/mb_config.pyl",
+        "patchSetId": 10
+      },
+      "lineNbr": 475,
+      "author": {
+        "id": 21929
+      },
+      "writtenOn": "2024-11-08T19:39:05Z",
+      "side": 1,
+      "message": "typo here, split these",
+      "range": {
+        "startLine": 475,
+        "startChar": 34,
+        "endLine": 475,
+        "endChar": 35
+      },
+      "revId": "e9f7673213e11e33a2ac4b093697228da0ab9bd0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

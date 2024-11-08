@@ -22,6 +22,30 @@
       },
       "revId": "e9f7673213e11e33a2ac4b093697228da0ab9bd0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "71d54da1_829625ee",
+        "filename": "tools_webrtc/mb/mb_config.pyl",
+        "patchSetId": 10
+      },
+      "lineNbr": 475,
+      "author": {
+        "id": 12299
+      },
+      "writtenOn": "2024-11-08T19:58:13Z",
+      "side": 1,
+      "message": "Thanks, it looks cleaner now !\n\nI think it was working fine though by looking at the \u0027lookup GN args\u0027 step of this bot triggered on this patchset: https://ci.chromium.org/ui/p/webrtc/builders/try/linux_libfuzzer_rel/72957/overview.",
+      "parentUuid": "6986fcb4_889705cd",
+      "range": {
+        "startLine": 475,
+        "startChar": 34,
+        "endLine": 475,
+        "endChar": 35
+      },
+      "revId": "e9f7673213e11e33a2ac4b093697228da0ab9bd0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

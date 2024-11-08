@@ -46,6 +46,30 @@
       },
       "revId": "e9f7673213e11e33a2ac4b093697228da0ab9bd0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cdaa766d_4b1f4eba",
+        "filename": "tools_webrtc/mb/mb_config.pyl",
+        "patchSetId": 10
+      },
+      "lineNbr": 475,
+      "author": {
+        "id": 21929
+      },
+      "writtenOn": "2024-11-08T20:19:51Z",
+      "side": 1,
+      "message": "oh hm, the assert on the android bot was saying that `enable_rust_cxx` was not set, i assumed it was because these were combined into one string",
+      "parentUuid": "71d54da1_829625ee",
+      "range": {
+        "startLine": 475,
+        "startChar": 34,
+        "endLine": 475,
+        "endChar": 35
+      },
+      "revId": "e9f7673213e11e33a2ac4b093697228da0ab9bd0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

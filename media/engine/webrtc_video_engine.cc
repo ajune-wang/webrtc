@@ -556,7 +556,10 @@ void FallbackToDefaultScalabilityModeIfNotSupported(
     if (!encoding.scalability_mode.has_value() ||
         !IsScalabilityModeSupportedByCodec(codec, *encoding.scalability_mode,
                                            config)) {
-      encoding.scalability_mode = webrtc::kDefaultScalabilityModeStr;
+      encoding.scalability_mode =
+          absl::EqualsIgnoreCase(codec.name, kH265CodecName)
+              ? webrtc::kDefaultH265ScalabilityModeStr
+              : webrtc::kDefaultScalabilityModeStr;
       RTC_LOG(LS_INFO) << " -> " << *encoding.scalability_mode;
     }
   }

@@ -15,6 +15,7 @@
 
 #include "absl/strings/str_cat.h"
 #include "api/peer_connection_interface.h"
+// #include "modules/rtp_rtcp/include/rtp_rtcp_defines.h
 #include "pc/test/integration_test_helpers.h"
 #include "rtc_base/gunit.h"
 #include "test/field_trial.h"
@@ -64,6 +65,24 @@ TEST_F(PeerConnectionCongestionControlTest, ReceiveOfferSetsCcfbFlag) {
   for (const auto& content : parsed_contents) {
     EXPECT_TRUE(content.media_description()->rtcp_fb_ack_ccfb());
   }
+}
+
+TEST_F(PeerConnectionCongestionControlTest, CcfbGetsUsed) {
+  test::ScopedFieldTrials trials(
+      "WebRTC-RFC8888CongestionControlFeedback/Enabled/");
+  ASSERT_TRUE(CreatePeerConnectionWrappers());
+  ConnectFakeSignaling();
+  caller()->AddAudioVideoTracks();
+  caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+  MediaExpectations media_expectations;
+  media_expectations.CalleeExpectsSomeAudio();
+  media_expectations.CalleeExpectsSomeVideo();
+  ASSERT_TRUE(ExpectNewFrames(media_expectations));
+  RTC_LOG(LS_ERROR) << "Wait for RTCP to happen";
+  // TODO: Figure out a way to detect that 8888 feedback was sent.
+  // EXPECT_TRUE_WAIT(caller()->pc()->GetSenders()[0].transport()->GetRtcpCount(
+  WAIT(false, 10000);
 }
 
 }  // namespace webrtc

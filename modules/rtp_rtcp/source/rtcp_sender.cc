@@ -605,6 +605,9 @@ int32_t RTCPSender::SendRTCP(const FeedbackState& feedback_state,
   std::optional<PacketSender> sender;
   {
     MutexLock lock(&mutex_rtcp_sender_);
+    // Count number of RTCPs sent by packet type.
+    RTC_LOG(LS_ERROR) << "DEBUG: Sending RTCP " << packet_type;
+    ++counters_.try_emplace(packet_type, 0).first->second;
     sender.emplace(callback, max_packet_size_);
     auto result = ComputeCompoundRTCPPacket(feedback_state, packet_type,
                                             nack_size, nack_list, *sender);
@@ -615,6 +618,14 @@ int32_t RTCPSender::SendRTCP(const FeedbackState& feedback_state,
   sender->Send();
 
   return error_code;
+}
+
+int RTCPSender::GetSendCount(RTCPPacketType packet_type) const {
+  MutexLock lock(&mutex_rtcp_sender_);
+  if (counters_.count(packet_type) == 0) {
+    return 0;
+  }
+  return counters_.at(packet_type);
 }
 
 std::optional<int32_t> RTCPSender::ComputeCompoundRTCPPacket(

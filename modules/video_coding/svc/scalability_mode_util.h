@@ -26,6 +26,9 @@ enum class ScalabilityModeResolutionRatio {
 
 static constexpr char kDefaultScalabilityModeStr[] = "L1T2";
 
+// For codec without software fallback, prefer L1T1 as default.
+static constexpr char kDefaultNoScalabilityModeStr[] = "L1T1";
+
 RTC_EXPORT std::optional<ScalabilityMode> MakeScalabilityMode(
     int num_spatial_layers,
     int num_temporal_layers,

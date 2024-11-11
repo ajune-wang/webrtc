@@ -16,6 +16,23 @@
       "message": "@hta@webrtc.org @marpan@webrtc.org @ilnik@webrtc.org Please help to review this ticket, thanks.",
       "revId": "604642d7ec19fa8b176c7fedc28038beaf40638a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "24ab363d_d10164e9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2024-11-11T10:51:03Z",
+      "side": 1,
+      "message": "Please refrain from adding too many reviewers. You need just one owner per file. It will not speed up the review process, but may actually do the opposite: everyone will assume that someone else might look at this and postpone the review.",
+      "revId": "604642d7ec19fa8b176c7fedc28038beaf40638a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

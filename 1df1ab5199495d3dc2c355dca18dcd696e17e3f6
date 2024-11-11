@@ -38,6 +38,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "08874feb_43c2c3f6",
+        "filename": "pc/media_session.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1092,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2024-11-11T09:36:08Z",
+      "side": 1,
+      "message": "HEVC -\u003e H265. For consistency with the rest WebRTC code.",
+      "range": {
+        "startLine": 1092,
+        "startChar": 35,
+        "endLine": 1092,
+        "endChar": 39
+      },
+      "revId": "1df1ab5199495d3dc2c355dca18dcd696e17e3f6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8a94ca34_5e8c8b3f",
         "filename": "pc/media_session.cc",
         "patchSetId": 4

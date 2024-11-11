@@ -16,6 +16,29 @@
       "message": "@ilnik@webrtc.org / @ssilkin@webrtc.org PTAL~",
       "revId": "5b534dc1302f01057eb6246aa402d2a301dabe16",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cfc54267_58f2eaac",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 561,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2024-11-11T15:01:40Z",
+      "side": 1,
+      "message": "I find this optimization a little confusing. I don\u0027t like how the check for L1T2 is now affecting the logic here and now the reader has to consider two if statements together.\n\nHow about this?\n\n\n```suggestion\n  if (!encoding.scalability_mode.has_value() ||\n        !IsScalabilityModeSupportedByCodec(codec, *encoding.scalability_mode,\n                                           config)) {\n      encoding.scalability_mode \u003d\n            (encoding.scalability_mode !\u003d std::string(kDefaultScalabilityModeStr) \u0026\u0026\n             IsScalabilityModeSupportedByCodec(\n              codec, webrtc::kDefaultScalabilityModeStr, config))\n              ? webrtc::kDefaultScalabilityModeStr\n              : webrtc::kNoLayeringScalabilityModeStr;\n```\n\nOr you can make kDefaultScalabilityModeStr `constexpr std::string` and the code will be even clearer.",
+      "range": {
+        "startLine": 561,
+        "startChar": 9,
+        "endLine": 561,
+        "endChar": 72
+      },
+      "revId": "5b534dc1302f01057eb6246aa402d2a301dabe16",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

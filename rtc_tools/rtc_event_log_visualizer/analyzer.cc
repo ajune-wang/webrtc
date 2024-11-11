@@ -2170,7 +2170,7 @@ void EventLogAnalyzer::CreateIceCandidatePairConfigGraph(Plot* plot) const {
   plot->SetXAxis(config_.CallBeginTimeSec(), config_.CallEndTimeSec(),
                  "Time (s)", kLeftMargin, kRightMargin);
   plot->SetSuggestedYAxis(0, 3, "Config Type", kBottomMargin, kTopMargin);
-  plot->SetTitle("[IceEventLog] ICE candidate pair configs");
+  plot->SetTitle("ICE candidate pair configs");
   plot->SetYAxisTickLabels(
       {{static_cast<float>(IceCandidatePairConfigType::kAdded), "ADDED"},
        {static_cast<float>(IceCandidatePairConfigType::kUpdated), "UPDATED"},
@@ -2209,7 +2209,7 @@ void EventLogAnalyzer::CreateIceConnectivityCheckGraph(Plot* plot) const {
                  "Time (s)", kLeftMargin, kRightMargin);
   plot->SetSuggestedYAxis(0, 4, "Connectivity State", kBottomMargin,
                           kTopMargin);
-  plot->SetTitle("[IceEventLog] ICE connectivity checks");
+  plot->SetTitle("ICE connectivity checks");
 
   plot->SetYAxisTickLabels(
       {{static_cast<float>(IceCandidatePairEventType::kCheckSent) +
@@ -2260,6 +2260,7 @@ void EventLogAnalyzer::CreateDtlsWritableStateGraph(Plot* plot) const {
   plot->SetXAxis(config_.CallBeginTimeSec(), config_.CallEndTimeSec(),
                  "Time (s)", kLeftMargin, kRightMargin);
   plot->SetSuggestedYAxis(0, 1, "Writable", kBottomMargin, kTopMargin);
+  plot->SetYAxisTickLabels({{1, "TRUE"}, {0, "FALSE"}});
   plot->SetTitle("DTLS Writable State");
 }
 

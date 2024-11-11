@@ -22,6 +22,30 @@
       },
       "revId": "04f3fefcfcbb658a7686a0e77f6b5e80325ba271",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "593e4a0a_7f6ec28f",
+        "filename": "DEPS",
+        "patchSetId": 1
+      },
+      "lineNbr": 549,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2024-11-11T07:34:00Z",
+      "side": 1,
+      "message": "Yes, this sounds like a good idea.",
+      "parentUuid": "09cb1490_c2bd5b9c",
+      "range": {
+        "startLine": 548,
+        "startChar": 0,
+        "endLine": 549,
+        "endChar": 118
+      },
+      "revId": "04f3fefcfcbb658a7686a0e77f6b5e80325ba271",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

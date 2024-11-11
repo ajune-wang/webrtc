@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ecbbb58f_977bb6c0",
+        "filename": "modules/video_coding/svc/scalability_mode_util.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2024-11-11T08:22:45Z",
+      "side": 1,
+      "message": "I would suggest to remove \"H265\" from the name. kDefaultNoScalabilityModeStr or something like that.",
+      "range": {
+        "startLine": 30,
+        "startChar": 22,
+        "endLine": 30,
+        "endChar": 52
+      },
+      "revId": "b97dfe2f6e03735e779d46b244b7fb85abd22819",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

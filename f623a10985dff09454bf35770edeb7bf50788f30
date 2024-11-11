@@ -16,6 +16,24 @@
       "message": "what should we do to move this forward? If the change of the behaviour for requesting an iframe is unclear, maybe we should just put back the reduced sps/pps tracker and decide about the behavioural change on a later PR, wdyt?",
       "revId": "f623a10985dff09454bf35770edeb7bf50788f30",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9323010b_a870b33c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2024-11-11T10:48:56Z",
+      "side": 1,
+      "message": "Let\u0027s land this as is and see if anything breaks. Just make sure to clearly state the change in behavior in the CL descriptione please.",
+      "parentUuid": "f222e929_3a8f57de",
+      "revId": "f623a10985dff09454bf35770edeb7bf50788f30",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

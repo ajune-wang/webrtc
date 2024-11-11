@@ -46,6 +46,30 @@
       },
       "revId": "b97dfe2f6e03735e779d46b244b7fb85abd22819",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0a42e617_468b8ebe",
+        "filename": "modules/video_coding/svc/scalability_mode_util.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2024-11-11T10:45:47Z",
+      "side": 1,
+      "message": "I think this name isn\u0027t perfect here. There\u0027s a scalability mode, just no temporal layers. I sugged `kDefaultSimplifiedScalabilityMode`. or `kNoTemoralLayersScalabilityMode` WDYT, Sergey?",
+      "parentUuid": "fe820860_ff45881b",
+      "range": {
+        "startLine": 30,
+        "startChar": 22,
+        "endLine": 30,
+        "endChar": 52
+      },
+      "revId": "b97dfe2f6e03735e779d46b244b7fb85abd22819",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

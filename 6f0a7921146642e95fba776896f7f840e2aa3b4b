@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f21b48e_6059ac7d",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 560,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2024-11-11T10:45:47Z",
+      "side": 1,
+      "message": "I don\u0027t feel that it\u0027s great to have a codec specific check here.\n\nIs it possible to query the encoder factory to check if `kDefaultScalabilityModeStr` is supported via `IsScalabilityModeSupportedByCodec`?\n\nIt might not work out of the box, but it\u0027s futureproof and clear.\n  \n```suggestion\n          IsScalabilityModeSupportedByCodec(codec, kDefaultScalabilityModeStr, config)\n          ? kDefaultScalabilityModeStr : kDefaultNoScalabilityModeStr;\n```",
+      "range": {
+        "startLine": 560,
+        "startChar": 45,
+        "endLine": 560,
+        "endChar": 59
+      },
+      "revId": "6f0a7921146642e95fba776896f7f840e2aa3b4b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c71aa1f9_c8eb728a",
+        "filename": "modules/video_coding/svc/scalability_mode_util.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2024-11-11T10:45:47Z",
+      "side": 1,
+      "message": "Nit: This name is not very clear. How about `kDefaultSimplifiedScalabilityMode`?",
+      "range": {
+        "startLine": 30,
+        "startChar": 22,
+        "endLine": 30,
+        "endChar": 50
+      },
+      "revId": "6f0a7921146642e95fba776896f7f840e2aa3b4b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

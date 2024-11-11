@@ -52,6 +52,24 @@
       "parentUuid": "9323010b_a870b33c",
       "revId": "f623a10985dff09454bf35770edeb7bf50788f30",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7e0ebbac_e671026c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-11-11T17:48:10Z",
+      "side": 1,
+      "message": "probably wait until after todays branch cut is announced just to be on the safe side (which ofc assumes folks  spend the time in flight testing in Canary and Beta... I can hope!)",
+      "parentUuid": "1989f028_fb7cba57",
+      "revId": "f623a10985dff09454bf35770edeb7bf50788f30",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

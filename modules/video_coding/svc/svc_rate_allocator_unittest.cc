@@ -674,6 +674,40 @@ TEST_P(SvcRateAllocatorTestParametrizedContentType, ThreeTemporalLayersAv1) {
             304022u);
 }
 
+#ifdef RTC_ENABLE_H265
+TEST_P(SvcRateAllocatorTestParametrizedContentType, TwoTemporalLayersH265) {
+  VideoCodec codec =
+      Configure(kVideoCodecH265, 1280, 720, 1, 2, is_screen_sharing_);
+  ExplicitKeyValueConfig field_trials("");
+  SvcRateAllocator allocator = SvcRateAllocator(codec, field_trials);
+  VideoBitrateAllocation allocation =
+      allocator.Allocate(VideoBitrateAllocationParameters(
+          /*total_bitrate_bps=*/1024'000, /*framerate=*/30));
+
+  EXPECT_EQ(allocation.GetBitrate(/*spatial_index=*/0, /*temporal_index=*/0),
+            660645u);
+  EXPECT_EQ(allocation.GetBitrate(/*spatial_index=*/0, /*temporal_index=*/1),
+            363355u);
+}
+
+TEST_P(SvcRateAllocatorTestParametrizedContentType, ThreeTemporalLayersH265) {
+  VideoCodec codec =
+      Configure(kVideoCodecH265, 1280, 720, 1, 3, is_screen_sharing_);
+  ExplicitKeyValueConfig field_trials("");
+  SvcRateAllocator allocator = SvcRateAllocator(codec, field_trials);
+  VideoBitrateAllocation allocation =
+      allocator.Allocate(VideoBitrateAllocationParameters(
+          /*total_bitrate_bps=*/1024'000, /*framerate=*/30));
+
+  EXPECT_EQ(allocation.GetBitrate(/*spatial_index=*/0, /*temporal_index=*/0),
+            552766u);
+  EXPECT_EQ(allocation.GetBitrate(/*spatial_index=*/0, /*temporal_index=*/1),
+            167212u);
+  EXPECT_EQ(allocation.GetBitrate(/*spatial_index=*/0, /*temporal_index=*/2),
+            304022u);
+}
+#endif
+
 INSTANTIATE_TEST_SUITE_P(_,
                          SvcRateAllocatorTestParametrizedContentType,
                          Bool());

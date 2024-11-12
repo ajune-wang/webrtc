@@ -16,6 +16,23 @@
       "message": "thanks, discussion is on the https://docs.google.com/document/d/1lBx_nhMt5UZc1AStN86tVZQl-KkGljH02HV8udeEH9A/edit?usp\u003dsharing",
       "revId": "8e870da33a5c3dd1ff3a39e9fb64a83a82a37eae",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "67b63b59_dfed44c4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18789
+      },
+      "writtenOn": "2024-11-12T05:49:49Z",
+      "side": 1,
+      "message": "Hi,\n\nCan you take a look at this CL?",
+      "revId": "8e870da33a5c3dd1ff3a39e9fb64a83a82a37eae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

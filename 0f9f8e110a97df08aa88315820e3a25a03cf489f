@@ -88,6 +88,24 @@
       "parentUuid": "13d2462c_901dd0a6",
       "revId": "0f9f8e110a97df08aa88315820e3a25a03cf489f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a7e5d0ef_210f030b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2024-11-12T12:52:19Z",
+      "side": 1,
+      "message": "I think it is OK to keep both addresses there.",
+      "parentUuid": "03592487_0a9d1e99",
+      "revId": "0f9f8e110a97df08aa88315820e3a25a03cf489f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

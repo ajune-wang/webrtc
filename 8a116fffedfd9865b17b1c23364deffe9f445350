@@ -33,6 +33,24 @@
       "message": "Code looks good, but needs a CLA to be signed at https://cla.developers.google.com/clas",
       "revId": "8a116fffedfd9865b17b1c23364deffe9f445350",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6472e53c_25d31153",
+        "filename": "AUTHORS",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 3723106
+      },
+      "writtenOn": "2024-11-12T12:23:07Z",
+      "side": 1,
+      "message": "Hello Harald, done. I am now covered by my company\u0027s corporate agreement. Thanks for pointing that out",
+      "parentUuid": "7399ca33_0d616875",
+      "revId": "8a116fffedfd9865b17b1c23364deffe9f445350",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

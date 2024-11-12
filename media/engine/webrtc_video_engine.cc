@@ -1988,10 +1988,9 @@ void WebRtcVideoSendChannel::WebRtcVideoSendStream::SetCodec(
 
   parameters_.codec_settings = codec_settings;
 
-  // Settings for mixed-codec simulcast
-  if (!codec_settings_list.empty()) {
-    RTC_DCHECK_EQ(parameters_.config.rtp.ssrcs.size(),
-                  codec_settings_list.size());
+  // Settings for mixed-codec simulcast.
+  if (!codec_settings_list.empty() &&
+      parameters_.config.rtp.ssrcs.size() == codec_settings_list.size()) {
     parameters_.config.rtp.stream_configs.resize(
         parameters_.config.rtp.ssrcs.size());
     for (size_t i = 0; i < codec_settings_list.size(); i++) {
@@ -2012,6 +2011,12 @@ void WebRtcVideoSendChannel::WebRtcVideoSendStream::SetCodec(
         rtx.payload_type = cs.rtx_payload_type;
       }
     }
+  } else {
+    // TODO(crbug.com/378724147): We need to investiagate when it
+    // has mismatched sizes.
+    RTC_DCHECK(
+        codec_settings_list.empty() ||
+        (parameters_.config.rtp.ssrcs.size() == codec_settings_list.size()));
   }
   parameters_.codec_settings_list = codec_settings_list;
 

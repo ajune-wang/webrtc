@@ -70,6 +70,24 @@
       "parentUuid": "83fb480a_61d29dbf",
       "revId": "0f9f8e110a97df08aa88315820e3a25a03cf489f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "03592487_0a9d1e99",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 22924
+      },
+      "writtenOn": "2024-11-12T10:57:55Z",
+      "side": 1,
+      "message": "Done.\nSo the CLA is associated with the google account, not the gerrit account, got it.\nCan I directly change the email suffix in the AUTHORS file?",
+      "parentUuid": "13d2462c_901dd0a6",
+      "revId": "0f9f8e110a97df08aa88315820e3a25a03cf489f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

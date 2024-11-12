@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c94d971a_b6cdd3c6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18789
+      },
+      "writtenOn": "2024-11-12T23:13:56Z",
+      "side": 1,
+      "message": "I made a change as it is a potential Stable blocking on the Edge. Please suggest if it needs another way of fix. thanks.",
+      "revId": "6ff163c8bb8dd6edf110f6e4b5e3f1ee3f97ffab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -276,6 +276,10 @@ rtc_library("video_coding") {
     "//third_party/abseil-cpp/absl/container:inlined_vector",
     "//third_party/abseil-cpp/absl/types:variant",
   ]
+
+  if (rtc_use_h265) {
+    deps += [ "codecs/h265:h265_svc_config" ]
+  }
 }
 
 rtc_library("video_codec_interface") {
@@ -1267,6 +1271,9 @@ if (rtc_include_tests) {
     ]
     if (rtc_build_libvpx) {
       deps += [ rtc_libvpx_dir ]
+    }
+    if (rtc_use_h265) {
+      deps += [ "codecs/h265:video_coding_codecs_h265_tests" ]
     }
   }
 }

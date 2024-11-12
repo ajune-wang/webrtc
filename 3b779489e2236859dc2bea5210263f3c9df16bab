@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0e0dd6a4_d7645964",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19804
+      },
+      "writtenOn": "2024-11-12T18:45:13Z",
+      "side": 1,
+      "message": "Thanks for the review! Sorry about the delay on my part.",
+      "revId": "3b779489e2236859dc2bea5210263f3c9df16bab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

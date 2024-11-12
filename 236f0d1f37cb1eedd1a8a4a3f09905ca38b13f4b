@@ -33,6 +33,24 @@
       "message": "Seems that IsTemporalLayersSupported is not covered by tests. Could this be fixed in scope of this change? Verify that number of temporal layers from encoder_config is transferred to generate video streams: https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/video/config/encoder_stream_factory.cc;l\u003d156",
       "revId": "236f0d1f37cb1eedd1a8a4a3f09905ca38b13f4b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d46fa1da_f45ef370",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19804
+      },
+      "writtenOn": "2024-11-12T18:45:13Z",
+      "side": 1,
+      "message": "This looks to have been brought in already via \n https://webrtc-review.googlesource.com/c/src/+/367570",
+      "parentUuid": "6568aed9_07c649ef",
+      "revId": "236f0d1f37cb1eedd1a8a4a3f09905ca38b13f4b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

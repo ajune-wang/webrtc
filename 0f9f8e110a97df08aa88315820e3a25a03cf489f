@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e55ce6e5_a9fe8e1c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 22924
+      },
+      "writtenOn": "2024-11-12T02:47:46Z",
+      "side": 1,
+      "message": "@brandtr@webrtc.org @ilnik@webrtc.org Sorry to bother you again, I resubmitted to fix the presubmit error regarding the AUTHORS file.",
+      "revId": "0f9f8e110a97df08aa88315820e3a25a03cf489f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -34,8 +34,11 @@ class BuiltinVideoBitrateAllocatorFactory
       const Environment& env,
       const VideoCodec& codec) override {
     // TODO(https://crbug.com/webrtc/14884): Update SvcRateAllocator to
-    // support simulcast and use it for VP9/AV1 simulcast as well.
+    // support simulcast and use it for VP9/AV1/H.265 simulcast as well.
     if ((codec.codecType == kVideoCodecAV1 ||
+#ifdef RTC_ENABLE_H265
+         codec.codecType == kVideoCodecH265 ||
+#endif
          codec.codecType == kVideoCodecVP9) &&
         codec.numberOfSimulcastStreams <= 1) {
       return std::make_unique<SvcRateAllocator>(codec, env.field_trials());

@@ -33,6 +33,23 @@
       "message": "Hi,\n\nCan you take a look at this CL?",
       "revId": "8e870da33a5c3dd1ff3a39e9fb64a83a82a37eae",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c7461148_65aded4a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-11-12T06:16:35Z",
+      "side": 1,
+      "message": "Can you make a Web platform test that fails when this patch isn\u0027t applied and succeed when it\u0027s applied?\nWhen we make changes that affect Web-visible behavior, we like to have Web-level tests that test it.\n\nThe tests should be in third_party/blink/web_tests/external/wpt/mediacapture-streams/ and will be upstreamed to the public WPT test suite if accepted.",
+      "revId": "8e870da33a5c3dd1ff3a39e9fb64a83a82a37eae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -60,6 +60,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d93b0728_65bb87ef",
+        "filename": "call/call.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-11-13T11:21:25Z",
+      "side": 1,
+      "message": "Constness is a good idea. Received is also good. I picked up the AccordingToRfc8888Count based on the name above; I suggest cleaning up that part in a separate CL. I\u0027m not sure if CongestionControl is appropriate, it looks like a generic name, and we want to count specifics here.",
+      "parentUuid": "30b6a148_3c83c67d",
+      "range": {
+        "startLine": 157,
+        "startChar": 14,
+        "endLine": 157,
+        "endChar": 45
+      },
+      "revId": "82be85bfed870e9410cd8faff0f253f7abd00579",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "87c8bd87_ca2c1d74",
         "filename": "call/rtp_transport_controller_send.h",
         "patchSetId": 5
@@ -83,6 +107,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fd74c597_21beeb90",
+        "filename": "call/rtp_transport_controller_send.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-11-13T11:21:25Z",
+      "side": 1,
+      "message": "Agree on the need to keep refactoring, but not in this CL!\n\nI want the counter to be in the same class as the function that updates it, which is why it is here. And the updating is done based on where the message is processed.",
+      "parentUuid": "87c8bd87_ca2c1d74",
+      "range": {
+        "startLine": 237,
+        "startChar": 6,
+        "endLine": 237,
+        "endChar": 21
+      },
+      "revId": "82be85bfed870e9410cd8faff0f253f7abd00579",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5f66db8f_3f9f039a",
         "filename": "call/rtp_transport_controller_send_interface.h",
         "patchSetId": 5
@@ -94,6 +142,30 @@
       "writtenOn": "2024-11-13T11:00:04Z",
       "side": 1,
       "message": "ReceivedCongestionControlFeedbackCount?",
+      "range": {
+        "startLine": 165,
+        "startChar": 14,
+        "endLine": 165,
+        "endChar": 27
+      },
+      "revId": "82be85bfed870e9410cd8faff0f253f7abd00579",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b3284345_057aaadd",
+        "filename": "call/rtp_transport_controller_send_interface.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-11-13T11:21:25Z",
+      "side": 1,
+      "message": "Since this is a sender class, it only receives feedback, so Received may be unneccessary in the name.",
+      "parentUuid": "5f66db8f_3f9f039a",
       "range": {
         "startLine": 165,
         "startChar": 14,

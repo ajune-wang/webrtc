@@ -33,6 +33,98 @@
       "message": "Forgot to answer these....",
       "revId": "82be85bfed870e9410cd8faff0f253f7abd00579",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "30b6a148_3c83c67d",
+        "filename": "call/call.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2024-11-13T11:00:04Z",
+      "side": 1,
+      "message": "Should we remove references to RFC 8888 and distinguish the two by calling them TransportSeqeuenceNumber feedback and CongestionControlFeedback? Up to you. But regardless suggest naming the count so that we know if the count is for sending or receiving feedback.\n\nAlso since it is a count it can be a const method.\n\nReceivedCongestionControlFeedback ?",
+      "range": {
+        "startLine": 157,
+        "startChar": 14,
+        "endLine": 157,
+        "endChar": 45
+      },
+      "revId": "82be85bfed870e9410cd8faff0f253f7abd00579",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "87c8bd87_ca2c1d74",
+        "filename": "call/rtp_transport_controller_send.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2024-11-13T11:00:04Z",
+      "side": 1,
+      "message": "This class is big with too many responsibilities. I wonder how we ended up with a transport_feedback_adapter_, control_handler_ and controller_ ?  Suggest naming a bit more specific or moving the counter to transport_feedback_adapter_.  I think I prefer moving... \nOtherwise name maybe congestion_control_feedback_count_ ?",
+      "range": {
+        "startLine": 237,
+        "startChar": 6,
+        "endLine": 237,
+        "endChar": 21
+      },
+      "revId": "82be85bfed870e9410cd8faff0f253f7abd00579",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5f66db8f_3f9f039a",
+        "filename": "call/rtp_transport_controller_send_interface.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2024-11-13T11:00:04Z",
+      "side": 1,
+      "message": "ReceivedCongestionControlFeedbackCount?",
+      "range": {
+        "startLine": 165,
+        "startChar": 14,
+        "endLine": 165,
+        "endChar": 27
+      },
+      "revId": "82be85bfed870e9410cd8faff0f253f7abd00579",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "84281dd8_57ab5cb5",
+        "filename": "pc/congestion_control_integrationtest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2024-11-13T11:00:04Z",
+      "side": 1,
+      "message": "?",
+      "range": {
+        "startLine": 18,
+        "startChar": 38,
+        "endLine": 18,
+        "endChar": 54
+      },
+      "revId": "82be85bfed870e9410cd8faff0f253f7abd00579",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

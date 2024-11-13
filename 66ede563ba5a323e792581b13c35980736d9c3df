@@ -73,6 +73,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "07d11ae7_fd230f6c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18005
+      },
+      "writtenOn": "2024-11-13T13:18:43Z",
+      "side": 1,
+      "message": "Thanks Ilya! If so, I would expect the only thing I need to do in video_codec_initializer.cc for H.265 specific, might be just setting top-level scalablity_mode to one of the unsupported scalability mode that\u0027s configured on the simulcast streams, in order to fail InitEncode() when that happens?",
+      "parentUuid": "bc3d0956_f892c896",
+      "revId": "66ede563ba5a323e792581b13c35980736d9c3df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d80045e8_8bef8317",
         "filename": "modules/video_coding/video_codec_initializer.cc",
         "patchSetId": 7

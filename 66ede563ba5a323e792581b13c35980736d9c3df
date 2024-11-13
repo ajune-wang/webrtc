@@ -145,6 +145,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "306dd35f_958ce5d1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2024-11-13T14:12:49Z",
+      "side": 1,
+      "message": "Yes, no more change is needed to fix the bad bitrates issue (which is the only one I assume you are trying to solve by moving away from VP8 specific SimulcastRA)",
+      "parentUuid": "51bc7949_a37c4d80",
+      "revId": "66ede563ba5a323e792581b13c35980736d9c3df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d80045e8_8bef8317",
         "filename": "modules/video_coding/video_codec_initializer.cc",
         "patchSetId": 7

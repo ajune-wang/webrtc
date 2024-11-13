@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ac1bf7ad_56f11439",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18005
+      },
+      "writtenOn": "2024-11-13T08:48:24Z",
+      "side": 1,
+      "message": "PTAL. The different approach of codecs handling scalability mode in video_codec_initializer is the most confusing part for me, especially when simulcast is involved.\n\nFor example, For AV1, in video_codec_initializer.cc, it calls SetAV1SvcConfig() with the last simulcast layer\u0027s num_temporal_layers, and then use this num_temporal_layer information to set the top-level video_codec scalability mode. in SetAv1SvcConfig. Why that? What if application sets different scalability mode for different simulcast layers?\n\nAlso it seems whether num_temporal_layers and scalability_mode setting at each simulcat layer is already configured or not when SetupCodec is called is very undeterministic,which makes the attempt to enable simulcast temporal scalability difficult.",
+      "revId": "66ede563ba5a323e792581b13c35980736d9c3df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -158,6 +158,9 @@ class Call {
   virtual TaskQueueBase* network_thread() const = 0;
   virtual TaskQueueBase* worker_thread() const = 0;
 
+  virtual void EnableSendCongestionControlFeedbackAccordingToRfc8888() = 0;
+  virtual int FeedbackAccordingToRfc8888Count() = 0;
+
   virtual ~Call() {}
 };
 

@@ -438,6 +438,7 @@ class PeerConnection : public PeerConnectionInternal,
     return_histogram_very_quickly_ = true;
   }
   void RequestUsagePatternReportForTesting();
+  int FeedbackAccordingToRfc8888CountForTesting() const;
 
   NetworkControllerInterface* GetNetworkController() override {
     if (!worker_thread()->IsCurrent()) {

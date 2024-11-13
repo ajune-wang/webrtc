@@ -152,6 +152,9 @@ class RTCPSender final {
                    const uint16_t* nackList = 0)
       RTC_LOCKS_EXCLUDED(mutex_rtcp_sender_);
 
+  // For testing: Return count of packets sent of the given type.
+  int GetSendCount(RTCPPacketType packet_type) const;
+
   int32_t SendLossNotification(const FeedbackState& feedback_state,
                                uint16_t last_decoded_seq_num,
                                uint16_t last_received_seq_num,
@@ -330,6 +333,8 @@ class RTCPSender final {
   typedef void (RTCPSender::*BuilderFunc)(const RtcpContext&, PacketSender&);
   // Map from RTCPPacketType to builder.
   std::map<uint32_t, BuilderFunc> builders_;
+  // Count of the packet types that have been sent in this sender
+  std::map<RTCPPacketType, int> counters_ RTC_GUARDED_BY(mutex_rtcp_sender_);
 };
 }  // namespace webrtc
 

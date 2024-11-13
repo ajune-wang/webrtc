@@ -316,6 +316,9 @@ class Call final : public webrtc::Call,
 
   void SetClientBitratePreferences(const BitrateSettings& preferences) override;
 
+  void EnableSendCongestionControlFeedbackAccordingToRfc8888() override;
+  int FeedbackAccordingToRfc8888Count() override;
+
  private:
   // Thread-compatible class that collects received packet stats and exposes
   // them as UMA histograms on destruction.
@@ -1514,6 +1517,14 @@ void Call::NotifyBweOfReceivedPacket(const RtpPacketReceived& packet,
   transport_send_->OnReceivedPacket(packet_msg);
 
   receive_side_cc_.OnReceivedPacket(packet, media_type);
+}
+
+void Call::EnableSendCongestionControlFeedbackAccordingToRfc8888() {
+  receive_side_cc_.EnableSendCongestionControlFeedbackAccordingToRfc8888();
+}
+
+int Call::FeedbackAccordingToRfc8888Count() {
+  return transport_send_->FeedbackCount();
 }
 
 }  // namespace internal

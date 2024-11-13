@@ -109,6 +109,7 @@ class MockRtpTransportControllerSend
               GetNetworkController,
               (),
               (override));
+  MOCK_METHOD(int, FeedbackCount, (), (const, override));
 };
 }  // namespace webrtc
 #endif  // CALL_TEST_MOCK_RTP_TRANSPORT_CONTROLLER_SEND_H_

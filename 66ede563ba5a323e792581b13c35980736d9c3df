@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "84d9f66d_e97ea60d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18005
+      },
+      "writtenOn": "2024-11-13T09:22:40Z",
+      "side": 1,
+      "message": "However, for VP9 and AV1 the single-cast stream is already on SvcRateAllocator: https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/api/video/builtin_video_bitrate_allocator_factory.cc;l\u003d37;drc\u003d52ea2c3d2a9c35f5744d0d3eadbae75d8506eb0f\n\nAlso according to the comment around that code, looks like WebRTC team\u0027s future plan is also moving to SvcRateAllocator for simulcast?",
+      "parentUuid": "3647585d_83cb62e3",
+      "revId": "66ede563ba5a323e792581b13c35980736d9c3df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d80045e8_8bef8317",

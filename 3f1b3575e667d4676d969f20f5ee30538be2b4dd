@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3cef5b21_cb532841",
+        "filename": "modules/audio_coding/codecs/opus/audio_decoder_opus_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 427,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2024-11-13T12:50:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c68ab84f_2ae40b73",
+      "range": {
+        "startLine": 427,
+        "startChar": 5,
+        "endLine": 427,
+        "endChar": 66
+      },
+      "revId": "3f1b3575e667d4676d969f20f5ee30538be2b4dd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ff7f50f5_6aff5c9f",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-11-13T12:20:39Z",
       "side": 1,
       "message": "Do we really need this condition? For simplicity, can\u0027t we just do this for all frames? I suppose it would result in some unnecessary copying and potentially make stereo-\u003emono transition worse, but maybe we can live with that assuming this will be fixed in Opus eventually?",
+      "range": {
+        "startLine": 578,
+        "startChar": 7,
+        "endLine": 578,
+        "endChar": 49
+      },
+      "revId": "3f1b3575e667d4676d969f20f5ee30538be2b4dd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "40984935_c4082aba",
+        "filename": "modules/audio_coding/codecs/opus/opus_interface.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 578,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2024-11-13T12:50:00Z",
+      "side": 1,
+      "message": "Good point. Let\u0027s prefer a simple solution.",
+      "parentUuid": "ff7f50f5_6aff5c9f",
       "range": {
         "startLine": 578,
         "startChar": 7,

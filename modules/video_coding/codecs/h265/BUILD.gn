@@ -1,0 +1,36 @@
+# Copyright (c) 2024 The WebRTC project authors. All Rights Reserved.
+#
+# Use of this source code is governed by a BSD-style license
+# that can be found in the LICENSE file in the root of the source
+# tree. An additional intellectual property rights grant can be found
+# in the file PATENTS.  All contributing project authors may
+# be found in the AUTHORS file in the root of the source tree.
+
+import("../../../../webrtc.gni")
+
+rtc_library("h265_svc_config") {
+  sources = [
+    "h265_svc_config.cc",
+    "h265_svc_config.h",
+  ]
+  deps = [
+    "../../../../api/video_codecs:video_codecs_api",
+    "../../../../rtc_base:checks",
+    "../../../../rtc_base:logging",
+    "../../../../rtc_base:stringutils",
+    "../../svc:scalability_mode_util",
+  ]
+}
+
+if (rtc_include_tests) {
+  rtc_library("video_coding_codecs_h265_tests") {
+    testonly = true
+
+    sources = [ "h265_svc_config_unittest.cc" ]
+    deps = [
+      ":h265_svc_config",
+      "../../../../api/video_codecs:video_codecs_api",
+      "../../../../test:test_support",
+    ]
+  }
+}

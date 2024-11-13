@@ -239,6 +239,12 @@ SvcRateAllocator::NumLayers SvcRateAllocator::GetNumLayers(
     layers.spatial = codec.VP9().numberOfSpatialLayers;
     layers.temporal = codec.VP9().numberOfTemporalLayers;
     return layers;
+  } else if (codec.codecType == kVideoCodecH265) {
+    // For H.265 when scalability is inconsistent among streams, the top-level
+    // scalability mode is cleared.
+    layers.spatial = 1;
+    layers.temporal = codec.spatialLayers[0].numberOfTemporalLayers;
+    return layers;
   }
   layers.spatial = 1;
   layers.temporal = 1;

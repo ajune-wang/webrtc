@@ -705,6 +705,22 @@ TEST_F(VideoCodecInitializerTest, H265SingleSpatialLayerBitratesAreConsistent) {
             codec.spatialLayers[0].maxBitrate);
 }
 
+TEST_F(VideoCodecInitializerTest, H265ConfiguredMinBitrateApplied) {
+  VideoEncoderConfig config;
+  config.simulcast_layers.resize(1);
+  config.simulcast_layers[0].min_bitrate_bps = 28000;
+  config.codec_type = VideoCodecType::kVideoCodecH265;
+  std::vector<VideoStream> streams = {DefaultStream()};
+  streams[0].scalability_mode = ScalabilityMode::kL1T2;
+
+  VideoCodec codec =
+      VideoCodecInitializer::SetupCodec(env_.field_trials(), config, streams);
+
+  EXPECT_EQ(codec.spatialLayers[0].minBitrate, 28u);
+  EXPECT_GE(codec.spatialLayers[0].targetBitrate,
+            codec.spatialLayers[0].minBitrate);
+}
+
 // Test that the H.265 codec initializer carries over invalid simulcast layer
 // scalability mode to top level scalability mode setting.
 TEST_F(VideoCodecInitializerTest,
@@ -714,6 +730,7 @@ TEST_F(VideoCodecInitializerTest,
 
   std::vector<VideoStream> streams = {DefaultStream()};
   streams[0].scalability_mode = ScalabilityMode::kL3T3;
+  streams[0].num_temporal_layers = 3;
 
   VideoCodec codec =
       VideoCodecInitializer::SetupCodec(env_.field_trials(), config, streams);
@@ -737,7 +754,9 @@ TEST_F(VideoCodecInitializerTest,
 
   std::vector<VideoStream> streams = {DefaultStream(), DefaultStream()};
   streams[0].scalability_mode = ScalabilityMode::kL1T3;
+  streams[0].num_temporal_layers = 3;
   streams[1].scalability_mode = ScalabilityMode::kL1T1;
+  streams[0].num_temporal_layers = 1;
 
   VideoCodec codec =
       VideoCodecInitializer::SetupCodec(env_.field_trials(), config, streams);
@@ -745,7 +764,7 @@ TEST_F(VideoCodecInitializerTest,
   // Top level scalability mode should be cleared if the simulcast streams have
   // different per-stream temporal layer settings.
   EXPECT_EQ(codec.GetScalabilityMode(), std::nullopt);
-  EXPECT_EQ(codec.spatialLayers[0].numberOfTemporalLayers, 3);
+  EXPECT_EQ(codec.spatialLayers[0].numberOfTemporalLayers, 1);
   EXPECT_EQ(codec.simulcastStream[0].numberOfTemporalLayers, 3);
   EXPECT_EQ(codec.simulcastStream[1].numberOfTemporalLayers, 1);
 }

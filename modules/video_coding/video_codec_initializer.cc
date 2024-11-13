@@ -31,6 +31,10 @@
 #include "rtc_base/logging.h"
 #include "rtc_base/numerics/safe_conversions.h"
 
+#ifdef RTC_ENABLE_H265
+#include "modules/video_coding/codecs/h265/h265_svc_config.h"
+#endif
+
 namespace webrtc {
 namespace {
 
@@ -358,6 +362,18 @@ VideoCodec VideoCodecInitializer::SetupCodec(
           video_codec.SetScalabilityMode(*stream.scalability_mode);
           break;
         }
+      }
+      // Configure target bitrate for temporal scalability.
+      SetH265SvcConfig(video_codec,
+                       /*num_temporal_layers=*/
+                       streams.back().num_temporal_layers.value_or(1));
+      // If min bitrate is set via RtpEncodingParameters, override with value
+      // from it.
+      if (!config.simulcast_layers.empty() &&
+          config.simulcast_layers[0].min_bitrate_bps > 0) {
+        video_codec.spatialLayers[0].minBitrate = std::min(
+            config.simulcast_layers[0].min_bitrate_bps / 1000,
+            static_cast<int>(video_codec.spatialLayers[0].targetBitrate));
       }
       break;
     default:

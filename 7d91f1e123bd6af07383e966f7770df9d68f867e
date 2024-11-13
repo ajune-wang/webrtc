@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d979fa54_b21ae6cc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-11-13T11:24:40Z",
+      "side": 1,
+      "message": "1) Add a test. Just an unit test that clones the track and checks that you can flip the two tracks\u0027 muted state independently would be enough.\n2) Crash when the dummy method gets called.\nOtherwise, seems good.",
+      "revId": "7d91f1e123bd6af07383e966f7770df9d68f867e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ec745428_130b05da",
+        "filename": "api/media_stream_interface.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-11-13T11:24:40Z",
+      "side": 1,
+      "message": "Add RTC_CHECK_NOTREACHED before the return statement. If we get here, we should crash.",
+      "revId": "7d91f1e123bd6af07383e966f7770df9d68f867e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c55bc6fd_850e3714",
+        "filename": "api/media_stream_interface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 312,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-11-13T11:24:40Z",
+      "side": 1,
+      "message": "Add a TODO(bug): Make pure virtual once implementations are updated.",
+      "revId": "7d91f1e123bd6af07383e966f7770df9d68f867e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

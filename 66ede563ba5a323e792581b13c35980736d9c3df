@@ -109,6 +109,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "51bc7949_a37c4d80",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18005
+      },
+      "writtenOn": "2024-11-13T14:04:03Z",
+      "side": 1,
+      "message": "I understand the encode stream factory relies on the threshold tables you mentioned to generate the VideoEncoderConfig and stream vectors; They will be used to setup the VideoCodec structure via VideoCodecInitalizer::SetupCodec(). The VideoCodec structure will be sent to SimulcastRA for bitrate allocation.\n\nI\u0027m trying to confirm that there is no further change required to VideoCodecInitalizer::SetupCodec() if I switch to SimulcastRA.",
+      "parentUuid": "04379122_395f90d2",
+      "revId": "66ede563ba5a323e792581b13c35980736d9c3df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d80045e8_8bef8317",
         "filename": "modules/video_coding/video_codec_initializer.cc",
         "patchSetId": 7

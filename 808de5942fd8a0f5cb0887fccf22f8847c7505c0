@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4b18a8ce_e6d6d959",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2024-11-13T15:58:47Z",
+      "side": 1,
+      "message": "Jianlin, the issue is that Fake encoders, like this one [1] report that they don\u0027t support L1T2 mode. So, a bunch of tests suddenly got their configuration changed to L1T1 and some expectations are broken.\n\n[1] https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/test/fake_vp8_encoder.h?q\u003dFakeVp8Encoder\u0026ss\u003dchromium",
+      "revId": "808de5942fd8a0f5cb0887fccf22f8847c7505c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -18,6 +18,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3647585d_83cb62e3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2024-11-13T09:14:09Z",
+      "side": 1,
+      "message": "\u003e The SimulcastRateAllocator was designed for VP8 so avoid using it\nwhenever possible.\n\nI don\u0027t agree with the logic here. The only VP8 specific things there are the default bitrates, which is possible to set per codec (see vp9 config for example [1])\n\nThen, for singlecast scenarios there\u0027s no difference in behavior between SvcRateAllocator and SimulcastRateAllocator. Maybe temporal layers allocation is slightly different, but it\u0027s a very small change. \n\nOr did you mean a single stream with SVC? But all your changes opperate with only 0th spatial layer.\n\nI believe the best way forward is to set the per-codec bitrates in simulcast.cc and leave it to use SimulcastRateAllocator.\n\n[1] https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/video/config/simulcast.cc;l\u003d111;drc\u003d8037fc6ffa131805248c2a63c3edec69155b05cf",
+      "revId": "66ede563ba5a323e792581b13c35980736d9c3df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d80045e8_8bef8317",

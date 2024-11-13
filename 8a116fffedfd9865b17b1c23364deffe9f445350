@@ -18,6 +18,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d1ec648c_38ad87e1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-11-13T11:07:46Z",
+      "side": 1,
+      "message": "I would be happier if this was covered by an unit test, but it seems kind of obvious.\nI hope one of those who know how this code works can +1 the CL based on understanding if returning the smallest value in the case of underflow is the right thing.",
+      "revId": "8a116fffedfd9865b17b1c23364deffe9f445350",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7399ca33_0d616875",

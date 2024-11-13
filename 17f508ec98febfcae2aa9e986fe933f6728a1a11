@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f5a64282_9c231292",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-11-13T11:55:43Z",
+      "side": 1,
+      "message": "Your +1 disappeared, so will have to stamp again.\nPushed most of the renaming \u0026 refactoring to \"do it later\".",
+      "revId": "17f508ec98febfcae2aa9e986fe933f6728a1a11",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

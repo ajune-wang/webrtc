@@ -50,6 +50,24 @@
       "message": "this nice trick lets the unit test use the old API for the time being.\nCan we have a (gtest) macro for DEPRECATED_TEST_F?",
       "revId": "ce60b9a1fc20c43a5dce7fb95cb59a9842ab0391",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1331db3e_cfdd492d",
+        "filename": "pc/srtp_session_unittest.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 282,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-11-13T17:39:23Z",
+      "side": 1,
+      "message": "We can\u0027t, there can be only one preprocessor directive per line and macros are one-liners. Bummer!",
+      "parentUuid": "92eb49c9_f512c9e6",
+      "revId": "ce60b9a1fc20c43a5dce7fb95cb59a9842ab0391",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

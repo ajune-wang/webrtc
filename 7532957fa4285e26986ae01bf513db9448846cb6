@@ -16,6 +16,29 @@
       "message": "Thanks for the review! Sorry for the delay on my part.\n\nLooks like I need 2 +2 votes, so adding ssilkin@",
       "revId": "7532957fa4285e26986ae01bf513db9448846cb6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8935041d_f79593fe",
+        "filename": "modules/video_coding/video_codec_initializer_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 692,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2024-11-13T12:13:32Z",
+      "side": 1,
+      "message": "Not sure if bitrates is what we need to test/verify. VideoCodecInitializer::SetupCodec() does nothing to rate allocation for h264. I think we need a test that checks `codec.H264()-\u003enumberOfTemporalLayers` value instead.",
+      "range": {
+        "startLine": 692,
+        "startChar": 34,
+        "endLine": 692,
+        "endChar": 77
+      },
+      "revId": "7532957fa4285e26986ae01bf513db9448846cb6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

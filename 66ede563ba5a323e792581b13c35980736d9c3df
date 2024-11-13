@@ -181,6 +181,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "336c69e7_0c322f43",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18005
+      },
+      "writtenOn": "2024-11-13T14:18:46Z",
+      "side": 1,
+      "message": "Acked. Thanks Ilya! Will drop this CL and move in the direction of improving activating/deactivating of simulcast layers for H.265.",
+      "parentUuid": "69e667e9_a76f812d",
+      "revId": "66ede563ba5a323e792581b13c35980736d9c3df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d80045e8_8bef8317",
         "filename": "modules/video_coding/video_codec_initializer.cc",
         "patchSetId": 7

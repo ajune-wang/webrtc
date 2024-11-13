@@ -55,6 +55,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "bc3d0956_f892c896",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2024-11-13T09:29:24Z",
+      "side": 1,
+      "message": "It will be a single rate allocator in the future, yes. The main difference between the two is that SimulcastRA uses a table of bitrates, while SvcRA uses an implicit calculation based on a fixed ratio. The new one will also use a table. \n\nIt doesn\u0027t matter that much which of the two will be used right now. Since SimulcastRA already happens to be used, you just need to update the bitrates. The change will be smaller and clearer.\n\n@ssilkin@chromium.org WDYT?",
+      "parentUuid": "84d9f66d_e97ea60d",
+      "revId": "66ede563ba5a323e792581b13c35980736d9c3df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d80045e8_8bef8317",
         "filename": "modules/video_coding/video_codec_initializer.cc",
         "patchSetId": 7

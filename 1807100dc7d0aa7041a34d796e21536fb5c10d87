@@ -1,6 +1,29 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "05d32adf_dad2d0c3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2024-11-13T14:12:46Z",
+      "side": 1,
+      "message": "Bug: webrtc:378688998",
+      "range": {
+        "startLine": 12,
+        "startChar": 41,
+        "endLine": 12,
+        "endChar": 50
+      },
+      "revId": "1807100dc7d0aa7041a34d796e21536fb5c10d87",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "31728977_136f2f03",
@@ -14,6 +37,23 @@
       "writtenOn": "2024-11-13T04:33:28Z",
       "side": 1,
       "message": "Please review this bug fix, thanks.",
+      "revId": "1807100dc7d0aa7041a34d796e21536fb5c10d87",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "57075072_d0bbf815",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2024-11-13T14:12:46Z",
+      "side": 1,
+      "message": "Thank you for your patch. \nPlease fix the commit message to properly reference the bug. (git cl description)\n\nHave you filled in https://webrtc.org/support/contributing?",
       "revId": "1807100dc7d0aa7041a34d796e21536fb5c10d87",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

@@ -33,6 +33,24 @@
       "message": "What about max_bitrate_bps? (From JS API only maxBitrate can be controlled, not minBitrate so that should be more important)",
       "revId": "66ede563ba5a323e792581b13c35980736d9c3df",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "81c70236_3e314982",
+        "filename": "modules/video_coding/video_codec_initializer.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 374,
+      "author": {
+        "id": 18005
+      },
+      "writtenOn": "2024-11-13T09:05:24Z",
+      "side": 1,
+      "message": "That\u0027s what I am also trying to ask. I follow AV1\u0027s approach above...",
+      "parentUuid": "d80045e8_8bef8317",
+      "revId": "66ede563ba5a323e792581b13c35980736d9c3df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

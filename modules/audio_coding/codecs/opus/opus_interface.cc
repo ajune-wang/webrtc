@@ -397,6 +397,7 @@ int16_t WebRtcOpus_DecoderCreate(OpusDecInst** inst,
       state->sample_rate_hz = sample_rate_hz;
       state->in_dtx_mode = 0;
       state->last_packet_num_channels = channels;
+      state->last_packet_was_dtx = false;
       *inst = state;
       return 0;
     }
@@ -547,36 +548,42 @@ int WebRtcOpus_Decode(OpusDecInst* inst,
                       int16_t* decoded,
                       int16_t* audio_type) {
   int decoded_samples_per_channel;
-
   if (encoded_bytes == 0) {
     *audio_type = DetermineAudioType(inst, encoded_bytes);
     decoded_samples_per_channel = DecodePlc(inst, decoded);
-
-    // TODO: https://issues.webrtc.org/376493209 - When fixed, remove block
-    // below.
-    if (inst->channels == 2 && inst->last_packet_num_channels == 1) {
-      // Stereo decoding is enabled and the last observed packet to decode
-      // encoded mono audio. In this case, Opus generates non-trivial stereo
-      // audio. Since this is unwanted, copy the left channel into the right
-      // one.
-      for (int i = 0; i < decoded_samples_per_channel << 1; i += 2) {
-        decoded[i + 1] = decoded[i];
-      }
-    }
   } else {
     decoded_samples_per_channel = DecodeNative(
         inst, encoded, encoded_bytes,
         MaxFrameSizePerChannel(inst->sample_rate_hz), decoded, audio_type, 0);
-
-    // TODO: https://issues.webrtc.org/376493209 - When fixed, remove block
-    // below.
-    const int num_channels = opus_packet_get_nb_channels(encoded);
-    RTC_DCHECK(num_channels == 1 || num_channels == 2);
-    inst->last_packet_num_channels = num_channels;
   }
   if (decoded_samples_per_channel < 0) {
     return -1;
   }
+
+  // TODO: https://issues.webrtc.org/376493209 - When fixed, remove block below.
+  const bool is_dtx_packet = encoded_bytes < 2;
+  const bool stereo_decoding = inst->channels == 2;
+  // Parse the number of channels from the encoded data. If the latter is empty,
+  // use the number of channels from the last non-empty packet.
+  const int packet_num_channels = encoded_bytes == 0
+                                      ? inst->last_packet_num_channels
+                                      : opus_packet_get_nb_channels(encoded);
+  RTC_DCHECK(packet_num_channels == 1 || packet_num_channels == 2);
+  // When stereo decoding is enabled and the last non-empty packet encoded mono
+  // audio, non-trivial stereo audio is produced by Opus when comfort noise is
+  // generated and for the first packet after comfort noise (because of the
+  // internal auto-regressive process in Opus). When that is the case, fix
+  // non-trivial stereo audio.
+  if (stereo_decoding && packet_num_channels == 1 &&
+      (is_dtx_packet || inst->last_packet_was_dtx)) {
+    // Make non-trivial stereo audio trivial stereo by copying the left channel
+    // into the right one.
+    for (int i = 0; i < decoded_samples_per_channel << 1; i += 2) {
+      decoded[i + 1] = decoded[i];
+    }
+  }
+  inst->last_packet_num_channels = packet_num_channels;
+  inst->last_packet_was_dtx = is_dtx_packet;
 
   return decoded_samples_per_channel;
 }

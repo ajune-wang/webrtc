@@ -163,6 +163,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "69e667e9_a76f812d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2024-11-13T14:15:09Z",
+      "side": 1,
+      "message": "\u003e a.k.a, besides this:\n\nThis is completely parallel to the bitrates and svc/simulcast rate allocators.",
+      "parentUuid": "306dd35f_958ce5d1",
+      "revId": "66ede563ba5a323e792581b13c35980736d9c3df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d80045e8_8bef8317",
         "filename": "modules/video_coding/video_codec_initializer.cc",
         "patchSetId": 7

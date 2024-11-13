@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2e99018b_f4cfebbf",
+        "filename": "api/test/create_frame_generator.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2024-11-13T13:47:00Z",
+      "side": 1,
+      "message": "Nit: `/*fps_hint\u003d*/std::nullopt` (same in the test below).",
+      "range": {
+        "startLine": 79,
+        "startChar": 41,
+        "endLine": 79,
+        "endChar": 53
+      },
+      "revId": "4adc9997c0fd718358cd050fe2b72229230a8eb5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ea4ec9bd_c9052174",
+        "filename": "test/testsupport/ivf_video_frame_generator_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2024-11-13T13:47:00Z",
+      "side": 1,
+      "message": "This is just because the getter is correctly wired up but IIUC there is no usage for this parameter yet, right?",
+      "range": {
+        "startLine": 176,
+        "startChar": 0,
+        "endLine": 180,
+        "endChar": 1
+      },
+      "revId": "4adc9997c0fd718358cd050fe2b72229230a8eb5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

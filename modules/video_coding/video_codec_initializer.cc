@@ -31,9 +31,14 @@
 #include "rtc_base/logging.h"
 #include "rtc_base/numerics/safe_conversions.h"
 
+#ifdef RTC_ENABLE_H265
+#include "modules/video_coding/codecs/h265/h265_svc_config.h"
+#endif
+
 namespace webrtc {
 namespace {
 
+#ifdef RTC_ENABLE_H265
 constexpr ScalabilityMode kH265SupportedScalabilityModes[] = {
     ScalabilityMode::kL1T1, ScalabilityMode::kL1T2, ScalabilityMode::kL1T3};
 
@@ -45,6 +50,7 @@ bool H265SupportsScalabilityMode(ScalabilityMode scalability_mode) {
   }
   return false;
 }
+#endif
 
 }  // namespace
 
@@ -343,6 +349,7 @@ VideoCodec VideoCodecInitializer::SetupCodec(
       break;
     }
     case kVideoCodecH265:
+#ifdef RTC_ENABLE_H265
       RTC_DCHECK(!config.encoder_specific_settings) << "No encoder-specific "
                                                        "settings for H.265.";
 
@@ -359,6 +366,19 @@ VideoCodec VideoCodecInitializer::SetupCodec(
           break;
         }
       }
+      // Configure target bitrate for temporal scalability.
+      SetH265SvcConfig(video_codec,
+                       /*num_temporal_layers=*/
+                       streams.back().num_temporal_layers.value_or(1));
+      // If min bitrate is set via RtpEncodingParameters, override with value
+      // from it.
+      if (!config.simulcast_layers.empty() &&
+          config.simulcast_layers[0].min_bitrate_bps > 0) {
+        video_codec.spatialLayers[0].minBitrate = std::min(
+            config.simulcast_layers[0].min_bitrate_bps / 1000,
+            static_cast<int>(video_codec.spatialLayers[0].targetBitrate));
+      }
+#endif
       break;
     default:
       // TODO(pbos): Support encoder_settings codec-agnostically.

@@ -154,6 +154,10 @@ if (rtc_include_tests) {
       "../codecs/av1:av1_svc_config",
       "//third_party/abseil-cpp/absl/container:inlined_vector",
     ]
+
+    if (rtc_use_h265) {
+      deps += [ "../codecs/h265:h265_svc_config" ]
+    }
   }
 
   rtc_source_set("simulcast_to_svc_converter_tests") {

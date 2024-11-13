@@ -89,6 +89,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "33dde917_506721b2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-11-13T10:51:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6ac91ace_45a02ebe",
+      "revId": "c5f770392d755eec3c0b814e2d2bc200017120d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "575316c7_14a12ca3",
@@ -159,6 +177,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8d3dd4c8_c6105e8b",
+        "filename": "pc/congestion_control_integrationtest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-11-13T10:51:15Z",
+      "side": 1,
+      "message": "No longer relevant.",
+      "parentUuid": "dcffe33d_cdf46207",
+      "range": {
+        "startLine": 81,
+        "startChar": 11,
+        "endLine": 81,
+        "endChar": 17
+      },
+      "revId": "c5f770392d755eec3c0b814e2d2bc200017120d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "83eb4c7c_5aa28ef0",
@@ -172,6 +214,30 @@
       "writtenOn": "2024-11-06T10:13:49Z",
       "side": 1,
       "message": "Is this safe or should a safety flag be used?",
+      "range": {
+        "startLine": 4952,
+        "startChar": 35,
+        "endLine": 4952,
+        "endChar": 43
+      },
+      "revId": "c5f770392d755eec3c0b814e2d2bc200017120d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "59fa43ec_1e88b7f6",
+        "filename": "pc/sdp_offer_answer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 4952,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-11-13T10:51:15Z",
+      "side": 1,
+      "message": "I think it\u0027s safe because destruction of call_ happens on the worker thread, triggered from the signaling thread (pc destructor), so any destruction will happen from a later task on the signaling thread, and therefore scheduled after the Enable call.",
+      "parentUuid": "83eb4c7c_5aa28ef0",
       "range": {
         "startLine": 4952,
         "startChar": 35,

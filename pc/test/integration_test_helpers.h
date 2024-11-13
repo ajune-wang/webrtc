@@ -266,6 +266,15 @@ class PeerConnectionIntegrationWrapper : public PeerConnectionObserver,
 
   PeerConnectionInterface* pc() const { return peer_connection_.get(); }
 
+  // Return the PC implementation, so that non-public interfaces
+  // can be used in tests.
+  PeerConnection* pc_internal() const {
+    auto* pci =
+        static_cast<PeerConnectionProxyWithInternal<PeerConnectionInterface>*>(
+            pc());
+    return static_cast<PeerConnection*>(pci->internal());
+  }
+
   // If a signaling message receiver is set (via ConnectFakeSignaling), this
   // will set the whole offer/answer exchange in motion. Just need to wait for
   // the signaling state to reach "stable".

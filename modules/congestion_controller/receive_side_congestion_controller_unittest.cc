@@ -133,7 +133,7 @@ TEST(ReceiveSideCongestionControllerTest, SendsRfc8888FeedbackIfEnabled) {
   ReceiveSideCongestionController controller(
       CreateEnvironment(&clock), rtcp_sender.AsStdFunction(),
       remb_sender.AsStdFunction(), nullptr);
-  controller.EnablSendCongestionControlFeedbackAccordingToRfc8888();
+  controller.EnableSendCongestionControlFeedbackAccordingToRfc8888();
 
   // Expect that RTCP feedback is sent.
   EXPECT_CALL(rtcp_sender, Call)

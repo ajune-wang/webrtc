@@ -76,4 +76,12 @@ DtlsTransportInformation& DtlsTransportInformation::operator=(
   return *this;
 }
 
+void DtlsTransportInformation::set_state(DtlsTransportState state) {
+  state_ = state;
+  if (state_ == DtlsTransportState::kClosed) {
+    remote_ssl_certificates_.reset();
+    ssl_cipher_suite_.reset();
+  }
+}
+
 }  // namespace webrtc

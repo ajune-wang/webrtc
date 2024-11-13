@@ -108,12 +108,13 @@ TEST_F(DtlsTransportTest, EventsObservedWhenConnecting) {
   transport()->RegisterObserver(observer());
   CompleteDtlsHandshake();
   ASSERT_TRUE_WAIT(observer_.state_change_called_, kDefaultTimeout);
-  EXPECT_THAT(
-      observer_.states_,
-      ElementsAre(  // FakeDtlsTransport doesn't signal the "connecting" state.
-                    // TODO(hta): fix FakeDtlsTransport or file bug on it.
-                    // DtlsTransportState::kConnecting,
-          DtlsTransportState::kConnected));
+  EXPECT_THAT(observer_.states_,
+              ElementsAre(  // FakeDtlsTransport causes the "new" state to be
+                            // reported since the ssl role gets assigned to
+                            // `client` by default before the `kConnecting`
+                            // state is reported.
+                  DtlsTransportState::kNew, DtlsTransportState::kConnecting,
+                  DtlsTransportState::kConnected));
 }
 
 TEST_F(DtlsTransportTest, CloseWhenClearing) {

@@ -145,6 +145,13 @@ class DtlsTransportInternal : public rtc::PacketTransportInternal {
     dtls_handshake_error_callback_list_.Send(error);
   }
 
+  template <typename F>
+  void SubscribeDtlsRole(F&& callback) {
+    dtls_role_callback_list_.AddReceiver(std::forward<F>(callback));
+  }
+
+  void SendDtlsRole(rtc::SSLRole role) { dtls_role_callback_list_.Send(role); }
+
  protected:
   DtlsTransportInternal();
 
@@ -153,6 +160,7 @@ class DtlsTransportInternal : public rtc::PacketTransportInternal {
       dtls_handshake_error_callback_list_;
   webrtc::CallbackList<DtlsTransportInternal*, const webrtc::DtlsTransportState>
       dtls_transport_state_callback_list_;
+  webrtc::CallbackList<rtc::SSLRole> dtls_role_callback_list_;
 };
 
 }  // namespace cricket

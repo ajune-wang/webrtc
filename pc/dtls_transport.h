@@ -48,6 +48,7 @@ class DtlsTransport : public DtlsTransportInterface {
 
   void RegisterObserver(DtlsTransportObserverInterface* observer) override;
   void UnregisterObserver() override;
+
   void Clear();
 
   cricket::DtlsTransportInternal* internal() {
@@ -66,22 +67,15 @@ class DtlsTransport : public DtlsTransportInterface {
  private:
   void OnInternalDtlsState(cricket::DtlsTransportInternal* transport,
                            DtlsTransportState state);
-  void UpdateInformation();
 
-  // Called when changing `info_`. We only change the values from the
-  // `owner_thread_` (a.k.a. the network thread).
-  void set_info(DtlsTransportInformation&& info) RTC_RUN_ON(owner_thread_) {
-    MutexLock lock(&lock_);
-    info_ = std::move(info);
-  }
-
-  DtlsTransportObserverInterface* observer_ = nullptr;
-  rtc::Thread* owner_thread_;
+  rtc::Thread* const owner_thread_;
+  DtlsTransportObserverInterface* observer_ RTC_GUARDED_BY(owner_thread_) =
+      nullptr;
   mutable Mutex lock_;
-  DtlsTransportInformation info_ RTC_GUARDED_BY(lock_);
   std::unique_ptr<cricket::DtlsTransportInternal> internal_dtls_transport_
       RTC_GUARDED_BY(owner_thread_);
   const rtc::scoped_refptr<IceTransportWithPointer> ice_transport_;
+  DtlsTransportInformation info_ RTC_GUARDED_BY(lock_);
 };
 
 }  // namespace webrtc

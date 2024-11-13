@@ -55,6 +55,42 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6ac91ace_45a02ebe",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-11-13T10:22:51Z",
+      "side": 1,
+      "message": "Found a not-too-wrong way to expose number of CCFB messages received.",
+      "parentUuid": "b91215af_8d38034d",
+      "revId": "c5f770392d755eec3c0b814e2d2bc200017120d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3db6c8d7_3655d6ee",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-11-13T10:22:51Z",
+      "side": 1,
+      "message": "Yes, that will be a followup CL.",
+      "parentUuid": "8b2829fe_1ddd4fe3",
+      "revId": "c5f770392d755eec3c0b814e2d2bc200017120d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "575316c7_14a12ca3",
         "filename": "call/call.h",
         "patchSetId": 2
@@ -66,6 +102,30 @@
       "writtenOn": "2024-11-06T10:13:49Z",
       "side": 1,
       "message": "nit: I prefer if this is moved up before trials()",
+      "range": {
+        "startLine": 161,
+        "startChar": 15,
+        "endLine": 161,
+        "endChar": 68
+      },
+      "revId": "c5f770392d755eec3c0b814e2d2bc200017120d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3fc6c390_60cb6e23",
+        "filename": "call/call.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-11-13T10:22:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "575316c7_14a12ca3",
       "range": {
         "startLine": 161,
         "startChar": 15,

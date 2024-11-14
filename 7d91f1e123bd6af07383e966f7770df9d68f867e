@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a8cde6a2_b62c1dce",
+        "filename": "api/media_stream_interface.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 18789
+      },
+      "writtenOn": "2024-11-14T02:39:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ec745428_130b05da",
+      "revId": "7d91f1e123bd6af07383e966f7770df9d68f867e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c55bc6fd_850e3714",
@@ -48,6 +66,24 @@
       "writtenOn": "2024-11-13T11:24:40Z",
       "side": 1,
       "message": "Add a TODO(bug): Make pure virtual once implementations are updated.",
+      "revId": "7d91f1e123bd6af07383e966f7770df9d68f867e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "982c98b1_70cde10f",
+        "filename": "api/media_stream_interface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 312,
+      "author": {
+        "id": 18789
+      },
+      "writtenOn": "2024-11-14T02:39:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c55bc6fd_850e3714",
       "revId": "7d91f1e123bd6af07383e966f7770df9d68f867e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

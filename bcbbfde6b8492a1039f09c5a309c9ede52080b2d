@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9052cb66_6e139d66",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-11-14T15:54:08Z",
+      "side": 1,
+      "message": "well, hello bot and now hello trooper!",
+      "revId": "bcbbfde6b8492a1039f09c5a309c9ede52080b2d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

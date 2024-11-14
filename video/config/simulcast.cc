@@ -159,6 +159,9 @@ std::vector<SimulcastFormat> GetSimulcastFormats(
                      std::end(kSimulcastFormatsVP8));
       break;
     case webrtc::kVideoCodecVP9:
+    // TODO(crbugs.com/41480904): For now we use same table as VP9 for H.265.
+    // This should be updated when we have better thresholds with experiments.
+    case webrtc::kVideoCodecH265:
       formats.insert(formats.begin(), std::begin(kSimulcastFormatsVP9),
                      std::end(kSimulcastFormatsVP9));
       break;

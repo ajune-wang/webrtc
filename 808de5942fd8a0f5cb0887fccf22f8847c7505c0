@@ -52,6 +52,24 @@
       "parentUuid": "442d1589_2c5c9fe3",
       "revId": "808de5942fd8a0f5cb0887fccf22f8847c7505c0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9405ec4a_333bcf5a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18005
+      },
+      "writtenOn": "2024-11-14T13:06:34Z",
+      "side": 1,
+      "message": "Here it is: https://webrtc-review.googlesource.com/c/src/+/368261\n\nI looked at webrtc repo, a lot of code is using the util API here https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/api/video_codecs/sdp_video_format.h;l\u003d75;drc\u003d8037fc6ffa131805248c2a63c3edec69155b05cf to generate an SdpVideoFormat without scalability, to be either used in encoder factory or tests.\n\nThis makes me worried if downstream projects are using these util APIs.\n \nAlso if the encoder factory is implemented by downstream project itself, not by libWebRTC. It is very likely the downstream test will still fail, and there is nothing we can do except checking actual L1T2 support on H.265 only before fallback to L1T2 and then L1T1; for other codecs just blindly fallback to L1T2. WDYT?",
+      "parentUuid": "aab1be61_385f4c89",
+      "revId": "808de5942fd8a0f5cb0887fccf22f8847c7505c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

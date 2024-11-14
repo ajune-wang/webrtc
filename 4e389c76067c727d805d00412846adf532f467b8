@@ -16,6 +16,23 @@
       "message": "Thanks, lgtm! Feel free to resolve the open comments.",
       "revId": "4e389c76067c727d805d00412846adf532f467b8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "333e05af_1d80c5b3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3723106
+      },
+      "writtenOn": "2024-11-14T15:42:59Z",
+      "side": 1,
+      "message": "C.I failed, but I see no correlation with my fix. Should I re-run full CQ Dry Run ?",
+      "revId": "4e389c76067c727d805d00412846adf532f467b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

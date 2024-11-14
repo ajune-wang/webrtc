@@ -16,6 +16,29 @@
       "message": "Verified with https://chromium-review.googlesource.com/c/chromium/src/+/6008760",
       "revId": "777a9781390d8f085d8fe114428e4b0df26ba485",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a8337bfe_ddee2d2e",
+        "filename": "video/config/simulcast.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2024-11-14T09:33:12Z",
+      "side": 1,
+      "message": "Copying the table will make more sense. Please add a kSimulcastFormatsH265. With a comment that it\u0027s initially just a copy of VP9 bitrates and has to be tuned.",
+      "range": {
+        "startLine": 165,
+        "startChar": 49,
+        "endLine": 165,
+        "endChar": 69
+      },
+      "revId": "777a9781390d8f085d8fe114428e4b0df26ba485",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

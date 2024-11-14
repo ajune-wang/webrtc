@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f793a0a8_9f16e0e4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2024-11-14T14:38:20Z",
+      "side": 1,
+      "message": "Thanks, lgtm! Feel free to resolve the open comments.",
+      "revId": "4e389c76067c727d805d00412846adf532f467b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

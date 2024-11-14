@@ -103,4 +103,43 @@ TEST(EncoderSettingsTest, CommonSettingsUsedIfEncoderNameUnspecified) {
   EXPECT_EQ(3u, vp9_settings.requested_resolution_alignment());
 }
 
+class GetSinglecastBitrateLimitForResolutionWhenQpIsUntrustedTests
+    : public ::testing::Test {
+ protected:
+  void SetUp() override {
+    resolution_bitrate_limits_ =
+        std::vector<VideoEncoder::ResolutionBitrateLimits>({
+            {320 * 180, 0, 0, 256000},
+            {480 * 270, 176000, 0, 384000},
+            {640 * 360, 256000, 0, 512000},
+            {960 * 540, 384000, 0, 1024000},
+            {1280 * 720, 576000, 0, 1536000},
+        });
+  }
+
+  std::vector<VideoEncoder::ResolutionBitrateLimits> resolution_bitrate_limits_;
+};
+
+TEST_F(GetSinglecastBitrateLimitForResolutionWhenQpIsUntrustedTests,
+       LinearInterpolationUnderflow) {
+  std::optional<int> frame_size_pixels = 1 * 1;
+
+  const auto resolutionBitrateLimit = EncoderInfoSettings::
+      GetSinglecastBitrateLimitForResolutionWhenQpIsUntrusted(
+          frame_size_pixels, resolution_bitrate_limits_);
+  EXPECT_TRUE(resolutionBitrateLimit.has_value());
+  EXPECT_EQ(resolutionBitrateLimit.value(), resolution_bitrate_limits_.front());
+}
+
+TEST_F(GetSinglecastBitrateLimitForResolutionWhenQpIsUntrustedTests,
+       LinearInterpolationOverflow) {
+  std::optional<int> frame_size_pixels = 1920 * 1080;
+
+  const auto resolutionBitrateLimit = EncoderInfoSettings::
+      GetSinglecastBitrateLimitForResolutionWhenQpIsUntrusted(
+          frame_size_pixels, resolution_bitrate_limits_);
+  EXPECT_TRUE(resolutionBitrateLimit.has_value());
+  EXPECT_EQ(resolutionBitrateLimit.value(), resolution_bitrate_limits_.back());
+}
+
 }  // namespace webrtc

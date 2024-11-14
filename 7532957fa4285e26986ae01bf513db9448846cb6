@@ -63,6 +63,30 @@
       },
       "revId": "7532957fa4285e26986ae01bf513db9448846cb6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d424cf3f_1d57ffa6",
+        "filename": "modules/video_coding/video_codec_initializer_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 692,
+      "author": {
+        "id": 18005
+      },
+      "writtenOn": "2024-11-14T05:38:28Z",
+      "side": 1,
+      "message": "please make sure you convey correct temporal layer count to VEA here: https://source.chromium.org/chromium/chromium/src/+/main:third_party/blink/renderer/platform/peerconnection/rtc_video_encoder.cc;l\u003d452;drc\u003d68a217717bcf05a5e832c5527f55942ed70cc5eb after this is merged.\n\nOtherwise RTC bitrate adjuster will merge temporal layer bitrate allocations back to temporal layer 0 again.",
+      "parentUuid": "ee407b8c_9d0a6dba",
+      "range": {
+        "startLine": 692,
+        "startChar": 34,
+        "endLine": 692,
+        "endChar": 77
+      },
+      "revId": "7532957fa4285e26986ae01bf513db9448846cb6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

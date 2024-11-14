@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "80042e3b_4fc30b42",
         "filename": "modules/rtp_rtcp/source/rtp_packet.h",
@@ -20,10 +21,10 @@
         "endChar": 32
       },
       "revId": "c3edac3b6de4268d14bd614c1d8d7362d621e469",
-      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
-      "unresolved": true
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "4f7c0462_757d196c",
         "filename": "modules/rtp_rtcp/source/rtp_packet.h",
@@ -44,10 +45,10 @@
         "endChar": 32
       },
       "revId": "c3edac3b6de4268d14bd614c1d8d7362d621e469",
-      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
-      "unresolved": true
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "1484fbf0_1e4f5825",
         "filename": "modules/rtp_rtcp/source/rtp_packet.h",
@@ -67,8 +68,71 @@
         "endChar": 53
       },
       "revId": "c3edac3b6de4268d14bd614c1d8d7362d621e469",
-      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
-      "unresolved": true
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ],
+  "submitRequirementResults": [
+    {
+      "submitRequirement": {
+        "name": "Code-Review",
+        "description": {
+          "value": "If the author is a webrtc committer, code review is required from one other committer. Otherwise, code review is required from two committers."
+        },
+        "applicabilityExpression": {},
+        "submittabilityExpression": {
+          "expressionString": "((uploaderin:cria/project-webrtc-committers AND label:Code-Review\u003dMAX,user\u003dnon_uploader) OR label:Code-Review\u003dMAX,count\u003e\u003d2) AND -label:Code-Review\u003dMIN"
+        },
+        "overrideExpression": {
+          "value": {
+            "expressionString": "label:Bot-Commit\u003d+1 AND -label:Code-Review\u003dMIN"
+          }
+        },
+        "allowOverrideInChildProjects": true
+      },
+      "applicabilityExpressionResult": {},
+      "submittabilityExpressionResult": {
+        "value": {"expression":{"expressionString":"((uploaderin:cria/project-webrtc-committers AND label:Code-Review=MAX,user=non_uploader) OR label:Code-Review=MAX,count>=2) AND -label:Code-Review=MIN"},"status":"FAIL","errorMessage":{"value":null},"passingAtoms":["uploaderin:cria/project-webrtc-committers"],"failingAtoms":["label:Code-Review=MIN","label:Code-Review=MAX,user=non_uploader","label:Code-Review=MAX,count>=2"]}
+      },
+      "overrideExpressionResult": {
+        "value": {"expression":{"expressionString":"label:Bot-Commit=+1 AND -label:Code-Review=MIN"},"status":"FAIL","errorMessage":{"value":null},"passingAtoms":[],"failingAtoms":["label:Bot-Commit=+1","label:Code-Review=MIN"]}
+      },
+      "patchSetCommitId": "c3edac3b6de4268d14bd614c1d8d7362d621e469",
+      "legacy": {
+        "value": false
+      },
+      "forced": {},
+      "hidden": {}
+    },
+    {
+      "submitRequirement": {
+        "name": "Review-Enforcement",
+        "description": {
+          "value": "Two Google employees must approve the change. Uploading the change or voting positively on Code-Review count as approval. Using a trusted device is required, see go/gerrit-onboarding#review-enforcement."
+        },
+        "applicabilityExpression": {
+          "value": {
+            "expressionString": "is:review-enforced_gerrit"
+          }
+        },
+        "submittabilityExpression": {
+          "expressionString": "is:review-enforcement-satisfied_gerrit"
+        },
+        "overrideExpression": {},
+        "allowOverrideInChildProjects": false
+      },
+      "applicabilityExpressionResult": {
+        "value": {"expression":{"expressionString":"is:review-enforced_gerrit"},"status":"FAIL","errorMessage":{"value":null},"passingAtoms":[],"failingAtoms":["is:review-enforced_gerrit"]}
+      },
+      "submittabilityExpressionResult": {
+        "value": {"expression":{"expressionString":"is:review-enforcement-satisfied_gerrit"},"status":"NOT_EVALUATED","errorMessage":{"value":null},"passingAtoms":[],"failingAtoms":[]}
+      },
+      "overrideExpressionResult": {},
+      "patchSetCommitId": "c3edac3b6de4268d14bd614c1d8d7362d621e469",
+      "legacy": {
+        "value": false
+      },
+      "forced": {},
+      "hidden": {}
     }
   ]
 }

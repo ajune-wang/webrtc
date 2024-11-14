@@ -24,6 +24,7 @@ static const char kVideoTrackId[] = "dummy_video_cam_1";
 static const char kAudioTrackId[] = "dummy_microphone_1";
 
 using rtc::scoped_refptr;
+using ::testing::_;
 using ::testing::Exactly;
 
 namespace webrtc {
@@ -48,6 +49,19 @@ class MockObserver : public ObserverInterface {
 
  private:
   NotifierInterface* notifier_;
+};
+
+class MockAudioSource : public Notifier<AudioSourceInterface> {
+ public:
+  MockAudioSource() = default;
+  ~MockAudioSource() override = default;
+
+  MOCK_METHOD(void, AddSink, (AudioTrackSinkInterface * sink), (override));
+  MOCK_METHOD(void, RemoveSink, (AudioTrackSinkInterface * sink), (override));
+  MOCK_METHOD(void, AddRef, (), (const, override));
+  MOCK_METHOD(RefCountReleaseStatus, Release, (), (const, override));
+  MOCK_METHOD(bool, remote, (), (const, override));
+  MOCK_METHOD(SourceState, state, (), (const, override));
 };
 
 class MediaStreamTest : public ::testing::Test {
@@ -136,6 +150,35 @@ TEST_F(MediaStreamTest, RemoveTrack) {
 
   EXPECT_FALSE(stream_->RemoveTrack(rtc::scoped_refptr<AudioTrackInterface>()));
   EXPECT_FALSE(stream_->RemoveTrack(rtc::scoped_refptr<VideoTrackInterface>()));
+}
+
+TEST_F(MediaStreamTest, CloneTrack) {
+  MockAudioSource mock_audio_source;
+
+  EXPECT_CALL(mock_audio_source, AddRef()).Times(3);
+  EXPECT_CALL(mock_audio_source, Release()).Times(3);
+  EXPECT_CALL(mock_audio_source, state()).Times(2);
+
+  rtc::scoped_refptr<AudioSourceInterface> audio_source(&mock_audio_source);
+  scoped_refptr<AudioTrackInterface> audio_track =
+      AudioTrack::Create(kAudioTrackId, audio_source);
+
+  rtc::scoped_refptr<AudioTrackInterface> cloned_audio_track =
+      audio_track->Clone(kAudioTrackId);
+  EXPECT_TRUE(cloned_audio_track);
+
+  cloned_audio_track->set_enabled(false);
+  EXPECT_FALSE(cloned_audio_track->enabled());
+  EXPECT_TRUE(audio_track->enabled());
+
+  audio_track->set_enabled(false);
+  cloned_audio_track->set_enabled(true);
+  EXPECT_FALSE(audio_track->enabled());
+  EXPECT_TRUE(cloned_audio_track->enabled());
+
+  EXPECT_CALL(mock_audio_source, AddSink(_)).Times(2);
+  cloned_audio_track->AddSink(nullptr);
+  audio_track->AddSink(nullptr);
 }
 
 TEST_F(MediaStreamTest, ChangeVideoTrack) {

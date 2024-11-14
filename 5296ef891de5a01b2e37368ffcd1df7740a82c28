@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ff69ec2a_e441a41f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-11-14T17:58:52Z",
+      "side": 1,
+      "message": "is this used internally or can we throw it away? It looks like there is a 75k binary size win on libWebRTC in release mode by removing it.\n\nIt does show up in Chrome overrides but that looks like copy-paste, can fix there",
+      "revId": "5296ef891de5a01b2e37368ffcd1df7740a82c28",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

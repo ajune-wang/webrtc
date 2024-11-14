@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "59211452_27038c74",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-11-14T09:49:22Z",
+      "side": 1,
+      "message": "Awaiting Erik\u0027s review for context, but code looks fine apart from the nit.\nThanks for adding the test!",
+      "revId": "66d3ba05620bbfdc3673c4a70d7d02b8a185e6d7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1349afd0_b40c79fb",
+        "filename": "rtc_base/experiments/encoder_info_settings_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-11-14T09:49:22Z",
+      "side": 1,
+      "message": "Nit: style guide says that member variables should have a trailing underscore.",
+      "revId": "66d3ba05620bbfdc3673c4a70d7d02b8a185e6d7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -50,6 +50,7 @@ DefaultVideoQualityAnalyzerOptions AnalyzerOptionsForTest() {
   DefaultVideoQualityAnalyzerOptions options;
   options.compute_psnr = true;
   options.compute_ssim = true;
+  options.compute_corruption_metric = true;
   options.adjust_cropping_before_comparing_frames = false;
   options.report_detailed_frame_stats = true;
   return options;
@@ -190,6 +191,16 @@ TEST(DefaultVideoQualityAnalyzerMetricNamesTest, MetricNamesForP2PAreCorrect) {
               .name = "ssim",
               .unit = Unit::kUnitless,
               .improvement_direction = ImprovementDirection::kBiggerIsBetter},
+          MetricValidationInfo{
+              .test_case = "test_case/alice_video",
+              .name = "total_corruption_probability",
+              .unit = Unit::kUnitless,
+              .improvement_direction = ImprovementDirection::kSmallerIsBetter},
+          MetricValidationInfo{
+              .test_case = "test_case/alice_video",
+              .name = "corruption_measurements",
+              .unit = Unit::kUnitless,
+              .improvement_direction = ImprovementDirection::kNeitherIsBetter},
           MetricValidationInfo{
               .test_case = "test_case/alice_video",
               .name = "transport_time",
@@ -371,6 +382,16 @@ TEST(DefaultVideoQualityAnalyzerMetricNamesTest,
               .improvement_direction = ImprovementDirection::kBiggerIsBetter},
           MetricValidationInfo{
               .test_case = "test_case/alice_video_alice_bob",
+              .name = "total_corruption_probability",
+              .unit = Unit::kUnitless,
+              .improvement_direction = ImprovementDirection::kSmallerIsBetter},
+          MetricValidationInfo{
+              .test_case = "test_case/alice_video_alice_bob",
+              .name = "corruption_measurements",
+              .unit = Unit::kUnitless,
+              .improvement_direction = ImprovementDirection::kNeitherIsBetter},
+          MetricValidationInfo{
+              .test_case = "test_case/alice_video_alice_bob",
               .name = "transport_time",
               .unit = Unit::kMilliseconds,
               .improvement_direction = ImprovementDirection::kSmallerIsBetter},
@@ -516,6 +537,16 @@ TEST(DefaultVideoQualityAnalyzerMetricNamesTest,
               .name = "ssim",
               .unit = Unit::kUnitless,
               .improvement_direction = ImprovementDirection::kBiggerIsBetter},
+          MetricValidationInfo{
+              .test_case = "test_case/alice_video_alice_charlie",
+              .name = "total_corruption_probability",
+              .unit = Unit::kUnitless,
+              .improvement_direction = ImprovementDirection::kSmallerIsBetter},
+          MetricValidationInfo{
+              .test_case = "test_case/alice_video_alice_charlie",
+              .name = "corruption_measurements",
+              .unit = Unit::kUnitless,
+              .improvement_direction = ImprovementDirection::kNeitherIsBetter},
           MetricValidationInfo{
               .test_case = "test_case/alice_video_alice_charlie",
               .name = "transport_time",
@@ -684,10 +715,10 @@ TEST(DefaultVideoQualityAnalyzerMetricNamesTest,
 
   std::vector<std::string> metrics =
       ToTestCases(metrics_logger.GetCollectedMetrics());
-  EXPECT_THAT(metrics, SizeIs(59));
-  EXPECT_THAT(metrics, Contains("test_case/alice_video_alice_bob").Times(29));
+  EXPECT_THAT(metrics, SizeIs(63));
+  EXPECT_THAT(metrics, Contains("test_case/alice_video_alice_bob").Times(31));
   EXPECT_THAT(metrics,
-              Contains("test_case/alice_video_alice_charlie").Times(29));
+              Contains("test_case/alice_video_alice_charlie").Times(31));
   EXPECT_THAT(metrics, Contains("test_case").Times(1));
 }
 

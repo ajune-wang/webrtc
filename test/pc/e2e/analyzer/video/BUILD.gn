@@ -242,6 +242,7 @@ rtc_library("default_video_quality_analyzer_internal") {
     "../../../../../rtc_base/synchronization:mutex",
     "../../../../../rtc_tools:video_quality_analysis",
     "../../../../../system_wrappers",
+    "../../../../../video/corruption_detection:frame_pair_corruption_score",
     "dvqa:pausable_state",
     "//third_party/abseil-cpp/absl/strings:string_view",
   ]

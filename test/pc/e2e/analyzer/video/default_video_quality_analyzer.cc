@@ -1185,6 +1185,14 @@ void DefaultVideoQualityAnalyzer::ReportResults(
   metrics_logger_->LogMetric(
       "ssim", test_case_name, stats.ssim, Unit::kUnitless,
       ImprovementDirection::kBiggerIsBetter, metric_metadata);
+  metrics_logger_->LogMetric(
+      "total_corruption_probability", test_case_name,
+      stats.total_corruption_probability, Unit::kUnitless,
+      ImprovementDirection::kSmallerIsBetter, metric_metadata);
+  metrics_logger_->LogSingleValueMetric(
+      "corruption_measurements", test_case_name,
+      stats.total_corruption_probability.NumSamples(), Unit::kUnitless,
+      ImprovementDirection::kNeitherIsBetter, metric_metadata);
   metrics_logger_->LogMetric("transport_time", test_case_name,
                              stats.transport_time_ms, Unit::kMilliseconds,
                              ImprovementDirection::kSmallerIsBetter,

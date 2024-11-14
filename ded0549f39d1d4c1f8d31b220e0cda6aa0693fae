@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "03e9233e_97ec25cc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3723106
+      },
+      "writtenOn": "2024-11-14T14:35:13Z",
+      "side": 1,
+      "message": "Hello Erik !\n\nThanks, I did not know who was in charge of this part of the code and went along with gerrit\u0027s suggestion (which was kind of everyone haha). \n\nFixed.",
+      "parentUuid": "371bc508_fd90b5b9",
+      "revId": "ded0549f39d1d4c1f8d31b220e0cda6aa0693fae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "aeadda22_5311fe3c",
@@ -31,6 +49,30 @@
       "writtenOn": "2024-11-14T13:40:38Z",
       "side": 1,
       "message": "Creating a separate test subclass seems overkill here. I suggest you change the tests from `TEST_F` to `TEST` and declare the resolution limits vector as local temporary instead.\n\nSince we\u0027re just testing the logic of the `GetSinglecastBitrateLimitForResolutionWhenQpIsUntrusted` method (and the integration thereof) I don\u0027t think you need to replicate the full vector of resolutions - just add say two entries that exercises the code path we\u0027re interested in.",
+      "range": {
+        "startLine": 106,
+        "startChar": 0,
+        "endLine": 122,
+        "endChar": 0
+      },
+      "revId": "ded0549f39d1d4c1f8d31b220e0cda6aa0693fae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fb70da37_a5680b8a",
+        "filename": "rtc_base/experiments/encoder_info_settings_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 3723106
+      },
+      "writtenOn": "2024-11-14T14:35:13Z",
+      "side": 1,
+      "message": "ok, fixed. \n\nAlso added matching resolution scenario as a third test.",
+      "parentUuid": "aeadda22_5311fe3c",
       "range": {
         "startLine": 106,
         "startChar": 0,

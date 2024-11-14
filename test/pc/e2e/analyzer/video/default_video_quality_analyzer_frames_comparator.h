@@ -115,6 +115,17 @@ class DefaultVideoQualityAnalyzerFramesComparator {
                      std::optional<VideoFrame> rendered,
                      FrameComparisonType type,
                      FrameStats frame_stats);
+  // `decoded` - video frame decoded by receiver to use for corruption score
+  //     computation. Is required only if corruption score is of interest.
+  //     `decoded` is different from `rendered` in the sense that it is not
+  //     upscaled to fit the screen.
+  void AddComparison(InternalStatsKey stats_key,
+                     int skipped_between_rendered,
+                     std::optional<VideoFrame> captured,
+                     std::optional<VideoFrame> decoded,
+                     std::optional<VideoFrame> rendered,
+                     FrameComparisonType type,
+                     FrameStats frame_stats);
 
   std::map<InternalStatsKey, StreamStats> stream_stats() const {
     MutexLock lock(&mutex_);
@@ -130,6 +141,13 @@ class DefaultVideoQualityAnalyzerFramesComparator {
 
   void AddComparisonInternal(InternalStatsKey stats_key,
                              std::optional<VideoFrame> captured,
+                             std::optional<VideoFrame> rendered,
+                             FrameComparisonType type,
+                             FrameStats frame_stats)
+      RTC_EXCLUSIVE_LOCKS_REQUIRED(mutex_);
+  void AddComparisonInternal(InternalStatsKey stats_key,
+                             std::optional<VideoFrame> captured,
+                             std::optional<VideoFrame> decoded,
                              std::optional<VideoFrame> rendered,
                              FrameComparisonType type,
                              FrameStats frame_stats)

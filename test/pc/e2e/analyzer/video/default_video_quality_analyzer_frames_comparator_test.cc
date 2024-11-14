@@ -1514,8 +1514,8 @@ TEST(DefaultVideoQualityAnalyzerFramesComparatorTest,
   EXPECT_EQ(stats.stream_started_time, captured_time);
   EXPECT_GE(GetFirstOrDie(stats.psnr), 20);
   EXPECT_GE(GetFirstOrDie(stats.ssim), 0.5);
-  EXPECT_GE(GetFirstOrDie(stats.total_corruption_probability), 0.0);
-  EXPECT_LE(GetFirstOrDie(stats.total_corruption_probability), 1.0);
+  // Should only be calculated when `decoded` frame is present.
+  ExpectEmpty(stats.total_corruption_probability);
   ExpectSizeAndAllElementsAre(stats.transport_time_ms, /*size=*/1,
                               /*value=*/20.0);
   EXPECT_GE(GetFirstOrDie(stats.total_delay_incl_transport_ms), 60.0);
@@ -1525,6 +1525,110 @@ TEST(DefaultVideoQualityAnalyzerFramesComparatorTest,
   EXPECT_GE(GetFirstOrDie(stats.decode_time_ms), 10.0);
   EXPECT_GE(GetFirstOrDie(stats.receive_to_render_time_ms), 30.0);
   ExpectEmpty(stats.skipped_between_rendered);
+  ExpectSizeAndAllElementsAre(stats.freeze_time_ms, /*size=*/1, /*value=*/0);
+  ExpectEmpty(stats.time_between_freezes_ms);
+  EXPECT_GE(GetFirstOrDie(stats.resolution_of_decoded_frame), 200 * 100.0);
+  ExpectSizeAndAllElementsAre(stats.target_encode_bitrate, /*size=*/1,
+                              /*value=*/2000.0);
+  EXPECT_THAT(stats.spatial_layers_qp, SizeIs(1));
+  ExpectSizeAndAllElementsAre(stats.spatial_layers_qp[0], /*size=*/2,
+                              /*value=*/5.0);
+  ExpectSizeAndAllElementsAre(stats.rendered_frame_qp, /*size=*/1,
+                              /*value=*/10.0);
+  ExpectSizeAndAllElementsAre(stats.recv_key_frame_size_bytes, /*size=*/1,
+                              /*value=*/500.0);
+  ExpectEmpty(stats.recv_delta_frame_size_bytes);
+  EXPECT_EQ(stats.total_encoded_images_payload, 1000);
+  EXPECT_EQ(stats.num_send_key_frames, 1);
+  EXPECT_EQ(stats.num_recv_key_frames, 1);
+  EXPECT_THAT(stats.dropped_by_phase, Eq(std::map<FrameDropPhase, int64_t>{
+                                          {FrameDropPhase::kBeforeEncoder, 0},
+                                          {FrameDropPhase::kByEncoder, 0},
+                                          {FrameDropPhase::kTransport, 0},
+                                          {FrameDropPhase::kByDecoder, 0},
+                                          {FrameDropPhase::kAfterDecoder, 0}}));
+  EXPECT_EQ(stats.encoders,
+            std::vector<StreamCodecInfo>{*frame_stats.used_encoder});
+  EXPECT_EQ(stats.decoders,
+            std::vector<StreamCodecInfo>{*frame_stats.used_decoder});
+}
+
+TEST(DefaultVideoQualityAnalyzerFramesComparatorTest,
+     DecodedKeyFrameAccountedInStats) {
+  DefaultVideoQualityAnalyzerCpuMeasurer cpu_measurer;
+  DefaultVideoQualityAnalyzerOptions default_video_quality_analyzer_options;
+  default_video_quality_analyzer_options.compute_corruption_score = true;
+  DefaultVideoQualityAnalyzerFramesComparator comparator(
+      Clock::GetRealTimeClock(), cpu_measurer,
+      default_video_quality_analyzer_options);
+
+  Timestamp captured_time = Clock::GetRealTimeClock()->CurrentTime();
+  uint16_t frame_id = 1;
+  size_t stream = 0;
+  size_t sender = 0;
+  size_t receiver = 1;
+  InternalStatsKey stats_key(stream, sender, receiver);
+
+  // Frame captured
+  VideoFrame frame =
+      CreateFrame(frame_id, /*width=*/320, /*height=*/180, captured_time);
+  FrameStats frame_stats(/*frame_id=*/1, captured_time);
+  // Frame pre encoded
+  frame_stats.pre_encode_time = captured_time + TimeDelta::Millis(10);
+  // Frame encoded
+  frame_stats.encoded_time = captured_time + TimeDelta::Millis(20);
+  frame_stats.used_encoder =
+      Vp8CodecForOneFrame(frame_id, frame_stats.encoded_time);
+  frame_stats.encoded_frame_type = VideoFrameType::kVideoFrameKey;
+  frame_stats.encoded_image_size = DataSize::Bytes(1000);
+  frame_stats.target_encode_bitrate = 2000;
+  frame_stats.spatial_layers_qp = {
+      {0, StatsCounter(
+              /*samples=*/{{5, Timestamp::Seconds(1)},
+                           {5, Timestamp::Seconds(2)}})}};
+  // Frame pre decoded
+  frame_stats.pre_decoded_frame_type = VideoFrameType::kVideoFrameKey;
+  frame_stats.pre_decoded_image_size = DataSize::Bytes(500);
+  frame_stats.received_time = captured_time + TimeDelta::Millis(30);
+  frame_stats.decode_start_time = captured_time + TimeDelta::Millis(40);
+  // Frame decoded
+  frame_stats.decode_end_time = captured_time + TimeDelta::Millis(50);
+  frame_stats.used_decoder =
+      Vp8CodecForOneFrame(frame_id, frame_stats.decode_end_time);
+  frame_stats.decoded_frame_width = 200;
+  frame_stats.decoded_frame_height = 100;
+  frame_stats.decoded_frame_qp = 10;
+  // Frame rendered
+  frame_stats.rendered_time = captured_time + TimeDelta::Millis(60);
+
+  comparator.Start(/*max_threads_count=*/1);
+  comparator.EnsureStatsForStream(stream, sender, /*peers_count=*/2,
+                                  captured_time, captured_time);
+  comparator.AddComparison(stats_key,
+                           /*skipped_between_rendered=*/0,
+                           /*captured=*/frame,
+                           /*decoded=*/frame,
+                           /*rendered=*/frame, FrameComparisonType::kRegular,
+                           frame_stats);
+  comparator.Stop(/*last_rendered_frame_times=*/{});
+
+  EXPECT_EQ(comparator.stream_stats().size(), 1lu);
+  StreamStats stats = comparator.stream_stats().at(stats_key);
+  EXPECT_EQ(stats.stream_started_time, captured_time);
+  EXPECT_GE(GetFirstOrDie(stats.psnr), 20);
+  EXPECT_GE(GetFirstOrDie(stats.ssim), 0.5);
+  // Since the `captured` and `decoded` frames are the same corruption score
+  // should be 0.
+  EXPECT_EQ(GetFirstOrDie(stats.corruption_score), 0);
+  ExpectSizeAndAllElementsAre(stats.transport_time_ms, /*size=*/1,
+                              /*value=*/20.0);
+  EXPECT_GE(GetFirstOrDie(stats.total_delay_incl_transport_ms), 60.0);
+  ExpectEmpty(stats.time_between_rendered_frames_ms);
+  ExpectEmpty(stats.encode_frame_rate);
+  ExpectSizeAndAllElementsAre(stats.encode_time_ms, /*size=*/1, /*value=*/10.0);
+  EXPECT_GE(GetFirstOrDie(stats.decode_time_ms), 10.0);
+  EXPECT_GE(GetFirstOrDie(stats.receive_to_render_time_ms), 30.0);
+  EXPECT_EQ(GetFirstOrDie(stats.skipped_between_rendered), 0);
   ExpectSizeAndAllElementsAre(stats.freeze_time_ms, /*size=*/1, /*value=*/0);
   ExpectEmpty(stats.time_between_freezes_ms);
   EXPECT_GE(GetFirstOrDie(stats.resolution_of_decoded_frame), 200 * 100.0);
@@ -1603,7 +1707,9 @@ TEST(DefaultVideoQualityAnalyzerFramesComparatorTest, AllStatsHaveMetadataSet) {
   comparator.EnsureStatsForStream(stream, sender, /*peers_count=*/2,
                                   captured_time, captured_time);
   comparator.AddComparison(stats_key,
+                           /*skipped_between_rendered=*/0,
                            /*captured=*/frame,
+                           /*decoded=*/frame,
                            /*rendered=*/frame, FrameComparisonType::kRegular,
                            frame_stats);
   comparator.Stop(/*last_rendered_frame_times=*/{});

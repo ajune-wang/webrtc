@@ -171,6 +171,8 @@ class DefaultVideoQualityAnalyzer : public VideoQualityAnalyzerInterface {
   // extra string copying.
   NamesCollection streams_ RTC_GUARDED_BY(mutex_);
   FramesStorage frames_storage_ RTC_GUARDED_BY(mutex_);
+  // Stores the decoded frames for later comparision.
+  FramesStorage decoded_frames_storage_ RTC_GUARDED_BY(mutex_);
   // Frames that were captured by all streams and still aren't rendered on
   // receivers or deemed dropped. Frame with id X can be removed from this map
   // if:

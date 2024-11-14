@@ -90,7 +90,7 @@ struct FrameStats {
 };
 
 // Describes why comparison was done in overloaded mode (without calculating
-// PSNR and SSIM).
+// PSNR, SSIM or corruption score).
 enum class OverloadReason {
   kNone,
   // Not enough CPU to process all incoming comparisons.
@@ -100,7 +100,7 @@ enum class OverloadReason {
 };
 
 enum class FrameComparisonType {
-  // Comparison for captured and rendered frame.
+  // Comparison for captured, decoded and rendered frame.
   kRegular,
   // Comparison for captured frame that is known to be dropped somewhere in
   // video pipeline.
@@ -113,15 +113,17 @@ enum class FrameComparisonType {
 
 // Represents comparison between two VideoFrames. Contains video frames itself
 // and stats. Can be one of two types:
-//   1. Normal - in this case `captured` is presented and either `rendered` is
-//      presented and `dropped` is false, either `rendered` is omitted and
-//      `dropped` is true.
-//   2. Overloaded - in this case both `captured` and `rendered` are omitted
-//      because there were too many comparisons in the queue. `dropped` can be
-//      true or false showing was frame dropped or not.
+//   1. Normal - in this case `captured` is presented and either `rendered` and
+//   `decoded` are presented and `dropped` is false, either `rendered` and
+//   `decoded` are omitted and `dropped` is true.
+//      TODO(vardar): Check if this is true!
+//   2. Overloaded - in this case `captured`, `decoded` and `rendered` are
+//   omitted because there were too many comparisons in the queue. `dropped`
+//   can be true or false showing was frame dropped or not.
 struct FrameComparison {
   FrameComparison(InternalStatsKey stats_key,
                   std::optional<VideoFrame> captured,
+                  std::optional<VideoFrame> decoded,
                   std::optional<VideoFrame> rendered,
                   FrameComparisonType type,
                   FrameStats frame_stats,
@@ -131,6 +133,7 @@ struct FrameComparison {
   // Frames can be omitted if there too many computations waiting in the
   // queue.
   std::optional<VideoFrame> captured;
+  std::optional<VideoFrame> decoded;
   std::optional<VideoFrame> rendered;
   FrameComparisonType type;
   FrameStats frame_stats;

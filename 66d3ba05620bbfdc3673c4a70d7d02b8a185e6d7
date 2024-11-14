@@ -33,6 +33,24 @@
       "message": "Nit: style guide says that member variables should have a trailing underscore.",
       "revId": "66d3ba05620bbfdc3673c4a70d7d02b8a185e6d7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "353b6b52_cfcd5afc",
+        "filename": "rtc_base/experiments/encoder_info_settings_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 3723106
+      },
+      "writtenOn": "2024-11-14T10:16:48Z",
+      "side": 1,
+      "message": "Last patchset fixes this nit :) thanks",
+      "parentUuid": "1349afd0_b40c79fb",
+      "revId": "66d3ba05620bbfdc3673c4a70d7d02b8a185e6d7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

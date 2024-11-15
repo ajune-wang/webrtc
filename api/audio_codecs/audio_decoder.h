@@ -30,6 +30,16 @@ class AudioDecoder {
     kComfortNoise = 2,
   };
 
+  enum class ChannelLayout {
+    kUnknown = 0,
+    // One channel.
+    kMono = 1,
+    // Two channels, possibly different.
+    kStereo = 2,
+    // Two channels, but identical.
+    kTrivialStereo = 3,
+  };
+
   // Used by PacketDuration below. Save the value -1 for errors.
   enum { kNotImplemented = -2 };
 
@@ -44,6 +54,7 @@ class AudioDecoder {
     struct DecodeResult {
       size_t num_decoded_samples;
       SpeechType speech_type;
+      ChannelLayout channel_layout;
     };
 
     virtual ~EncodedAudioFrame() = default;
@@ -109,7 +120,8 @@ class AudioDecoder {
              int sample_rate_hz,
              size_t max_decoded_bytes,
              int16_t* decoded,
-             SpeechType* speech_type);
+             SpeechType* speech_type,
+             ChannelLayout* channel_layout);
 
   // Same as Decode(), but interfaces to the decoders redundant decode function.
   // The default implementation simply calls the regular Decode() method.
@@ -118,7 +130,8 @@ class AudioDecoder {
                       int sample_rate_hz,
                       size_t max_decoded_bytes,
                       int16_t* decoded,
-                      SpeechType* speech_type);
+                      SpeechType* speech_type,
+                      ChannelLayout* channel_layout);
 
   // Indicates if the decoder implements the DecodePlc method.
   virtual bool HasDecodePlc() const;
@@ -182,13 +195,15 @@ class AudioDecoder {
                              size_t encoded_len,
                              int sample_rate_hz,
                              int16_t* decoded,
-                             SpeechType* speech_type) = 0;
+                             SpeechType* speech_type,
+                             ChannelLayout* channel_layout) = 0;
 
   virtual int DecodeRedundantInternal(const uint8_t* encoded,
                                       size_t encoded_len,
                                       int sample_rate_hz,
                                       int16_t* decoded,
-                                      SpeechType* speech_type);
+                                      SpeechType* speech_type,
+                                      ChannelLayout* channel_layout);
 };
 
 }  // namespace webrtc

@@ -48,7 +48,8 @@ class AudioDecoderPlc : public AudioDecoder {
                      size_t encoded_len,
                      int sample_rate_hz,
                      int16_t* decoded,
-                     SpeechType* speech_type) override {
+                     SpeechType* speech_type,
+                     ChannelLayout* channel_layout) override {
     RTC_CHECK_GE(encoded_len / 2, 10 * sample_rate_hz_ / 1000);
     RTC_CHECK_LE(encoded_len / 2, 2 * 10 * sample_rate_hz_ / 1000);
     RTC_CHECK_EQ(sample_rate_hz, sample_rate_hz_);
@@ -72,8 +73,10 @@ class AudioDecoderPlc : public AudioDecoder {
 
     std::vector<int16_t> decoded(5760);
     SpeechType speech_type;
+    ChannelLayout channel_layout;
     int dec_len = DecodeInternal(nullptr, 2 * 10 * sample_rate_hz_ / 1000,
-                                 sample_rate_hz_, decoded.data(), &speech_type);
+                                 sample_rate_hz_, decoded.data(), &speech_type,
+                                 &channel_layout);
     concealment_audio->AppendData(decoded.data(), dec_len);
     concealed_samples_ += rtc::checked_cast<size_t>(dec_len);
 

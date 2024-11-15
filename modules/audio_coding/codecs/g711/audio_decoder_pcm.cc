@@ -38,7 +38,8 @@ int AudioDecoderPcmU::DecodeInternal(const uint8_t* encoded,
                                      size_t encoded_len,
                                      int sample_rate_hz,
                                      int16_t* decoded,
-                                     SpeechType* speech_type) {
+                                     SpeechType* speech_type,
+                                     ChannelLayout* channel_layout) {
   RTC_DCHECK_EQ(SampleRateHz(), sample_rate_hz);
   // Adjust the encoded length down to ensure the same number of samples in each
   // channel.
@@ -84,7 +85,8 @@ int AudioDecoderPcmA::DecodeInternal(const uint8_t* encoded,
                                      size_t encoded_len,
                                      int sample_rate_hz,
                                      int16_t* decoded,
-                                     SpeechType* speech_type) {
+                                     SpeechType* speech_type,
+                                     ChannelLayout* channel_layout) {
   RTC_DCHECK_EQ(SampleRateHz(), sample_rate_hz);
   // Adjust the encoded length down to ensure the same number of samples in each
   // channel.

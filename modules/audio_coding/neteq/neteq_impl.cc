@@ -1371,10 +1371,11 @@ int NetEqImpl::DecodeCng(AudioDecoder* decoder,
   }
 
   while (*decoded_length < rtc::dchecked_cast<int>(output_size_samples_)) {
+    auto channel_layout = AudioDecoder::ChannelLayout::kUnknown;
     const int length = decoder->Decode(
         nullptr, 0, fs_hz_,
         (decoded_buffer_length_ - *decoded_length) * sizeof(int16_t),
-        &decoded_buffer_[*decoded_length], speech_type);
+        &decoded_buffer_[*decoded_length], speech_type, &channel_layout);
     if (length > 0) {
       *decoded_length += length;
     } else {

@@ -40,7 +40,8 @@ class AudioDecoderG722Impl final : public AudioDecoder {
                      size_t encoded_len,
                      int sample_rate_hz,
                      int16_t* decoded,
-                     SpeechType* speech_type) override;
+                     SpeechType* speech_type,
+                     ChannelLayout* channel_layout) override;
 
  private:
   G722DecInst* dec_state_;
@@ -67,7 +68,8 @@ class AudioDecoderG722StereoImpl final : public AudioDecoder {
                      size_t encoded_len,
                      int sample_rate_hz,
                      int16_t* decoded,
-                     SpeechType* speech_type) override;
+                     SpeechType* speech_type,
+                     ChannelLayout* channel_layout) override;
 
  private:
   // Splits the stereo-interleaved payload in `encoded` into separate payloads

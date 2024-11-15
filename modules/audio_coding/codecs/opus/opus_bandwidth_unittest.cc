@@ -82,6 +82,7 @@ float EncodedPowerRatio(AudioEncoder* encoder,
   std::vector<int16_t> decoded(kOutputBlockSizeSamples);
   std::vector<float> decoded_float(kOutputBlockSizeSamples);
   AudioDecoder::SpeechType speech_type = AudioDecoder::kSpeech;
+  auto channel_layout = AudioDecoder::ChannelLayout::kUnknown;
   PowerRatioEstimator power_ratio_estimator;
   for (size_t i = 0; i < 1000; ++i) {
     encoded.Clear();
@@ -89,9 +90,10 @@ float EncodedPowerRatio(AudioEncoder* encoder,
         encoder->Encode(rtp_timestamp, audio_loop->GetNextBlock(), &encoded);
     rtp_timestamp += kInputBlockSizeSamples;
     if (encoded.size() > 0) {
-      int decoder_info = decoder->Decode(
-          encoded.data(), encoded.size(), kSampleRateHz,
-          decoded.size() * sizeof(decoded[0]), decoded.data(), &speech_type);
+      int decoder_info =
+          decoder->Decode(encoded.data(), encoded.size(), kSampleRateHz,
+                          decoded.size() * sizeof(decoded[0]), decoded.data(),
+                          &speech_type, &channel_layout);
       if (decoder_info > 0) {
         S16ToFloat(decoded.data(), decoded.size(), decoded_float.data());
         power_ratio_estimator.ProcessBlock(decoded_float.data());

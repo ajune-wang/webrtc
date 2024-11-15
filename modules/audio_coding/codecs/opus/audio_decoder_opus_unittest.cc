@@ -303,9 +303,11 @@ TEST(AudioDecoderOpusTest,
   // Decode an empty packet so that Opus generates comfort noise.
   decoded_frame.resize(kEncoderFrameLength * kDecoderNumChannels);
   AudioDecoder::SpeechType speech_type;
+  AudioDecoder::ChannelLayout channel_layout;
   const int num_decoded_samples =
       decoder.Decode(/*encoded=*/nullptr, /*encoded_len=*/0, kSampleRateHz,
-                     decoded_frame.size(), decoded_frame.data(), &speech_type);
+                     decoded_frame.size(), decoded_frame.data(), &speech_type,
+                     &channel_layout);
   ASSERT_EQ(speech_type, AudioDecoder::SpeechType::kComfortNoise);
   RTC_CHECK_GT(num_decoded_samples, 0);
   RTC_CHECK_LE(num_decoded_samples, decoded_frame.size());
@@ -387,9 +389,11 @@ TEST(AudioDecoderOpusTest,
   // Decode an empty packet so that Opus generates comfort noise.
   std::array<int16_t, kEncoderFrameLength * kDecoderNumChannels> decoded_frame;
   AudioDecoder::SpeechType speech_type;
+  AudioDecoder::ChannelLayout channel_layout;
   const int num_decoded_samples =
       decoder.Decode(/*encoded=*/nullptr, /*encoded_len=*/0, kSampleRateHz,
-                     decoded_frame.size(), decoded_frame.data(), &speech_type);
+                     decoded_frame.size(), decoded_frame.data(), &speech_type,
+                     &channel_layout);
   ASSERT_EQ(speech_type, AudioDecoder::SpeechType::kComfortNoise);
   RTC_CHECK_GT(num_decoded_samples, 0);
   RTC_CHECK_LE(num_decoded_samples, decoded_frame.size());

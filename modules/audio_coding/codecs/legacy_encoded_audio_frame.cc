@@ -32,9 +32,11 @@ size_t LegacyEncodedAudioFrame::Duration() const {
 std::optional<AudioDecoder::EncodedAudioFrame::DecodeResult>
 LegacyEncodedAudioFrame::Decode(rtc::ArrayView<int16_t> decoded) const {
   AudioDecoder::SpeechType speech_type = AudioDecoder::kSpeech;
+  auto channel_layout = AudioDecoder::ChannelLayout::kUnknown;
   const int ret = decoder_->Decode(
       payload_.data(), payload_.size(), decoder_->SampleRateHz(),
-      decoded.size() * sizeof(int16_t), decoded.data(), &speech_type);
+      decoded.size() * sizeof(int16_t), decoded.data(), &speech_type,
+      &channel_layout);
 
   if (ret < 0)
     return std::nullopt;

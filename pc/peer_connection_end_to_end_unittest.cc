@@ -257,15 +257,15 @@ std::unique_ptr<webrtc::AudioDecoder> CreateForwardingMockDecoder(
   EXPECT_CALL(*mock_decoder, Channels())
       .Times(AtLeast(1))
       .WillRepeatedly(Invoke([dec] { return dec->Channels(); }));
-  EXPECT_CALL(*mock_decoder, DecodeInternal(_, _, _, _, _))
+  EXPECT_CALL(*mock_decoder, DecodeInternal(_, _, _, _, _, _))
       .Times(AtLeast(1))
-      .WillRepeatedly(
-          Invoke([dec](const uint8_t* encoded, size_t encoded_len,
-                       int sample_rate_hz, int16_t* decoded,
-                       webrtc::AudioDecoder::SpeechType* speech_type) {
+      .WillRepeatedly(Invoke(
+          [dec](const uint8_t* encoded, size_t encoded_len, int sample_rate_hz,
+                int16_t* decoded, webrtc::AudioDecoder::SpeechType* speech_type,
+                webrtc::AudioDecoder::ChannelLayout* channel_layout) {
             return dec->Decode(encoded, encoded_len, sample_rate_hz,
                                std::numeric_limits<size_t>::max(), decoded,
-                               speech_type);
+                               speech_type, channel_layout);
           }));
   EXPECT_CALL(*mock_decoder, Die());
   EXPECT_CALL(*mock_decoder, HasDecodePlc()).WillRepeatedly(Invoke([dec] {

@@ -498,11 +498,13 @@ TEST_F(NetEqImplTest, VerifyTimestampPropagation) {
                        size_t encoded_len,
                        int /* sample_rate_hz */,
                        int16_t* decoded,
-                       SpeechType* speech_type) override {
+                       SpeechType* speech_type,
+                       ChannelLayout* channel_layout) override {
       for (size_t i = 0; i < encoded_len; ++i) {
         decoded[i] = next_value_++;
       }
       *speech_type = kSpeech;
+      *channel_layout = ChannelLayout::kMono;
       return rtc::checked_cast<int>(encoded_len);
     }
 
@@ -614,7 +616,7 @@ TEST_F(NetEqImplTest, ReorderedPacket) {
   // The below expectation will make the mock decoder write
   // `kPayloadLengthSamples` zeros to the output array, and mark it as speech.
   EXPECT_CALL(mock_decoder, DecodeInternal(Pointee(0), kPayloadLengthBytes,
-                                           kSampleRateHz, _, _))
+                                           kSampleRateHz, _, _, _))
       .WillOnce(DoAll(SetArrayArgument<3>(dummy_output,
                                           dummy_output + kPayloadLengthSamples),
                       SetArgPointee<4>(AudioDecoder::kSpeech),
@@ -673,7 +675,7 @@ TEST_F(NetEqImplTest, ReorderedPacket) {
   // Expect only the second packet to be decoded (the one with "2" as the first
   // payload byte).
   EXPECT_CALL(mock_decoder, DecodeInternal(Pointee(2), kPayloadLengthBytes,
-                                           kSampleRateHz, _, _))
+                                           kSampleRateHz, _, _, _))
       .WillOnce(DoAll(SetArrayArgument<3>(dummy_output,
                                           dummy_output + kPayloadLengthSamples),
                       SetArgPointee<4>(AudioDecoder::kSpeech),
@@ -1183,7 +1185,7 @@ TEST_F(NetEqImplTest, CodecInternalCng) {
     // Pointee(x) verifies that first byte of the payload equals x, this makes
     // it possible to verify that the correct payload is fed to Decode().
     EXPECT_CALL(mock_decoder, DecodeInternal(Pointee(i), kPayloadLengthBytes,
-                                             kSampleRateKhz * 1000, _, _))
+                                             kSampleRateKhz * 1000, _, _, _))
         .WillOnce(DoAll(SetArrayArgument<3>(
                             dummy_output, dummy_output + kPayloadLengthSamples),
                         SetArgPointee<4>(packets[i].decoder_output_type),
@@ -1192,7 +1194,7 @@ TEST_F(NetEqImplTest, CodecInternalCng) {
 
   // Expect comfort noise to be returned by the decoder.
   EXPECT_CALL(mock_decoder,
-              DecodeInternal(IsNull(), 0, kSampleRateKhz * 1000, _, _))
+              DecodeInternal(IsNull(), 0, kSampleRateKhz * 1000, _, _, _))
       .WillOnce(DoAll(SetArrayArgument<3>(dummy_output,
                                           dummy_output + kPayloadLengthSamples),
                       SetArgPointee<4>(AudioDecoder::kComfortNoise),
@@ -1250,11 +1252,13 @@ TEST_F(NetEqImplTest, UnsupportedDecoder) {
       .Times(AtLeast(1))
       .WillRepeatedly(Return(rtc::checked_cast<int>(kNetEqMaxFrameSize + 1)));
 
-  EXPECT_CALL(decoder, DecodeInternal(Pointee(kFirstPayloadValue), _, _, _, _))
+  EXPECT_CALL(decoder,
+              DecodeInternal(Pointee(kFirstPayloadValue), _, _, _, _, _))
       .Times(0);
 
-  EXPECT_CALL(decoder, DecodeInternal(Pointee(kSecondPayloadValue),
-                                      kPayloadLengthBytes, kSampleRateHz, _, _))
+  EXPECT_CALL(decoder,
+              DecodeInternal(Pointee(kSecondPayloadValue), kPayloadLengthBytes,
+                             kSampleRateHz, _, _, _))
       .Times(1)
       .WillOnce(DoAll(
           SetArrayArgument<3>(dummy_output,
@@ -1385,7 +1389,7 @@ TEST_F(NetEqImplTest, DecodedPayloadTooShort) {
   // `kPayloadLengthSamples` - 5 zeros to the output array, and mark it as
   // speech. That is, the decoded length is 5 samples shorter than the expected.
   EXPECT_CALL(mock_decoder,
-              DecodeInternal(_, kPayloadLengthBytes, kSampleRateHz, _, _))
+              DecodeInternal(_, kPayloadLengthBytes, kSampleRateHz, _, _, _))
       .WillOnce(
           DoAll(SetArrayArgument<3>(dummy_output,
                                     dummy_output + kPayloadLengthSamples - 5),
@@ -1455,25 +1459,27 @@ TEST_F(NetEqImplTest, DecodingError) {
     InSequence sequence;  // Dummy variable.
     // Mock decoder works normally the first time.
     EXPECT_CALL(mock_decoder,
-                DecodeInternal(_, kPayloadLengthBytes, kSampleRateHz, _, _))
+                DecodeInternal(_, kPayloadLengthBytes, kSampleRateHz, _, _, _))
         .Times(3)
         .WillRepeatedly(
             DoAll(SetArrayArgument<3>(dummy_output,
                                       dummy_output + kFrameLengthSamples),
                   SetArgPointee<4>(AudioDecoder::kSpeech),
+                  SetArgPointee<5>(AudioDecoder::ChannelLayout::kUnknown),
                   Return(rtc::checked_cast<int>(kFrameLengthSamples))))
         .RetiresOnSaturation();
 
     // Then mock decoder fails. A common reason for failure can be buffer being
+
     // too short
     EXPECT_CALL(mock_decoder,
-                DecodeInternal(_, kPayloadLengthBytes, kSampleRateHz, _, _))
+                DecodeInternal(_, kPayloadLengthBytes, kSampleRateHz, _, _, _))
         .WillOnce(Return(-1))
         .RetiresOnSaturation();
 
     // Mock decoder finally returns to normal.
     EXPECT_CALL(mock_decoder,
-                DecodeInternal(_, kPayloadLengthBytes, kSampleRateHz, _, _))
+                DecodeInternal(_, kPayloadLengthBytes, kSampleRateHz, _, _, _))
         .Times(2)
         .WillRepeatedly(
             DoAll(SetArrayArgument<3>(dummy_output,
@@ -1798,16 +1804,20 @@ TEST_F(NetEqImplTest, InsertPacketChangePayloadType) {
 
 class Decoder120ms : public AudioDecoder {
  public:
-  Decoder120ms(int sample_rate_hz, SpeechType speech_type)
+  Decoder120ms(int sample_rate_hz,
+               SpeechType speech_type,
+               ChannelLayout channel_layout)
       : sample_rate_hz_(sample_rate_hz),
         next_value_(1),
-        speech_type_(speech_type) {}
+        speech_type_(speech_type),
+        channel_layout_(channel_layout) {}
 
   int DecodeInternal(const uint8_t* /* encoded */,
                      size_t /* encoded_len */,
                      int sample_rate_hz,
                      int16_t* decoded,
-                     SpeechType* speech_type) override {
+                     SpeechType* speech_type,
+                     ChannelLayout* channel_layout) override {
     EXPECT_EQ(sample_rate_hz_, sample_rate_hz);
     size_t decoded_len =
         rtc::CheckedDivExact(sample_rate_hz, 1000) * 120 * Channels();
@@ -1815,6 +1825,7 @@ class Decoder120ms : public AudioDecoder {
       decoded[i] = next_value_++;
     }
     *speech_type = speech_type_;
+    *channel_layout = channel_layout_;
     return rtc::checked_cast<int>(decoded_len);
   }
 
@@ -1826,6 +1837,7 @@ class Decoder120ms : public AudioDecoder {
   int sample_rate_hz_;
   int16_t next_value_;
   SpeechType speech_type_;
+  ChannelLayout channel_layout_;
 };
 
 class NetEqImplTest120ms : public NetEqImplTest {
@@ -1876,12 +1888,14 @@ class NetEqImplTest120ms : public NetEqImplTest {
     sequence_number_++;
   }
 
-  void Register120msCodec(AudioDecoder::SpeechType speech_type) {
+  void Register120msCodec(AudioDecoder::SpeechType speech_type,
+                          AudioDecoder::ChannelLayout channel_layout) {
     const uint32_t sampling_freq = kSamplingFreq_;
     decoder_factory_ = rtc::make_ref_counted<test::FunctionAudioDecoderFactory>(
-        [sampling_freq, speech_type]() {
+        [sampling_freq, speech_type, channel_layout]() {
           std::unique_ptr<AudioDecoder> decoder =
-              std::make_unique<Decoder120ms>(sampling_freq, speech_type);
+              std::make_unique<Decoder120ms>(sampling_freq, speech_type,
+                                             channel_layout);
           RTC_CHECK_EQ(2, decoder->Channels());
           return decoder;
         });
@@ -1895,7 +1909,8 @@ class NetEqImplTest120ms : public NetEqImplTest {
 };
 
 TEST_F(NetEqImplTest120ms, CodecInternalCng) {
-  Register120msCodec(AudioDecoder::kComfortNoise);
+  Register120msCodec(AudioDecoder::kComfortNoise,
+                     AudioDecoder::ChannelLayout::kMono);
   CreateInstanceNoMocks();
 
   InsertPacket(first_timestamp());
@@ -1908,7 +1923,7 @@ TEST_F(NetEqImplTest120ms, CodecInternalCng) {
 }
 
 TEST_F(NetEqImplTest120ms, Normal) {
-  Register120msCodec(AudioDecoder::kSpeech);
+  Register120msCodec(AudioDecoder::kSpeech, AudioDecoder::ChannelLayout::kMono);
   CreateInstanceNoMocks();
 
   InsertPacket(first_timestamp());
@@ -1918,7 +1933,7 @@ TEST_F(NetEqImplTest120ms, Normal) {
 }
 
 TEST_F(NetEqImplTest120ms, Merge) {
-  Register120msCodec(AudioDecoder::kSpeech);
+  Register120msCodec(AudioDecoder::kSpeech, AudioDecoder::ChannelLayout::kMono);
   CreateInstanceWithDelayManagerMock();
 
   InsertPacket(first_timestamp());
@@ -1939,7 +1954,7 @@ TEST_F(NetEqImplTest120ms, Merge) {
 }
 
 TEST_F(NetEqImplTest120ms, Expand) {
-  Register120msCodec(AudioDecoder::kSpeech);
+  Register120msCodec(AudioDecoder::kSpeech, AudioDecoder::ChannelLayout::kMono);
   CreateInstanceNoMocks();
 
   InsertPacket(first_timestamp());
@@ -1951,7 +1966,7 @@ TEST_F(NetEqImplTest120ms, Expand) {
 }
 
 TEST_F(NetEqImplTest120ms, FastAccelerate) {
-  Register120msCodec(AudioDecoder::kSpeech);
+  Register120msCodec(AudioDecoder::kSpeech, AudioDecoder::ChannelLayout::kMono);
   CreateInstanceWithDelayManagerMock();
 
   InsertPacket(first_timestamp());
@@ -1969,7 +1984,7 @@ TEST_F(NetEqImplTest120ms, FastAccelerate) {
 }
 
 TEST_F(NetEqImplTest120ms, PreemptiveExpand) {
-  Register120msCodec(AudioDecoder::kSpeech);
+  Register120msCodec(AudioDecoder::kSpeech, AudioDecoder::ChannelLayout::kMono);
   CreateInstanceWithDelayManagerMock();
 
   InsertPacket(first_timestamp());
@@ -1988,7 +2003,7 @@ TEST_F(NetEqImplTest120ms, PreemptiveExpand) {
 }
 
 TEST_F(NetEqImplTest120ms, Accelerate) {
-  Register120msCodec(AudioDecoder::kSpeech);
+  Register120msCodec(AudioDecoder::kSpeech, AudioDecoder::ChannelLayout::kMono);
   CreateInstanceWithDelayManagerMock();
 
   InsertPacket(first_timestamp());

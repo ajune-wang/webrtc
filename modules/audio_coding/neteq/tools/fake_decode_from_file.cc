@@ -76,7 +76,8 @@ int FakeDecodeFromFile::DecodeInternal(const uint8_t* encoded,
                                        size_t encoded_len,
                                        int sample_rate_hz,
                                        int16_t* decoded,
-                                       SpeechType* speech_type) {
+                                       SpeechType* speech_type,
+                                       ChannelLayout* channel_layout) {
   // This call is only used to produce codec-internal comfort noise.
   RTC_DCHECK_EQ(sample_rate_hz, SampleRateHz());
   RTC_DCHECK_EQ(encoded_len, 0);
@@ -86,6 +87,7 @@ int FakeDecodeFromFile::DecodeInternal(const uint8_t* encoded,
   const int total_samples_to_decode = samples_to_decode * (stereo_ ? 2 : 1);
   std::fill_n(decoded, total_samples_to_decode, 0);
   *speech_type = kComfortNoise;
+  *channel_layout = ChannelLayout::kUnknown;
   return rtc::dchecked_cast<int>(total_samples_to_decode);
 }
 

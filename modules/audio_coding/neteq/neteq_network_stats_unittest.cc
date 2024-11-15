@@ -118,7 +118,8 @@ class MockAudioDecoder final : public AudioDecoder {
                      size_t /* encoded_len */,
                      int /* sample_rate_hz */,
                      int16_t* /* decoded */,
-                     SpeechType* /* speech_type */) override {
+                     SpeechType* /* speech_type */,
+                     ChannelLayout* /* channel_layout */) override {
     ADD_FAILURE() << "Since going through ParsePayload, DecodeInternal should "
                      "never get called.";
     return -1;

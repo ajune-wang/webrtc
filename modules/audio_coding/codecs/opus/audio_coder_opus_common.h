@@ -61,21 +61,25 @@ class OpusFrame : public AudioDecoder::EncodedAudioFrame {
   std::optional<DecodeResult> Decode(
       rtc::ArrayView<int16_t> decoded) const override {
     AudioDecoder::SpeechType speech_type = AudioDecoder::kSpeech;
+    AudioDecoder::ChannelLayout channel_layout =
+        AudioDecoder::ChannelLayout::kUnknown;
     int ret;
     if (is_primary_payload_) {
-      ret = decoder_->Decode(
-          payload_.data(), payload_.size(), decoder_->SampleRateHz(),
-          decoded.size() * sizeof(int16_t), decoded.data(), &speech_type);
+      ret = decoder_->Decode(payload_.data(), payload_.size(),
+                             decoder_->SampleRateHz(),
+                             decoded.size() * sizeof(int16_t), decoded.data(),
+                             &speech_type, &channel_layout);
     } else {
       ret = decoder_->DecodeRedundant(
           payload_.data(), payload_.size(), decoder_->SampleRateHz(),
-          decoded.size() * sizeof(int16_t), decoded.data(), &speech_type);
+          decoded.size() * sizeof(int16_t), decoded.data(), &speech_type,
+          &channel_layout);
     }
 
     if (ret < 0)
       return std::nullopt;
 
-    return DecodeResult{static_cast<size_t>(ret), speech_type};
+    return DecodeResult{static_cast<size_t>(ret), speech_type, channel_layout};
   }
 
  private:

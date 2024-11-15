@@ -63,7 +63,8 @@ int AudioDecoderOpusImpl::DecodeInternal(const uint8_t* encoded,
                                          size_t encoded_len,
                                          int sample_rate_hz,
                                          int16_t* decoded,
-                                         SpeechType* speech_type) {
+                                         SpeechType* speech_type,
+                                         ChannelLayout* channel_layout) {
   RTC_DCHECK_EQ(sample_rate_hz, sample_rate_hz_);
   int16_t temp_type = 1;  // Default is speech.
   int ret =
@@ -74,15 +75,17 @@ int AudioDecoderOpusImpl::DecodeInternal(const uint8_t* encoded,
   return ret;
 }
 
-int AudioDecoderOpusImpl::DecodeRedundantInternal(const uint8_t* encoded,
-                                                  size_t encoded_len,
-                                                  int sample_rate_hz,
-                                                  int16_t* decoded,
-                                                  SpeechType* speech_type) {
+int AudioDecoderOpusImpl::DecodeRedundantInternal(
+    const uint8_t* encoded,
+    size_t encoded_len,
+    int sample_rate_hz,
+    int16_t* decoded,
+    SpeechType* speech_type,
+    ChannelLayout* channel_layout) {
   if (!PacketHasFec(encoded, encoded_len)) {
     // This packet is a RED packet.
     return DecodeInternal(encoded, encoded_len, sample_rate_hz, decoded,
-                          speech_type);
+                          speech_type, channel_layout);
   }
 
   RTC_DCHECK_EQ(sample_rate_hz, sample_rate_hz_);

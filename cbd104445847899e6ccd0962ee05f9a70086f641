@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4ee5cfb1_9bc0e273",
+        "filename": "sdk/objc/native/src/audio/audio_device_ios.mm",
+        "patchSetId": 2
+      },
+      "lineNbr": 492,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2024-11-15T08:13:34Z",
+      "side": 1,
+      "message": "add constant",
+      "range": {
+        "startLine": 492,
+        "startChar": 88,
+        "endLine": 492,
+        "endChar": 89
+      },
+      "revId": "cbd104445847899e6ccd0962ee05f9a70086f641",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b9624daf_8a005ec3",
+        "filename": "sdk/objc/native/src/audio/audio_device_ios.mm",
+        "patchSetId": 2
+      },
+      "lineNbr": 492,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2024-11-15T08:13:34Z",
+      "side": 1,
+      "message": "`\u003e\u003d` ?",
+      "range": {
+        "startLine": 492,
+        "startChar": 50,
+        "endLine": 492,
+        "endChar": 51
+      },
+      "revId": "cbd104445847899e6ccd0962ee05f9a70086f641",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2d8f0c7c_efe18914",
+        "filename": "sdk/objc/native/src/audio/audio_device_ios.mm",
+        "patchSetId": 2
+      },
+      "lineNbr": 499,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2024-11-15T08:13:34Z",
+      "side": 1,
+      "message": "nit, I\u0027m not a fan of this notation. Use kMsToSeconds instead? :)",
+      "range": {
+        "startLine": 499,
+        "startChar": 6,
+        "endLine": 499,
+        "endChar": 10
+      },
+      "revId": "cbd104445847899e6ccd0962ee05f9a70086f641",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0765bd5b_c70d3349",
+        "filename": "sdk/objc/native/src/audio/audio_device_ios.mm",
+        "patchSetId": 2
+      },
+      "lineNbr": 512,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2024-11-15T08:13:34Z",
+      "side": 1,
+      "message": "same",
+      "range": {
+        "startLine": 512,
+        "startChar": 54,
+        "endLine": 512,
+        "endChar": 57
+      },
+      "revId": "cbd104445847899e6ccd0962ee05f9a70086f641",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

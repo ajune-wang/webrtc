@@ -24,6 +24,7 @@ namespace webrtc {
 class TimestampExtrapolator {
  public:
   explicit TimestampExtrapolator(Timestamp start);
+  ~TimestampExtrapolator();
   void Update(Timestamp now, uint32_t ts90khz);
   std::optional<Timestamp> ExtrapolateLocalTime(uint32_t timestamp90khz) const;
   void Reset(Timestamp start);

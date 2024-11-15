@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "186942b7_b88da3bd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-11-15T05:13:19Z",
+      "side": 1,
+      "message": "Looks like an unintended side effect of https://webrtc-review.googlesource.com/c/src/+/359928\n\nApproving.",
+      "revId": "3d864eee10431498760a520f905acdc79c4a4406",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

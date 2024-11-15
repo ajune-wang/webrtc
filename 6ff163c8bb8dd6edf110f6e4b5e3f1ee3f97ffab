@@ -3,6 +3,75 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "550d9ec4_894a9792",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 3735736
+      },
+      "writtenOn": "2024-11-15T19:10:16Z",
+      "side": 1,
+      "message": "nit: remove this \"on\"",
+      "range": {
+        "startLine": 7,
+        "startChar": 4,
+        "endLine": 7,
+        "endChar": 6
+      },
+      "revId": "6ff163c8bb8dd6edf110f6e4b5e3f1ee3f97ffab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "94346433_774cac53",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 3735736
+      },
+      "writtenOn": "2024-11-15T19:10:16Z",
+      "side": 1,
+      "message": "nit: \"\u0027incoming\u0027 codec_settings_list \u0027size\u0027 is more [...]\"",
+      "range": {
+        "startLine": 9,
+        "startChar": 5,
+        "endLine": 9,
+        "endChar": 13
+      },
+      "revId": "6ff163c8bb8dd6edf110f6e4b5e3f1ee3f97ffab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4696f79d_f2ca06fe",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 3735736
+      },
+      "writtenOn": "2024-11-15T19:10:16Z",
+      "side": 1,
+      "message": "nit: \"only when\"",
+      "range": {
+        "startLine": 13,
+        "startChar": 47,
+        "endLine": 13,
+        "endChar": 51
+      },
+      "revId": "6ff163c8bb8dd6edf110f6e4b5e3f1ee3f97ffab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "bd16f2e2_47c565f9",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -65,6 +134,29 @@
       "writtenOn": "2024-11-15T14:07:09Z",
       "side": 1,
       "message": "Fix the typo",
+      "revId": "6ff163c8bb8dd6edf110f6e4b5e3f1ee3f97ffab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a5a1e7a1_78b6d520",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2017,
+      "author": {
+        "id": 3735736
+      },
+      "writtenOn": "2024-11-15T19:10:16Z",
+      "side": 1,
+      "message": "What is the goal of having this check? This overlaps with the `if` statement condition. I think the correct negation would be: `codec_settings_list.empty() || (parameters_.config.rtp.ssrcs.size() !\u003d codec_settings_list.size()`.",
+      "range": {
+        "startLine": 2017,
+        "startChar": 4,
+        "endLine": 2017,
+        "endChar": 14
+      },
       "revId": "6ff163c8bb8dd6edf110f6e4b5e3f1ee3f97ffab",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

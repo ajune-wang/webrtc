@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e40594c6_30fe30b6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 18789
+      },
+      "writtenOn": "2024-11-15T21:04:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "550d9ec4_894a9792",
+      "range": {
+        "startLine": 7,
+        "startChar": 4,
+        "endLine": 7,
+        "endChar": 6
+      },
+      "revId": "6ff163c8bb8dd6edf110f6e4b5e3f1ee3f97ffab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "94346433_774cac53",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-11-15T19:10:16Z",
       "side": 1,
       "message": "nit: \"\u0027incoming\u0027 codec_settings_list \u0027size\u0027 is more [...]\"",
+      "range": {
+        "startLine": 9,
+        "startChar": 5,
+        "endLine": 9,
+        "endChar": 13
+      },
+      "revId": "6ff163c8bb8dd6edf110f6e4b5e3f1ee3f97ffab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "afb594ab_d83db00b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 18789
+      },
+      "writtenOn": "2024-11-15T21:04:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "94346433_774cac53",
       "range": {
         "startLine": 9,
         "startChar": 5,
@@ -70,6 +118,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a641b8da_129b88ea",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 18789
+      },
+      "writtenOn": "2024-11-15T21:04:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4696f79d_f2ca06fe",
+      "range": {
+        "startLine": 13,
+        "startChar": 47,
+        "endLine": 13,
+        "endChar": 51
+      },
+      "revId": "6ff163c8bb8dd6edf110f6e4b5e3f1ee3f97ffab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bd16f2e2_47c565f9",
@@ -83,6 +155,24 @@
       "writtenOn": "2024-11-15T14:07:09Z",
       "side": 1,
       "message": "Lower case chromium to have the link work properly.",
+      "revId": "6ff163c8bb8dd6edf110f6e4b5e3f1ee3f97ffab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1148e1fb_26680f5a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 18789
+      },
+      "writtenOn": "2024-11-15T21:04:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bd16f2e2_47c565f9",
       "revId": "6ff163c8bb8dd6edf110f6e4b5e3f1ee3f97ffab",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -138,6 +228,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "331a67d5_f8e07c5e",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2015,
+      "author": {
+        "id": 18789
+      },
+      "writtenOn": "2024-11-15T21:04:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "59d0736f_0386c967",
+      "revId": "6ff163c8bb8dd6edf110f6e4b5e3f1ee3f97ffab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a5a1e7a1_78b6d520",
@@ -151,6 +259,30 @@
       "writtenOn": "2024-11-15T19:10:16Z",
       "side": 1,
       "message": "What is the goal of having this check? This overlaps with the `if` statement condition. I think the correct negation would be: `codec_settings_list.empty() || (parameters_.config.rtp.ssrcs.size() !\u003d codec_settings_list.size()`.",
+      "range": {
+        "startLine": 2017,
+        "startChar": 4,
+        "endLine": 2017,
+        "endChar": 14
+      },
+      "revId": "6ff163c8bb8dd6edf110f6e4b5e3f1ee3f97ffab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "321f6d75_ea9d9dce",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2017,
+      "author": {
+        "id": 18789
+      },
+      "writtenOn": "2024-11-15T21:04:53Z",
+      "side": 1,
+      "message": "it tries to catch the DCHECK failure here.",
+      "parentUuid": "a5a1e7a1_78b6d520",
       "range": {
         "startLine": 2017,
         "startChar": 4,

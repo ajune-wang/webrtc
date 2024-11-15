@@ -821,6 +821,44 @@ int LibvpxVp8Encoder::NumberOfThreads(int width, int height, int cpus) {
 }
 
 int LibvpxVp8Encoder::InitAndSetControlSettings() {
+  webrtc::FieldTrialParameter<int> num_threads("num_threads",
+                                               vpx_configs_[0].g_threads);
+  webrtc::FieldTrialParameter<int> rc_end_usage("rc_end_usage",
+                                                vpx_configs_[0].rc_end_usage);
+  webrtc::FieldTrialParameter<int> rc_min_quantizer(
+      "rc_min_quantizer", vpx_configs_[0].rc_min_quantizer);
+  webrtc::FieldTrialParameter<int> rc_max_quantizer(
+      "rc_max_quantizer", vpx_configs_[0].rc_max_quantizer);
+  webrtc::FieldTrialParameter<int> rc_undershoot_pct(
+      "rc_undershoot_pct", vpx_configs_[0].rc_undershoot_pct);
+  webrtc::FieldTrialParameter<int> rc_overshoot_pct(
+      "rc_overshoot_pct", vpx_configs_[0].rc_overshoot_pct);
+  webrtc::FieldTrialParameter<int> rc_buf_initial_sz(
+      "rc_buf_initial_sz", vpx_configs_[0].rc_buf_initial_sz);
+  webrtc::FieldTrialParameter<int> rc_buf_optimal_sz(
+      "rc_buf_optimal_sz", vpx_configs_[0].rc_buf_optimal_sz);
+  webrtc::FieldTrialParameter<int> rc_buf_sz("rc_buf_sz",
+                                             vpx_configs_[0].rc_buf_sz);
+  webrtc::FieldTrialOptional<int> cpuused("cpuused");
+  webrtc::FieldTrialOptional<int> max_intra_bitrate_pct(
+      "max_intra_bitrate_pct");
+
+  webrtc::ParseFieldTrial(
+      {&num_threads, &rc_end_usage, &rc_min_quantizer, &rc_max_quantizer,
+       &rc_undershoot_pct, &rc_overshoot_pct, &rc_buf_initial_sz,
+       &rc_buf_optimal_sz, &rc_buf_sz, &cpuused, &max_intra_bitrate_pct},
+      env_.field_trials().Lookup("WebRTC-EncoderSettings"));
+
+  vpx_configs_[0].g_threads = num_threads;
+  vpx_configs_[0].rc_end_usage = static_cast<vpx_rc_mode>(rc_end_usage.Get());
+  vpx_configs_[0].rc_min_quantizer = rc_min_quantizer;
+  vpx_configs_[0].rc_max_quantizer = rc_max_quantizer;
+  vpx_configs_[0].rc_undershoot_pct = rc_undershoot_pct;
+  vpx_configs_[0].rc_overshoot_pct = rc_overshoot_pct;
+  vpx_configs_[0].rc_buf_initial_sz = rc_buf_initial_sz;
+  vpx_configs_[0].rc_buf_optimal_sz = rc_buf_optimal_sz;
+  vpx_configs_[0].rc_buf_sz = rc_buf_sz;
+
   vpx_codec_flags_t flags = 0;
   flags |= VPX_CODEC_USE_OUTPUT_PARTITION;
 
@@ -849,6 +887,12 @@ int LibvpxVp8Encoder::InitAndSetControlSettings() {
 #else
   denoiserState denoiser_state = kDenoiserOnAdaptive;
 #endif
+
+  if (vpx_configs_[0].rc_end_usage == VPX_Q) {
+    // https://source.chromium.org/chromium/chromium/src/+/main:third_party/libvpx/source/libvpx/vp8/vp8_cx_iface.c;l=216;drc=8762f5efb2917765316a198e6713f0bc93b07c9b
+    libvpx_->codec_control(&encoders_[0], VP8E_SET_CQ_LEVEL, rc_min_quantizer);
+  }
+
   libvpx_->codec_control(
       &encoders_[0], VP8E_SET_NOISE_SENSITIVITY,
       codec_.VP8()->denoisingOn ? denoiser_state : kDenoiserOff);
@@ -873,6 +917,15 @@ int LibvpxVp8Encoder::InitAndSetControlSettings() {
     libvpx_->codec_control(
         &(encoders_[i]), VP8E_SET_SCREEN_CONTENT_MODE,
         codec_.mode == VideoCodecMode::kScreensharing ? 2u : 0u);
+
+    if (cpuused.GetOptional().has_value()) {
+      libvpx_->codec_control(&(encoders_[i]), VP8E_SET_CPUUSED,
+                             cpuused.Value());
+    }
+    if (max_intra_bitrate_pct.GetOptional().has_value()) {
+      libvpx_->codec_control(&(encoders_[i]), VP8E_SET_MAX_INTRA_BITRATE_PCT,
+                             max_intra_bitrate_pct.Value());
+    }
   }
   inited_ = true;
   return WEBRTC_VIDEO_CODEC_OK;

@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6e6923af_ffeb51d7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2024-11-15T14:55:51Z",
+      "side": 1,
+      "message": "Thanks!",
+      "parentUuid": "d6a74864_d24e1568",
+      "revId": "87d97c914f5d35a32820fbb72dcde5fc62c0b006",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "776eca21_0f18a42d",
@@ -31,6 +49,30 @@
       "writtenOn": "2024-11-15T13:58:04Z",
       "side": 1,
       "message": "I think this should be an int?\n\nhttps://google.github.io/styleguide/cppguide.html#Integer_Types",
+      "range": {
+        "startLine": 23,
+        "startChar": 10,
+        "endLine": 23,
+        "endChar": 18
+      },
+      "revId": "87d97c914f5d35a32820fbb72dcde5fc62c0b006",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6059e6c0_9896dcb1",
+        "filename": "modules/video_coding/timing/timestamp_extrapolator.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2024-11-15T14:55:51Z",
+      "side": 1,
+      "message": "Yes, I agree. I\u0027ve changed all count variables to be int now.",
+      "parentUuid": "776eca21_0f18a42d",
       "range": {
         "startLine": 23,
         "startChar": 10,

@@ -59,6 +59,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d58ab7ff_ff85d47b",
+        "filename": "pc/media_session.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1092,
+      "author": {
+        "id": 18005
+      },
+      "writtenOn": "2024-11-16T13:04:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "08874feb_43c2c3f6",
+      "range": {
+        "startLine": 1092,
+        "startChar": 35,
+        "endLine": 1092,
+        "endChar": 39
+      },
+      "revId": "1df1ab5199495d3dc2c355dca18dcd696e17e3f6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8a94ca34_5e8c8b3f",
@@ -90,6 +114,24 @@
       "side": 1,
       "message": "Yes. Ok will do.",
       "parentUuid": "8a94ca34_5e8c8b3f",
+      "revId": "1df1ab5199495d3dc2c355dca18dcd696e17e3f6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "12b800a2_7f13bbff",
+        "filename": "pc/media_session.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1093,
+      "author": {
+        "id": 18005
+      },
+      "writtenOn": "2024-11-16T13:04:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e8a38fab_93cd973d",
       "revId": "1df1ab5199495d3dc2c355dca18dcd696e17e3f6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -160,6 +202,24 @@
       "writtenOn": "2024-11-05T08:51:57Z",
       "side": 1,
       "message": "Since this is basically 4 different tests with a common SetUp(), I would suggest creating a separate test class for to avoid \"if-else\" code blocks that are essentially different TEST_Fs.\n\n```\nclass VideoCodecsOfferH265LevelIdTest : public ::testing::Test {\n public:\n  void SetUp() override {\n    /* the common set-up code */\n  }\n\n protected:\n  /* variables that are needed by TEST_F below */\n};\n\nTEST_F(VideoCodecsOfferH265LevelIdTest, SendOnlyDowngradesLevelId) {\n  /* code that is currently placed in if-else blocks */\n}\n\nTEST_F ... RecvOnly ...\nTEST_F ... SendRecv ...\nTEST_F ... Inactive ...\n```\n\nAlso since this test is quite specific to H265 I think you can place the `#ifdef RTC_ENABLE_H265` around the entire test class rather than in different places of the test",
+      "revId": "1df1ab5199495d3dc2c355dca18dcd696e17e3f6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "528f3d3e_40d3a265",
+        "filename": "pc/media_session_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 4981,
+      "author": {
+        "id": 18005
+      },
+      "writtenOn": "2024-11-16T13:04:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "43e8ca70_dec2407e",
       "revId": "1df1ab5199495d3dc2c355dca18dcd696e17e3f6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -249,6 +309,24 @@
       "side": 1,
       "message": "I see.\n\nIf I offer to send 100 and the receiver can do 150, I guess it doesn\u0027t matter if SDP says 100 or 150 because the end result is we can only send 100. I feel like 100 makes more sense, but I also see no \"harm\" in accepting an SDP answer that hints that the other endpoint can do even more.\n\nBut if I offer to send 150 and the receiver can only do 100, the only thing that makes sense to me is that the answer says 100. We should make sure this SDP answer does not get rejected due to 150 !\u003d 100.\n\nLastly for kSendRecv, I don\u0027t know, maybe to keep things simple we should just take the minimum level ID that is possible in both directions? It would be consistent with \"codec preferences are filtered out based on transceiver direction\" and it\u0027s easier to add more support in the future than to drop support after the fact",
       "parentUuid": "f6650a9e_753e82df",
+      "revId": "1df1ab5199495d3dc2c355dca18dcd696e17e3f6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1e46b0d2_8c925a5a",
+        "filename": "pc/media_session_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 4985,
+      "author": {
+        "id": 18005
+      },
+      "writtenOn": "2024-11-16T13:04:44Z",
+      "side": 1,
+      "message": "Updated the implementation according to discussion in IETF 121. Also updated the commit message accordingly.\n\nTests are added according to the shared test plan.",
+      "parentUuid": "6278806a_fda4f528",
       "revId": "1df1ab5199495d3dc2c355dca18dcd696e17e3f6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

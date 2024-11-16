@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "947988af_75ae7ce2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-11-16T05:34:43Z",
+      "side": 1,
+      "message": "I\u0027m not happy with RTC_DCHECK; I\u0027d prefer RTC_CHECK.\n\nIs it possible to write a test for this issue in webrtc_video_engine_unittests?",
+      "revId": "d3d8a20d679ee24e98f7a86acdb2d4e38130d485",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fd789ebd_c6d5cd85",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 2017,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-11-16T05:34:43Z",
+      "side": 1,
+      "message": "RTC_DCHECK means that it is ignorable in release builds but crashes in debug builds. When we know that this occasionally crashes, this is an iffy thing to do -  SetCodec is a void-returning function; it is not supposed to be able to fail, so ignoring the update will leave the system in an inconsistent state.\n\nMaking it an RTC_CHECK will make it always crash in a safe manner. Is that better?",
+      "revId": "d3d8a20d679ee24e98f7a86acdb2d4e38130d485",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

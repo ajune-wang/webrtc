@@ -419,4 +419,10 @@ Codec CreateVideoCodec(const webrtc::SdpVideoFormat& c) {
   return Codec(c);
 }
 
+Codec CreateVideoCodec(int id, const webrtc::SdpVideoFormat& sdp) {
+  Codec c = CreateVideoCodec(sdp);
+  c.id = id;
+  return c;
+}
+
 }  // namespace cricket

@@ -132,9 +132,6 @@ SendAudioStream::SendAudioStream(
     send_config.max_bitrate_bps = max_rate.bps();
   }
 
-  if (config.stream.in_bandwidth_estimation) {
-    send_config.send_codec_spec->transport_cc_enabled = true;
-  }
   send_config.rtp.extensions = GetAudioRtpExtensions(config);
 
   sender_->SendTask([&] {

@@ -1410,7 +1410,6 @@ void VideoQualityTest::SetupAudio(Transport* transport) {
                              kTransportSequenceNumberExtensionId));
     audio_send_config.min_bitrate_bps = kOpusMinBitrateBps;
     audio_send_config.max_bitrate_bps = kOpusBitrateFbBps;
-    audio_send_config.send_codec_spec->transport_cc_enabled = true;
     // Only allow ANA when send-side BWE is enabled.
     audio_send_config.audio_network_adaptor_config = params_.audio.ana_config;
   }

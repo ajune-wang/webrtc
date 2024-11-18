@@ -956,18 +956,6 @@ TEST_P(WebRtcVoiceEngineTestFake, CreateRecvStream) {
   EXPECT_EQ("", config.sync_group);
 }
 
-TEST_P(WebRtcVoiceEngineTestFake, OpusSupportsTransportCc) {
-  const std::vector<cricket::Codec>& codecs = engine_->send_codecs();
-  bool opus_found = false;
-  for (const cricket::Codec& codec : codecs) {
-    if (codec.name == "opus") {
-      EXPECT_TRUE(HasTransportCc(codec));
-      opus_found = true;
-    }
-  }
-  EXPECT_TRUE(opus_found);
-}
-
 // Test that we set our inbound codecs properly, including changing PT.
 TEST_P(WebRtcVoiceEngineTestFake, SetRecvCodecs) {
   EXPECT_TRUE(SetupChannel());

@@ -318,11 +318,6 @@ bool HasRrtr(const Codec& codec) {
       FeedbackParam(kRtcpFbParamRrtr, kParamValueEmpty));
 }
 
-bool HasTransportCc(const Codec& codec) {
-  return codec.HasFeedbackParam(
-      FeedbackParam(kRtcpFbParamTransportCc, kParamValueEmpty));
-}
-
 const Codec* FindMatchingVideoCodec(const std::vector<Codec>& supported_codecs,
                                     const Codec& codec) {
   webrtc::SdpVideoFormat sdp_video_format{codec.name, codec.params};

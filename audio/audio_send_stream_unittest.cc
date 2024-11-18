@@ -200,7 +200,6 @@ struct ConfigHelper {
   static void AddBweToConfig(AudioSendStream::Config* config) {
     config->rtp.extensions.push_back(RtpExtension(
         RtpExtension::kTransportSequenceNumberUri, kTransportSequenceNumberId));
-    config->send_codec_spec->transport_cc_enabled = true;
   }
 
   void SetupDefaultChannelSend(bool audio_bwe_enabled) {
@@ -354,7 +353,6 @@ TEST(AudioSendStreamTest, ConfigToString) {
   config.send_codec_spec =
       AudioSendStream::Config::SendCodecSpec(kIsacPayloadType, kIsacFormat);
   config.send_codec_spec->nack_enabled = true;
-  config.send_codec_spec->transport_cc_enabled = false;
   config.send_codec_spec->cng_payload_type = 42;
   config.send_codec_spec->red_payload_type = 43;
   config.encoder_factory = MockAudioEncoderFactory::CreateUnusedFactory();
@@ -369,7 +367,7 @@ TEST(AudioSendStreamTest, ConfigToString) {
       "send_transport: null, "
       "min_bitrate_bps: 12000, max_bitrate_bps: 34000, has "
       "audio_network_adaptor_config: false, has_dscp: true, "
-      "send_codec_spec: {nack_enabled: true, transport_cc_enabled: false, "
+      "send_codec_spec: {nack_enabled: true, "
       "enable_non_sender_rtt: false, cng_payload_type: 42, "
       "red_payload_type: 43, payload_type: 103, "
       "format: {name: isac, clockrate_hz: 16000, num_channels: 1, "

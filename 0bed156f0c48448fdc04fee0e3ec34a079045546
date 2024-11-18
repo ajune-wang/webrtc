@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "250eabf0_b2d4d04f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-11-18T21:58:29Z",
+      "side": 1,
+      "message": "Suggestion for making progress:\nThere are four callers to SetCodec, all in webrtc_video_engine.cc:\n- WebRtcVideoSendStream constructor\n- WebRtcVideoSendStream::SetVideoSend\n- WebRtcVideoSendStream::SetSenderParameters (2 places)\n\nIn addition to the current check, add an RTC_CHECK to each of the call sites; the next crash to occur will reveal which call site causes the crash to happen.",
+      "revId": "0bed156f0c48448fdc04fee0e3ec34a079045546",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

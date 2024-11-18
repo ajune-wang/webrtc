@@ -307,6 +307,8 @@ class Call final : public webrtc::Call,
 
   void OnUpdateSyncGroup(webrtc::AudioReceiveStreamInterface& stream,
                          absl::string_view sync_group) override;
+  uint32_t SsrcForAudioRtcp() override;
+  uint32_t SsrcForVideoRtcp() override;
 
   void OnSentPacket(const rtc::SentPacket& sent_packet) override;
 
@@ -446,6 +448,9 @@ class Call final : public webrtc::Call,
       RTC_GUARDED_BY(worker_thread_);
   std::set<VideoSendStreamImpl*> video_send_streams_
       RTC_GUARDED_BY(worker_thread_);
+  std::optional<uint32_t> ssrc_for_audio_rtcp_ RTC_GUARDED_BY(worker_thread_);
+  std::optional<uint32_t> ssrc_for_video_rtcp_ RTC_GUARDED_BY(worker_thread_);
+
   // True if `video_send_streams_` is empty, false if not. The atomic variable
   // is used to decide UMA send statistics behavior and enables avoiding a
   // PostTask().
@@ -950,6 +955,7 @@ webrtc::VideoSendStream* Call::CreateVideoSendStream(
     VideoEncoderConfig encoder_config,
     std::unique_ptr<FecController> fec_controller) {
   TRACE_EVENT0("webrtc", "Call::CreateVideoSendStream");
+  RTC_LOG(LS_ERROR) << "DEBUG: Call::CreateVideoSendStream";
   RTC_DCHECK_RUN_ON(worker_thread_);
 
   EnsureStarted();
@@ -975,6 +981,7 @@ webrtc::VideoSendStream* Call::CreateVideoSendStream(
 
   for (uint32_t ssrc : ssrcs) {
     RTC_DCHECK(video_send_ssrcs_.find(ssrc) == video_send_ssrcs_.end());
+    RTC_LOG(LS_ERROR) << "DEBUG: adding video_send_ssrc_ " << ssrc;
     video_send_ssrcs_[ssrc] = send_stream;
   }
   video_send_streams_.insert(send_stream);
@@ -1007,6 +1014,7 @@ webrtc::VideoSendStream* Call::CreateVideoSendStream(
 
 void Call::DestroyVideoSendStream(webrtc::VideoSendStream* send_stream) {
   TRACE_EVENT0("webrtc", "Call::DestroyVideoSendStream");
+  RTC_LOG(LS_ERROR) << "DEBUG: Call::DestroyVideoSendStream";
   RTC_DCHECK(send_stream != nullptr);
   RTC_DCHECK_RUN_ON(worker_thread_);
 
@@ -1015,8 +1023,9 @@ void Call::DestroyVideoSendStream(webrtc::VideoSendStream* send_stream) {
 
   auto it = video_send_ssrcs_.begin();
   while (it != video_send_ssrcs_.end()) {
-    if (it->second == static_cast<VideoSendStreamImpl*>(send_stream)) {
+    if (it->second == send_stream) {
       send_stream_impl = it->second;
+      RTC_LOG(LS_ERROR) << "DEBUG: Erasing SSRC " << it->first;
       video_send_ssrcs_.erase(it++);
     } else {
       ++it;
@@ -1317,6 +1326,30 @@ void Call::OnUpdateSyncGroup(webrtc::AudioReceiveStreamInterface& stream,
       static_cast<webrtc::AudioReceiveStreamImpl&>(stream);
   receive_stream.SetSyncGroup(sync_group);
   ConfigureSync(sync_group);
+}
+
+uint32_t Call::SsrcForAudioRtcp() {
+  RTC_DCHECK_RUN_ON(worker_thread_);
+  if (audio_send_ssrcs_.empty()) {
+    return 0xFA1FFA1Fu;
+  }
+  if (!ssrc_for_audio_rtcp_ ||
+      audio_send_ssrcs_.count(*ssrc_for_audio_rtcp_) == 0) {
+    ssrc_for_audio_rtcp_ = audio_send_ssrcs_.begin()->first;
+  }
+  return *ssrc_for_audio_rtcp_;
+}
+
+uint32_t Call::SsrcForVideoRtcp() {
+  RTC_DCHECK_RUN_ON(worker_thread_);
+  if (video_send_ssrcs_.empty()) {
+    return 1u;
+  }
+  if (!ssrc_for_video_rtcp_ ||
+      video_send_ssrcs_.count(*ssrc_for_video_rtcp_) == 0) {
+    ssrc_for_video_rtcp_ = video_send_ssrcs_.begin()->first;
+  }
+  return *ssrc_for_video_rtcp_;
 }
 
 void Call::OnSentPacket(const rtc::SentPacket& sent_packet) {

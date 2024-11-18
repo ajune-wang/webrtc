@@ -10,21 +10,54 @@
 
 #include "media/engine/fake_webrtc_call.h"
 
+#include <cstddef>
 #include <cstdint>
+#include <map>
+#include <string>
 #include <utility>
+#include <vector>
 
 #include "absl/algorithm/container.h"
+#include "absl/functional/any_invocable.h"
 #include "absl/strings/string_view.h"
+#include "api/adaptation/resource.h"
+#include "api/audio_codecs/audio_format.h"
 #include "api/call/audio_sink.h"
+#include "api/crypto/frame_decryptor_interface.h"
 #include "api/environment/environment.h"
+#include "api/frame_transformer_interface.h"
+#include "api/make_ref_counted.h"
+#include "api/media_types.h"
+#include "api/rtc_error.h"
+#include "api/rtp_headers.h"
+#include "api/rtp_parameters.h"
+#include "api/rtp_sender_interface.h"
+#include "api/scoped_refptr.h"
+#include "api/task_queue/task_queue_base.h"
 #include "api/units/timestamp.h"
+#include "api/video/video_source_interface.h"
+#include "api/video/video_stream_encoder_settings.h"
+#include "api/video_codecs/video_codec.h"
+#include "api/video_codecs/video_encoder.h"
+#include "call/audio_receive_stream.h"
+#include "call/audio_send_stream.h"
+#include "call/call.h"
+#include "call/flexfec_receive_stream.h"
 #include "call/packet_receiver.h"
+#include "call/video_receive_stream.h"
+#include "call/video_send_stream.h"
 #include "media/base/media_channel.h"
+#include "modules/rtp_rtcp/source/rtp_packet_received.h"
 #include "modules/rtp_rtcp/source/rtp_util.h"
+#include "rtc_base/buffer.h"
 #include "rtc_base/checks.h"
-#include "rtc_base/gunit.h"
+#include "rtc_base/copy_on_write_buffer.h"
+#include "rtc_base/logging.h"
+#include "rtc_base/network/sent_packet.h"
 #include "rtc_base/thread.h"
+#include "test/gtest.h"
 #include "video/config/encoder_stream_factory.h"
+#include "video/config/video_encoder_config.h"
 
 namespace cricket {
 
@@ -538,6 +571,16 @@ webrtc::AudioSendStream* FakeCall::CreateAudioSendStream(
       new FakeAudioSendStream(next_stream_id_++, config);
   audio_send_streams_.push_back(fake_stream);
   ++num_created_send_streams_;
+  // Support algorithm for SSRC selection
+  RTC_LOG(LS_ERROR) << "DEBUG: Adding in-use audio ssrc " << config.rtp.ssrc;
+  audio_ssrcs_in_use_.insert(config.rtp.ssrc);
+
+  if (!audio_ssrcs_in_use_.count(ssrc_for_audio_rtcp_)) {
+    ssrc_for_audio_rtcp_ = *audio_ssrcs_in_use_.begin();
+    RTC_LOG(LS_ERROR) << "DEBUG: Switching ssrc_for_audio_rtcp_ to "
+                      << ssrc_for_audio_rtcp_;
+  }
+
   return fake_stream;
 }
 
@@ -547,8 +590,21 @@ void FakeCall::DestroyAudioSendStream(webrtc::AudioSendStream* send_stream) {
   if (it == audio_send_streams_.end()) {
     ADD_FAILURE() << "DestroyAudioSendStream called with unknown parameter.";
   } else {
+    uint32_t ssrc =
+        static_cast<FakeAudioSendStream*>(send_stream)->GetConfig().rtp.ssrc;
+    RTC_LOG(LS_ERROR) << "DEBUG: DestroyAudioSendStream: Deleting " << ssrc;
+    audio_ssrcs_in_use_.erase(ssrc);
+
     delete *it;
     audio_send_streams_.erase(it);
+  }
+  if (audio_ssrcs_in_use_.empty()) {
+    RTC_LOG(LS_ERROR) << "DEBUG: Set empty, switching to 1";
+    ssrc_for_audio_rtcp_ = 1;
+  } else if (!audio_ssrcs_in_use_.count(ssrc_for_audio_rtcp_)) {
+    RTC_LOG(LS_ERROR) << "DEBUG: SSRC gone, switching to "
+                      << *audio_ssrcs_in_use_.begin();
+    ssrc_for_video_rtcp_ = *video_ssrcs_in_use_.begin();
   }
 }
 
@@ -579,6 +635,16 @@ webrtc::VideoSendStream* FakeCall::CreateVideoSendStream(
       env_, std::move(config), std::move(encoder_config));
   video_send_streams_.push_back(fake_stream);
   ++num_created_send_streams_;
+  // Support algorithm for SSRC selection
+  for (auto ssrc : config.rtp.ssrcs) {
+    RTC_LOG(LS_ERROR) << "DEBUG: Adding in-use ssrc " << ssrc;
+    video_ssrcs_in_use_.insert(ssrc);
+  }
+  if (!video_ssrcs_in_use_.count(ssrc_for_video_rtcp_)) {
+    ssrc_for_video_rtcp_ = *video_ssrcs_in_use_.begin();
+    RTC_LOG(LS_ERROR) << "DEBUG: Switching ssrc_for_video_rtcp_ to "
+                      << ssrc_for_video_rtcp_;
+  }
   return fake_stream;
 }
 
@@ -588,8 +654,22 @@ void FakeCall::DestroyVideoSendStream(webrtc::VideoSendStream* send_stream) {
   if (it == video_send_streams_.end()) {
     ADD_FAILURE() << "DestroyVideoSendStream called with unknown parameter.";
   } else {
+    for (auto ssrc : static_cast<FakeVideoSendStream*>(send_stream)
+                         ->GetConfig()
+                         .rtp.ssrcs) {
+      RTC_LOG(LS_ERROR) << "DEBUG: DestroyVideoSendStream: Deleting " << ssrc;
+      video_ssrcs_in_use_.erase(ssrc);
+    }
     delete *it;
     video_send_streams_.erase(it);
+  }
+  if (video_ssrcs_in_use_.empty()) {
+    RTC_LOG(LS_ERROR) << "DEBUG: Set empty, switching to 1";
+    ssrc_for_video_rtcp_ = 1;
+  } else if (!video_ssrcs_in_use_.count(ssrc_for_video_rtcp_)) {
+    RTC_LOG(LS_ERROR) << "DEBUG: SSRC gone, switching to "
+                      << *video_ssrcs_in_use_.begin();
+    ssrc_for_video_rtcp_ = *video_ssrcs_in_use_.begin();
   }
 }
 
@@ -752,6 +832,18 @@ void FakeCall::OnUpdateSyncGroup(webrtc::AudioReceiveStreamInterface& stream,
                                  absl::string_view sync_group) {
   auto& fake_stream = static_cast<FakeAudioReceiveStream&>(stream);
   fake_stream.SetSyncGroup(sync_group);
+}
+
+uint32_t FakeCall::SsrcForAudioRtcp() {
+  RTC_LOG(LS_ERROR) << "DEBUG: SsrcForAudioRtcp Returning "
+                    << ssrc_for_audio_rtcp_;
+  return ssrc_for_audio_rtcp_;
+}
+
+uint32_t FakeCall::SsrcForVideoRtcp() {
+  RTC_LOG(LS_ERROR) << "DEBUG:SsrcforVideoRtcp Returning "
+                    << ssrc_for_video_rtcp_;
+  return ssrc_for_video_rtcp_;
 }
 
 void FakeCall::OnSentPacket(const rtc::SentPacket& sent_packet) {

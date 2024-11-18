@@ -148,6 +148,10 @@ class Call {
   virtual void OnUpdateSyncGroup(AudioReceiveStreamInterface& stream,
                                  absl::string_view sync_group) = 0;
 
+  // Returns the SSRC that should be used to send RTCP reports
+  virtual uint32_t SsrcForAudioRtcp() = 0;
+  virtual uint32_t SsrcForVideoRtcp() = 0;
+
   virtual void OnSentPacket(const rtc::SentPacket& sent_packet) = 0;
 
   virtual void SetClientBitratePreferences(

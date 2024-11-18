@@ -18,6 +18,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6106a0e9_2fd5ba07",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-11-18T08:04:19Z",
+      "side": 1,
+      "message": "Fixing the reason why this happens would be preferable, of course.\nAlternatively, we could detect the size mismatch at a level before this function is called, in a call that has an error return.\n\nHaving a test that exercises the error condition would help illustrate the issue.",
+      "revId": "d3d8a20d679ee24e98f7a86acdb2d4e38130d485",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fd789ebd_c6d5cd85",
@@ -66,6 +83,24 @@
       "writtenOn": "2024-11-18T07:18:54Z",
       "side": 1,
       "message": "typo: reverting https://webrtc-review.googlesource.com/c/src/+/364440",
+      "parentUuid": "4c94185e_8801dde5",
+      "revId": "d3d8a20d679ee24e98f7a86acdb2d4e38130d485",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3e5702d7_d76ae270",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 2017,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-11-18T08:04:19Z",
+      "side": 1,
+      "message": "which CC are you considering reverting?\nI assume this is https://webrtc-review.googlesource.com/c/src/+/364440 which was landed more than a month ago.",
       "parentUuid": "4c94185e_8801dde5",
       "revId": "d3d8a20d679ee24e98f7a86acdb2d4e38130d485",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"

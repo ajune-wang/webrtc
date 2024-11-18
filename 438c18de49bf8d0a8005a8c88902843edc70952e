@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "384eb7f6_9393d17c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2024-11-18T16:09:49Z",
+      "side": 1,
+      "message": "Hi Henrik, could you please approve this cherry pick? /Alessio",
+      "revId": "438c18de49bf8d0a8005a8c88902843edc70952e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

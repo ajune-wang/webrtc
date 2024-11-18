@@ -33,6 +33,24 @@
       "message": "RTC_DCHECK means that it is ignorable in release builds but crashes in debug builds. When we know that this occasionally crashes, this is an iffy thing to do -  SetCodec is a void-returning function; it is not supposed to be able to fail, so ignoring the update will leave the system in an inconsistent state.\n\nMaking it an RTC_CHECK will make it always crash in a safe manner. Is that better?",
       "revId": "d3d8a20d679ee24e98f7a86acdb2d4e38130d485",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4c94185e_8801dde5",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 2017,
+      "author": {
+        "id": 18789
+      },
+      "writtenOn": "2024-11-18T07:17:43Z",
+      "side": 1,
+      "message": "I agree with you that the current CL could lead to incosistent state even though it will avoid crash, (making RCT_CHECK continue to cause crash that could lead to also stable blocking bug in chromium browsers). \n\nI hope shigemasa7watanabe takes a look at this CL and give opinion on it.  \n\nI also think reverting this CL is alternative good solution for the bug. shigemasa7watanabe@?",
+      "parentUuid": "fd789ebd_c6d5cd85",
+      "revId": "d3d8a20d679ee24e98f7a86acdb2d4e38130d485",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

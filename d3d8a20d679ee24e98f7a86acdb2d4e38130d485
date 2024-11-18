@@ -122,6 +122,24 @@
       "parentUuid": "3e5702d7_d76ae270",
       "revId": "d3d8a20d679ee24e98f7a86acdb2d4e38130d485",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "89e4240a_cb6391f2",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 2017,
+      "author": {
+        "id": 18789
+      },
+      "writtenOn": "2024-11-18T20:46:56Z",
+      "side": 1,
+      "message": "I don\u0027t know how to repro this one as Edge received a failure from the telemetry that doesn\u0027t have info besides the crash dump file.",
+      "parentUuid": "5d024dde_1bc36d5a",
+      "revId": "d3d8a20d679ee24e98f7a86acdb2d4e38130d485",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

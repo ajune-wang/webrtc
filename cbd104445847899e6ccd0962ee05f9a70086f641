@@ -47,6 +47,54 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "70237f7c_531ed617",
+        "filename": "sdk/objc/native/src/audio/audio_device_ios.mm",
+        "patchSetId": 2
+      },
+      "lineNbr": 492,
+      "author": {
+        "id": 10796
+      },
+      "writtenOn": "2024-11-18T09:59:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4ee5cfb1_9bc0e273",
+      "range": {
+        "startLine": 492,
+        "startChar": 88,
+        "endLine": 492,
+        "endChar": 89
+      },
+      "revId": "cbd104445847899e6ccd0962ee05f9a70086f641",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "95b4c9ac_0a51d0d5",
+        "filename": "sdk/objc/native/src/audio/audio_device_ios.mm",
+        "patchSetId": 2
+      },
+      "lineNbr": 492,
+      "author": {
+        "id": 10796
+      },
+      "writtenOn": "2024-11-18T09:59:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b9624daf_8a005ec3",
+      "range": {
+        "startLine": 492,
+        "startChar": 50,
+        "endLine": 492,
+        "endChar": 51
+      },
+      "revId": "cbd104445847899e6ccd0962ee05f9a70086f641",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2d8f0c7c_efe18914",
@@ -70,6 +118,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "81057c58_c3a5378d",
+        "filename": "sdk/objc/native/src/audio/audio_device_ios.mm",
+        "patchSetId": 2
+      },
+      "lineNbr": 499,
+      "author": {
+        "id": 10796
+      },
+      "writtenOn": "2024-11-18T09:59:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2d8f0c7c_efe18914",
+      "range": {
+        "startLine": 499,
+        "startChar": 6,
+        "endLine": 499,
+        "endChar": 10
+      },
+      "revId": "cbd104445847899e6ccd0962ee05f9a70086f641",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0765bd5b_c70d3349",
@@ -83,6 +155,30 @@
       "writtenOn": "2024-11-15T08:13:34Z",
       "side": 1,
       "message": "same",
+      "range": {
+        "startLine": 512,
+        "startChar": 54,
+        "endLine": 512,
+        "endChar": 57
+      },
+      "revId": "cbd104445847899e6ccd0962ee05f9a70086f641",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "12978ea8_aee1f157",
+        "filename": "sdk/objc/native/src/audio/audio_device_ios.mm",
+        "patchSetId": 2
+      },
+      "lineNbr": 512,
+      "author": {
+        "id": 10796
+      },
+      "writtenOn": "2024-11-18T09:59:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0765bd5b_c70d3349",
       "range": {
         "startLine": 512,
         "startChar": 54,

@@ -56,6 +56,30 @@
       },
       "revId": "438c18de49bf8d0a8005a8c88902843edc70952e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c5058691_9ac4f048",
+        "filename": "modules/audio_coding/codecs/opus/opus_interface.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 574,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2024-11-18T21:00:24Z",
+      "side": 1,
+      "message": "Yup. Will fix upstream.",
+      "parentUuid": "663870f2_303d2a48",
+      "range": {
+        "startLine": 574,
+        "startChar": 24,
+        "endLine": 574,
+        "endChar": 56
+      },
+      "revId": "438c18de49bf8d0a8005a8c88902843edc70952e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

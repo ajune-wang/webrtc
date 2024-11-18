@@ -67,6 +67,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cb6b8ee2_bac11609",
+        "filename": "logging/rtc_event_log/events/logged_rtp_rtcp.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2024-11-18T12:35:41Z",
+      "side": 1,
+      "message": "Well, it\u0027s a nit, but I mean that maybe it could be just\n```\nTimestamp timestamp;\nrtcp::CongestionControlFeedback congestion_feedback;\n```\nsince it seems we always use the 2-argument constructor to create these.\n\nFor some events (maybe transport CC?), I think we needed to initialize the\ntimestamps because some codepath first created a default-initialized struct and then populate the fields:\n```\nLoggedFoo foo;\nPopulateFoo(\u0026foo.timestamp, \u0026foo.field)\n```\nand the Timestamp didn\u0027t have a default constructor.",
+      "parentUuid": "f7dd7219_1c5f75b7",
+      "range": {
+        "startLine": 246,
+        "startChar": 21,
+        "endLine": 246,
+        "endChar": 51
+      },
+      "revId": "cf68c161fcccf12e3e5fb9109fadbc07eb70b656",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ef1c4e0b_d254c6e6",
         "filename": "rtc_tools/rtc_event_log_visualizer/analyzer.cc",
         "patchSetId": 4

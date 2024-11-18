@@ -16,6 +16,121 @@
       "message": "Please?",
       "revId": "cf68c161fcccf12e3e5fb9109fadbc07eb70b656",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c7ff9d79_c93e0841",
+        "filename": "logging/rtc_event_log/events/logged_rtp_rtcp.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2024-11-18T09:44:00Z",
+      "side": 1,
+      "message": "Does this need a default value?",
+      "range": {
+        "startLine": 246,
+        "startChar": 21,
+        "endLine": 246,
+        "endChar": 51
+      },
+      "revId": "cf68c161fcccf12e3e5fb9109fadbc07eb70b656",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ef1c4e0b_d254c6e6",
+        "filename": "rtc_tools/rtc_event_log_visualizer/analyzer.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1570,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2024-11-18T09:44:00Z",
+      "side": 1,
+      "message": "If possible, I\u0027d like the title to explain how to interpret the plot. Maybe \"Outgoing ECN count per feedback\"? WDYT?",
+      "range": {
+        "startLine": 1570,
+        "startChar": 0,
+        "endLine": 1570,
+        "endChar": 43
+      },
+      "revId": "cf68c161fcccf12e3e5fb9109fadbc07eb70b656",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6406058c_dbe4ecdb",
+        "filename": "rtc_tools/rtc_event_log_visualizer/analyzer.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1575,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2024-11-18T09:44:00Z",
+      "side": 1,
+      "message": "If possible, I\u0027d like the title to explain how to interpret the plot. Maybe \"Incoming ECN count per feedback\"?",
+      "range": {
+        "startLine": 1575,
+        "startChar": 18,
+        "endLine": 1575,
+        "endChar": 39
+      },
+      "revId": "cf68c161fcccf12e3e5fb9109fadbc07eb70b656",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "23d7f597_9c2e2658",
+        "filename": "rtc_tools/rtc_event_log_visualizer/analyzer.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1580,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2024-11-18T09:44:00Z",
+      "side": 1,
+      "message": "Since it\u0027s discrete and independent measurements, I\u0027m not sure linear interpolation shows anything meaningful? Maybe kBar or kStep would be better?",
+      "range": {
+        "startLine": 1580,
+        "startChar": 43,
+        "endLine": 1580,
+        "endChar": 48
+      },
+      "revId": "cf68c161fcccf12e3e5fb9109fadbc07eb70b656",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e539aaae_530f5e5e",
+        "filename": "rtc_tools/rtc_event_log_visualizer/analyzer.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1580,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2024-11-18T09:44:00Z",
+      "side": 1,
+      "message": "Could the timeseries labels be clarified? Maybe\n- Not ECN capable\n- ECN capable\n- Congestion / Congestion experienced\n\nOr perhaps include both the abbreviation and the meaning e.g. \"CE (Congestion Experienced)\"?",
+      "range": {
+        "startLine": 1580,
+        "startChar": 22,
+        "endLine": 1580,
+        "endChar": 29
+      },
+      "revId": "cf68c161fcccf12e3e5fb9109fadbc07eb70b656",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6f45879c_40b49757",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-11-18T06:42:39Z",
+      "side": 1,
+      "message": "This is only removing stuff that apparently isn\u0027t used for anything.",
+      "revId": "f2974055b91efad637a44917f8519965b46fdb62",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

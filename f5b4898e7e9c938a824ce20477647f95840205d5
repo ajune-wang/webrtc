@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "87b95132_1ede6087",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2024-11-18T11:50:33Z",
+      "side": 1,
+      "message": "Nice! I had two suggestions but I\u0027m basically ready to +1 this regardlss",
+      "revId": "f5b4898e7e9c938a824ce20477647f95840205d5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7e952a9d_36b934bd",
+        "filename": "pc/media_session_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 4997,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2024-11-18T11:50:33Z",
+      "side": 1,
+      "message": "Here and in other tests: the relationship between levels and level-id is not obvious, e.g. Level 5.2 (kVideoCodecsH265Level52) has level-id \"156\".\n\nWDYT, should we have another const global variable kVideoCodecsH265Level52LevelId \u003d \"156\" that we use both for constructing kVideoCodecsH265Level52 and as input to CheckH265Level() here to make the test more readable?\n\nMaybe not needed because CodecsMatch() already ensures they are the same, but thinking about the readability of the test and someone asking \"why 156?\"",
+      "revId": "f5b4898e7e9c938a824ce20477647f95840205d5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0ac2338e_e797a0d2",
+        "filename": "pc/media_session_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 5265,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2024-11-18T11:50:33Z",
+      "side": 1,
+      "message": "Did we decide on: if the offerer does a follow-up offer, would they use prior negotiation as input to say 93 (knowing that other end only supports 93), or would it continue to offer 156 just because it can?\n\nIt doesn\u0027t change things - we\u0027d end up with 93 regardless - so I have no opinion what we should do, but should we add a test to exercise this case?",
+      "revId": "f5b4898e7e9c938a824ce20477647f95840205d5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

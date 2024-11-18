@@ -1613,6 +1613,7 @@ bool WebRtcVoiceSendChannel::AddSendStream(const StreamParams& sp) {
     for (auto it : send_streams_) {
       ssrcs_in_use.insert(it.first);
     }
+    RTC_LOG(LS_ERROR) << "DEBUG: Calling ssrc_list_changed_callback_";
     ssrc_list_changed_callback_(ssrcs_in_use);
   }
 
@@ -2432,6 +2433,12 @@ void WebRtcVoiceReceiveChannel::ChooseReceiverReportSsrc(
     return;
   }
   uint32_t ssrc = *(choices.begin());
+  // TESTING - that new method and old method give same result
+  if (ssrc != call_->SsrcForAudioRtcp()) {
+    RTC_LOG(LS_ERROR) << "DEBUG: RR ssrc changed " << "Old method: " << ssrc
+                      << ", new method: " << call_->SsrcForAudioRtcp();
+  }
+
   receiver_reports_ssrc_ = ssrc;
   for (auto& kv : recv_streams_) {
     call_->OnLocalSsrcUpdated(kv.second->stream(), ssrc);

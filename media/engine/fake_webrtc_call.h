@@ -25,6 +25,7 @@
 #include <map>
 #include <memory>
 #include <optional>
+#include <set>
 #include <string>
 #include <utility>
 #include <vector>
@@ -58,6 +59,9 @@
 #include "call/packet_receiver.h"
 #include "call/payload_type.h"
 #include "call/payload_type_picker.h"
+#include "call/receive_stream.h"
+#include "call/rtp_config.h"
+#include "call/rtp_packet_sink_interface.h"
 #include "call/rtp_transport_controller_send_interface.h"
 #include "call/test/mock_rtp_transport_controller_send.h"
 #include "call/video_receive_stream.h"
@@ -536,6 +540,8 @@ class FakeCall final : public webrtc::Call, public webrtc::PacketReceiver {
                           uint32_t local_ssrc) override;
   void OnUpdateSyncGroup(webrtc::AudioReceiveStreamInterface& stream,
                          absl::string_view sync_group) override;
+  uint32_t SsrcForAudioRtcp() override;
+  uint32_t SsrcForVideoRtcp() override;
   void OnSentPacket(const rtc::SentPacket& sent_packet) override;
 
   const webrtc::Environment env_;
@@ -561,6 +567,14 @@ class FakeCall final : public webrtc::Call, public webrtc::PacketReceiver {
 
   int num_created_send_streams_;
   int num_created_receive_streams_;
+
+  std::set<uint32_t> video_ssrcs_in_use_;
+  std::set<uint32_t> audio_ssrcs_in_use_;
+  // SSRC IDs set via SetLocalSsrc and returned in SsrcFor*Rtcp()
+  // Set different from normal "init" values to be able to see easily
+  // if a fake is being used.
+  uint32_t ssrc_for_video_rtcp_ = 33;
+  uint32_t ssrc_for_audio_rtcp_ = 44;
 
   FakePayloadTypeSuggester pt_suggester_;
 };

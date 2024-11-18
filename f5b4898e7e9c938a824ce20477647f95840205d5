@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5c3c98af_d072b9b2",
+        "filename": "pc/media_session_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 4997,
+      "author": {
+        "id": 18005
+      },
+      "writtenOn": "2024-11-18T13:30:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7e952a9d_36b934bd",
+      "revId": "f5b4898e7e9c938a824ce20477647f95840205d5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0ac2338e_e797a0d2",
@@ -48,6 +66,24 @@
       "writtenOn": "2024-11-18T11:50:33Z",
       "side": 1,
       "message": "Did we decide on: if the offerer does a follow-up offer, would they use prior negotiation as input to say 93 (knowing that other end only supports 93), or would it continue to offer 156 just because it can?\n\nIt doesn\u0027t change things - we\u0027d end up with 93 regardless - so I have no opinion what we should do, but should we add a test to exercise this case?",
+      "revId": "f5b4898e7e9c938a824ce20477647f95840205d5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cf64b6d3_d12660f0",
+        "filename": "pc/media_session_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 5265,
+      "author": {
+        "id": 18005
+      },
+      "writtenOn": "2024-11-18T13:30:11Z",
+      "side": 1,
+      "message": "The decision is that, it\u0027s still 156 because it can. Amend this specific test with the expectation for re-offer level id.",
+      "parentUuid": "0ac2338e_e797a0d2",
       "revId": "f5b4898e7e9c938a824ce20477647f95840205d5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

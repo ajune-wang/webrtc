@@ -115,6 +115,8 @@ TEST(WavWriterTest, LargeFile) {
            {WavFile::SampleFormat::kInt16, WavFile::SampleFormat::kFloat}) {
         std::string outfile =
             test::OutputPathWithRandomDirectory() + "wavtest3.wav";
+        fprintf(stderr, "Now running %d %d %d with file %s\n", wav_format,
+                write_format, read_format, outfile.c_str());
         float samples[kNumSamples];
         for (size_t i = 0; i < kNumSamples; i += kNumChannels) {
           // A nice periodic beeping sound.
@@ -125,6 +127,12 @@ TEST(WavWriterTest, LargeFile) {
                            std::sin(t * kToneHz * 2 * M_PI);
           samples[i] = std::pow(std::sin(t * 2 * 2 * M_PI), 10) * x;
           samples[i + 1] = std::pow(std::cos(t * 2 * 2 * M_PI), 10) * x;
+          RTC_CHECK(isfinite(samples[i]));
+          RTC_CHECK_LE(samples[i], 33000);
+          RTC_CHECK_GE(samples[i], -33000);
+          RTC_CHECK(isfinite(samples[i + 1]));
+          RTC_CHECK_LE(samples[i + 1], 33000);
+          RTC_CHECK_GE(samples[i + 1], -33000);
         }
         {
           WavWriter w(outfile, kSampleRate, kNumChannels, wav_format);
@@ -161,6 +169,9 @@ TEST(WavWriterTest, LargeFile) {
             EXPECT_EQ(kNumSamples, r.ReadSamples(kNumSamples, read_samples));
             for (size_t i = 0; i < kNumSamples; ++i) {
               EXPECT_NEAR(samples[i], read_samples[i], 1);
+              if (!isfinite(samples[i])) {
+                fprintf(stderr, " samples is not finite i=%zu", i);
+              }
             }
             EXPECT_EQ(0u, r.ReadSamples(kNumSamples, read_samples));
           } else {
@@ -168,6 +179,9 @@ TEST(WavWriterTest, LargeFile) {
             EXPECT_EQ(kNumSamples, r.ReadSamples(kNumSamples, read_samples));
             for (size_t i = 0; i < kNumSamples; ++i) {
               EXPECT_NEAR(samples[i], static_cast<float>(read_samples[i]), 1);
+              if (!isfinite(samples[i])) {
+                fprintf(stderr, " samples is not finite i=%zu", i);
+              }
             }
             EXPECT_EQ(0u, r.ReadSamples(kNumSamples, read_samples));
           }

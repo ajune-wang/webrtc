@@ -1,6 +1,40 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b2e434fa_3103ffe4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-11-19T14:12:20Z",
+      "side": 1,
+      "message": "LG % Ilya comments",
+      "revId": "23fb7d4cf7a8f9fd743e242043689656bf577299",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "81630859_d54364f1",
+        "filename": "modules/rtp_rtcp/source/remote_ntp_time_estimator.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-11-19T14:12:20Z",
+      "side": 1,
+      "message": "looks a bit scary to just change these values.\nTests do not mind, but tests rarely used clock drift, or even different clock for \u0027sender\u0027 and \u0027receiver\u0027.\n\nit may also have different effect for audio and for video as they use different frequencies for the sender reports.\n\nOn the other hand, using last 7 reports looks much more reasonable than using last 100 (for audio that might imply 100 * 5s ~\u003d 10 minutes -\u003e 0.5 minutes window, \nfor video that would be closer to 100 * 1s ~\u003d 1.5 minutes -\u003e 7 seconds window)\n\nSame time, changing them without experiment won\u0027t give you insight what have changed with these values.\n\n(I think that most of the time RTT is stable, so I do not expect changing these values would change much)",
+      "revId": "23fb7d4cf7a8f9fd743e242043689656bf577299",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "533b1a34_f1fe218d",

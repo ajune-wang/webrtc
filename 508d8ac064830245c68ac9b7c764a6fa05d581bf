@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "87994d48_3dd7c81f",
+        "filename": "modules/audio_processing/audio_processing_unittest.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 598,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2024-11-19T10:18:11Z",
+      "side": 1,
+      "message": "Oh, I missed that. And I also was not aware that AudioProcessing::Error::kNoError was nut used everywhere in APM.\n\nNot sure that is the best change though.\nThe intended error codes for APM are defined here https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/api/audio/audio_processing.h;drc\u003dc772fc227bbc1f42f3e86b794547d3ddbd22682b;l\u003d674\nThere was a long time since they were updated though, and kind of the only reliable/actionable error codes is to check for kNoError\n\nI\u0027m not sure where kNoErr is defined, but I think the right thing to do for the time-being is to use the error codes defined in audio_processing.h and not mix. If we are to change, it is better to do that as part of a separate effort relating to changing the error code scheme.",
+      "parentUuid": "5996e551_7080ed5d",
+      "revId": "508d8ac064830245c68ac9b7c764a6fa05d581bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "32aebc4e_d555c133",
         "filename": "modules/audio_processing/audio_processing_unittest.cc",
         "patchSetId": 18

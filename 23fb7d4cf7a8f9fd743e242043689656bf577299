@@ -58,6 +58,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7b2a9f60_0a2d7b5f",
+        "filename": "modules/rtp_rtcp/source/remote_ntp_time_estimator_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 7255
+      },
+      "writtenOn": "2024-11-19T14:24:32Z",
+      "side": 1,
+      "message": "I removed the kNtpToMicroSec. I changed the EXPECT_EQ with the NTP timestamps to EXPECT_NEAR to allow for a small rounding difference.",
+      "parentUuid": "533b1a34_f1fe218d",
+      "range": {
+        "startLine": 30,
+        "startChar": 18,
+        "endLine": 30,
+        "endChar": 33
+      },
+      "revId": "23fb7d4cf7a8f9fd743e242043689656bf577299",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "723a834e_956c91c9",
@@ -71,6 +95,30 @@
       "writtenOn": "2024-11-19T13:27:25Z",
       "side": 1,
       "message": "Here and below, please use EXPECT_NEAR instead of dividing both operands by precision in EXPECT_EQ.",
+      "range": {
+        "startLine": 95,
+        "startChar": 59,
+        "endLine": 95,
+        "endChar": 75
+      },
+      "revId": "23fb7d4cf7a8f9fd743e242043689656bf577299",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "651701c6_29894531",
+        "filename": "modules/rtp_rtcp/source/remote_ntp_time_estimator_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 7255
+      },
+      "writtenOn": "2024-11-19T14:24:32Z",
+      "side": 1,
+      "message": "I removed the kNtpToMicroSec. I changed the EXPECT_EQ with the NTP timestamps to EXPECT_NEAR to allow for a small rounding difference.",
+      "parentUuid": "723a834e_956c91c9",
       "range": {
         "startLine": 95,
         "startChar": 59,

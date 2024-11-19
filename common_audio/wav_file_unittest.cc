@@ -115,6 +115,8 @@ TEST(WavWriterTest, LargeFile) {
            {WavFile::SampleFormat::kInt16, WavFile::SampleFormat::kFloat}) {
         std::string outfile =
             test::OutputPathWithRandomDirectory() + "wavtest3.wav";
+        fprintf(stderr, "Now running %d %d %d with file %s\n", wav_format,
+                write_format, read_format, outfile.c_str());
         float samples[kNumSamples];
         for (size_t i = 0; i < kNumSamples; i += kNumChannels) {
           // A nice periodic beeping sound.

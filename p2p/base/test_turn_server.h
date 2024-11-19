@@ -140,6 +140,15 @@ class TestTurnServer : public TurnAuthInterface {
     return NULL;
   }
 
+  bool DisallowTurnBinds(const Candidate& candidate) {
+    TurnServerAllocation* allocation = FindAllocation(candidate.address());
+    if (!allocation) {
+      RTC_DCHECK_NOTREACHED();
+      return false;
+    }
+    return allocation->SetAllowBind(candidate.address(), false);
+  }
+
  private:
   // For this test server, succeed if the password is the same as the username.
   // Obviously, do not use this in a production environment.

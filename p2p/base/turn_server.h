@@ -48,6 +48,9 @@ class TurnServer;
 // The default server port for TURN, as specified in RFC5766.
 const int TURN_SERVER_PORT = 3478;
 
+constexpr uint16_t kMinChannelNumber = 0x4000;
+constexpr uint16_t kMaxChannelNumber = 0x7FFF;
+
 // Encapsulates the client's connection to the server.
 class TurnServerConnection {
  public:
@@ -73,14 +76,14 @@ class TurnServerConnection {
 // handles TURN messages (via HandleTurnMessage) and channel data messages
 // (via HandleChannelData) for this allocation when received by the server.
 // The object informs the server when its lifetime timer expires.
-class TurnServerAllocation {
+class TurnServerAllocation final {
  public:
   TurnServerAllocation(TurnServer* server_,
                        webrtc::TaskQueueBase* thread,
                        const TurnServerConnection& conn,
                        rtc::AsyncPacketSocket* server_socket,
                        absl::string_view key);
-  virtual ~TurnServerAllocation();
+  ~TurnServerAllocation();
 
   TurnServerConnection* conn() { return &conn_; }
   const std::string& key() const { return key_; }
@@ -96,11 +99,19 @@ class TurnServerAllocation {
   void HandleTurnMessage(const TurnMessage* msg);
   void HandleChannelData(rtc::ArrayView<const uint8_t> payload);
 
+  // Call to control if TURN_CHANNEL_BIND_REQUEST for a given address should
+  // be allowed. Setting `allow_bind` to false, will cause
+  // `TURN_CHANNEL_BIND_REQUEST` to respond with `SendBadRequestResponse()`.
+  // If `address` can't be found in the list of channels, the return value
+  // will be `false`, otherwise `true`.
+  bool SetAllowBind(const rtc::SocketAddress& address, bool allow_bind);
+
  private:
   struct Channel {
     webrtc::ScopedTaskSafety pending_delete;
-    int id;
+    uint16_t id;
     rtc::SocketAddress peer;
+    bool allow_bind = true;
   };
   struct Permission {
     webrtc::ScopedTaskSafety pending_delete;

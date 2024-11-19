@@ -718,7 +718,7 @@ void TurnServerAllocation::HandleChannelBindRequest(const TurnMessage* msg) {
   }
 
   // Check that channel id is valid.
-  int channel_id = channel_attr->value() >> 16;
+  uint16_t channel_id = static_cast<uint16_t>(channel_attr->value() >> 16);
   if (channel_id < kMinTurnChannelNumber ||
       channel_id > kMaxTurnChannelNumber) {
     SendBadRequestResponse(msg);
@@ -729,7 +729,8 @@ void TurnServerAllocation::HandleChannelBindRequest(const TurnMessage* msg) {
   // that this transport address isn't bound to another channel id.
   auto channel1 = FindChannel(channel_id);
   auto channel2 = FindChannel(peer_attr->GetAddress());
-  if (channel1 != channel2) {
+  if (channel1 != channel2 ||
+      (channel1 != channels_.end() && !(*channel1).allow_bind)) {
     SendBadRequestResponse(msg);
     return;
   }
@@ -772,6 +773,15 @@ void TurnServerAllocation::HandleChannelData(
                         << ": Received channel data for invalid channel, id="
                         << channel_id;
   }
+}
+
+bool TurnServerAllocation::SetAllowBind(const rtc::SocketAddress& address,
+                                        bool allow_bind) {
+  auto channel = FindChannel(address);
+  if (channel == channels_.end())
+    return false;
+  (*channel).allow_bind = allow_bind;
+  return true;
 }
 
 void TurnServerAllocation::OnExternalPacket(rtc::AsyncPacketSocket* socket,

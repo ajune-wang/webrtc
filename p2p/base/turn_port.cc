@@ -130,7 +130,7 @@ class TurnChannelBindRequest : public StunRequest {
  public:
   TurnChannelBindRequest(TurnPort* port,
                          TurnEntry* entry,
-                         int channel_id,
+                         uint16_t channel_id,
                          const rtc::SocketAddress& ext_addr);
   ~TurnChannelBindRequest() override;
   void OnSent() override;
@@ -141,7 +141,7 @@ class TurnChannelBindRequest : public StunRequest {
  private:
   TurnPort* port_;
   TurnEntry* entry_;
-  int channel_id_;
+  uint16_t channel_id_;
   rtc::SocketAddress ext_addr_;
 };
 
@@ -155,9 +155,11 @@ class TurnEntry : public sigslot::has_slots<> {
 
   TurnPort* port() { return port_; }
 
-  int channel_id() const { return channel_id_; }
+  uint16_t channel_id() const { return channel_id_; }
   // For testing only.
-  void set_channel_id(int channel_id) { channel_id_ = channel_id; }
+  // TODO(tommi): See if we can remove this. At least avoid setting channel_id_
+  // to an illegal value.
+  void set_channel_id(uint16_t channel_id) { channel_id_ = channel_id; }
 
   const rtc::SocketAddress& address() const { return ext_addr_; }
   BindState state() const { return state_; }
@@ -198,7 +200,7 @@ class TurnEntry : public sigslot::has_slots<> {
 
  private:
   TurnPort* port_;
-  int channel_id_;
+  uint16_t channel_id_;
   rtc::SocketAddress ext_addr_;
   BindState state_;
   // List of associated connection instances to keep track of how many and
@@ -1095,7 +1097,7 @@ void TurnPort::HandleDataIndication(const char* data,
                  data_attr->length(), ext_addr, PROTO_UDP, packet_time_us);
 }
 
-void TurnPort::HandleChannelData(int channel_id,
+void TurnPort::HandleChannelData(uint16_t channel_id,
                                  const char* data,
                                  size_t size,
                                  int64_t packet_time_us) {
@@ -1257,7 +1259,7 @@ TurnEntry* TurnPort::FindEntry(const rtc::SocketAddress& addr) const {
   return (it != entries_.end()) ? it->get() : nullptr;
 }
 
-TurnEntry* TurnPort::FindEntry(int channel_id) const {
+TurnEntry* TurnPort::FindEntry(uint16_t channel_id) const {
   auto it = absl::c_find_if(entries_, [&channel_id](const auto& e) {
     return e->channel_id() == channel_id;
   });
@@ -1310,11 +1312,19 @@ void TurnPort::SetCallbacksForTest(CallbacksForTest* callbacks) {
 }
 
 bool TurnPort::SetEntryChannelIdForTesting(const rtc::SocketAddress& address,
-                                           int channel_id) {
+                                           uint16_t channel_id) {
+  // TODO(tommi): Valid channel ids are in the range:
+  // constexpr int kMinChannelNumber = 0x4000;
+  // constexpr int kMaxChannelNumber = 0x7FFF;
+  // See if we can remove this function (SetEntryChannelId()). It's only used
+  // by a single unit test.
+
   TurnEntry* entry = FindEntry(address);
   if (!entry) {
     return false;
   }
+  RTC_LOG(LS_ERROR) << "Changing channel id from " << entry->channel_id()
+                    << " to " << channel_id;
   entry->set_channel_id(channel_id);
   return true;
 }
@@ -1720,7 +1730,7 @@ void TurnCreatePermissionRequest::OnTimeout() {
 TurnChannelBindRequest::TurnChannelBindRequest(
     TurnPort* port,
     TurnEntry* entry,
-    int channel_id,
+    uint16_t channel_id,
     const rtc::SocketAddress& ext_addr)
     : StunRequest(port->request_manager(),
                   std::make_unique<TurnMessage>(TURN_CHANNEL_BIND_REQUEST)),

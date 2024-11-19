@@ -1532,8 +1532,10 @@ TEST_F(TurnPortTest, TestRefreshCreatePermissionRequest) {
 TEST_F(TurnPortTest, TestChannelBindGetErrorResponse) {
   CreateTurnPort(kTurnUsername, kTurnPassword, kTurnUdpProtoAddr);
   PrepareTurnAndUdpPorts(PROTO_UDP);
-  Connection* conn1 = turn_port_->CreateConnection(udp_port_->Candidates()[0],
-                                                   Port::ORIGIN_MESSAGE);
+  ASSERT_EQ(udp_port_->Candidates().size(), 1u);
+  const Candidate& udp_candidate = udp_port_->Candidates()[0];
+  Connection* conn1 =
+      turn_port_->CreateConnection(udp_candidate, Port::ORIGIN_MESSAGE);
   ASSERT_TRUE(conn1 != nullptr);
   Connection* conn2 = udp_port_->CreateConnection(turn_port_->Candidates()[0],
                                                   Port::ORIGIN_MESSAGE);
@@ -1544,9 +1546,10 @@ TEST_F(TurnPortTest, TestChannelBindGetErrorResponse) {
   // TODO(bugs.webrtc.org/345518625): SetEntryChannelIdForTesting should not be
   // a public method. Instead we should set an option on the fake TURN server to
   // force it to send a channel bind errors.
-  int illegal_channel_id = kMaxTurnChannelNumber + 1u;
-  ASSERT_TRUE(turn_port_->SetEntryChannelIdForTesting(
-      udp_port_->Candidates()[0].address(), illegal_channel_id));
+  // int illegal_channel_id = kMaxTurnChannelNumber + 1u;
+  // ASSERT_TRUE(turn_port_->SetEntryChannelIdForTesting(
+  //     udp_candidate.address(), illegal_channel_id));
+  ASSERT_TRUE(turn_server_.DisallowTurnBinds(udp_candidate));
 
   std::string data = "ABC";
   conn1->Send(data.data(), data.length(), options);

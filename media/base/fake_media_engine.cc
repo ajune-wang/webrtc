@@ -697,6 +697,15 @@ void FakeMediaEngine::SetVideoCodecs(const std::vector<Codec>& codecs) {
   video_->SetSendCodecs(codecs);
   video_->SetRecvCodecs(codecs);
 }
+
+void FakeMediaEngine::SetVideoSendCodecs(const std::vector<Codec>& codecs) {
+  video_->SetSendCodecs(codecs);
+}
+
+void FakeMediaEngine::SetVideoRecvCodecs(const std::vector<Codec>& codecs) {
+  video_->SetRecvCodecs(codecs);
+}
+
 void FakeMediaEngine::set_fail_create_channel(bool fail) {
   voice_->fail_create_channel_ = fail;
   video_->fail_create_channel_ = fail;

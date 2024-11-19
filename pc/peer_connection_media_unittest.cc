@@ -46,6 +46,7 @@
 #include "media/base/media_constants.h"
 #include "media/base/media_engine.h"
 #include "media/base/stream_params.h"
+#include "media/base/test_utils.h"
 #include "p2p/base/fake_port_allocator.h"
 #include "p2p/base/p2p_constants.h"
 #include "p2p/base/port_allocator.h"
@@ -70,6 +71,28 @@
 #include "test/gmock.h"
 
 namespace webrtc {
+namespace {
+
+const char kVideoCodecH265LevelId52[] = "156";
+const char kVideoCodecH265LevelId6[] = "180";
+const webrtc::SdpVideoFormat kH265MainProfileLevel52Sdp(
+    "H265",
+    {{"profile-id", "1"},
+     {"tier-flag", "0"},
+     {"level-id", kVideoCodecH265LevelId52},
+     {"tx-mode", "SRST"}});
+const webrtc::SdpVideoFormat kH265MainProfileLevel6Sdp(
+    "H265",
+    {{"profile-id", "1"},
+     {"tier-flag", "0"},
+     {"level-id", kVideoCodecH265LevelId6},
+     {"tx-mode", "SRST"}});
+const cricket::Codec kVideoCodecsH265Level52[] = {
+    cricket::CreateVideoCodec(96, kH265MainProfileLevel52Sdp)};
+const cricket::Codec kVideoCodecsH265Level6[] = {
+    cricket::CreateVideoCodec(96, kH265MainProfileLevel6Sdp)};
+
+}  // namespace
 
 using cricket::FakeMediaEngine;
 using RTCConfiguration = PeerConnectionInterface::RTCConfiguration;
@@ -252,6 +275,19 @@ class PeerConnectionMediaBaseTest : public ::testing::Test {
   bool IsUnifiedPlan() const {
     return sdp_semantics_ == SdpSemantics::kUnifiedPlan;
   }
+
+#ifdef RTC_ENABLE_H265
+  void CheckH265Level(const std::vector<cricket::Codec>& codecs,
+                      const std::string& expected_level) {
+    for (const auto& codec : codecs) {
+      if (codec.name == "H265") {
+        auto it = codec.params.find("level-id");
+        ASSERT_TRUE(it != codec.params.end());
+        EXPECT_EQ(it->second, expected_level);
+      }
+    }
+  }
+#endif
 
   std::unique_ptr<test::ScopedKeyValueConfig> field_trials_;
   std::unique_ptr<rtc::VirtualSocketServer> vss_;
@@ -596,6 +632,104 @@ TEST_P(PeerConnectionMediaTest,
   ASSERT_TRUE(video_content);
   EXPECT_FALSE(video_content->rejected);
 }
+
+#ifdef RTC_ENABLE_H265
+TEST_F(PeerConnectionMediaTestUnifiedPlan,
+       CreateSendRecvOfferWithH265CodecSymmetrical) {
+  const std::vector<cricket::Codec> fake_send_codecs =
+      MAKE_VECTOR(kVideoCodecsH265Level52);
+  const std::vector<cricket::Codec> fake_recv_codecs =
+      MAKE_VECTOR(kVideoCodecsH265Level52);
+
+  auto caller_fake_engine = std::make_unique<FakeMediaEngine>();
+  caller_fake_engine->SetVideoSendCodecs(fake_send_codecs);
+  caller_fake_engine->SetVideoRecvCodecs(fake_recv_codecs);
+  auto callee_fake_engine = std::make_unique<FakeMediaEngine>();
+  callee_fake_engine->SetVideoSendCodecs(fake_send_codecs);
+  callee_fake_engine->SetVideoRecvCodecs(fake_recv_codecs);
+
+  auto caller = CreatePeerConnectionWithVideo(std::move(caller_fake_engine));
+  auto offer = caller->CreateOfferAndSetAsLocal();
+  auto* video_content =
+      cricket::GetFirstVideoContentDescription(offer->description());
+  EXPECT_EQ(video_content->codecs()[0].name, "H265");
+
+  auto callee = CreatePeerConnectionWithVideo(std::move(callee_fake_engine));
+  ASSERT_TRUE(callee->SetRemoteDescription(std::move(offer)));
+  auto answer = callee->CreateAnswerAndSetAsLocal();
+  auto* answer_video_content =
+      cricket::GetFirstVideoContentDescription(answer->description());
+  EXPECT_EQ(answer_video_content->codecs()[0].name, "H265");
+  CheckH265Level(answer_video_content->codecs(), kVideoCodecH265LevelId52);
+
+  ASSERT_TRUE(caller->SetRemoteDescription(std::move(answer)));
+}
+
+TEST_F(PeerConnectionMediaTestUnifiedPlan,
+       CreateSendOnlyOfferWithH265CodecASymmetrical) {
+  const std::vector<cricket::Codec> fake_caller_send_codecs =
+      MAKE_VECTOR(kVideoCodecsH265Level52);
+  const std::vector<cricket::Codec> fake_caller_recv_codecs =
+      MAKE_VECTOR(kVideoCodecsH265Level6);
+  const std::vector<cricket::Codec> fake_callee_send_codecs =
+      MAKE_VECTOR(kVideoCodecsH265Level6);
+  const std::vector<cricket::Codec> fake_callee_recv_codecs =
+      MAKE_VECTOR(kVideoCodecsH265Level52);
+  auto caller_fake_engine = std::make_unique<FakeMediaEngine>();
+  caller_fake_engine->SetVideoSendCodecs(fake_caller_send_codecs);
+  caller_fake_engine->SetVideoRecvCodecs(fake_caller_recv_codecs);
+  auto callee_fake_engine = std::make_unique<FakeMediaEngine>();
+  callee_fake_engine->SetVideoSendCodecs(fake_callee_send_codecs);
+  callee_fake_engine->SetVideoRecvCodecs(fake_callee_recv_codecs);
+
+  auto caller = CreatePeerConnectionWithVideo(std::move(caller_fake_engine));
+  auto transceivers = caller->pc()->GetTransceivers();
+  ASSERT_EQ(1u, transceivers.size());
+  auto video_transceiver = caller->pc()->GetTransceivers()[0];
+  auto error = video_transceiver->SetDirectionWithError(
+      RtpTransceiverDirection::kSendOnly);
+  ASSERT_TRUE(error.ok());
+
+  auto callee = CreatePeerConnection(std::move(callee_fake_engine));
+
+  ASSERT_TRUE(caller->ExchangeOfferAnswerWith(callee.get()));
+
+  auto senders = caller->pc()->GetSenders();
+  ASSERT_EQ(1u, senders.size());
+  EXPECT_EQ(cricket::MediaType::MEDIA_TYPE_VIDEO, senders[0]->media_type());
+  EXPECT_EQ(1u, senders[0]->GetParameters().encodings.size());
+  EXPECT_TRUE(senders[0]->GetParameters().encodings[0].active);
+}
+
+TEST_F(PeerConnectionMediaTestUnifiedPlan,
+       CreateRecvOnlyOfferAndAnswerWithH265CodecASymmetrical) {
+  const std::vector<cricket::Codec> fake_caller_send_codecs =
+      MAKE_VECTOR(kVideoCodecsH265Level52);
+  const std::vector<cricket::Codec> fake_caller_recv_codecs =
+      MAKE_VECTOR(kVideoCodecsH265Level6);
+  const std::vector<cricket::Codec> fake_callee_send_codecs =
+      MAKE_VECTOR(kVideoCodecsH265Level6);
+  const std::vector<cricket::Codec> fake_callee_recv_codecs =
+      MAKE_VECTOR(kVideoCodecsH265Level52);
+  auto caller_fake_engine = std::make_unique<FakeMediaEngine>();
+  caller_fake_engine->SetVideoSendCodecs(fake_caller_send_codecs);
+  caller_fake_engine->SetVideoRecvCodecs(fake_caller_recv_codecs);
+  auto callee_fake_engine = std::make_unique<FakeMediaEngine>();
+  callee_fake_engine->SetVideoSendCodecs(fake_callee_send_codecs);
+  callee_fake_engine->SetVideoRecvCodecs(fake_callee_recv_codecs);
+
+  auto caller = CreatePeerConnectionWithVideo(std::move(caller_fake_engine));
+  auto transceivers = caller->pc()->GetTransceivers();
+  ASSERT_EQ(1u, transceivers.size());
+  auto video_transceiver = caller->pc()->GetTransceivers()[0];
+  auto error = video_transceiver->SetDirectionWithError(
+      RtpTransceiverDirection::kRecvOnly);
+  ASSERT_TRUE(error.ok());
+
+  auto callee = CreatePeerConnectionWithVideo(std::move(callee_fake_engine));
+  ASSERT_TRUE(caller->ExchangeOfferAnswerWith(callee.get()));
+}
+#endif
 
 // Test that raw packetization is not set in the offer by default.
 TEST_P(PeerConnectionMediaTest, RawPacketizationNotSetInOffer) {

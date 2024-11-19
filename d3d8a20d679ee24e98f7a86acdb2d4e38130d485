@@ -140,6 +140,24 @@
       "parentUuid": "5d024dde_1bc36d5a",
       "revId": "d3d8a20d679ee24e98f7a86acdb2d4e38130d485",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e5a94687_8aa7cc01",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 2017,
+      "author": {
+        "id": 18789
+      },
+      "writtenOn": "2024-11-19T00:16:27Z",
+      "side": 1,
+      "message": "shigemasa7watanabe@, can you ensure that the current CL doesn\u0027t break (crash) in any scenarios?  If it is a case, then I hope we land this CL as it has more noticeable crash counts now.\n\n\nIf needed, we can debug together through Meet or Zoom (looking at the dump file on debugger).",
+      "parentUuid": "89e4240a_cb6391f2",
+      "revId": "d3d8a20d679ee24e98f7a86acdb2d4e38130d485",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

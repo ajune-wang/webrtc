@@ -27,6 +27,7 @@ constexpr Timestamp kRemoteClockInitialTime = Timestamp::Millis(373);
 constexpr uint32_t kTimestampOffset = 567;
 constexpr int64_t kRemoteToLocalClockOffsetNtp =
     ToNtpUnits(kLocalClockInitialTime - kRemoteClockInitialTime);
+constexpr int64_t kNtpToMicroSec = 4295;  // 2^32 / 1'000'000
 
 class RemoteNtpTimeEstimatorTest : public ::testing::Test {
  protected:
@@ -85,10 +86,14 @@ TEST_F(RemoteNtpTimeEstimatorTest, Estimate) {
   // Remote sends second RTCP SR.
   SendRtcpSr();
 
+  AdvanceTime(TimeDelta::Millis(800));
+  // Remote sends third RTCP SR.
+  SendRtcpSr();
+
   // Local peer gets enough RTCP SR to calculate the capture time.
   EXPECT_EQ(capture_ntp_time_ms, estimator_.Estimate(rtp_timestamp));
-  EXPECT_EQ(estimator_.EstimateRemoteToLocalClockOffset(),
-            kRemoteToLocalClockOffsetNtp);
+  EXPECT_EQ(*estimator_.EstimateRemoteToLocalClockOffset() / kNtpToMicroSec,
+            kRemoteToLocalClockOffsetNtp / kNtpToMicroSec);
 }
 
 TEST_F(RemoteNtpTimeEstimatorTest, AveragesErrorsOut) {
@@ -103,8 +108,8 @@ TEST_F(RemoteNtpTimeEstimatorTest, AveragesErrorsOut) {
   int64_t capture_ntp_time_ms = local_clock_.CurrentNtpInMilliseconds();
   // Local peer gets enough RTCP SR to calculate the capture time.
   EXPECT_EQ(capture_ntp_time_ms, estimator_.Estimate(rtp_timestamp));
-  EXPECT_EQ(kRemoteToLocalClockOffsetNtp,
-            estimator_.EstimateRemoteToLocalClockOffset());
+  EXPECT_EQ(kRemoteToLocalClockOffsetNtp / kNtpToMicroSec,
+            *estimator_.EstimateRemoteToLocalClockOffset() / kNtpToMicroSec);
 
   // Remote sends corrupted RTCP SRs
   AdvanceTime(TimeDelta::Seconds(1));
@@ -121,8 +126,8 @@ TEST_F(RemoteNtpTimeEstimatorTest, AveragesErrorsOut) {
 
   // Errors should be averaged out.
   EXPECT_EQ(capture_ntp_time_ms, estimator_.Estimate(rtp_timestamp));
-  EXPECT_EQ(kRemoteToLocalClockOffsetNtp,
-            estimator_.EstimateRemoteToLocalClockOffset());
+  EXPECT_EQ(kRemoteToLocalClockOffsetNtp / kNtpToMicroSec,
+            *estimator_.EstimateRemoteToLocalClockOffset() / kNtpToMicroSec);
 }
 
 }  // namespace

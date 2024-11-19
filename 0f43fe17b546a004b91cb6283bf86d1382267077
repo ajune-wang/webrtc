@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "935896ba_0826cefb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-11-19T13:15:40Z",
+      "side": 1,
+      "message": "Forgot one function in the .cc file when removing from .h",
+      "revId": "0f43fe17b546a004b91cb6283bf86d1382267077",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

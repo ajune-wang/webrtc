@@ -16,6 +16,74 @@
       "message": "LGTM this does what we decided at the WebRTC WG. I will write a PR but because this only affects H265 which is behind flag I don\u0027t think we need to wait for that PR to merge before landing this CL. Adding Harald as a second reviewer and someone who was present at the meeting",
       "revId": "22027ff6835ecf1e385a2d6683586f9041d07f7a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4473fc77_6c4b4dd0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-11-20T12:29:10Z",
+      "side": 1,
+      "message": "Looks OK, but I\u0027d like some fixes.",
+      "revId": "22027ff6835ecf1e385a2d6683586f9041d07f7a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "27d8838a_e2ed6778",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1438,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-11-20T12:29:10Z",
+      "side": 1,
+      "message": "```suggestion\n      // Ignore level when matching negotiated codecs against the requested\n```",
+      "revId": "22027ff6835ecf1e385a2d6683586f9041d07f7a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2b97a2fb_fb52b014",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1442,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-11-20T12:29:10Z",
+      "side": 1,
+      "message": "Comment, no action needed: I wonder if this is the right function to use here - MatchesWithCodecRules is the one that has  *all* the special rules for codec matching. But IsSameRtpCodec is far simpler, so it may be OK to use that one here.",
+      "revId": "22027ff6835ecf1e385a2d6683586f9041d07f7a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "752b2d25_76b176c7",
+        "filename": "media/engine/webrtc_video_engine_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 8558,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-11-20T12:29:10Z",
+      "side": 1,
+      "message": "For style: This is actually 3 different tests (higher level, lower level, and I\u0027m not sure it tests same level). I\u0027m not sure we have the correct treatment of all of them - \"negotiating\" should set the level-id to the lower of the negotiated level and the one we\u0027re trying to send, and I\u0027m not sure we have a path to get that information back to the encoder (if we negotiate level-id 150, and we attempt to set the codec to level-id 180, the encoder needs to be configured to send 150, and I\u0027m not sure where we extract that information).\n\nLet\u0027s leave it this way for now, but please make 2-3 tests, not one.",
+      "revId": "22027ff6835ecf1e385a2d6683586f9041d07f7a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

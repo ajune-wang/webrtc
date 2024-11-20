@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9d8a3b32_cc8d3079",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3743647
+      },
+      "writtenOn": "2024-11-20T07:16:42Z",
+      "side": 1,
+      "message": "A little bit of insides:\n\nIn our clang20 build of our App with WebRTC bundled, we noticed that our App sometimes crashes with a detected race inside `CaptureProcess()` (Previously on line 414). After reviewing the code, I noticed that the `StartCapture()` function holds the race checker until the function returns.\n\nThus, it is possible that the created `PlatformThread` at the bottom of the function is executing faster than the `StartCapture()` function can return (and release the `RaceChecker` count). In that case, both functions use the race checker simultaneously causing a crash in debug builds.\n\nThe fix simply scopes the Race Checker up until the creation of the capture thread. It\u0027s still ensured that only one thread creates the `_captureThread` due to the still function-scoped mutex. The other capture-related member variables are still protected by the race-checker.",
+      "revId": "d2bcfa78d9ee7d8168d234e99625d3ff51b03522",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

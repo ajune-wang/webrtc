@@ -23,6 +23,7 @@
 #include "api/audio_codecs/audio_decoder_factory.h"
 #include "api/audio_codecs/audio_format.h"
 #include "api/environment/environment.h"
+#include "api/field_trials_view.h"
 #include "rtc_base/buffer.h"
 #include "rtc_base/checks.h"
 
@@ -43,7 +44,8 @@ class AudioDecoderProxyFactory : public AudioDecoderFactory {
     return {};
   }
 
-  bool IsSupportedDecoder(const SdpAudioFormat& format) override {
+  bool IsSupportedDecoder(const SdpAudioFormat& format,
+                          const webrtc::FieldTrialsView& trials) override {
     return true;
   }
 

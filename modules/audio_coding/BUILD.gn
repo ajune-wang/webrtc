@@ -318,6 +318,7 @@ rtc_library("webrtc_multiopus") {
   deps = [
     ":audio_coding_opus_common",
     "../../api:array_view",
+    "../../api:field_trials_view",
     "../../api/audio_codecs:audio_codecs_api",
     "../../api/audio_codecs/opus:audio_decoder_opus_config",
     "../../api/audio_codecs/opus:audio_encoder_opus_config",

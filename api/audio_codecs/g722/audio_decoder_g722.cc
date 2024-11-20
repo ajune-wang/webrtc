@@ -26,7 +26,8 @@
 namespace webrtc {
 
 std::optional<AudioDecoderG722::Config> AudioDecoderG722::SdpToConfig(
-    const SdpAudioFormat& format) {
+    const SdpAudioFormat& format,
+    const FieldTrialsView& field_trials) {
   if (absl::EqualsIgnoreCase(format.name, "G722") &&
       format.clockrate_hz == 8000 &&
       (format.num_channels == 1 || format.num_channels == 2)) {

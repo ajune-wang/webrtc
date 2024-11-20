@@ -19,6 +19,7 @@
 #include "api/audio_codecs/audio_decoder.h"
 #include "api/audio_codecs/audio_format.h"
 #include "api/audio_codecs/opus/audio_decoder_multi_channel_opus_config.h"
+#include "api/field_trials_view.h"
 #include "modules/audio_coding/codecs/opus/opus_interface.h"
 #include "rtc_base/buffer.h"
 
@@ -47,7 +48,8 @@ class AudioDecoderMultiChannelOpusImpl final : public AudioDecoder {
   size_t Channels() const override;
 
   static std::optional<AudioDecoderMultiChannelOpusConfig> SdpToConfig(
-      const SdpAudioFormat& format);
+      const SdpAudioFormat& format,
+      const webrtc::FieldTrialsView& field_trials);
 
  protected:
   int DecodeInternal(const uint8_t* encoded,

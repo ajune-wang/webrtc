@@ -3906,8 +3906,8 @@ TEST(WebRtcVoiceEngineTest, SetRecvCodecs) {
     std::unique_ptr<Call> call = Call::Create(CallConfig(env));
     cricket::WebRtcVoiceReceiveChannel channel(
         &engine, cricket::MediaConfig(), cricket::AudioOptions(),
-        webrtc::CryptoOptions(), call.get(),
-        webrtc::AudioCodecPairId::Create());
+        webrtc::CryptoOptions(), call.get(), webrtc::AudioCodecPairId::Create(),
+        env.field_trials());
     cricket::AudioReceiverParameters parameters;
     parameters.codecs = ReceiveCodecsWithId(engine);
     EXPECT_TRUE(channel.SetReceiverParameters(parameters));

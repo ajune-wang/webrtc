@@ -175,6 +175,8 @@ class WebRtcVoiceEngine final : public VoiceEngineInterface {
 
   const bool minimized_remsampling_on_mobile_trial_enabled_;
   const bool payload_types_in_transport_trial_enabled_;
+
+  const webrtc::FieldTrialsView& trials_;
 };
 
 class WebRtcVoiceSendChannel final : public MediaChannelUtil,
@@ -347,7 +349,8 @@ class WebRtcVoiceReceiveChannel final
                             const AudioOptions& options,
                             const webrtc::CryptoOptions& crypto_options,
                             webrtc::Call* call,
-                            webrtc::AudioCodecPairId codec_pair_id);
+                            webrtc::AudioCodecPairId codec_pair_id,
+                            const webrtc::FieldTrialsView& trials);
 
   WebRtcVoiceReceiveChannel() = delete;
   WebRtcVoiceReceiveChannel(const WebRtcVoiceReceiveChannel&) = delete;
@@ -507,6 +510,8 @@ class WebRtcVoiceReceiveChannel final
       unsignaled_frame_decryptor_;
   rtc::scoped_refptr<webrtc::FrameTransformerInterface>
       unsignaled_frame_transformer_;
+
+  const webrtc::FieldTrialsView& trials_;
 
   void FillReceiveCodecStats(VoiceMediaReceiveInfo* voice_media_info);
 };

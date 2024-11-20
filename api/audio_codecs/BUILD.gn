@@ -31,10 +31,11 @@ rtc_library("audio_codecs_api") {
   deps = [
     "..:array_view",
     "..:bitrate_allocation",
+    "..:field_trials_view",
     "..:make_ref_counted",
     "..:ref_count",
+    "..:rtp_parameters",
     "..:scoped_refptr",
-    "../../api:rtp_parameters",
     "../../rtc_base:buffer",
     "../../rtc_base:checks",
     "../../rtc_base:event_tracer",
@@ -60,6 +61,7 @@ rtc_library("builtin_audio_decoder_factory") {
   ]
   deps = [
     ":audio_codecs_api",
+    "..:field_trials_view",
     "..:scoped_refptr",
     "L16:audio_decoder_L16",
     "g711:audio_decoder_g711",
@@ -114,6 +116,7 @@ rtc_library("opus_audio_decoder_factory") {
   ]
   deps = [
     ":audio_codecs_api",
+    "..:field_trials_view",
     "..:scoped_refptr",
     "opus:audio_decoder_multiopus",
     "opus:audio_decoder_opus",

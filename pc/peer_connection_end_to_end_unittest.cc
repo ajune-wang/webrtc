@@ -35,6 +35,7 @@
 #include "api/audio_options.h"
 #include "api/data_channel_interface.h"
 #include "api/environment/environment.h"
+#include "api/field_trials_view.h"
 #include "api/media_stream_interface.h"
 #include "api/peer_connection_interface.h"
 #include "api/rtc_error.h"
@@ -293,12 +294,13 @@ CreateForwardingMockDecoderFactory(
       .WillRepeatedly(Invoke([real_decoder_factory] {
         return real_decoder_factory->GetSupportedDecoders();
       }));
-  EXPECT_CALL(*mock_decoder_factory, IsSupportedDecoder(_))
+  EXPECT_CALL(*mock_decoder_factory, IsSupportedDecoder(_, _))
       .Times(AtLeast(1))
-      .WillRepeatedly(
-          Invoke([real_decoder_factory](const webrtc::SdpAudioFormat& format) {
-            return real_decoder_factory->IsSupportedDecoder(format);
-          }));
+      .WillRepeatedly(Invoke([real_decoder_factory](
+                                 const webrtc::SdpAudioFormat& format,
+                                 const webrtc::FieldTrialsView& field_trials) {
+        return real_decoder_factory->IsSupportedDecoder(format, field_trials);
+      }));
   EXPECT_CALL(*mock_decoder_factory, Create)
       .Times(AtLeast(2))
       .WillRepeatedly(
@@ -353,13 +355,15 @@ struct AudioEncoderUnicornSparklesRainbow {
 
 struct AudioDecoderUnicornSparklesRainbow {
   using Config = webrtc::AudioDecoderL16::Config;
-  static std::optional<Config> SdpToConfig(webrtc::SdpAudioFormat format) {
+  static std::optional<Config> SdpToConfig(
+      webrtc::SdpAudioFormat format,
+      const webrtc::FieldTrialsView& field_trials) {
     if (absl::EqualsIgnoreCase(format.name, "UnicornSparklesRainbow")) {
       const webrtc::CodecParameterMap expected_params = {{"num_horns", "1"}};
       EXPECT_EQ(expected_params, format.parameters);
       format.parameters.clear();
       format.name = "L16";
-      return webrtc::AudioDecoderL16::SdpToConfig(format);
+      return webrtc::AudioDecoderL16::SdpToConfig(format, field_trials);
     } else {
       return std::nullopt;
     }
@@ -442,8 +446,10 @@ TEST_P(PeerConnectionEndToEndTest, CallWithCustomCodec) {
     std::vector<webrtc::AudioCodecSpec> GetSupportedDecoders() override {
       return fact_->GetSupportedDecoders();
     }
-    bool IsSupportedDecoder(const webrtc::SdpAudioFormat& format) override {
-      return fact_->IsSupportedDecoder(format);
+    bool IsSupportedDecoder(
+        const webrtc::SdpAudioFormat& format,
+        const webrtc::FieldTrialsView& field_trials) override {
+      return fact_->IsSupportedDecoder(format, field_trials);
     }
     std::unique_ptr<webrtc::AudioDecoder> Create(
         const Environment& env,

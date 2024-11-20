@@ -75,7 +75,7 @@ TEST(WebRtcMediaEngineTest, ValidateRtpExtensionsAllGood) {
   EXPECT_TRUE(ValidateRtpExtensions(extensions, {}));
 }
 
-TEST(WebRtcMediaEngineTest, ValidateRtpExtensionsOutOfRangeId_Low) {
+TEST(WebRtcMediaEngineTest, ValidateRtpExtensionsOutOfRangeIdLow) {
   std::vector<RtpExtension> extensions = MakeUniqueExtensions();
   extensions.push_back(RtpExtension("foo", 0));
   EXPECT_FALSE(ValidateRtpExtensions(extensions, {}));

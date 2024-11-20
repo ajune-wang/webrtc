@@ -42,7 +42,7 @@ class MockSink : public rtc::VideoSinkInterface<webrtc::VideoFrame> {
               (override));
 };
 
-TEST(VideoBroadcasterTest, frame_wanted) {
+TEST(VideoBroadcasterTest, frameWanted) {
   VideoBroadcaster broadcaster;
   EXPECT_FALSE(broadcaster.frame_wanted());
 

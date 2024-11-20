@@ -1091,7 +1091,7 @@ TEST(VideoAdapterTestMultipleOrientation, TestForcePortrait) {
   EXPECT_EQ(640, out_height);
 }
 
-TEST_P(VideoAdapterTest, AdaptResolutionInStepsFirst3_4) {
+TEST_P(VideoAdapterTest, AdaptResolutionInStepsFirst34) {
   const int kWidth = 1280;
   const int kHeight = 720;
   OnOutputFormatRequest(kWidth, kHeight, std::nullopt);  // 16:9 aspect.
@@ -1119,7 +1119,7 @@ TEST_P(VideoAdapterTest, AdaptResolutionInStepsFirst3_4) {
   }
 }
 
-TEST_P(VideoAdapterTest, AdaptResolutionInStepsFirst2_3) {
+TEST_P(VideoAdapterTest, AdaptResolutionInStepsFirst23) {
   const int kWidth = 1920;
   const int kHeight = 1080;
   OnOutputFormatRequest(kWidth, kHeight, std::nullopt);  // 16:9 aspect.
@@ -1147,7 +1147,7 @@ TEST_P(VideoAdapterTest, AdaptResolutionInStepsFirst2_3) {
   }
 }
 
-TEST_P(VideoAdapterTest, AdaptResolutionInStepsFirst2x2_3) {
+TEST_P(VideoAdapterTest, AdaptResolutionInStepsFirst2x23) {
   const int kWidth = 1440;
   const int kHeight = 1080;
   OnOutputFormatRequest(kWidth, kHeight, std::nullopt);  // 4:3 aspect.

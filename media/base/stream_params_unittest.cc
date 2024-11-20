@@ -231,7 +231,7 @@ TEST(StreamParams, ToString) {
       sp.ToString().c_str());
 }
 
-TEST(StreamParams, TestGenerateSsrcs_SingleStreamWithRtxAndFlex) {
+TEST(StreamParams, TestGenerateSsrcsSingleStreamWithRtxAndFlex) {
   rtc::UniqueRandomIdGenerator generator;
   cricket::StreamParams stream;
   stream.GenerateSsrcs(1, true, true, &generator);
@@ -249,7 +249,7 @@ TEST(StreamParams, TestGenerateSsrcs_SingleStreamWithRtxAndFlex) {
   EXPECT_TRUE(stream.has_ssrc_group(cricket::kFecFrSsrcGroupSemantics));
 }
 
-TEST(StreamParams, TestGenerateSsrcs_SingleStreamWithRtx) {
+TEST(StreamParams, TestGenerateSsrcsSingleStreamWithRtx) {
   rtc::UniqueRandomIdGenerator generator;
   cricket::StreamParams stream;
   stream.GenerateSsrcs(1, true, false, &generator);
@@ -266,7 +266,7 @@ TEST(StreamParams, TestGenerateSsrcs_SingleStreamWithRtx) {
   EXPECT_TRUE(stream.has_ssrc_group(cricket::kFidSsrcGroupSemantics));
 }
 
-TEST(StreamParams, TestGenerateSsrcs_SingleStreamWithFlex) {
+TEST(StreamParams, TestGenerateSsrcsSingleStreamWithFlex) {
   rtc::UniqueRandomIdGenerator generator;
   cricket::StreamParams stream;
   stream.GenerateSsrcs(1, false, true, &generator);
@@ -283,7 +283,7 @@ TEST(StreamParams, TestGenerateSsrcs_SingleStreamWithFlex) {
   EXPECT_TRUE(stream.has_ssrc_group(cricket::kFecFrSsrcGroupSemantics));
 }
 
-TEST(StreamParams, TestGenerateSsrcs_SimulcastLayersAndRtx) {
+TEST(StreamParams, TestGenerateSsrcsSimulcastLayersAndRtx) {
   const size_t kNumStreams = 3;
   rtc::UniqueRandomIdGenerator generator;
   cricket::StreamParams stream;

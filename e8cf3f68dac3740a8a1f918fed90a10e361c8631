@@ -85,6 +85,24 @@
       "parentUuid": "2455b89c_d613ef3a",
       "revId": "e8cf3f68dac3740a8a1f918fed90a10e361c8631",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a17e94d2_f9f39ad1",
+        "filename": "common_audio/vad/vad_filterbank_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-11-20T14:28:52Z",
+      "side": 1,
+      "message": "Thanks - there\u0027s half a dozen similar cases elsewhere, but it\u0027s not a big deal.",
+      "parentUuid": "437d1f75_c8569fee",
+      "revId": "e8cf3f68dac3740a8a1f918fed90a10e361c8631",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

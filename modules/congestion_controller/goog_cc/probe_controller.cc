@@ -237,9 +237,9 @@ std::vector<ProbeClusterConfig> ProbeController::OnMaxTotalAllocatedBitrate(
 
     DataRate first_probe_rate = max_total_allocated_bitrate *
                                 config_.first_allocation_probe_scale.Value();
-    DataRate current_bwe_limit =
+    const DataRate current_bwe_limit =
         !config_.allocation_probe_limit_by_current_scale
-            ? DataRate::PlusInfinity()
+            ? estimated_bitrate_ * 2
             : estimated_bitrate_ *
                   config_.allocation_probe_limit_by_current_scale.Value();
     bool limited_by_current_bwe = current_bwe_limit < first_probe_rate;

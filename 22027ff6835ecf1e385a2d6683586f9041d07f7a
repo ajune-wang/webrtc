@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f5b165fd_6ebeb4b8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2024-11-20T12:08:50Z",
+      "side": 1,
+      "message": "LGTM this does what we decided at the WebRTC WG. I will write a PR but because this only affects H265 which is behind flag I don\u0027t think we need to wait for that PR to merge before landing this CL. Adding Harald as a second reviewer and someone who was present at the meeting",
+      "revId": "22027ff6835ecf1e385a2d6683586f9041d07f7a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

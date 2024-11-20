@@ -175,7 +175,7 @@ TEST(SimpleEncoderWrapper, EncodeL1T1) {
       });
 }
 
-TEST(SimpleEncoderWrapper, EncodeL2T2_KEY) {
+TEST(SimpleEncoderWrapper, EncodeL2T2KEY) {
   auto encoder = LibaomAv1EncoderFactory().CreateEncoder(
       {.max_encode_dimensions = {1080, 720},
        .encoding_format = {.sub_sampling = EncodingFormat::k420,

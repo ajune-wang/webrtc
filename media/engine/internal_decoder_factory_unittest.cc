@@ -120,7 +120,7 @@ TEST(InternalDecoderFactoryTest, Av1) {
 }
 #endif
 
-TEST(InternalDecoderFactoryTest, Av1Profile1_Dav1dDecoderTrialEnabled) {
+TEST(InternalDecoderFactoryTest, Av1Profile1Dav1dDecoderTrialEnabled) {
   const Environment env = CreateEnvironment();
   InternalDecoderFactory factory;
   std::unique_ptr<VideoDecoder> decoder =

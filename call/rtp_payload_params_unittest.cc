@@ -62,7 +62,7 @@ const int16_t kInitialPictureId1 = 222;
 const int16_t kInitialTl0PicIdx1 = 99;
 const int64_t kDontCare = 0;
 
-TEST(RtpPayloadParamsTest, InfoMappedToRtpVideoHeader_Vp8) {
+TEST(RtpPayloadParamsTest, InfoMappedToRtpVideoHeaderVp8) {
   RtpPayloadState state2;
   state2.picture_id = kPictureId;
   state2.tl0_pic_idx = kTl0PicIdx;
@@ -104,7 +104,7 @@ TEST(RtpPayloadParamsTest, InfoMappedToRtpVideoHeader_Vp8) {
   EXPECT_TRUE(vp8_header.nonReference);
 }
 
-TEST(RtpPayloadParamsTest, InfoMappedToRtpVideoHeader_Vp9) {
+TEST(RtpPayloadParamsTest, InfoMappedToRtpVideoHeaderVp9) {
   RtpPayloadState state;
   state.picture_id = kPictureId;
   state.tl0_pic_idx = kTl0PicIdx;

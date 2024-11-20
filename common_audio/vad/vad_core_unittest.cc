@@ -35,7 +35,7 @@ TEST_F(VadTest, InitCore) {
   free(self);
 }
 
-TEST_F(VadTest, set_mode_core) {
+TEST_F(VadTest, setModeCore) {
   VadInstT* self = reinterpret_cast<VadInstT*>(malloc(sizeof(VadInstT)));
 
   // TODO(bjornv): Add null pointer check if we take care of it in

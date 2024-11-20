@@ -23,7 +23,7 @@ namespace test {
 
 const int kNumValidFrameLengths = 3;
 
-TEST_F(VadTest, vad_filterbank) {
+TEST_F(VadTest, vadFilterbank) {
   VadInstT* self = reinterpret_cast<VadInstT*>(malloc(sizeof(VadInstT)));
   static const int16_t kReference[kNumValidFrameLengths] = {48, 11, 11};
   static const int16_t kFeatures[kNumValidFrameLengths * kNumChannels] = {

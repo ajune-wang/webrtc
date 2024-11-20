@@ -400,13 +400,13 @@ void CallPerfTest::TestAudioVideoSync(FecMode fec,
       [to_delete = observer.release()]() { delete to_delete; });
 }
 
-TEST_F(CallPerfTest, Synchronization_PlaysOutAudioAndVideoWithoutClockDrift) {
+TEST_F(CallPerfTest, SynchronizationPlaysOutAudioAndVideoWithoutClockDrift) {
   TestAudioVideoSync(FecMode::kOff, CreateOrder::kAudioFirst,
                      DriftingClock::kNoDrift, DriftingClock::kNoDrift,
                      DriftingClock::kNoDrift, "_video_no_drift");
 }
 
-TEST_F(CallPerfTest, Synchronization_PlaysOutAudioAndVideoWithVideoNtpDrift) {
+TEST_F(CallPerfTest, SynchronizationPlaysOutAudioAndVideoWithVideoNtpDrift) {
   TestAudioVideoSync(FecMode::kOff, CreateOrder::kAudioFirst,
                      DriftingClock::PercentsFaster(10.0f),
                      DriftingClock::kNoDrift, DriftingClock::kNoDrift,
@@ -636,11 +636,11 @@ void CallPerfTest::TestMinTransmitBitrate(bool pad_to_min_bitrate) {
   RunBaseTest(&test);
 }
 
-TEST_F(CallPerfTest, Bitrate_Kbps_PadsToMinTransmitBitrate) {
+TEST_F(CallPerfTest, BitrateKbpsPadsToMinTransmitBitrate) {
   TestMinTransmitBitrate(true);
 }
 
-TEST_F(CallPerfTest, Bitrate_Kbps_NoPadWithoutMinTransmitBitrate) {
+TEST_F(CallPerfTest, BitrateKbpsNoPadWithoutMinTransmitBitrate) {
   TestMinTransmitBitrate(false);
 }
 
@@ -925,7 +925,7 @@ void CallPerfTest::TestMinAudioVideoBitrate(int test_bitrate_from,
   RunBaseTest(&test);
 }
 
-TEST_F(CallPerfTest, Min_Bitrate_VideoAndAudio) {
+TEST_F(CallPerfTest, MinBitrateVideoAndAudio) {
   TestMinAudioVideoBitrate(110, 40, -10, 10000, 70000, 200000);
 }
 

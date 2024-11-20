@@ -9414,12 +9414,12 @@ TEST_F(WebRtcVideoChannelTest, ConfiguresLocalSsrcOnExistingReceivers) {
   TestReceiverLocalSsrcConfiguration(true);
 }
 
-TEST_F(WebRtcVideoChannelTest, Simulcast_QualityScalingNotAllowed) {
+TEST_F(WebRtcVideoChannelTest, SimulcastQualityScalingNotAllowed) {
   FakeVideoSendStream* stream = SetUpSimulcast(true, /*with_rtx=*/true);
   EXPECT_FALSE(stream->GetEncoderConfig().is_quality_scaling_allowed);
 }
 
-TEST_F(WebRtcVideoChannelTest, Singlecast_QualityScalingAllowed) {
+TEST_F(WebRtcVideoChannelTest, SinglecastQualityScalingAllowed) {
   FakeVideoSendStream* stream = SetUpSimulcast(false, /*with_rtx=*/true);
   EXPECT_TRUE(stream->GetEncoderConfig().is_quality_scaling_allowed);
 }

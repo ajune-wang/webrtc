@@ -610,7 +610,7 @@ TEST(LibaomAv1Encoder, L3T1) {
   EXPECT_THAT(Psnr(tu2_frame, f_tu2), Gt(40));
 }
 
-TEST(LibaomAv1Encoder, L3T1_KEY) {
+TEST(LibaomAv1Encoder, L3T1KEY) {
   auto frame_reader = CreateFrameReader();
   auto enc = LibaomAv1EncoderFactory().CreateEncoder(kCbrEncoderSettings, {});
 

@@ -170,7 +170,7 @@ TEST_F(VideoStreamAdapterTest, NoRestrictionsByDefault) {
   EXPECT_EQ(0, adapter_.adaptation_counters().Total());
 }
 
-TEST_F(VideoStreamAdapterTest, MaintainFramerate_DecreasesPixelsToThreeFifths) {
+TEST_F(VideoStreamAdapterTest, MaintainFramerateDecreasesPixelsToThreeFifths) {
   const int kInputPixels = 1280 * 720;
   adapter_.SetDegradationPreference(DegradationPreference::MAINTAIN_FRAMERATE);
   input_state_provider_.SetInputState(kInputPixels, 30,
@@ -203,7 +203,7 @@ TEST_F(VideoStreamAdapterTest,
   EXPECT_EQ(Adaptation::Status::kLimitReached, adaptation.status());
 }
 
-TEST_F(VideoStreamAdapterTest, MaintainFramerate_IncreasePixelsToFiveThirds) {
+TEST_F(VideoStreamAdapterTest, MaintainFramerateIncreasePixelsToFiveThirds) {
   adapter_.SetDegradationPreference(DegradationPreference::MAINTAIN_FRAMERATE);
   FakeVideoStream fake_stream(&adapter_, &input_state_provider_, 1280 * 720, 30,
                               kDefaultMinPixelsPerFrame);
@@ -223,7 +223,7 @@ TEST_F(VideoStreamAdapterTest, MaintainFramerate_IncreasePixelsToFiveThirds) {
   EXPECT_EQ(1, adapter_.adaptation_counters().resolution_adaptations);
 }
 
-TEST_F(VideoStreamAdapterTest, MaintainFramerate_IncreasePixelsToUnrestricted) {
+TEST_F(VideoStreamAdapterTest, MaintainFramerateIncreasePixelsToUnrestricted) {
   adapter_.SetDegradationPreference(DegradationPreference::MAINTAIN_FRAMERATE);
   FakeVideoStream fake_stream(&adapter_, &input_state_provider_, 1280 * 720, 30,
                               kDefaultMinPixelsPerFrame);
@@ -238,7 +238,7 @@ TEST_F(VideoStreamAdapterTest, MaintainFramerate_IncreasePixelsToUnrestricted) {
   EXPECT_EQ(0, adapter_.adaptation_counters().Total());
 }
 
-TEST_F(VideoStreamAdapterTest, MaintainResolution_DecreasesFpsToTwoThirds) {
+TEST_F(VideoStreamAdapterTest, MaintainResolutionDecreasesFpsToTwoThirds) {
   const int kInputFps = 30;
 
   adapter_.SetDegradationPreference(DegradationPreference::MAINTAIN_RESOLUTION);
@@ -256,7 +256,7 @@ TEST_F(VideoStreamAdapterTest, MaintainResolution_DecreasesFpsToTwoThirds) {
   EXPECT_EQ(1, adapter_.adaptation_counters().fps_adaptations);
 }
 
-TEST_F(VideoStreamAdapterTest, MaintainResolution_DecreasesFpsToLimitReached) {
+TEST_F(VideoStreamAdapterTest, MaintainResolutionDecreasesFpsToLimitReached) {
   adapter_.SetDegradationPreference(DegradationPreference::MAINTAIN_RESOLUTION);
   FakeVideoStream fake_stream(&adapter_, &input_state_provider_, 1280 * 720,
                               kMinFrameRateFps + 1, kDefaultMinPixelsPerFrame);
@@ -273,7 +273,7 @@ TEST_F(VideoStreamAdapterTest, MaintainResolution_DecreasesFpsToLimitReached) {
             adapter_.GetAdaptationDown().status());
 }
 
-TEST_F(VideoStreamAdapterTest, MaintainResolution_IncreaseFpsToThreeHalves) {
+TEST_F(VideoStreamAdapterTest, MaintainResolutionIncreaseFpsToThreeHalves) {
   adapter_.SetDegradationPreference(DegradationPreference::MAINTAIN_RESOLUTION);
   FakeVideoStream fake_stream(&adapter_, &input_state_provider_, 1280 * 720, 30,
                               kDefaultMinPixelsPerFrame);
@@ -295,7 +295,7 @@ TEST_F(VideoStreamAdapterTest, MaintainResolution_IncreaseFpsToThreeHalves) {
   EXPECT_EQ(1, adapter_.adaptation_counters().fps_adaptations);
 }
 
-TEST_F(VideoStreamAdapterTest, MaintainResolution_IncreaseFpsToUnrestricted) {
+TEST_F(VideoStreamAdapterTest, MaintainResolutionIncreaseFpsToUnrestricted) {
   adapter_.SetDegradationPreference(DegradationPreference::MAINTAIN_RESOLUTION);
   FakeVideoStream fake_stream(&adapter_, &input_state_provider_, 1280 * 720, 30,
                               kDefaultMinPixelsPerFrame);
@@ -310,7 +310,7 @@ TEST_F(VideoStreamAdapterTest, MaintainResolution_IncreaseFpsToUnrestricted) {
   EXPECT_EQ(0, adapter_.adaptation_counters().Total());
 }
 
-TEST_F(VideoStreamAdapterTest, Balanced_DecreaseFrameRate) {
+TEST_F(VideoStreamAdapterTest, BalancedDecreaseFrameRate) {
   adapter_.SetDegradationPreference(DegradationPreference::BALANCED);
   input_state_provider_.SetInputState(kBalancedMediumResolutionPixels,
                                       kBalancedHighFrameRateFps,
@@ -331,7 +331,7 @@ TEST_F(VideoStreamAdapterTest, Balanced_DecreaseFrameRate) {
   EXPECT_EQ(1, adapter_.adaptation_counters().fps_adaptations);
 }
 
-TEST_F(VideoStreamAdapterTest, Balanced_DecreaseResolution) {
+TEST_F(VideoStreamAdapterTest, BalancedDecreaseResolution) {
   adapter_.SetDegradationPreference(DegradationPreference::BALANCED);
   FakeVideoStream fake_stream(
       &adapter_, &input_state_provider_, kBalancedHighResolutionPixels,
@@ -402,7 +402,7 @@ TEST_F(VideoStreamAdapterTest, Balanced_DecreaseResolution) {
 // adapt up we don't do it in the reverse order. Instead we always try to adapt
 // frame rate first according to balanced settings' configs and only when the
 // frame rate is already achieved do we adjust the resolution.
-TEST_F(VideoStreamAdapterTest, Balanced_IncreaseFrameRateAndResolution) {
+TEST_F(VideoStreamAdapterTest, BalancedIncreaseFrameRateAndResolution) {
   adapter_.SetDegradationPreference(DegradationPreference::BALANCED);
   FakeVideoStream fake_stream(
       &adapter_, &input_state_provider_, kBalancedHighResolutionPixels,
@@ -508,7 +508,7 @@ TEST_F(VideoStreamAdapterTest, Balanced_IncreaseFrameRateAndResolution) {
   }
 }
 
-TEST_F(VideoStreamAdapterTest, Balanced_LimitReached) {
+TEST_F(VideoStreamAdapterTest, BalancedLimitReached) {
   adapter_.SetDegradationPreference(DegradationPreference::BALANCED);
   FakeVideoStream fake_stream(
       &adapter_, &input_state_provider_, kBalancedLowResolutionPixels,
@@ -569,7 +569,7 @@ TEST_F(VideoStreamAdapterTest,
 }
 
 // kAwaitingPreviousAdaptation is only supported in "maintain-framerate".
-TEST_F(VideoStreamAdapterTest, MaintainFramerate_AwaitingPreviousAdaptationUp) {
+TEST_F(VideoStreamAdapterTest, MaintainFramerateAwaitingPreviousAdaptationUp) {
   adapter_.SetDegradationPreference(DegradationPreference::MAINTAIN_FRAMERATE);
   FakeVideoStream fake_stream(&adapter_, &input_state_provider_, 1280 * 720, 30,
                               kDefaultMinPixelsPerFrame);

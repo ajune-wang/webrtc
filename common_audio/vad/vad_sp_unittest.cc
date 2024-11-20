@@ -21,7 +21,7 @@ extern "C" {
 namespace webrtc {
 namespace test {
 
-TEST_F(VadTest, vad_sp) {
+TEST_F(VadTest, vadSp) {
   VadInstT* self = reinterpret_cast<VadInstT*>(malloc(sizeof(VadInstT)));
   const size_t kMaxFrameLenSp = 960;  // Maximum frame length in this unittest.
   int16_t zeros[kMaxFrameLenSp] = {0};

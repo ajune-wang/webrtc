@@ -106,7 +106,7 @@ TEST(CallTest, ConstructDestruct) {
   }
 }
 
-TEST(CallTest, CreateDestroy_AudioSendStream) {
+TEST(CallTest, CreateDestroyAudioSendStream) {
   for (bool use_null_audio_processing : {false, true}) {
     CallHelper call(use_null_audio_processing);
     MockTransport send_transport;
@@ -118,7 +118,7 @@ TEST(CallTest, CreateDestroy_AudioSendStream) {
   }
 }
 
-TEST(CallTest, CreateDestroy_AudioReceiveStream) {
+TEST(CallTest, CreateDestroyAudioReceiveStream) {
   for (bool use_null_audio_processing : {false, true}) {
     CallHelper call(use_null_audio_processing);
     AudioReceiveStreamInterface::Config config;
@@ -134,7 +134,7 @@ TEST(CallTest, CreateDestroy_AudioReceiveStream) {
   }
 }
 
-TEST(CallTest, CreateDestroy_AudioSendStreams) {
+TEST(CallTest, CreateDestroyAudioSendStreams) {
   for (bool use_null_audio_processing : {false, true}) {
     CallHelper call(use_null_audio_processing);
     MockTransport send_transport;
@@ -159,7 +159,7 @@ TEST(CallTest, CreateDestroy_AudioSendStreams) {
   }
 }
 
-TEST(CallTest, CreateDestroy_AudioReceiveStreams) {
+TEST(CallTest, CreateDestroyAudioReceiveStreams) {
   for (bool use_null_audio_processing : {false, true}) {
     CallHelper call(use_null_audio_processing);
     AudioReceiveStreamInterface::Config config;
@@ -188,7 +188,7 @@ TEST(CallTest, CreateDestroy_AudioReceiveStreams) {
   }
 }
 
-TEST(CallTest, CreateDestroy_AssociateAudioSendReceiveStreams_RecvFirst) {
+TEST(CallTest, CreateDestroyAssociateAudioSendReceiveStreamsRecvFirst) {
   for (bool use_null_audio_processing : {false, true}) {
     CallHelper call(use_null_audio_processing);
     AudioReceiveStreamInterface::Config recv_config;
@@ -221,7 +221,7 @@ TEST(CallTest, CreateDestroy_AssociateAudioSendReceiveStreams_RecvFirst) {
   }
 }
 
-TEST(CallTest, CreateDestroy_AssociateAudioSendReceiveStreams_SendFirst) {
+TEST(CallTest, CreateDestroyAssociateAudioSendReceiveStreamsSendFirst) {
   for (bool use_null_audio_processing : {false, true}) {
     CallHelper call(use_null_audio_processing);
     MockTransport send_transport;
@@ -252,7 +252,7 @@ TEST(CallTest, CreateDestroy_AssociateAudioSendReceiveStreams_SendFirst) {
   }
 }
 
-TEST(CallTest, CreateDestroy_FlexfecReceiveStream) {
+TEST(CallTest, CreateDestroyFlexfecReceiveStream) {
   for (bool use_null_audio_processing : {false, true}) {
     CallHelper call(use_null_audio_processing);
     MockTransport rtcp_send_transport;
@@ -267,7 +267,7 @@ TEST(CallTest, CreateDestroy_FlexfecReceiveStream) {
   }
 }
 
-TEST(CallTest, CreateDestroy_FlexfecReceiveStreams) {
+TEST(CallTest, CreateDestroyFlexfecReceiveStreams) {
   for (bool use_null_audio_processing : {false, true}) {
     CallHelper call(use_null_audio_processing);
     MockTransport rtcp_send_transport;

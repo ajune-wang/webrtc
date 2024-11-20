@@ -22,7 +22,7 @@ namespace test {
 #if defined(__has_feature) && __has_feature(undefined_behavior_sanitizer)
 TEST_F(VadTest, DISABLED_vad_gmm) {
 #else
-TEST_F(VadTest, vad_gmm) {
+TEST_F(VadTest, vadGmm) {
 #endif
   int16_t delta = 0;
   // Input value at mean.

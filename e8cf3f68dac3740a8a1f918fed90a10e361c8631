@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1de1f873_c696e2fe",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3417290
+      },
+      "writtenOn": "2024-11-20T13:27:11Z",
+      "side": 1,
+      "message": "PTAL\n\nAnd please help me execute CQ+1, execute CQ+2 after CL gets two LGTMs, thanks!",
+      "revId": "e8cf3f68dac3740a8a1f918fed90a10e361c8631",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

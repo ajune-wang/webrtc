@@ -67,6 +67,24 @@
       "message": "Don\u0027t know if it would be simple to also uppercase the first character here - it seems untidy to use lowerCamelCase rather than UpperCamelCase.\nIf it requires a manual pass, feel free to ignore.",
       "revId": "e8cf3f68dac3740a8a1f918fed90a10e361c8631",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "437d1f75_c8569fee",
+        "filename": "common_audio/vad/vad_filterbank_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 3417290
+      },
+      "writtenOn": "2024-11-20T14:25:35Z",
+      "side": 1,
+      "message": "Thanks for your review, I have revised the code here.",
+      "parentUuid": "2455b89c_d613ef3a",
+      "revId": "e8cf3f68dac3740a8a1f918fed90a10e361c8631",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

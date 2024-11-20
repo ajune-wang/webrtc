@@ -17,6 +17,7 @@
 #include "api/audio_codecs/audio_decoder_factory.h"
 #include "api/audio_codecs/builtin_audio_decoder_factory.h"
 #include "api/environment/environment.h"
+#include "api/field_trials_view.h"
 #include "api/make_ref_counted.h"
 #include "api/scoped_refptr.h"
 #include "test/gmock.h"
@@ -46,7 +47,10 @@ class MockAudioDecoderFactory : public AudioDecoderFactory {
               GetSupportedDecoders,
               (),
               (override));
-  MOCK_METHOD(bool, IsSupportedDecoder, (const SdpAudioFormat&), (override));
+  MOCK_METHOD(bool,
+              IsSupportedDecoder,
+              (const SdpAudioFormat&, const webrtc::FieldTrialsView& trials),
+              (override));
   MOCK_METHOD(std::unique_ptr<AudioDecoder>,
               Create,
               (const Environment&,

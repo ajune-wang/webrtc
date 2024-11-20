@@ -25,8 +25,10 @@
 namespace webrtc {
 
 std::optional<AudioDecoderMultiChannelOpusConfig>
-AudioDecoderMultiChannelOpus::SdpToConfig(const SdpAudioFormat& format) {
-  return AudioDecoderMultiChannelOpusImpl::SdpToConfig(format);
+AudioDecoderMultiChannelOpus::SdpToConfig(
+    const SdpAudioFormat& format,
+    const webrtc::FieldTrialsView& field_trials) {
+  return AudioDecoderMultiChannelOpusImpl::SdpToConfig(format, field_trials);
 }
 
 void AudioDecoderMultiChannelOpus::AppendSupportedDecoders(

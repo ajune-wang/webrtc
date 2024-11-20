@@ -21,6 +21,7 @@
 #include "api/audio_codecs/audio_format.h"
 #include "api/audio_codecs/opus/audio_decoder_multi_channel_opus.h"
 #include "api/audio_codecs/opus/audio_decoder_opus.h"
+#include "api/field_trials_view.h"
 #include "api/scoped_refptr.h"
 
 namespace webrtc {
@@ -31,8 +32,10 @@ namespace {
 template <typename T>
 struct NotAdvertised {
   using Config = typename T::Config;
-  static std::optional<Config> SdpToConfig(const SdpAudioFormat& audio_format) {
-    return T::SdpToConfig(audio_format);
+  static std::optional<Config> SdpToConfig(
+      const SdpAudioFormat& audio_format,
+      const webrtc::FieldTrialsView& trials) {
+    return T::SdpToConfig(audio_format, trials);
   }
   static void AppendSupportedDecoders(
       std::vector<AudioCodecSpec>* /* specs */) {

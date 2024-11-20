@@ -22,6 +22,7 @@
 #include "api/audio_codecs/audio_format.h"
 #include "api/audio_codecs/g711/audio_decoder_g711.h"
 #include "api/audio_codecs/g722/audio_decoder_g722.h"
+#include "api/field_trials_view.h"
 #include "api/scoped_refptr.h"
 #if WEBRTC_USE_BUILTIN_OPUS
 #include "api/audio_codecs/opus/audio_decoder_multi_channel_opus.h"
@@ -36,8 +37,10 @@ namespace {
 template <typename T>
 struct NotAdvertised {
   using Config = typename T::Config;
-  static std::optional<Config> SdpToConfig(const SdpAudioFormat& audio_format) {
-    return T::SdpToConfig(audio_format);
+  static std::optional<Config> SdpToConfig(
+      const SdpAudioFormat& audio_format,
+      const webrtc::FieldTrialsView& trials) {
+    return T::SdpToConfig(audio_format, trials);
   }
   static void AppendSupportedDecoders(
       std::vector<AudioCodecSpec>* /* specs */) {

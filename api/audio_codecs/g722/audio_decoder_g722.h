@@ -30,7 +30,8 @@ struct RTC_EXPORT AudioDecoderG722 {
     bool IsOk() const { return num_channels == 1 || num_channels == 2; }
     int num_channels;
   };
-  static std::optional<Config> SdpToConfig(const SdpAudioFormat& audio_format);
+  static std::optional<Config> SdpToConfig(const SdpAudioFormat& audio_format,
+                                           const FieldTrialsView& field_trials);
   static void AppendSupportedDecoders(std::vector<AudioCodecSpec>* specs);
   static std::unique_ptr<AudioDecoder> MakeAudioDecoder(
       Config config,

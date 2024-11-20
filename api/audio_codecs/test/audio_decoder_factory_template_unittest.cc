@@ -25,6 +25,7 @@
 #include "api/audio_codecs/opus/audio_decoder_opus.h"
 #include "api/environment/environment.h"
 #include "api/environment/environment_factory.h"
+#include "api/field_trials_view.h"
 #include "api/make_ref_counted.h"
 #include "api/scoped_refptr.h"
 #include "test/gmock.h"
@@ -58,7 +59,9 @@ struct AudioDecoderFakeApi {
     SdpAudioFormat audio_format;
   };
 
-  static std::optional<Config> SdpToConfig(const SdpAudioFormat& audio_format) {
+  static std::optional<Config> SdpToConfig(
+      const SdpAudioFormat& audio_format,
+      const FieldTrialsView& field_trials) {
     if (Params::AudioFormat() == audio_format) {
       Config config = {audio_format};
       return config;
@@ -94,7 +97,8 @@ struct BaseAudioDecoderApi {
   static SdpAudioFormat AudioFormat() { return {"fake", 16'000, 2, {}}; }
 
   static std::optional<Config> SdpToConfig(
-      const SdpAudioFormat& /* audio_format */) {
+      const SdpAudioFormat& /* audio_format */,
+      const FieldTrialsView& /* field_trials */) {
     return Config();
   }
 
@@ -160,7 +164,8 @@ TEST(AudioDecoderFactoryTemplateTest, NoDecoderTypes) {
       rtc::make_ref_counted<
           audio_decoder_factory_template_impl::AudioDecoderFactoryT<>>());
   EXPECT_THAT(factory->GetSupportedDecoders(), ::testing::IsEmpty());
-  EXPECT_FALSE(factory->IsSupportedDecoder({"foo", 8000, 1}));
+  EXPECT_FALSE(
+      factory->IsSupportedDecoder({"foo", 8000, 1}, env.field_trials()));
   EXPECT_EQ(nullptr, factory->Create(env, {"bar", 16000, 1}, std::nullopt));
 }
 
@@ -170,8 +175,10 @@ TEST(AudioDecoderFactoryTemplateTest, OneDecoderType) {
   EXPECT_THAT(factory->GetSupportedDecoders(),
               ::testing::ElementsAre(
                   AudioCodecSpec{{"bogus", 8000, 1}, {8000, 1, 12345}}));
-  EXPECT_FALSE(factory->IsSupportedDecoder({"foo", 8000, 1}));
-  EXPECT_TRUE(factory->IsSupportedDecoder({"bogus", 8000, 1}));
+  EXPECT_FALSE(
+      factory->IsSupportedDecoder({"foo", 8000, 1}, env.field_trials()));
+  EXPECT_TRUE(
+      factory->IsSupportedDecoder({"bogus", 8000, 1}, env.field_trials()));
   EXPECT_EQ(nullptr, factory->Create(env, {"bar", 16000, 1}, std::nullopt));
   auto dec = factory->Create(env, {"bogus", 8000, 1}, std::nullopt);
   ASSERT_NE(nullptr, dec);
@@ -187,10 +194,12 @@ TEST(AudioDecoderFactoryTemplateTest, TwoDecoderTypes) {
                   AudioCodecSpec{{"bogus", 8000, 1}, {8000, 1, 12345}},
                   AudioCodecSpec{{"sham", 16000, 2, {{"param", "value"}}},
                                  {16000, 2, 23456}}));
-  EXPECT_FALSE(factory->IsSupportedDecoder({"foo", 8000, 1}));
-  EXPECT_TRUE(factory->IsSupportedDecoder({"bogus", 8000, 1}));
+  EXPECT_FALSE(
+      factory->IsSupportedDecoder({"foo", 8000, 1}, env.field_trials()));
   EXPECT_TRUE(
-      factory->IsSupportedDecoder({"sham", 16000, 2, {{"param", "value"}}}));
+      factory->IsSupportedDecoder({"bogus", 8000, 1}, env.field_trials()));
+  EXPECT_TRUE(factory->IsSupportedDecoder(
+      {"sham", 16000, 2, {{"param", "value"}}}, env.field_trials()));
   EXPECT_EQ(nullptr, factory->Create(env, {"bar", 16000, 1}, std::nullopt));
   auto dec1 = factory->Create(env, {"bogus", 8000, 1}, std::nullopt);
   ASSERT_NE(nullptr, dec1);
@@ -209,9 +218,12 @@ TEST(AudioDecoderFactoryTemplateTest, G711) {
               ::testing::ElementsAre(
                   AudioCodecSpec{{"PCMU", 8000, 1}, {8000, 1, 64000}},
                   AudioCodecSpec{{"PCMA", 8000, 1}, {8000, 1, 64000}}));
-  EXPECT_FALSE(factory->IsSupportedDecoder({"G711", 8000, 1}));
-  EXPECT_TRUE(factory->IsSupportedDecoder({"PCMU", 8000, 1}));
-  EXPECT_TRUE(factory->IsSupportedDecoder({"pcma", 8000, 1}));
+  EXPECT_FALSE(
+      factory->IsSupportedDecoder({"G711", 8000, 1}, env.field_trials()));
+  EXPECT_TRUE(
+      factory->IsSupportedDecoder({"PCMU", 8000, 1}, env.field_trials()));
+  EXPECT_TRUE(
+      factory->IsSupportedDecoder({"pcma", 8000, 1}, env.field_trials()));
   EXPECT_EQ(nullptr, factory->Create(env, {"pcmu", 16000, 1}, std::nullopt));
   auto dec1 = factory->Create(env, {"pcmu", 8000, 1}, std::nullopt);
   ASSERT_NE(nullptr, dec1);
@@ -227,8 +239,10 @@ TEST(AudioDecoderFactoryTemplateTest, G722) {
   EXPECT_THAT(factory->GetSupportedDecoders(),
               ::testing::ElementsAre(
                   AudioCodecSpec{{"G722", 8000, 1}, {16000, 1, 64000}}));
-  EXPECT_FALSE(factory->IsSupportedDecoder({"foo", 8000, 1}));
-  EXPECT_TRUE(factory->IsSupportedDecoder({"G722", 8000, 1}));
+  EXPECT_FALSE(
+      factory->IsSupportedDecoder({"foo", 8000, 1}, env.field_trials()));
+  EXPECT_TRUE(
+      factory->IsSupportedDecoder({"G722", 8000, 1}, env.field_trials()));
   EXPECT_EQ(nullptr, factory->Create(env, {"bar", 16000, 1}, std::nullopt));
   auto dec1 = factory->Create(env, {"G722", 8000, 1}, std::nullopt);
   ASSERT_NE(nullptr, dec1);
@@ -254,9 +268,12 @@ TEST(AudioDecoderFactoryTemplateTest, L16) {
           AudioCodecSpec{{"L16", 8000, 2}, {8000, 2, 8000 * 16 * 2}},
           AudioCodecSpec{{"L16", 16000, 2}, {16000, 2, 16000 * 16 * 2}},
           AudioCodecSpec{{"L16", 32000, 2}, {32000, 2, 32000 * 16 * 2}}));
-  EXPECT_FALSE(factory->IsSupportedDecoder({"foo", 8000, 1}));
-  EXPECT_TRUE(factory->IsSupportedDecoder({"L16", 48000, 1}));
-  EXPECT_FALSE(factory->IsSupportedDecoder({"L16", 96000, 1}));
+  EXPECT_FALSE(
+      factory->IsSupportedDecoder({"foo", 8000, 1}, env.field_trials()));
+  EXPECT_TRUE(
+      factory->IsSupportedDecoder({"L16", 48000, 1}, env.field_trials()));
+  EXPECT_FALSE(
+      factory->IsSupportedDecoder({"L16", 96000, 1}, env.field_trials()));
   EXPECT_EQ(nullptr, factory->Create(env, {"L16", 8000, 0}, std::nullopt));
   auto dec = factory->Create(env, {"L16", 48000, 2}, std::nullopt);
   ASSERT_NE(nullptr, dec);
@@ -273,8 +290,10 @@ TEST(AudioDecoderFactoryTemplateTest, Opus) {
       {"opus", 48000, 2, {{"minptime", "10"}, {"useinbandfec", "1"}}});
   EXPECT_THAT(factory->GetSupportedDecoders(),
               ::testing::ElementsAre(AudioCodecSpec{opus_format, opus_info}));
-  EXPECT_FALSE(factory->IsSupportedDecoder({"opus", 48000, 1}));
-  EXPECT_TRUE(factory->IsSupportedDecoder({"opus", 48000, 2}));
+  EXPECT_FALSE(
+      factory->IsSupportedDecoder({"opus", 48000, 1}, env.field_trials()));
+  EXPECT_TRUE(
+      factory->IsSupportedDecoder({"opus", 48000, 2}, env.field_trials()));
   EXPECT_EQ(nullptr, factory->Create(env, {"bar", 16000, 1}, std::nullopt));
   auto dec = factory->Create(env, {"opus", 48000, 2}, std::nullopt);
   ASSERT_NE(nullptr, dec);

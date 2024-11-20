@@ -20,6 +20,7 @@
 #include "api/audio_codecs/audio_decoder.h"
 #include "api/audio_codecs/audio_format.h"
 #include "api/environment/environment.h"
+#include "api/field_trials_view.h"
 #include "api/ref_count.h"
 
 namespace webrtc {
@@ -29,7 +30,8 @@ class AudioDecoderFactory : public RefCountInterface {
  public:
   virtual std::vector<AudioCodecSpec> GetSupportedDecoders() = 0;
 
-  virtual bool IsSupportedDecoder(const SdpAudioFormat& format) = 0;
+  virtual bool IsSupportedDecoder(const SdpAudioFormat& format,
+                                  const FieldTrialsView& field_trials) = 0;
 
   // Create a new decoder instance. The `codec_pair_id` argument is used to link
   // encoders and decoders that talk to the same remote entity: if a

@@ -471,7 +471,8 @@ WebRtcVoiceEngine::WebRtcVoiceEngine(
       minimized_remsampling_on_mobile_trial_enabled_(
           trials.IsEnabled("WebRTC-Audio-MinimizeResamplingOnMobile")),
       payload_types_in_transport_trial_enabled_(
-          trials.IsEnabled("WebRTC-PayloadTypesInTransport")) {
+          trials.IsEnabled("WebRTC-PayloadTypesInTransport")),
+      trials_(trials) {
   RTC_LOG(LS_INFO) << "WebRtcVoiceEngine::WebRtcVoiceEngine";
   RTC_DCHECK(decoder_factory);
   RTC_DCHECK(encoder_factory);
@@ -595,7 +596,7 @@ WebRtcVoiceEngine::CreateReceiveChannel(
     const webrtc::CryptoOptions& crypto_options,
     webrtc::AudioCodecPairId codec_pair_id) {
   return std::make_unique<WebRtcVoiceReceiveChannel>(
-      this, config, options, crypto_options, call, codec_pair_id);
+      this, config, options, crypto_options, call, codec_pair_id, trials_);
 }
 
 void WebRtcVoiceEngine::ApplyOptions(const AudioOptions& options_in) {
@@ -2083,14 +2084,16 @@ WebRtcVoiceReceiveChannel::WebRtcVoiceReceiveChannel(
     const AudioOptions& options,
     const webrtc::CryptoOptions& crypto_options,
     webrtc::Call* call,
-    webrtc::AudioCodecPairId codec_pair_id)
+    webrtc::AudioCodecPairId codec_pair_id,
+    const webrtc::FieldTrialsView& trials)
     : MediaChannelUtil(call->network_thread(), config.enable_dscp),
       worker_thread_(call->worker_thread()),
       engine_(engine),
       call_(call),
       audio_config_(config.audio),
       codec_pair_id_(codec_pair_id),
-      crypto_options_(crypto_options) {
+      crypto_options_(crypto_options),
+      trials_(trials) {
   RTC_LOG(LS_VERBOSE) << "WebRtcVoiceReceiveChannel::WebRtcVoiceReceiveChannel";
   RTC_DCHECK(call);
   SetOptions(options);
@@ -2231,7 +2234,7 @@ bool WebRtcVoiceReceiveChannel::SetRecvCodecs(
     auto format = AudioCodecToSdpAudioFormat(codec);
     if (!IsCodec(codec, kCnCodecName) && !IsCodec(codec, kDtmfCodecName) &&
         !IsCodec(codec, kRedCodecName) &&
-        !engine()->decoder_factory_->IsSupportedDecoder(format)) {
+        !engine()->decoder_factory_->IsSupportedDecoder(format, trials_)) {
       RTC_LOG(LS_ERROR) << "Unsupported codec: " << rtc::ToString(format);
       return false;
     }

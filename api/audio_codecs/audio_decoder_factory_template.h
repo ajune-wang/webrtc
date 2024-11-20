@@ -21,6 +21,7 @@
 #include "api/audio_codecs/audio_decoder_factory.h"
 #include "api/audio_codecs/audio_format.h"
 #include "api/environment/environment.h"
+#include "api/field_trials_view.h"
 #include "api/make_ref_counted.h"
 #include "api/scoped_refptr.h"
 
@@ -36,7 +37,8 @@ template <>
 struct Helper<> {
   static void AppendSupportedDecoders(
       std::vector<AudioCodecSpec>* /* specs */) {}
-  static bool IsSupportedDecoder(const SdpAudioFormat& /* format */) {
+  static bool IsSupportedDecoder(const SdpAudioFormat& /* format */,
+                                 const FieldTrialsView& /* field_trials */) {
     return false;
   }
 
@@ -89,20 +91,22 @@ struct Helper<T, Ts...> {
     T::AppendSupportedDecoders(specs);
     Helper<Ts...>::AppendSupportedDecoders(specs);
   }
-  static bool IsSupportedDecoder(const SdpAudioFormat& format) {
-    auto opt_config = T::SdpToConfig(format);
+  static bool IsSupportedDecoder(const SdpAudioFormat& format,
+                                 const FieldTrialsView& field_trials) {
+    auto opt_config = T::SdpToConfig(format, field_trials);
     static_assert(std::is_same<decltype(opt_config),
                                std::optional<typename T::Config>>::value,
                   "T::SdpToConfig() must return a value of type "
                   "std::optional<T::Config>");
-    return opt_config ? true : Helper<Ts...>::IsSupportedDecoder(format);
+    return opt_config ? true
+                      : Helper<Ts...>::IsSupportedDecoder(format, field_trials);
   }
 
   static absl::Nullable<std::unique_ptr<AudioDecoder>> MakeAudioDecoder(
       const Environment& env,
       const SdpAudioFormat& format,
       std::optional<AudioCodecPairId> codec_pair_id) {
-    auto opt_config = T::SdpToConfig(format);
+    auto opt_config = T::SdpToConfig(format, env.field_trials());
     return opt_config.has_value()
                ? CreateDecoder<T>(Rank1{}, env, *opt_config, codec_pair_id)
                : Helper<Ts...>::MakeAudioDecoder(env, format, codec_pair_id);
@@ -118,8 +122,9 @@ class AudioDecoderFactoryT : public AudioDecoderFactory {
     return specs;
   }
 
-  bool IsSupportedDecoder(const SdpAudioFormat& format) override {
-    return Helper<Ts...>::IsSupportedDecoder(format);
+  bool IsSupportedDecoder(const SdpAudioFormat& format,
+                          const FieldTrialsView& field_trials) override {
+    return Helper<Ts...>::IsSupportedDecoder(format, field_trials);
   }
 
   absl::Nullable<std::unique_ptr<AudioDecoder>> Create(
@@ -140,7 +145,9 @@ class AudioDecoderFactoryT : public AudioDecoderFactory {
 //   // Converts `audio_format` to a ConfigType instance. Returns an empty
 //   // optional if `audio_format` doesn't correctly specify a decoder of our
 //   // type.
-//   std::optional<ConfigType> SdpToConfig(const SdpAudioFormat& audio_format);
+//   std::optional<ConfigType> SdpToConfig(
+//       const SdpAudioFormat& audio_format,
+//       const FieldTrialsView& field_trials);
 //
 //   // Appends zero or more AudioCodecSpecs to the list that will be returned
 //   // by AudioDecoderFactory::GetSupportedDecoders().

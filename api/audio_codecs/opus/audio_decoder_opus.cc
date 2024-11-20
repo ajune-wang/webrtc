@@ -21,6 +21,7 @@
 #include "api/audio_codecs/audio_codec_pair_id.h"
 #include "api/audio_codecs/audio_decoder.h"
 #include "api/audio_codecs/audio_format.h"
+#include "api/field_trials_view.h"
 #include "modules/audio_coding/codecs/opus/audio_decoder_opus.h"
 #include "rtc_base/checks.h"
 
@@ -39,7 +40,8 @@ bool AudioDecoderOpus::Config::IsOk() const {
 }
 
 std::optional<AudioDecoderOpus::Config> AudioDecoderOpus::SdpToConfig(
-    const SdpAudioFormat& format) {
+    const SdpAudioFormat& format,
+    const FieldTrialsView& field_trials) {
   const auto num_channels = [&]() -> std::optional<int> {
     auto stereo = format.parameters.find("stereo");
     if (stereo != format.parameters.end()) {
@@ -51,7 +53,8 @@ std::optional<AudioDecoderOpus::Config> AudioDecoderOpus::SdpToConfig(
         return std::nullopt;  // Bad stereo parameter.
       }
     }
-    return 1;  // Default to mono.
+    return field_trials.IsEnabled("WebRTC-Audio-OpusDecodeStereoByDefault") ? 2
+                                                                            : 1;
   }();
   if (absl::EqualsIgnoreCase(format.name, "opus") &&
       format.clockrate_hz == 48000 && format.num_channels == 2 &&

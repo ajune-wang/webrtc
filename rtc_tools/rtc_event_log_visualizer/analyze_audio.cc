@@ -25,6 +25,7 @@
 #include "api/audio_codecs/audio_decoder_factory.h"
 #include "api/audio_codecs/audio_format.h"
 #include "api/environment/environment.h"
+#include "api/field_trials_view.h"
 #include "api/function_view.h"
 #include "api/make_ref_counted.h"
 #include "api/neteq/neteq.h"
@@ -216,7 +217,8 @@ class ReplacementAudioDecoderFactory : public AudioDecoderFactory {
     return {};
   }
 
-  bool IsSupportedDecoder(const SdpAudioFormat& format) override {
+  bool IsSupportedDecoder(const SdpAudioFormat& format,
+                          const FieldTrialsView& field_trials) override {
     return true;
   }
 

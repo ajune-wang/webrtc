@@ -26,7 +26,8 @@
 namespace webrtc {
 
 std::optional<AudioDecoderL16::Config> AudioDecoderL16::SdpToConfig(
-    const SdpAudioFormat& format) {
+    const SdpAudioFormat& format,
+    const webrtc::FieldTrialsView& trials) {
   Config config;
   config.sample_rate_hz = format.clockrate_hz;
   config.num_channels = rtc::checked_cast<int>(format.num_channels);

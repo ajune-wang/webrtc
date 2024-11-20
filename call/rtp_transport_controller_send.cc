@@ -774,6 +774,8 @@ void RtpTransportControllerSend::PostUpdates(NetworkControlUpdate update) {
   if (update.pacer_config) {
     pacer_.SetPacingRates(update.pacer_config->data_rate(),
                           update.pacer_config->pad_rate());
+    pacer_.SetTransportIsEcnCapable(
+        update.pacer_config->transport_is_ecn_capable);
   }
   if (!update.probe_cluster_configs.empty()) {
     pacer_.CreateProbeClusters(std::move(update.probe_cluster_configs));

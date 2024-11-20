@@ -91,6 +91,8 @@ class TaskQueuePacedSender : public RtpPacketPacer, public RtpPacketSender {
 
   void SetCongested(bool congested) override;
 
+  void SetTransportIsEcnCapable(bool enable) override;
+
   // Sets the pacing rates. Must be called once before packets can be sent.
   void SetPacingRates(DataRate pacing_rate, DataRate padding_rate) override;
 

@@ -102,6 +102,11 @@ void TaskQueuePacedSender::SetCongested(bool congested) {
   MaybeScheduleProcessPackets();
 }
 
+void TaskQueuePacedSender::SetTransportIsEcnCapable(bool enable) {
+  RTC_DCHECK_RUN_ON(task_queue_);
+  pacing_controller_.SetTransportIsEcnCapable(enable);
+}
+
 void TaskQueuePacedSender::SetPacingRates(DataRate pacing_rate,
                                           DataRate padding_rate) {
   RTC_DCHECK_RUN_ON(task_queue_);

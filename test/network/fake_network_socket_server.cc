@@ -18,6 +18,7 @@
 #include "absl/algorithm/container.h"
 #include "api/scoped_refptr.h"
 #include "api/task_queue/pending_task_safety_flag.h"
+#include "api/transport/ecn_marking.h"
 #include "rtc_base/event.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/thread.h"
@@ -57,6 +58,7 @@ class FakeNetworkSocket : public rtc::Socket,
                size_t cb,
                rtc::SocketAddress* paddr,
                int64_t* timestamp) override;
+  int RecvFrom(ReceiveBuffer& buffer) override;
   int Listen(int backlog) override;
   rtc::Socket* Accept(rtc::SocketAddress* paddr) override;
   int GetError() const override;
@@ -175,11 +177,19 @@ int FakeNetworkSocket::SendTo(const void* pv,
     return -1;
   }
   rtc::CopyOnWriteBuffer packet(static_cast<const uint8_t*>(pv), cb);
-  endpoint_->SendPacket(local_addr_, addr, packet);
+  EcnMarking ecn = EcnMarking::kNotEct;
+  auto it = options_map_.find(OPT_SEND_ECN);
+  if (it != options_map_.end() && it->second == 1) {
+    ecn = EcnMarking::kEct1;
+  }
+
+  endpoint_->SendPacket(local_addr_, addr, packet, /*application_overhead=*/0,
+                        ecn);
   return cb;
 }
 
 int FakeNetworkSocket::Recv(void* pv, size_t cb, int64_t* timestamp) {
+  RTC_CHECK(false);
   rtc::SocketAddress paddr;
   return RecvFrom(pv, cb, &paddr, timestamp);
 }
@@ -190,6 +200,7 @@ int FakeNetworkSocket::RecvFrom(void* pv,
                                 size_t cb,
                                 rtc::SocketAddress* paddr,
                                 int64_t* timestamp) {
+  RTC_CHECK(false);
   RTC_DCHECK_RUN_ON(thread_);
 
   if (timestamp) {
@@ -216,6 +227,17 @@ int FakeNetworkSocket::RecvFrom(void* pv,
   // real socket will return message length, not data read. In our case it is
   // actually the same value.
   return static_cast<int>(data_read);
+}
+
+int FakeNetworkSocket::RecvFrom(ReceiveBuffer& buffer) {
+  RTC_DCHECK_RUN_ON(thread_);
+  RTC_CHECK(pending_);
+  buffer.source_address = pending_->from;
+  buffer.arrival_time = pending_->arrival_time;
+  buffer.payload.SetData(pending_->cdata(), pending_->size());
+  buffer.ecn = pending_->ecn;
+  pending_.reset();
+  return buffer.payload.size();
 }
 
 int FakeNetworkSocket::Listen(int backlog) {

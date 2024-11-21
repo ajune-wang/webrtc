@@ -48,6 +48,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3cf59e81_470016f6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 3691616
+      },
+      "writtenOn": "2024-11-21T01:08:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "de9dc6dd_47506aab",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 16
+      },
+      "revId": "5437fb3b4c6783ba82ee0520d7669a9b28623150",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "67f80387_20e0debe",
@@ -95,6 +119,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "66755878_c15b5935",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 3691616
+      },
+      "writtenOn": "2024-11-21T01:08:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "67f80387_20e0debe",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 6
+      },
+      "revId": "5437fb3b4c6783ba82ee0520d7669a9b28623150",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6208aeeb_2b8d0a27",
@@ -108,6 +156,24 @@
       "writtenOn": "2024-10-18T12:46:04Z",
       "side": 1,
       "message": "Looks good. Thanks!\n\nCould you please add a test for this to https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/modules/video_coding/codecs/av1/libaom_av1_encoder_unittest.cc ? Encode L3T3 720p into a low bitrate to provoke layer drops and verify that end_of_picture is set on last encoded layer when upper layer(s) is dropped.",
+      "revId": "5437fb3b4c6783ba82ee0520d7669a9b28623150",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "634204fe_66b57720",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3691616
+      },
+      "writtenOn": "2024-11-21T01:08:21Z",
+      "side": 1,
+      "message": "unit tests added,before this test will fail, test will pass after patch.\n./modules_unittests  --gtest_filter\u003dLibaomAv1EncoderTest.SetsEndOfPictureForLastFrameInTemporalUnitWhenLayerDrop\n(field_trial.cc:164): Setting field trial string:\nNote: Google Test filter \u003d LibaomAv1EncoderTest.SetsEndOfPictureForLastFrameInTemporalUnitWhenLayerDrop\n[\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d] Running 1 test from 1 test suite.\n[----------] Global test environment set-up.\n[----------] 1 test from LibaomAv1EncoderTest\n[ RUN      ] LibaomAv1EncoderTest.SetsEndOfPictureForLastFrameInTemporalUnitWhenLayerDrop\n../modules/video_coding/codecs/av1/libaom_av1_encoder_unittest.cc:204: Failure\nValue of: encoded_frames[1].codec_specific_info.end_of_picture\n  Actual: false\nExpected: true\n\n../modules/video_coding/codecs/av1/libaom_av1_encoder_unittest.cc:206: Failure\nValue of: encoded_frames[3].codec_specific_info.end_of_picture\n  Actual: false\nExpected: true\n\n[  FAILED  ] LibaomAv1EncoderTest.SetsEndOfPictureForLastFrameInTemporalUnitWhenLayerDrop (16 ms)\n[----------] 1 test from LibaomAv1EncoderTest (16 ms total)\n\n[----------] Global test environment tear-down\n[\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d] 1 test from 1 test suite ran. (16 ms total)\n[  PASSED  ] 0 tests.\n[  FAILED  ] 1 test, listed below:\n[  FAILED  ] LibaomAv1EncoderTest.SetsEndOfPictureForLastFrameInTemporalUnitWhenLayerDrop",
+      "parentUuid": "6208aeeb_2b8d0a27",
       "revId": "5437fb3b4c6783ba82ee0520d7669a9b28623150",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

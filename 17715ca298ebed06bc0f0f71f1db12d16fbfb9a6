@@ -22,6 +22,30 @@
       },
       "revId": "17715ca298ebed06bc0f0f71f1db12d16fbfb9a6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d0c33f5e_b1feef3a",
+        "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 3691616
+      },
+      "writtenOn": "2024-11-21T01:08:21Z",
+      "side": 1,
+      "message": "0 will not trigger this bug, here are some exmaple:\nL3T1 input 2 frames:\n  allocation.SetBitrate(0, 0, 30000);\n  allocation.SetBitrate(1, 0, 40000);\n  allocation.SetBitrate(2, 0, 30000);\nOutput: 6 encoded frames ,correct end_of_pictures for frames[2]/frames[5]\n\n  allocation.SetBitrate(0, 0, 30000);\n  allocation.SetBitrate(1, 0, 40000);\n  allocation.SetBitrate(2, 0, 0);\nOutput: 4 encoded frames ,correct end_of_pictures for frames[1]/frames[3]\n\n   allocation.SetBitrate(0, 0, 30000);\n   allocation.SetBitrate(1, 0, 40000);\n   allocation.SetBitrate(2, 0, 500);\nOutput: 4 encoded frames , frames[1] has end_of_pictures, frames[3] do\u0027t has end_of_pictures (bug trigger)",
+      "parentUuid": "a023e11c_ddf2493c",
+      "range": {
+        "startLine": 186,
+        "startChar": 30,
+        "endLine": 186,
+        "endChar": 33
+      },
+      "revId": "17715ca298ebed06bc0f0f71f1db12d16fbfb9a6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

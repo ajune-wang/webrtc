@@ -96,6 +96,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1955cbce_996df601",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 6092
+      },
+      "writtenOn": "2024-11-21T01:06:57Z",
+      "side": 1,
+      "message": "On the issue of GetSourceList() returning fake IDs: I saw this comment in [delegated_source_list_controller.h](https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/modules/desktop_capture/delegated_source_list_controller.h):\n\n```\n// Called after the user has made a selection in the delegated source list.\n// Note that the consumer will still need to get the source out of the\n// capturer by calling GetSourceList.\nvirtual void OnSelection() \u003d 0;\n```\n\nThat comment led me to believe that the app would get an `OnSelection()` notification that a display was chosen, and the app would then call `GetSourceList()` to know which display was chosen.\n\nSo maybe this comment is no longer accurate, and we should remove it?\n\nI would like some mechanism to get the actual captured display, so that CRD can inject mouse-events into it. But it doesn\u0027t need to be in this CL - I\u0027m happy to look into doing this as a followup. Leaving this as Resolved 😊",
+      "parentUuid": "6f6dc433_aa2b93f8",
+      "range": {
+        "startLine": 15,
+        "startChar": 10,
+        "endLine": 17,
+        "endChar": 53
+      },
+      "revId": "966d97bb0ec1b69e98b5f05750170c6424a346fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0ff1ece9_52ced8a5",

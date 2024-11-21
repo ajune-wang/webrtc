@@ -1015,6 +1015,16 @@ void SendStatisticsProxy::OnSendEncodedImage(
       }
     }
   }
+  if (encoded_image.psnr_y_.has_value()) {
+    if (!stats->psnr_sum_y) {
+      stats->psnr_sum_y = 0.0;
+    }
+    *stats->psnr_sum_y += *encoded_image.psnr_y_;
+    if (!stats->psnr_measurements_y) {
+      stats->psnr_measurements_y = 0;
+    }
+    *stats->psnr_measurements_y += 1;
+  }
 
   // If any of the simulcast streams have a huge frame, it should be counted
   // as a single difficult input frame.

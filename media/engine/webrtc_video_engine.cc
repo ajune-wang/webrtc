@@ -2506,6 +2506,8 @@ WebRtcVideoSendChannel::WebRtcVideoSendStream::GetPerLayerVideoSenderInfos(
       info.report_block_datas.push_back(*stream_stats.report_block_data);
     }
     info.qp_sum = stream_stats.qp_sum;
+    info.psnr_sum_y = stream_stats.psnr_sum_y;
+    info.psnr_measurements_y = stream_stats.psnr_measurements_y;
     info.total_encode_time_ms = stream_stats.total_encode_time_ms;
     info.total_encoded_bytes_target = stream_stats.total_encoded_bytes_target;
     info.huge_frames_sent = stream_stats.huge_frames_sent;
@@ -2555,6 +2557,19 @@ WebRtcVideoSendChannel::WebRtcVideoSendStream::GetAggregatedVideoSenderInfo(
         info.qp_sum = 0;
       }
       info.qp_sum = *info.qp_sum + *infos[i].qp_sum;
+    }
+    if (infos[i].psnr_sum_y) {
+      if (!info.psnr_sum_y) {
+        info.psnr_sum_y = 0;
+      }
+      info.psnr_sum_y = *info.psnr_sum_y + *infos[i].psnr_sum_y;
+    }
+    if (infos[i].psnr_measurements_y) {
+      if (!info.psnr_measurements_y) {
+        info.psnr_measurements_y = 0;
+      }
+      info.psnr_measurements_y =
+          *info.psnr_measurements_y + *infos[i].psnr_measurements_y;
     }
     info.frames_encoded += infos[i].frames_encoded;
     info.frames_sent += infos[i].frames_sent;

@@ -318,6 +318,8 @@ WEBRTC_RTCSTATS_IMPL(
     AttributeInit("pliCount", &pli_count),
     AttributeInit("nackCount", &nack_count),
     AttributeInit("qpSum", &qp_sum),
+    AttributeInit("psnrSumY", &psnr_sum_y),
+    AttributeInit("psnrMeasurementsY", &psnr_measurements_y),
     AttributeInit("active", &active),
     AttributeInit("powerEfficientEncoder", &power_efficient_encoder),
     AttributeInit("scalabilityMode", &scalability_mode),

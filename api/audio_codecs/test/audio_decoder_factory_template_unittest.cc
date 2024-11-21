@@ -25,6 +25,7 @@
 #include "api/audio_codecs/opus/audio_decoder_opus.h"
 #include "api/environment/environment.h"
 #include "api/environment/environment_factory.h"
+#include "api/field_trials_view.h"
 #include "api/make_ref_counted.h"
 #include "api/scoped_refptr.h"
 #include "test/gmock.h"
@@ -58,7 +59,9 @@ struct AudioDecoderFakeApi {
     SdpAudioFormat audio_format;
   };
 
-  static std::optional<Config> SdpToConfig(const SdpAudioFormat& audio_format) {
+  static std::optional<Config> SdpToConfig(
+      const SdpAudioFormat& audio_format,
+      const FieldTrialsView* field_trials = nullptr) {
     if (Params::AudioFormat() == audio_format) {
       Config config = {audio_format};
       return config;
@@ -94,7 +97,8 @@ struct BaseAudioDecoderApi {
   static SdpAudioFormat AudioFormat() { return {"fake", 16'000, 2, {}}; }
 
   static std::optional<Config> SdpToConfig(
-      const SdpAudioFormat& /* audio_format */) {
+      const SdpAudioFormat& /* audio_format */,
+      const FieldTrialsView* field_trials = nullptr) {
     return Config();
   }
 

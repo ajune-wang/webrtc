@@ -36,7 +36,9 @@ struct RTC_EXPORT AudioDecoderG711 {
     Type type;
     int num_channels;
   };
-  static std::optional<Config> SdpToConfig(const SdpAudioFormat& audio_format);
+  static std::optional<Config> SdpToConfig(
+      const SdpAudioFormat& audio_format,
+      const FieldTrialsView* field_trials = nullptr);
   static void AppendSupportedDecoders(std::vector<AudioCodecSpec>* specs);
   static std::unique_ptr<AudioDecoder> MakeAudioDecoder(
       const Config& config,

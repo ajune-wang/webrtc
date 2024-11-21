@@ -27,7 +27,8 @@
 namespace webrtc {
 
 std::optional<AudioDecoderG711::Config> AudioDecoderG711::SdpToConfig(
-    const SdpAudioFormat& format) {
+    const SdpAudioFormat& format,
+    const FieldTrialsView* /* field_trials */) {
   const bool is_pcmu = absl::EqualsIgnoreCase(format.name, "PCMU");
   const bool is_pcma = absl::EqualsIgnoreCase(format.name, "PCMA");
   if (format.clockrate_hz == 8000 && format.num_channels >= 1 &&

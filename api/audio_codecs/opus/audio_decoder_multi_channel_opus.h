@@ -29,7 +29,8 @@ namespace webrtc {
 struct RTC_EXPORT AudioDecoderMultiChannelOpus {
   using Config = AudioDecoderMultiChannelOpusConfig;
   static std::optional<AudioDecoderMultiChannelOpusConfig> SdpToConfig(
-      const SdpAudioFormat& audio_format);
+      const SdpAudioFormat& audio_format,
+      const webrtc::FieldTrialsView* field_trials = nullptr);
   static void AppendSupportedDecoders(std::vector<AudioCodecSpec>* specs);
   static std::unique_ptr<AudioDecoder> MakeAudioDecoder(
       AudioDecoderMultiChannelOpusConfig config,

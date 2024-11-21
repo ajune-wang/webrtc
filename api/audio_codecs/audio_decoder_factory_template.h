@@ -21,6 +21,7 @@
 #include "api/audio_codecs/audio_decoder_factory.h"
 #include "api/audio_codecs/audio_format.h"
 #include "api/environment/environment.h"
+#include "api/field_trials_view.h"
 #include "api/make_ref_counted.h"
 #include "api/scoped_refptr.h"
 
@@ -102,7 +103,7 @@ struct Helper<T, Ts...> {
       const Environment& env,
       const SdpAudioFormat& format,
       std::optional<AudioCodecPairId> codec_pair_id) {
-    auto opt_config = T::SdpToConfig(format);
+    auto opt_config = T::SdpToConfig(format, &env.field_trials());
     return opt_config.has_value()
                ? CreateDecoder<T>(Rank1{}, env, *opt_config, codec_pair_id)
                : Helper<Ts...>::MakeAudioDecoder(env, format, codec_pair_id);

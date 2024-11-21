@@ -17,6 +17,7 @@
 #include <vector>
 
 #include "absl/memory/memory.h"
+#include "api/field_trials_view.h"
 #include "modules/audio_coding/codecs/opus/audio_coder_opus_common.h"
 #include "rtc_base/string_to_number.h"
 
@@ -58,7 +59,9 @@ AudioDecoderMultiChannelOpusImpl::~AudioDecoderMultiChannelOpusImpl() {
 }
 
 std::optional<AudioDecoderMultiChannelOpusConfig>
-AudioDecoderMultiChannelOpusImpl::SdpToConfig(const SdpAudioFormat& format) {
+AudioDecoderMultiChannelOpusImpl::SdpToConfig(
+    const SdpAudioFormat& format,
+    const FieldTrialsView* /* field_trials */) {
   AudioDecoderMultiChannelOpusConfig config;
   config.num_channels = format.num_channels;
   auto num_streams = GetFormatParameter<int>(format, "num_streams");

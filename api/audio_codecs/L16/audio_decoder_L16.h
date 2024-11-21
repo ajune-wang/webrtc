@@ -36,7 +36,9 @@ struct RTC_EXPORT AudioDecoderL16 {
     int sample_rate_hz = 8000;
     int num_channels = 1;
   };
-  static std::optional<Config> SdpToConfig(const SdpAudioFormat& audio_format);
+  static std::optional<Config> SdpToConfig(
+      const SdpAudioFormat& audio_format,
+      const FieldTrialsView* field_trials = nullptr);
   static void AppendSupportedDecoders(std::vector<AudioCodecSpec>* specs);
   static std::unique_ptr<AudioDecoder> MakeAudioDecoder(
       const Config& config,

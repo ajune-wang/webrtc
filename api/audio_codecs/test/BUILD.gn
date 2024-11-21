@@ -21,6 +21,7 @@ if (rtc_include_tests) {
     ]
     deps = [
       "..:audio_codecs_api",
+      "../..:field_trials_view",
       "../..:make_ref_counted",
       "../..:scoped_refptr",
       "../../../test:audio_codec_mocks",

@@ -966,6 +966,7 @@ TEST_F(AcmSenderBitExactnessNewApi, OpusFromFormat_stereo_20ms) {
 // https://webrtc-review.googlesource.com/c/src/+/129768 lands.
 #if defined(WEBRTC_LINUX) && defined(WEBRTC_ARCH_X86_64)
 TEST_F(AcmSenderBitExactnessNewApi, DISABLED_OpusManyChannels) {
+  const Environment env = CreateEnvironment();
   constexpr int kNumChannels = 4;
   constexpr int kOpusPayloadType = 120;
 
@@ -986,8 +987,8 @@ TEST_F(AcmSenderBitExactnessNewApi, DISABLED_OpusManyChannels) {
                                    *encoder_config, kOpusPayloadType),
                                kOpusPayloadType));
 
-  const auto decoder_config =
-      AudioDecoderMultiChannelOpus::SdpToConfig(sdp_format);
+  const auto decoder_config = AudioDecoderMultiChannelOpus::SdpToConfig(
+      sdp_format, &env.field_trials());
   const auto opus_decoder =
       AudioDecoderMultiChannelOpus::MakeAudioDecoder(*decoder_config);
 

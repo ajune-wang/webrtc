@@ -35,6 +35,7 @@
 #include "api/audio_options.h"
 #include "api/data_channel_interface.h"
 #include "api/environment/environment.h"
+#include "api/field_trials_view.h"
 #include "api/media_stream_interface.h"
 #include "api/peer_connection_interface.h"
 #include "api/rtc_error.h"
@@ -353,13 +354,15 @@ struct AudioEncoderUnicornSparklesRainbow {
 
 struct AudioDecoderUnicornSparklesRainbow {
   using Config = webrtc::AudioDecoderL16::Config;
-  static std::optional<Config> SdpToConfig(webrtc::SdpAudioFormat format) {
+  static std::optional<Config> SdpToConfig(
+      webrtc::SdpAudioFormat format,
+      const webrtc::FieldTrialsView* field_trials = nullptr) {
     if (absl::EqualsIgnoreCase(format.name, "UnicornSparklesRainbow")) {
       const webrtc::CodecParameterMap expected_params = {{"num_horns", "1"}};
       EXPECT_EQ(expected_params, format.parameters);
       format.parameters.clear();
       format.name = "L16";
-      return webrtc::AudioDecoderL16::SdpToConfig(format);
+      return webrtc::AudioDecoderL16::SdpToConfig(format, field_trials);
     } else {
       return std::nullopt;
     }

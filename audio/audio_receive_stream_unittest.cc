@@ -250,13 +250,11 @@ TEST(AudioReceiveStreamTest, GetStats) {
     EXPECT_EQ(kCallStats.payload_bytes_received, stats.payload_bytes_received);
     EXPECT_EQ(kCallStats.header_and_padding_bytes_received,
               stats.header_and_padding_bytes_received);
-    EXPECT_EQ(static_cast<uint32_t>(kCallStats.packetsReceived),
+    EXPECT_EQ(static_cast<uint32_t>(kCallStats.packets_received),
               stats.packets_received);
-    EXPECT_EQ(kCallStats.cumulativeLost, stats.packets_lost);
+    EXPECT_EQ(kCallStats.packets_lost, stats.packets_lost);
     EXPECT_EQ(kReceiveCodec.second.name, stats.codec_name);
-    EXPECT_EQ(
-        kCallStats.jitterSamples / (kReceiveCodec.second.clockrate_hz / 1000),
-        stats.jitter_ms);
+    EXPECT_EQ(kCallStats.jitter_ms, stats.jitter_ms);
     EXPECT_EQ(kNetworkStats.currentBufferSize, stats.jitter_buffer_ms);
     EXPECT_EQ(kNetworkStats.preferredBufferSize,
               stats.jitter_buffer_preferred_ms);

@@ -1299,6 +1299,8 @@ if (!build_with_chromium && is_android) {
     ]
     deps = [
       "../rtc_base:base_java",
+      "//base:library_loader_java",
+      "//build/android:build_java",
       "//testing/android/native_test:native_test_java",
     ]
   }

@@ -525,6 +525,7 @@ template("rtc_test") {
       public_configs += invoker.public_configs
     }
     if (!build_with_chromium && is_android) {
+      use_default_launcher = false
       android_manifest = webrtc_root + "test/android/AndroidManifest.xml"
       use_raw_android_executable = false
       min_sdk_version = 21

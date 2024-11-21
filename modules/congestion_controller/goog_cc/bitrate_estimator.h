@@ -28,6 +28,7 @@ namespace webrtc {
 // estimate or are based on few packets are given a smaller weight, as they
 // are considered to be more likely to have been caused by, e.g., delay spikes
 // unrelated to congestion.
+// DEPRECATED
 class BitrateEstimator {
  public:
   explicit BitrateEstimator(const FieldTrialsView* key_value_config);

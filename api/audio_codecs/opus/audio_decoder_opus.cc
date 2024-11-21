@@ -40,32 +40,31 @@ bool AudioDecoderOpus::Config::IsOk() const {
 
 std::optional<AudioDecoderOpus::Config> AudioDecoderOpus::SdpToConfig(
     const SdpAudioFormat& format) {
-  const auto num_channels = [&]() -> std::optional<int> {
-    auto stereo = format.parameters.find("stereo");
-    if (stereo != format.parameters.end()) {
-      if (stereo->second == "0") {
-        return 1;
-      } else if (stereo->second == "1") {
-        return 2;
-      } else {
-        return std::nullopt;  // Bad stereo parameter.
-      }
-    }
-    return 1;  // Default to mono.
-  }();
-  if (absl::EqualsIgnoreCase(format.name, "opus") &&
-      format.clockrate_hz == 48000 && format.num_channels == 2 &&
-      num_channels) {
-    Config config;
-    config.num_channels = *num_channels;
-    if (!config.IsOk()) {
-      RTC_DCHECK_NOTREACHED();
-      return std::nullopt;
-    }
-    return config;
-  } else {
+  if (!absl::EqualsIgnoreCase(format.name, "opus") ||
+      format.clockrate_hz != 48000 || format.num_channels != 2) {
     return std::nullopt;
   }
+
+  Config config;
+
+  // Parse the "stereo" codec parameter. If set, it overrides the default number
+  // of channels.
+  const auto stereo_param = format.parameters.find("stereo");
+  if (stereo_param != format.parameters.end()) {
+    if (stereo_param->second == "0") {
+      config.num_channels = 1;
+      config.num_channels_forced_via_sdp = true;
+    } else if (stereo_param->second == "1") {
+      config.num_channels = 2;
+      config.num_channels_forced_via_sdp = true;
+    }
+  }
+
+  if (!config.IsOk()) {
+    RTC_DCHECK_NOTREACHED();
+    return std::nullopt;
+  }
+  return config;
 }
 
 void AudioDecoderOpus::AppendSupportedDecoders(
@@ -81,6 +80,13 @@ void AudioDecoderOpus::AppendSupportedDecoders(
 std::unique_ptr<AudioDecoder> AudioDecoderOpus::MakeAudioDecoder(
     const Environment& env,
     Config config) {
+  if (!config.num_channels_forced_via_sdp) {
+    // Apply the default number of channels.
+    config.num_channels =
+        env.field_trials().IsEnabled("WebRTC-Audio-OpusDecodeStereoByDefault")
+            ? 2
+            : AudioDecoderOpus::Config::kDefaultNumChannels;
+  }
   if (!config.IsOk()) {
     RTC_DCHECK_NOTREACHED();
     return nullptr;

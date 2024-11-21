@@ -16,6 +16,52 @@
       "message": "Please?",
       "revId": "72388bf74191e18428fde7ade7cc28aaf0610cb2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "be99a9e1_b6dbd81e",
+        "filename": "test/network/fake_network_socket_server.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2024-11-21T16:43:38Z",
+      "side": 1,
+      "message": "Nit: extra space. 😊",
+      "range": {
+        "startLine": 58,
+        "startChar": 46,
+        "endLine": 58,
+        "endChar": 47
+      },
+      "revId": "72388bf74191e18428fde7ade7cc28aaf0610cb2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8d7db060_48e257f8",
+        "filename": "test/network/fake_network_socket_server.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2024-11-21T16:43:38Z",
+      "side": 1,
+      "message": "We still need a `return 0` here https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/video/call_stats2.h;l\u003d99;drc\u003d03f8b8a241a36fbec22d9eaba8a7d5552ccdb78a.",
+      "range": {
+        "startLine": 58,
+        "startChar": 4,
+        "endLine": 59,
+        "endChar": 3
+      },
+      "revId": "72388bf74191e18428fde7ade7cc28aaf0610cb2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

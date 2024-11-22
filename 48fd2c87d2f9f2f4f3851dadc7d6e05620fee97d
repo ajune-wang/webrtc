@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6dd0a2b3_c7448914",
+        "filename": "api/video/corruption_detection_filter_settings.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2024-11-22T09:34:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4c678df5_4c7528fe",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 33
+      },
+      "revId": "48fd2c87d2f9f2f4f3851dadc7d6e05620fee97d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3f37fa5b_105d372e",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-11-21T16:52:00Z",
       "side": 1,
       "message": "I\u0027m not an english expert but this sentence doesn\u0027t look completely right. Should be something like: \"Implementation specific filter settings are unavailable, use a generic ...\"",
+      "range": {
+        "startLine": 52,
+        "startChar": 7,
+        "endLine": 53,
+        "endChar": 33
+      },
+      "revId": "48fd2c87d2f9f2f4f3851dadc7d6e05620fee97d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5b63cadf_3adfdddd",
+        "filename": "video/corruption_detection/frame_instrumentation_generator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2024-11-22T09:34:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3f37fa5b_105d372e",
       "range": {
         "startLine": 52,
         "startChar": 7,

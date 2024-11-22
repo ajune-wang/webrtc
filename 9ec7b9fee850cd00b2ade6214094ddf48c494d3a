@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eab506b9_ae5d02ca",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19929
+      },
+      "writtenOn": "2024-11-22T10:29:13Z",
+      "side": 1,
+      "message": "Harald, PTAL at this change for setting the receiver RTCP mode based on the remote description only.",
+      "revId": "9ec7b9fee850cd00b2ade6214094ddf48c494d3a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "09049a13_0b77914b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-11-22T10:45:55Z",
+      "side": 1,
+      "message": "Looks good to me. Holding off on +1 until the Android compile issue is fixed.",
+      "revId": "5a8571bc952d24be0b77170f2707aa06bf69f1b3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

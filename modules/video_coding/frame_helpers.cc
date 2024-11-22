@@ -74,6 +74,14 @@ std::unique_ptr<EncodedFrame> CombineAndDeleteFrames(
   // Spatial index of combined frame is set equal to spatial index of its top
   // spatial layer.
   first_frame->SetSpatialIndex(last_frame.SpatialIndex().value_or(0));
+  // Each spatial layer (at the same rtp_timestamp) sends corruption data.
+  // Reconstructed (combined) frame will be the highest spatial layer and that's
+  // why the corruption data for the highest layer should be used to calculate
+  // the metric.
+  //
+  // TODO: bugs.webrtc.org/358039777 - Fix for LxTy scalability.
+  first_frame->SetFrameInstrumentationData(
+      last_frame.CodecSpecific()->frame_instrumentation_data);
 
   first_frame->video_timing_mutable()->network2_timestamp_ms =
       last_frame.video_timing().network2_timestamp_ms;

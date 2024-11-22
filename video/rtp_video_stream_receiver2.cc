@@ -504,13 +504,15 @@ RtpVideoStreamReceiver2::ParseGenericDependenciesExtension(
 
 void RtpVideoStreamReceiver2::SetLastCorruptionDetectionIndex(
     const absl::variant<FrameInstrumentationSyncData, FrameInstrumentationData>&
-        frame_instrumentation_data) {
+        frame_instrumentation_data,
+    int spatial_idx) {
   if (const auto* sync_data = absl::get_if<FrameInstrumentationSyncData>(
           &frame_instrumentation_data)) {
-    last_corruption_detection_index_ = sync_data->sequence_index;
+    last_corruption_detection_index_per_spatial_layer_[spatial_idx] =
+        sync_data->sequence_index;
   } else if (const auto* data = absl::get_if<FrameInstrumentationData>(
                  &frame_instrumentation_data)) {
-    last_corruption_detection_index_ =
+    last_corruption_detection_index_per_spatial_layer_[spatial_idx] =
         data->sequence_index + data->sample_values.size();
   } else {
     RTC_DCHECK_NOTREACHED();
@@ -616,17 +618,29 @@ bool RtpVideoStreamReceiver2::OnReceivedPayloadData(
     }
     CorruptionDetectionMessage message;
     rtp_packet.GetExtension<CorruptionDetectionExtension>(&message);
+    int spatial_idx = 0;
+    if (video_header.generic.has_value()) {
+      spatial_idx = video_header.generic->spatial_index;
+    }
+    if (last_corruption_detection_index_per_spatial_layer_.find(spatial_idx) ==
+        last_corruption_detection_index_per_spatial_layer_.end()) {
+      // If the spatial layer has never been received before initialize it to 0.
+      last_corruption_detection_index_per_spatial_layer_[spatial_idx] = 0;
+    }
     if (message.sample_values().empty()) {
       video_header.frame_instrumentation_data =
           ConvertCorruptionDetectionMessageToFrameInstrumentationSyncData(
-              message, last_corruption_detection_index_);
+              message,
+              last_corruption_detection_index_per_spatial_layer_[spatial_idx]);
     } else {
       video_header.frame_instrumentation_data =
           ConvertCorruptionDetectionMessageToFrameInstrumentationData(
-              message, last_corruption_detection_index_);
+              message,
+              last_corruption_detection_index_per_spatial_layer_[spatial_idx]);
     }
     if (video_header.frame_instrumentation_data.has_value()) {
-      SetLastCorruptionDetectionIndex(*video_header.frame_instrumentation_data);
+      SetLastCorruptionDetectionIndex(*video_header.frame_instrumentation_data,
+                                      spatial_idx);
     }
   }
   video_header.video_frame_tracking_id =

@@ -16,6 +16,24 @@
       "message": "This means that all unittests assume that the send codec doesn\u0027t change without caling SetSenderParameters for the duration of the test?",
       "revId": "752235261edeffeed54fdd179a214387305cfd82",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9c077e1a_94961d34",
+        "filename": "media/engine/webrtc_voice_engine_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 316,
+      "author": {
+        "id": 19929
+      },
+      "writtenOn": "2024-11-22T12:57:30Z",
+      "side": 0,
+      "message": "It does make sense to do this if the send codec can change for some other reason than that SetSenderParameters is called. But this callback is actually not configured in voice channels, only in video channels, so I concluded that the test does something that isn\u0027t done in actual code here, and we can rather simulate what is done in  VoiceChannel::SetRemoteContent_w, which is the only place that calls SetReceiveNackEnabled() etc for VoiceChannels. But if it is a bug that VoiceChannel doesn\u0027t create a SendCodecChangedCallback, like VideoChannel does, then we should probably keep this and fix that bug. SetRtcpMode is different in the sense that it is not based on send codec, but set directly based on the sender parameters.",
+      "parentUuid": "bbd81682_e6459ea1",
+      "revId": "752235261edeffeed54fdd179a214387305cfd82",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

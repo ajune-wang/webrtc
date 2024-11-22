@@ -33,6 +33,24 @@
       "message": "do you want to add a test?",
       "revId": "56068ce2e57f4cb5001d89c797edfe42860f31b3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0ffb5310_ce0e3172",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-11-22T18:04:31Z",
+      "side": 1,
+      "message": "applies to M131 with test (and it seems like this is end-of-sequence, not the packet wireshark hated) so added. Moar tests!",
+      "parentUuid": "b8071419_6b10fcda",
+      "revId": "56068ce2e57f4cb5001d89c797edfe42860f31b3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

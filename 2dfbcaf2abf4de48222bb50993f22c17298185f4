@@ -16,6 +16,23 @@
       "message": "internal tests fail with this change for unclear reason, some investigation is needed before this change can be relanded.",
       "revId": "2dfbcaf2abf4de48222bb50993f22c17298185f4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d938ba9e_d2beea73",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 22359
+      },
+      "writtenOn": "2024-11-24T18:12:45Z",
+      "side": 1,
+      "message": "I want to resolve this issue, but since it\u0027s an internal test, I don\u0027t understand why it is failing. Is there anything I can do?",
+      "revId": "2dfbcaf2abf4de48222bb50993f22c17298185f4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

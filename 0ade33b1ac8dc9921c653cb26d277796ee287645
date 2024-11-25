@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "86b1e29c_b4ce0d4a",
+        "filename": "api/test/network_emulation/ecn_marking_counter.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2024-11-25T10:00:50Z",
+      "side": 1,
+      "message": "Please add a comment with brief explanation what these marks mean",
+      "range": {
+        "startLine": 21,
+        "startChar": 2,
+        "endLine": 24,
+        "endChar": 32
+      },
+      "revId": "0ade33b1ac8dc9921c653cb26d277796ee287645",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

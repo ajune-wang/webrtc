@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "63003408_bacd6a62",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-11-25T09:05:53Z",
+      "side": 1,
+      "message": "I remember this channel dance as being particularly tricky - are you sure this is right?\n\nIn particular, is it safe to assume that channel_ isn\u0027t cleared while in the BlockingCall?",
+      "revId": "3013ddb1106ed1f1e2fb712c10638cd13e7c41b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "381c225a_6fbb128b",
+        "filename": "pc/rtp_transceiver.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 387,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-11-25T09:05:53Z",
+      "side": 1,
+      "message": "Here we\u0027re moving channel_ in the calling thread, but in the previous incarnation, it was moved on the network thread. The comment in rtp_transceiver.h claims it is safe because it\u0027s only done in blocking invokes; are we sure of that?\n\nI remember being particularly frazzled about this when I touched this code in 2022. If we can do it more simply, I\u0027m all for it.",
+      "revId": "3013ddb1106ed1f1e2fb712c10638cd13e7c41b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

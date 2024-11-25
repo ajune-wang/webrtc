@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "36179a34_71067df4",
+        "filename": "pc/rtp_transceiver.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 319,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2024-11-25T17:58:16Z",
+      "side": 1,
+      "message": "Removing the code in this function below based on this DCHECK and after examining the call sites. This is probably leftover code that should have been removed some time ago.",
+      "revId": "9780f5389c9a1468fa34ba1a4dab446ddcc917f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

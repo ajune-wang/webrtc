@@ -187,9 +187,8 @@ class NetEq {
 
   virtual int InsertPacket(const RTPHeader& rtp_header,
                            rtc::ArrayView<const uint8_t> payload) {
-    return InsertPacket(
-        rtp_header, payload,
-        RtpPacketInfo(rtp_header, /*receive_time=*/Timestamp::MinusInfinity()));
+    return InsertPacket(rtp_header, payload,
+                        /*receive_time=*/Timestamp::MinusInfinity());
   }
 
   // TODO: webrtc:343501093 - removed unused method.

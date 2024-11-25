@@ -51,6 +51,24 @@
       "parentUuid": "381c225a_6fbb128b",
       "revId": "3013ddb1106ed1f1e2fb712c10638cd13e7c41b0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2da498a4_a0eb1c77",
+        "filename": "pc/rtp_transceiver.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 387,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-11-25T09:56:44Z",
+      "side": 1,
+      "message": "It seems reasonable, and I\u0027m speculating about how we can get the compilers to verify that it\u0027s indeed true... if we make channel_ GUARDED_BY(thread_) and pass it to the invokes as [channel \u003d channel_.get()], will the compiler tell us where it cannot police our actions?",
+      "parentUuid": "73700761_18e23211",
+      "revId": "3013ddb1106ed1f1e2fb712c10638cd13e7c41b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

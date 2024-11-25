@@ -33,6 +33,24 @@
       "message": "Here we\u0027re moving channel_ in the calling thread, but in the previous incarnation, it was moved on the network thread. The comment in rtp_transceiver.h claims it is safe because it\u0027s only done in blocking invokes; are we sure of that?\n\nI remember being particularly frazzled about this when I touched this code in 2022. If we can do it more simply, I\u0027m all for it.",
       "revId": "3013ddb1106ed1f1e2fb712c10638cd13e7c41b0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "73700761_18e23211",
+        "filename": "pc/rtp_transceiver.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 387,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2024-11-25T09:39:19Z",
+      "side": 1,
+      "message": "Indeed this is tricky and thanks for raising this. Here\u0027s how I\u0027m thinking about this:\n\n* `thread_` is the signaling thread (S)\n* `channel_` is accessed from S and the network thread (N).\n* (actually, also the Worker thread)\n* When accessed/modified from N, it is always within an invoke from S\n* (same applies to when it\u0027s used from W)\n* `channel_to_delete` is cleared on S. See also `SetChannel()`.\n\nSo, generally I consider `channel_` to belong to S and therefore this should be safe. Touching the channel object on threads other than S must always be done within an Invoke().\n\nDoes that match with your understanding?",
+      "parentUuid": "381c225a_6fbb128b",
+      "revId": "3013ddb1106ed1f1e2fb712c10638cd13e7c41b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

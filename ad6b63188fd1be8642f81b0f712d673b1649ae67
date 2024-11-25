@@ -67,6 +67,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cc18dd76_f0988ed2",
+        "filename": "modules/rtp_rtcp/source/video_rtp_depacketizer_h264.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-11-25T18:31:34Z",
+      "side": 1,
+      "message": "so this works:\n  0x78, 0x00, 0x01, 0x10, // STAP-A, end of sequence.\nand goes into the \"skipping\" path. This is rejected by ParseStapA\n  0x78, 0x00, 0x00\nand removing the rejection crashes in the ProcessStapAOrSingleNalu loop over nal_units which accesses nal_unit[0].\n\nSince https://datatracker.ietf.org/doc/html/rfc6184#section-5.7.1 says the length is \"including its NAL unit type byte\" it can never be 0 in valid cases.\nCan add a (D)CHECK in the loop to make that clear.",
+      "parentUuid": "519846af_cbe33797",
+      "range": {
+        "startLine": 52,
+        "startChar": 8,
+        "endLine": 52,
+        "endChar": 22
+      },
+      "revId": "ad6b63188fd1be8642f81b0f712d673b1649ae67",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e285d6b8_b37d6e7f",
         "filename": "modules/rtp_rtcp/source/video_rtp_depacketizer_h264_unittest.cc",
         "patchSetId": 2

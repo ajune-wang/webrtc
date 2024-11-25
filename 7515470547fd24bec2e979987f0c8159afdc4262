@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "16b84248_cce48859",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2024-11-25T22:02:55Z",
+      "side": 1,
+      "message": "Looks good in principle.",
+      "revId": "7515470547fd24bec2e979987f0c8159afdc4262",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "66f5d8b7_80b79be7",
+        "filename": "modules/rtp_rtcp/source/absolute_capture_time_interpolator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2024-11-25T22:02:55Z",
+      "side": 1,
+      "message": "I have a hard time to interpret the meaning of this difference.\n\nI may be wrong, but isn\u0027t `receive_time` the time in a local monotonic clock with an epoch that may be unknown and `capture_as_timestamp` an NTP timestamp given the remote client\u0027s clock?",
+      "range": {
+        "startLine": 83,
+        "startChar": 4,
+        "endLine": 83,
+        "endChar": 66
+      },
+      "revId": "7515470547fd24bec2e979987f0c8159afdc4262",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1abc3f9e_adbbc7fb",
+        "filename": "modules/rtp_rtcp/source/absolute_capture_time_interpolator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2024-11-25T22:02:55Z",
+      "side": 1,
+      "message": "The min value for histograms is 0, so you probably want to take the absolute value of all number that might be negative. From what I can tell, this applies to:\n- WebRTC.Call.AbsCapture.DeltaDeviation\n- WebRTC.Call.AbsCapture.Offset\n- WebRTC.Call.AbsCapture.OffsetDeviation",
+      "range": {
+        "startLine": 89,
+        "startChar": 10,
+        "endLine": 89,
+        "endChar": 59
+      },
+      "revId": "7515470547fd24bec2e979987f0c8159afdc4262",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "34ff530d_5072cc1a",
+        "filename": "modules/rtp_rtcp/source/absolute_capture_time_interpolator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2024-11-25T22:02:55Z",
+      "side": 1,
+      "message": "I don\u0027t know what a reasonable maximum value is, but the maximum here will be 100 ms which is quite far from 1 hour mentioned in your document.",
+      "range": {
+        "startLine": 100,
+        "startChar": 0,
+        "endLine": 101,
+        "endChar": 56
+      },
+      "revId": "7515470547fd24bec2e979987f0c8159afdc4262",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

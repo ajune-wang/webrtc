@@ -135,6 +135,7 @@ RtpTransceiver::RtpTransceiver(cricket::MediaType media_type,
       context_(context) {
   RTC_DCHECK(media_type == cricket::MEDIA_TYPE_AUDIO ||
              media_type == cricket::MEDIA_TYPE_VIDEO);
+  RTC_DCHECK(context_);
 }
 
 RtpTransceiver::RtpTransceiver(
@@ -151,6 +152,7 @@ RtpTransceiver::RtpTransceiver(
       header_extensions_to_negotiate_(
           std::move(header_extensions_to_negotiate)),
       on_negotiation_needed_(std::move(on_negotiation_needed)) {
+  RTC_DCHECK(context_);
   RTC_DCHECK(media_type_ == cricket::MEDIA_TYPE_AUDIO ||
              media_type_ == cricket::MEDIA_TYPE_VIDEO);
   RTC_DCHECK_EQ(sender->media_type(), receiver->media_type());
@@ -238,17 +240,10 @@ RTCError RtpTransceiver::CreateChannel(
           media_send_channel = media_engine()->voice().CreateSendChannel(
               call_ptr, media_config, audio_options, crypto_options,
               codec_pair_id);
-      if (!media_send_channel) {
-        // TODO(bugs.webrtc.org/14912): Consider CHECK or reporting failure
-        return;
-      }
       std::unique_ptr<cricket::VoiceMediaReceiveChannelInterface>
           media_receive_channel = media_engine()->voice().CreateReceiveChannel(
               call_ptr, media_config, audio_options, crypto_options,
               codec_pair_id);
-      if (!media_receive_channel) {
-        return;
-      }
       // Note that this is safe because both sending and
       // receiving channels will be deleted at the same time.
       media_send_channel->SetSsrcListChangedCallback(
@@ -276,16 +271,9 @@ RTCError RtpTransceiver::CreateChannel(
           media_send_channel = media_engine()->video().CreateSendChannel(
               call_ptr, media_config, video_options, crypto_options,
               video_bitrate_allocator_factory);
-      if (!media_send_channel) {
-        return;
-      }
-
       std::unique_ptr<cricket::VideoMediaReceiveChannelInterface>
           media_receive_channel = media_engine()->video().CreateReceiveChannel(
               call_ptr, media_config, video_options, crypto_options);
-      if (!media_receive_channel) {
-        return;
-      }
       // Note that this is safe because both sending and
       // receiving channels will be deleted at the same time.
       media_send_channel->SetSsrcListChangedCallback(
@@ -300,11 +288,6 @@ RTCError RtpTransceiver::CreateChannel(
           std::move(media_receive_channel), mid, srtp_required, crypto_options,
           context()->ssrc_generator());
     });
-  }
-  if (!new_channel) {
-    // TODO(hta): Must be a better way
-    return RTCError(RTCErrorType::INTERNAL_ERROR,
-                    "Failed to create channel for mid=" + std::string(mid));
   }
   SetChannel(std::move(new_channel), transport_lookup);
   return RTCError::OK();

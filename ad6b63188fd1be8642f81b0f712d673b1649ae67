@@ -20,6 +20,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "76e37530_125fff1e",
+        "filename": "modules/rtp_rtcp/source/video_rtp_depacketizer_h264.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2024-11-25T13:48:52Z",
+      "side": 1,
+      "message": "Would it be a valid case for having empty NALUs in STAP-A?",
+      "range": {
+        "startLine": 52,
+        "startChar": 8,
+        "endLine": 52,
+        "endChar": 22
+      },
+      "revId": "ad6b63188fd1be8642f81b0f712d673b1649ae67",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e285d6b8_b37d6e7f",
         "filename": "modules/rtp_rtcp/source/video_rtp_depacketizer_h264_unittest.cc",
         "patchSetId": 2

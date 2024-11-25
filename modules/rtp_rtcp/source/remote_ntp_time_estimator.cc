@@ -21,9 +21,9 @@ namespace webrtc {
 
 namespace {
 
-constexpr int kMinimumNumberOfSamples = 3;
+constexpr int kMinimumNumberOfSamples = 2;
 constexpr TimeDelta kTimingLogInterval = TimeDelta::Seconds(10);
-constexpr int kClocksOffsetSmoothingWindow = 7;
+constexpr int kClocksOffsetSmoothingWindow = 100;
 
 // Subtracts two NtpTime values keeping maximum precision.
 int64_t Subtract(NtpTime minuend, NtpTime subtrahend) {

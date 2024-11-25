@@ -508,9 +508,9 @@ class SSLStreamAdapterTestBase : public ::testing::Test,
   }
 
   void SetPeerIdentitiesByDigest(bool correct, bool expect_success) {
-    unsigned char server_digest[EVP_MAX_MD_SIZE];
+    rtc::Buffer server_digest(0, EVP_MAX_MD_SIZE);
     size_t server_digest_len;
-    unsigned char client_digest[EVP_MAX_MD_SIZE];
+    rtc::Buffer client_digest(0, EVP_MAX_MD_SIZE);
     size_t client_digest_len;
     bool rv;
     rtc::SSLPeerCertificateDigestError err;
@@ -524,18 +524,22 @@ class SSLStreamAdapterTestBase : public ::testing::Test,
     RTC_DCHECK(client_identity());
 
     rv = server_identity()->certificate().ComputeDigest(
-        digest_algorithm_, server_digest, digest_length_, &server_digest_len);
+        digest_algorithm_, server_digest.data(), digest_length_,
+        &server_digest_len);
     ASSERT_TRUE(rv);
+    server_digest.SetSize(server_digest_len);
     rv = client_identity()->certificate().ComputeDigest(
-        digest_algorithm_, client_digest, digest_length_, &client_digest_len);
+        digest_algorithm_, client_digest.data(), digest_length_,
+        &client_digest_len);
     ASSERT_TRUE(rv);
+    client_digest.SetSize(client_digest_len);
 
     if (!correct) {
       RTC_LOG(LS_INFO) << "Setting bogus digest for server cert";
       server_digest[0]++;
     }
     rv = client_ssl_->SetPeerCertificateDigest(digest_algorithm_, server_digest,
-                                               server_digest_len, &err);
+                                               &err);
     EXPECT_EQ(expected_err, err);
     EXPECT_EQ(expect_success, rv);
 
@@ -544,7 +548,7 @@ class SSLStreamAdapterTestBase : public ::testing::Test,
       client_digest[0]++;
     }
     rv = server_ssl_->SetPeerCertificateDigest(digest_algorithm_, client_digest,
-                                               client_digest_len, &err);
+                                               &err);
     EXPECT_EQ(expected_err, err);
     EXPECT_EQ(expect_success, rv);
 
@@ -668,21 +672,25 @@ class SSLStreamAdapterTestBase : public ::testing::Test,
 
     // Collect both of the certificate digests; needs to be done before calling
     // SetPeerCertificateDigest as that may reset the identity.
-    unsigned char server_digest[EVP_MAX_MD_SIZE];
+    rtc::Buffer server_digest(0, EVP_MAX_MD_SIZE);
     size_t server_digest_len;
-    unsigned char client_digest[EVP_MAX_MD_SIZE];
+    rtc::Buffer client_digest(0, EVP_MAX_MD_SIZE);
     size_t client_digest_len;
     bool rv;
 
     ASSERT_THAT(server_identity(), NotNull());
     rv = server_identity()->certificate().ComputeDigest(
-        digest_algorithm_, server_digest, digest_length_, &server_digest_len);
+        digest_algorithm_, server_digest.data(), digest_length_,
+        &server_digest_len);
     ASSERT_TRUE(rv);
+    server_digest.SetSize(server_digest_len);
 
     ASSERT_THAT(client_identity(), NotNull());
     rv = client_identity()->certificate().ComputeDigest(
-        digest_algorithm_, client_digest, digest_length_, &client_digest_len);
+        digest_algorithm_, client_digest.data(), digest_length_,
+        &client_digest_len);
     ASSERT_TRUE(rv);
+    client_digest.SetSize(client_digest_len);
 
     if (!valid_identity) {
       RTC_LOG(LS_INFO) << "Setting bogus digest for client/server certs";
@@ -697,7 +705,7 @@ class SSLStreamAdapterTestBase : public ::testing::Test,
             ? rtc::SSLPeerCertificateDigestError::NONE
             : rtc::SSLPeerCertificateDigestError::VERIFICATION_FAILED;
     rv = client_ssl_->SetPeerCertificateDigest(digest_algorithm_, server_digest,
-                                               server_digest_len, &err);
+                                               &err);
     EXPECT_EQ(expected_err, err);
     EXPECT_EQ(valid_identity, rv);
     // State should then transition to SS_OPEN or SS_CLOSED based on validation
@@ -716,7 +724,7 @@ class SSLStreamAdapterTestBase : public ::testing::Test,
 
     // Set the peer certificate digest for the server.
     rv = server_ssl_->SetPeerCertificateDigest(digest_algorithm_, client_digest,
-                                               client_digest_len, &err);
+                                               &err);
     EXPECT_EQ(expected_err, err);
     EXPECT_EQ(valid_identity, rv);
     if (valid_identity) {

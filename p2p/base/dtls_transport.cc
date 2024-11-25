@@ -313,10 +313,8 @@ bool DtlsTransport::SetRemoteFingerprint(absl::string_view digest_alg,
     // received. For instance, if we set up DTLS due to receiving an early
     // ClientHello.
     rtc::SSLPeerCertificateDigestError err;
-    if (!dtls_->SetPeerCertificateDigest(
-            remote_fingerprint_algorithm_,
-            reinterpret_cast<unsigned char*>(remote_fingerprint_value_.data()),
-            remote_fingerprint_value_.size(), &err)) {
+    if (!dtls_->SetPeerCertificateDigest(remote_fingerprint_algorithm_,
+                                         remote_fingerprint_value_, &err)) {
       RTC_LOG(LS_ERROR) << ToString()
                         << ": Couldn't set DTLS certificate digest.";
       set_dtls_state(webrtc::DtlsTransportState::kFailed);
@@ -381,10 +379,8 @@ bool DtlsTransport::SetupDtls() {
   dtls_->SetEventCallback(
       [this](int events, int err) { OnDtlsEvent(events, err); });
   if (remote_fingerprint_value_.size() &&
-      !dtls_->SetPeerCertificateDigest(
-          remote_fingerprint_algorithm_,
-          reinterpret_cast<unsigned char*>(remote_fingerprint_value_.data()),
-          remote_fingerprint_value_.size())) {
+      !dtls_->SetPeerCertificateDigest(remote_fingerprint_algorithm_,
+                                       remote_fingerprint_value_)) {
     RTC_LOG(LS_ERROR) << ToString()
                       << ": Couldn't set DTLS certificate digest.";
     return false;

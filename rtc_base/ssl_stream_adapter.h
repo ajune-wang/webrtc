@@ -174,8 +174,7 @@ class SSLStreamAdapter : public StreamInterface {
   // `error` is optional and provides more information about the failure.
   virtual bool SetPeerCertificateDigest(
       absl::string_view digest_alg,
-      const unsigned char* digest_val,
-      size_t digest_len,
+      rtc::ArrayView<uint8_t> digest_val,
       SSLPeerCertificateDigestError* error = nullptr) = 0;
 
   // Retrieves the peer's certificate chain including leaf certificate, if a

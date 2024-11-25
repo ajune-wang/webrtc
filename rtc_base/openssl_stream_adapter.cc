@@ -271,8 +271,7 @@ void OpenSSLStreamAdapter::SetServerRole(SSLRole role) {
 
 bool OpenSSLStreamAdapter::SetPeerCertificateDigest(
     absl::string_view digest_alg,
-    const unsigned char* digest_val,
-    size_t digest_len,
+    rtc::ArrayView<uint8_t> digest_val,
     SSLPeerCertificateDigestError* error) {
   RTC_DCHECK(!peer_certificate_verified_);
   RTC_DCHECK(!HasPeerCertificateDigest());
@@ -288,14 +287,14 @@ bool OpenSSLStreamAdapter::SetPeerCertificateDigest(
     }
     return false;
   }
-  if (expected_len != digest_len) {
+  if (expected_len != digest_val.size()) {
     if (error) {
       *error = SSLPeerCertificateDigestError::INVALID_LENGTH;
     }
     return false;
   }
 
-  peer_certificate_digest_value_.SetData(digest_val, digest_len);
+  peer_certificate_digest_value_.SetData(digest_val);
   peer_certificate_digest_algorithm_ = std::string(digest_alg);
 
   if (!peer_cert_chain_) {

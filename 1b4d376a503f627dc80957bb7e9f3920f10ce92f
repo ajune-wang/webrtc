@@ -33,6 +33,24 @@
       "message": "Sorry, this needs a backwards compatible shim.\nThat said, all in favor of returning a SSLPeerCertificateDigestError.",
       "revId": "1b4d376a503f627dc80957bb7e9f3920f10ce92f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c69a26e5_955f17bb",
+        "filename": "rtc_base/ssl_stream_adapter.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-11-25T22:38:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "beb46e9e_ecba8267",
+      "revId": "1b4d376a503f627dc80957bb7e9f3920f10ce92f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

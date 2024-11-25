@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "62fb75e8_32b326f4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-11-25T22:38:14Z",
+      "side": 1,
+      "message": "IWYU in https://webrtc-review.googlesource.com/c/src/+/368220/2..4",
+      "revId": "9d2f2504197f609d2d822ad75a9027dd2b1323c1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5f705fde_7206bd80",
+        "filename": "rtc_base/ssl_stream_adapter.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-11-25T22:38:14Z",
+      "side": 1,
+      "message": "I dislike const_cast but this is a const cast going into an ArrayView so ok. And it will go away!",
+      "revId": "9d2f2504197f609d2d822ad75a9027dd2b1323c1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

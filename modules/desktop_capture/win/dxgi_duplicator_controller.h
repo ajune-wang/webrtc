@@ -74,7 +74,8 @@ class RTC_EXPORT DxgiDuplicatorController {
     INITIALIZATION_FAILED = 3,
     DUPLICATION_FAILED = 4,
     INVALID_MONITOR_ID = 5,
-    MAX_VALUE = INVALID_MONITOR_ID
+    DUPLICATION_TIMED_OUT = 6,
+    MAX_VALUE = DUPLICATION_TIMED_OUT
   };
 
   // Converts `result` into user-friendly string representation. The return
@@ -250,6 +251,11 @@ class RTC_EXPORT DxgiDuplicatorController {
       RTC_GUARDED_BY(mutex_);
   // A number to indicate how many successful duplications have been performed.
   uint32_t succeeded_duplications_ RTC_GUARDED_BY(mutex_) = 0;
+  // Indicates how many times the controller has failed to capture a frame
+  // within the specified time period. Used to determine whether the capturer is
+  // encountering a temporary error or a permanent one such that a fallback
+  // capturer should be used instead.
+  uint32_t capture_timeout_count_ RTC_GUARDED_BY(mutex_) = 0;
 };
 
 }  // namespace webrtc

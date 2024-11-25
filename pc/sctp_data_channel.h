@@ -216,6 +216,17 @@ class SctpDataChannel : public DataChannelInterface {
 
   DataChannelStats GetStats() const;
 
+  // Caches the current state on the network thread and makes a call back to the
+  // `callback` object on the signaling thread while applying the cached state
+  // to specific getter functions.
+  // This is useful when a callback to the application is needed and during that
+  // callback, it's expected that this state will be queried (e.g. the
+  // `state()`), but a thread hop should not be required for querying that
+  // state.
+  // Must be called on the network thread.
+  void CacheStateAndCallBackOnSignalingThread(
+      absl::AnyInvocable<void() &&> callback);
+
   // Returns a unique identifier that's guaranteed to always be available,
   // doesn't change throughout SctpDataChannel's lifetime and is used for
   // stats purposes (see also `GetStats()`).
@@ -241,6 +252,8 @@ class SctpDataChannel : public DataChannelInterface {
   ~SctpDataChannel() override;
 
  private:
+  class CachedState;
+  class ScopedCachedState;
   class ObserverAdapter;
 
   // The OPEN(_ACK) signaling state.
@@ -285,6 +298,7 @@ class SctpDataChannel : public DataChannelInterface {
 
   DataChannelObserver* observer_ RTC_GUARDED_BY(network_thread_) = nullptr;
   std::unique_ptr<ObserverAdapter> observer_adapter_;
+  CachedState* cached_state_ RTC_GUARDED_BY(signaling_thread_) = nullptr;
   DataState state_ RTC_GUARDED_BY(network_thread_) = kConnecting;
   RTCError error_ RTC_GUARDED_BY(network_thread_);
   uint32_t messages_sent_ RTC_GUARDED_BY(network_thread_) = 0;

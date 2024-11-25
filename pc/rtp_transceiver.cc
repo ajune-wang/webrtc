@@ -337,14 +337,14 @@ void RtpTransceiver::SetChannel(
   // Similarly, if the channel() accessor is limited to the network thread, that
   // helps with keeping the channel implementation requirements being met and
   // avoids synchronization for accessing the pointer or network related state.
-  context()->network_thread()->BlockingCall([&]() {
-    channel_->SetRtpTransport(transport_lookup(channel_->mid()));
-    channel_->SetFirstPacketReceivedCallback(
+  context()->network_thread()->BlockingCall([&, ch = channel_.get()]() {
+    ch->SetRtpTransport(transport_lookup(ch->mid()));
+    ch->SetFirstPacketReceivedCallback(
         [thread = thread_, flag = signaling_thread_safety_, this]() mutable {
           thread->PostTask(
               SafeTask(std::move(flag), [this]() { OnFirstPacketReceived(); }));
         });
-    channel_->SetFirstPacketSentCallback(
+    ch->SetFirstPacketSentCallback(
         [thread = thread_, flag = signaling_thread_safety_, this]() mutable {
           thread->PostTask(
               SafeTask(std::move(flag), [this]() { OnFirstPacketSent(); }));
@@ -367,10 +367,10 @@ void RtpTransceiver::ClearChannel() {
   signaling_thread_safety_->SetNotAlive();
   signaling_thread_safety_ = nullptr;
 
-  context()->network_thread()->BlockingCall([&]() {
-    channel_->SetFirstPacketReceivedCallback(nullptr);
-    channel_->SetFirstPacketSentCallback(nullptr);
-    channel_->SetRtpTransport(nullptr);
+  context()->network_thread()->BlockingCall([&, ch = channel_.get()]() {
+    ch->SetFirstPacketReceivedCallback(nullptr);
+    ch->SetFirstPacketSentCallback(nullptr);
+    ch->SetRtpTransport(nullptr);
   });
 
   RTC_DCHECK_BLOCK_COUNT_NO_MORE_THAN(1);
@@ -381,21 +381,20 @@ void RtpTransceiver::ClearChannel() {
 
 void RtpTransceiver::PushNewMediaChannelAndDeleteChannel(
     std::unique_ptr<cricket::ChannelInterface> channel_to_delete) {
+  RTC_DCHECK_RUN_ON(thread_);
   // The clumsy combination of pushing down media channel and deleting
   // the channel is due to the desire to do both things in one Invoke().
   if (!channel_to_delete && senders_.empty() && receivers_.empty()) {
     return;
   }
-  context()->worker_thread()->BlockingCall([&]() {
+  context()->worker_thread()->BlockingCall([&, ch = channel_.get()]() {
     // Push down the new media_channel, if any, otherwise clear it.
-    auto* media_send_channel =
-        channel_ ? channel_->media_send_channel() : nullptr;
+    auto* media_send_channel = ch ? ch->media_send_channel() : nullptr;
     for (const auto& sender : senders_) {
       sender->internal()->SetMediaChannel(media_send_channel);
     }
 
-    auto* media_receive_channel =
-        channel_ ? channel_->media_receive_channel() : nullptr;
+    auto* media_receive_channel = ch ? ch->media_receive_channel() : nullptr;
     for (const auto& receiver : receivers_) {
       receiver->internal()->SetMediaChannel(media_receive_channel);
     }

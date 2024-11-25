@@ -114,7 +114,10 @@ class RtpTransceiver : public RtpTransceiverInterface {
 
   // Returns the Voice/VideoChannel set for this transceiver. May be null if
   // the transceiver is not in the currently set local/remote description.
-  cricket::ChannelInterface* channel() const { return channel_.get(); }
+  cricket::ChannelInterface* channel() const {
+    RTC_DCHECK_RUN_ON(thread_);
+    return channel_.get();
+  }
 
   // Creates the Voice/VideoChannel and sets it.
   RTCError CreateChannel(
@@ -335,7 +338,8 @@ class RtpTransceiver : public RtpTransceiverInterface {
   // Accessed on both thread_ and the network thread. Considered safe
   // because all access on the network thread is within an invoke()
   // from thread_.
-  std::unique_ptr<cricket::ChannelInterface> channel_ = nullptr;
+  std::unique_ptr<cricket::ChannelInterface> channel_ RTC_GUARDED_BY(thread_) =
+      nullptr;
   ConnectionContext* const context_;
   std::vector<RtpCodecCapability> codec_preferences_;
   std::vector<RtpHeaderExtensionCapability> header_extensions_to_negotiate_;

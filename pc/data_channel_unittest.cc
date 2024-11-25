@@ -82,11 +82,10 @@ class SctpDataChannelTest : public ::testing::Test {
         controller_(new FakeDataChannelController(&network_thread_)) {
     network_thread_.Start();
     inner_channel_ = controller_->CreateDataChannel("test", init_);
-    channel_ = SctpDataChannel::CreateProxy(inner_channel_, signaling_safety_);
+    channel_ = SctpDataChannel::CreateProxy(inner_channel_);
   }
   ~SctpDataChannelTest() override {
     run_loop_.Flush();
-    signaling_safety_->SetNotAlive();
     inner_channel_ = nullptr;
     channel_ = nullptr;
     controller_.reset();
@@ -144,8 +143,6 @@ class SctpDataChannelTest : public ::testing::Test {
   test::RunLoop run_loop_;
   rtc::Thread network_thread_;
   InternalDataChannelInit init_;
-  rtc::scoped_refptr<PendingTaskSafetyFlag> signaling_safety_ =
-      PendingTaskSafetyFlag::Create();
   std::unique_ptr<FakeDataChannelController> controller_;
   std::unique_ptr<FakeDataChannelObserver> observer_;
   rtc::scoped_refptr<SctpDataChannel> inner_channel_;
@@ -242,7 +239,7 @@ TEST_F(SctpDataChannelTest, LateCreatedChannelTransitionToOpen) {
   InternalDataChannelInit init;
   init.id = 1;
   auto dc = SctpDataChannel::CreateProxy(
-      controller_->CreateDataChannel("test1", init), signaling_safety_);
+      controller_->CreateDataChannel("test1", init));
   EXPECT_EQ(DataChannelInterface::kOpen, dc->state());
 }
 
@@ -255,7 +252,7 @@ TEST_F(SctpDataChannelTest, SendUnorderedAfterReceivesOpenAck) {
   init.ordered = false;
   rtc::scoped_refptr<SctpDataChannel> dc =
       controller_->CreateDataChannel("test1", init);
-  auto proxy = SctpDataChannel::CreateProxy(dc, signaling_safety_);
+  auto proxy = SctpDataChannel::CreateProxy(dc);
 
   EXPECT_EQ_WAIT(DataChannelInterface::kOpen, proxy->state(), 1000);
 
@@ -284,7 +281,7 @@ TEST_F(SctpDataChannelTest, DeprecatedSendUnorderedAfterReceivesOpenAck) {
   init.ordered = false;
   rtc::scoped_refptr<SctpDataChannel> dc =
       controller_->CreateDataChannel("test1", init);
-  auto proxy = SctpDataChannel::CreateProxy(dc, signaling_safety_);
+  auto proxy = SctpDataChannel::CreateProxy(dc);
 
   EXPECT_EQ_WAIT(DataChannelInterface::kOpen, proxy->state(), 1000);
 
@@ -313,7 +310,7 @@ TEST_F(SctpDataChannelTest, SendUnorderedAfterReceiveData) {
   init.ordered = false;
   rtc::scoped_refptr<SctpDataChannel> dc =
       controller_->CreateDataChannel("test1", init);
-  auto proxy = SctpDataChannel::CreateProxy(dc, signaling_safety_);
+  auto proxy = SctpDataChannel::CreateProxy(dc);
 
   EXPECT_EQ_WAIT(DataChannelInterface::kOpen, proxy->state(), 1000);
 
@@ -336,7 +333,7 @@ TEST_F(SctpDataChannelTest, DeprecatedSendUnorderedAfterReceiveData) {
   init.ordered = false;
   rtc::scoped_refptr<SctpDataChannel> dc =
       controller_->CreateDataChannel("test1", init);
-  auto proxy = SctpDataChannel::CreateProxy(dc, signaling_safety_);
+  auto proxy = SctpDataChannel::CreateProxy(dc);
 
   EXPECT_EQ_WAIT(DataChannelInterface::kOpen, proxy->state(), 1000);
 
@@ -395,7 +392,7 @@ TEST_F(SctpDataChannelTest, NoMsgSentIfNegotiatedAndNotFromOpenMsg) {
   SetChannelReady();
   rtc::scoped_refptr<SctpDataChannel> dc =
       controller_->CreateDataChannel("test1", config);
-  auto proxy = SctpDataChannel::CreateProxy(dc, signaling_safety_);
+  auto proxy = SctpDataChannel::CreateProxy(dc);
 
   EXPECT_EQ_WAIT(DataChannelInterface::kOpen, proxy->state(), 1000);
   EXPECT_EQ(0, controller_->last_sid());
@@ -460,7 +457,7 @@ TEST_F(SctpDataChannelTest, OpenAckSentIfCreatedFromOpenMessage) {
   SetChannelReady();
   rtc::scoped_refptr<SctpDataChannel> dc =
       controller_->CreateDataChannel("test1", config);
-  auto proxy = SctpDataChannel::CreateProxy(dc, signaling_safety_);
+  auto proxy = SctpDataChannel::CreateProxy(dc);
 
   EXPECT_EQ_WAIT(DataChannelInterface::kOpen, proxy->state(), 1000);
 

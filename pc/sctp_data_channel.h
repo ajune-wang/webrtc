@@ -134,6 +134,7 @@ class SctpDataChannel : public DataChannelInterface {
       const std::string& label,
       bool connected_to_transport,
       const InternalDataChannelInit& config,
+      rtc::scoped_refptr<PendingTaskSafetyFlag> signaling_safety,
       rtc::Thread* signaling_thread,
       rtc::Thread* network_thread);
 
@@ -145,8 +146,7 @@ class SctpDataChannel : public DataChannelInterface {
   // will update the flag when closed, which will cancel any pending event
   // notifications.
   static rtc::scoped_refptr<DataChannelInterface> CreateProxy(
-      rtc::scoped_refptr<SctpDataChannel> channel,
-      rtc::scoped_refptr<PendingTaskSafetyFlag> signaling_safety);
+      rtc::scoped_refptr<SctpDataChannel> channel);
 
   void RegisterObserver(DataChannelObserver* observer) override;
   void UnregisterObserver() override;
@@ -235,6 +235,7 @@ class SctpDataChannel : public DataChannelInterface {
                   rtc::WeakPtr<SctpDataChannelControllerInterface> controller,
                   const std::string& label,
                   bool connected_to_transport,
+                  rtc::scoped_refptr<PendingTaskSafetyFlag> signaling_safety,
                   rtc::Thread* signaling_thread,
                   rtc::Thread* network_thread);
   ~SctpDataChannel() override;
@@ -299,6 +300,7 @@ class SctpDataChannel : public DataChannelInterface {
   PacketQueue queued_received_data_ RTC_GUARDED_BY(network_thread_);
   rtc::scoped_refptr<PendingTaskSafetyFlag> network_safety_ =
       PendingTaskSafetyFlag::CreateDetachedInactive();
+  rtc::scoped_refptr<PendingTaskSafetyFlag> signaling_safety_;
 };
 
 }  // namespace webrtc

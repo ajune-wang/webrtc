@@ -523,6 +523,7 @@ rtc_library("desktop_capture") {
       "shcore.lib",
     ]
     deps += [
+      "../../api/units:time_delta",
       "../../rtc_base:win32",
       "../../rtc_base/containers:flat_map",
       "../../rtc_base/win:create_direct3d_device",

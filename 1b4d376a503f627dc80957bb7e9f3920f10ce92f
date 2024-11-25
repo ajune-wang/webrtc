@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "68acd68c_ebe11390",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-11-25T09:26:02Z",
+      "side": 1,
+      "message": "Seems landable once we have a backwards-compatibility [[deprecated]] shim.",
+      "revId": "1b4d376a503f627dc80957bb7e9f3920f10ce92f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "beb46e9e_ecba8267",
+        "filename": "rtc_base/ssl_stream_adapter.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-11-25T09:26:02Z",
+      "side": 1,
+      "message": "Sorry, this needs a backwards compatible shim.\nThat said, all in favor of returning a SSLPeerCertificateDigestError.",
+      "revId": "1b4d376a503f627dc80957bb7e9f3920f10ce92f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

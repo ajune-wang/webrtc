@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "519846af_cbe33797",
+        "filename": "modules/rtp_rtcp/source/video_rtp_depacketizer_h264.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-11-25T18:13:07Z",
+      "side": 1,
+      "message": "I wondered about that when writing a test too but removing this condition crashes down the line. Unless someone asks for it I would say \"no\"",
+      "parentUuid": "76e37530_125fff1e",
+      "range": {
+        "startLine": 52,
+        "startChar": 8,
+        "endLine": 52,
+        "endChar": 22
+      },
+      "revId": "ad6b63188fd1be8642f81b0f712d673b1649ae67",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e285d6b8_b37d6e7f",
         "filename": "modules/rtp_rtcp/source/video_rtp_depacketizer_h264_unittest.cc",
         "patchSetId": 2

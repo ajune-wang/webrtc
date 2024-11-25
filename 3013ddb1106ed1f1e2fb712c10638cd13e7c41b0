@@ -87,6 +87,24 @@
       "parentUuid": "2da498a4_a0eb1c77",
       "revId": "3013ddb1106ed1f1e2fb712c10638cd13e7c41b0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "910277c9_dd6307a4",
+        "filename": "pc/rtp_transceiver.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 387,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-11-25T22:06:51Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "2cd919a6_4a47bcd2",
+      "revId": "3013ddb1106ed1f1e2fb712c10638cd13e7c41b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

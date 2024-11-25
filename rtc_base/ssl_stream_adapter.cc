@@ -15,7 +15,6 @@
 #include <memory>
 #include <string>
 #include <utility>
-#include <vector>
 
 #include "absl/functional/any_invocable.h"
 #include "absl/strings/string_view.h"
@@ -96,6 +95,20 @@ bool SSLStreamAdapter::IsAcceptableCipher(int cipher, KeyType key_type) {
 bool SSLStreamAdapter::IsAcceptableCipher(absl::string_view cipher,
                                           KeyType key_type) {
   return OpenSSLStreamAdapter::IsAcceptableCipher(cipher, key_type);
+}
+
+// Default shim for backward compat.
+bool SSLStreamAdapter::SetPeerCertificateDigest(
+    absl::string_view digest_alg,
+    const unsigned char* digest_val,
+    size_t digest_len,
+    SSLPeerCertificateDigestError* error) {
+  unsigned char* nonconst_val = const_cast<unsigned char*>(digest_val);
+  SSLPeerCertificateDigestError ret = SetPeerCertificateDigest(
+      digest_alg, rtc::ArrayView<uint8_t>(nonconst_val, digest_len));
+  if (error)
+    *error = ret;
+  return ret == SSLPeerCertificateDigestError::NONE;
 }
 
 ///////////////////////////////////////////////////////////////////////////////

@@ -37,6 +37,10 @@ int GetFullSequenceIndex(int previous_sequence_index,
     return sequence_index_update << 7;
   }
   int upper_bits = previous_sequence_index & 0b0011'1111'1000'0000;
+  // TODO(discuss): I believe this is not good in the long run!
+  // Just missing 10 seconds of e.g. the highest layer could cause sender and
+  // receiver to end up in out of sync with this method. I believe it would be
+  // much better to when going above 2^7, to update the MSB. wdyt?
   if (sequence_index_update < (previous_sequence_index & 0b0111'1111)) {
     // Assume one and only one wraparound has happened.
     upper_bits += 0b1000'0000;

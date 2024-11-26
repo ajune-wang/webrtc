@@ -16,6 +16,23 @@
       "message": "LGTM! I would suggest to inspect the data after a couple of days to see if it behaves as expected.",
       "revId": "9be9a5a44890ff190131d4a549c4a85596c04436",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c5c16d5b_a4401468",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-11-26T13:36:40Z",
+      "side": 1,
+      "message": "Thanks for the reviews!",
+      "revId": "9be9a5a44890ff190131d4a549c4a85596c04436",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -89,6 +89,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c471d7fb_707e4c52",
+        "filename": "modules/rtp_rtcp/source/absolute_capture_time_interpolator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-11-26T13:36:40Z",
+      "side": 1,
+      "message": "Testing will show :-) NTP time as used in SR SHOULD be derived from monotonic time; if not, that\u0027s a bug (in my opinion).",
+      "parentUuid": "b0f22a7e_ff37b393",
+      "range": {
+        "startLine": 83,
+        "startChar": 4,
+        "endLine": 83,
+        "endChar": 66
+      },
+      "revId": "7515470547fd24bec2e979987f0c8159afdc4262",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1abc3f9e_adbbc7fb",
@@ -197,6 +221,30 @@
       "side": 1,
       "message": "If the upper bound is changed you will get two datasets that are not compatible, but it should be fine to do some fine tuning for as long as the histogram is not on a release branch.",
       "parentUuid": "83f90b63_fb08b4fd",
+      "range": {
+        "startLine": 100,
+        "startChar": 0,
+        "endLine": 101,
+        "endChar": 56
+      },
+      "revId": "7515470547fd24bec2e979987f0c8159afdc4262",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0db5bb41_53aa6891",
+        "filename": "modules/rtp_rtcp/source/absolute_capture_time_interpolator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-11-26T13:36:40Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "1f060329_5c608020",
       "range": {
         "startLine": 100,
         "startChar": 0,

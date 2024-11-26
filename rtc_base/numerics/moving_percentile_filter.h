@@ -29,7 +29,9 @@ class MovingPercentileFilter {
   // `window_size` is how many latest samples are stored for finding the
   // percentile. `percentile` must be between 0.0 and 1.0 (inclusive) and
   // `window_size` must be greater than 0.
-  MovingPercentileFilter(float percentile, size_t window_size);
+  MovingPercentileFilter(float percentile,
+                         size_t window_size,
+                         T default_value = T());
 
   MovingPercentileFilter(const MovingPercentileFilter&) = delete;
   MovingPercentileFilter& operator=(const MovingPercentileFilter&) = delete;
@@ -57,14 +59,15 @@ class MovingPercentileFilter {
 template <typename T>
 class MovingMedianFilter : public MovingPercentileFilter<T> {
  public:
-  explicit MovingMedianFilter(size_t window_size)
-      : MovingPercentileFilter<T>(0.5f, window_size) {}
+  explicit MovingMedianFilter(size_t window_size, T default_value = T())
+      : MovingPercentileFilter<T>(0.5f, window_size, default_value) {}
 };
 
 template <typename T>
 MovingPercentileFilter<T>::MovingPercentileFilter(float percentile,
-                                                  size_t window_size)
-    : percentile_filter_(percentile),
+                                                  size_t window_size,
+                                                  T default_value)
+    : percentile_filter_(percentile, default_value),
       samples_stored_(0),
       window_size_(window_size) {
   RTC_CHECK_GT(window_size, 0);

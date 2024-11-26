@@ -15,6 +15,7 @@
 #include <algorithm>
 #include <cstddef>
 
+#include "api/units/time_delta.h"
 #include "test/gtest.h"
 
 namespace webrtc {
@@ -45,10 +46,24 @@ TEST(MovingPercentileFilter, Percentile90ReturnsMovingPercentile67WithWindow4) {
   }
 }
 
+TEST(MovingPercentileFilter, P10OfTimeDelta) {
+  MovingPercentileFilter<TimeDelta> perc10(0.2, 5, TimeDelta::Zero());
+  for (size_t i = 5; i > 0; --i) {
+    perc10.Insert(TimeDelta::Millis(i));
+  }
+  EXPECT_EQ(perc10.GetFilteredValue(), TimeDelta::Millis(1));
+}
+
 TEST(MovingMedianFilterTest, ProcessesNoSamples) {
   MovingMedianFilter<int> filter(2);
   EXPECT_EQ(0, filter.GetFilteredValue());
   EXPECT_EQ(0u, filter.GetNumberOfSamplesStored());
+}
+
+TEST(MovingMedianFilterTest, ReturnsDefaultValueIfEmpty) {
+  MovingMedianFilter<webrtc::TimeDelta> filter(2, TimeDelta::Millis(20));
+  EXPECT_EQ(filter.GetFilteredValue(), TimeDelta::Millis(20));
+  EXPECT_EQ(filter.GetNumberOfSamplesStored(), 0u);
 }
 
 TEST(MovingMedianFilterTest, ReturnsMovingMedianWindow5) {

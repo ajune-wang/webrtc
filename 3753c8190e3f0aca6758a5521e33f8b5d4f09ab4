@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8c944ae7_3d3d8bc3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18005
+      },
+      "writtenOn": "2024-11-26T02:27:57Z",
+      "side": 1,
+      "message": "@phancke@meta.com One question: what if an encoder reuses/(does not repeat) the SPS, while sending a different PPS on the fly? Think about a corner case where you have PPS/SEI/SEI packed into a STAP-A and then IDR in another single RTP packet, on AP dropped and IDR survives, with the legacy packet buffer impl, is it possible you are sending the IDR to the decoder without associated PPS?",
+      "revId": "3753c8190e3f0aca6758a5521e33f8b5d4f09ab4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

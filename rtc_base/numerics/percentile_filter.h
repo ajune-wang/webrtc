@@ -27,7 +27,7 @@ template <typename T>
 class PercentileFilter {
  public:
   // Construct filter. `percentile` should be between 0 and 1.
-  explicit PercentileFilter(float percentile);
+  explicit PercentileFilter(float percentile, T default_value = T());
 
   // Insert one observation. The complexity of this operation is logarithmic in
   // the size of the container.
@@ -49,6 +49,7 @@ class PercentileFilter {
   void UpdatePercentileIterator();
 
   const float percentile_;
+  const T default_value_;
   std::multiset<T> set_;
   // Maintain iterator and index of current target percentile value.
   typename std::multiset<T>::iterator percentile_it_;
@@ -56,8 +57,9 @@ class PercentileFilter {
 };
 
 template <typename T>
-PercentileFilter<T>::PercentileFilter(float percentile)
+PercentileFilter<T>::PercentileFilter(float percentile, T default_value)
     : percentile_(percentile),
+      default_value_(default_value),
       percentile_it_(set_.begin()),
       percentile_index_(0) {
   RTC_CHECK_GE(percentile, 0.0f);
@@ -110,7 +112,7 @@ void PercentileFilter<T>::UpdatePercentileIterator() {
 
 template <typename T>
 T PercentileFilter<T>::GetPercentileValue() const {
-  return set_.empty() ? 0 : *percentile_it_;
+  return set_.empty() ? default_value_ : *percentile_it_;
 }
 
 template <typename T>

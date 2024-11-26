@@ -18,9 +18,12 @@
 #include <random>
 
 #include "absl/algorithm/container.h"
+#include "api/units/data_rate.h"
 #include "test/gtest.h"
 
 namespace webrtc {
+
+using webrtc::DataRate;
 
 class PercentileFilterTest : public ::testing::TestWithParam<float> {
  public:
@@ -62,6 +65,14 @@ TEST(PercentileFilterTest, MedianFilterDouble) {
   filter.Insert(3.14159);
   filter.Insert(1.41421);
   EXPECT_EQ(2.71828, filter.GetPercentileValue());
+}
+
+TEST(PercentileFilterTest, MedianFilterDataRate) {
+  PercentileFilter<DataRate> filter(0.5f, DataRate::Zero());
+  filter.Insert(DataRate::KilobitsPerSec(10));
+  filter.Insert(DataRate::KilobitsPerSec(20));
+  filter.Insert(DataRate::KilobitsPerSec(30));
+  EXPECT_EQ(filter.GetPercentileValue(), DataRate::KilobitsPerSec(20));
 }
 
 TEST(PercentileFilterTest, MedianFilterInt) {

@@ -2071,6 +2071,7 @@ if (rtc_include_tests) {
         ":mod_ops",
         ":rtc_numerics",
         ":timeutils",
+        "../api/units:data_rate",
         "../test:test_main",
         "../test:test_support",
         "//third_party/abseil-cpp/absl/algorithm:container",

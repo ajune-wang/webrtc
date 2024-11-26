@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "80fcf1a7_7bba572a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-11-26T15:53:59Z",
+      "side": 1,
+      "message": "triggered by discussion in https://webrtc-review.googlesource.com/c/src/+/369420\nbut there are other examples (one of them is included in this CL) where default constructor makes code clearer.",
+      "revId": "cff4795238f2c37a888ee8772a8fe3312c3f9915",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

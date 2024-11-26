@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "727cae57_adeaf56a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2024-11-26T17:03:52Z",
+      "side": 1,
+      "message": "I realized that a default value !\u003d 0 is not needed. \nProblem is fixed with this + https://webrtc-review.googlesource.com/c/src/+/369440",
+      "revId": "82d0974c0d19f68530edc97a394e0bd35734f59f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

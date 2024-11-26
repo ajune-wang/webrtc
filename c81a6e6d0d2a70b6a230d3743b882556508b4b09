@@ -33,6 +33,24 @@
       "message": "Hm. This makes me nervous.\nBaseChannel::SetRtpTransport(nullptr) disconnects from the transport, and is NOT called from BaseChannel\u0027s destructor - if stuff comes into the channel from the network thread between this line and the SetRtpTransport inside the BlockingCall below, will callbacks be called on the deleted object?",
       "revId": "c81a6e6d0d2a70b6a230d3743b882556508b4b09",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "71617aed_025234d0",
+        "filename": "pc/rtp_transceiver.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 329,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2024-11-26T07:58:27Z",
+      "side": 1,
+      "message": "The `SetRtpTransport(nullptr)` call which was on line 345, is never made since SetChannel is never called when `channel_` is valid (non-nullptr - see e.g. check on line 319).\n\nWhen looking into ClearChannel I checked this code too including the call sites for each and found that the code that this CL removes, is not a valid case for this method. There\u0027s also an additional check in the channel destructors that require them to be deleted on the worker thread, but `channel_to_delete` always goes out of scope on the signaling thread (another signal that shows that it\u0027s not the way things are architected).",
+      "parentUuid": "4b565986_3ebbaeb2",
+      "revId": "c81a6e6d0d2a70b6a230d3743b882556508b4b09",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

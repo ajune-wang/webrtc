@@ -1,0 +1,85 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8eb05ad7_8cc612eb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3485001
+      },
+      "writtenOn": "2024-11-26T14:26:42Z",
+      "side": 1,
+      "message": "Please have a look at this CL and lmk what you think about some of the discussions I have pointed out below.",
+      "revId": "ff4dddd6fc59072f06d45ac507da6063237b8cf8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "54d26eff_ad86cf46",
+        "filename": "common_video/corruption_detection_converters.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 3485001
+      },
+      "writtenOn": "2024-11-26T14:26:42Z",
+      "side": 1,
+      "message": "@sprang@webrtc.org",
+      "range": {
+        "startLine": 40,
+        "startChar": 5,
+        "endLine": 40,
+        "endChar": 18
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "2648c227_7384cc13",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "common_video/corruption_detection_converters.cc",
+              "range": {
+                "startLine": 40,
+                "startChar": 0,
+                "endLine": 44,
+                "endChar": 0
+              },
+              "replacement": ""
+            }
+          ]
+        }
+      ],
+      "revId": "ff4dddd6fc59072f06d45ac507da6063237b8cf8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fe3c7018_9f5829aa",
+        "filename": "video/rtp_video_stream_receiver2_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 503,
+      "author": {
+        "id": 3485001
+      },
+      "writtenOn": "2024-11-26T14:26:42Z",
+      "side": 1,
+      "message": "@sprang@webrtc.org",
+      "range": {
+        "startLine": 501,
+        "startChar": 0,
+        "endLine": 503,
+        "endChar": 56
+      },
+      "revId": "ff4dddd6fc59072f06d45ac507da6063237b8cf8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

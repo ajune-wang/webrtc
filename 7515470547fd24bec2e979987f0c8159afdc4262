@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "71e156a4_33b357c5",
+        "filename": "modules/rtp_rtcp/source/absolute_capture_time_interpolator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-11-26T05:02:27Z",
+      "side": 1,
+      "message": "Yep. If the local and remote clocks are in sync, this delta is the value of the capture-to-reception delay. If they\u0027re not, we need the offset to correct for that. This was added mainly to get clustering info on this delta.",
+      "parentUuid": "66f5d8b7_80b79be7",
+      "range": {
+        "startLine": 83,
+        "startChar": 4,
+        "endLine": 83,
+        "endChar": 66
+      },
+      "revId": "7515470547fd24bec2e979987f0c8159afdc4262",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1abc3f9e_adbbc7fb",
         "filename": "modules/rtp_rtcp/source/absolute_capture_time_interpolator.cc",
         "patchSetId": 1
@@ -54,6 +78,30 @@
       "writtenOn": "2024-11-25T22:02:55Z",
       "side": 1,
       "message": "The min value for histograms is 0, so you probably want to take the absolute value of all number that might be negative. From what I can tell, this applies to:\n- WebRTC.Call.AbsCapture.DeltaDeviation\n- WebRTC.Call.AbsCapture.Offset\n- WebRTC.Call.AbsCapture.OffsetDeviation",
+      "range": {
+        "startLine": 89,
+        "startChar": 10,
+        "endLine": 89,
+        "endChar": 59
+      },
+      "revId": "7515470547fd24bec2e979987f0c8159afdc4262",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cfad5d89_0d2b37e1",
+        "filename": "modules/rtp_rtcp/source/absolute_capture_time_interpolator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-11-26T05:02:27Z",
+      "side": 1,
+      "message": "Good point. Is there any way to record a two-sided distribution with UMA?\n\nAnyway, all of these vars are based on external data, so it\u0027s not safe to assume that they will not be negative; taking abs() on all of them as a first iteration.",
+      "parentUuid": "1abc3f9e_adbbc7fb",
       "range": {
         "startLine": 89,
         "startChar": 10,
@@ -77,6 +125,30 @@
       "writtenOn": "2024-11-25T22:02:55Z",
       "side": 1,
       "message": "I don\u0027t know what a reasonable maximum value is, but the maximum here will be 100 ms which is quite far from 1 hour mentioned in your document.",
+      "range": {
+        "startLine": 100,
+        "startChar": 0,
+        "endLine": 101,
+        "endChar": 56
+      },
+      "revId": "7515470547fd24bec2e979987f0c8159afdc4262",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "83f90b63_fb08b4fd",
+        "filename": "modules/rtp_rtcp/source/absolute_capture_time_interpolator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-11-26T05:02:27Z",
+      "side": 1,
+      "message": "I\u0027m not sure what a reasonable maximum is! But the 100K was the largest pre-made histogram macro, I\u0027ll have to make a new one. How sensitive is data collection to changing the upper-bound value?",
+      "parentUuid": "34ff530d_5072cc1a",
       "range": {
         "startLine": 100,
         "startChar": 0,

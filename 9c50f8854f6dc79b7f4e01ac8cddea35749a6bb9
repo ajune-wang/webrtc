@@ -16,6 +16,46 @@
       "message": "Please?",
       "revId": "9c50f8854f6dc79b7f4e01ac8cddea35749a6bb9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5a983ec0_77f5fcf7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-11-26T14:29:24Z",
+      "side": 1,
+      "message": "That would work, but this can also be a good reason to actually add a default constructor to relative unit types (i.e., all except Timestamp) And thus help bunch of other scenarios.\n\nThis class would just need to change \u00270\u0027 to \u0027T()\u0027 and would save a bit of extra memory to keep the default value.\n\nThis CL suggests that for the same \u0027T\u0027 there can be different default values. Is that the intent?\n\nYet another option might be to change `GetPercentileValue` function to return optional\u003cT\u003e rather than an \u0027artificial\u0027 default value.",
+      "revId": "9c50f8854f6dc79b7f4e01ac8cddea35749a6bb9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e2837efa_fa369530",
+        "filename": "rtc_base/numerics/moving_percentile_filter.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-11-26T14:29:24Z",
+      "side": 1,
+      "message": "do not forget to pass the value to the forwarding constructor\n\n(and may be add a test that MovingMedianFilter\u003cTimeDelta\u003e works too)",
+      "range": {
+        "startLine": 62,
+        "startChar": 52,
+        "endLine": 62,
+        "endChar": 65
+      },
+      "revId": "9c50f8854f6dc79b7f4e01ac8cddea35749a6bb9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

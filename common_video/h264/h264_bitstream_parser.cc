@@ -118,12 +118,18 @@ H264BitstreamParser::Result H264BitstreamParser::ParseNonParameterSetNalu(
       if (slice_reader.Read<bool>()) {
         // num_ref_idx_l0_active_minus1: ue(v)
         num_ref_idx_l0_active_minus1 = slice_reader.ReadExponentialGolomb();
+        if (!slice_reader.Ok()) {
+          return kInvalidStream;
+        }
         if (num_ref_idx_l0_active_minus1 > H264::kMaxReferenceIndex) {
           return kInvalidStream;
         }
         if (slice_type == H264::SliceType::kB) {
           // num_ref_idx_l1_active_minus1: ue(v)
           num_ref_idx_l1_active_minus1 = slice_reader.ReadExponentialGolomb();
+          if (!slice_reader.Ok()) {
+            return kInvalidStream;
+          }
           if (num_ref_idx_l1_active_minus1 > H264::kMaxReferenceIndex) {
             return kInvalidStream;
           }

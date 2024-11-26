@@ -53,6 +53,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7c8358e4_535b04bd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-11-26T14:57:27Z",
+      "side": 1,
+      "message": "Ok, then indeed need to store the default value, or pass it each time you query the value.\n\nan option might be to add another signature:\n\noptional\u003cT\u003e PercentileValue() const {\n  if (set_.empty()) { return std::nullopt; }\n  return *percentile_it_;\n}\n\nT GetPercentileValue() const { return PercentileValue().value_or(default_value_); }",
+      "parentUuid": "8f48d96e_cb3aa6ad",
+      "revId": "9c50f8854f6dc79b7f4e01ac8cddea35749a6bb9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e2837efa_fa369530",

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "15d433e3_d9ee5d1c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2024-11-26T13:28:58Z",
+      "side": 1,
+      "message": "LGTM! I would suggest to inspect the data after a couple of days to see if it behaves as expected.",
+      "revId": "9be9a5a44890ff190131d4a549c4a85596c04436",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

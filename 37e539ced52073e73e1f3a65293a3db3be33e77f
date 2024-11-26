@@ -16,6 +16,24 @@
       "message": "Added some abs(), wondering if we can record two-sided distros in UMA.",
       "revId": "37e539ced52073e73e1f3a65293a3db3be33e77f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c6dafea2_0def5ff2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2024-11-26T13:28:58Z",
+      "side": 1,
+      "message": "I think that the only way to get two-sided information is by having one histogram per side. At some point I looked into using one histogram with an offset, but that doesn\u0027t work well due to the logarithmic scale.",
+      "parentUuid": "d580ada8_a853250d",
+      "revId": "37e539ced52073e73e1f3a65293a3db3be33e77f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

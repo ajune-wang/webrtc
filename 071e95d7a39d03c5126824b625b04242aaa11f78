@@ -16,6 +16,23 @@
       "message": "The CL does slightly more than that, but it all looks sane.",
       "revId": "071e95d7a39d03c5126824b625b04242aaa11f78",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8397d783_5f547bf4",
+        "filename": "pc/rtp_transceiver.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 330,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2024-11-26T07:36:18Z",
+      "side": 1,
+      "message": "oops - this check wasn\u0027t supposed to be here (although it doesn\u0027t make a difference). Removed.",
+      "revId": "071e95d7a39d03c5126824b625b04242aaa11f78",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

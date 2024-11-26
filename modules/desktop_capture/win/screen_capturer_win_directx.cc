@@ -186,6 +186,12 @@ void ScreenCapturerWinDirectx::CaptureFrame() {
       callback_->OnCaptureResult(Result::ERROR_TEMPORARY, nullptr);
       break;
     }
+    case DuplicateResult::DUPLICATION_TIMED_OUT: {
+      RTC_LOG(LS_ERROR) << "Failed to capture a DesktopFrame after multiple "
+                        << "attempts.";
+      callback_->OnCaptureResult(Result::ERROR_PERMANENT, nullptr);
+      break;
+    }
     case DuplicateResult::SUCCEEDED: {
       std::unique_ptr<DesktopFrame> frame =
           frames.current_frame()->frame()->Share();

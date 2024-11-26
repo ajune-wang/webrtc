@@ -1,6 +1,29 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "b4513678_cf80f13e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2024-11-26T23:38:14Z",
+      "side": 1,
+      "message": "This code as-is LGTM, but FWIW, we *can* detect if we\u0027re on Win11, which you could use to do the counter instead of the timeout:\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/rtc_base/win/windows_version.h;drc\u003d8a411c4e2c1fae1b5804ba40e5d10a2aa26240bf;l\u003d52",
+      "range": {
+        "startLine": 17,
+        "startChar": 43,
+        "endLine": 17,
+        "endChar": 49
+      },
+      "revId": "510f14333bc58ecb525ddcfb2507f7b7509ee29d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "7de8f9f8_905cc6dd",
@@ -14,6 +37,46 @@
       "writtenOn": "2024-11-26T23:19:32Z",
       "side": 1,
       "message": "PTAL!",
+      "revId": "510f14333bc58ecb525ddcfb2507f7b7509ee29d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3ebe2f11_5c8f76db",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2024-11-26T23:38:14Z",
+      "side": 1,
+      "message": "LGTM, but a couple of things to consider.",
+      "revId": "510f14333bc58ecb525ddcfb2507f7b7509ee29d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0ac716aa_4c4293a6",
+        "filename": "modules/desktop_capture/win/dxgi_duplicator_controller.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2024-11-26T23:38:14Z",
+      "side": 1,
+      "message": "Seems like we\u0027re now pretty much always going to fail out at kMaxCaptureTimeoutCount * kCaptureWaitPeriod.\n\n1) Is this still needed then?\n2) Any concerns about waiting less time on Win 10?",
+      "range": {
+        "startLine": 52,
+        "startChar": 0,
+        "endLine": 52,
+        "endChar": 61
+      },
       "revId": "510f14333bc58ecb525ddcfb2507f7b7509ee29d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

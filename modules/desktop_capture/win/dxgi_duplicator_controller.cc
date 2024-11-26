@@ -15,6 +15,7 @@
 #include <algorithm>
 #include <string>
 
+#include "api/units/time_delta.h"
 #include "modules/desktop_capture/desktop_capture_types.h"
 #include "modules/desktop_capture/win/dxgi_frame.h"
 #include "modules/desktop_capture/win/screen_capture_utils.h"
@@ -43,6 +44,20 @@ bool IsConsoleSession() {
   return WTSGetActiveConsoleSessionId() == GetCurrentSessionId();
 }
 
+// The amount of time to wait before timing out when verifying the capturer is
+// producing frames. If we do not capture enough frames during this time
+// interval, the DXGI components will be reinitialized. This usually should not
+// happen unless the system is switching display modes when this function is
+// being called. 500 milliseconds should be enough for ~30 frames @ 60 FPS.
+constexpr TimeDelta kCaptureTimeout = TimeDelta::Millis(500);
+
+// On a modern system, the FPS / monitor refresh rate is usually larger than or
+// equal to 60Hz so 17 milliseconds is enough to capture at least one frame.
+constexpr TimeDelta kCaptureWaitPeriod = TimeDelta::Millis(17);
+
+// The number of capture timeouts accumulate before returing a permanent error.
+constexpr uint32_t kMaxCaptureTimeoutCount = 10;
+
 }  // namespace
 
 // static
@@ -61,6 +76,8 @@ std::string DxgiDuplicatorController::ResultName(
       return "Duplication failed";
     case Result::INVALID_MONITOR_ID:
       return "Invalid monitor id";
+    case Result::DUPLICATION_TIMED_OUT:
+      return "Duplication timed out";
     default:
       return "Unknown error";
   }
@@ -208,6 +225,15 @@ DxgiDuplicatorController::Result DxgiDuplicatorController::DoDuplicate(
   // If the `monitor_id` is valid, but DoDuplicateUnlocked() failed, something
   // must be wrong from capturer APIs. We should Deinitialize().
   Deinitialize();
+  if (capture_timeout_count_ > kMaxCaptureTimeoutCount && !IsConsoleSession()) {
+    // If we've repeatedly failed to capture enough frames to have confidence
+    // the capturer is working then we should return a permanent error which
+    // can either be used to switch to a fallback capturer or take some other
+    // action to correct the problem. Note that we've only seen this problem
+    // when using DXGI in an RDP session so we don't apply this logic to console
+    // sessions.
+    return Result::DUPLICATION_TIMED_OUT;
+  }
   return Result::DUPLICATION_FAILED;
 }
 
@@ -435,18 +461,9 @@ DesktopSize DxgiDuplicatorController::SelectedDesktopSize(
 
 bool DxgiDuplicatorController::EnsureFrameCaptured(Context* context,
                                                    SharedDesktopFrame* target) {
-  // On a modern system, the FPS / monitor refresh rate is usually larger than
-  // or equal to 60. So 17 milliseconds is enough to capture at least one frame.
-  const int64_t ms_per_frame = 17;
   // Skip frames to ensure a full frame refresh has occurred and the DXGI
   // machinery is producing frames before this function returns.
   int64_t frames_to_skip = 1;
-  // The total time out milliseconds for this function. If we cannot get enough
-  // frames during this time interval, this function returns false, and cause
-  // the DXGI components to be reinitialized. This usually should not happen
-  // unless the system is switching display mode when this function is being
-  // called. 500 milliseconds should be enough for ~30 frames.
-  const int64_t timeout_ms = 500;
 
   if (GetNumFramesCaptured() == 0 && !IsConsoleSession()) {
     // When capturing a console session, waiting for a single frame is
@@ -485,20 +502,21 @@ bool DxgiDuplicatorController::EnsureFrameCaptured(Context* context,
 
     // Calling DoDuplicateAll() may change the number of frames captured.
     if (GetNumFramesCaptured() >= frames_to_skip) {
+      // Reset the timeout counter since we've captured enough frames.
+      capture_timeout_count_ = 0;
       break;
     }
 
-    if (rtc::TimeMillis() - start_ms > timeout_ms) {
+    if (rtc::TimeMillis() - start_ms > kCaptureTimeout.ms()) {
       RTC_LOG(LS_ERROR) << "Failed to capture " << frames_to_skip
-                        << " frames "
-                           "within "
-                        << timeout_ms << " milliseconds.";
+                        << " frames within " << kCaptureTimeout.ms() << "ms.";
+      capture_timeout_count_++;
       return false;
     }
 
-    // Sleep `ms_per_frame` before attempting to capture the next frame to
-    // ensure the video adapter has time to update the screen.
-    webrtc::SleepMs(ms_per_frame);
+    // Sleep before attempting to capture the next frame to ensure the video
+    // adapter has time to update the screen.
+    webrtc::SleepMs(kCaptureWaitPeriod.ms());
   }
   // When capturing multiple monitors, we need to update the captured region to
   // prevent flickering by re-setting context. See

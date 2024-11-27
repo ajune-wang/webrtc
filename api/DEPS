@@ -2,7 +2,7 @@
 # excepting only api/ itself.
 include_rules = [
   "-audio",
-  "-base",
+  "+base", #TODO:(DO_NOT_SUBMIT): Temporarily remove
   "-build",
   "-buildtools",
   "-build_overrides",

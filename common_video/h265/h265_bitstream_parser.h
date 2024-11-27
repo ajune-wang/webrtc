@@ -43,6 +43,10 @@ class RTC_EXPORT H265BitstreamParser : public BitstreamParser {
       rtc::ArrayView<const uint8_t> data,
       uint8_t nalu_type);
 
+  const H265PpsParser::PpsState* GetPPS(uint32_t id) const;
+
+  const H265SpsParser::SpsState* GetSPS(uint32_t id) const;
+
  protected:
   enum Result {
     kOk,
@@ -52,9 +56,6 @@ class RTC_EXPORT H265BitstreamParser : public BitstreamParser {
   void ParseSlice(rtc::ArrayView<const uint8_t> slice);
   Result ParseNonParameterSetNalu(rtc::ArrayView<const uint8_t> source,
                                   uint8_t nalu_type);
-
-  const H265PpsParser::PpsState* GetPPS(uint32_t id) const;
-  const H265SpsParser::SpsState* GetSPS(uint32_t id) const;
 
   // VPS/SPS/PPS state, updated when parsing new VPS/SPS/PPS, used to parse
   // slices.

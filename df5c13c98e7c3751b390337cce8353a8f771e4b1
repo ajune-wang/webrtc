@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9c604418_a7c45e69",
+        "filename": "common_video/h264/h264_bitstream_parser.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-11-27T09:29:14Z",
+      "side": 1,
+      "message": "I would probably merge these two conditions with an \u0027||\u0027\nbut current way is fine too.\n```suggestion\n        if (!slice_reader.Ok() ||\n            num_ref_idx_l0_active_minus1 \u003e H264::kMaxReferenceIndex) {\n          return kInvalidStream;\n        }\n```",
+      "range": {
+        "startLine": 121,
+        "startChar": 0,
+        "endLine": 126,
+        "endChar": 9
+      },
+      "revId": "df5c13c98e7c3751b390337cce8353a8f771e4b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

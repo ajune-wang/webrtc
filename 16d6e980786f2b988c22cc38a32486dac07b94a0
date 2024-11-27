@@ -140,6 +140,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8f27f319_02660d07",
+        "filename": "modules/rtp_rtcp/source/absolute_capture_time_interpolator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2024-11-27T14:13:16Z",
+      "side": 1,
+      "message": "we use {} for C++ casting as opposed to the () C style casting. That does what you want here. Using parenthesis does exactly the same in this case but {} is more consistent with the rest of the code base.\n\nstatic_cast\u003cuint64_t\u003e() would work too, just more verbose.\n\nhere\u0027s an example conversation around this that I found just now that discusses the distinction\nhttps://stackoverflow.com/questions/42975620/in-c-can-we-use-for-c-style-casting",
+      "parentUuid": "d691d16a_ea9453fc",
+      "revId": "16d6e980786f2b988c22cc38a32486dac07b94a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "88343c62_b13958c5",

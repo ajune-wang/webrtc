@@ -16,6 +16,24 @@
       "message": "Ḯ\u0027m suspicious of the argument - what does it mean to \"accumulate\" a data rate? A frequency?\n\nFor DataSize, accumulation makes sense. And probably for TimeDelta. But I wonder about the others.",
       "revId": "e0a524b5e02f293a0c13fd687334f7e6eedb971d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6ce33bdc_8ea9395a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-11-27T13:10:55Z",
+      "side": 1,
+      "message": "DataRate: we have rtx data rate, video data rate, audio data rate. might want to sum them. \nRtpSendRates in this CL is example where that happens (and also an example where having default constructor makes code simple)\n\nfor Frequency we may have T0 frame frame rate, T1 frame rate. total frame rate would be sum of all frame rates of different temporal layers.",
+      "parentUuid": "deaf3fdc_a7883f6d",
+      "revId": "e0a524b5e02f293a0c13fd687334f7e6eedb971d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

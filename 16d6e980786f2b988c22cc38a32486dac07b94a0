@@ -18,6 +18,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bb01939f_009c2584",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-11-27T12:40:19Z",
+      "side": 1,
+      "message": "Answered and uploaded.",
+      "revId": "16d6e980786f2b988c22cc38a32486dac07b94a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8697aa7f_2fd73bf1",
@@ -52,6 +69,42 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bc7d1493_eedfaf48",
+        "filename": "modules/rtp_rtcp/source/absolute_capture_time_interpolator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-11-27T12:40:19Z",
+      "side": 1,
+      "message": "The last version had delta_as_timestamp .... ntp_delta is indeed better.",
+      "parentUuid": "8697aa7f_2fd73bf1",
+      "revId": "16d6e980786f2b988c22cc38a32486dac07b94a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "10058941_d2519da2",
+        "filename": "modules/rtp_rtcp/source/absolute_capture_time_interpolator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-11-27T12:40:19Z",
+      "side": 1,
+      "message": "Can easily happen if the remote clock is running ahead. We record a delta; UMA doesn\u0027t support two-sided distros (that\u0027s why we have the abs() below), so we won\u0027t detect how often this happens. More instrumentation can be added if we find it interesting.",
+      "parentUuid": "a6b3ac7e_f2a197bc",
+      "revId": "16d6e980786f2b988c22cc38a32486dac07b94a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "166dafbe_a0a1780a",
@@ -69,6 +122,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d691d16a_ea9453fc",
+        "filename": "modules/rtp_rtcp/source/absolute_capture_time_interpolator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-11-27T12:40:19Z",
+      "side": 1,
+      "message": "Nope, uint64_t is an operator marked as explicit, not a constructor. I don\u0027t think {} notation is appropriate for that. (I could be wrong!)",
+      "parentUuid": "166dafbe_a0a1780a",
+      "revId": "16d6e980786f2b988c22cc38a32486dac07b94a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "88343c62_b13958c5",
@@ -82,6 +153,24 @@
       "writtenOn": "2024-11-27T10:39:22Z",
       "side": 1,
       "message": "Nice test.\nDo you mind adding a comment that explains what the test covers?\n\"ShouldRoundTrip\" seems like it would be useful to flesh out a bit more",
+      "revId": "16d6e980786f2b988c22cc38a32486dac07b94a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ab09ac54_a7979b7f",
+        "filename": "pc/peer_connection_integrationtest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 4256,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-11-27T12:40:19Z",
+      "side": 1,
+      "message": "ShouldBeMeteredCorrectly() is probably a better name.",
+      "parentUuid": "88343c62_b13958c5",
       "revId": "16d6e980786f2b988c22cc38a32486dac07b94a0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

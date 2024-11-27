@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "deaf3fdc_a7883f6d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-11-27T13:05:46Z",
+      "side": 1,
+      "message": "Ḯ\u0027m suspicious of the argument - what does it mean to \"accumulate\" a data rate? A frequency?\n\nFor DataSize, accumulation makes sense. And probably for TimeDelta. But I wonder about the others.",
+      "revId": "e0a524b5e02f293a0c13fd687334f7e6eedb971d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

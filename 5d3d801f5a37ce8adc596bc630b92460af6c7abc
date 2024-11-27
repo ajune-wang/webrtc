@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "48dd1c85_0ba11546",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-11-27T06:10:12Z",
+      "side": 1,
+      "message": "will need extra rubberstamp while I sleep!",
+      "revId": "5d3d801f5a37ce8adc596bc630b92460af6c7abc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

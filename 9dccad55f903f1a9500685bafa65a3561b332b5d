@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7d7258d6_bc4a3028",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 13849
+      },
+      "writtenOn": "2024-11-27T20:06:05Z",
+      "side": 1,
+      "message": "Thanks for reviewing!  I found a problem this morning which might regress other RDP capture scenarios so I\u0027m going to look into other approaches.",
+      "revId": "9dccad55f903f1a9500685bafa65a3561b332b5d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

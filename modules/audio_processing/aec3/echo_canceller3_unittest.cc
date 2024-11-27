@@ -53,10 +53,10 @@ void PopulateInputFrame(size_t frame_length,
 // Populates the frame with linearly increasing sample values.
 void PopulateInputFrame(size_t frame_length,
                         size_t frame_index,
-                        float* frame,
-                        int offset) {
+                        MonoView<float> frame) {
+  RTC_CHECK_LE(frame_length, SamplesPerChannel(frame));
   for (size_t i = 0; i < frame_length; ++i) {
-    float value = static_cast<int>(frame_index * frame_length + i) + offset;
+    float value = static_cast<int>(frame_index * frame_length + i);
     frame[i] = std::max(value, 0.f);
   }
 }
@@ -188,11 +188,9 @@ void RunAecInStereo(AudioBuffer& buffer,
                     EchoCanceller3& aec3,
                     float channel_0_value,
                     float channel_1_value) {
-  rtc::ArrayView<float> data_channel_0(&buffer.channels()[0][0],
-                                       buffer.num_frames());
+  MonoView<float> data_channel_0 = buffer.view()[0];
   std::fill(data_channel_0.begin(), data_channel_0.end(), channel_0_value);
-  rtc::ArrayView<float> data_channel_1(&buffer.channels()[1][0],
-                                       buffer.num_frames());
+  MonoView<float> data_channel_1 = buffer.view()[1];
   std::fill(data_channel_1.begin(), data_channel_1.end(), channel_1_value);
   aec3.AnalyzeRender(&buffer);
   aec3.AnalyzeCapture(&buffer);
@@ -202,8 +200,7 @@ void RunAecInStereo(AudioBuffer& buffer,
 void RunAecInSMono(AudioBuffer& buffer,
                    EchoCanceller3& aec3,
                    float channel_0_value) {
-  rtc::ArrayView<float> data_channel_0(&buffer.channels()[0][0],
-                                       buffer.num_frames());
+  MonoView<float> data_channel_0 = buffer.view()[0];
   std::fill(data_channel_0.begin(), data_channel_0.end(), channel_0_value);
   aec3.AnalyzeRender(&buffer);
   aec3.AnalyzeCapture(&buffer);
@@ -252,8 +249,7 @@ class EchoCanceller3Tester {
       OptionalBandSplit();
       PopulateInputFrame(frame_length_, num_bands_, frame_index,
                          &capture_buffer_.split_bands(0)[0], 0);
-      PopulateInputFrame(frame_length_, frame_index,
-                         &render_buffer_.channels()[0][0], 0);
+      PopulateInputFrame(frame_length_, frame_index, render_buffer_.view()[0]);
 
       aec3.AnalyzeRender(&render_buffer_);
       aec3.ProcessCapture(&capture_buffer_, false);
@@ -363,8 +359,7 @@ class EchoCanceller3Tester {
 
       PopulateInputFrame(frame_length_, num_bands_, frame_index,
                          &capture_buffer_.split_bands(0)[0], 0);
-      PopulateInputFrame(frame_length_, frame_index,
-                         &render_buffer_.channels()[0][0], 0);
+      PopulateInputFrame(frame_length_, frame_index, render_buffer_.view()[0]);
 
       aec3.AnalyzeRender(&render_buffer_);
       aec3.ProcessCapture(&capture_buffer_, echo_path_change);
@@ -453,8 +448,7 @@ class EchoCanceller3Tester {
 
       PopulateInputFrame(frame_length_, num_bands_, frame_index,
                          &capture_buffer_.split_bands(0)[0], 0);
-      PopulateInputFrame(frame_length_, frame_index,
-                         &render_buffer_.channels()[0][0], 0);
+      PopulateInputFrame(frame_length_, frame_index, render_buffer_.view()[0]);
 
       aec3.AnalyzeRender(&render_buffer_);
       aec3.ProcessCapture(&capture_buffer_, false);
@@ -513,20 +507,21 @@ class EchoCanceller3Tester {
     aec3.SetBlockProcessorForTesting(std::move(block_processor_mock));
     for (size_t frame_index = 0; frame_index < kNumFramesToProcess;
          ++frame_index) {
+      MonoView<float> channel_0 = capture_buffer_.view()[0];
       for (int k = 0; k < fullband_frame_length_; ++k) {
-        capture_buffer_.channels()[0][k] = 0.f;
+        channel_0[k] = 0.f;
       }
       switch (saturation_variant) {
         case SaturationTestVariant::kNone:
           break;
         case SaturationTestVariant::kOneNegative:
           if (frame_index == 0) {
-            capture_buffer_.channels()[0][10] = -32768.f;
+            channel_0[10] = -32768.f;
           }
           break;
         case SaturationTestVariant::kOnePositive:
           if (frame_index == 0) {
-            capture_buffer_.channels()[0][10] = 32767.f;
+            channel_0[10] = 32767.f;
           }
           break;
       }
@@ -609,7 +604,7 @@ class EchoCanceller3Tester {
           render_buffer_.SplitIntoFrequencyBands();
         }
         PopulateInputFrame(frame_length_, frame_index,
-                           &render_buffer_.channels()[0][0], 0);
+                           render_buffer_.view()[0]);
 
         aec3.AnalyzeRender(&render_buffer_);
       }
@@ -627,7 +622,7 @@ class EchoCanceller3Tester {
     EchoCanceller3 aec3(EchoCanceller3Config(),
                         /*multichannel_config=*/std::nullopt,
                         aec3_sample_rate_hz, 1, 1);
-    PopulateInputFrame(frame_length_, 0, &render_buffer_.channels_f()[0][0], 0);
+    PopulateInputFrame(frame_length_, 0, render_buffer_.view()[0]);
 
     EXPECT_DEATH(aec3.AnalyzeRender(&render_buffer_), "");
   }

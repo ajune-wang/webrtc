@@ -92,16 +92,16 @@ void WriteAudioBufferSamples(float samples_value,
   RTC_DCHECK_LE(samples_value, kMaxSample);
   RTC_DCHECK_GE(clipped_ratio, 0.0f);
   RTC_DCHECK_LE(clipped_ratio, 1.0f);
-  int num_channels = audio_buffer.num_channels();
-  int num_samples = audio_buffer.num_frames();
-  int num_clipping_samples = clipped_ratio * num_samples;
-  for (int ch = 0; ch < num_channels; ++ch) {
-    int i = 0;
+  DeinterleavedView<float> channels = audio_buffer.view();
+  size_t num_clipping_samples = clipped_ratio * SamplesPerChannel(channels);
+  for (size_t ch = 0; ch < NumChannels(channels); ++ch) {
+    MonoView<float> channel = channels[ch];
+    size_t i = 0;
     for (; i < num_clipping_samples; ++i) {
-      audio_buffer.channels()[ch][i] = 32767.0f;
+      channel[i] = 32767.0f;
     }
-    for (; i < num_samples; ++i) {
-      audio_buffer.channels()[ch][i] = samples_value;
+    for (; i < SamplesPerChannel(channels); ++i) {
+      channel[i] = samples_value;
     }
   }
 }
@@ -112,12 +112,12 @@ void WriteAlternatingAudioBufferSamples(float samples_value,
                                         AudioBuffer& audio_buffer) {
   RTC_DCHECK_GE(samples_value, kMinSample);
   RTC_DCHECK_LE(samples_value, kMaxSample);
-  const int num_channels = audio_buffer.num_channels();
-  const int num_frames = audio_buffer.num_frames();
-  for (int ch = 0; ch < num_channels; ++ch) {
-    for (int i = 0; i < num_frames; i += 2) {
-      audio_buffer.channels()[ch][i] = samples_value;
-      audio_buffer.channels()[ch][i + 1] = 0.0f;
+  DeinterleavedView<float> channels = audio_buffer.view();
+  for (size_t ch = 0; ch < NumChannels(channels); ++ch) {
+    MonoView<float> channel = channels[ch];
+    for (size_t i = 0; i < SamplesPerChannel(channel); i += 2) {
+      channel[i] = samples_value;
+      channel[i + 1] = 0.0f;
     }
   }
 }
@@ -172,7 +172,8 @@ class SpeechSamplesReader {
       }
       // Apply gain and copy samples into `audio_buffer_`.
       std::transform(buffer_.begin(), buffer_.end(),
-                     audio_buffer_.channels()[0], [gain](int16_t v) -> float {
+                     audio_buffer_.view()[0].begin(),
+                     [gain](int16_t v) -> float {
                        return rtc::SafeClamp(static_cast<float>(v) * gain,
                                              kMinSample, kMaxSample);
                      });

@@ -16,6 +16,74 @@
       "message": "I hope this at least gets the delta computation right.",
       "revId": "16d6e980786f2b988c22cc38a32486dac07b94a0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8697aa7f_2fd73bf1",
+        "filename": "modules/rtp_rtcp/source/absolute_capture_time_interpolator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2024-11-27T10:39:22Z",
+      "side": 1,
+      "message": "nit: `ntp_delta`? \"Delta As Ntp\" sounds to me like converting the delta to an ntp timestamp rather than being the delta between two ntp timestamps.",
+      "revId": "16d6e980786f2b988c22cc38a32486dac07b94a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a6b3ac7e_f2a197bc",
+        "filename": "modules/rtp_rtcp/source/absolute_capture_time_interpolator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2024-11-27T10:39:22Z",
+      "side": 1,
+      "message": "what happens if ntp{receive_time} \u003c absolute_capture_timestamp?\n(should we abort, or report an \u0027invalid\u0027 histogram if so?)",
+      "revId": "16d6e980786f2b988c22cc38a32486dac07b94a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "166dafbe_a0a1780a",
+        "filename": "modules/rtp_rtcp/source/absolute_capture_time_interpolator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2024-11-27T10:39:22Z",
+      "side": 1,
+      "message": "nit: `uint64_t{clock_-\u003eConvertTimestampToNtpTime(receive_time)} -`",
+      "revId": "16d6e980786f2b988c22cc38a32486dac07b94a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "88343c62_b13958c5",
+        "filename": "pc/peer_connection_integrationtest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 4256,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2024-11-27T10:39:22Z",
+      "side": 1,
+      "message": "Nice test.\nDo you mind adding a comment that explains what the test covers?\n\"ShouldRoundTrip\" seems like it would be useful to flesh out a bit more",
+      "revId": "16d6e980786f2b988c22cc38a32486dac07b94a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

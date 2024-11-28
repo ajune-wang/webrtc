@@ -34,6 +34,24 @@
       "parentUuid": "957196a3_c60d2577",
       "revId": "b808107f7fd3012cce70534bf450613c3c2ec6fe",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "375d4f6b_fe100edb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2024-11-28T15:37:32Z",
+      "side": 1,
+      "message": "Looks like an overengineering to me.\n\n\u003e A fixed bitstream will not be able to emulate exactly the behavior of key-frame request and bitrate adjustment request from WebRTC stack.\n\nWhat exactly you want to test? Could you please share some example? Component, input, expectation...\n\n\u003e Also it is not easy to emulate L1T2/L1T3.\n\nWe can have bitstreams with temporal layering. Or what is the problem here?\n\n\u003e I also want to use this builder to create different combination of NALUs..\n\nWould having a set of hardcoded NALUs (which you can combine in the tests) work? How often do you think you will need to update/add new combinations? I guess that will be done ~once. Adding dedicated generators for this doesn\u0027t sound necessary. It will be a dead code.\n\n\u003e Finally I want to check how the video bitrate allocation module allocates bitrate\n\nWhy would testing of rate allocation need ~real NALUs?",
+      "parentUuid": "4e601aec_2a9700a0",
+      "revId": "b808107f7fd3012cce70534bf450613c3c2ec6fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

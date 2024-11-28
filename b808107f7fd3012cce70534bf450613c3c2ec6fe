@@ -16,6 +16,24 @@
       "message": "Can we use pre-encoded bitstreams instead? I think it would be easer to maintain bitstreams than this rather non-trivial generator. Wrap bitstreams into IVFs. Fake encoder can read frames from IVF and deliver them.",
       "revId": "b808107f7fd3012cce70534bf450613c3c2ec6fe",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4e601aec_2a9700a0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18005
+      },
+      "writtenOn": "2024-11-28T14:38:29Z",
+      "side": 1,
+      "message": "- A fixed bitstream will not be able to emulate exactly the behavior of key-frame request and bitrate adjustment request from WebRTC stack.\n- Also it is not easy to emulate L1T2/L1T3.\n- I also want to use this builder to create different combination of NALUs, for example, IDR/Trail with Fd/Aud/Prefix-SEI/EOS/EOB NALU, to watch/test the depacketizer behavior and jitter buffer behavior on packet loss.\n- Finally I want to check how the video bitrate allocation module allocates bitrate among temporal layers and simulcast layers. We have TODOs to experiment out a better bitrate allocation for H.265 instead of reusing VP9 settings.\n\nThat\u0027s why I want to use a fake-encoder that dynamically changes bitrate/temporal layer settings on-demand, and allows combination of NALUs to mimic HW encoder behavior.",
+      "parentUuid": "957196a3_c60d2577",
+      "revId": "b808107f7fd3012cce70534bf450613c3c2ec6fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

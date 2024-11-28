@@ -1062,6 +1062,18 @@ class FakePacketSocketFactory : public rtc::PacketSocketFactory {
     return result;
   }
 
+  AsyncPacketSocket* CreateClientUdpSocket(
+      const SocketAddress& local_address,
+      const SocketAddress& remote_address,
+      uint16_t min_port,
+      uint16_t max_port,
+      const rtc::PacketSocketOptions& options) override {
+    EXPECT_TRUE(next_udp_socket_ != NULL);
+    AsyncPacketSocket* result = next_udp_socket_;
+    next_udp_socket_ = NULL;
+    return result;
+  }
+
   AsyncListenSocket* CreateServerTcpSocket(const SocketAddress& local_address,
                                            uint16_t min_port,
                                            uint16_t max_port,
@@ -1075,7 +1087,7 @@ class FakePacketSocketFactory : public rtc::PacketSocketFactory {
   AsyncPacketSocket* CreateClientTcpSocket(
       const SocketAddress& local_address,
       const SocketAddress& remote_address,
-      const rtc::PacketSocketTcpOptions& opts) override {
+      const rtc::PacketSocketOptions& opts) override {
     EXPECT_TRUE(next_client_tcp_socket_.has_value());
     AsyncPacketSocket* result = *next_client_tcp_socket_;
     next_client_tcp_socket_ = nullptr;
@@ -2846,9 +2858,12 @@ TEST_F(PortTest, TestConnectionPriority) {
   lport->AddCandidateAddress(SocketAddress("192.168.1.4", 1234));
   rport->set_component(23);
   rport->AddCandidateAddress(SocketAddress("10.1.1.100", 1234));
+  rport->set_type_preference(cricket::ICE_TYPE_PREFERENCE_RELAY_DTLS);
+  rport->AddCandidateAddress(SocketAddress("10.1.1.100", 1234));
 
   EXPECT_EQ(0x7E001E85U, lport->Candidates()[0].priority());
   EXPECT_EQ(0x2001EE9U, rport->Candidates()[0].priority());
+  EXPECT_EQ(0x3001EE9U, rport->Candidates()[1].priority());
 
   // RFC 5245
   // pair priority = 2^32*MIN(G,D) + 2*MAX(G,D) + (G>D?1:0)
@@ -2860,6 +2875,13 @@ TEST_F(PortTest, TestConnectionPriority) {
   EXPECT_EQ(0x2001EE9FC003D0BU, lconn->priority());
 #else
   EXPECT_EQ(0x2001EE9FC003D0BLLU, lconn->priority());
+#endif
+
+  lconn = lport->CreateConnection(rport->Candidates()[1], Port::ORIGIN_MESSAGE);
+#if defined(WEBRTC_WIN)
+  EXPECT_EQ(0x3001EE9FC003D0BU, lconn->priority());
+#else
+  EXPECT_EQ(0x3001EE9FC003D0BLLU, lconn->priority());
 #endif
 
   lport->SetIceRole(cricket::ICEROLE_CONTROLLED);

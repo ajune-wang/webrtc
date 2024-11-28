@@ -583,7 +583,7 @@ void TCPConnection::CreateOutgoingTcpSocket() {
     DisconnectSocketSignals(socket_.get());
   }
 
-  rtc::PacketSocketTcpOptions tcp_opts;
+  rtc::PacketSocketOptions tcp_opts;
   tcp_opts.opts = opts;
   socket_.reset(port()->socket_factory()->CreateClientTcpSocket(
       rtc::SocketAddress(port()->Network()->GetBestIP(), 0),

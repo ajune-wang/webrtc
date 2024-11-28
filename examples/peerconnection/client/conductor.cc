@@ -236,6 +236,8 @@ bool Conductor::CreatePeerConnection() {
   config.sdp_semantics = webrtc::SdpSemantics::kUnifiedPlan;
   webrtc::PeerConnectionInterface::IceServer server;
   server.uri = GetPeerConnectionString();
+  server.username = GetTurnUserName();
+  server.password = GetTurnPassword();
   config.servers.push_back(server);
 
   webrtc::PeerConnectionDependencies pc_dependencies(this);

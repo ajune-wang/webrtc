@@ -39,6 +39,15 @@ class PacketSocketFactoryWrapper : public rtc::PacketSocketFactory {
     return turn_server_->CreatePeerSocket();
   }
 
+  rtc::AsyncPacketSocket* CreateClientUdpSocket(
+      const rtc::SocketAddress& local_address,
+      const rtc::SocketAddress& remote_address,
+      uint16_t min_port,
+      uint16_t max_port,
+      const rtc::PacketSocketOptions& udp_options) override {
+    return nullptr;
+  }
+
   rtc::AsyncListenSocket* CreateServerTcpSocket(
       const rtc::SocketAddress& local_address,
       uint16_t min_port,
@@ -49,7 +58,7 @@ class PacketSocketFactoryWrapper : public rtc::PacketSocketFactory {
   rtc::AsyncPacketSocket* CreateClientTcpSocket(
       const rtc::SocketAddress& local_address,
       const rtc::SocketAddress& remote_address,
-      const rtc::PacketSocketTcpOptions& tcp_options) override {
+      const rtc::PacketSocketOptions& tcp_options) override {
     return nullptr;
   }
   std::unique_ptr<webrtc::AsyncDnsResolverInterface> CreateAsyncDnsResolver()

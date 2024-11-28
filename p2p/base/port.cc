@@ -72,9 +72,12 @@ const int kPortTimeoutDelay = cricket::STUN_TOTAL_TIMEOUT + 5000;
 
 }  // namespace
 
-static const char* const PROTO_NAMES[] = {UDP_PROTOCOL_NAME, TCP_PROTOCOL_NAME,
-                                          SSLTCP_PROTOCOL_NAME,
-                                          TLS_PROTOCOL_NAME};
+static const char* const PROTO_NAMES[] = {
+    UDP_PROTOCOL_NAME, DTLS_PROTOCOL_NAME, TCP_PROTOCOL_NAME,
+    SSLTCP_PROTOCOL_NAME, TLS_PROTOCOL_NAME};
+
+static_assert(sizeof(PROTO_NAMES) / sizeof(PROTO_NAMES[0]) == PROTO_LAST + 1,
+              "PROTO_NAMES must have an entry for each ProtocolType");
 
 const char* ProtoToString(ProtocolType proto) {
   return PROTO_NAMES[proto];

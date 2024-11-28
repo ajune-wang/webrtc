@@ -36,6 +36,14 @@ class RTC_EXPORT BasicPacketSocketFactory : public PacketSocketFactory {
   AsyncPacketSocket* CreateUdpSocket(const SocketAddress& local_address,
                                      uint16_t min_port,
                                      uint16_t max_port) override;
+
+  AsyncPacketSocket* CreateClientUdpSocket(
+      const SocketAddress& local_address,
+      const SocketAddress& remote_address,
+      uint16_t min_port,
+      uint16_t max_port,
+      const PacketSocketOptions& options) override;
+
   AsyncListenSocket* CreateServerTcpSocket(const SocketAddress& local_address,
                                            uint16_t min_port,
                                            uint16_t max_port,
@@ -43,7 +51,7 @@ class RTC_EXPORT BasicPacketSocketFactory : public PacketSocketFactory {
   AsyncPacketSocket* CreateClientTcpSocket(
       const SocketAddress& local_address,
       const SocketAddress& remote_address,
-      const PacketSocketTcpOptions& tcp_options) override;
+      const PacketSocketOptions& tcp_options) override;
 
   std::unique_ptr<webrtc::AsyncDnsResolverInterface> CreateAsyncDnsResolver()
       override;

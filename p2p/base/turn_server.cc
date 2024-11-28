@@ -23,6 +23,7 @@
 #include "api/task_queue/task_queue_base.h"
 #include "api/transport/stun.h"
 #include "p2p/base/async_stun_tcp_socket.h"
+#include "p2p/base/port.h"
 #include "rtc_base/byte_buffer.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/crypto_random.h"
@@ -543,10 +544,9 @@ bool TurnServerConnection::operator<(const TurnServerConnection& c) const {
 }
 
 std::string TurnServerConnection::ToString() const {
-  const char* const kProtos[] = {"unknown", "udp", "tcp", "ssltcp"};
   rtc::StringBuilder ost;
   ost << src_.ToSensitiveString() << "-" << dst_.ToSensitiveString() << ":"
-      << kProtos[proto_];
+      << ProtoToString(proto_);
   return ost.Release();
 }
 

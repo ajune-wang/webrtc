@@ -52,6 +52,9 @@ AsyncUDPSocket::AsyncUDPSocket(Socket* socket) : socket_(socket) {
   // The socket should start out readable but not writable.
   socket_->SignalReadEvent.connect(this, &AsyncUDPSocket::OnReadEvent);
   socket_->SignalWriteEvent.connect(this, &AsyncUDPSocket::OnWriteEvent);
+  // need to forward that also for UDP case (DTLS) once the SSL handshake is
+  // finished
+  socket_->SignalConnectEvent.connect(this, &AsyncUDPSocket::OnConnectEvent);
 }
 
 SocketAddress AsyncUDPSocket::GetLocalAddress() const {
@@ -116,6 +119,10 @@ int AsyncUDPSocket::GetError() const {
 
 void AsyncUDPSocket::SetError(int error) {
   return socket_->SetError(error);
+}
+
+void AsyncUDPSocket::OnConnectEvent(Socket* socket) {
+  SignalConnect(this);
 }
 
 void AsyncUDPSocket::OnReadEvent(Socket* socket) {

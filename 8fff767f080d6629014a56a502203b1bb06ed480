@@ -16,6 +16,23 @@
       "message": "while you are cleaning up internally...",
       "revId": "8fff767f080d6629014a56a502203b1bb06ed480",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8da908ae_1aa5ee96",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-11-28T13:01:51Z",
+      "side": 1,
+      "message": "Seems like the last usages have been taken out. Approving.",
+      "revId": "8fff767f080d6629014a56a502203b1bb06ed480",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

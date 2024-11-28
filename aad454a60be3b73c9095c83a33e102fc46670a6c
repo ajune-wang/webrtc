@@ -16,6 +16,23 @@
       "message": "preparing the CL while we wait for the merge approval",
       "revId": "aad454a60be3b73c9095c83a33e102fc46670a6c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ba9c20ac_b6ace0e1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2024-11-28T14:19:42Z",
+      "side": 1,
+      "message": "Approval: https://g-issues.chromium.org/issues/381016774#comment4",
+      "revId": "aad454a60be3b73c9095c83a33e102fc46670a6c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

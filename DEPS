@@ -2145,7 +2145,7 @@ recursedeps = [
 include_rules = [
   # Base is only used to build Android APK tests and may not be referenced by
   # WebRTC production code.
-  "-base",
+  "+base", # TODO(DO_NOT_SUBMIT): Temporarily removed
   "-chromium",
   "+external/webrtc/webrtc",  # Android platform build.
   "+libyuv",

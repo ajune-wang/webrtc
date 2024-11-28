@@ -147,6 +147,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d90efe2f_2913c329",
+        "filename": "video/corruption_detection/frame_instrumentation_generator.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2024-11-28T16:22:14Z",
+      "side": 1,
+      "message": "Putting it in the header might be good, in case someone tries to use it...\nBut I won\u0027t block on that regardless.",
+      "parentUuid": "d296f707_c1f3fa92",
+      "range": {
+        "startLine": 122,
+        "startChar": 41,
+        "endLine": 130,
+        "endChar": 12
+      },
+      "revId": "ff4dddd6fc59072f06d45ac507da6063237b8cf8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "262c2370_adec57e6",

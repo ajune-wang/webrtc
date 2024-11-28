@@ -18,6 +18,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "388cc28a_a677c172",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2024-11-28T13:23:12Z",
+      "side": 1,
+      "message": "Good catch! Overall looks good, just a few comments",
+      "revId": "ff4dddd6fc59072f06d45ac507da6063237b8cf8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "54d26eff_ad86cf46",
@@ -59,6 +76,99 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cc2210ce_b3ad4a4a",
+        "filename": "common_video/corruption_detection_converters.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2024-11-28T13:23:12Z",
+      "side": 1,
+      "message": "The specification says that \"the sender MUST send ACD messages on non-droppable frames such that the delta between their sequence indexing (from the last sample of the previous packet to the first of the next) indexing does not exceed 0x7F\", so that case is already covered.\n\nAdditionally, if there\u0027s a gap \u003e 3s then a webrtc will request a keyframe to recover, upon which we restart the sequence.",
+      "parentUuid": "54d26eff_ad86cf46",
+      "range": {
+        "startLine": 40,
+        "startChar": 5,
+        "endLine": 40,
+        "endChar": 18
+      },
+      "revId": "ff4dddd6fc59072f06d45ac507da6063237b8cf8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d12c50ef_370dbbd6",
+        "filename": "video/corruption_detection/frame_instrumentation_generator.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2024-11-28T13:23:12Z",
+      "side": 1,
+      "message": "To phrase it differently, this class needs to be updated with different logic depending on if inter-layer prediction is used (L-modes) or not (S-modes \u0026 simulcast).",
+      "range": {
+        "startLine": 122,
+        "startChar": 41,
+        "endLine": 130,
+        "endChar": 12
+      },
+      "revId": "ff4dddd6fc59072f06d45ac507da6063237b8cf8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "262c2370_adec57e6",
+        "filename": "video/rtp_video_stream_receiver2.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 637,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2024-11-28T13:23:12Z",
+      "side": 1,
+      "message": "nit: don\u0027t",
+      "range": {
+        "startLine": 637,
+        "startChar": 76,
+        "endLine": 637,
+        "endChar": 80
+      },
+      "revId": "ff4dddd6fc59072f06d45ac507da6063237b8cf8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "56547e12_dec0f7d4",
+        "filename": "video/rtp_video_stream_receiver2.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 455,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2024-11-28T13:23:12Z",
+      "side": 1,
+      "message": "In general avoid maps where things can easily be indexed into an array/vector instead. Also, not a fan of duplicate maps where keys are intended to be in sync.\n\nHow about creating a struct for this, and keeping it in a simple std::array instead? e.g.\n```\nstruct CorruptionDetectionLayerState {\n  int sequence_index \u003d 0;\n  std::optional\u003cuint32_t\u003e timestamp;\n};\n\nstd::array\u003cCorruptionDetectionLayerState, kMaxSpatialLayers\u003e last_corruption_detection_state_by_layer_;\n```",
+      "range": {
+        "startLine": 454,
+        "startChar": 0,
+        "endLine": 455,
+        "endChar": 75
+      },
+      "revId": "ff4dddd6fc59072f06d45ac507da6063237b8cf8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fe3c7018_9f5829aa",
@@ -72,6 +182,30 @@
       "writtenOn": "2024-11-26T14:26:42Z",
       "side": 1,
       "message": "@sprang@webrtc.org",
+      "range": {
+        "startLine": 501,
+        "startChar": 0,
+        "endLine": 503,
+        "endChar": 56
+      },
+      "revId": "ff4dddd6fc59072f06d45ac507da6063237b8cf8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "489ff6e5_09cf576f",
+        "filename": "video/rtp_video_stream_receiver2_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 503,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2024-11-28T13:23:12Z",
+      "side": 1,
+      "message": "Is it `0.6` off? That sounds too high. The quantization steps are `40/255` which is about `0.157`...",
+      "parentUuid": "fe3c7018_9f5829aa",
       "range": {
         "startLine": 501,
         "startChar": 0,

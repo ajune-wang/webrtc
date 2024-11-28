@@ -125,6 +125,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d296f707_c1f3fa92",
+        "filename": "video/corruption_detection/frame_instrumentation_generator.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 3485001
+      },
+      "writtenOn": "2024-11-28T14:35:29Z",
+      "side": 1,
+      "message": "Yes, pretty much, but LxTy_KEY modes being more part of the S-modes i guess. But do you want me to put this comment somewhere else? E.g here https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/video/corruption_detection/frame_instrumentation_generator.h;l\u003d42;bpv\u003d1;bpt\u003d0?",
+      "parentUuid": "d12c50ef_370dbbd6",
+      "range": {
+        "startLine": 122,
+        "startChar": 41,
+        "endLine": 130,
+        "endChar": 12
+      },
+      "revId": "ff4dddd6fc59072f06d45ac507da6063237b8cf8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "262c2370_adec57e6",
         "filename": "video/rtp_video_stream_receiver2.cc",
         "patchSetId": 5
@@ -136,6 +160,30 @@
       "writtenOn": "2024-11-28T13:23:12Z",
       "side": 1,
       "message": "nit: don\u0027t",
+      "range": {
+        "startLine": 637,
+        "startChar": 76,
+        "endLine": 637,
+        "endChar": 80
+      },
+      "revId": "ff4dddd6fc59072f06d45ac507da6063237b8cf8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "52ba9955_f007b630",
+        "filename": "video/rtp_video_stream_receiver2.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 637,
+      "author": {
+        "id": 3485001
+      },
+      "writtenOn": "2024-11-28T14:35:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "262c2370_adec57e6",
       "range": {
         "startLine": 637,
         "startChar": 76,
@@ -159,6 +207,30 @@
       "writtenOn": "2024-11-28T13:23:12Z",
       "side": 1,
       "message": "In general avoid maps where things can easily be indexed into an array/vector instead. Also, not a fan of duplicate maps where keys are intended to be in sync.\n\nHow about creating a struct for this, and keeping it in a simple std::array instead? e.g.\n```\nstruct CorruptionDetectionLayerState {\n  int sequence_index \u003d 0;\n  std::optional\u003cuint32_t\u003e timestamp;\n};\n\nstd::array\u003cCorruptionDetectionLayerState, kMaxSpatialLayers\u003e last_corruption_detection_state_by_layer_;\n```",
+      "range": {
+        "startLine": 454,
+        "startChar": 0,
+        "endLine": 455,
+        "endChar": 75
+      },
+      "revId": "ff4dddd6fc59072f06d45ac507da6063237b8cf8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6997381e_2c659f81",
+        "filename": "video/rtp_video_stream_receiver2.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 455,
+      "author": {
+        "id": 3485001
+      },
+      "writtenOn": "2024-11-28T14:35:29Z",
+      "side": 1,
+      "message": "Agreed, better way of doing it.",
+      "parentUuid": "56547e12_dec0f7d4",
       "range": {
         "startLine": 454,
         "startChar": 0,
@@ -206,6 +278,30 @@
       "side": 1,
       "message": "Is it `0.6` off? That sounds too high. The quantization steps are `40/255` which is about `0.157`...",
       "parentUuid": "fe3c7018_9f5829aa",
+      "range": {
+        "startLine": 501,
+        "startChar": 0,
+        "endLine": 503,
+        "endChar": 56
+      },
+      "revId": "ff4dddd6fc59072f06d45ac507da6063237b8cf8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e44f4b1e_627b5976",
+        "filename": "video/rtp_video_stream_receiver2_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 503,
+      "author": {
+        "id": 3485001
+      },
+      "writtenOn": "2024-11-28T14:35:29Z",
+      "side": 1,
+      "message": "Correct, my bad it was 0.06 not 0.6, hehe",
+      "parentUuid": "489ff6e5_09cf576f",
       "range": {
         "startLine": 501,
         "startChar": 0,

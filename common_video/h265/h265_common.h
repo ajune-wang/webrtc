@@ -43,6 +43,8 @@ enum NaluType : uint8_t {
   kStsaR = 5,
   kRadlN = 6,
   kRadlR = 7,
+  kRaslN = 8,
+  kRaslR = 9,
   kBlaWLp = 16,
   kBlaWRadl = 17,
   kBlaNLp = 18,
@@ -54,6 +56,9 @@ enum NaluType : uint8_t {
   kSps = 33,
   kPps = 34,
   kAud = 35,
+  kEos = 36,
+  kEob = 37,
+  kFd = 38,
   kPrefixSei = 39,
   kSuffixSei = 40,
   // Aggregation packets, refer to section 4.4.2 in RFC 7798.

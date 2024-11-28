@@ -2175,11 +2175,11 @@ TEST_F(MediaSessionDescriptionFactoryTest,
 }
 
 TEST_F(MediaSessionDescriptionFactoryTest,
-       TestOfferAnswerWithEncryptedRtpExtensionHeadersEnabledInOffer) {
+       NegotiationWithEncryptedRtpExtensionHeadersDisabledInReceiver) {
   MediaSessionOptions opts;
   AddAudioVideoSections(RtpTransceiverDirection::kRecvOnly, &opts);
 
-  f1_.set_enable_encrypted_rtp_header_extensions(true);
+  f2_.set_enable_encrypted_rtp_header_extensions(false);
 
   SetAudioVideoRtpHeaderExtensions(MAKE_VECTOR(kAudioRtpExtensionEncrypted1),
                                    MAKE_VECTOR(kVideoRtpExtensionEncrypted1),
@@ -2208,11 +2208,11 @@ TEST_F(MediaSessionDescriptionFactoryTest,
 }
 
 TEST_F(MediaSessionDescriptionFactoryTest,
-       TestOfferAnswerWithEncryptedRtpExtensionHeadersEnabledInReceiver) {
+       NegotiationWithEncryptedRtpExtensionHeadersDisabledInSender) {
   MediaSessionOptions opts;
   AddAudioVideoSections(RtpTransceiverDirection::kRecvOnly, &opts);
 
-  f2_.set_enable_encrypted_rtp_header_extensions(true);
+  f1_.set_enable_encrypted_rtp_header_extensions(false);
 
   SetAudioVideoRtpHeaderExtensions(MAKE_VECTOR(kAudioRtpExtensionEncrypted1),
                                    MAKE_VECTOR(kVideoRtpExtensionEncrypted1),
@@ -2241,12 +2241,9 @@ TEST_F(MediaSessionDescriptionFactoryTest,
 }
 
 TEST_F(MediaSessionDescriptionFactoryTest,
-       TestOfferAnswerPreferEncryptedRtpHeaderExtensionsWhenEncryptionEnabled) {
+       PreferEncryptedRtpHeaderExtensionsWhenEncryptionEnabled) {
   MediaSessionOptions opts;
   AddAudioVideoSections(RtpTransceiverDirection::kRecvOnly, &opts);
-
-  f1_.set_enable_encrypted_rtp_header_extensions(true);
-  f2_.set_enable_encrypted_rtp_header_extensions(true);
 
   SetAudioVideoRtpHeaderExtensions(
       MAKE_VECTOR(kAudioRtpExtensionMixedEncryption1),
@@ -2278,9 +2275,12 @@ TEST_F(MediaSessionDescriptionFactoryTest,
 }
 
 TEST_F(MediaSessionDescriptionFactoryTest,
-       TestOfferAnswerUseUnencryptedRtpHeaderExtensionsWhenEncryptionDisabled) {
+       UseUnencryptedRtpHeaderExtensionsWhenEncryptionDisabled) {
   MediaSessionOptions opts;
   AddAudioVideoSections(RtpTransceiverDirection::kRecvOnly, &opts);
+
+  f1_.set_enable_encrypted_rtp_header_extensions(false);
+  f2_.set_enable_encrypted_rtp_header_extensions(false);
 
   SetAudioVideoRtpHeaderExtensions(
       MAKE_VECTOR(kAudioRtpExtensionMixedEncryption1),

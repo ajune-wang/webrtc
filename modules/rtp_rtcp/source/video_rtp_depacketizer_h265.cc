@@ -118,7 +118,8 @@ std::optional<VideoRtpDepacketizer::ParsedRtpPayload> ProcessApOrSingleNalu(
     video_payload.AppendData(&payload_data[start_offset],
                              end_offset - start_offset);
 
-    uint8_t nalu_type = (payload_data[start_offset] & kH265TypeMask) >> 1;
+    H265::NaluType nalu_type = static_cast<H265::NaluType>(
+        (payload_data[start_offset] & kH265TypeMask) >> 1);
     start_offset += kH265NalHeaderSizeBytes;
     rtc::ArrayView<const uint8_t> nalu_data(&payload_data[start_offset],
                                             end_offset - start_offset);
@@ -168,8 +169,13 @@ std::optional<VideoRtpDepacketizer::ParsedRtpPayload> ProcessApOrSingleNalu(
       case H265::NaluType::kStsaR:
       case H265::NaluType::kRadlN:
       case H265::NaluType::kRadlR:
+      case H265::NaluType::kRaslN:
+      case H265::NaluType::kRaslR:
       case H265::NaluType::kPrefixSei:
       case H265::NaluType::kSuffixSei:
+      case H265::NaluType::kEos:
+      case H265::NaluType::kEob:
+      case H265::NaluType::kFd:
         break;
       case H265::NaluType::kAp:
       case H265::NaluType::kFu:

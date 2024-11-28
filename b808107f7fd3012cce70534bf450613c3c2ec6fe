@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "957196a3_c60d2577",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2024-11-28T14:13:49Z",
+      "side": 1,
+      "message": "Can we use pre-encoded bitstreams instead? I think it would be easer to maintain bitstreams than this rather non-trivial generator. Wrap bitstreams into IVFs. Fake encoder can read frames from IVF and deliver them.",
+      "revId": "b808107f7fd3012cce70534bf450613c3c2ec6fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

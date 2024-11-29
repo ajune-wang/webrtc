@@ -106,10 +106,7 @@ bool IvfFileWriter::WriteHeader() {
       ivf_header[11] = '4';
       break;
     case kVideoCodecH265:
-      ivf_header[8] = 'H';
-      ivf_header[9] = '2';
-      ivf_header[10] = '6';
-      ivf_header[11] = '5';
+      // H.265 in IVF is not supported by any known tool.
       break;
     default:
       // For unknown codec type use **** code. You can specify actual payload
@@ -158,8 +155,9 @@ bool IvfFileWriter::InitFromFirstFrame(const EncodedImage& encoded_image,
 
   codec_type_ = codec_type;
 
-  if (!WriteHeader())
+  if (codec_type_ != kVideoCodecH265 && !WriteHeader()) {
     return false;
+  }
 
   const char* codec_name = CodecTypeToPayloadString(codec_type_);
   RTC_LOG(LS_WARNING) << "Created IVF file for codec data of type "
@@ -215,24 +213,36 @@ bool IvfFileWriter::WriteOneSpatialLayer(int64_t timestamp,
                                          const uint8_t* data,
                                          size_t size) {
   const size_t kFrameHeaderSize = 12;
-  if (byte_limit_ != 0 &&
-      bytes_written_ + kFrameHeaderSize + size > byte_limit_) {
+  size_t total_size = size;
+  if (codec_type_ != kVideoCodecH265) {
+    total_size += kFrameHeaderSize;
+  }
+
+  if (byte_limit_ != 0 && bytes_written_ + total_size > byte_limit_) {
     RTC_LOG(LS_WARNING) << "Closing IVF file due to reaching size limit: "
                         << byte_limit_ << " bytes.";
     Close();
     return false;
   }
-  uint8_t frame_header[kFrameHeaderSize] = {};
-  ByteWriter<uint32_t>::WriteLittleEndian(&frame_header[0],
-                                          static_cast<uint32_t>(size));
-  ByteWriter<uint64_t>::WriteLittleEndian(&frame_header[4], timestamp);
-  if (!file_.Write(frame_header, kFrameHeaderSize) ||
-      !file_.Write(data, size)) {
-    RTC_LOG(LS_ERROR) << "Unable to write frame to file.";
-    return false;
+
+  if (codec_type_ != kVideoCodecH265) {
+    uint8_t frame_header[kFrameHeaderSize] = {};
+    ByteWriter<uint32_t>::WriteLittleEndian(&frame_header[0],
+                                            static_cast<uint32_t>(size));
+    ByteWriter<uint64_t>::WriteLittleEndian(&frame_header[4], timestamp);
+    if (!file_.Write(frame_header, kFrameHeaderSize) ||
+        !file_.Write(data, size)) {
+      RTC_LOG(LS_ERROR) << "Unable to write frame to file.";
+      return false;
+    }
+  } else {
+    if (!file_.Write(data, size)) {
+      RTC_LOG(LS_ERROR) << "Unable to write frame to file.";
+      return false;
+    }
   }
 
-  bytes_written_ += kFrameHeaderSize + size;
+  bytes_written_ += total_size;
 
   ++num_frames_;
   return true;

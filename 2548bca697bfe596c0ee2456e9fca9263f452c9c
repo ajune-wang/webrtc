@@ -16,6 +16,23 @@
       "message": "Need another +1 Olga",
       "revId": "2548bca697bfe596c0ee2456e9fca9263f452c9c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "94ebdc5e_f58d67b9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5826
+      },
+      "writtenOn": "2024-11-29T12:05:28Z",
+      "side": 1,
+      "message": "Thank you!",
+      "revId": "2548bca697bfe596c0ee2456e9fca9263f452c9c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

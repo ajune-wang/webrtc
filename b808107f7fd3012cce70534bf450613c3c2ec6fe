@@ -52,6 +52,24 @@
       "parentUuid": "4e601aec_2a9700a0",
       "revId": "b808107f7fd3012cce70534bf450613c3c2ec6fe",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6e6c405f_de1bcbe5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18005
+      },
+      "writtenOn": "2024-11-29T01:34:57Z",
+      "side": 1,
+      "message": "\u003e Looks like an overengineering to me.\n\nI must acknowledge the overhead of this is much larger than a file-based fake encoder.\n\n\u003e \n\u003e \u003e A fixed bitstream will not be able to emulate exactly the behavior of key-frame request and bitrate adjustment request from WebRTC stack.\n\u003e \n\u003e What exactly you want to test? Could you please share some example? Component, input, expectation...\n\nExamples:\n1. The bandwidth-based quality scaler in WebRTC stack. Input to it will be manually controlled actual-output-bitrates from the fake encoder. Expectation is that when encoder output bitrate is overshooting or undershooting, resolution is changing as expected over timespan, any adjustment to the quality-scaler resolution switching threshold needed.  - But perhaps this can be simulated with unittest on the bandwidth-based quality scaler itself. The fake encoder just make it more flexible if this is not a one-time tuning effort.\n2. Integration test/tuning with the Chromium H.26x SW BRC. Input to the H.26x SW BRC will be the fake H.265 encoded bitstream that roughly aligns with BWE estimation by RTC stack, with configurable bitrate deviation per-test configuration. Expectation is to verify the H.26x SW BRC\u0027s frame-dropping logic works well on bitrate overshot.\n\n\n\u003e \n\u003e \u003e Also it is not easy to emulate L1T2/L1T3.\n\u003e \n\u003e We can have bitstreams with temporal layering. Or what is the problem here?\n\nMy concern is that a fixed temporal layering stream will not produce output temporal-layer bitrates aligning with what the BWE and bitrate allocator requested. In that case, RTC stack may reduce/increase simulcast stream layers with a fixed pattern. With that I cannot experiment/adjust the threshold tables I placed in simulcast.cc for H.265.\n\n\u003e \n\u003e \u003e I also want to use this builder to create different combination of NALUs..\n\u003e \n\u003e Would having a set of hardcoded NALUs (which you can combine in the tests) work? How often do you think you will need to update/add new combinations? I guess that will be done ~once. Adding dedicated generators for this doesn\u0027t sound necessary. It will be a dead code.\n\nThat I agree is just a one-time effort. If there is a need, we may just add unittests in corresponding modules.\n\n\u003e \n\u003e \u003e Finally I want to check how the video bitrate allocation module allocates bitrate\n\u003e \n\u003e Why would testing of rate allocation need ~real NALUs?\n\nBitrate allocation and the encoder output rate is a feedback-loop . A file-base fake encoder will not change its encoding bitrate according to input from bitrate allocation module. But this fake encoder will be able to produce bitstream aligning with rate allocator requests.\nTo be honest, I don\u0027t see real issue with the rate allocation for now.\n\nAnyway, with a file-based fake encoder, at least we will be able to unblock the end-to-end integration tests for H.265, which is the #1 reason I need a fake encoder. For that I won\u0027t insist on having a encoder that produces ~real NALUs, as long as Chromium receiver-side H.265 parser is satisfied with the incoming bitstream.",
+      "parentUuid": "375d4f6b_fe100edb",
+      "revId": "b808107f7fd3012cce70534bf450613c3c2ec6fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

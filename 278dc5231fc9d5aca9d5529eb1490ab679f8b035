@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bece2bf2_1bd12d25",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5826
+      },
+      "writtenOn": "2024-11-29T10:30:27Z",
+      "side": 1,
+      "message": "Holding off, Harald is working on a forward fix.",
+      "revId": "278dc5231fc9d5aca9d5529eb1490ab679f8b035",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

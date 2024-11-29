@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b926a3dd_b111163c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-11-29T11:18:15Z",
+      "side": 1,
+      "message": "Suggested change: Allow enums that have AbslStringify to be logged as text\n\nwith explanation \"When an enum has AbslStringify, we log the text coming from stringifying it, not the numeric value.\"",
+      "revId": "a822751c828a58a26268148977a92fc80672caa4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4c87f308_307f02f5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-11-29T11:18:15Z",
+      "side": 1,
+      "message": "Sounds like a beautiful change, but the description is a little vague :-)\nApproving, but improve the description!",
+      "revId": "a822751c828a58a26268148977a92fc80672caa4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

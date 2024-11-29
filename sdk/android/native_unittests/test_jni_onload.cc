@@ -15,9 +15,15 @@
 #include "rtc_base/checks.h"
 #include "sdk/android/native_api/base/init.h"
 #include "sdk/android/native_api/jni/java_types.h"
+#include "test/android/native_test_launcher.h"
 
 // This is called by the VM when the shared library is first loaded.
 JNIEXPORT jint JNI_OnLoad(JavaVM* vm, void* reserved) {
+  jni_zero::InitVM(vm);
+  // TODO(terelius): jni_zero::SetExceptionHandler(CheckException);
+  // JNIEnv* env = jni_zero::AttachCurrentThread();
+  // TODO(terelius): Classloader, oom error handler
   webrtc::InitAndroid(vm);
+  webrtc::test::android::InstallHandlers();
   return JNI_VERSION_1_4;
 }

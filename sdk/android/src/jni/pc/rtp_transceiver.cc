@@ -186,9 +186,8 @@ jboolean JNI_RtpTransceiver_SetDirection(
       reinterpret_cast<RtpTransceiverInterface*>(j_rtp_transceiver_pointer)
           ->SetDirectionWithError(direction);
   if (!error.ok()) {
-    RTC_LOG(LS_WARNING) << "SetDirection failed, code "
-                        << ToString(error.type()) << ", message "
-                        << error.message();
+    RTC_LOG(LS_WARNING) << "SetDirection failed, code " << error.type()
+                        << ", message " << error.message();
   }
   return error.ok();
 }

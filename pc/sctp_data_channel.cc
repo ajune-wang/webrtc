@@ -944,7 +944,7 @@ RTCError SctpDataChannel::SendDataMessage(const DataBuffer& buffer,
   // message failed.
   RTC_LOG(LS_ERROR) << "Closing the DataChannel due to a failure to send data, "
                        "send_result = "
-                    << ToString(error_.type()) << ":" << error_.message();
+                    << error_.type() << ":" << error_.message();
   CloseAbruptlyWithError(
       RTCError(RTCErrorType::NETWORK_ERROR, "Failure to send data"));
 
@@ -980,7 +980,7 @@ bool SctpDataChannel::SendControlMessage(const rtc::CopyOnWriteBuffer& buffer) {
   } else {
     RTC_LOG(LS_ERROR) << "Closing the DataChannel due to a failure to send"
                          " the CONTROL message, send_result = "
-                      << ToString(err.type());
+                      << err.type();
     err.set_message("Failed to send a CONTROL message");
     CloseAbruptlyWithError(err);
   }

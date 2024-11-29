@@ -775,8 +775,8 @@ RTCError JsepTransportController::ApplyDescription_n(
     }
     error = transport->RecordPayloadTypes(local, type, content_info);
     if (!error.ok()) {
-      RTC_LOG(LS_ERROR) << "RecordPayloadTypes failed: "
-                        << ToString(error.type()) << " - " << error.message();
+      RTC_LOG(LS_ERROR) << "RecordPayloadTypes failed: " << error.type()
+                        << " - " << error.message();
       return error;
     }
   }

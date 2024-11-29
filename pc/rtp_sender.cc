@@ -244,8 +244,7 @@ void RtpSenderBase::SetParametersInternal(const RtpParameters& parameters,
     RTCError error(
         RTCErrorType::UNSUPPORTED_PARAMETER,
         "Attempted to set an unimplemented parameter of RtpParameters.");
-    RTC_LOG(LS_ERROR) << error.message() << " ("
-                      << ::webrtc::ToString(error.type()) << ")";
+    RTC_LOG(LS_ERROR) << error.message() << " (" << error.type() << ")";
     InvokeSetParametersCallback(callback, error);
     return;
   }

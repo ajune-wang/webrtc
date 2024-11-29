@@ -275,7 +275,7 @@ bool DataChannelController::HandleOpenMessage_n(
           }));
     } else {
       RTC_LOG(LS_ERROR) << "Failed to create DataChannel from the OPEN message."
-                        << ToString(channel_or_error.error().type());
+                        << channel_or_error.error().type();
     }
   }
   return true;

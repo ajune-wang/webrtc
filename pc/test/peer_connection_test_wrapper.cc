@@ -217,9 +217,8 @@ PeerConnectionTestWrapper::CreateDataChannel(
     const webrtc::DataChannelInit& init) {
   auto result = peer_connection_->CreateDataChannelOrError(label, &init);
   if (!result.ok()) {
-    RTC_LOG(LS_ERROR) << "CreateDataChannel failed: "
-                      << ToString(result.error().type()) << " "
-                      << result.error().message();
+    RTC_LOG(LS_ERROR) << "CreateDataChannel failed: " << result.error().type()
+                      << " " << result.error().message();
     return nullptr;
   }
   return result.MoveValue();

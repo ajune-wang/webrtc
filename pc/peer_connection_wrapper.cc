@@ -318,9 +318,8 @@ PeerConnectionWrapper::CreateDataChannel(
   const DataChannelInit* config_ptr = config.has_value() ? &(*config) : nullptr;
   auto result = pc()->CreateDataChannelOrError(label, config_ptr);
   if (!result.ok()) {
-    RTC_LOG(LS_ERROR) << "CreateDataChannel failed: "
-                      << ToString(result.error().type()) << " "
-                      << result.error().message();
+    RTC_LOG(LS_ERROR) << "CreateDataChannel failed: " << result.error().type()
+                      << " " << result.error().message();
     return nullptr;
   }
   return result.MoveValue();

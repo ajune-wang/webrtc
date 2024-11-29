@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e4f0e342_3268ddc4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2024-11-29T09:08:22Z",
+      "side": 1,
+      "message": "This isn\u0027t really an ivf file at that point.\nMight make more sense to just update the call-site to use a plain `FileWrapper` instead if H265 is used. What\u0027s the use-case here? Just `FrameDumpingDecoder`?",
+      "revId": "880379f512d0ddb368dec1b48e3b4987821dc71e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

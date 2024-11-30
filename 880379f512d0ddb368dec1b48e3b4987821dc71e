@@ -52,6 +52,24 @@
       "parentUuid": "c65f170b_65d2d051",
       "revId": "880379f512d0ddb368dec1b48e3b4987821dc71e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e3e60503_f04683e4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18005
+      },
+      "writtenOn": "2024-11-30T00:08:32Z",
+      "side": 1,
+      "message": "Thanks! It works with ffmpeg -f hevc -i dump.ivf -c:v copy output.mp4. I\u0027ll drop the CL, and maybe add document somewhere.",
+      "parentUuid": "b8d70922_beb0e537",
+      "revId": "880379f512d0ddb368dec1b48e3b4987821dc71e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -16,6 +16,24 @@
       "message": "Seems like an obvious fix - but since this is obviously not tested, can you write a test that covers it?\n\nwebrtc_voice_engine_unittests seems to have only one test involving an unknown codec, we should have more.",
       "revId": "92fc6e39194eefc41dee2097aa15acdd5f24cd91",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5806ca06_2b44df99",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3747549
+      },
+      "writtenOn": "2024-11-30T11:45:10Z",
+      "side": 1,
+      "message": "I\u0027ve managed to write a draft of the test, but not to find a way to run it (and others). There is something relevant in presubmit hooks, but \u0027git commit --amend\u0027 shows no result. Google search reads either testing of an app with webrtc, or (as I understand) end-to-end testing, not unittests.\n\nCould you please provide an appropriate command-line or a link to the relevant docs?",
+      "parentUuid": "9b1c4897_c45b5c26",
+      "revId": "92fc6e39194eefc41dee2097aa15acdd5f24cd91",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

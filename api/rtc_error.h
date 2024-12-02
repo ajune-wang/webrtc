@@ -17,6 +17,8 @@
 #include <string>
 #include <utility>  // For std::move.
 
+#include "absl/strings/has_absl_stringify.h"
+#include "absl/strings/str_format.h"
 #include "absl/strings/string_view.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
@@ -305,6 +307,20 @@ class RTCErrorOr {
   T MoveValue() {
     RTC_DCHECK(ok());
     return std::move(*value_);
+  }
+
+  template <typename Sink>
+  friend void AbslStringify(Sink& sink, const RTCErrorOr<T>& error_or) {
+    if (error_or.ok()) {
+      sink.Append("OK");
+      if constexpr (absl::HasAbslStringify<T>::value) {
+        absl::Format(&sink, " with value: %v", error_or.value());
+      }
+    } else {
+      absl::Format(&sink, "%s with message: \"%s\"",
+                   ToString(error_or.error().type()),
+                   error_or.error().message());
+    }
   }
 
  private:

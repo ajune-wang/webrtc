@@ -701,6 +701,7 @@ if (rtc_include_tests) {
         ":rtc_expect_death",
         ":rtp_test_utils",
         ":run_loop",
+        ":run_until",
         ":scoped_key_value_config",
         ":test_main",
         ":test_support",
@@ -717,6 +718,8 @@ if (rtc_include_tests) {
         "../api:mock_video_codec_factory",
         "../api:mock_video_decoder",
         "../api:mock_video_encoder",
+        "../api:rtc_error",
+        "../api:rtc_error_matchers",
         "../api:scoped_refptr",
         "../api:simulcast_test_fixture_api",
         "../api/environment",
@@ -749,6 +752,7 @@ if (rtc_include_tests) {
         "../modules/video_coding/svc:scalability_mode_util",
         "../rtc_base:criticalsection",
         "../rtc_base:rtc_event",
+        "../rtc_base:threading",
         "../rtc_base/synchronization:mutex",
         "../rtc_base/system:file_wrapper",
         "jitter:jitter_unittests",
@@ -772,6 +776,7 @@ if (rtc_include_tests) {
         "rtp_file_reader_unittest.cc",
         "rtp_file_writer_unittest.cc",
         "run_loop_unittest.cc",
+        "run_until_unittest.cc",
         "testsupport/ivf_video_frame_generator_unittest.cc",
         "testsupport/perf_test_unittest.cc",
         "testsupport/test_artifacts_unittest.cc",
@@ -1383,5 +1388,24 @@ rtc_library("video_codec_tester") {
     "../video/config:streams_config",
     "//third_party/abseil-cpp/absl/strings",
     "//third_party/libyuv",
+  ]
+}
+
+rtc_source_set("run_until") {
+  testonly = true
+  sources = [
+    "run_until.h",
+    "run_until_internal.h",
+  ]
+  deps = [
+    ":test_support",
+    "../api:rtc_error",
+    "../api/units:time_delta",
+    "../api/units:timestamp",
+    "../rtc_base:checks",
+    "../rtc_base:threading",
+    "../system_wrappers",
+    "//third_party/abseil-cpp/absl/base:nullability",
+    "//third_party/abseil-cpp/absl/strings:string_view",
   ]
 }

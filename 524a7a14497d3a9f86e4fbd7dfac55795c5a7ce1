@@ -59,6 +59,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "797937e2_dd8d926d",
+        "filename": "modules/rtp_rtcp/source/absolute_capture_time_interpolator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-12-02T21:12:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f7b1f681_28f9fef6",
+      "range": {
+        "startLine": 85,
+        "startChar": 48,
+        "endLine": 85,
+        "endChar": 64
+      },
+      "revId": "524a7a14497d3a9f86e4fbd7dfac55795c5a7ce1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "95b2fd9c_0ec48c75",
@@ -72,6 +96,30 @@
       "writtenOn": "2024-12-02T21:02:27Z",
       "side": 1,
       "message": "The \"U\" in UQ32.32 stands for \"unsigned\" so perhaps remove the \"U\" from both lines?\n\n```suggestion\n// Converts Q32.32-formatted fixed-point seconds to `int64_t` microseconds.\ninline int64_t Q32x32ToInt64Us(int64_t q32x32) {\n```",
+      "range": {
+        "startLine": 129,
+        "startChar": 0,
+        "endLine": 130,
+        "endChar": 49
+      },
+      "revId": "524a7a14497d3a9f86e4fbd7dfac55795c5a7ce1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "38221672_85b650da",
+        "filename": "system_wrappers/include/ntp_time.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-12-02T21:12:12Z",
+      "side": 1,
+      "message": "Given that the Ms version above is named Q not UQ, this makes sense.",
+      "parentUuid": "95b2fd9c_0ec48c75",
       "range": {
         "startLine": 129,
         "startChar": 0,

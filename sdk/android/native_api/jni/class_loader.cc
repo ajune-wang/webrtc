@@ -71,12 +71,16 @@ jclass GetClass(JNIEnv* env, const char* class_name, const char* unused) {
 }  // namespace
 
 void InitClassLoader(JNIEnv* env) {
+  fprintf(stderr, "In InitClassLoader (stderr)\n");
+  fprintf(stdout, "In InitClassLoader (stdout)\n");
   RTC_CHECK(g_class_loader == nullptr);
   g_class_loader = new ClassLoader(env);
   jni_zero::SetClassResolver(&GetClass);
 }
 
 ScopedJavaLocalRef<jclass> GetClass(JNIEnv* env, const char* c_name) {
+  fprintf(stderr, "In GetClass\n");
+
   if (g_class_loader != nullptr) {
     // The class loader will be null in the JNI code called from the ClassLoader
     // ctor when we are bootstrapping ourself.

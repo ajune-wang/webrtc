@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ecb86fe6_cc80cc27",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-12-02T10:33:26Z",
+      "side": 1,
+      "message": "Feel free to submit as is - it is more consistent than it was.\n\nThough I\u0027m not a fan of turning clang-format off as that require manual work to keep the format when value changes, in cases like this one it might be appropriate: custom line breaks can clarify meaning.\n\nStill, would prefer less of forceful turning clang-format off, and some hints why it is turned off in other cases:\n\nhttps://clang.llvm.org/docs/ClangFormatStyleOptions.html#disabling-formatting-on-a-piece-of-code\n\n“a colon (:) and additional text may follow // clang-format off or // clang-format on to explain why clang-format is turned off or back on.”",
+      "revId": "b75a49b3b3e999c484e4fc7333da123e81e18c13",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a3c32bd9_8263d7d2",
+        "filename": "modules/rtp_rtcp/source/video_rtp_depacketizer_h264_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-12-02T10:33:26Z",
+      "side": 1,
+      "message": "why turn off clang-format?\nis it because you want to use custom line breaks in kSomeSps ?\nthose can be achieved in a lighter way: \n\"you can use trailing end of line comments to \"trick\" clang-format into leaving line breaks alone\"\nThen clang-format would look after other formatting nits.\n\n```suggestion\nconstexpr uint8_t kOriginalSps[] \u003d {\n    H264::kSps, 0x00, 0x00, 0x03, 0x03,  //\n    0xF4, 0x05, 0x03, 0xC7, 0xC0         //\n};\nconstexpr uint8_t kRewrittenSps[] \u003d {\n    H264::kSps, 0x00, 0x00, 0x03, 0x03,  //\n    0xF4, 0x05, 0x03, 0xC7, 0xE0,        //\n    0x1B, 0x41, 0x10, 0x8D, 0x00         //\n};\nconstexpr uint8_t kIdrOne[] \u003d {H264::kIdr, 0xFF, 0x00, 0x00, 0x04};\nconstexpr uint8_t kIdrTwo[] \u003d {H264::kIdr, 0xFF, 0x00, 0x11};\n```",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 18
+      },
+      "revId": "b75a49b3b3e999c484e4fc7333da123e81e18c13",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dc657f68_dbbf49ca",
+        "filename": "modules/rtp_rtcp/source/video_rtp_depacketizer_h264_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-12-02T10:33:26Z",
+      "side": 1,
+      "message": "If you want to force extra line, then rather than turning clang-format off, you can force it with extra comma or extra empty comment.\n\n```suggestion\n  uint8_t lone_empty_packet[] \u003d {\n      H264::kStapA, 0x00, 0x00,\n  };\n  // clang-format off\n```\n\nThough personally I would prefer to keep it in a single line in spirit of\nhttps://google.github.io/styleguide/cppguide.html#Vertical_Whitespace\n\"Minimize use of vertical whitespace.\"\n“The basic principle is: The more code that fits on one screen, the easier it is to follow and understand the control flow of the program.”",
+      "range": {
+        "startLine": 168,
+        "startChar": 0,
+        "endLine": 171,
+        "endChar": 4
+      },
+      "revId": "b75a49b3b3e999c484e4fc7333da123e81e18c13",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

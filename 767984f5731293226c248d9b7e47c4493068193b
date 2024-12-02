@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8a278d10_90ff9c78",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3747549
+      },
+      "writtenOn": "2024-12-02T14:31:24Z",
+      "side": 1,
+      "message": "Thank you, it did work out. (With `gn gen out/Default`; usually build with build_aar.py, never used gn directly.)\n\nTurned out I\u0027ve mistaken: the test case is \u0027unknown, red, opus\u0027. Fixed the unittest, now it fails on main-branch and passes here.",
+      "parentUuid": "4f9642b7_a11fcd1c",
+      "revId": "767984f5731293226c248d9b7e47c4493068193b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "71367091_ff143a84",
@@ -31,6 +49,24 @@
       "writtenOn": "2024-12-02T11:21:29Z",
       "side": 1,
       "message": "Note that using specific payload types in tests is a pattern to be avoided. These are dynamically allocated by spec, and may change at any time. Comparing names is better.",
+      "revId": "767984f5731293226c248d9b7e47c4493068193b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9e9f3c5b_6ac1dc3b",
+        "filename": "media/engine/webrtc_voice_engine_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1749,
+      "author": {
+        "id": 3747549
+      },
+      "writtenOn": "2024-12-02T14:31:24Z",
+      "side": 1,
+      "message": "This is a slightly modified test \u0027SetSendCodecsRed\u0027 (webrtc_voice_engine_unittest.cc:1655). I\u0027m afraid `red_payload_type` is the only thing `SendSendCodecs` sets to indicate the RED is tuned on, codec name stays \"opus\".\n\nBut since the payload_types are defined in `k[Name]Codec` variables via `cricket::CreateAudioCodec`, maybe it is not such an issues?",
+      "parentUuid": "71367091_ff143a84",
       "revId": "767984f5731293226c248d9b7e47c4493068193b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

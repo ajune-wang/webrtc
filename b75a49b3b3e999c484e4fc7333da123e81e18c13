@@ -43,6 +43,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "c2d8e4bd_b63e68b5",
+        "filename": "modules/rtp_rtcp/source/video_rtp_depacketizer_h264_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-12-02T17:13:23Z",
+      "side": 1,
+      "message": "that trick is nice but it will align the comma to the kSps one which creates awkward spaces (but aligns the ends).\n\n(awkward enough that gerrit refuses to show that whitespace even)",
+      "parentUuid": "a3c32bd9_8263d7d2",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 18
+      },
+      "revId": "b75a49b3b3e999c484e4fc7333da123e81e18c13",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "dc657f68_dbbf49ca",
         "filename": "modules/rtp_rtcp/source/video_rtp_depacketizer_h264_unittest.cc",
         "patchSetId": 1
@@ -54,6 +78,30 @@
       "writtenOn": "2024-12-02T10:33:26Z",
       "side": 1,
       "message": "If you want to force extra line, then rather than turning clang-format off, you can force it with extra comma or extra empty comment.\n\n```suggestion\n  uint8_t lone_empty_packet[] \u003d {\n      H264::kStapA, 0x00, 0x00,\n  };\n  // clang-format off\n```\n\nThough personally I would prefer to keep it in a single line in spirit of\nhttps://google.github.io/styleguide/cppguide.html#Vertical_Whitespace\n\"Minimize use of vertical whitespace.\"\n“The basic principle is: The more code that fits on one screen, the easier it is to follow and understand the control flow of the program.”",
+      "range": {
+        "startLine": 168,
+        "startChar": 0,
+        "endLine": 171,
+        "endChar": 4
+      },
+      "revId": "b75a49b3b3e999c484e4fc7333da123e81e18c13",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d6d60e4d_dd86a8f1",
+        "filename": "modules/rtp_rtcp/source/video_rtp_depacketizer_h264_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-12-02T17:13:23Z",
+      "side": 1,
+      "message": "in this case the clang-format is required for the other packets but turning it off at the beginning of the group of packets seemed more consistent.",
+      "parentUuid": "dc657f68_dbbf49ca",
       "range": {
         "startLine": 168,
         "startChar": 0,

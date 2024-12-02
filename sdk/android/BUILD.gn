@@ -568,6 +568,7 @@ if (current_os == "linux" || is_android) {
     ]
 
     deps = [
+      ":base_java",
       ":generated_base_jni",
       ":internal_jni",
       ":native_api_jni",
@@ -1608,6 +1609,7 @@ if (is_android) {
     sources = [ "native_unittests/test_jni_onload.cc" ]
 
     deps = [
+      ":base_java",
       ":base_jni",
       ":internal_jni",
       ":native_api_base",
@@ -1645,7 +1647,6 @@ if (is_android) {
       ":native_api_peerconnection",
       ":native_api_stacktrace",
       ":native_api_video",
-      ":native_test_jni_onload",
       ":opensles_audio_device_module",
       ":video_jni",
       "../../api:enable_media_with_defaults",

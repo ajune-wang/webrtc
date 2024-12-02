@@ -17,6 +17,7 @@
 namespace webrtc {
 
 void InitAndroid(JavaVM* jvm) {
+  fprintf(stderr, "In InitAndroid\n");
   RTC_CHECK_GE(jni::InitGlobalJniVariables(jvm), 0);
   InitClassLoader(jni::GetEnv());
 }

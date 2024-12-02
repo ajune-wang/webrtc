@@ -319,7 +319,19 @@ LibvpxVp8Encoder::LibvpxVp8Encoder(const Environment& env,
       encoder_info_override_(env_.field_trials()),
       max_frame_drop_interval_(ParseFrameDropInterval(env_.field_trials())),
       android_specific_threading_settings_(env_.field_trials().IsEnabled(
-          "WebRTC-LibvpxVp8Encoder-AndroidSpecificThreadingSettings")) {
+          "WebRTC-LibvpxVp8Encoder-AndroidSpecificThreadingSettings")),
+      fsg_(
+          FilterSettingsGenerator::ExponentialFunctionParameters{
+              .scale = 0.006,
+              .exponent_factor = 0.01857465,
+              .exponent_offset = -4.26470513},
+          FilterSettingsGenerator::ErrorThresholds{.luma = 5, .chroma = 6},
+          webrtc::FilterSettingsGenerator::TransientParameters{
+              .max_qp = 127,
+              .keyframe_threshold_offset = 1,
+              .keyframe_stddev_offset = 2.0,
+              .keyframe_offset_duration_frames = 4,
+              .large_qp_change_threshold = 25}) {
   // TODO(eladalon/ilnik): These reservations might be wasting memory.
   // InitEncode() is resizing to the actual size, which might be smaller.
   raw_images_.reserve(kMaxSimulcastStreams);
@@ -1260,6 +1272,11 @@ int LibvpxVp8Encoder::GetEncodedPartitions(const VideoFrame& input_image,
         encoded_images_[encoder_idx].qp_ = qp_128;
         last_encoder_output_time_[stream_idx] =
             Timestamp::Micros(input_image.timestamp_us());
+
+        encoded_images_[encoder_idx].set_corruption_detection_filter_settings(
+            fsg_.OnFrame(encoded_images_[encoder_idx].FrameType() ==
+                             VideoFrameType::kVideoFrameKey,
+                         qp_128));
 
         encoded_complete_callback_->OnEncodedImage(encoded_images_[encoder_idx],
                                                    &codec_specific);

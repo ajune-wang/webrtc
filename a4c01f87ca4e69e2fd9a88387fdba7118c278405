@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "96f55c93_9153041d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2024-12-02T08:24:46Z",
+      "side": 1,
+      "message": "Approval: https://issues.chromium.org/u/2/issues/381401498#comment4",
+      "revId": "a4c01f87ca4e69e2fd9a88387fdba7118c278405",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

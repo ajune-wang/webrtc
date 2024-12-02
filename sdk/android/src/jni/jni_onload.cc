@@ -20,6 +20,7 @@ namespace webrtc {
 namespace jni {
 
 extern "C" jint JNIEXPORT JNICALL JNI_OnLoad(JavaVM* jvm, void* reserved) {
+  fprintf(stderr, "In JNI_OnLoad\n");
   jint ret = InitGlobalJniVariables(jvm);
   RTC_DCHECK_GE(ret, 0);
   if (ret < 0)

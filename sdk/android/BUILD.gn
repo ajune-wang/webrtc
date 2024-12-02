@@ -1645,7 +1645,6 @@ if (is_android) {
       ":native_api_peerconnection",
       ":native_api_stacktrace",
       ":native_api_video",
-      ":native_test_jni_onload",
       ":opensles_audio_device_module",
       ":video_jni",
       "../../api:enable_media_with_defaults",

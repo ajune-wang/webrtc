@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8635ef09_19e78a1a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3403625
+      },
+      "writtenOn": "2024-12-02T17:06:36Z",
+      "side": 1,
+      "message": "added xalep@ as a reviewer since 2 +1s are required.",
+      "revId": "daf66b3a280388f890458c044de1903b52786e77",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

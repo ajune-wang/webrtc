@@ -18,6 +18,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5636e2d7_5f0d2e13",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-12-03T10:55:09Z",
+      "side": 1,
+      "message": "Replies....",
+      "revId": "a2f6e6b86fec6a6bc24ed331092f657dec2b77fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6edd8326_81c31504",
@@ -31,6 +48,24 @@
       "writtenOn": "2024-12-03T10:27:25Z",
       "side": 1,
       "message": "I see this was just moved rather than added, but I\u0027ll review it anyway:\n\nDon\u0027t we need to tell the `pt_picker_` in order to get consistent suggestions? Even if used only in testing I suspect we don\u0027t want code that misbehaves regarding PTs if we\u0027re testing PT stuff\n\nOr would that make this a real implementation rather than a fake?",
+      "revId": "a2f6e6b86fec6a6bc24ed331092f657dec2b77fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "daf82426_cbc7cadd",
+        "filename": "call/fake_payload_type_suggester.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-12-03T10:55:09Z",
+      "side": 1,
+      "message": "The way the suggester works, AddLocalMapping() is used after making a permanent determination - see pc/jsep_transport_controller.cc where the non-fake implementation lives. For testing, ignoring makes more sense.",
+      "parentUuid": "6edd8326_81c31504",
       "revId": "a2f6e6b86fec6a6bc24ed331092f657dec2b77fd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -54,6 +89,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cfaa22cb_7ce0cb16",
+        "filename": "call/payload_type.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-12-03T10:55:09Z",
+      "side": 1,
+      "message": "left in out of frustration that I didn\u0027t manage to coax the numeric constants out of the function above. Now deleted; we\u0027ll return to that issue later.",
+      "parentUuid": "4d05db8b_75586fcd",
+      "revId": "a2f6e6b86fec6a6bc24ed331092f657dec2b77fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2f431543_8231870e",
         "filename": "call/payload_type_picker.cc",
         "patchSetId": 8
@@ -65,6 +118,24 @@
       "writtenOn": "2024-12-03T10:27:25Z",
       "side": 1,
       "message": "Another move, but...\n\nCan you explain the rationale between wanting a codec to be a low or a high range?\n- For example when we add a new codec (like H265) would we need to update this function?\n- Should we either DCHECK crash or LOG error if we don\u0027t recognize the codec here or does the default return value (false) make sense?",
+      "revId": "a2f6e6b86fec6a6bc24ed331092f657dec2b77fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "91a473b6_39b59efe",
+        "filename": "call/payload_type_picker.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-12-03T10:55:09Z",
+      "side": 1,
+      "message": "First of all, don\u0027t change existing behavior.\nWhen fippo introduced low-range PTs, it turned out that certain endpoints didn\u0027t tolerate the low-range PTs - but these also did not accept the new codecs that were the reason we needed to use them. So he made the old codecs use the old range and the new codecs use the new range. It\u0027s possible it\u0027s safe to let all codecs use the low range now - but it\u0027s safer to make that change in a separate CL.",
+      "parentUuid": "2f431543_8231870e",
       "revId": "a2f6e6b86fec6a6bc24ed331092f657dec2b77fd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -88,6 +159,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "954d1774_d305ae29",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-12-03T10:55:09Z",
+      "side": 1,
+      "message": "Adding the TODO - the goal is to not assign PTs here at all - it\u0027s at the wrong level. Using the PT picker is a temporary step in order to get rid of all the different pieces of code assigning PTs.",
+      "parentUuid": "91a6f176_5933fd9e",
+      "revId": "a2f6e6b86fec6a6bc24ed331092f657dec2b77fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "89e9f594_a82786f5",
         "filename": "pc/media_session.cc",
         "patchSetId": 8
@@ -99,6 +188,24 @@
       "writtenOn": "2024-12-03T10:27:25Z",
       "side": 1,
       "message": "What is the implication of having mid \u003d \"\" here?",
+      "revId": "a2f6e6b86fec6a6bc24ed331092f657dec2b77fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ac19d9d7_5f5d7047",
+        "filename": "pc/media_session.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 1293,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-12-03T10:55:09Z",
+      "side": 1,
+      "message": "mid\u003d\"\" means the MID-\u003etransport lookup will fail, and we\u0027ll not consult the per-transport PT mapping tables. I\u0027d like to make that an error, but this might have other side effects.",
+      "parentUuid": "89e9f594_a82786f5",
       "revId": "a2f6e6b86fec6a6bc24ed331092f657dec2b77fd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

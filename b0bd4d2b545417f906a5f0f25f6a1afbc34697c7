@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1fd48bbe_9ecdab72",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-12-03T09:54:14Z",
+      "side": 1,
+      "message": "Looks much more explicit - approving!",
+      "revId": "b0bd4d2b545417f906a5f0f25f6a1afbc34697c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3113a699_92681e4a",
+        "filename": "video/video_send_stream_tests.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1030,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-12-03T09:54:14Z",
+      "side": 1,
+      "message": "*groan* can you use an rtc::ArrayView\u003cconst uint8_t\u003e instead of a pointer?\nwe won\u0027t get an out-of-bounds case when the assumption in the comment is correct, but raw pointers hurt my eyes.",
+      "revId": "b0bd4d2b545417f906a5f0f25f6a1afbc34697c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

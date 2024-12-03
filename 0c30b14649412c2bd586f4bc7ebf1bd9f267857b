@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "40481882_c7efb95b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8178
+      },
+      "writtenOn": "2024-12-03T23:23:26Z",
+      "side": 1,
+      "message": "FWIW I think this is a regression from https://webrtc.googlesource.com/src/+/1e4d4fdf88370637318d38cbf62c731d04fa3e56, though there could be more moving parts in play.",
+      "revId": "0c30b14649412c2bd586f4bc7ebf1bd9f267857b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

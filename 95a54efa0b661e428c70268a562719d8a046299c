@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "39bff879_da01e4d2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-12-03T10:08:21Z",
+      "side": 1,
+      "message": "Let\u0027s bikeshed the name!\n\nAlso, please do the AbslStringify to RTCError, not only to RTCErrorOr.",
+      "revId": "95a54efa0b661e428c70268a562719d8a046299c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5739d150_5b683830",
+        "filename": "api/rtc_error.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 320,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-12-03T10:08:21Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this be StrCat(error_or.error())?\nThat\u0027s assuming RTCError has AbslStringify (which it should).\n(RTCError has complications beyond type and message. I don\u0027t want two stringifications of it).",
+      "revId": "95a54efa0b661e428c70268a562719d8a046299c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "63e6d431_c71a9d3a",
+        "filename": "api/test/rtc_error_matchers.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-12-03T10:08:21Z",
+      "side": 1,
+      "message": "Use your AbslStringify!\n```suggestion\n    *result_listener \u003c\u003c \"Expected OK, got \" \u003c\u003c arg;\n```",
+      "revId": "95a54efa0b661e428c70268a562719d8a046299c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4aa3923f_ee744c90",
+        "filename": "test/run_until.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-12-03T10:08:21Z",
+      "side": 1,
+      "message": "I disagree with the name. This operation doesn\u0027t do the running, it waits until some other part of the system has run so that the condition is true.\nI prefer the WaitUntil name.",
+      "revId": "95a54efa0b661e428c70268a562719d8a046299c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f691b2ac_121359f2",
+        "filename": "test/run_until.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-12-03T10:08:21Z",
+      "side": 1,
+      "message": "Does this work if the clock is fake?",
+      "revId": "95a54efa0b661e428c70268a562719d8a046299c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

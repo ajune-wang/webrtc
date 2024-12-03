@@ -70,6 +70,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "01937394_989a96f9",
+        "filename": "call/fake_payload_type_suggester.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2024-12-03T11:16:48Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "daf82426_cbc7cadd",
+      "revId": "a2f6e6b86fec6a6bc24ed331092f657dec2b77fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4d05db8b_75586fcd",
@@ -101,6 +119,24 @@
       "side": 1,
       "message": "left in out of frustration that I didn\u0027t manage to coax the numeric constants out of the function above. Now deleted; we\u0027ll return to that issue later.",
       "parentUuid": "4d05db8b_75586fcd",
+      "revId": "a2f6e6b86fec6a6bc24ed331092f657dec2b77fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "92b06880_86b639b3",
+        "filename": "call/payload_type.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2024-12-03T11:16:48Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "cfaa22cb_7ce0cb16",
       "revId": "a2f6e6b86fec6a6bc24ed331092f657dec2b77fd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -140,6 +176,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f4d7c74d_5fac30d4",
+        "filename": "call/payload_type_picker.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2024-12-03T11:16:48Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "91a473b6_39b59efe",
+      "revId": "a2f6e6b86fec6a6bc24ed331092f657dec2b77fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "91a6f176_5933fd9e",
@@ -175,6 +229,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f6c69c11_32ad2e9e",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2024-12-03T11:16:48Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "954d1774_d305ae29",
+      "revId": "a2f6e6b86fec6a6bc24ed331092f657dec2b77fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "89e9f594_a82786f5",
@@ -206,6 +278,24 @@
       "side": 1,
       "message": "mid\u003d\"\" means the MID-\u003etransport lookup will fail, and we\u0027ll not consult the per-transport PT mapping tables. I\u0027d like to make that an error, but this might have other side effects.",
       "parentUuid": "89e9f594_a82786f5",
+      "revId": "a2f6e6b86fec6a6bc24ed331092f657dec2b77fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f8a09e65_aea2e316",
+        "filename": "pc/media_session.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 1293,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2024-12-03T11:16:48Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "ac19d9d7_5f5d7047",
       "revId": "a2f6e6b86fec6a6bc24ed331092f657dec2b77fd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

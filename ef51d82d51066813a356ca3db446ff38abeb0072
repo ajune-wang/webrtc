@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b1442cf5_e8cb4034",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-12-03T17:24:01Z",
+      "side": 1,
+      "message": "split from the main CL. I *hope* this flies with internal code",
+      "revId": "ef51d82d51066813a356ca3db446ff38abeb0072",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f441f594_4f7bca3f",
+        "filename": "p2p/base/ice_transport_internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-12-03T17:24:01Z",
+      "side": 1,
+      "message": "this *might* not fly internally, please check.",
+      "revId": "ef51d82d51066813a356ca3db446ff38abeb0072",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

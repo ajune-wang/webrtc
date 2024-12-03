@@ -171,7 +171,9 @@ bool RequiresEncoderReset(const VideoCodec& prev_send_codec,
         new_send_codec.simulcastStream[i].numberOfTemporalLayers !=
             prev_send_codec.simulcastStream[i].numberOfTemporalLayers ||
         new_send_codec.simulcastStream[i].qpMax !=
-            prev_send_codec.simulcastStream[i].qpMax) {
+            prev_send_codec.simulcastStream[i].qpMax ||
+        new_send_codec.simulcastStream[i].maxFramerate !=
+            prev_send_codec.simulcastStream[i].maxFramerate) {
       return true;
     }
   }

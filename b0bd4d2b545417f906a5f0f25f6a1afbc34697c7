@@ -33,6 +33,24 @@
       "message": "*groan* can you use an rtc::ArrayView\u003cconst uint8_t\u003e instead of a pointer?\nwe won\u0027t get an out-of-bounds case when the assumption in the comment is correct, but raw pointers hurt my eyes.",
       "revId": "b0bd4d2b545417f906a5f0f25f6a1afbc34697c7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5048639d_8e99f4fa",
+        "filename": "video/video_send_stream_tests.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1030,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2024-12-03T10:13:46Z",
+      "side": 1,
+      "message": "Done. In fact `rtp_packet.payload()` is already an ArrayView... This was just a copy/paste from existing code lower down. I\u0027m sure there\u0027s other old code we could clean up in this file, but not in this cl.",
+      "parentUuid": "3113a699_92681e4a",
+      "revId": "b0bd4d2b545417f906a5f0f25f6a1afbc34697c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

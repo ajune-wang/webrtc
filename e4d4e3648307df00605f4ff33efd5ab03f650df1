@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5811bf75_1c6f7db9",
+        "filename": "test/DEPS",
+        "patchSetId": 23
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2024-12-03T17:29:39Z",
+      "side": 1,
+      "message": "Nit: Which one do we need?\n\nSince we enable most of strings already https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/DEPS;l\u003d2178-2183;drc\u003dd63aacb4604b0ea8ef49b8747f047beef25f98ae, let\u0027s call out the actual header we need here.",
+      "range": {
+        "startLine": 5,
+        "startChar": 0,
+        "endLine": 5,
+        "endChar": 18
+      },
+      "revId": "e4d4e3648307df00605f4ff33efd5ab03f650df1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

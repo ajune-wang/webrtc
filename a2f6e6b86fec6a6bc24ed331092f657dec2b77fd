@@ -16,6 +16,91 @@
       "message": "Main purpose of this change is to have only one piece of code that does PT assignments.",
       "revId": "a2f6e6b86fec6a6bc24ed331092f657dec2b77fd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6edd8326_81c31504",
+        "filename": "call/fake_payload_type_suggester.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2024-12-03T10:27:25Z",
+      "side": 1,
+      "message": "I see this was just moved rather than added, but I\u0027ll review it anyway:\n\nDon\u0027t we need to tell the `pt_picker_` in order to get consistent suggestions? Even if used only in testing I suspect we don\u0027t want code that misbehaves regarding PTs if we\u0027re testing PT stuff\n\nOr would that make this a real implementation rather than a fake?",
+      "revId": "a2f6e6b86fec6a6bc24ed331092f657dec2b77fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4d05db8b_75586fcd",
+        "filename": "call/payload_type.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2024-12-03T10:27:25Z",
+      "side": 1,
+      "message": "Delete?",
+      "revId": "a2f6e6b86fec6a6bc24ed331092f657dec2b77fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2f431543_8231870e",
+        "filename": "call/payload_type_picker.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2024-12-03T10:27:25Z",
+      "side": 1,
+      "message": "Another move, but...\n\nCan you explain the rationale between wanting a codec to be a low or a high range?\n- For example when we add a new codec (like H265) would we need to update this function?\n- Should we either DCHECK crash or LOG error if we don\u0027t recognize the codec here or does the default return value (false) make sense?",
+      "revId": "a2f6e6b86fec6a6bc24ed331092f657dec2b77fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "91a6f176_5933fd9e",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2024-12-03T10:27:25Z",
+      "side": 1,
+      "message": "Temporary? Should this land? Is there a crbug to reference?",
+      "revId": "a2f6e6b86fec6a6bc24ed331092f657dec2b77fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "89e9f594_a82786f5",
+        "filename": "pc/media_session.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 1293,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2024-12-03T10:27:25Z",
+      "side": 1,
+      "message": "What is the implication of having mid \u003d \"\" here?",
+      "revId": "a2f6e6b86fec6a6bc24ed331092f657dec2b77fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

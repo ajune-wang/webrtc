@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0c087ca3_fb5b925f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-12-03T09:09:53Z",
+      "side": 1,
+      "message": "Main purpose of this change is to have only one piece of code that does PT assignments.",
+      "revId": "a2f6e6b86fec6a6bc24ed331092f657dec2b77fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

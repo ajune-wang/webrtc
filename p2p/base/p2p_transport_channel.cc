@@ -987,6 +987,7 @@ void P2PTransportChannel::OnUnknownAddress(PortInterface* port,
                                            const std::string& remote_username,
                                            bool port_muxed) {
   RTC_DCHECK_RUN_ON(network_thread_);
+  RTC_DCHECK(stun_msg);
 
   // Port has received a valid stun packet from an address that no Connection
   // is currently available for. See if we already have a candidate with the

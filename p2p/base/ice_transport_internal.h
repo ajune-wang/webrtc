@@ -276,6 +276,7 @@ class RTC_EXPORT IceTransportInternal : public rtc::PacketTransportInternal {
   virtual void SetRemoteIceMode(IceMode mode) = 0;
 
   virtual void SetIceConfig(const IceConfig& config) = 0;
+  virtual const IceConfig& config() const = 0;
 
   // Start gathering candidates if not already started, or if an ICE restart
   // occurred.

@@ -146,7 +146,7 @@ class RTC_EXPORT P2PTransportChannel : public IceTransportInternal,
   // will not use it to update the respective parameter in `config_`.
   // TODO(deadbeef): Use std::optional instead of negative values.
   void SetIceConfig(const IceConfig& config) override;
-  const IceConfig& config() const;
+  const IceConfig& config() const override;
   static webrtc::RTCError ValidateIceConfig(const IceConfig& config);
 
   // From TransportChannel:

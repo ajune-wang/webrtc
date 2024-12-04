@@ -33,6 +33,24 @@
       "message": "1) code LGTM\n\n2) seems to pass (google) internal tests, yay!\n\n3) iwyu, how about simply removing the include of gtest from mock_ice_transport ?\nthat should fix it, shouldn\u0027t it ?",
       "revId": "336b15fd18e472b6af1e3365819f451973f2dc86",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "65e3e5a2_ffa70a8f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-12-04T18:11:19Z",
+      "side": 1,
+      "message": "ah, the include was added by IWYU because of the using statements (but that should have been a transitive include via rtc_base/gunit?)\nWhich are not used. Don\u0027t include what you do not use!\n\nhttps://source.chromium.org/chromium/chromium/src/+/main:remoting/protocol/channel_socket_adapter_unittest.cc;l\u003d21?q\u003dmock_ice_transport does not rely on a transitive include which is good...\n\nBut the verifier still fails, now on gmock which is required :-(",
+      "parentUuid": "c0d2472c_96b70afa",
+      "revId": "336b15fd18e472b6af1e3365819f451973f2dc86",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

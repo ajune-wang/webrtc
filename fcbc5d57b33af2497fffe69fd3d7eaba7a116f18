@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c67df0a2_cb6ba04c",
+        "filename": "test/android/native_test_util.cc",
+        "patchSetId": 24
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 12299
+      },
+      "writtenOn": "2024-12-04T09:38:34Z",
+      "side": 1,
+      "message": "This looks weird, where does this value comes from ?\n\nPersonally find [this](https://source.chromium.org/chromium/chromium/src/+/main:third_party/angle/src/common/string_utils.cpp;l\u003d161-173) code easier to read but it\u0027s definitely subjective.",
+      "range": {
+        "startLine": 41,
+        "startChar": 26,
+        "endLine": 41,
+        "endChar": 39
+      },
+      "revId": "fcbc5d57b33af2497fffe69fd3d7eaba7a116f18",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e233a208_8462c2a8",
+        "filename": "test/android/native_test_util.cc",
+        "patchSetId": 24
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 12299
+      },
+      "writtenOn": "2024-12-04T09:38:34Z",
+      "side": 1,
+      "message": "command_line_string.has_value()",
+      "range": {
+        "startLine": 115,
+        "startChar": 6,
+        "endLine": 115,
+        "endChar": 25
+      },
+      "revId": "fcbc5d57b33af2497fffe69fd3d7eaba7a116f18",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

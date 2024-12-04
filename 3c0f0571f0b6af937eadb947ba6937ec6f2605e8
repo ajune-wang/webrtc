@@ -33,6 +33,24 @@
       "message": "I was thinking p2p/dtls/dtls_utils* - there\u0027s too much misc junk in base/, and dtls is a fairly separable funcction. Once it\u0027s established, we can move the dtls interfaces there too.",
       "revId": "3c0f0571f0b6af937eadb947ba6937ec6f2605e8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4168e03f_bbfe8b95",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-12-04T18:41:36Z",
+      "side": 1,
+      "message": "Moved, p2p/base is becoming as much of a mess as rtc_base/!",
+      "parentUuid": "fdb4a417_a4e2daab",
+      "revId": "3c0f0571f0b6af937eadb947ba6937ec6f2605e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

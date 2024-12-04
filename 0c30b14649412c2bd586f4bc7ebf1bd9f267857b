@@ -53,6 +53,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7182cdfd_d520f3d6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8178
+      },
+      "writtenOn": "2024-12-04T21:20:21Z",
+      "side": 1,
+      "message": "The singlecast issues seem related to our code and the VideoStreamFactory we use. Fixing that and following the SinkWants, this commit seems to be all that\u0027s needed in the library.",
+      "parentUuid": "5068eacb_d15aca6a",
+      "revId": "0c30b14649412c2bd586f4bc7ebf1bd9f267857b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b3ad5e04_0da1a4be",
@@ -76,6 +94,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "45fad1b2_70851595",
+        "filename": "video/video_stream_encoder_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 9498,
+      "author": {
+        "id": 8178
+      },
+      "writtenOn": "2024-12-04T21:20:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b3ad5e04_0da1a4be",
+      "range": {
+        "startLine": 9498,
+        "startChar": 24,
+        "endLine": 9498,
+        "endChar": 26
+      },
+      "revId": "0c30b14649412c2bd586f4bc7ebf1bd9f267857b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9ca5512e_04b33fb1",
@@ -89,6 +131,30 @@
       "writtenOn": "2024-12-04T09:44:19Z",
       "side": 1,
       "message": "Currently it\u0027s quite hard to see what\u0027s happening here. IIUC, there are 2 configs for 2 streams for initial configuration and 2 configs for reconfiguration.\n\nPlease use more discriptive names. E.g. config_low_stream_before, config_low_stream_after, etc..\n\nAlso change resolution or bitrate for the high stream, so what it\u0027s clear that they are 2 simulcast configs for different streams. Please also initialize _after configs from corresponding _before configs for clarity.",
+      "range": {
+        "startLine": 9504,
+        "startChar": 20,
+        "endLine": 9504,
+        "endChar": 64
+      },
+      "revId": "0c30b14649412c2bd586f4bc7ebf1bd9f267857b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "72da4e10_eec9b1d7",
+        "filename": "video/video_stream_encoder_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 9504,
+      "author": {
+        "id": 8178
+      },
+      "writtenOn": "2024-12-04T21:20:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9ca5512e_04b33fb1",
       "range": {
         "startLine": 9504,
         "startChar": 20,

@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8ef02387_95603c91",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-12-04T20:32:55Z",
+      "side": 1,
+      "message": "Not much commentary on the code, but given that I like to nit, I\u0027ll just do it...",
+      "revId": "46bdcec4978f741db31d32ce148a009c63529cc7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5546ec69_5efa86bd",
+        "filename": "p2p/dtls/dtls_utils.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-12-04T20:32:55Z",
+      "side": 1,
+      "message": "rtc::ArrayView\u003cuint8_t\u003e u? Or just use payload directly? It has an [] operator with appropriate RTC_DCHECK.\nAny time I see a naked pointer, I see a potential OOB access....",
+      "revId": "46bdcec4978f741db31d32ce148a009c63529cc7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0da8565c_cc5183cc",
+        "filename": "p2p/dtls/dtls_utils.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-12-04T20:32:55Z",
+      "side": 1,
+      "message": "Is this the right return? Should it instead be RTCErrorOr\u003cstd::vector\u003cuint16_t\u003e\u003e, giving you a better path to reporting why it failed?\nOr is diagnosing failures never interesting?",
+      "revId": "46bdcec4978f741db31d32ce148a009c63529cc7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9289faf5_d764bf50",
+        "filename": "p2p/dtls/dtls_utils_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-12-04T20:32:55Z",
+      "side": 1,
+      "message": "Can you add some tests on invalid data?",
+      "revId": "46bdcec4978f741db31d32ce148a009c63529cc7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

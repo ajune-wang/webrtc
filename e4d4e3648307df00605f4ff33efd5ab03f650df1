@@ -22,6 +22,30 @@
       },
       "revId": "e4d4e3648307df00605f4ff33efd5ab03f650df1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "34431b40_85725fb4",
+        "filename": "test/DEPS",
+        "patchSetId": 23
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2024-12-04T09:04:44Z",
+      "side": 1,
+      "message": "Done\n\nI\u0027m using StrSplit to parse command line arguments. Writing a proper parser is one of the remaining TODOs, and after that we would probably not need this dependency.",
+      "parentUuid": "5811bf75_1c6f7db9",
+      "range": {
+        "startLine": 5,
+        "startChar": 0,
+        "endLine": 5,
+        "endChar": 18
+      },
+      "revId": "e4d4e3648307df00605f4ff33efd5ab03f650df1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

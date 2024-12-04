@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e198c496_74fd6eba",
+        "filename": "p2p/dtls/dtls_utils.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-12-04T23:26:20Z",
+      "side": 1,
+      "message": "copy-paste from existing code but done because that is better!",
+      "parentUuid": "5546ec69_5efa86bd",
+      "revId": "46bdcec4978f741db31d32ce148a009c63529cc7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0da8565c_cc5183cc",
@@ -54,6 +72,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e2e00f16_165fecd7",
+        "filename": "p2p/dtls/dtls_utils.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-12-04T23:26:20Z",
+      "side": 1,
+      "message": "I only use RTCError when we communicate something up to an API call (from its description: \"Roughly corresponds to RTCError in the web api\"). Since we do not get that the only way to discover what went wrong is native logging anyway.",
+      "parentUuid": "0da8565c_cc5183cc",
+      "revId": "46bdcec4978f741db31d32ce148a009c63529cc7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9289faf5_d764bf50",
         "filename": "p2p/dtls/dtls_utils_unittest.cc",
         "patchSetId": 4
@@ -65,6 +101,24 @@
       "writtenOn": "2024-12-04T20:32:55Z",
       "side": 1,
       "message": "Can you add some tests on invalid data?",
+      "revId": "46bdcec4978f741db31d32ce148a009c63529cc7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b8c7ceb0_c6285bda",
+        "filename": "p2p/dtls/dtls_utils_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-12-04T23:26:20Z",
+      "side": 1,
+      "message": "Can I resist a chance to use 0xde, 0xad, 0xbe, 0xef? No!\nI\u0027ll take a stab at a fuzzer once the related linux build woes (the issue disappeared?!) are resolved.",
+      "parentUuid": "9289faf5_d764bf50",
       "revId": "46bdcec4978f741db31d32ce148a009c63529cc7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

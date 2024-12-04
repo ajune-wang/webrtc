@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5068eacb_d15aca6a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8178
+      },
+      "writtenOn": "2024-12-04T10:13:32Z",
+      "side": 1,
+      "message": "The test is broken: https://wpt.fyi/results/webrtc/simulcast/setParameters-maxFramerate.https.html?label\u003dexperimental\u0026label\u003dmaster\u0026aligned\nWith it fixed locally I hit this issue in Firefox. Chrome instead times out because the highest layer isn\u0027t sent at all, so the receive side doesn\u0027t get a loadedmetadata event.\n\nI\u0027ll note though that I see a similar issue with singlecast vp8. It seems the vp8 vpx encoder ignores the max framerate in SetRates. Maybe that was the reason for reconfiguring the encoder on maxFramerate changes originally. Oddly it seems like two reconfigures are needed for maxFramerate to get applied properly, if I ignore the SinkWants asking the source to limit framerate. Still figuring out the best fix for that case.",
+      "parentUuid": "5f4cff48_8dd4aa7f",
+      "revId": "0c30b14649412c2bd586f4bc7ebf1bd9f267857b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9ca5512e_04b33fb1",

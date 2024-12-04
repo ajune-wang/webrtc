@@ -88,6 +88,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4588fdd2_5105d466",
+        "filename": "p2p/dtls/dtls_utils.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-12-04T23:39:12Z",
+      "side": 1,
+      "message": "I think C++23 is expecting us to use std::expected in this kind of case. There are other such constructs in other places, but I tend to go for RTCError, since it\u0027s a common paradigm in the code. But won\u0027t insist.",
+      "parentUuid": "e2e00f16_165fecd7",
+      "revId": "46bdcec4978f741db31d32ce148a009c63529cc7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9289faf5_d764bf50",
@@ -119,6 +137,24 @@
       "side": 1,
       "message": "Can I resist a chance to use 0xde, 0xad, 0xbe, 0xef? No!\nI\u0027ll take a stab at a fuzzer once the related linux build woes (the issue disappeared?!) are resolved.",
       "parentUuid": "9289faf5_d764bf50",
+      "revId": "46bdcec4978f741db31d32ce148a009c63529cc7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ed67eed3_8d7a2a97",
+        "filename": "p2p/dtls/dtls_utils_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-12-04T23:39:12Z",
+      "side": 1,
+      "message": ":-)",
+      "parentUuid": "b8c7ceb0_c6285bda",
       "revId": "46bdcec4978f741db31d32ce148a009c63529cc7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

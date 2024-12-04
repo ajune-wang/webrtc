@@ -33,6 +33,24 @@
       "message": "```suggestion\n// to literal strings that live for the whole duration of the program.\n```",
       "revId": "ad4b5777310179a4ff33c269e43eda91f9a9ec67",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "153893d0_f8294d96",
+        "filename": "api/rtc_error.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 18444
+      },
+      "writtenOn": "2024-12-04T12:18:18Z",
+      "side": 1,
+      "message": "Fix applied.",
+      "parentUuid": "df686a25_cac1dcbc",
+      "revId": "ad4b5777310179a4ff33c269e43eda91f9a9ec67",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

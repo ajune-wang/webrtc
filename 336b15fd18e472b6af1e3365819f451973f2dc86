@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ad657737_f21b51be",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-12-04T04:31:42Z",
+      "side": 1,
+      "message": "the remaining IWYU failure is odd, deep inside gtest?! Might be easiest to disable for this CL and then investigate separately.",
+      "revId": "336b15fd18e472b6af1e3365819f451973f2dc86",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

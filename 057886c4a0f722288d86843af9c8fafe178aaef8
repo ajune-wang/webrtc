@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7395cc59_e18952e0",
+        "filename": "sdk/android/BUILD.gn",
+        "patchSetId": 25
+      },
+      "lineNbr": 1585,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2024-12-04T14:34:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "363b4b70_0fd25802",
+      "range": {
+        "startLine": 1585,
+        "startChar": 7,
+        "endLine": 1585,
+        "endChar": 9
+      },
+      "revId": "057886c4a0f722288d86843af9c8fafe178aaef8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0ca94021_51bd585f",
@@ -47,6 +71,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cd4f27c9_3f4b34e8",
+        "filename": "sdk/android/native_unittests/test_jni_onload.cc",
+        "patchSetId": 25
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2024-12-04T14:34:53Z",
+      "side": 1,
+      "message": "Done, though webrtc:42223878 seems a bit more specific.",
+      "parentUuid": "0ca94021_51bd585f",
+      "range": {
+        "startLine": 26,
+        "startChar": 10,
+        "endLine": 26,
+        "endChar": 18
+      },
+      "revId": "057886c4a0f722288d86843af9c8fafe178aaef8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e075cec6_fc90f619",
@@ -60,6 +108,24 @@
       "writtenOn": "2024-12-04T12:17:34Z",
       "side": 1,
       "message": "Nit: it might be worth to have a comment linking to the original code in case we want to take inspiration in the future (and port some changes).\n\nSame for other files.",
+      "revId": "057886c4a0f722288d86843af9c8fafe178aaef8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "48710687_a0694f33",
+        "filename": "test/android/native_test_launcher.cc",
+        "patchSetId": 25
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2024-12-04T14:34:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e075cec6_fc90f619",
       "revId": "057886c4a0f722288d86843af9c8fafe178aaef8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

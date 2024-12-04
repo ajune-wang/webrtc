@@ -98,6 +98,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "992c8d38_507ece0d",
+        "filename": "test/android/native_test_util.cc",
+        "patchSetId": 24
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2024-12-04T14:34:53Z",
+      "side": 1,
+      "message": "While the ban is *intended* for prod code, I think the checks are applied to all C++ code. There will be bugs filed and people will do \"cleanups\". At least that\u0027s my experience from the event log visualization.",
+      "parentUuid": "ec84e748_c1152359",
+      "range": {
+        "startLine": 41,
+        "startChar": 26,
+        "endLine": 41,
+        "endChar": 39
+      },
+      "revId": "fcbc5d57b33af2497fffe69fd3d7eaba7a116f18",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e233a208_8462c2a8",
         "filename": "test/android/native_test_util.cc",
         "patchSetId": 24

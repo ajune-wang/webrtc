@@ -132,31 +132,6 @@ bool RequiresEncoderReset(const VideoCodec& prev_send_codec,
     return true;
   }
 
-  switch (new_send_codec.codecType) {
-    case kVideoCodecVP8:
-      if (new_send_codec.VP8() != prev_send_codec.VP8()) {
-        return true;
-      }
-      break;
-
-    case kVideoCodecVP9:
-      if (new_send_codec.VP9() != prev_send_codec.VP9()) {
-        return true;
-      }
-      break;
-
-    case kVideoCodecH264:
-      if (new_send_codec.H264() != prev_send_codec.H264()) {
-        return true;
-      }
-      break;
-    case kVideoCodecH265:
-      // No H.265 specific handling needed.
-      [[fallthrough]];
-    default:
-      break;
-  }
-
   for (unsigned char i = 0; i < new_send_codec.numberOfSimulcastStreams; ++i) {
     if (!new_send_codec.simulcastStream[i].active) {
       // No need to reset when stream is inactive.

@@ -22,6 +22,30 @@
       },
       "revId": "6c7ac74e8b17ef8c6dd7048fc3706afdf0f84c42",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "475f32fe_1da14168",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2024-12-04T11:34:09Z",
+      "side": 0,
+      "message": "Yes, I realized that right after sending it for review.",
+      "parentUuid": "bc50df79_aaed3147",
+      "range": {
+        "startLine": 137,
+        "startChar": 10,
+        "endLine": 137,
+        "endChar": 55
+      },
+      "revId": "6c7ac74e8b17ef8c6dd7048fc3706afdf0f84c42",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

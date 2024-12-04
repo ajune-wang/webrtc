@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "612d9832_8f9f34c0",
+        "filename": "test/android/native_test_util.cc",
+        "patchSetId": 24
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2024-12-04T11:28:05Z",
+      "side": 1,
+      "message": "This is a rewrite of their code with C-style IO (since webrtc avoids using streams). The code is longer because C requires explicitly checking for errors as opposed to having the error status carried in the stream object.\n\nFor this specific line, their corresponding line is\n```\n    auto size \u003d static_cast\u003cstd::string::size_type\u003e(inFile.tellg());\n```\nThis looks like a cast from a basic_istream::pos_type (which probably is signed and [might?]( https://source.chromium.org/chromium/chromium/src/+/main:third_party/libc++/src/include/istream;l\u003d1048;drc\u003d5108636c70c0b08fdbeb57de2640a22e138f6685) be negative if there is an error) to a std::string::size_type (which most likely is unsigned). This could then cause a OOM due to the reallocation on the following line.\n\nIn the case of ftell, the return type is long which is at least 32-bits, but may be larger. Since we implicitly cast this to size_t and reallocate the buffer backing the string, it\u0027s important that the value can be represented as a size_t (which could be 32-bits). Otherwise we could get an an OOB write in fread. By checking that it\u0027s at most 1\u0027000\u0027000\u0027000, we know that the value won\u0027t change in any 32-bit integer casts (regardless of whether the types are signed or unsigned).\n\nThis of course imposes a size limitation on the files that can be read. However, this function is in an anonymous namespace and we\u0027re only using it to read command line arguments from a file, and I\u0027d argue that if we\u0027re trying to construct a command line that\u0027s larger than one gigabyte, then something else has gone wrong.",
+      "parentUuid": "c67df0a2_cb6ba04c",
+      "range": {
+        "startLine": 41,
+        "startChar": 26,
+        "endLine": 41,
+        "endChar": 39
+      },
+      "revId": "fcbc5d57b33af2497fffe69fd3d7eaba7a116f18",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e233a208_8462c2a8",
         "filename": "test/android/native_test_util.cc",
         "patchSetId": 24
@@ -37,6 +61,30 @@
       "writtenOn": "2024-12-04T09:38:34Z",
       "side": 1,
       "message": "command_line_string.has_value()",
+      "range": {
+        "startLine": 115,
+        "startChar": 6,
+        "endLine": 115,
+        "endChar": 25
+      },
+      "revId": "fcbc5d57b33af2497fffe69fd3d7eaba7a116f18",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6227e749_0f2ccccc",
+        "filename": "test/android/native_test_util.cc",
+        "patchSetId": 24
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2024-12-04T11:28:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e233a208_8462c2a8",
       "range": {
         "startLine": 115,
         "startChar": 6,

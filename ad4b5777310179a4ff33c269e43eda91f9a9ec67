@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1efcf6e1_e6515de2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-12-04T12:14:20Z",
+      "side": 1,
+      "message": "Happy with the changes - fire away!",
+      "revId": "ad4b5777310179a4ff33c269e43eda91f9a9ec67",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "df686a25_cac1dcbc",
+        "filename": "api/rtc_error.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-12-04T12:14:20Z",
+      "side": 1,
+      "message": "```suggestion\n// to literal strings that live for the whole duration of the program.\n```",
+      "revId": "ad4b5777310179a4ff33c269e43eda91f9a9ec67",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

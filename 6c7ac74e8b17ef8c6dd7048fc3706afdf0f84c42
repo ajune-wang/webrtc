@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bc50df79_aaed3147",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2024-12-04T11:29:20Z",
+      "side": 0,
+      "message": "This code checks for equality of the `VideoCodecVP8` substruct though afaict, so e.g. number of temporal layers, denoising, etc.\nIs that already covered somewhere else that I\u0027m missing.\n\nIt\u0027s concerning that there are no tests failing otherwise.",
+      "range": {
+        "startLine": 137,
+        "startChar": 10,
+        "endLine": 137,
+        "endChar": 55
+      },
+      "revId": "6c7ac74e8b17ef8c6dd7048fc3706afdf0f84c42",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

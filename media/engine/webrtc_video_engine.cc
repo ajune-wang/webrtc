@@ -593,6 +593,7 @@ std::vector<VideoCodecSettings> MapCodecs(const std::vector<Codec>& codecs) {
     if (payload_codec_type.find(payload_type) != payload_codec_type.end()) {
       RTC_LOG(LS_ERROR) << "Payload type already registered: "
                         << in_codec.ToString();
+      RTC_DCHECK_NOTREACHED();
       return {};
     }
     payload_codec_type[payload_type] = in_codec.GetResiliencyType();
@@ -642,6 +643,7 @@ std::vector<VideoCodecSettings> MapCodecs(const std::vector<Codec>& codecs) {
           RTC_LOG(LS_ERROR)
               << "RTX codec with invalid or no associated payload type: "
               << in_codec.ToString();
+          RTC_DCHECK_NOTREACHED();
           return {};
         }
         int rtx_time;
@@ -671,6 +673,7 @@ std::vector<VideoCodecSettings> MapCodecs(const std::vector<Codec>& codecs) {
       RTC_LOG(LS_ERROR) << "RTX codec (PT=" << rtx_payload_type
                         << ") mapped to PT=" << associated_payload_type
                         << " which is not in the codec list.";
+      RTC_DCHECK_NOTREACHED();
       return {};
     }
     const Codec::ResiliencyType associated_codec_type = it->second;
@@ -680,6 +683,7 @@ std::vector<VideoCodecSettings> MapCodecs(const std::vector<Codec>& codecs) {
           << "RTX PT=" << rtx_payload_type
           << " not mapped to regular video codec or RED codec (PT="
           << associated_payload_type << ").";
+      RTC_DCHECK_NOTREACHED();
       return {};
     }
 

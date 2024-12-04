@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "363b4b70_0fd25802",
+        "filename": "sdk/android/BUILD.gn",
+        "patchSetId": 25
+      },
+      "lineNbr": 1585,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2024-12-04T12:17:34Z",
+      "side": 1,
+      "message": "This is not needed, right?\n\nI understood that only the srcjar_deps required the fully qualified label.",
+      "range": {
+        "startLine": 1585,
+        "startChar": 7,
+        "endLine": 1585,
+        "endChar": 9
+      },
+      "revId": "057886c4a0f722288d86843af9c8fafe178aaef8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0ca94021_51bd585f",
+        "filename": "sdk/android/native_unittests/test_jni_onload.cc",
+        "patchSetId": 25
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2024-12-04T12:17:34Z",
+      "side": 1,
+      "message": "nit: webrtc:42223878?\n\nalso below",
+      "range": {
+        "startLine": 26,
+        "startChar": 10,
+        "endLine": 26,
+        "endChar": 18
+      },
+      "revId": "057886c4a0f722288d86843af9c8fafe178aaef8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e075cec6_fc90f619",
+        "filename": "test/android/native_test_launcher.cc",
+        "patchSetId": 25
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2024-12-04T12:17:34Z",
+      "side": 1,
+      "message": "Nit: it might be worth to have a comment linking to the original code in case we want to take inspiration in the future (and port some changes).\n\nSame for other files.",
+      "revId": "057886c4a0f722288d86843af9c8fafe178aaef8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ec84e748_c1152359",
+        "filename": "test/android/native_test_util.cc",
+        "patchSetId": 24
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2024-12-04T12:17:34Z",
+      "side": 1,
+      "message": "If you want (later is OK) I think we can use streams for test/infra code. I think the ban is on WebRTC production code.",
+      "parentUuid": "612d9832_8f9f34c0",
+      "range": {
+        "startLine": 41,
+        "startChar": 26,
+        "endLine": 41,
+        "endChar": 39
+      },
+      "revId": "fcbc5d57b33af2497fffe69fd3d7eaba7a116f18",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e233a208_8462c2a8",
         "filename": "test/android/native_test_util.cc",
         "patchSetId": 24

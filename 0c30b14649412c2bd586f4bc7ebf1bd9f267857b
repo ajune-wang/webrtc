@@ -55,6 +55,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b3ad5e04_0da1a4be",
+        "filename": "video/video_stream_encoder_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 9498,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2024-12-04T15:58:54Z",
+      "side": 1,
+      "message": "Change to prefix form: https://google.github.io/styleguide/cppguide.html#Preincrement_and_Predecrement\n\nHere and below.\n\nOr set `max_framerate` to hardcoded values to avoid dependency on default (which potentially can be 0).",
+      "range": {
+        "startLine": 9498,
+        "startChar": 24,
+        "endLine": 9498,
+        "endChar": 26
+      },
+      "revId": "0c30b14649412c2bd586f4bc7ebf1bd9f267857b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9ca5512e_04b33fb1",
         "filename": "video/video_stream_encoder_unittest.cc",
         "patchSetId": 2

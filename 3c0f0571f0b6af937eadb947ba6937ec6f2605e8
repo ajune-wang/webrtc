@@ -16,6 +16,23 @@
       "message": "right place? The DTLS parser is not terrible!",
       "revId": "3c0f0571f0b6af937eadb947ba6937ec6f2605e8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fdb4a417_a4e2daab",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-12-04T09:33:45Z",
+      "side": 1,
+      "message": "I was thinking p2p/dtls/dtls_utils* - there\u0027s too much misc junk in base/, and dtls is a fairly separable funcction. Once it\u0027s established, we can move the dtls interfaces there too.",
+      "revId": "3c0f0571f0b6af937eadb947ba6937ec6f2605e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

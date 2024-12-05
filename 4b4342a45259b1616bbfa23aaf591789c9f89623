@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "53707fb7_a5cd2073",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8178
+      },
+      "writtenOn": "2024-12-05T00:23:49Z",
+      "side": 1,
+      "message": "I don\u0027t get this ios failure. Code seems unrelated. I have had it spinning on the same simulator locally for thousands of iterations without a failure. No logs, no stack... But 3/3 CQ runs `RandomSeeds/RtcEventLogEncoderTest.RtcEventRtcpReceiverReport/41` has failed.\n\nSergey, please if you have any thoughts..",
+      "revId": "4b4342a45259b1616bbfa23aaf591789c9f89623",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

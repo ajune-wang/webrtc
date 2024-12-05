@@ -33,6 +33,24 @@
       "message": "Turned out someone\u0027s subclassing this interface. Needs a default implementation that does RTC_CHECK_NOTREACHED.",
       "revId": "1cf342a321fcbd2bf293470f1b190d473393b64d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c9477385_d7d1294c",
+        "filename": "p2p/base/ice_transport_internal.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-12-05T21:28:52Z",
+      "side": 1,
+      "message": "ack: https://webrtc-review.googlesource.com/c/src/+/370284",
+      "parentUuid": "4a65c887_9468bc1e",
+      "revId": "1cf342a321fcbd2bf293470f1b190d473393b64d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

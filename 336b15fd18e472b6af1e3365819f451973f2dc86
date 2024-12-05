@@ -51,6 +51,24 @@
       "parentUuid": "c0d2472c_96b70afa",
       "revId": "336b15fd18e472b6af1e3365819f451973f2dc86",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3fff6835_95132cfc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-12-05T06:46:41Z",
+      "side": 1,
+      "message": "apply-include-cleaner special-cases gtest and gmock (include-cleaner adds gtest/gtest and gmock/gmock, they should be test/* in webrtc), but isn\u0027t smart enough to catch variants.",
+      "parentUuid": "65e3e5a2_ffa70a8f",
+      "revId": "336b15fd18e472b6af1e3365819f451973f2dc86",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

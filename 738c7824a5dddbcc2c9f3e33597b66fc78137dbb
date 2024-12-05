@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "58c6e64c_ed30c854",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-12-05T06:49:23Z",
+      "side": 1,
+      "message": "Calling out the difference between an empty list and a logic error.",
+      "revId": "738c7824a5dddbcc2c9f3e33597b66fc78137dbb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

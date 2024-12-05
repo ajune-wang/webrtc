@@ -95,44 +95,46 @@ if [[ -z "$COMPILE_COMMANDS" ]]; then
   fi
 fi
 
-FILE="$1"
+# To get a list of files in a commit: git diff-tree --no-commit-id --name-only -r HEAD
+for FILE in "$@"
+do
+  if [ -z $FILE ] || [ ! -f $FILE ]; then
+    usage
+    error "File $FILE is not found"
+  fi
 
-if [ -z $FILE ] || [ ! -f $FILE ]; then
-  usage
-  error "File $FILE is not found"
-fi
+  # Run the command in $WORKDIR because of this reported issue:
+  # https://github.com/llvm/llvm-project/issues/110843
+  cd $WORKDIR
+  OUTPUT=$(../../$CLEANER $INCLUDE_ARGS $COMMAND ../../$FILE)
+  cd -
 
-# Run the command in $WORKDIR because of this reported issue:
-# https://github.com/llvm/llvm-project/issues/110843
-cd $WORKDIR
-OUTPUT=$(../../$CLEANER $INCLUDE_ARGS $COMMAND ../../$FILE)
-cd -
+  # include-cleaner does not support custom mappings for certain deps
+  # this ensures that the gtest/gmock deps it inserts are replaced
+  # with the right paths for those includes.
+  # Since sed inplace argument acts differently between GNU/BSD based systems
+  # we handle this here.
+  case "$(uname -s)" in
+      Linux*)     INPLACE_ARG=( -i );;
+      Darwin*)    INPLACE_ARG=( -i '' );;
+      *)          INPLACE_ARG=( -i )
+  esac
+  for INCLUDE in "gtest" "gmock"; do
+    if grep -q "#include \"test\/${INCLUDE}\.h\"" $FILE; then
+      OUTPUT=${OUTPUT//"+ \"${INCLUDE}"\/"${INCLUDE}.h\""/}
+      sed "${INPLACE_ARG[@]}" -e "/#include \"${INCLUDE}\/${INCLUDE}\.h\"/d" $FILE
+    else
+      sed "${INPLACE_ARG[@]}" -e "s@^#include \"${INCLUDE}\/${INCLUDE}\.h@#include \"test\/${INCLUDE}\.h@g" $FILE
+    fi
+  done
 
-# include-cleaner does not support custom mappings for certain deps
-# this ensures that the gtest/gmock deps it inserts are replaced
-# with the right paths for those includes.
-# Since sed inplace argument acts differently between GNU/BSD based systems
-# we handle this here.
-case "$(uname -s)" in
-    Linux*)     INPLACE_ARG=( -i );;
-    Darwin*)    INPLACE_ARG=( -i '' );;
-    *)          INPLACE_ARG=( -i )
-esac
-for INCLUDE in "gtest" "gmock"; do
-  if grep -q "#include \"test\/${INCLUDE}\.h\"" $FILE; then
-    OUTPUT=${OUTPUT//"+ \"${INCLUDE}"\/"${INCLUDE}.h\""/}
-    sed "${INPLACE_ARG[@]}" -e "/#include \"${INCLUDE}\/${INCLUDE}\.h\"/d" $FILE
-  else
-    sed "${INPLACE_ARG[@]}" -e "s@^#include \"${INCLUDE}\/${INCLUDE}\.h@#include \"test\/${INCLUDE}\.h@g" $FILE
+  echo "${OUTPUT}"
+  echo "Finished. Check diff, compile, gn gen --check and git cl format"
+  echo "before uploading."
+
+  # Return a non-zero exit code if running with "CHECK_MODE"
+  # and there are changes to apply.
+  if $CHECK_MODE && [[ ! -z $OUTPUT ]]; then
+    exit 1
   fi
 done
-
-echo "${OUTPUT}"
-echo "Finished. Check diff, compile, gn gen --check and git cl format"
-echo "before uploading."
-
-# Return a non-zero exit code if running with "CHECK_MODE"
-# and there are changes to apply.
-if $CHECK_MODE && [[ ! -z $OUTPUT ]]; then
-  exit 1
-fi

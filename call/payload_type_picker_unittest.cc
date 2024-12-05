@@ -174,4 +174,15 @@ TEST(PayloadTypePicker, RecordedValueExcluded) {
   EXPECT_NE(47, result.value());
 }
 
+TEST(PayloadTypePicker, H264ProfilesAreDifferent) {
+  PayloadTypePicker picker;
+  cricket::Codec a_codec = cricket::CreateVideoCodec(-1, "h264");
+  cricket::Codec b_codec = cricket::CreateVideoCodec(-1, "h264");
+  a_codec.SetParam("profile-level-id", "640c1f");
+  b_codec.SetParam("profile-level-id", "640c2a");
+  PayloadType a_id = picker.SuggestMapping(a_codec, nullptr).value();
+  PayloadType b_id = picker.SuggestMapping(b_codec, nullptr).value();
+  EXPECT_NE(a_id, b_id);
+}
+
 }  // namespace webrtc

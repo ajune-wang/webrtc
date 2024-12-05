@@ -107,15 +107,22 @@ bool IsSameH265TxMode(const CodecParameterMap& left,
 bool IsSameCodecSpecific(const std::string& name1,
                          const CodecParameterMap& params1,
                          const std::string& name2,
-                         const CodecParameterMap& params2) {
+                         const CodecParameterMap& params2,
+                         bool match_levels) {
   // The names might not necessarily match, so check both.
   auto either_name_matches = [&](const std::string name) {
     return absl::EqualsIgnoreCase(name, name1) ||
            absl::EqualsIgnoreCase(name, name2);
   };
-  if (either_name_matches(cricket::kH264CodecName))
-    return H264IsSameProfile(params1, params2) &&
-           H264IsSamePacketizationMode(params1, params2);
+  if (either_name_matches(cricket::kH264CodecName)) {
+    if (match_levels) {
+      return H264IsSameProfileAndLevel(params1, params2) &&
+             H264IsSamePacketizationMode(params1, params2);
+    } else {
+      return H264IsSameProfile(params1, params2) &&
+             H264IsSamePacketizationMode(params1, params2);
+    }
+  }
   if (either_name_matches(cricket::kVp9CodecName))
     return VP9IsSameProfile(params1, params2);
   if (either_name_matches(cricket::kAv1CodecName))
@@ -141,11 +148,136 @@ bool ReferencedCodecsMatch(const std::vector<Codec>& codecs1,
   return codec1 != nullptr && codec2 != nullptr && codec1->Matches(*codec2);
 }
 
+CodecParameterMap InsertDefaultParams(const std::string& name,
+                                      const CodecParameterMap& params) {
+  CodecParameterMap updated_params = params;
+  if (absl::EqualsIgnoreCase(name, cricket::kVp9CodecName)) {
+    if (!HasParameter(params, kVP9FmtpProfileId)) {
+      if (std::optional<VP9Profile> default_profile =
+              ParseSdpForVP9Profile({})) {
+        updated_params.insert(
+            {kVP9FmtpProfileId, VP9ProfileToString(*default_profile)});
+      }
+    }
+  }
+  if (absl::EqualsIgnoreCase(name, cricket::kAv1CodecName)) {
+    if (!HasParameter(params, cricket::kAv1FmtpProfile)) {
+      if (std::optional<AV1Profile> default_profile =
+              ParseSdpForAV1Profile({})) {
+        updated_params.insert({cricket::kAv1FmtpProfile,
+                               AV1ProfileToString(*default_profile).data()});
+      }
+    }
+    if (!HasParameter(params, cricket::kAv1FmtpTier)) {
+      updated_params.insert({cricket::kAv1FmtpTier, AV1GetTierOrDefault({})});
+    }
+    if (!HasParameter(params, cricket::kAv1FmtpLevelIdx)) {
+      updated_params.insert(
+          {cricket::kAv1FmtpLevelIdx, AV1GetLevelIdxOrDefault({})});
+    }
+  }
+  if (absl::EqualsIgnoreCase(name, cricket::kH264CodecName)) {
+    if (!HasParameter(params, cricket::kH264FmtpPacketizationMode)) {
+      updated_params.insert({cricket::kH264FmtpPacketizationMode,
+                             H264GetPacketizationModeOrDefault({})});
+    }
+  }
+#ifdef RTC_ENABLE_H265
+  if (absl::EqualsIgnoreCase(name, cricket::kH265CodecName)) {
+    if (std::optional<H265ProfileTierLevel> default_params =
+            ParseSdpForH265ProfileTierLevel({})) {
+      if (!HasParameter(params, cricket::kH265FmtpProfileId)) {
+        updated_params.insert({cricket::kH265FmtpProfileId,
+                               H265ProfileToString(default_params->profile)});
+      }
+      if (!HasParameter(params, cricket::kH265FmtpLevelId)) {
+        updated_params.insert({cricket::kH265FmtpLevelId,
+                               H265LevelToString(default_params->level)});
+      }
+      if (!HasParameter(params, cricket::kH265FmtpTierFlag)) {
+        updated_params.insert({cricket::kH265FmtpTierFlag,
+                               H265TierToString(default_params->tier)});
+      }
+    }
+    if (!HasParameter(params, cricket::kH265FmtpTxMode)) {
+      updated_params.insert(
+          {cricket::kH265FmtpTxMode, GetH265TxModeOrDefault({})});
+    }
+  }
+#endif
+  return updated_params;
+}
+
+bool MatchesWithCodecRulesInternal(const Codec& left_codec,
+                                   const Codec& right_codec,
+                                   bool match_levels) {
+  // Match the codec id/name based on the typical static/dynamic name rules.
+  // Matching is case-insensitive.
+
+  // We support the ranges [96, 127] and more recently [35, 65].
+  // https://www.iana.org/assignments/rtp-parameters/rtp-parameters.xhtml#rtp-parameters-1
+  // Within those ranges we match by codec name, outside by codec id.
+  // We also match by name if either ID is unassigned.
+  // Since no codecs are assigned an id in the range [66, 95] by us, these will
+  // never match.
+  const int kLowerDynamicRangeMin = 35;
+  const int kLowerDynamicRangeMax = 65;
+  const int kUpperDynamicRangeMin = 96;
+  const int kUpperDynamicRangeMax = 127;
+  const bool is_id_in_dynamic_range =
+      (left_codec.id >= kLowerDynamicRangeMin &&
+       left_codec.id <= kLowerDynamicRangeMax) ||
+      (left_codec.id >= kUpperDynamicRangeMin &&
+       left_codec.id <= kUpperDynamicRangeMax);
+  const bool is_codec_id_in_dynamic_range =
+      (right_codec.id >= kLowerDynamicRangeMin &&
+       right_codec.id <= kLowerDynamicRangeMax) ||
+      (right_codec.id >= kUpperDynamicRangeMin &&
+       right_codec.id <= kUpperDynamicRangeMax);
+  bool matches_id;
+  if ((is_id_in_dynamic_range && is_codec_id_in_dynamic_range) ||
+      left_codec.id == Codec::kIdNotSet || right_codec.id == Codec::kIdNotSet) {
+    matches_id = absl::EqualsIgnoreCase(left_codec.name, right_codec.name);
+  } else {
+    matches_id = (left_codec.id == right_codec.id);
+  }
+
+  auto matches_type_specific = [&]() {
+    switch (left_codec.type) {
+      case Codec::Type::kAudio:
+        // If a nonzero clockrate is specified, it must match the actual
+        // clockrate. If a nonzero bitrate is specified, it must match the
+        // actual bitrate, unless the codec is VBR (0), where we just force the
+        // supplied value. The number of channels must match exactly, with the
+        // exception that channels=0 is treated synonymously as channels=1, per
+        // RFC 4566 section 6: " [The channels] parameter is OPTIONAL and may be
+        // omitted if the number of channels is one."
+        // Preference is ignored.
+        // TODO(juberti): Treat a zero clockrate as 8000Hz, the RTP default
+        // clockrate.
+        return ((right_codec.clockrate == 0 /*&& clockrate == 8000*/) ||
+                left_codec.clockrate == right_codec.clockrate) &&
+               (right_codec.bitrate == 0 || left_codec.bitrate <= 0 ||
+                left_codec.bitrate == right_codec.bitrate) &&
+               ((right_codec.channels < 2 && left_codec.channels < 2) ||
+                left_codec.channels == right_codec.channels);
+
+      case Codec::Type::kVideo:
+        return IsSameCodecSpecific(left_codec.name, left_codec.params,
+                                   right_codec.name, right_codec.params,
+                                   match_levels);
+    }
+  };
+
+  return matches_id && matches_type_specific();
+}
+
 bool MatchesWithReferenceAttributesAndComparator(
     const Codec& codec_to_match,
     const Codec& potential_match,
     absl::AnyInvocable<bool(int, int)> reference_comparator) {
-  if (!MatchesWithCodecRules(codec_to_match, potential_match)) {
+  if (!MatchesWithCodecRulesInternal(codec_to_match, potential_match,
+                                     /* match_levels= */ true)) {
     return false;
   }
   Codec::ResiliencyType resiliency_type = codec_to_match.GetResiliencyType();
@@ -219,127 +351,16 @@ bool MatchesWithReferenceAttributesAndComparator(
   return true;  // Not a codec with a PT-valued reference.
 }
 
-CodecParameterMap InsertDefaultParams(const std::string& name,
-                                      const CodecParameterMap& params) {
-  CodecParameterMap updated_params = params;
-  if (absl::EqualsIgnoreCase(name, cricket::kVp9CodecName)) {
-    if (!HasParameter(params, kVP9FmtpProfileId)) {
-      if (std::optional<VP9Profile> default_profile =
-              ParseSdpForVP9Profile({})) {
-        updated_params.insert(
-            {kVP9FmtpProfileId, VP9ProfileToString(*default_profile)});
-      }
-    }
-  }
-  if (absl::EqualsIgnoreCase(name, cricket::kAv1CodecName)) {
-    if (!HasParameter(params, cricket::kAv1FmtpProfile)) {
-      if (std::optional<AV1Profile> default_profile =
-              ParseSdpForAV1Profile({})) {
-        updated_params.insert({cricket::kAv1FmtpProfile,
-                               AV1ProfileToString(*default_profile).data()});
-      }
-    }
-    if (!HasParameter(params, cricket::kAv1FmtpTier)) {
-      updated_params.insert({cricket::kAv1FmtpTier, AV1GetTierOrDefault({})});
-    }
-    if (!HasParameter(params, cricket::kAv1FmtpLevelIdx)) {
-      updated_params.insert(
-          {cricket::kAv1FmtpLevelIdx, AV1GetLevelIdxOrDefault({})});
-    }
-  }
-  if (absl::EqualsIgnoreCase(name, cricket::kH264CodecName)) {
-    if (!HasParameter(params, cricket::kH264FmtpPacketizationMode)) {
-      updated_params.insert({cricket::kH264FmtpPacketizationMode,
-                             H264GetPacketizationModeOrDefault({})});
-    }
-  }
-#ifdef RTC_ENABLE_H265
-  if (absl::EqualsIgnoreCase(name, cricket::kH265CodecName)) {
-    if (std::optional<H265ProfileTierLevel> default_params =
-            ParseSdpForH265ProfileTierLevel({})) {
-      if (!HasParameter(params, cricket::kH265FmtpProfileId)) {
-        updated_params.insert({cricket::kH265FmtpProfileId,
-                               H265ProfileToString(default_params->profile)});
-      }
-      if (!HasParameter(params, cricket::kH265FmtpLevelId)) {
-        updated_params.insert({cricket::kH265FmtpLevelId,
-                               H265LevelToString(default_params->level)});
-      }
-      if (!HasParameter(params, cricket::kH265FmtpTierFlag)) {
-        updated_params.insert({cricket::kH265FmtpTierFlag,
-                               H265TierToString(default_params->tier)});
-      }
-    }
-    if (!HasParameter(params, cricket::kH265FmtpTxMode)) {
-      updated_params.insert(
-          {cricket::kH265FmtpTxMode, GetH265TxModeOrDefault({})});
-    }
-  }
-#endif
-  return updated_params;
-}
-
 }  // namespace
 
-bool MatchesWithCodecRules(const Codec& left_codec, const Codec& right_codec) {
-  // Match the codec id/name based on the typical static/dynamic name rules.
-  // Matching is case-insensitive.
+bool MatchesWithCodecRules(const Codec& codec1, const Codec& codec2) {
+  return MatchesWithCodecRulesInternal(codec1, codec2,
+                                       /* match_levels= */ false);
+}
 
-  // We support the ranges [96, 127] and more recently [35, 65].
-  // https://www.iana.org/assignments/rtp-parameters/rtp-parameters.xhtml#rtp-parameters-1
-  // Within those ranges we match by codec name, outside by codec id.
-  // We also match by name if either ID is unassigned.
-  // Since no codecs are assigned an id in the range [66, 95] by us, these will
-  // never match.
-  const int kLowerDynamicRangeMin = 35;
-  const int kLowerDynamicRangeMax = 65;
-  const int kUpperDynamicRangeMin = 96;
-  const int kUpperDynamicRangeMax = 127;
-  const bool is_id_in_dynamic_range =
-      (left_codec.id >= kLowerDynamicRangeMin &&
-       left_codec.id <= kLowerDynamicRangeMax) ||
-      (left_codec.id >= kUpperDynamicRangeMin &&
-       left_codec.id <= kUpperDynamicRangeMax);
-  const bool is_codec_id_in_dynamic_range =
-      (right_codec.id >= kLowerDynamicRangeMin &&
-       right_codec.id <= kLowerDynamicRangeMax) ||
-      (right_codec.id >= kUpperDynamicRangeMin &&
-       right_codec.id <= kUpperDynamicRangeMax);
-  bool matches_id;
-  if ((is_id_in_dynamic_range && is_codec_id_in_dynamic_range) ||
-      left_codec.id == Codec::kIdNotSet || right_codec.id == Codec::kIdNotSet) {
-    matches_id = absl::EqualsIgnoreCase(left_codec.name, right_codec.name);
-  } else {
-    matches_id = (left_codec.id == right_codec.id);
-  }
-
-  auto matches_type_specific = [&]() {
-    switch (left_codec.type) {
-      case Codec::Type::kAudio:
-        // If a nonzero clockrate is specified, it must match the actual
-        // clockrate. If a nonzero bitrate is specified, it must match the
-        // actual bitrate, unless the codec is VBR (0), where we just force the
-        // supplied value. The number of channels must match exactly, with the
-        // exception that channels=0 is treated synonymously as channels=1, per
-        // RFC 4566 section 6: " [The channels] parameter is OPTIONAL and may be
-        // omitted if the number of channels is one."
-        // Preference is ignored.
-        // TODO(juberti): Treat a zero clockrate as 8000Hz, the RTP default
-        // clockrate.
-        return ((right_codec.clockrate == 0 /*&& clockrate == 8000*/) ||
-                left_codec.clockrate == right_codec.clockrate) &&
-               (right_codec.bitrate == 0 || left_codec.bitrate <= 0 ||
-                left_codec.bitrate == right_codec.bitrate) &&
-               ((right_codec.channels < 2 && left_codec.channels < 2) ||
-                left_codec.channels == right_codec.channels);
-
-      case Codec::Type::kVideo:
-        return IsSameCodecSpecific(left_codec.name, left_codec.params,
-                                   right_codec.name, right_codec.params);
-    }
-  };
-
-  return matches_id && matches_type_specific();
+bool MatchesWithReferenceAttributes(const Codec& codec1, const Codec& codec2) {
+  return MatchesWithReferenceAttributesAndComparator(
+      codec1, codec2, [](int a, int b) { return a == b; });
 }
 
 // Finds a codec in `codecs2` that matches `codec_to_match`, which is

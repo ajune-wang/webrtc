@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c7dc6ab6_7cc4fa65",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-12-05T13:16:42Z",
+      "side": 1,
+      "message": "I think it\u0027s time to move on with this plan.",
+      "revId": "91256c333445844f185f9bf3846d1e9d66852fb8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

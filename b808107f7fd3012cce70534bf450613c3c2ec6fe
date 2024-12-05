@@ -87,6 +87,42 @@
       "message": "CC eshr do you have a take on the need for this?",
       "revId": "b808107f7fd3012cce70534bf450613c3c2ec6fe",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6a2d2351_53f4e56e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2024-12-05T15:50:29Z",
+      "side": 1,
+      "message": "On testing components that depends on encoded bitrate. Do they even need bitstream?",
+      "parentUuid": "6e6c405f_de1bcbe5",
+      "revId": "b808107f7fd3012cce70534bf450613c3c2ec6fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bef50b72_9a15b31c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2024-12-05T15:50:29Z",
+      "side": 1,
+      "message": "For testing rate control, bandwidth-based quality scaler, etc (whatever needs encoded bitrate), frame sizes + some metadata (frame type, etc) should be sufficient.\n\nFor testing parsers on receiver side hardcoded bitstreams should work.\n\nFor end-to-end testing I suggest we use real encoders. HW H265 is available on Chromium/WebRTC Android test bots.",
+      "parentUuid": "6e6c405f_de1bcbe5",
+      "revId": "b808107f7fd3012cce70534bf450613c3c2ec6fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

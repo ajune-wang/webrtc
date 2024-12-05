@@ -8,26 +8,40 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef P2P_BASE_DTLS_TRANSPORT_H_
-#define P2P_BASE_DTLS_TRANSPORT_H_
+#ifndef P2P_DTLS_DTLS_TRANSPORT_H_
+#define P2P_DTLS_DTLS_TRANSPORT_H_
 
+#include <cstddef>
+#include <cstdint>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
 #include "absl/strings/string_view.h"
+#include "api/array_view.h"
 #include "api/crypto/crypto_options.h"
 #include "api/dtls_transport_interface.h"
+#include "api/rtc_error.h"
+#include "api/rtc_event_log/rtc_event_log.h"
+#include "api/scoped_refptr.h"
 #include "api/sequence_checker.h"
-#include "p2p/base/dtls_transport_internal.h"
 #include "p2p/base/ice_transport_internal.h"
+#include "p2p/dtls/dtls_transport_internal.h"
+#include "rtc_base/async_packet_socket.h"
 #include "rtc_base/buffer.h"
 #include "rtc_base/buffer_queue.h"
 #include "rtc_base/network/received_packet.h"
+#include "rtc_base/network/sent_packet.h"
+#include "rtc_base/network_route.h"
+#include "rtc_base/socket.h"
+#include "rtc_base/ssl_certificate.h"
+#include "rtc_base/ssl_fingerprint.h"
 #include "rtc_base/ssl_stream_adapter.h"
 #include "rtc_base/stream.h"
 #include "rtc_base/strings/string_builder.h"
 #include "rtc_base/system/no_unique_address.h"
+#include "rtc_base/thread_annotations.h"
 
 namespace rtc {
 class PacketTransportInternal;
@@ -260,4 +274,4 @@ class DtlsTransport : public DtlsTransportInternal {
 
 }  // namespace cricket
 
-#endif  // P2P_BASE_DTLS_TRANSPORT_H_
+#endif  // P2P_DTLS_DTLS_TRANSPORT_H_

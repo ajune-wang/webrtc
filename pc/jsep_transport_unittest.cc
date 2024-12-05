@@ -20,10 +20,10 @@
 
 #include "api/candidate.h"
 #include "media/base/fake_rtp.h"
-#include "p2p/base/fake_dtls_transport.h"
 #include "p2p/base/fake_ice_transport.h"
 #include "p2p/base/p2p_constants.h"
 #include "p2p/base/packet_transport_internal.h"
+#include "p2p/dtls/fake_dtls_transport.h"
 #include "rtc_base/async_packet_socket.h"
 #include "rtc_base/buffer.h"
 #include "rtc_base/byte_order.h"

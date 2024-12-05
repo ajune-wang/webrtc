@@ -16,8 +16,8 @@
 
 #include "api/make_ref_counted.h"
 #include "api/rtc_error.h"
-#include "p2p/base/fake_dtls_transport.h"
 #include "p2p/base/p2p_constants.h"
+#include "p2p/dtls/fake_dtls_transport.h"
 #include "rtc_base/fake_ssl_identity.h"
 #include "rtc_base/gunit.h"
 #include "rtc_base/rtc_certificate.h"

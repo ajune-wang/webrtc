@@ -19,7 +19,7 @@
 #include "api/sequence_checker.h"
 #include "api/transport/data_channel_transport_interface.h"
 #include "media/sctp/sctp_transport_internal.h"
-#include "p2p/base/dtls_transport_internal.h"
+#include "p2p/dtls/dtls_transport_internal.h"
 #include "pc/dtls_transport.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/thread.h"

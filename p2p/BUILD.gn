@@ -27,8 +27,6 @@ rtc_library("rtc_p2p") {
     "base/connection.h",  # To be removed
     "base/connection_info.h",  # To be removed
     "base/default_ice_transport_factory.h",  # To be removed (Chrome)
-    "base/dtls_transport.h",  # To be removed
-    "base/dtls_transport_internal.h",  # To be removed
     "base/ice_agent_interface.h",  # To be removed (Chrome)
     "base/ice_controller_interface.h",  # To be removed (Chrome)
     "base/ice_credentials_iterator.h",  # To be removed
@@ -50,6 +48,8 @@ rtc_library("rtc_p2p") {
     "base/turn_port.h",  # To be removed
     "client/basic_port_allocator.h",  # To be removed
     "client/turn_port_factory.h",  # To be removed
+    "dtls/dtls_transport.h",  # To be removed
+    "dtls/dtls_transport_internal.h",  # To be removed
   ]
 
   deps = [
@@ -389,8 +389,8 @@ rtc_library("default_ice_transport_factory") {
 
 rtc_library("dtls_transport") {
   sources = [
-    "base/dtls_transport.cc",
-    "base/dtls_transport.h",
+    "dtls/dtls_transport.cc",
+    "dtls/dtls_transport.h",
   ]
   deps = [
     ":dtls_transport_internal",
@@ -429,7 +429,7 @@ rtc_library("dtls_transport") {
 }
 
 rtc_source_set("dtls_transport_factory") {
-  sources = [ "base/dtls_transport_factory.h" ]
+  sources = [ "dtls/dtls_transport_factory.h" ]
   deps = [
     ":dtls_transport_internal",
     ":ice_transport_internal",
@@ -438,8 +438,8 @@ rtc_source_set("dtls_transport_factory") {
 
 rtc_library("dtls_transport_internal") {
   sources = [
-    "base/dtls_transport_internal.cc",
-    "base/dtls_transport_internal.h",
+    "dtls/dtls_transport_internal.cc",
+    "dtls/dtls_transport_internal.h",
   ]
   deps = [
     ":ice_transport_internal",
@@ -1049,7 +1049,6 @@ if (rtc_include_tests) {
   rtc_library("p2p_test_utils") {
     testonly = true
     sources = [
-      "base/fake_dtls_transport.h",
       "base/fake_packet_transport.h",
       "base/mock_active_ice_controller.h",
       "base/mock_dns_resolving_packet_socket_factory.h",
@@ -1060,6 +1059,7 @@ if (rtc_include_tests) {
       "base/test_stun_server.h",
       "base/test_turn_customizer.h",
       "base/test_turn_server.h",
+      "dtls/fake_dtls_transport.h",
     ]
     deps = [
       ":active_ice_controller_factory_interface",
@@ -1108,7 +1108,6 @@ if (rtc_include_tests) {
 
     sources = [
       "base/async_stun_tcp_socket_unittest.cc",
-      "base/dtls_transport_unittest.cc",
       "base/ice_credentials_iterator_unittest.cc",
       "base/p2p_transport_channel_unittest.cc",
       "base/packet_transport_internal_unittest.cc",
@@ -1127,6 +1126,7 @@ if (rtc_include_tests) {
       "base/turn_server_unittest.cc",
       "base/wrapping_active_ice_controller_unittest.cc",
       "client/basic_port_allocator_unittest.cc",
+      "dtls/dtls_transport_unittest.cc",
       "dtls/dtls_utils_unittest.cc",
     ]
     deps = [

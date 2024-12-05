@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef P2P_BASE_DTLS_TRANSPORT_INTERNAL_H_
-#define P2P_BASE_DTLS_TRANSPORT_INTERNAL_H_
+#ifndef P2P_DTLS_DTLS_TRANSPORT_INTERNAL_H_
+#define P2P_DTLS_DTLS_TRANSPORT_INTERNAL_H_
 
 #include <stddef.h>
 #include <stdint.h>
@@ -157,4 +157,4 @@ class DtlsTransportInternal : public rtc::PacketTransportInternal {
 
 }  // namespace cricket
 
-#endif  // P2P_BASE_DTLS_TRANSPORT_INTERNAL_H_
+#endif  // P2P_DTLS_DTLS_TRANSPORT_INTERNAL_H_

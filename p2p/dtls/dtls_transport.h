@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef P2P_BASE_DTLS_TRANSPORT_H_
-#define P2P_BASE_DTLS_TRANSPORT_H_
+#ifndef P2P_DTLS_DTLS_TRANSPORT_H_
+#define P2P_DTLS_DTLS_TRANSPORT_H_
 
 #include <memory>
 #include <string>
@@ -19,8 +19,8 @@
 #include "api/crypto/crypto_options.h"
 #include "api/dtls_transport_interface.h"
 #include "api/sequence_checker.h"
-#include "p2p/base/dtls_transport_internal.h"
 #include "p2p/base/ice_transport_internal.h"
+#include "p2p/dtls/dtls_transport_internal.h"
 #include "rtc_base/buffer.h"
 #include "rtc_base/buffer_queue.h"
 #include "rtc_base/network/received_packet.h"
@@ -260,4 +260,4 @@ class DtlsTransport : public DtlsTransportInternal {
 
 }  // namespace cricket
 
-#endif  // P2P_BASE_DTLS_TRANSPORT_H_
+#endif  // P2P_DTLS_DTLS_TRANSPORT_H_

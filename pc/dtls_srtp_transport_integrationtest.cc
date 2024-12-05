@@ -12,8 +12,8 @@
 
 #include "call/rtp_demuxer.h"
 #include "media/base/fake_rtp.h"
-#include "p2p/base/dtls_transport.h"
 #include "p2p/base/fake_ice_transport.h"
+#include "p2p/dtls/dtls_transport.h"
 #include "pc/dtls_srtp_transport.h"
 #include "pc/srtp_transport.h"
 #include "pc/test/rtp_transport_test_util.h"

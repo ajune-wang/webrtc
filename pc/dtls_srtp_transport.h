@@ -18,8 +18,8 @@
 
 #include "api/dtls_transport_interface.h"
 #include "api/rtc_error.h"
-#include "p2p/base/dtls_transport_internal.h"
 #include "p2p/base/packet_transport_internal.h"
+#include "p2p/dtls/dtls_transport_internal.h"
 #include "pc/srtp_transport.h"
 #include "rtc_base/buffer.h"
 

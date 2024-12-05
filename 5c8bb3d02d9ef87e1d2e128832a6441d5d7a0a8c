@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "81895613_ce62c0ab",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-12-05T21:00:12Z",
+      "side": 1,
+      "message": "I wonder if we should move the fake (and mocks?) to p2p/test/...\n\nPS1: actual move\nPS2+PS3: IWYU",
+      "revId": "5c8bb3d02d9ef87e1d2e128832a6441d5d7a0a8c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

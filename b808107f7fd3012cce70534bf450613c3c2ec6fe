@@ -123,6 +123,24 @@
       "parentUuid": "6e6c405f_de1bcbe5",
       "revId": "b808107f7fd3012cce70534bf450613c3c2ec6fe",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "35ee45f2_172e91dd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18005
+      },
+      "writtenOn": "2024-12-06T02:08:30Z",
+      "side": 1,
+      "message": "I\u0027m OK to archive this builder and not seek for a merging into WebRTC code base for now.\n\n@ssilkin@webrtc.org I\u0027ll keep this in WIP status in case someone needs that.",
+      "parentUuid": "bef50b72_9a15b31c",
+      "revId": "b808107f7fd3012cce70534bf450613c3c2ec6fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

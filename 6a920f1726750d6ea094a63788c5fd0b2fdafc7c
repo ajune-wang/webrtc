@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "99f1be25_8fceb888",
+        "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_encoder.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 765,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2024-12-06T10:47:16Z",
+      "side": 1,
+      "message": "Won\u0027t doing this outside of encoder wrapper be a better solution? Necessary inputs can be added to EncoderInfo if not there yet.",
+      "range": {
+        "startLine": 745,
+        "startChar": 2,
+        "endLine": 765,
+        "endChar": 40
+      },
+      "revId": "6a920f1726750d6ea094a63788c5fd0b2fdafc7c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

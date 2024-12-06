@@ -170,9 +170,19 @@ Timestamp PacingController::CurrentTime() const {
   return time;
 }
 
+PacedPacketInfo PacingController::CreatePacingInfo() const {
+  PacedPacketInfo info;
+  info.send_as_ect1 = set_ect1_marking_;
+  return info;
+}
+
 void PacingController::SetProbingEnabled(bool enabled) {
   RTC_CHECK(!seen_first_packet_);
   prober_.SetEnabled(enabled);
+}
+
+void PacingController::SetTransportIsEcnCapable(bool enable) {
+  set_ect1_marking_ = enable;
 }
 
 void PacingController::SetPacingRates(DataRate pacing_rate,
@@ -414,7 +424,7 @@ void PacingController::ProcessPackets() {
       for (auto& packet : keepalive_packets) {
         keepalive_data_sent +=
             DataSize::Bytes(packet->payload_size() + packet->padding_size());
-        packet_sender_->SendPacket(std::move(packet), PacedPacketInfo());
+        packet_sender_->SendPacket(std::move(packet), CreatePacingInfo());
         for (auto& packet : packet_sender_->FetchFec()) {
           EnqueuePacket(std::move(packet));
         }
@@ -444,13 +454,14 @@ void PacingController::ProcessPackets() {
     UpdateBudgetWithElapsedTime(elapsed_time);
   }
 
-  PacedPacketInfo pacing_info;
+  PacedPacketInfo pacing_info = CreatePacingInfo();
   DataSize recommended_probe_size = DataSize::Zero();
   bool is_probing = prober_.is_probing();
   if (is_probing) {
     // Probe timing is sensitive, and handled explicitly by BitrateProber, so
     // use actual send time rather than target.
-    pacing_info = prober_.CurrentCluster(now).value_or(PacedPacketInfo());
+    pacing_info = prober_.CurrentCluster(now).value_or(pacing_info);
+    pacing_info.send_as_ect1 = set_ect1_marking_;
     if (pacing_info.probe_cluster_id != PacedPacketInfo::kNotAProbe) {
       recommended_probe_size = prober_.RecommendedMinProbeSize();
       RTC_DCHECK_GT(recommended_probe_size, DataSize::Zero());

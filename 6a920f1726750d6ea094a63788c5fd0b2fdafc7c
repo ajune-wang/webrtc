@@ -22,6 +22,30 @@
       },
       "revId": "6a920f1726750d6ea094a63788c5fd0b2fdafc7c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3d0d423c_a1e899b9",
+        "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_encoder.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 765,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2024-12-06T13:33:29Z",
+      "side": 1,
+      "message": "`EncoderInfo` is not a good place for this, especially in cases where we have simulcast with mixed implementations. The exact filter settings are already in `EncodedImage` for this exact reason - the encoder can choose any method it wants to determine the settings. E.g. chrome hw implementations can choose whatever functions they desire based on knowledge for the implementations in question, without having to split knowledge an implementation across code bases.\n\nI do however plan to remove video/corruption_detection/generic_mapping_functions.h in favor of this stateful class.",
+      "parentUuid": "99f1be25_8fceb888",
+      "range": {
+        "startLine": 745,
+        "startChar": 2,
+        "endLine": 765,
+        "endChar": 40
+      },
+      "revId": "6a920f1726750d6ea094a63788c5fd0b2fdafc7c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

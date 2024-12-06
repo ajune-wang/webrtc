@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "102b8fda_27e4cf55",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-12-06T19:26:42Z",
+      "side": 1,
+      "message": "spotted while looking at https://webrtc-review.googlesource.com/c/src/+/368921\n\nSDES begone!",
+      "revId": "8b46fa542bb675fc796a3a687781f0dc5b253fc0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

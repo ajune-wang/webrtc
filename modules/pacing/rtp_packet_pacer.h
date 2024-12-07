@@ -38,6 +38,10 @@ class RtpPacketPacer {
 
   virtual void SetCongested(bool congested) = 0;
 
+  // Let the pacer know that the transport is capable of handling ECN (explicit
+  // congestion notficiation). Pacer should mark RTP packets with ECT(1).
+  virtual void SetTransportIsEcnCapable(bool enable) = 0;
+
   // Sets the pacing rates. Must be called once before packets can be sent.
   virtual void SetPacingRates(DataRate pacing_rate, DataRate padding_rate) = 0;
 

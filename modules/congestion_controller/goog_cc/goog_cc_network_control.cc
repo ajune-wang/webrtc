@@ -147,6 +147,14 @@ GoogCcNetworkController::GoogCcNetworkController(NetworkControllerConfig config,
   ParseFieldTrial(
       {&safe_reset_on_route_change_, &safe_reset_acknowledged_rate_},
       env_.field_trials().Lookup("WebRTC-Bwe-SafeResetOnRouteChange"));
+  if (env_.field_trials().IsEnabled(
+          "WebRTC-RFC8888CongestionControlFeedback")) {
+    FieldTrialFlag force_ecn("force_ect1");
+    ParseFieldTrial(
+        {&force_ecn},
+        env_.field_trials().Lookup("WebRTC-RFC8888CongestionControlFeedback"));
+    transport_is_ecn_capable_ = force_ecn.Get();
+  }
   if (delay_based_bwe_)
     delay_based_bwe_->SetMinBitrate(kCongestionControllerMinBitrate);
 }
@@ -741,6 +749,7 @@ PacerConfig GoogCcNetworkController::GetPacingRates(Timestamp at_time) const {
   msg.time_window = TimeDelta::Seconds(1);
   msg.data_window = pacing_rate * msg.time_window;
   msg.pad_window = padding_rate * msg.time_window;
+  msg.transport_is_ecn_capable = transport_is_ecn_capable_;
   return msg;
 }
 

@@ -137,6 +137,7 @@ class GoogCcNetworkController : public NetworkControllerInterface {
   double pacing_factor_;
   DataRate min_total_allocated_bitrate_;
   DataRate max_padding_rate_;
+  bool transport_is_ecn_capable_ = false;
 
   bool previously_in_alr_ = false;
 

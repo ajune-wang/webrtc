@@ -141,6 +141,8 @@ class PacingController {
 
   void SetCongested(bool congested);
 
+  void SetTransportIsEcnCapable(bool enable);
+
   // Sets the pacing rates. Must be called once before packets can be sent.
   void SetPacingRates(DataRate pacing_rate, DataRate padding_rate);
   DataRate pacing_rate() const { return adjusted_media_rate_; }
@@ -267,6 +269,9 @@ class PacingController {
   // The padding target rate. We aim to fill up to this rate with padding what
   // is not already used by media.
   DataRate padding_rate_;
+  // Transport is capable of explicit congestion notification. Rtp packets will
+  // be Ect(1) marked.
+  bool set_ect1_marking_ = false;
 
   BitrateProber prober_;
   bool probing_send_failure_;

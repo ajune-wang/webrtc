@@ -148,6 +148,9 @@ class RtpPacketToSend : public RtpPacket {
     transport_sequence_number_ = transport_sequence_number;
   }
 
+  void set_send_as_ect1() { send_as_ect1_ = true; }
+  bool send_as_ect1() const { return send_as_ect1_; }
+
  private:
   webrtc::Timestamp capture_time_ = webrtc::Timestamp::Zero();
   std::optional<RtpPacketMediaType> packet_type_;
@@ -161,6 +164,7 @@ class RtpPacketToSend : public RtpPacket {
   bool is_key_frame_ = false;
   bool fec_protect_packet_ = false;
   bool is_red_ = false;
+  bool send_as_ect1_ = false;
   std::optional<TimeDelta> time_in_send_queue_;
 };
 

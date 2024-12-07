@@ -209,6 +209,7 @@ struct RTC_EXPORT PacerConfig {
   // Pacer should send at most data_window data over time_window duration.
   DataSize data_window = DataSize::Infinity();
   TimeDelta time_window = TimeDelta::PlusInfinity();
+  bool transport_is_ecn_capable = false;
   // Pacer should send at least pad_window data over time_window duration.
   DataSize pad_window = DataSize::Zero();
   DataRate data_rate() const { return data_window / time_window; }

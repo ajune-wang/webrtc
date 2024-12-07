@@ -175,6 +175,10 @@ void PacingController::SetProbingEnabled(bool enabled) {
   prober_.SetEnabled(enabled);
 }
 
+void PacingController::SetTransportIsEcnCapable(bool enable) {
+  set_ect1_marking_ = enable;
+}
+
 void PacingController::SetPacingRates(DataRate pacing_rate,
                                       DataRate padding_rate) {
   RTC_CHECK_GT(pacing_rate, DataRate::Zero());
@@ -414,6 +418,9 @@ void PacingController::ProcessPackets() {
       for (auto& packet : keepalive_packets) {
         keepalive_data_sent +=
             DataSize::Bytes(packet->payload_size() + packet->padding_size());
+        if (set_ect1_marking_) {
+          packet->set_send_as_ect1();
+        }
         packet_sender_->SendPacket(std::move(packet), PacedPacketInfo());
         for (auto& packet : packet_sender_->FetchFec()) {
           EnqueuePacket(std::move(packet));
@@ -450,7 +457,7 @@ void PacingController::ProcessPackets() {
   if (is_probing) {
     // Probe timing is sensitive, and handled explicitly by BitrateProber, so
     // use actual send time rather than target.
-    pacing_info = prober_.CurrentCluster(now).value_or(PacedPacketInfo());
+    pacing_info = prober_.CurrentCluster(now).value_or(pacing_info);
     if (pacing_info.probe_cluster_id != PacedPacketInfo::kNotAProbe) {
       recommended_probe_size = prober_.RecommendedMinProbeSize();
       RTC_DCHECK_GT(recommended_probe_size, DataSize::Zero());
@@ -509,7 +516,9 @@ void PacingController::ProcessPackets() {
         packet_size += DataSize::Bytes(rtp_packet->headers_size()) +
                        transport_overhead_per_packet_;
       }
-
+      if (set_ect1_marking_) {
+        rtp_packet->set_send_as_ect1();
+      }
       packet_sender_->SendPacket(std::move(rtp_packet), pacing_info);
       for (auto& packet : packet_sender_->FetchFec()) {
         EnqueuePacket(std::move(packet));

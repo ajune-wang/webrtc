@@ -1481,19 +1481,19 @@ void VideoStreamEncoder::RequestEncoderSwitch() {
   }
 
   // If encoder selector is available, switch to the encoder it prefers.
-  // Otherwise try switching to VP8 (default WebRTC codec).
   std::optional<SdpVideoFormat> preferred_fallback_encoder;
   if (is_encoder_selector_available) {
     preferred_fallback_encoder = encoder_selector_->OnEncoderBroken();
   }
 
   if (!preferred_fallback_encoder) {
-    preferred_fallback_encoder =
-        SdpVideoFormat(CodecTypeToPayloadString(kVideoCodecVP8));
+    encoder_config_before_fallback_ = encoder_config_.Copy();
+    pending_encoder_fallback_ = true;
+    settings_.encoder_switch_request_callback->RequestEncoderFallback();
+  } else {
+    settings_.encoder_switch_request_callback->RequestEncoderSwitch(
+        *preferred_fallback_encoder, /*allow_default_fallback=*/true);
   }
-
-  settings_.encoder_switch_request_callback->RequestEncoderSwitch(
-      *preferred_fallback_encoder, /*allow_default_fallback=*/true);
 }
 
 void VideoStreamEncoder::OnEncoderSettingsChanged() {
@@ -2039,6 +2039,16 @@ void VideoStreamEncoder::EncodeVideoFrame(const VideoFrame& video_frame,
 
   if (frame_instrumentation_generator_) {
     frame_instrumentation_generator_->OnCapturedFrame(out_frame);
+  }
+
+  if (pending_encoder_fallback_) {
+    if (encoder_config_.video_format ==
+        encoder_config_before_fallback_.video_format) {
+      RTC_LOG(LS_INFO) << "Encoder fallback in progress.";
+      return;
+    } else {
+      pending_encoder_fallback_ = false;
+    }
   }
 
   const int32_t encode_status = encoder_->Encode(out_frame, &next_frame_types_);

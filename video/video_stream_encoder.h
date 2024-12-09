@@ -29,6 +29,7 @@
 #include "api/video/video_rotation.h"
 #include "api/video/video_sink_interface.h"
 #include "api/video/video_stream_encoder_settings.h"
+#include "api/video_codecs/sdp_video_format.h"
 #include "api/video_codecs/video_codec.h"
 #include "api/video_codecs/video_encoder.h"
 #include "call/adaptation/adaptation_constraint.h"
@@ -381,6 +382,10 @@ class VideoStreamEncoder : public VideoStreamEncoderInterface,
 
   // Provides video stream input states: current resolution and frame rate.
   VideoStreamInputStateProvider input_state_provider_;
+
+  VideoEncoderConfig encoder_config_before_fallback_
+      RTC_GUARDED_BY(encoder_queue_);
+  bool pending_encoder_fallback_ RTC_GUARDED_BY(encoder_queue_) = false;
 
   const std::unique_ptr<VideoStreamAdapter> video_stream_adapter_
       RTC_GUARDED_BY(encoder_queue_);

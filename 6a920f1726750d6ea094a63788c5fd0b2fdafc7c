@@ -71,6 +71,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b24e54d0_768cfba3",
+        "filename": "modules/video_coding/utility/filter_settings_generator.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2024-12-09T09:26:10Z",
+      "side": 1,
+      "message": "Changed to `CorruptionDetectionSettingsGenerator`",
+      "parentUuid": "5f4b58fc_4460c750",
+      "range": {
+        "startLine": 21,
+        "startChar": 6,
+        "endLine": 21,
+        "endChar": 29
+      },
+      "revId": "6a920f1726750d6ea094a63788c5fd0b2fdafc7c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d4e4b7a7_2f760fbf",
@@ -84,6 +108,30 @@
       "writtenOn": "2024-12-06T13:52:07Z",
       "side": 1,
       "message": "used ?",
+      "range": {
+        "startLine": 23,
+        "startChar": 56,
+        "endLine": 23,
+        "endChar": 59
+      },
+      "revId": "6a920f1726750d6ea094a63788c5fd0b2fdafc7c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3ed7f13a_1b85893e",
+        "filename": "modules/video_coding/utility/filter_settings_generator.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2024-12-09T09:26:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d4e4b7a7_2f760fbf",
       "range": {
         "startLine": 23,
         "startChar": 56,
@@ -117,6 +165,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "83a4922d_bffa506a",
+        "filename": "modules/video_coding/utility/filter_settings_generator.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2024-12-09T09:26:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4a236b51_7b8d8a07",
+      "range": {
+        "startLine": 32,
+        "startChar": 53,
+        "endLine": 32,
+        "endChar": 65
+      },
+      "revId": "6a920f1726750d6ea094a63788c5fd0b2fdafc7c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a3fa2b82_6a47d4fa",
@@ -140,6 +212,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "026487f8_a133bf88",
+        "filename": "modules/video_coding/utility/filter_settings_generator.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2024-12-09T09:26:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a3fa2b82_6a47d4fa",
+      "range": {
+        "startLine": 63,
+        "startChar": 33,
+        "endLine": 63,
+        "endChar": 40
+      },
+      "revId": "6a920f1726750d6ea094a63788c5fd0b2fdafc7c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0b0c2a96_a629262a",
@@ -153,6 +249,30 @@
       "writtenOn": "2024-12-06T13:52:07Z",
       "side": 1,
       "message": "previous",
+      "range": {
+        "startLine": 85,
+        "startChar": 21,
+        "endLine": 85,
+        "endChar": 34
+      },
+      "revId": "6a920f1726750d6ea094a63788c5fd0b2fdafc7c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8db3d7e6_cc922dcf",
+        "filename": "modules/video_coding/utility/filter_settings_generator.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2024-12-09T09:26:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0b0c2a96_a629262a",
       "range": {
         "startLine": 85,
         "startChar": 21,

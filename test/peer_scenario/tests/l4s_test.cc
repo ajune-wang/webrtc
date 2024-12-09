@@ -47,6 +47,26 @@ class RtcpFeedbackCounter {
     }
     if (header.fmt() == rtcp::CongestionControlFeedback::kFeedbackMessageType) {
       ++congestion_control_feedback_;
+      rtcp::CongestionControlFeedback fb;
+      ASSERT_TRUE(fb.Parse(header));
+      for (const rtcp::CongestionControlFeedback::PacketInfo& info :
+           fb.packets()) {
+        switch (info.ecn) {
+          case EcnMarking::kNotEct:
+            ++not_ect_;
+            break;
+          case EcnMarking::kEct0:
+            // Not used.
+            RTC_CHECK_NOTREACHED();
+            break;
+          case EcnMarking::kEct1:
+            // ECN-Capable Transport
+            ++ect1_;
+            break;
+          case EcnMarking::kCe:
+            ++ce_;
+        }
+      }
     }
     if (header.fmt() == rtcp::TransportFeedback::kFeedbackMessageType) {
       ++transport_sequence_number_feedback_;
@@ -59,10 +79,16 @@ class RtcpFeedbackCounter {
   int FeedbackAccordingToTransportCc() const {
     return transport_sequence_number_feedback_;
   }
+  int not_ect() const { return not_ect_; }
+  int ect1() const { return ect1_; }
+  int ce() const { return ce_; }
 
  private:
   int congestion_control_feedback_ = 0;
   int transport_sequence_number_feedback_ = 0;
+  int not_ect_ = 0;
+  int ect1_ = 0;
+  int ce_ = 0;
 };
 
 rtc::scoped_refptr<const RTCStatsReport> GetStatsAndProcess(
@@ -200,6 +226,47 @@ TEST(L4STest, CallerAdaptToLinkCapacityWithoutEcn) {
       GetAvailableSendBitrate(GetStatsAndProcess(s, caller));
   EXPECT_GT(available_bwe.kbps(), 500);
   EXPECT_LT(available_bwe.kbps(), 610);
+}
+
+TEST(L4STest, PropagatesEct1) {
+  test::ScopedFieldTrials trials(
+      "WebRTC-RFC8888CongestionControlFeedback/Enabled,force_ect1:true/");
+  PeerScenario s(*test_info_);
+
+  PeerScenarioClient::Config config = PeerScenarioClient::Config();
+  config.disable_encryption = true;
+  PeerScenarioClient* caller = s.CreateClient(config);
+  PeerScenarioClient* callee = s.CreateClient(config);
+
+  // Create network path from caller to callee.
+  auto caller_to_callee = s.net()->NodeBuilder().Build().node;
+  auto callee_to_caller = s.net()->NodeBuilder().Build().node;
+  s.net()->CreateRoute(caller->endpoint(), {caller_to_callee},
+                       callee->endpoint());
+  s.net()->CreateRoute(callee->endpoint(), {caller_to_callee},
+                       caller->endpoint());
+
+  RtcpFeedbackCounter feedback_counter;
+  caller_to_callee->router()->SetWatcher(
+      [&](const EmulatedIpPacket& packet) { feedback_counter.Count(packet); });
+
+  auto signaling = s.ConnectSignaling(caller, callee, {caller_to_callee},
+                                      {callee_to_caller});
+  PeerScenarioClient::VideoSendTrackConfig video_conf;
+  video_conf.generator.squares_video->framerate = 15;
+
+  caller->CreateVideo("VIDEO_1", video_conf);
+  signaling.StartIceSignaling();
+
+  std::atomic<bool> offer_exchange_done(false);
+  signaling.NegotiateSdp([&](const SessionDescriptionInterface& answer) {
+    offer_exchange_done = true;
+  });
+  s.WaitAndProcess(&offer_exchange_done);
+  s.ProcessMessages(TimeDelta::Seconds(3));
+
+  EXPECT_GT(feedback_counter.ect1(), 0);
+  EXPECT_EQ(feedback_counter.not_ect(), 0);
 }
 
 }  // namespace

@@ -1288,6 +1288,31 @@ class CreateSessionDescriptionObserverOperationWrapper
   std::function<void()> operation_complete_callback_;
 };
 
+// Wraps a session description observer so a Clone of the last created
+// offer/answer can be stored.
+class CreateDescriptionObserverWrapperWithCreationCallback
+    : public CreateSessionDescriptionObserver {
+ public:
+  CreateDescriptionObserverWrapperWithCreationCallback(
+      std::function<void(const SessionDescriptionInterface* desc)> callback,
+      rtc::scoped_refptr<CreateSessionDescriptionObserver> observer)
+      : callback_(callback), observer_(observer) {
+    RTC_DCHECK(observer_);
+  }
+  void OnSuccess(SessionDescriptionInterface* desc) override {
+    callback_(desc);
+    observer_->OnSuccess(desc);
+  }
+  void OnFailure(RTCError error) override {
+    callback_(nullptr);
+    observer_->OnFailure(std::move(error));
+  }
+
+ private:
+  std::function<void(const SessionDescriptionInterface* desc)> callback_;
+  rtc::scoped_refptr<CreateSessionDescriptionObserver> observer_;
+};
+
 // Wrapper for SetSessionDescriptionObserver that invokes the success or failure
 // callback in a posted message handled by the peer connection. This introduces
 // a delay that prevents recursive API calls by the observer, but this also
@@ -2403,6 +2428,19 @@ void SdpOfferAnswerHandler::DoSetLocalDescription(
     return;
   }
 
+  error = ValidateSdpMunging(desc.get(), desc->GetType() == SdpType::kOffer
+                                             ? last_created_offer_.get()
+                                             : last_created_answer_.get());
+  if (!error.ok() && !context_->env().field_trials().IsEnabled(
+                         "WebRTC-SdpMungingUfragPwdKillswitch")) {
+    std::string error_message = GetSetDescriptionErrorMessage(
+        cricket::CS_LOCAL, desc->GetType(), error);
+    RTC_LOG(LS_ERROR) << error_message;
+    observer->OnSetLocalDescriptionComplete(
+        RTCError(error.type(), std::move(error_message)));
+    return;
+  }
+
   // Grab the description type before moving ownership to ApplyLocalDescription,
   // which may destroy it before returning.
   const SdpType type = desc->GetType();
@@ -2432,6 +2470,10 @@ void SdpOfferAnswerHandler::DoSetLocalDescription(
     context_->network_thread()->BlockingCall(
         [this] { port_allocator()->DiscardCandidatePool(); });
   }
+
+  // Clear last created offer/answer.
+  last_created_offer_.reset(nullptr);
+  last_created_answer_.reset(nullptr);
 
   observer->OnSetLocalDescriptionComplete(RTCError::OK());
   pc_->NoteUsageEvent(UsageEvent::SET_LOCAL_DESCRIPTION_SUCCEEDED);
@@ -2510,7 +2552,18 @@ void SdpOfferAnswerHandler::DoCreateOffer(
 
   cricket::MediaSessionOptions session_options;
   GetOptionsForOffer(options, &session_options);
-  webrtc_session_desc_factory_->CreateOffer(observer.get(), options,
+  auto observer_wrapper = rtc::make_ref_counted<
+      CreateDescriptionObserverWrapperWithCreationCallback>(
+      [this](const SessionDescriptionInterface* desc) {
+        RTC_DCHECK_RUN_ON(signaling_thread());
+        if (desc) {
+          last_created_offer_ = desc->Clone();
+        } else {
+          last_created_offer_.reset(nullptr);
+        }
+      },
+      std::move(observer));
+  webrtc_session_desc_factory_->CreateOffer(observer_wrapper.get(), options,
                                             session_options);
 }
 
@@ -2596,7 +2649,19 @@ void SdpOfferAnswerHandler::DoCreateAnswer(
 
   cricket::MediaSessionOptions session_options;
   GetOptionsForAnswer(options, &session_options);
-  webrtc_session_desc_factory_->CreateAnswer(observer.get(), session_options);
+  auto observer_wrapper = rtc::make_ref_counted<
+      CreateDescriptionObserverWrapperWithCreationCallback>(
+      [this](const SessionDescriptionInterface* desc) {
+        RTC_DCHECK_RUN_ON(signaling_thread());
+        if (desc) {
+          last_created_answer_ = desc->Clone();
+        } else {
+          last_created_answer_.reset(nullptr);
+        }
+      },
+      std::move(observer));
+  webrtc_session_desc_factory_->CreateAnswer(observer_wrapper.get(),
+                                             session_options);
 }
 
 void SdpOfferAnswerHandler::DoSetRemoteDescription(
@@ -3724,6 +3789,50 @@ RTCError SdpOfferAnswerHandler::ValidateSessionDescription(
     }
   }
 
+  return RTCError::OK();
+}
+
+// Rejects SDP munging that is not accepted.
+RTCError SdpOfferAnswerHandler::ValidateSdpMunging(
+    const SessionDescriptionInterface* sdesc,
+    const SessionDescriptionInterface* last_created_desc) {
+  // An assumption is that a check for session error is done at a higher level.
+  RTC_DCHECK_EQ(SessionError::kNone, session_error());
+
+  if (!sdesc || !sdesc->description()) {
+    // TODO: crbug.com/40567530 - reject with INVALID_PARAMETER.
+    return RTCError::OK();
+  }
+
+  if (!last_created_desc || !last_created_desc->description()) {
+    // TODO: crbug.com/40567530 - reject with INVALID_PARAMETER.
+    // SetLocalDescription called without CreateOffer or CreateAnswer.
+    return RTCError::OK();
+  }
+  // TODO: crbug.com/40567530 - we currently allow answer->pranswer
+  // so can not check sdesc->GetType() == last_created_desc->GetType().
+
+  // Validate transport descriptions.
+  const auto& last_created_transport_infos =
+      last_created_desc->description()->transport_infos();
+  const auto& transport_infos_to_set = sdesc->description()->transport_infos();
+  if (last_created_transport_infos.size() != transport_infos_to_set.size()) {
+    // TODO: crbug.com/40567530 - reject with INVALID_PARAMETER.
+    // Number of transport-infos does not match last created description.
+    return RTCError::OK();
+  }
+  for (size_t i = 0; i < last_created_transport_infos.size(); i++) {
+    if (last_created_transport_infos[i].description.ice_ufrag !=
+        transport_infos_to_set[i].description.ice_ufrag) {
+      LOG_AND_RETURN_ERROR(RTCErrorType::INVALID_PARAMETER,
+                           "SDP munging of ice-ufrag rejected.");
+    }
+    if (last_created_transport_infos[i].description.ice_pwd !=
+        transport_infos_to_set[i].description.ice_pwd) {
+      LOG_AND_RETURN_ERROR(RTCErrorType::INVALID_PARAMETER,
+                           "SDP munging of ice-pwd rejected.");
+    }
+  }
   return RTCError::OK();
 }
 

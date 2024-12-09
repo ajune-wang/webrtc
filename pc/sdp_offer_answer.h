@@ -322,6 +322,12 @@ class SdpOfferAnswerHandler : public SdpStateProvider {
       const std::map<std::string, const cricket::ContentGroup*>&
           bundle_groups_by_mid) RTC_RUN_ON(signaling_thread());
 
+  // Helper method which rejects certain types of SDP munging.
+  RTCError ValidateSdpMunging(
+      const SessionDescriptionInterface* sdesc,
+      const SessionDescriptionInterface* last_created_desc)
+      RTC_RUN_ON(signaling_thread());
+
   // Updates the local RtpTransceivers according to the JSEP rules. Called as
   // part of setting the local/remote description.
   RTCError UpdateTransceiversAndDataChannels(
@@ -602,6 +608,10 @@ class SdpOfferAnswerHandler : public SdpStateProvider {
   std::unique_ptr<SessionDescriptionInterface> current_remote_description_
       RTC_GUARDED_BY(signaling_thread());
   std::unique_ptr<SessionDescriptionInterface> pending_remote_description_
+      RTC_GUARDED_BY(signaling_thread());
+  std::unique_ptr<SessionDescriptionInterface> last_created_offer_
+      RTC_GUARDED_BY(signaling_thread());
+  std::unique_ptr<SessionDescriptionInterface> last_created_answer_
       RTC_GUARDED_BY(signaling_thread());
 
   PeerConnectionInterface::SignalingState signaling_state_

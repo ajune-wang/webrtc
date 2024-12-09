@@ -662,16 +662,9 @@ TEST_P(PeerConnectionIceTest,
 // has either ICE ufrag/pwd too short or too long and succeeds otherwise.
 // The standard (https://tools.ietf.org/html/rfc5245#section-15.4) says that
 // pwd must be 22-256 characters and ufrag must be 4-256 characters.
+// This is applied to remote descriptions, for local descriptions we enforce
+// the ufrag/pwd from our own description.
 TEST_P(PeerConnectionIceTest, VerifyUfragPwdLength) {
-  auto set_local_description_with_ufrag_pwd_length = [this](int ufrag_len,
-                                                            int pwd_len) {
-    auto pc = CreatePeerConnectionWithAudioVideo();
-    auto offer = pc->CreateOffer();
-    SetIceUfragPwd(offer.get(), std::string(ufrag_len, 'x'),
-                   std::string(pwd_len, 'x'));
-    return pc->SetLocalDescription(std::move(offer));
-  };
-
   auto set_remote_description_with_ufrag_pwd_length = [this](int ufrag_len,
                                                              int pwd_len) {
     auto pc = CreatePeerConnectionWithAudioVideo();
@@ -681,17 +674,11 @@ TEST_P(PeerConnectionIceTest, VerifyUfragPwdLength) {
     return pc->SetRemoteDescription(std::move(offer));
   };
 
-  EXPECT_FALSE(set_local_description_with_ufrag_pwd_length(3, 22));
   EXPECT_FALSE(set_remote_description_with_ufrag_pwd_length(3, 22));
-  EXPECT_FALSE(set_local_description_with_ufrag_pwd_length(257, 22));
   EXPECT_FALSE(set_remote_description_with_ufrag_pwd_length(257, 22));
-  EXPECT_FALSE(set_local_description_with_ufrag_pwd_length(4, 21));
   EXPECT_FALSE(set_remote_description_with_ufrag_pwd_length(4, 21));
-  EXPECT_FALSE(set_local_description_with_ufrag_pwd_length(4, 257));
   EXPECT_FALSE(set_remote_description_with_ufrag_pwd_length(4, 257));
-  EXPECT_TRUE(set_local_description_with_ufrag_pwd_length(4, 22));
   EXPECT_TRUE(set_remote_description_with_ufrag_pwd_length(4, 22));
-  EXPECT_TRUE(set_local_description_with_ufrag_pwd_length(256, 256));
   EXPECT_TRUE(set_remote_description_with_ufrag_pwd_length(256, 256));
 }
 

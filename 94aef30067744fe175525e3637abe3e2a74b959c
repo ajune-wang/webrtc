@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5a0e5d09_18897099",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-12-09T06:46:05Z",
+      "side": 1,
+      "message": "A bit of name munging suggested. And I assume you want to wrap a killswitch around the ufrag/pwd munging? (Just default it to on. Canary is OK to crash if we need to roll it back.)",
+      "revId": "94aef30067744fe175525e3637abe3e2a74b959c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4ddaed71_64b08ef5",
+        "filename": "pc/sdp_offer_answer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1293,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-12-09T06:46:05Z",
+      "side": 1,
+      "message": "Hm. This is a return-observing wrapper - the wrapper itself knows nothing about why it\u0027s calling the lambda.\nSuggest calling the class CreateDescriptionObserverWrapperWithCreationCallback.",
+      "revId": "94aef30067744fe175525e3637abe3e2a74b959c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "93c10840_a431390d",
+        "filename": "pc/sdp_offer_answer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1307,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-12-09T06:46:05Z",
+      "side": 1,
+      "message": "I\u0027d just skip this. If needed, it should pass error.",
+      "revId": "94aef30067744fe175525e3637abe3e2a74b959c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "63cc92cd_7be5945f",
+        "filename": "pc/sdp_offer_answer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2554,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-12-09T06:46:05Z",
+      "side": 1,
+      "message": "No need for checking empty if you don\u0027t have the error branch.",
+      "revId": "94aef30067744fe175525e3637abe3e2a74b959c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c4eda84f_cbf60f91",
+        "filename": "pc/sdp_offer_answer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2555,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-12-09T06:46:05Z",
+      "side": 1,
+      "message": "last_created_offer_ \u003d desc-\u003eClone();",
+      "revId": "94aef30067744fe175525e3637abe3e2a74b959c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

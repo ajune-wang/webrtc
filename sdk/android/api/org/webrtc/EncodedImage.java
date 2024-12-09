@@ -83,36 +83,43 @@ public class EncodedImage implements RefCounted {
   }
 
   @CalledByNative
+  @SuppressWarnings("UnusedMethod")
   private ByteBuffer getBuffer() {
     return buffer;
   }
 
   @CalledByNative
+  @SuppressWarnings("UnusedMethod")
   private int getEncodedWidth() {
     return encodedWidth;
   }
 
   @CalledByNative
+  @SuppressWarnings("UnusedMethod")
   private int getEncodedHeight() {
     return encodedHeight;
   }
 
   @CalledByNative
+  @SuppressWarnings("UnusedMethod")
   private long getCaptureTimeNs() {
     return captureTimeNs;
   }
 
   @CalledByNative
+  @SuppressWarnings("UnusedMethod")
   private int getFrameType() {
     return frameType.getNative();
   }
 
   @CalledByNative
+  @SuppressWarnings("UnusedMethod")
   private int getRotation() {
     return rotation;
   }
 
   @CalledByNative
+  @SuppressWarnings("UnusedMethod")
   private @Nullable Integer getQp() {
     return qp;
   }

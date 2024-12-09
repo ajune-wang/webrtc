@@ -27,7 +27,8 @@ on a monolithic Abseil build target that will generate a shared library.
 * `absl::AnyInvocable`
 * `absl::bind_front`
 * `absl::Cleanup`
-* `absl::InlinedVector`
+* `absl::InlinedVector`, `absl::FixedArray`,
+[Hash tables, and B-tree ordered](https://abseil.io/docs/cpp/guides/container) containers
 * `absl::Nonnull` and `absl::Nullable`
 * `absl::WrapUnique`
 * `absl::string_view`

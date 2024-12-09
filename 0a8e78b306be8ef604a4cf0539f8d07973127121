@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b8a3779c_57a8b793",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-12-09T17:43:24Z",
+      "side": 1,
+      "message": "this makes the command line from\n  https://issues.webrtc.org/issues/382396709#comment4\nwork without --simulated_time (or a long wait time)",
+      "revId": "0a8e78b306be8ef604a4cf0539f8d07973127121",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

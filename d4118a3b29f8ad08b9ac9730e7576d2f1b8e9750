@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "41f8c36d_e0df8d3d",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2046,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2024-12-09T08:17:03Z",
+      "side": 1,
+      "message": "Could it be that `video_format` never changes? What if we have only one codec negotiated and there is no fallback option?",
+      "range": {
+        "startLine": 2045,
+        "startChar": 8,
+        "endLine": 2046,
+        "endChar": 52
+      },
+      "revId": "d4118a3b29f8ad08b9ac9730e7576d2f1b8e9750",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

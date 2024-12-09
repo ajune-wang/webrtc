@@ -82,41 +82,6 @@ public class EncodedImage implements RefCounted {
     this.refCountDelegate = new RefCountDelegate(releaseCallback);
   }
 
-  @CalledByNative
-  private ByteBuffer getBuffer() {
-    return buffer;
-  }
-
-  @CalledByNative
-  private int getEncodedWidth() {
-    return encodedWidth;
-  }
-
-  @CalledByNative
-  private int getEncodedHeight() {
-    return encodedHeight;
-  }
-
-  @CalledByNative
-  private long getCaptureTimeNs() {
-    return captureTimeNs;
-  }
-
-  @CalledByNative
-  private int getFrameType() {
-    return frameType.getNative();
-  }
-
-  @CalledByNative
-  private int getRotation() {
-    return rotation;
-  }
-
-  @CalledByNative
-  private @Nullable Integer getQp() {
-    return qp;
-  }
-
   public static Builder builder() {
     return new Builder();
   }

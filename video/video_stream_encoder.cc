@@ -1481,19 +1481,18 @@ void VideoStreamEncoder::RequestEncoderSwitch() {
   }
 
   // If encoder selector is available, switch to the encoder it prefers.
-  // Otherwise try switching to VP8 (default WebRTC codec).
   std::optional<SdpVideoFormat> preferred_fallback_encoder;
   if (is_encoder_selector_available) {
     preferred_fallback_encoder = encoder_selector_->OnEncoderBroken();
   }
 
   if (!preferred_fallback_encoder) {
-    preferred_fallback_encoder =
-        SdpVideoFormat(CodecTypeToPayloadString(kVideoCodecVP8));
+    encoder_fallback_requested_ = true;
+    settings_.encoder_switch_request_callback->RequestEncoderFallback();
+  } else {
+    settings_.encoder_switch_request_callback->RequestEncoderSwitch(
+        *preferred_fallback_encoder, /*allow_default_fallback=*/true);
   }
-
-  settings_.encoder_switch_request_callback->RequestEncoderSwitch(
-      *preferred_fallback_encoder, /*allow_default_fallback=*/true);
 }
 
 void VideoStreamEncoder::OnEncoderSettingsChanged() {
@@ -1894,8 +1893,15 @@ void VideoStreamEncoder::EncodeVideoFrame(const VideoFrame& video_frame,
 
   // If the encoder fail we can't continue to encode frames. When this happens
   // the WebrtcVideoSender is notified and the whole VideoSendStream is
-  // recreated.
-  if (encoder_failed_ || !encoder_initialized_)
+  // recreated; If encoder fallback is requested, but WebRtcVideoEngine does
+  // not respond to the fallback request due to negotatied codec list size is
+  // 1 so it cannot fallback, or after a few fallbacks all codecs have been
+  // attempted, similarly we don't continue to encode frames so that
+  // WebRtcVideoSender is notified and the whole VideoSendStream is recreated;
+  // If the encoder fallback is requested and WebRtcVideoEngine responds to the
+  // fallback request, the VideoSendStream is recreated and current
+  // VideoStreamEncoder will no longer be used.
+  if (encoder_failed_ || encoder_fallback_requested_ || !encoder_initialized_)
     return;
 
   // It's possible that EncodeVideoFrame can be called after we've completed

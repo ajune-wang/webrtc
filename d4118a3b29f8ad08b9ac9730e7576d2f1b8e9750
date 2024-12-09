@@ -70,6 +70,30 @@
       },
       "revId": "d4118a3b29f8ad08b9ac9730e7576d2f1b8e9750",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9b5c45c9_f6c24566",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2046,
+      "author": {
+        "id": 18005
+      },
+      "writtenOn": "2024-12-09T14:45:41Z",
+      "side": 1,
+      "message": "Updated the implementation to not rely on video_format change to unblock encode. Actually we don\u0027t have to check video format change: If it does not change(fallback is actually not taken action due to negotiated codec list exhausted due to fallback already), following encode request will be dropped at EncodeVideoFrame() so eventually current VideoStreamEncoder will be released during the attempt to recreate VideoSendStreams; If it fallback does happen, all VideoSendStreams will also be recreated, in that case our VideoStreamEncoder will also be released. \n\nTest is updated to check that a no-op RequestEncoderFallback will finally trigger encoder release.",
+      "parentUuid": "eceee902_93040511",
+      "range": {
+        "startLine": 2045,
+        "startChar": 8,
+        "endLine": 2046,
+        "endChar": 52
+      },
+      "revId": "d4118a3b29f8ad08b9ac9730e7576d2f1b8e9750",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

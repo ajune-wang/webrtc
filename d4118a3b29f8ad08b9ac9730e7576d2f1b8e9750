@@ -22,6 +22,30 @@
       },
       "revId": "d4118a3b29f8ad08b9ac9730e7576d2f1b8e9750",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "98e049c3_ac356dd6",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2046,
+      "author": {
+        "id": 18005
+      },
+      "writtenOn": "2024-12-09T08:29:47Z",
+      "side": 1,
+      "message": "Fallback is implemented here:\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/media/engine/webrtc_video_engine.cc;l\u003d1234;drc\u003db7bc1aa180d6277f4adbd55b56a222ad1aef47b6\n\nYou raise a valid concern. I think I need more protection to avoid staying at pending_encoder_fallback_ state.",
+      "parentUuid": "41f8c36d_e0df8d3d",
+      "range": {
+        "startLine": 2045,
+        "startChar": 8,
+        "endLine": 2046,
+        "endChar": 52
+      },
+      "revId": "d4118a3b29f8ad08b9ac9730e7576d2f1b8e9750",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

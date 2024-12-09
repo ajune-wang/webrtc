@@ -46,6 +46,30 @@
       },
       "revId": "d4118a3b29f8ad08b9ac9730e7576d2f1b8e9750",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eceee902_93040511",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2046,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2024-12-09T08:35:24Z",
+      "side": 1,
+      "message": "Speaking of getting stuck, what if you release and/or re-initialize the encoder while we\u0027re in the pending state? Just to sanity check that it\u0027s impossible to get in a state where we stop encoding for no reason",
+      "parentUuid": "98e049c3_ac356dd6",
+      "range": {
+        "startLine": 2045,
+        "startChar": 8,
+        "endLine": 2046,
+        "endChar": 52
+      },
+      "revId": "d4118a3b29f8ad08b9ac9730e7576d2f1b8e9750",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

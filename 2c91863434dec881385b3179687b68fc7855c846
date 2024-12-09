@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f28c88fb_f86cfed4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19769
+      },
+      "writtenOn": "2024-12-09T09:50:48Z",
+      "side": 1,
+      "message": "I suggest",
+      "revId": "2c91863434dec881385b3179687b68fc7855c846",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6d7a683a_6f45af0e",
+        "filename": "tools_webrtc/iwyu/apply-include-cleaner",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 19769
+      },
+      "writtenOn": "2024-12-09T09:50:48Z",
+      "side": 1,
+      "message": "You\u0027ll also need to update the help prompt",
+      "revId": "2c91863434dec881385b3179687b68fc7855c846",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e72bdb6c_6f93f3dd",
+        "filename": "tools_webrtc/iwyu/apply-include-cleaner",
+        "patchSetId": 1
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 19769
+      },
+      "writtenOn": "2024-12-09T09:50:48Z",
+      "side": 1,
+      "message": "One could argue that its better to first validate all files exist and only conditionally on that - act.\nA matter of preference I guess.",
+      "revId": "2c91863434dec881385b3179687b68fc7855c846",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "15d32b40_3eacf746",
+        "filename": "tools_webrtc/iwyu/apply-include-cleaner",
+        "patchSetId": 1
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 19769
+      },
+      "writtenOn": "2024-12-09T09:50:48Z",
+      "side": 1,
+      "message": "Would be nice to to extract the processing logic to a function",
+      "revId": "2c91863434dec881385b3179687b68fc7855c846",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ed6c3953_4216d5c6",
+        "filename": "tools_webrtc/iwyu/apply-include-cleaner",
+        "patchSetId": 1
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 19769
+      },
+      "writtenOn": "2024-12-09T09:50:48Z",
+      "side": 1,
+      "message": "I think the echos here should be out of the loop, otherwise it could get quite spammy.",
+      "revId": "2c91863434dec881385b3179687b68fc7855c846",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

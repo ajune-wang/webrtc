@@ -27,7 +27,8 @@ on a monolithic Abseil build target that will generate a shared library.
 * `absl::AnyInvocable`
 * `absl::bind_front`
 * `absl::Cleanup`
-* `absl::InlinedVector`
+* `absl::InlinedVector`, `absl::FixedArray`,
+[Hash tables, and B-tree ordered](https://abseil.io/docs/cpp/guides/container) containers
 * `absl::Nonnull` and `absl::Nullable`
 * `absl::WrapUnique`
 * `absl::string_view`
@@ -81,5 +82,5 @@ with a modest number of arguments can easily add several hundred bytes
 to the binary.
 
 Exception: Single-argument absl::StrCat is allowed in order to make it
-easy to use AbslStringify. See [TOTW #2015](https://abseil.io/tips/215) for
+easy to use AbslStringify. See [TOTW #215](https://abseil.io/tips/215) for
 details on AbslStringify.

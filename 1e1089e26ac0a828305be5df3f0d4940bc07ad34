@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "34bd8df1_be3d5d6b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-12-09T17:11:51Z",
+      "side": 1,
+      "message": "As discussed, lets allow absl replacements for std::map and std::set, and investigate binary size increases on case-by-case basis",
+      "revId": "1e1089e26ac0a828305be5df3f0d4940bc07ad34",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

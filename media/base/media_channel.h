@@ -606,6 +606,10 @@ struct VideoSenderInfo : public MediaSenderInfo {
   uint64_t total_encoded_bytes_target = 0;
   bool has_entered_low_resolution = false;
   std::optional<uint64_t> qp_sum;
+  std::optional<uint64_t> psnr_sum_y;
+  std::optional<uint64_t> psnr_sum_u;
+  std::optional<uint64_t> psnr_sum_v;
+  std::optional<uint32_t> psnr_measurements;
   webrtc::VideoContentType content_type = webrtc::VideoContentType::UNSPECIFIED;
   uint32_t frames_sent = 0;
   // https://w3c.github.io/webrtc-stats/#dom-rtcvideosenderstats-hugeframessent

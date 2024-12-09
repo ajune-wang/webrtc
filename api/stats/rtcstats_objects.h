@@ -361,6 +361,10 @@ class RTC_EXPORT RTCOutboundRtpStreamStats final
   std::optional<uint32_t> pli_count;
   std::optional<uint32_t> nack_count;
   std::optional<uint64_t> qp_sum;
+  std::optional<uint64_t> psnr_sum_y;
+  std::optional<uint64_t> psnr_sum_u;
+  std::optional<uint64_t> psnr_sum_v;
+  std::optional<uint32_t> psnr_measurements;
   std::optional<bool> active;
   // In JavaScript, this is only exposed if HW exposure is allowed.
   std::optional<bool> power_efficient_encoder;

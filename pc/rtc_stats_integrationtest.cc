@@ -772,8 +772,17 @@ class RTCStatsReportVerifier {
       verifier.TestAttributeIsNonNegative<uint32_t>(outbound_stream.pli_count);
       if (*outbound_stream.frames_encoded > 0) {
         verifier.TestAttributeIsNonNegative<uint64_t>(outbound_stream.qp_sum);
+        // TODO: currently behind flag.
+        verifier.TestAttributeIsUndefined(outbound_stream.psnr_sum_y);
+        verifier.TestAttributeIsUndefined(outbound_stream.psnr_sum_u);
+        verifier.TestAttributeIsUndefined(outbound_stream.psnr_sum_v);
+        verifier.TestAttributeIsUndefined(outbound_stream.psnr_measurements);
       } else {
         verifier.TestAttributeIsUndefined(outbound_stream.qp_sum);
+        verifier.TestAttributeIsUndefined(outbound_stream.psnr_sum_y);
+        verifier.TestAttributeIsUndefined(outbound_stream.psnr_sum_u);
+        verifier.TestAttributeIsUndefined(outbound_stream.psnr_sum_v);
+        verifier.TestAttributeIsUndefined(outbound_stream.psnr_measurements);
       }
     } else {
       verifier.TestAttributeIsUndefined(outbound_stream.fir_count);
@@ -781,6 +790,10 @@ class RTCStatsReportVerifier {
       verifier.TestAttributeIsIDReference(outbound_stream.media_source_id,
                                           RTCAudioSourceStats::kType);
       verifier.TestAttributeIsUndefined(outbound_stream.qp_sum);
+      verifier.TestAttributeIsUndefined(outbound_stream.psnr_sum_y);
+      verifier.TestAttributeIsUndefined(outbound_stream.psnr_sum_u);
+      verifier.TestAttributeIsUndefined(outbound_stream.psnr_sum_v);
+      verifier.TestAttributeIsUndefined(outbound_stream.psnr_measurements);
     }
     verifier.TestAttributeIsNonNegative<uint32_t>(outbound_stream.nack_count);
     verifier.TestAttributeIsOptionalIDReference(

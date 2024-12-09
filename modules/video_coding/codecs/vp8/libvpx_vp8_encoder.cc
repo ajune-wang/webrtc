@@ -823,6 +823,9 @@ int LibvpxVp8Encoder::NumberOfThreads(int width, int height, int cpus) {
 int LibvpxVp8Encoder::InitAndSetControlSettings() {
   vpx_codec_flags_t flags = 0;
   flags |= VPX_CODEC_USE_OUTPUT_PARTITION;
+  if (codec_.enable_psnr) {
+    flags |= VPX_CODEC_USE_PSNR;
+  }
 
   if (encoders_.size() > 1) {
     int error = libvpx_->codec_enc_init_multi(
@@ -1189,15 +1192,15 @@ int LibvpxVp8Encoder::GetEncodedPartitions(const VideoFrame& input_image,
   int result = WEBRTC_VIDEO_CODEC_OK;
   for (size_t encoder_idx = 0; encoder_idx < encoders_.size();
        ++encoder_idx, --stream_idx) {
-    vpx_codec_iter_t iter = NULL;
+    vpx_codec_iter_t iter = nullptr;
     encoded_images_[encoder_idx].set_size(0);
     encoded_images_[encoder_idx]._frameType = VideoFrameType::kVideoFrameDelta;
     CodecSpecificInfo codec_specific;
-    const vpx_codec_cx_pkt_t* pkt = NULL;
+    const vpx_codec_cx_pkt_t* pkt = nullptr;
 
     size_t encoded_size = 0;
     while ((pkt = libvpx_->codec_get_cx_data(&encoders_[encoder_idx], &iter)) !=
-           NULL) {
+           nullptr) {
       if (pkt->kind == VPX_CODEC_CX_FRAME_PKT) {
         encoded_size += pkt->data.frame.sz;
       }
@@ -1205,10 +1208,10 @@ int LibvpxVp8Encoder::GetEncodedPartitions(const VideoFrame& input_image,
 
     auto buffer = EncodedImageBuffer::Create(encoded_size);
 
-    iter = NULL;
+    iter = nullptr;
     size_t encoded_pos = 0;
     while ((pkt = libvpx_->codec_get_cx_data(&encoders_[encoder_idx], &iter)) !=
-           NULL) {
+           nullptr) {
       switch (pkt->kind) {
         case VPX_CODEC_CX_FRAME_PKT: {
           RTC_CHECK_LE(encoded_pos + pkt->data.frame.sz, buffer->size());
@@ -1217,11 +1220,18 @@ int LibvpxVp8Encoder::GetEncodedPartitions(const VideoFrame& input_image,
           encoded_pos += pkt->data.frame.sz;
           break;
         }
+        case VPX_CODEC_PSNR_PKT:
+          // PSNR index: 0: total, 1: Y, 2: U, 3: V
+          encoded_images_[encoder_idx].psnr_y_ = pkt->data.psnr.psnr[1];
+          encoded_images_[encoder_idx].psnr_u_ = pkt->data.psnr.psnr[2];
+          encoded_images_[encoder_idx].psnr_v_ = pkt->data.psnr.psnr[3];
+          break;
         default:
           break;
       }
       // End of frame
-      if ((pkt->data.frame.flags & VPX_FRAME_IS_FRAGMENT) == 0) {
+      if (pkt->kind == VPX_CODEC_CX_FRAME_PKT &&
+          (pkt->data.frame.flags & VPX_FRAME_IS_FRAGMENT) == 0) {
         // check if encoded frame is a key frame
         if (pkt->data.frame.flags & VPX_FRAME_IS_KEY) {
           encoded_images_[encoder_idx]._frameType =

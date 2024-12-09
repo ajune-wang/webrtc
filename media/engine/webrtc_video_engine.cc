@@ -2506,6 +2506,10 @@ WebRtcVideoSendChannel::WebRtcVideoSendStream::GetPerLayerVideoSenderInfos(
       info.report_block_datas.push_back(*stream_stats.report_block_data);
     }
     info.qp_sum = stream_stats.qp_sum;
+    info.psnr_sum_y = stream_stats.psnr_sum_y;
+    info.psnr_sum_u = stream_stats.psnr_sum_u;
+    info.psnr_sum_v = stream_stats.psnr_sum_v;
+    info.psnr_measurements = stream_stats.psnr_measurements;
     info.total_encode_time_ms = stream_stats.total_encode_time_ms;
     info.total_encoded_bytes_target = stream_stats.total_encoded_bytes_target;
     info.huge_frames_sent = stream_stats.huge_frames_sent;
@@ -2555,6 +2559,31 @@ WebRtcVideoSendChannel::WebRtcVideoSendStream::GetAggregatedVideoSenderInfo(
         info.qp_sum = 0;
       }
       info.qp_sum = *info.qp_sum + *infos[i].qp_sum;
+    }
+    if (infos[i].psnr_sum_y) {
+      if (!info.psnr_sum_y) {
+        info.psnr_sum_y = 0;
+      }
+      info.psnr_sum_y = *info.psnr_sum_y + *infos[i].psnr_sum_y;
+    }
+    if (infos[i].psnr_sum_u) {
+      if (!info.psnr_sum_u) {
+        info.psnr_sum_u = 0;
+      }
+      info.psnr_sum_u = *info.psnr_sum_u + *infos[i].psnr_sum_u;
+    }
+    if (infos[i].psnr_sum_v) {
+      if (!info.psnr_sum_v) {
+        info.psnr_sum_v = 0;
+      }
+      info.psnr_sum_v = *info.psnr_sum_v + *infos[i].psnr_sum_v;
+    }
+    if (infos[i].psnr_measurements) {
+      if (!info.psnr_measurements) {
+        info.psnr_measurements = 0;
+      }
+      info.psnr_measurements =
+          *info.psnr_measurements + *infos[i].psnr_measurements;
     }
     info.frames_encoded += infos[i].frames_encoded;
     info.frames_sent += infos[i].frames_sent;

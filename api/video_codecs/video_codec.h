@@ -194,6 +194,9 @@ class RTC_EXPORT VideoCodec {
   // Legacy Google conference mode flag for simulcast screenshare
   bool legacy_conference_mode;
 
+  // Whether to collect peak signal to noise ratio (PSNR).
+  bool enable_psnr;
+
   bool operator==(const VideoCodec& other) const = delete;
   bool operator!=(const VideoCodec& other) const = delete;
   std::string ToString() const;

@@ -91,6 +91,10 @@ class VideoSendStream {
     double encode_frame_rate = 0.0;
     int frames_encoded = 0;
     std::optional<uint64_t> qp_sum;
+    std::optional<uint64_t> psnr_sum_y;
+    std::optional<uint64_t> psnr_sum_u;
+    std::optional<uint64_t> psnr_sum_v;
+    std::optional<uint64_t> psnr_measurements;
     uint64_t total_encode_time_ms = 0;
     uint64_t total_encoded_bytes_target = 0;
     uint32_t huge_frames_sent = 0;

@@ -263,6 +263,9 @@ int LibaomAv1Encoder::InitEncode(const VideoCodec* codec_settings,
 
   // Flag options: AOM_CODEC_USE_PSNR and AOM_CODEC_USE_HIGHBITDEPTH
   aom_codec_flags_t flags = 0;
+  if (codec_settings->enable_psnr) {
+    flags |= AOM_CODEC_USE_PSNR;
+  }
 
   // Initialize an encoder instance.
   ret = aom_codec_enc_init(&ctx_, aom_codec_av1_cx(), &cfg_, flags);
@@ -735,6 +738,11 @@ int32_t LibaomAv1Encoder::Encode(
 
         encoded_image.SetColorSpace(frame.color_space());
         ++data_pkt_count;
+      } else if (pkt->kind == AOM_CODEC_PSNR_PKT) {
+        // PSNR index: 0: total, 1: Y, 2: U, 3: V
+        encoded_image.psnr_y_ = pkt->data.psnr.psnr[1];
+        encoded_image.psnr_u_ = pkt->data.psnr.psnr[2];
+        encoded_image.psnr_v_ = pkt->data.psnr.psnr[3];
       }
     }
 

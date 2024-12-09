@@ -824,9 +824,14 @@ int LibvpxVp9Encoder::InitAndSetControlSettings() {
     return WEBRTC_VIDEO_CODEC_ERR_PARAMETER;
   }
 
-  const vpx_codec_err_t rv = libvpx_->codec_enc_init(
-      encoder_, vpx_codec_vp9_cx(), config_,
-      config_->g_bit_depth == VPX_BITS_8 ? 0 : VPX_CODEC_USE_HIGHBITDEPTH);
+  vpx_codec_flags_t flags =
+      config_->g_bit_depth == VPX_BITS_8 ? 0 : VPX_CODEC_USE_HIGHBITDEPTH;
+  if (codec_.enable_psnr) {
+    flags |= VPX_CODEC_USE_PSNR;
+  }
+
+  const vpx_codec_err_t rv =
+      libvpx_->codec_enc_init(encoder_, vpx_codec_vp9_cx(), config_, flags);
   if (rv != VPX_CODEC_OK) {
     RTC_LOG(LS_ERROR) << "Init error: " << libvpx_->codec_err_to_string(rv);
     return WEBRTC_VIDEO_CODEC_UNINITIALIZED;
@@ -1741,6 +1746,18 @@ void LibvpxVp9Encoder::GetEncodedLayerFrame(const vpx_codec_cx_pkt* pkt) {
   int qp = -1;
   libvpx_->codec_control(encoder_, VP8E_GET_LAST_QUANTIZER, &qp);
   encoded_image_.qp_ = qp;
+  // Pull PSNR which is not delivered. TODO: check behavior for SVC!
+  // TODO: this is broken for simulcast for some reason? Probably kSVC and
+  // the underlying libvpx issue...
+  vpx_codec_iter_t iter = nullptr;
+  while (const vpx_codec_cx_pkt* pkt = vpx_codec_get_cx_data(encoder_, &iter)) {
+    if (pkt->kind == VPX_CODEC_PSNR_PKT) {
+      // PSNR index: 0: total, 1: Y, 2: U, 3: V
+      encoded_image_.psnr_y_ = pkt->data.psnr.psnr[1];
+      encoded_image_.psnr_u_ = pkt->data.psnr.psnr[2];
+      encoded_image_.psnr_v_ = pkt->data.psnr.psnr[3];
+    }
+  }
 
   const bool end_of_picture = encoded_image_.SpatialIndex().value_or(0) + 1 ==
                               num_active_spatial_layers_;

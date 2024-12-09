@@ -238,6 +238,9 @@ class RTC_EXPORT EncodedImage {
   VideoRotation rotation_ = kVideoRotation_0;
   VideoContentType content_type_ = VideoContentType::UNSPECIFIED;
   int qp_ = -1;  // Quantizer value.
+  std::optional<double> psnr_y_;  // Peak signal to noise ratio, Y component.
+  std::optional<double> psnr_u_;  // Peak signal to noise ratio, U component.
+  std::optional<double> psnr_v_;  // Peak signal to noise ratio, V component.
 
   struct Timing {
     uint8_t flags = VideoSendTiming::kInvalid;

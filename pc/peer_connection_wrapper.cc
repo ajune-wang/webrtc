@@ -153,6 +153,18 @@ bool PeerConnectionWrapper::SetLocalDescription(
       error_out);
 }
 
+bool PeerConnectionWrapper::SetLocalDescription(
+    std::unique_ptr<SessionDescriptionInterface> desc,
+    RTCError* error_out) {
+  auto observer = rtc::make_ref_counted<FakeSetLocalDescriptionObserver>();
+  pc()->SetLocalDescription(std::move(desc), observer);
+  EXPECT_EQ_WAIT(true, observer->called(), kDefaultTimeout);
+  bool ok = observer->error().ok();
+  if (error_out)
+    *error_out = std::move(observer->error());
+  return ok;
+}
+
 bool PeerConnectionWrapper::SetRemoteDescription(
     std::unique_ptr<SessionDescriptionInterface> desc,
     std::string* error_out) {

@@ -2423,5 +2423,110 @@ TEST_F(PacingControllerTest, CanControlQueueSizeUsingTtl) {
   }
 }
 
+TEST_F(PacingControllerTest, PacketsSentAsEct1IfTransportIsEcnCapable) {
+  const uint32_t kSsrc = 12345;
+  uint16_t sequence_number = 1234;
+
+  MockPacketSender packet_sender;
+  PacingController::Configuration config;
+  auto pacer = std::make_unique<PacingController>(&clock_, &packet_sender,
+                                                  trials_, config);
+  pacer->SetPacingRates(DataRate::BitsPerSec(100'000), DataRate::Zero());
+  pacer->SetTransportIsEcnCapable(true);
+
+  EXPECT_CALL(
+      packet_sender,
+      SendPacket(Pointee(Property(&RtpPacketToSend::send_as_ect1, true)), _));
+
+  auto packet = BuildPacket(RtpPacketMediaType::kVideo, kSsrc,
+                            /*sequence_number=*/++sequence_number,
+                            /*capture_time_ms=*/2,
+                            /*size_bytes=*/1000);
+  pacer->EnqueuePacket(std::move(packet));
+  clock_.AdvanceTime(pacer->NextSendTime() - clock_.CurrentTime());
+  pacer->ProcessPackets();
+}
+
+TEST_F(PacingControllerTest,
+       PacketsNotSentAsEct1IfTransportChangedToNotEcnCapable) {
+  const uint32_t kSsrc = 12345;
+  uint16_t sequence_number = 1234;
+
+  MockPacketSender packet_sender;
+  PacingController::Configuration config;
+  auto pacer = std::make_unique<PacingController>(&clock_, &packet_sender,
+                                                  trials_, config);
+  pacer->SetPacingRates(DataRate::BitsPerSec(100'000), DataRate::Zero());
+  pacer->SetTransportIsEcnCapable(true);
+
+  ::testing::Sequence s;
+  EXPECT_CALL(
+      packet_sender,
+      SendPacket(Pointee(Property(&RtpPacketToSend::send_as_ect1, true)), _))
+      .InSequence(s);
+  EXPECT_CALL(
+      packet_sender,
+      SendPacket(Pointee(Property(&RtpPacketToSend::send_as_ect1, false)), _))
+      .InSequence(s);
+
+  auto packet = BuildPacket(RtpPacketMediaType::kVideo, kSsrc,
+                            /*sequence_number=*/++sequence_number,
+                            /*capture_time_ms=*/2,
+                            /*size_bytes=*/1000);
+  pacer->EnqueuePacket(std::move(packet));
+  clock_.AdvanceTime(pacer->NextSendTime() - clock_.CurrentTime());
+  pacer->ProcessPackets();
+
+  pacer->SetTransportIsEcnCapable(false);
+  packet = BuildPacket(RtpPacketMediaType::kVideo, kSsrc,
+                       /*sequence_number=*/++sequence_number,
+                       /*capture_time_ms=*/2,
+                       /*size_bytes=*/1000);
+  pacer->EnqueuePacket(std::move(packet));
+  clock_.AdvanceTime(pacer->NextSendTime() - clock_.CurrentTime());
+  pacer->ProcessPackets();
+}
+
+TEST_F(PacingControllerTest, KeepAliveSentAsEct1IfTransportIsEcnCapable) {
+  const uint32_t kSsrc = 12345;
+  uint16_t sequence_number = 1234;
+
+  MockPacketSender packet_sender;
+  PacingController::Configuration config;
+  auto pacer = std::make_unique<PacingController>(&clock_, &packet_sender,
+                                                  trials_, config);
+  pacer->SetPacingRates(DataRate::BitsPerSec(100'000), DataRate::Zero());
+  pacer->SetTransportIsEcnCapable(true);
+
+  EXPECT_CALL(
+      packet_sender,
+      SendPacket(Pointee(Property(&RtpPacketToSend::send_as_ect1, true)), _))
+      .Times(2);
+
+  auto packet = BuildPacket(RtpPacketMediaType::kVideo, kSsrc,
+                            /*sequence_number=*/++sequence_number,
+                            /*capture_time_ms=*/2,
+                            /*size_bytes=*/1000);
+  pacer->EnqueuePacket(std::move(packet));
+  clock_.AdvanceTime(pacer->NextSendTime() - clock_.CurrentTime());
+  pacer->ProcessPackets();
+
+  // If pacer is congested, eventually a keep alive padding packet should be
+  // sent.
+  pacer->SetCongested(true);
+
+  EXPECT_CALL(packet_sender, GeneratePadding)
+      .WillOnce([&](DataSize padding_size) {
+        std::vector<std::unique_ptr<RtpPacketToSend>> padding_packets;
+        padding_packets.emplace_back(
+            BuildPacket(RtpPacketMediaType::kPadding, kSsrc, sequence_number++,
+                        clock_.TimeInMilliseconds(), padding_size.bytes()));
+        return padding_packets;
+      });
+
+  clock_.AdvanceTime(pacer->NextSendTime() - clock_.CurrentTime());
+  pacer->ProcessPackets();
+}
+
 }  // namespace
 }  // namespace webrtc

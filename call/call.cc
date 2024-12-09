@@ -1195,6 +1195,7 @@ Call::Stats Call::GetStats() const {
 
 void Call::EnableSendCongestionControlFeedbackAccordingToRfc8888() {
   receive_side_cc_.EnableSendCongestionControlFeedbackAccordingToRfc8888();
+  transport_send_->EnableCongestionControlFeedbackAccordingToRfc8888();
 }
 
 int Call::FeedbackAccordingToRfc8888Count() {

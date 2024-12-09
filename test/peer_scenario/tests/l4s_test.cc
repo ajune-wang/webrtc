@@ -10,12 +10,15 @@
 
 #include <atomic>
 
+#include "api/stats/rtcstats_objects.h"
+#include "api/units/data_rate.h"
 #include "api/units/time_delta.h"
 #include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
 #include "modules/rtp_rtcp/source/rtcp_packet/congestion_control_feedback.h"
 #include "modules/rtp_rtcp/source/rtcp_packet/rtpfb.h"
 #include "modules/rtp_rtcp/source/rtcp_packet/transport_feedback.h"
 #include "modules/rtp_rtcp/source/rtp_util.h"
+#include "pc/test/mock_peer_connection_observers.h"
 #include "test/create_frame_generator_capturer.h"
 #include "test/field_trial.h"
 #include "test/gmock.h"
@@ -44,6 +47,26 @@ class RtcpFeedbackCounter {
     }
     if (header.fmt() == rtcp::CongestionControlFeedback::kFeedbackMessageType) {
       ++congestion_control_feedback_;
+      rtcp::CongestionControlFeedback fb;
+      ASSERT_TRUE(fb.Parse(header));
+      for (const rtcp::CongestionControlFeedback::PacketInfo& info :
+           fb.packets()) {
+        switch (info.ecn) {
+          case EcnMarking::kNotEct:
+            ++not_ect_;
+            break;
+          case EcnMarking::kEct0:
+            // Not used.
+            RTC_CHECK_NOTREACHED();
+            break;
+          case EcnMarking::kEct1:
+            // ECN-Capable Transport
+            ++ect1_;
+            break;
+          case EcnMarking::kCe:
+            ++ce_;
+        }
+      }
     }
     if (header.fmt() == rtcp::TransportFeedback::kFeedbackMessageType) {
       ++transport_sequence_number_feedback_;
@@ -56,11 +79,37 @@ class RtcpFeedbackCounter {
   int FeedbackAccordingToTransportCc() const {
     return transport_sequence_number_feedback_;
   }
+  int not_ect() const { return not_ect_; }
+  int ect1() const { return ect1_; }
+  int ce() const { return ce_; }
 
  private:
   int congestion_control_feedback_ = 0;
   int transport_sequence_number_feedback_ = 0;
+  int not_ect_ = 0;
+  int ect1_ = 0;
+  int ce_ = 0;
 };
+
+rtc::scoped_refptr<const RTCStatsReport> GetStatsAndProcess(
+    PeerScenario& s,
+    PeerScenarioClient* client) {
+  auto stats_collector =
+      rtc::make_ref_counted<webrtc::MockRTCStatsCollectorCallback>();
+  client->pc()->GetStats(stats_collector.get());
+  s.ProcessMessages(TimeDelta::Millis(0));
+  RTC_CHECK(stats_collector->called());
+  return stats_collector->report();
+}
+
+DataRate GetAvailableSendBitrate(
+    const rtc::scoped_refptr<const RTCStatsReport>& report) {
+  auto stats = report->GetStatsOfType<RTCIceCandidatePairStats>();
+  if (stats.empty()) {
+    return DataRate::Zero();
+  }
+  return DataRate::BitsPerSec(*stats[0]->available_outgoing_bitrate);
+}
 
 TEST(L4STest, NegotiateAndUseCcfbIfEnabled) {
   test::ScopedFieldTrials trials(
@@ -138,6 +187,86 @@ TEST(L4STest, NegotiateAndUseCcfbIfEnabled) {
 
   EXPECT_GT(ret_node_feedback_counter.FeedbackAccordingToRfc8888(), 0);
   EXPECT_EQ(ret_node_feedback_counter.FeedbackAccordingToTransportCc(), 0);
+}
+
+TEST(L4STest, CallerAdaptToLinkCapacityWithoutEcn) {
+  test::ScopedFieldTrials trials(
+      "WebRTC-RFC8888CongestionControlFeedback/Enabled/");
+  PeerScenario s(*test_info_);
+
+  PeerScenarioClient::Config config = PeerScenarioClient::Config();
+  PeerScenarioClient* caller = s.CreateClient(config);
+  PeerScenarioClient* callee = s.CreateClient(config);
+
+  auto caller_to_callee = s.net()
+                              ->NodeBuilder()
+                              .capacity(DataRate::KilobitsPerSec(600))
+                              .Build()
+                              .node;
+  auto callee_to_caller = s.net()->NodeBuilder().Build().node;
+  s.net()->CreateRoute(caller->endpoint(), {caller_to_callee},
+                       callee->endpoint());
+  s.net()->CreateRoute(callee->endpoint(), {callee_to_caller},
+                       caller->endpoint());
+
+  auto signaling = s.ConnectSignaling(caller, callee, {caller_to_callee},
+                                      {callee_to_caller});
+  PeerScenarioClient::VideoSendTrackConfig video_conf;
+  video_conf.generator.squares_video->framerate = 15;
+  caller->CreateVideo("VIDEO_1", video_conf);
+
+  signaling.StartIceSignaling();
+  std::atomic<bool> offer_exchange_done(false);
+  signaling.NegotiateSdp([&](const SessionDescriptionInterface& answer) {
+    offer_exchange_done = true;
+  });
+  s.WaitAndProcess(&offer_exchange_done);
+  s.ProcessMessages(TimeDelta::Seconds(3));
+  DataRate available_bwe =
+      GetAvailableSendBitrate(GetStatsAndProcess(s, caller));
+  EXPECT_GT(available_bwe.kbps(), 500);
+  EXPECT_LT(available_bwe.kbps(), 610);
+}
+
+TEST(L4STest, PropagatesEct1) {
+  test::ScopedFieldTrials trials(
+      "WebRTC-RFC8888CongestionControlFeedback/Enabled,force_ect1:true/");
+  PeerScenario s(*test_info_);
+
+  PeerScenarioClient::Config config = PeerScenarioClient::Config();
+  config.disable_encryption = true;
+  PeerScenarioClient* caller = s.CreateClient(config);
+  PeerScenarioClient* callee = s.CreateClient(config);
+
+  // Create network path from caller to callee.
+  auto caller_to_callee = s.net()->NodeBuilder().Build().node;
+  auto callee_to_caller = s.net()->NodeBuilder().Build().node;
+  s.net()->CreateRoute(caller->endpoint(), {caller_to_callee},
+                       callee->endpoint());
+  s.net()->CreateRoute(callee->endpoint(), {caller_to_callee},
+                       caller->endpoint());
+
+  RtcpFeedbackCounter feedback_counter;
+  caller_to_callee->router()->SetWatcher(
+      [&](const EmulatedIpPacket& packet) { feedback_counter.Count(packet); });
+
+  auto signaling = s.ConnectSignaling(caller, callee, {caller_to_callee},
+                                      {callee_to_caller});
+  PeerScenarioClient::VideoSendTrackConfig video_conf;
+  video_conf.generator.squares_video->framerate = 15;
+
+  caller->CreateVideo("VIDEO_1", video_conf);
+  signaling.StartIceSignaling();
+
+  std::atomic<bool> offer_exchange_done(false);
+  signaling.NegotiateSdp([&](const SessionDescriptionInterface& answer) {
+    offer_exchange_done = true;
+  });
+  s.WaitAndProcess(&offer_exchange_done);
+  s.ProcessMessages(TimeDelta::Seconds(3));
+
+  EXPECT_GT(feedback_counter.ect1(), 0);
+  EXPECT_EQ(feedback_counter.not_ect(), 0);
 }
 
 }  // namespace

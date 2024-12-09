@@ -179,6 +179,7 @@ struct RTC_EXPORT TransportPacketsFeedback {
 
   Timestamp feedback_time = Timestamp::PlusInfinity();
   DataSize data_in_flight = DataSize::Zero();
+  std::optional<bool> transport_support_ecn;
   std::vector<PacketResult> packet_feedbacks;
 
   // Arrival times for messages without send time information.

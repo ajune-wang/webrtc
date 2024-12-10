@@ -94,6 +94,30 @@
       },
       "revId": "d4118a3b29f8ad08b9ac9730e7576d2f1b8e9750",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "02e935e5_5da36c5b",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2046,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2024-12-10T09:14:34Z",
+      "side": 1,
+      "message": "Seems that with the current approach (before and after this CL) we stop encoding after Encode() failed no fallback happened. Should we try to re-init encoder instead?",
+      "parentUuid": "9b5c45c9_f6c24566",
+      "range": {
+        "startLine": 2045,
+        "startChar": 8,
+        "endLine": 2046,
+        "endChar": 52
+      },
+      "revId": "d4118a3b29f8ad08b9ac9730e7576d2f1b8e9750",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

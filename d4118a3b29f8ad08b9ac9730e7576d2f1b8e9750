@@ -142,6 +142,30 @@
       },
       "revId": "d4118a3b29f8ad08b9ac9730e7576d2f1b8e9750",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e1e3fb5c_a928b01a",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2046,
+      "author": {
+        "id": 18005
+      },
+      "writtenOn": "2024-12-10T09:19:10Z",
+      "side": 1,
+      "message": "I think we should stop encoding after all codecs has been tried. Typically this happens when you only have hardware encoders without SW fallback. Failing to encode on all codec types implies a platform driver issue, so we should not iterate again over those codec types.",
+      "parentUuid": "7d8904b4_af45b09a",
+      "range": {
+        "startLine": 2045,
+        "startChar": 8,
+        "endLine": 2046,
+        "endChar": 52
+      },
+      "revId": "d4118a3b29f8ad08b9ac9730e7576d2f1b8e9750",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

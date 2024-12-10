@@ -61,6 +61,7 @@ rtc_library("rtc_p2p") {
     ":candidate_pair_interface",
     ":connection",
     ":connection_info",
+    ":dtls_stun_piggyback_controller",
     ":dtls_transport",
     ":dtls_transport_internal",
     ":ice_agent_interface",
@@ -115,6 +116,7 @@ rtc_library("rtc_p2p") {
     "../rtc_base:byte_order",
     "../rtc_base:callback_list",
     "../rtc_base:checks",
+    "../rtc_base:copy_on_write_buffer",
     "../rtc_base:crc32",
     "../rtc_base:dscp",
     "../rtc_base:event_tracer",
@@ -329,6 +331,7 @@ rtc_library("connection") {
     "../rtc_base:byte_buffer",
     "../rtc_base:callback_list",
     "../rtc_base:checks",
+    "../rtc_base:copy_on_write_buffer",
     "../rtc_base:crc32",
     "../rtc_base:crypto_random",
     "../rtc_base:dscp",
@@ -561,6 +564,7 @@ rtc_library("p2p_transport_channel") {
     ":candidate_pair_interface",
     ":connection",
     ":connection_info",
+    ":dtls_stun_piggyback_controller",
     ":ice_agent_interface",
     ":ice_controller_factory_interface",
     ":ice_controller_interface",
@@ -589,6 +593,7 @@ rtc_library("p2p_transport_channel") {
     "../logging:ice_log",
     "../rtc_base:async_packet_socket",
     "../rtc_base:checks",
+    "../rtc_base:copy_on_write_buffer",
     "../rtc_base:dscp",
     "../rtc_base:event_tracer",
     "../rtc_base:ip_address",
@@ -793,6 +798,19 @@ rtc_library("dtls_utils") {
     "../api:array_view",
     "../rtc_base:byte_buffer",
     "../rtc_base:checks",
+  ]
+}
+
+rtc_library("dtls_stun_piggyback_controller") {
+  sources = [
+    "dtls/dtls_stun_piggyback_controller.cc",
+    "dtls/dtls_stun_piggyback_controller.h",
+  ]
+  deps = [
+    "../api/transport:stun_types",
+    "../rtc_base:logging",
+    "//third_party/abseil-cpp/absl/functional:any_invocable",
+    "//third_party/abseil-cpp/absl/strings:string_view",
   ]
 }
 
@@ -1140,6 +1158,8 @@ if (rtc_include_tests) {
       "base/turn_server_unittest.cc",
       "base/wrapping_active_ice_controller_unittest.cc",
       "client/basic_port_allocator_unittest.cc",
+      "dtls/dtls_ice_integrationtest.cc",
+      "dtls/dtls_stun_piggyback_controller_unittest.cc",
       "dtls/dtls_transport_unittest.cc",
       "dtls/dtls_utils_unittest.cc",
     ]
@@ -1151,6 +1171,7 @@ if (rtc_include_tests) {
       ":basic_packet_socket_factory",
       ":basic_port_allocator",
       ":connection",
+      ":dtls_stun_piggyback_controller",
       ":dtls_transport",
       ":dtls_transport_internal",
       ":dtls_utils",

@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "de9d207e_6945687c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-12-10T14:59:44Z",
+      "side": 1,
+      "message": "I don\u0027t think this is a no-op once 1.3 lands in our repo.",
+      "revId": "f2fd30569cf90409b484ff74a70b35f6da109e48",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fc06d0aa_a4eaed27",
+        "filename": "rtc_base/openssl_stream_adapter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 986,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-12-10T14:59:44Z",
+      "side": 1,
+      "message": "No, this is not a no-op (I think). The moment DTLS_1_3_VERSION is defined, it will change behavior to use 1.3. We should be explicit here that we\u0027re staying with 1.2 until we turn on the experiment.",
+      "revId": "f2fd30569cf90409b484ff74a70b35f6da109e48",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

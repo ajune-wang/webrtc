@@ -166,6 +166,30 @@
       },
       "revId": "d4118a3b29f8ad08b9ac9730e7576d2f1b8e9750",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6b0be9b5_45237b55",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2046,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2024-12-10T09:31:08Z",
+      "side": 1,
+      "message": "If re-init comes at no cost I see no reason why we should not try. But LGTM since this is how it worked before this CL.",
+      "parentUuid": "e1e3fb5c_a928b01a",
+      "range": {
+        "startLine": 2045,
+        "startChar": 8,
+        "endLine": 2046,
+        "endChar": 52
+      },
+      "revId": "d4118a3b29f8ad08b9ac9730e7576d2f1b8e9750",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

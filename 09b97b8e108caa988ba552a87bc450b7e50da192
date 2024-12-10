@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e17545e2_4e5aa240",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-12-10T19:55:12Z",
+      "side": 1,
+      "message": "I want to do UMA as follow-up! Will write up some docs on how I think we need to measure",
+      "parentUuid": "5d213d5d_eb22abd7",
+      "revId": "09b97b8e108caa988ba552a87bc450b7e50da192",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "460dc06c_6a575811",
@@ -31,6 +49,24 @@
       "writtenOn": "2024-12-10T17:47:25Z",
       "side": 1,
       "message": "RTC_LOG?",
+      "revId": "09b97b8e108caa988ba552a87bc450b7e50da192",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f2e6eb52_f19238b7",
+        "filename": "pc/sdp_offer_answer.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 3804,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-12-10T19:55:12Z",
+      "side": 1,
+      "message": "LOG_AND_RETURN_ERROR will take care of this eventually but yes, lets use WARNING for the time being (which also establishes the error strings!)",
+      "parentUuid": "460dc06c_6a575811",
       "revId": "09b97b8e108caa988ba552a87bc450b7e50da192",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -52,6 +88,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9b223242_e7478566",
+        "filename": "pc/sdp_offer_answer.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 3810,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-12-10T19:55:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b26e9d26_51be3f96",
+      "revId": "09b97b8e108caa988ba552a87bc450b7e50da192",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2fac9368_76719c31",
@@ -69,6 +123,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9e9b1aaf_a059851c",
+        "filename": "pc/sdp_offer_answer.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 3813,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-12-10T19:55:12Z",
+      "side": 1,
+      "message": "yeah but since we can not reject for the time being... I actually had a DCHECK but the tests hated it.",
+      "parentUuid": "2fac9368_76719c31",
+      "revId": "09b97b8e108caa988ba552a87bc450b7e50da192",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d7d2b74f_99a18287",
@@ -82,6 +154,24 @@
       "writtenOn": "2024-12-10T17:47:25Z",
       "side": 1,
       "message": "RTC_LOG(LS_ERROR) \u003c\u003c \"Ignoring transport size mismatch\"?",
+      "revId": "09b97b8e108caa988ba552a87bc450b7e50da192",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "36fb6371_4cc77c77",
+        "filename": "pc/sdp_offer_answer.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 3821,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-12-10T19:55:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d7d2b74f_99a18287",
       "revId": "09b97b8e108caa988ba552a87bc450b7e50da192",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

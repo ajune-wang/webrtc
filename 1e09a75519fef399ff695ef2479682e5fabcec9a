@@ -16,6 +16,23 @@
       "message": "Now builds with the extra header sources in rtc_p2p removed. After\n  https://chromium-review.googlesource.com/c/chromium/src/+/6079715\nwe can maybe remove that target or are there internal deps?\n\nEither way, step in the right direction ;-)",
       "revId": "1e09a75519fef399ff695ef2479682e5fabcec9a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7c28b229_39bf5369",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-12-10T17:37:14Z",
+      "side": 1,
+      "message": "Obviously I was a bit lazy when I started breaking it up - thanks for following up!",
+      "revId": "1e09a75519fef399ff695ef2479682e5fabcec9a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5d213d5d_eb22abd7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-12-10T17:47:25Z",
+      "side": 1,
+      "message": "Seems good. Would like logging of errors we don\u0027t react on (ideally I\u0027d like to UMA them), but this is a good start.",
+      "revId": "09b97b8e108caa988ba552a87bc450b7e50da192",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "460dc06c_6a575811",
+        "filename": "pc/sdp_offer_answer.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 3804,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-12-10T17:47:25Z",
+      "side": 1,
+      "message": "RTC_LOG?",
+      "revId": "09b97b8e108caa988ba552a87bc450b7e50da192",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b26e9d26_51be3f96",
+        "filename": "pc/sdp_offer_answer.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 3810,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-12-10T17:47:25Z",
+      "side": 1,
+      "message": "RTC_LOG?",
+      "revId": "09b97b8e108caa988ba552a87bc450b7e50da192",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2fac9368_76719c31",
+        "filename": "pc/sdp_offer_answer.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 3813,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-12-10T17:47:25Z",
+      "side": 1,
+      "message": "We can check that type matches (that answer gets munged into pranswer only). More code...",
+      "revId": "09b97b8e108caa988ba552a87bc450b7e50da192",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d7d2b74f_99a18287",
+        "filename": "pc/sdp_offer_answer.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 3821,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-12-10T17:47:25Z",
+      "side": 1,
+      "message": "RTC_LOG(LS_ERROR) \u003c\u003c \"Ignoring transport size mismatch\"?",
+      "revId": "09b97b8e108caa988ba552a87bc450b7e50da192",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

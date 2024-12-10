@@ -382,6 +382,8 @@ class VideoStreamEncoder : public VideoStreamEncoderInterface,
   // Provides video stream input states: current resolution and frame rate.
   VideoStreamInputStateProvider input_state_provider_;
 
+  bool encoder_fallback_requested_ RTC_GUARDED_BY(encoder_queue_) = false;
+
   const std::unique_ptr<VideoStreamAdapter> video_stream_adapter_
       RTC_GUARDED_BY(encoder_queue_);
   // Responsible for adapting input resolution or frame rate to ensure resources

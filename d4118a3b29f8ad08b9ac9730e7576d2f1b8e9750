@@ -190,6 +190,30 @@
       },
       "revId": "d4118a3b29f8ad08b9ac9730e7576d2f1b8e9750",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "088be4e2_8644ad9a",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2046,
+      "author": {
+        "id": 18005
+      },
+      "writtenOn": "2024-12-10T09:36:03Z",
+      "side": 1,
+      "message": "Unfortunately I think re-init of HW encoder comes at huge cost.\nIn real life(Chrome) i think no-fallback will only happen if application prefers H.265 only. Otherwise, software_fallback_wrapper should survive all other codecs with SW encoders.",
+      "parentUuid": "6b0be9b5_45237b55",
+      "range": {
+        "startLine": 2045,
+        "startChar": 8,
+        "endLine": 2046,
+        "endChar": 52
+      },
+      "revId": "d4118a3b29f8ad08b9ac9730e7576d2f1b8e9750",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

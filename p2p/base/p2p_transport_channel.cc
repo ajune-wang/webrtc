@@ -125,6 +125,14 @@ rtc::RouteEndpoint CreateRouteEndpointFromCandidate(
                             uses_turn);
 }
 
+// https://datatracker.ietf.org/doc/html/rfc5246#appendix-A.1
+// Handshake packets have a type 0x16 / 22 but we also consider
+// change cipher spec to be part of the handshake since without
+// the session ticket it may come before another handshake packet.
+bool IsDtlsHandshakePacket(const char* payload, size_t size) {
+  return size > 0 && (payload[0] == 22 || payload[0] == 20);
+}
+
 }  // unnamed namespace
 
 bool IceCredentialsChanged(absl::string_view old_ufrag,
@@ -199,7 +207,16 @@ P2PTransportChannel::P2PTransportChannel(
               STRONG_AND_STABLE_WRITABLE_CONNECTION_PING_INTERVAL,
               true /* presume_writable_when_fully_relayed */,
               REGATHER_ON_FAILED_NETWORKS_INTERVAL,
-              RECEIVING_SWITCHING_DELAY) {
+              RECEIVING_SWITCHING_DELAY),
+      dtls_stun_piggyback_controller_(
+          [this](rtc::ArrayView<const uint8_t> piggybacked_dtls_packet) {
+            if (piggybacked_dtls_callback_ == nullptr) {
+              return;
+            }
+            piggybacked_dtls_callback_(
+                this, rtc::ReceivedPacket(piggybacked_dtls_packet,
+                                          rtc::SocketAddress()));
+          }) {
   TRACE_EVENT0("webrtc", "P2PTransportChannel::P2PTransportChannel");
   RTC_DCHECK(allocator_ != nullptr);
   // Validate IceConfig even for mostly built-in constant default values in case
@@ -309,6 +326,22 @@ void P2PTransportChannel::AddConnection(Connection* connection) {
       [this](webrtc::RTCErrorOr<const StunUInt64Attribute*> delta_ack) {
         GoogDeltaAckReceived(std::move(delta_ack));
       });
+  if (config_.dtls_handshake_in_stun) {
+    connection->RegisterDtlsPiggyback(
+        [this](StunMessageType stun_message_type) {
+          return dtls_stun_piggyback_controller_.GetDataToPiggyback(
+              stun_message_type);
+        },
+        [this](StunMessageType stun_message_type) {
+          return dtls_stun_piggyback_controller_.GetAckToPiggyback(
+              stun_message_type);
+        },
+        [this](const StunByteStringAttribute* data,
+               const StunByteStringAttribute* ack) {
+          dtls_stun_piggyback_controller_.ReportDataPiggybacked(data, ack);
+        });
+  }
+
   LogCandidatePairConfig(connection,
                          webrtc::IceCandidatePairConfigType::kAdded);
 
@@ -683,6 +716,12 @@ void P2PTransportChannel::SetIceConfig(const IceConfig& config) {
         config_.stun_keepalive_interval);
     RTC_LOG(LS_INFO) << "Set STUN keepalive interval to "
                      << config.stun_keepalive_interval_or_default();
+  }
+
+  if (config_.dtls_handshake_in_stun != config.dtls_handshake_in_stun) {
+    config_.dtls_handshake_in_stun = config.dtls_handshake_in_stun;
+    RTC_LOG(LS_INFO) << "Set DTLS handshake in STUN to "
+                     << config.dtls_handshake_in_stun;
   }
 
   webrtc::BasicRegatheringController::Config regathering_config;
@@ -1145,6 +1184,17 @@ void P2PTransportChannel::OnUnknownAddress(PortInterface* port,
                                                : "resurrected")
                    << " candidate: " << remote_candidate.ToSensitiveString();
   AddConnection(connection);
+
+  // Process DTLS before sending the binding response.
+  if (config_.dtls_handshake_in_stun) {
+    const auto* dtls_piggyback_attribute =
+        stun_msg->GetByteString(STUN_ATTR_META_DTLS_IN_STUN);
+    const auto* dtls_piggyback_ack =
+        stun_msg->GetByteString(STUN_ATTR_META_DTLS_IN_STUN_ACK);
+    // This may turn piggybacking off if neither data nor ack is present.
+    dtls_stun_piggyback_controller_.ReportDataPiggybacked(
+        dtls_piggyback_attribute, dtls_piggyback_ack);
+  }
   connection->HandleStunBindingOrGoogPingRequest(stun_msg);
 
   // Update the list of connections since we just added another.  We do this
@@ -1607,6 +1657,17 @@ int P2PTransportChannel::SendPacket(const char* data,
   if (!ReadyToSend(selected_connection_)) {
     error_ = ENOTCONN;
     return -1;
+  }
+  /*
+   * When trying DTLS-STUN piggyback we need to drop handshake packets
+   * as we start fresh if this fails.
+   * TODO: what about fragmentation which we do not support?
+   */
+  if (config_.dtls_handshake_in_stun && IsDtlsPiggybackSupportedByPeer() &&
+      IsDtlsHandshakePacket(data, len)) {
+    RTC_LOG(LS_VERBOSE)
+        << "Dropping DTLS handshake while attemping DTLS-in-STUN";
+    return len;
   }
 
   packets_sent_++;
@@ -2150,6 +2211,7 @@ void P2PTransportChannel::RemoveConnection(Connection* connection) {
   connection->DeregisterReceivedPacketCallback();
   connections_.erase(it);
   connection->ClearStunDictConsumer();
+  connection->DeregisterDtlsPiggyback();
   ice_controller_->OnConnectionDestroyed(connection);
 }
 
@@ -2271,6 +2333,12 @@ void P2PTransportChannel::SetWritable(bool writable) {
     SignalReadyToSend(this);
   }
   SignalWritableState(this);
+
+  if (config_.dtls_handshake_in_stun) {
+    // Need to STUN ping here to get the last bit of the DTLS handshake across
+    // as quickly as possible.
+    SendPingRequestInternal(selected_connection_);
+  }
 }
 
 void P2PTransportChannel::SetReceiving(bool receiving) {

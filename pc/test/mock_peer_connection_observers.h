@@ -390,7 +390,13 @@ class MockDataChannelObserver : public DataChannelObserver {
 
   void OnBufferedAmountChange(uint64_t previous_amount) override {}
 
-  void OnStateChange() override { states_.push_back(channel_->state()); }
+  void OnStateChange() override {
+    states_.push_back(channel_->state());
+    if (on_state_change_callback_) {
+      on_state_change_callback_(states_.back());
+    }
+  }
+
   void OnMessage(const DataBuffer& buffer) override {
     messages_.push_back(
         {std::string(buffer.data.data<char>(), buffer.data.size()),
@@ -417,10 +423,17 @@ class MockDataChannelObserver : public DataChannelObserver {
     return states_;
   }
 
+  void set_on_state_change_callback(
+      std::function<void(DataChannelInterface::DataState)> func) {
+    on_state_change_callback_ = std::move(func);
+  }
+
  private:
   rtc::scoped_refptr<DataChannelInterface> channel_;
   std::vector<DataChannelInterface::DataState> states_;
   std::vector<Message> messages_;
+  std::function<void(DataChannelInterface::DataState)>
+      on_state_change_callback_;
 };
 
 class MockStatsObserver : public StatsObserver {

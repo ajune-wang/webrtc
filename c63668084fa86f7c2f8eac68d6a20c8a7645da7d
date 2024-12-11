@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c9f47339_4304d756",
+        "filename": "video/video_stream_encoder_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 8274,
+      "author": {
+        "id": 18005
+      },
+      "writtenOn": "2024-12-11T07:48:20Z",
+      "side": 1,
+      "message": "Will add tests for that. \n\nHowever, in Chrome as of today this falling back to VP8 is not likely to happen - for every hardware encoding failure we have SW fallbacks for the same codec type.\n\nIt is only after we enable H.265, that this really becomes an issue. So we block the future potential of by default falling back to VP8. In that sense I think we don\u0027t need to keep the previous behavior and setup a metric for that.\n\nAccording to spec: \"The setCodecPreferences method overrides the default receive codec preferences used by the user agent. When generating a session description using either createOffer or createAnswer, the user agent MUST use the indicated codecs, in the order specified in the codecs argument, for the media section corresponding to this RTCRtpTransceiver.\"\n\nWith all above mentioned, I think we should not need to justify why we change the default behavior of falling back to VP8.  It does not make sense of falling back to VP8: what if setCodecPrefernces() remove VP8 from codec list? We cannot blindly use VP8 when falling back.",
+      "parentUuid": "6f5b5a16_14467ba1",
+      "revId": "c63668084fa86f7c2f8eac68d6a20c8a7645da7d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5c734f29_e3852b0f",
         "filename": "video/video_stream_encoder_unittest.cc",
         "patchSetId": 6

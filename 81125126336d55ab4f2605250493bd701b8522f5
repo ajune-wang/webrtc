@@ -41,6 +41,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "28666a38_c2cad7b4",
+        "filename": "media/sctp/dcsctp_transport.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 719,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2024-12-11T10:45:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "71773bb7_25bf36dd",
+      "range": {
+        "startLine": 716,
+        "startChar": 4,
+        "endLine": 719,
+        "endChar": 27
+      },
+      "revId": "81125126336d55ab4f2605250493bd701b8522f5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ce8eeab9_3722ac1d",
@@ -54,6 +78,30 @@
       "writtenOn": "2024-12-11T10:18:36Z",
       "side": 1,
       "message": "Why 77?",
+      "range": {
+        "startLine": 68,
+        "startChar": 42,
+        "endLine": 68,
+        "endChar": 61
+      },
+      "revId": "81125126336d55ab4f2605250493bd701b8522f5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4006e5da_8753c2bb",
+        "filename": "media/sctp/dcsctp_transport_unittest.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2024-12-11T10:45:52Z",
+      "side": 1,
+      "message": "no particular reason,\nput it into a constant, maybe clear\nthat it\u0027s just a number...",
+      "parentUuid": "ce8eeab9_3722ac1d",
       "range": {
         "startLine": 68,
         "startChar": 42,

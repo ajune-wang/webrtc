@@ -69,6 +69,24 @@
       "parentUuid": "2d997bc9_0733fe75",
       "revId": "0b2619ed585d2a78a83167cfbd79d3cc4efb0f52",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6e06981f_aaea97f9",
+        "filename": "call/payload_type_picker_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-12-11T16:17:06Z",
+      "side": 1,
+      "message": "The bug for not honoring profile levels is https://issues.webrtc.org/issues/42224482 - filed in 2022.... still not the top of my priority list...",
+      "parentUuid": "f2f73cb2_4ab1356c",
+      "revId": "0b2619ed585d2a78a83167cfbd79d3cc4efb0f52",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

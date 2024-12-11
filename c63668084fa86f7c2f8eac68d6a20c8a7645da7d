@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "31cc90f8_139e3bbf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-12-11T07:35:41Z",
+      "side": 1,
+      "message": "Since encoders aren\u0027t my deep area of expertise, I may be barking up the wrong tree here, but based on the CL description, it seems to me that the tests aren\u0027t adequate for the behavior change proposed, and that the proposed behavior change isn\u0027t safe to deploy without a killswitch.",
+      "revId": "c63668084fa86f7c2f8eac68d6a20c8a7645da7d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6f5b5a16_14467ba1",
+        "filename": "video/video_stream_encoder_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 8274,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-12-11T07:35:41Z",
+      "side": 1,
+      "message": "This test seems to test the case where no fallback is configured, and expects the encode to fail in that case.\n\nI would want to see tests that:\n- Verify that the preferred codec\u0027s failure jumps to the next codec in the preference list (which is the point of this CL according to its description)\n- Verify that preferred codec\u0027s failure jumps to VP8 when no next codec is in preference list but VP8 is acceptable (the previous behavior, which we should not change)\n- Verify that transmission stops when VP8 is not acceptable and there\u0027s no next codec (new behavior)\n\nIf we want to eventually stop the ultimate fallback to VP8, that change in behavior should be guarded by a killswitch, and the number of such fallbacks should be tracked with a metric.",
+      "revId": "c63668084fa86f7c2f8eac68d6a20c8a7645da7d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5c734f29_e3852b0f",
+        "filename": "video/video_stream_encoder_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 8305,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-12-11T07:35:41Z",
+      "side": 1,
+      "message": "Waiting on an event is Not Recommended. It runs against the way WebRTC is designed (although it\u0027s snuck into a number of places). Might be acceptable in tests, but consider alternatives.",
+      "revId": "c63668084fa86f7c2f8eac68d6a20c8a7645da7d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0a59bb9d_f4242e7d",
+        "filename": "video/video_stream_encoder_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 8318,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-12-11T07:35:41Z",
+      "side": 1,
+      "message": "Is this test running on a real clock?\nConsider using EXPECT_TRUE_WAIT(fake_encoder_.GetNumEncodes() \u003d\u003d 0, kDefaultTimeout) - explicit timeouts on a real clock increase test time and make the test more likely to flake.",
+      "revId": "c63668084fa86f7c2f8eac68d6a20c8a7645da7d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "70b67812_bf19b4b3",
+        "filename": "video/video_stream_encoder_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 8320,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-12-11T07:35:41Z",
+      "side": 1,
+      "message": "```suggestion\n  // After requesting fallback, the encoder will be released.\n```",
+      "revId": "c63668084fa86f7c2f8eac68d6a20c8a7645da7d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -90,6 +90,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ed14797e_5005c078",
+        "filename": "video/video_stream_encoder_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 8274,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2024-12-11T12:53:24Z",
+      "side": 1,
+      "message": "Personally I am less concerned about landing this CL as-is because in most cases, including Chrome*, you always have SW to fall back to and so I would suspect that \"prefer VP8\" is ancient native app logic rather than something that makes sense going forward.\n\n( * ) Now there are probably exception for this: I *think* Chrome Android has H264 as HW-only for possibly binary size reasons, and same for non-Chrome native apps. But I\u0027m still not alarmed because we\u0027re falling back to a codec that was negotiated and a codec that was negotiated should always work and VP8 should likely be next on the list anyway. But there\u0027s that word again, \"should\"... who knows.\n\nIf we do want a kill switch, can it be minimal like gating the logic in video_stream_encoder.cc:1489 on a field trial not being \"/Disabled/\" (\u003d so it is enabled-by-default)?",
+      "parentUuid": "99539c14_7139520e",
+      "revId": "c63668084fa86f7c2f8eac68d6a20c8a7645da7d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5c734f29_e3852b0f",
         "filename": "video/video_stream_encoder_unittest.cc",
         "patchSetId": 6
@@ -101,6 +119,24 @@
       "writtenOn": "2024-12-11T07:35:41Z",
       "side": 1,
       "message": "Waiting on an event is Not Recommended. It runs against the way WebRTC is designed (although it\u0027s snuck into a number of places). Might be acceptable in tests, but consider alternatives.",
+      "revId": "c63668084fa86f7c2f8eac68d6a20c8a7645da7d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "54eea12a_bef9539b",
+        "filename": "video/video_stream_encoder_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 8305,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2024-12-11T12:53:24Z",
+      "side": 1,
+      "message": "`EXPECT_TRUE_WAIT` is good for this. But I think eshr@ is trying to replace this with something else that is equivalent, CC for him to explain if so",
+      "parentUuid": "5c734f29_e3852b0f",
       "revId": "c63668084fa86f7c2f8eac68d6a20c8a7645da7d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

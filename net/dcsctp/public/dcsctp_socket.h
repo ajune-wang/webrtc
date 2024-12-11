@@ -546,6 +546,9 @@ class DcSctpSocketInterface {
   // on success.
   virtual void Shutdown() = 0;
 
+  // This function is called when DTLS restart after a change of fingerprint.
+  virtual void DtlsRestart() = 0;
+
   // Closes the connection non-gracefully. Will send ABORT if the connection is
   // not already closed. No callbacks will be made after Close() has returned.
   virtual void Close() = 0;

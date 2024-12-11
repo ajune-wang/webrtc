@@ -33,6 +33,24 @@
       "message": "Constrained PT !\u003d high PT makes sense.\n\nBut what is the difference between high 1f and high 2a?",
       "revId": "0b2619ed585d2a78a83167cfbd79d3cc4efb0f52",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2d997bc9_0733fe75",
+        "filename": "call/payload_type_picker_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-12-11T14:46:00Z",
+      "side": 1,
+      "message": "high 1f \u003d level 3.1 (31 decimal) - framesize 3600 macroblocks, max macroblocks per second \u003d 108000 (1280x720@30 will fit)\nhigh 2a \u003d level 4.2 (42 decimal) - framesize 8704 macroblocks, max mbps \u003d 52240 (2048x1024@60 will fit)\n\nWe ignore the level when sending :-(",
+      "parentUuid": "8f54583c_6e260e8d",
+      "revId": "0b2619ed585d2a78a83167cfbd79d3cc4efb0f52",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

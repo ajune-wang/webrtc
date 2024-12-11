@@ -37,8 +37,8 @@
 #include "pc/peer_connection_wrapper.h"
 #include "pc/session_description.h"
 #include "pc/test/fake_audio_capture_module.h"
+#include "pc/test/fake_rtc_certificate_generator.h"
 #include "pc/test/mock_peer_connection_observers.h"
-#include "rtc_base/rtc_certificate_generator.h"
 #include "rtc_base/thread.h"
 #include "system_wrappers/include/metrics.h"
 #include "test/gmock.h"
@@ -1505,6 +1505,84 @@ TEST_F(SdpOfferAnswerTest, ReducedSizeNotNegotiated) {
   EXPECT_FALSE(audio_send_param.rtcp.reduced_size);
   auto video_send_param = senders[1]->GetParameters();
   EXPECT_FALSE(video_send_param.rtcp.reduced_size);
+}
+
+TEST_F(SdpOfferAnswerTest, SetLocalDescriptionWithoutCreateOfferIsRejected) {
+  RTCConfiguration config;
+  config.certificates.push_back(
+      FakeRTCCertificateGenerator::GenerateCertificate());
+  auto pc = CreatePeerConnection(config);
+  std::string sdp =
+      "v=0\r\n"
+      "o=- 0 3 IN IP4 127.0.0.1\r\n"
+      "s=-\r\n"
+      "t=0 0\r\n"
+      "a=fingerprint:sha-1 "
+      "D9:AB:00:AA:12:7B:62:54:CF:AD:3B:55:F7:60:BC:F3:40:A7:0B:5B\r\n"
+      "a=setup:actpass\r\n"
+      "a=ice-ufrag:ETEn\r\n"
+      "a=ice-pwd:OtSK0WpNtpUjkY4+86js7Z/l\r\n";
+  auto offer = CreateSessionDescription(SdpType::kOffer, sdp);
+  RTCError error;
+  EXPECT_TRUE(pc->SetLocalDescription(std::move(offer), &error));
+}
+
+TEST_F(SdpOfferAnswerTest, SetLocalDescriptionWithoutCreateAnswerIsRejected) {
+  RTCConfiguration config;
+  config.certificates.push_back(
+      FakeRTCCertificateGenerator::GenerateCertificate());
+  auto pc = CreatePeerConnection(config);
+  std::string sdp =
+      "v=0\r\n"
+      "o=- 0 3 IN IP4 127.0.0.1\r\n"
+      "s=-\r\n"
+      "t=0 0\r\n"
+      "a=fingerprint:sha-1 "
+      "D9:AB:00:AA:12:7B:62:54:CF:AD:3B:55:F7:60:BC:F3:40:A7:0B:5B\r\n"
+      "a=setup:actpass\r\n"
+      "a=ice-ufrag:ETEn\r\n"
+      "a=ice-pwd:OtSK0WpNtpUjkY4+86js7Z/l\r\n"
+      "m=audio 9 UDP/TLS/RTP/SAVPF 111\r\n"
+      "c=IN IP4 0.0.0.0\r\n"
+      "a=rtcp-mux\r\n"
+      "a=sendrecv\r\n"
+      "a=mid:0\r\n"
+      "a=rtpmap:111 opus/48000/2\r\n";
+  auto offer = CreateSessionDescription(SdpType::kOffer, sdp);
+  EXPECT_TRUE(pc->SetRemoteDescription(std::move(offer)));
+
+  RTCError error;
+  auto answer = CreateSessionDescription(SdpType::kAnswer, sdp);
+  answer->description()->transport_infos()[0].description.connection_role =
+      cricket::CONNECTIONROLE_ACTIVE;
+  EXPECT_TRUE(pc->SetLocalDescription(std::move(answer), &error));
+}
+
+TEST_F(SdpOfferAnswerTest, SdpMungingIceUfragShouldBeRejected) {
+  auto pc = CreatePeerConnection();
+  pc->AddAudioTrack("audio_track", {});
+
+  auto offer = pc->CreateOffer();
+  auto& transport_infos = offer->description()->transport_infos();
+  ASSERT_EQ(transport_infos.size(), 1u);
+  transport_infos[0].description.ice_ufrag =
+      "amungediceufragthisshouldberejected";
+  RTCError error;
+  EXPECT_FALSE(pc->SetLocalDescription(std::move(offer), &error));
+  EXPECT_FALSE(error.ok());
+}
+
+TEST_F(SdpOfferAnswerTest, SdpMungingIcePwdShouldBeRejected) {
+  auto pc = CreatePeerConnection();
+  pc->AddAudioTrack("audio_track", {});
+
+  auto offer = pc->CreateOffer();
+  auto& transport_infos = offer->description()->transport_infos();
+  ASSERT_EQ(transport_infos.size(), 1u);
+  transport_infos[0].description.ice_pwd = "amungedicepwdthisshouldberejected";
+  RTCError error;
+  EXPECT_FALSE(pc->SetLocalDescription(std::move(offer), &error));
+  EXPECT_FALSE(error.ok());
 }
 
 }  // namespace webrtc

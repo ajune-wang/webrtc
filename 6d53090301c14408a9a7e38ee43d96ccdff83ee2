@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9efaff37_2435ea09",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-12-11T18:01:28Z",
+      "side": 1,
+      "message": "Will circle back after switching to UMA first",
+      "revId": "6d53090301c14408a9a7e38ee43d96ccdff83ee2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

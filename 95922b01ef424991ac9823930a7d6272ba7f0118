@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "099127d4_39fbe8ee",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-12-11T17:34:09Z",
+      "side": 1,
+      "message": "ignoring IWYU in case we want to uplift.",
+      "revId": "95922b01ef424991ac9823930a7d6272ba7f0118",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

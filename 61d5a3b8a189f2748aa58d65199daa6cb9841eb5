@@ -86,6 +86,24 @@
       "parentUuid": "db8186a4_0829bd19",
       "revId": "61d5a3b8a189f2748aa58d65199daa6cb9841eb5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8183a8b8_16dcfb8b",
+        "filename": "pc/sdp_offer_answer_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 1530,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-12-11T17:34:09Z",
+      "side": 1,
+      "message": "I used the fake certificate generator (whose fingerprint we should sprinkle all over the code base) and actually hit that check. It will still reject but later which is great, it suggests that adding a m-line never worked for offers since there is no matching transceiver found. The offer test had to be rewritten to work without m-lines.\n\nFor answers it works which is somewhat concerning.",
+      "parentUuid": "d714c045_2bc6e80e",
+      "revId": "61d5a3b8a189f2748aa58d65199daa6cb9841eb5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -50,6 +50,24 @@
       "message": "This and next test: why does this expectation to fail PASS, when sdp_offer_answer.cc:3812 says to return RTCError::OK()?",
       "revId": "61d5a3b8a189f2748aa58d65199daa6cb9841eb5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "db8186a4_0829bd19",
+        "filename": "pc/sdp_offer_answer_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 1530,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-12-11T15:59:05Z",
+      "side": 1,
+      "message": "Good catch:\nFailed to apply the description for m\u003d section with mid\u003d\u00270\u0027: Fingerprint provided but no identity available. (INVALID_PARAMETER)\n-- this needs a bit more creativity, either in the form of supplying a certificate and then using its fingerprint or by subsequent renegotiation.\n\nWill update.",
+      "parentUuid": "7f5523e7_14b796e7",
+      "revId": "61d5a3b8a189f2748aa58d65199daa6cb9841eb5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

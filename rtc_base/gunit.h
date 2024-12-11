@@ -41,6 +41,7 @@
 
 // The typical EXPECT_XXXX and ASSERT_XXXXs, but done until true or a timeout.
 // One can add failure message by appending "<< msg".
+// Note: Prefer WaitUntil([&] { return ex; }, true) instead.
 #define EXPECT_TRUE_WAIT(ex, timeout)                   \
   GTEST_AMBIGUOUS_ELSE_BLOCKER_                         \
   if (bool res = true) {                                \
@@ -50,6 +51,7 @@
   } else                                                \
     GTEST_CONCAT_TOKEN_(gunit_label_, __LINE__) : EXPECT_TRUE(ex)
 
+// Note: Prefer expecting on WaitUntil([&] { return v1; }, Eq(v2)) instead.
 #define EXPECT_EQ_WAIT(v1, v2, timeout)                 \
   GTEST_AMBIGUOUS_ELSE_BLOCKER_                         \
   if (bool res = true) {                                \
@@ -59,6 +61,7 @@
   } else                                                \
     GTEST_CONCAT_TOKEN_(gunit_label_, __LINE__) : EXPECT_EQ(v1, v2)
 
+// Note: Prefer asserting on WaitUntil([&] { return v1; }, Eq(v2)) instead.
 #define ASSERT_TRUE_WAIT(ex, timeout)                   \
   GTEST_AMBIGUOUS_ELSE_BLOCKER_                         \
   if (bool res = true) {                                \
@@ -68,6 +71,7 @@
   } else                                                \
     GTEST_CONCAT_TOKEN_(gunit_label_, __LINE__) : ASSERT_TRUE(ex)
 
+// Note: Prefer WaitUntil([&] { return v1; }, Eq(v2)) instead.
 #define ASSERT_EQ_WAIT(v1, v2, timeout)                 \
   GTEST_AMBIGUOUS_ELSE_BLOCKER_                         \
   if (bool res = true) {                                \

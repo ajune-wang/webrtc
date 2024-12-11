@@ -68,6 +68,24 @@
       "parentUuid": "7f5523e7_14b796e7",
       "revId": "61d5a3b8a189f2748aa58d65199daa6cb9841eb5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d714c045_2bc6e80e",
+        "filename": "pc/sdp_offer_answer_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 1530,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-12-11T16:49:25Z",
+      "side": 1,
+      "message": "This is an example of munging not working - existing checks will reject the munge.\n(I guess if we created a new cert, got its fingerprint, munged it in and told WebRTC to use that cert, it would work, right?)",
+      "parentUuid": "db8186a4_0829bd19",
+      "revId": "61d5a3b8a189f2748aa58d65199daa6cb9841eb5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

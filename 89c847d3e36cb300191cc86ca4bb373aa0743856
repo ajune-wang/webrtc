@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cb339042_51ba36ce",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-12-12T19:08:44Z",
+      "side": 1,
+      "message": "thanks for unblocking that with the instructions, fuzz all the things!",
+      "revId": "89c847d3e36cb300191cc86ca4bb373aa0743856",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d631065e_ff97687d",
+        "filename": "test/fuzzers/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-12-12T19:08:44Z",
+      "side": 1,
+      "message": "I hope we can rely on that being there always. Might create issues *iff* boringssl changes it (unlikely) and would then only block the fuzzer, not the roll.",
+      "revId": "89c847d3e36cb300191cc86ca4bb373aa0743856",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

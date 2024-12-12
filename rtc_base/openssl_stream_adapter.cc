@@ -980,10 +980,36 @@ SSL_CTX* OpenSSLStreamAdapter::SetupSSLContext() {
     return nullptr;
   }
 
-  SSL_CTX_set_min_proto_version(
-      ctx, ssl_mode_ == SSL_MODE_DTLS ? DTLS1_2_VERSION : TLS1_2_VERSION);
-  SSL_CTX_set_max_proto_version(ctx,
-                                GetMaxVersion(ssl_mode_, ssl_max_version_));
+  auto min_version =
+      ssl_mode_ == SSL_MODE_DTLS ? DTLS1_2_VERSION : TLS1_2_VERSION;
+  auto max_version = GetMaxVersion(ssl_mode_, ssl_max_version_);
+#ifdef DTLS1_3_VERSION
+  if (ssl_mode_ == SSL_MODE_DTLS) {
+    auto mode = webrtc::field_trial::FindFullName("WebRTC-ForceDtls13");
+    if (mode == "") {
+      char* env = getenv("ForceDtls13");
+      if (env) {
+        mode = env;
+      }
+    }
+
+    if (mode == "") {
+      mode = "Max";
+    }
+
+    if (mode != "Off") {
+      RTC_LOG(LS_WARNING) << "WebRTC-ForceDtls13: " << mode;
+      if (mode == "Enabled") {
+        min_version = DTLS1_3_VERSION;
+        max_version = DTLS1_3_VERSION;
+      } else if (mode == "Max") {
+        max_version = DTLS1_3_VERSION;
+      }
+    }
+  }
+#endif
+  SSL_CTX_set_min_proto_version(ctx, min_version);
+  SSL_CTX_set_max_proto_version(ctx, max_version);
 
 #ifdef OPENSSL_IS_BORINGSSL
   // SSL_CTX_set_current_time_cb is only supported in BoringSSL.
@@ -1185,6 +1211,18 @@ static const cipher_list OK_ECDSA_ciphers[] = {
 #elif defined(TLS1_CK_ECDHE_ECDSA_WITH_CHACHA20_POLY1305)  // OpenSSL.
     CDEF(ECDHE_ECDSA_WITH_CHACHA20_POLY1305),
 #endif
+#ifdef TLS1_3_CK_AES_128_GCM_SHA256  // BoringSSL TLS 1.3
+    {static_cast<uint16_t>(TLS1_3_CK_AES_128_GCM_SHA256 & 0xffff),
+     "TLS_AES_128_GCM_SHA256"},
+#endif
+#ifdef TLS1_3_CK_AES_256_GCM_SHA256  // BoringSSL TLS 1.3
+    {static_cast<uint16_t>(TLS1_3_CK_AES_256_GCM_SHA256 & 0xffff),
+     "TLS_AES_256_GCM_SHA256"},
+#endif
+#ifdef TLS1_3_CK_CHACHA20_POLY1305_SHA256  // BoringSSL TLS 1.3
+    {static_cast<uint16_t>(TLS1_3_CK_CHACHA20_POLY1305_SHA256 & 0xffff),
+     "TLS_CHACHA20_POLY1305_SHA256"},
+#endif
 };
 #undef CDEF
 
@@ -1204,6 +1242,9 @@ bool OpenSSLStreamAdapter::IsAcceptableCipher(int cipher, KeyType key_type) {
       }
     }
   }
+
+  RTC_LOG(LS_WARNING) << "NOT IsAcceptableCipher: cipher=" << cipher
+                      << " key_type: " << key_type;
 
   return false;
 }
@@ -1225,6 +1266,9 @@ bool OpenSSLStreamAdapter::IsAcceptableCipher(absl::string_view cipher,
       }
     }
   }
+
+  RTC_LOG(LS_WARNING) << "NOT IsAcceptableCipher: cipher=" << cipher
+                      << " key_type: " << key_type;
 
   return false;
 }

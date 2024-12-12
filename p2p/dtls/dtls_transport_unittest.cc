@@ -29,6 +29,7 @@
 #include "p2p/base/packet_transport_internal.h"
 #include "p2p/base/transport_description.h"
 #include "p2p/dtls/dtls_transport_internal.h"
+#include "p2p/dtls/dtls_utils.h"
 #include "rtc_base/buffer.h"
 #include "rtc_base/byte_order.h"
 #include "rtc_base/fake_clock.h"
@@ -298,7 +299,7 @@ class DtlsTestClient : public sigslot::has_slots<> {
     // Check that non-handshake packets are DTLS data or SRTP bypass.
     const uint8_t* data = packet.payload().data();
     size_t size = packet.payload().size();
-    if (data[0] == 22 && size > 17) {
+    if (IsDtlsHandshakePacket(packet.payload())) {
       if (data[13] == 1) {
         ++received_dtls_client_hellos_;
       } else if (data[13] == 2) {
@@ -306,12 +307,18 @@ class DtlsTestClient : public sigslot::has_slots<> {
       }
     } else if (dtls_transport_->IsDtlsActive() &&
                !(data[0] >= 20 && data[0] <= 22)) {
-      ASSERT_TRUE(data[0] == 23 || IsRtpLeadByte(data[0]));
-      if (data[0] == 23) {
+      if (!IsRtpLeadByte(data[0])) {
+        // ASSERT_EQ(data[0], 23);
         ASSERT_TRUE(VerifyEncryptedPacket(data, size));
-      } else if (IsRtpLeadByte(data[0])) {
+      } else {
         ASSERT_TRUE(VerifyPacket(packet.payload(), NULL));
       }
+      // ASSERT_TRUE(data[0] == 23 || IsRtpLeadByte(data[0]));
+      // if (data[0] == 23) {
+      //   ASSERT_TRUE(VerifyEncryptedPacket(data, size));
+      // } else if (IsRtpLeadByte(data[0])) {
+      //   ASSERT_TRUE(VerifyPacket(packet.payload(), NULL));
+      // }
     }
   }
 

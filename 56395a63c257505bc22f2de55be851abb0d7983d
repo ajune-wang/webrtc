@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f138050b_17bbc457",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-12-12T07:59:02Z",
+      "side": 1,
+      "message": "There\u0027s a forward fix in https://webrtc-review.googlesource.com/c/src/+/371220",
+      "revId": "56395a63c257505bc22f2de55be851abb0d7983d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

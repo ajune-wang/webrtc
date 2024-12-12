@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "798aebe7_26e1be13",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-12-12T17:27:49Z",
+      "side": 1,
+      "message": "Rasmus, do you mind to review this change?\n(Git blame mostly points to Philip and me, but your name pops up too, and you are also an ONWER of the folder)",
+      "revId": "3f3b6a76a4a6faeadd8b7305ff38cf81ff4d2e69",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

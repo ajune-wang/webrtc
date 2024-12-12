@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': 'a86330b1b9e36348599d35b383cd8874e511bac1',
+  'chromium_revision': '3b4a8ea690a832502ba95f08abfa2f34efe514fe',
 
   # Fetch the prebuilt binaries for llvm-cov and llvm-profdata. Needed to
   # process the raw profiles produced by instrumented targets (built with
@@ -66,7 +66,7 @@ deps = {
   'src/base':
     'https://chromium.googlesource.com/chromium/src/base@28e8dcfb57a00c5ec48cef760d9c4b1d300343d2',
   'src/build':
-    'https://chromium.googlesource.com/chromium/src/build@7728935fbc481bf0a6b7f5bcea7797f4b98c3014',
+    'https://chromium.googlesource.com/chromium/src/build@be03a0ea46239024acd9a203edecc722de74ef65',
   'src/buildtools':
     'https://chromium.googlesource.com/chromium/src/buildtools@75f731e7de960aa9b37da90585ca6a522905bb86',
   # Gradle 6.6.1. Used for testing Android Studio project generation for WebRTC.
@@ -79,7 +79,7 @@ deps = {
     'condition': 'checkout_ios',
   },
   'src/testing':
-    'https://chromium.googlesource.com/chromium/src/testing@d3b64cdee1828df2c37215c08f7718578bcc106e',
+    'https://chromium.googlesource.com/chromium/src/testing@2047f64a98da9cf16304497438ebc9af2ec3ee28',
   'src/third_party':
     'https://chromium.googlesource.com/chromium/src/third_party@a046a5776305bdc825fce8d60e924bb6695c8bee',
 
@@ -399,7 +399,7 @@ deps = {
   'src/third_party/dav1d/libdav1d':
     'https://chromium.googlesource.com/external/github.com/videolan/dav1d.git@d242c47b437c950b545e96e7872aa914edc50be5',
   'src/third_party/libaom/source/libaom':
-    'https://aomedia.googlesource.com/aom.git@0063380307ea8f388d24ddf824724418a8f2237d',
+    'https://aomedia.googlesource.com/aom.git@92dcf31772015185b3dc0927cb77fe704bc68e61',
   'src/third_party/libunwindstack': {
       'url': 'https://chromium.googlesource.com/chromium/src/third_party/libunwindstack.git@215bddfd8eecb7dd990494854a31b70a96d71b3c',
       'condition': 'checkout_android',
@@ -464,7 +464,7 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@1c45fab5a8a2234af17085098c8e7e3606a4bd5b',
+    'https://chromium.googlesource.com/chromium/src/tools@d7c84f32a22bb6749fd6c15a9645f8e833becb79',
 
   'src/third_party/espresso': {
       'packages': [

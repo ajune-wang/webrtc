@@ -37,6 +37,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7bba04f0_9945cc25",
+        "filename": "api/transport/stun.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 726,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2024-12-12T09:21:13Z",
+      "side": 1,
+      "message": "have you registered these yet ?\nor should ?",
+      "range": {
+        "startLine": 726,
+        "startChar": 2,
+        "endLine": 726,
+        "endChar": 29
+      },
+      "revId": "96a4396cbb23d900b74ea171c3b13a8075a593e6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b77a56ef_4692ceaa",
         "filename": "p2p/dtls/dtls_stun_piggyback_controller.cc",
         "patchSetId": 2

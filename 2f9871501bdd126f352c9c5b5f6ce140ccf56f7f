@@ -33,6 +33,23 @@
       "message": "nice, thanks for fixing ;)",
       "revId": "2f9871501bdd126f352c9c5b5f6ce140ccf56f7f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3b6d4f30_8570c019",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-12-12T16:35:21Z",
+      "side": 1,
+      "message": "hbos: no reason for angry looks :-)",
+      "revId": "2f9871501bdd126f352c9c5b5f6ce140ccf56f7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

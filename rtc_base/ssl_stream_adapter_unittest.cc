@@ -753,6 +753,8 @@ class SSLStreamAdapterTestBase : public ::testing::Test,
     // Optionally damage application data (type 23). Note that we don't damage
     // handshake packets and we damage the last byte to keep the header
     // intact but break the MAC.
+    uint8_t data0 = static_cast<const unsigned char*>(data)[0];
+    RTC_LOG(LS_INFO) << "data[0] = " << uint32_t(data0);
     if (damage_ && (*static_cast<const unsigned char*>(data) == 23)) {
       std::vector<uint8_t> buf(data_len);
 
@@ -1121,6 +1123,8 @@ TEST_P(SSLStreamAdapterTestDTLSHandshake, TestDTLSConnect) {
 // Test getting the used DTLS ciphers.
 // DTLS 1.2 is max version for client and server.
 TEST_P(SSLStreamAdapterTestDTLSHandshake, TestGetSslCipherSuite) {
+  // webrtc::test::ScopedFieldTrials trials(
+  //     "WebRTC-ForceDtls13/Off/");
   SetupProtocolVersions(rtc::SSL_PROTOCOL_DTLS_12, rtc::SSL_PROTOCOL_DTLS_12);
   TestHandshake();
 
@@ -1476,18 +1480,63 @@ TEST_F(SSLStreamAdapterTestDTLSFromPEMStrings,
 }
 #pragma clang diagnostic pop
 
-// Test getting the DTLS 1.2 version.
-TEST_F(SSLStreamAdapterTestDTLS, TestGetSslVersionBytes) {
-  // https://datatracker.ietf.org/doc/html/rfc9147#section-5.3
-  const int kDtls1_2 = 0xFEFD;
-  SetupProtocolVersions(rtc::SSL_PROTOCOL_DTLS_12, rtc::SSL_PROTOCOL_DTLS_12);
+struct SSLStreamAdapterTestDTLSHandshakeVersion
+    : public SSLStreamAdapterTestDTLS,
+      public WithParamInterface<std::tuple<
+          /* client*/ rtc::SSLProtocolVersion,
+          /* server*/ rtc::SSLProtocolVersion>> {
+  rtc::SSLProtocolVersion GetMin(
+      const std::vector<rtc::SSLProtocolVersion>& array) {
+    rtc::SSLProtocolVersion min = array[0];
+    for (const auto& e : array) {
+      if (static_cast<int>(e) < static_cast<int>(min)) {
+        min = e;
+      }
+    }
+    return min;
+  }
+  uint16_t AsDtlsVersion(rtc::SSLProtocolVersion version) {
+    switch (version) {
+      case rtc::SSL_PROTOCOL_DTLS_10:
+        return 0XFEFF;
+      case rtc::SSL_PROTOCOL_DTLS_12:
+        return 0XFEFD;
+      case rtc::SSL_PROTOCOL_DTLS_13:
+        return 0xFEFC;
+      default:
+        break;
+    }
+    RTC_CHECK(false) << "Unknown version: " << static_cast<int>(version);
+  }
+};
+
+INSTANTIATE_TEST_SUITE_P(
+    SSLStreamAdapterTestDTLSHandshakeVersion,
+    SSLStreamAdapterTestDTLSHandshakeVersion,
+    Combine(Values(rtc::SSL_PROTOCOL_DTLS_12, rtc::SSL_PROTOCOL_DTLS_13),
+            Values(rtc::SSL_PROTOCOL_DTLS_12, rtc::SSL_PROTOCOL_DTLS_13)));
+
+TEST_P(SSLStreamAdapterTestDTLSHandshakeVersion, TestGetSslVersionBytes) {
+  webrtc::test::ScopedFieldTrials trials("WebRTC-ForceDtls13/Off/");
+  auto client = ::testing::get<0>(GetParam());
+  auto server = ::testing::get<1>(GetParam());
+  SetupProtocolVersions(client, server);
   TestHandshake();
 
   int client_version;
-  ASSERT_TRUE(GetSslVersionBytes(true, &client_version));
-  EXPECT_EQ(client_version, kDtls1_2);
-
   int server_version;
+  ASSERT_TRUE(GetSslVersionBytes(true, &client_version));
   ASSERT_TRUE(GetSslVersionBytes(false, &server_version));
-  EXPECT_EQ(server_version, kDtls1_2);
+
+#ifdef OPENSSL_IS_BORINGSSL
+  rtc::SSLProtocolVersion expect =
+      GetMin({client, server, rtc::SSL_PROTOCOL_DTLS_13});
+#else
+  rtc::SSLProtocolVersion expect =
+      GetMin({client, server, rtc::SSL_PROTOCOL_DTLS_12});
+#endif
+
+  auto expect_bytes = AsDtlsVersion(expect);
+  EXPECT_EQ(client_version, expect_bytes);
+  EXPECT_EQ(server_version, expect_bytes);
 }

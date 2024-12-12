@@ -85,6 +85,41 @@
       "parentUuid": "a8a2a8b5_79fa920a",
       "revId": "0bed156f0c48448fdc04fee0e3ec34a079045546",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "57f20ffc_cc5e1b8e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-12-12T08:54:47Z",
+      "side": 1,
+      "message": "Expected crashes are tested with EXPECT_DEATH.\nTesting that crashes don\u0027t occur are done by adding a comment \"Th\nis shouldn\u0027t crash\" - possibly with \"see bug ### for details\".\n\nIn this case, you have an AddSendStream call where the rtp_parameters.encodings has the wrong array length. There are tests in webrtc_video_engine_unittest.cc like ScaleResolutionDownToSimulcast that set up those arrays. See if you can find one of those tests that calls AddSendStream, and see if you can provoke the error from that.\n\nOnce you have provoked the error in debug mode, wrap that provocation in EXPECT_DEBUG_DEATH and call it a day.",
+      "parentUuid": "cafcf6ea_1e542052",
+      "revId": "0bed156f0c48448fdc04fee0e3ec34a079045546",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "23998983_241967d7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-12-12T08:54:47Z",
+      "side": 1,
+      "message": "Some suggestions for finding a test....",
+      "revId": "0bed156f0c48448fdc04fee0e3ec34a079045546",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

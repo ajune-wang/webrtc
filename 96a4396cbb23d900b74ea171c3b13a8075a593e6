@@ -60,6 +60,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "82c3ed18_d30edcae",
+        "filename": "api/transport/stun.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 726,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-12-12T18:16:12Z",
+      "side": 1,
+      "message": "I should but was waiting until we get closer to landing this so we agree on the design and know what we register. We should be ready for that now!",
+      "parentUuid": "7bba04f0_9945cc25",
+      "range": {
+        "startLine": 726,
+        "startChar": 2,
+        "endLine": 726,
+        "endChar": 29
+      },
+      "revId": "96a4396cbb23d900b74ea171c3b13a8075a593e6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b77a56ef_4692ceaa",
         "filename": "p2p/dtls/dtls_stun_piggyback_controller.cc",
         "patchSetId": 2
@@ -71,6 +95,30 @@
       "writtenOn": "2024-12-12T07:41:30Z",
       "side": 1,
       "message": "DCHECK is fine",
+      "range": {
+        "startLine": 48,
+        "startChar": 13,
+        "endLine": 48,
+        "endChar": 19
+      },
+      "revId": "96a4396cbb23d900b74ea171c3b13a8075a593e6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f5e29fbf_0c97364f",
+        "filename": "p2p/dtls/dtls_stun_piggyback_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-12-12T18:16:12Z",
+      "side": 1,
+      "message": "ah, we actually call it from the unit tests when it is off. Seems fine to return.",
+      "parentUuid": "b77a56ef_4692ceaa",
       "range": {
         "startLine": 48,
         "startChar": 13,
@@ -104,6 +152,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "60322870_826103bb",
+        "filename": "p2p/dtls/dtls_stun_piggyback_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-12-12T18:16:12Z",
+      "side": 1,
+      "message": "we do not clear the pending packet when we receive the ack. On the client we set the pending packet to the client hello (flight #1), then receive the data from the server and then set the pending packet to flight #3 which overwrites the existing flight #1. Which is obsolete at this point.\n\nWe *could* clear it on ack but I think that means clearing specific msg_seq. Doable now that we parse DTLS but I do not think it offers any value.\n\nTurned this into a \"Note:\"",
+      "parentUuid": "e6e788a8_fd637142",
+      "range": {
+        "startLine": 51,
+        "startChar": 28,
+        "endLine": 51,
+        "endChar": 39
+      },
+      "revId": "96a4396cbb23d900b74ea171c3b13a8075a593e6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b54b3728_64508bea",
@@ -121,6 +193,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ea86a3dd_2e397650",
+        "filename": "p2p/dtls/dtls_stun_piggyback_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-12-12T18:16:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b54b3728_64508bea",
+      "revId": "96a4396cbb23d900b74ea171c3b13a8075a593e6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "567b2fcc_26895d0f",
@@ -134,6 +224,30 @@
       "writtenOn": "2024-12-12T07:41:30Z",
       "side": 1,
       "message": "i think it would be valuable if this function\nalways printed exactly 1 line (LS_INFO)\nwhich includes that from line 92...\n\nwdyt ?",
+      "range": {
+        "startLine": 86,
+        "startChar": 34,
+        "endLine": 86,
+        "endChar": 55
+      },
+      "revId": "96a4396cbb23d900b74ea171c3b13a8075a593e6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f7a08220_33aea92f",
+        "filename": "p2p/dtls/dtls_stun_piggyback_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-12-12T18:16:12Z",
+      "side": 1,
+      "message": "the different INFO logs are mutually exclusive. We do not really need the verbose log though, removed that.",
+      "parentUuid": "567b2fcc_26895d0f",
       "range": {
         "startLine": 86,
         "startChar": 34,
@@ -167,6 +281,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "da84d7e2_f6a16567",
+        "filename": "p2p/dtls/dtls_stun_piggyback_controller.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-12-12T18:16:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e81a70bc_3600559b",
+      "range": {
+        "startLine": 29,
+        "startChar": 62,
+        "endLine": 29,
+        "endChar": 70
+      },
+      "revId": "96a4396cbb23d900b74ea171c3b13a8075a593e6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8f27ebb1_e27652f2",
@@ -180,6 +318,30 @@
       "writtenOn": "2024-12-12T07:41:30Z",
       "side": 1,
       "message": "i\u0027m torn about using \"real\" data.\n\n1) it obscures the test, we don\u0027t actually parse the entire packet\nimo it is better to write a mini function that formats a DTLS packet\n*the part that we parse* and have the rest be junk.\n\nThis will make it clear what part we care about, and make it easier\nto change testcase going forward.\n\n2) still there is some value in \"real\" data, we should never fail on it.\n\n---\n\nCan we\na) either just use synthetic/manufactured data\nb) do both ?\n\n@hta wdyt ?",
+      "range": {
+        "startLine": 26,
+        "startChar": 12,
+        "endLine": 26,
+        "endChar": 18
+      },
+      "revId": "96a4396cbb23d900b74ea171c3b13a8075a593e6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "75723572_536d4026",
+        "filename": "p2p/dtls/dtls_stun_piggyback_controller_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-12-12T18:16:12Z",
+      "side": 1,
+      "message": "The real path will be exercised by unit tests from p2p/dtls/dtls_ice_integrationtest.cc in the other CL so moving to shorter packets here is doable (I learned to read DTLS packets since writing this... too much!)",
+      "parentUuid": "8f27ebb1_e27652f2",
       "range": {
         "startLine": 26,
         "startChar": 12,

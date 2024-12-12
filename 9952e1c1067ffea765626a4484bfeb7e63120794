@@ -16,6 +16,23 @@
       "message": "Now I\u0027m happy, but the bots are not ... will approve once the bots pass.",
       "revId": "9952e1c1067ffea765626a4484bfeb7e63120794",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "333c9c3e_d937bcf7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-12-12T14:30:45Z",
+      "side": 1,
+      "message": "(parenthesis: The RFC for WebRTC video codecs mandates that browsers have to support VP8. So the only way you can get the fallback not to work is to communicate with someone who doesn\u0027t fully implement WebRTC...)",
+      "revId": "9952e1c1067ffea765626a4484bfeb7e63120794",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

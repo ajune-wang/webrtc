@@ -108,6 +108,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "15cb1241_99922ebb",
+        "filename": "video/video_stream_encoder_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 8274,
+      "author": {
+        "id": 18005
+      },
+      "writtenOn": "2024-12-12T14:13:29Z",
+      "side": 1,
+      "message": "Done adding the kill switch. Also add test accordingly.",
+      "parentUuid": "ed14797e_5005c078",
+      "revId": "c63668084fa86f7c2f8eac68d6a20c8a7645da7d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5c734f29_e3852b0f",
         "filename": "video/video_stream_encoder_unittest.cc",
         "patchSetId": 6
@@ -194,6 +212,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7a917e82_1454ef75",
+        "filename": "video/video_stream_encoder_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 8318,
+      "author": {
+        "id": 18005
+      },
+      "writtenOn": "2024-12-12T14:13:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0a59bb9d_f4242e7d",
+      "revId": "c63668084fa86f7c2f8eac68d6a20c8a7645da7d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "70b67812_bf19b4b3",
@@ -207,6 +243,24 @@
       "writtenOn": "2024-12-11T07:35:41Z",
       "side": 1,
       "message": "```suggestion\n  // After requesting fallback, the encoder will be released.\n```",
+      "revId": "c63668084fa86f7c2f8eac68d6a20c8a7645da7d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a0bf72a5_8e0f3af2",
+        "filename": "video/video_stream_encoder_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 8320,
+      "author": {
+        "id": 18005
+      },
+      "writtenOn": "2024-12-12T14:13:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "70b67812_bf19b4b3",
       "revId": "c63668084fa86f7c2f8eac68d6a20c8a7645da7d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

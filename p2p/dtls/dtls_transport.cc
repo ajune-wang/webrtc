@@ -803,19 +803,24 @@ void DtlsTransport::MaybeStartDtls() {
 bool DtlsTransport::HandleDtlsPacket(rtc::ArrayView<const uint8_t> payload) {
   // Sanity check we're not passing junk that
   // just looks like DTLS.
+#if 0
   const uint8_t* tmp_data = payload.data();
   size_t tmp_size = payload.size();
   while (tmp_size > 0) {
-    if (tmp_size < kDtlsRecordHeaderLen)
+    if (tmp_size < kDtlsRecordHeaderLen) {
+      RTC_LOG(LS_WARNING) << "Shorter than header!";
       return false;  // Too short for the header
+    }
 
     size_t record_len = (tmp_data[11] << 8) | (tmp_data[12]);
-    if ((record_len + kDtlsRecordHeaderLen) > tmp_size)
+    if ((record_len + kDtlsRecordHeaderLen) > tmp_size) {
+      RTC_LOG(LS_WARNING) << "Body too short";
       return false;  // Body too short
-
+    }
     tmp_data += record_len + kDtlsRecordHeaderLen;
     tmp_size -= record_len + kDtlsRecordHeaderLen;
   }
+#endif
 
   // Looks good. Pass to the SIC which ends up being passed to
   // the DTLS stack.

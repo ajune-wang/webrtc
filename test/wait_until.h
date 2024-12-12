@@ -50,7 +50,9 @@ struct WaitUntilSettings {
 //   RTCErrorOr<int> result = Waituntil([&] { return ++counter; }, Eq(3))
 //   EXPECT_THAT(result, IsOkAndHolds(3));
 template <typename Fn, typename Matcher>
-auto WaitUntil(const Fn& fn, Matcher matcher, WaitUntilSettings settings = {})
+[[nodiscard]] auto WaitUntil(const Fn& fn,
+                             Matcher matcher,
+                             WaitUntilSettings settings = {})
     -> RTCErrorOr<decltype(fn())> {
   if (!settings.clock) {
     RTC_CHECK(rtc::Thread::Current()) << "A current thread is required. An "

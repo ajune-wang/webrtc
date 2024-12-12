@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1506c972_52990106",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 18
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-12-12T07:51:42Z",
+      "side": 1,
+      "message": "Except for the rtc_p2p target, the non-Victor parts look fine to me (modulo personal preferences on naming).",
+      "revId": "580b8d909694d7384a1baef38e13e851b3a10f4a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a4fb0046_7e1c65c4",
+        "filename": "api/transport/sctp_transport_factory_interface.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-12-12T07:51:42Z",
+      "side": 1,
+      "message": "Hm. Using *Internal interfaces in api/ is generally a Bad Idea. But here we\u0027re moving from one Internal to another, so I guess I can\u0027t object too much...",
+      "revId": "580b8d909694d7384a1baef38e13e851b3a10f4a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7f739382_7c97dc13",
+        "filename": "media/BUILD.gn",
+        "patchSetId": 18
+      },
+      "lineNbr": 762,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-12-12T07:51:42Z",
+      "side": 1,
+      "message": "Don\u0027t use this target. We\u0027re trying to remove it.",
+      "revId": "580b8d909694d7384a1baef38e13e851b3a10f4a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "96a3f0e0_6731ee15",
+        "filename": "pc/test/integration_test_helpers.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 1188,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-12-12T07:51:42Z",
+      "side": 1,
+      "message": "as a matter of style, I don\u0027t like the on_ prefix - I\u0027d prefer connection_change_callback_ instead. But won\u0027t insist.",
+      "revId": "580b8d909694d7384a1baef38e13e851b3a10f4a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "99cfc0a0_11a76ad6",
+        "filename": "pc/test/mock_peer_connection_observers.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 436,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-12-12T07:51:42Z",
+      "side": 1,
+      "message": "Same comment on on_.",
+      "revId": "580b8d909694d7384a1baef38e13e851b3a10f4a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

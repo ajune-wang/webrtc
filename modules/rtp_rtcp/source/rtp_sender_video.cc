@@ -435,6 +435,12 @@ void RTPSenderVideo::AddRtpHeaderExtensions(const RTPVideoHeader& video_header,
           *video_structure_,
           active_decode_targets_tracker_.ActiveChainsBitmask(), descriptor);
 
+      // Failure to set Dependency Descriptor indicates `descriptor` is
+      // incompatible with `video_structure_`. crash in debug to catch such
+      // issues earlier, but in prod just send out packet without the
+      // dependency descriptor.
+      RTC_DCHECK(extension_is_set);
+
       // Remove the temporary shared ownership.
       descriptor.attached_structure.release();
     }

@@ -16,6 +16,23 @@
       "message": "No need to munge!",
       "revId": "2f9871501bdd126f352c9c5b5f6ce140ccf56f7f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3720979c_daba1e11",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2024-12-12T12:16:54Z",
+      "side": 1,
+      "message": "nice, thanks for fixing ;)",
+      "revId": "2f9871501bdd126f352c9c5b5f6ce140ccf56f7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

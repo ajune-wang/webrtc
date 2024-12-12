@@ -33,6 +33,24 @@
       "message": "(parenthesis: The RFC for WebRTC video codecs mandates that browsers have to support VP8. So the only way you can get the fallback not to work is to communicate with someone who doesn\u0027t fully implement WebRTC...)",
       "revId": "9952e1c1067ffea765626a4484bfeb7e63120794",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6f413f49_154c4546",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18005
+      },
+      "writtenOn": "2024-12-12T15:34:07Z",
+      "side": 1,
+      "message": "Fixed the fieldtrial registry issue by adding it to field_trials.py.",
+      "parentUuid": "96691a84_1d05e721",
+      "revId": "9952e1c1067ffea765626a4484bfeb7e63120794",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

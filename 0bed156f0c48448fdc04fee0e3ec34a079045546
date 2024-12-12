@@ -67,6 +67,24 @@
       "message": "Still no test?",
       "revId": "0bed156f0c48448fdc04fee0e3ec34a079045546",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cafcf6ea_1e542052",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18789
+      },
+      "writtenOn": "2024-12-12T07:19:31Z",
+      "side": 1,
+      "message": "it is crash so hard to mimic the scenario. \n\n\nHere is debug info, please let me know if you can figure out what\u0027s going here and any clue for unit test as I\u0027m totally new this code.\n\n0:029\u003e dx this-\u003eparameters_.config.rtp.ssrcs\nthis-\u003eparameters_.config.rtp.ssrcs                 : { size\u003d1 } [Type: std::__Cr::vector\u003cunsigned int,std::__Cr::allocator\u003cunsigned int\u003e \u003e]\n    [\u003cRaw View\u003e]     [Type: std::__Cr::vector\u003cunsigned int,std::__Cr::allocator\u003cunsigned int\u003e \u003e]\n    [0]              : 0xd831a232 [Type: unsigned int]\n \n    \n0:029\u003e dx -r1 codec_settings_list\ncodec_settings_list                 : { size\u003d2 } \n\n\n0f msedge!cricket::WebRtcVideoSendChannel::WebRtcVideoSendStream::SetCodec\n10 msedge!cricket::WebRtcVideoSendChannel::WebRtcVideoSendStream::WebRtcVideoSendStream\n11 msedge!cricket::WebRtcVideoSendChannel::AddSendStream\n12 msedge!cricket::BaseChannel::UpdateLocalStreams_w\n13 msedge!cricket::VideoChannel::SetLocalContent_w\n14 msedge!cricket::BaseChannel::SetLocalContent",
+      "parentUuid": "a8a2a8b5_79fa920a",
+      "revId": "0bed156f0c48448fdc04fee0e3ec34a079045546",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }
